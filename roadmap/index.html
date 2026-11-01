@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>アプリ副業ロードマップ｜サクアプ</title>
+<meta name="description" content="未経験からアプリで副業を始めるための収益化ロードマップ。なぜ今アプリ副業なのか、AIで自作するときの落とし穴、5つのステップ、収益モデル、税金や手続きまで。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3fafa;--card:#fff;--text:#0f2a2e;--muted:#4f6a6e;--line:#d3e8e8;--brand:#0e7c8c;--dark:#0b6477;--mint:#e0f3f3;--yel:#ffc247;--yel2:#f0a010;--yl:#fff4d1;--red:#c2410c;--redbg:#fff1ea;color-scheme:light}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth;scroll-padding-top:60px}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.85 "Noto Sans JP","Hiragino Sans",sans-serif;-webkit-text-size-adjust:100%;overflow-x:clip}
+h1,h2,h3,h4,p{margin:0}h1,h2,h3,h4,b,strong{word-break:keep-all;overflow-wrap:anywhere}
+img,svg{max-width:100%}
+.w{max-width:720px;margin:0 auto;padding:0 16px}
+.nb{display:inline-block}.num{font-family:Inter,"Noto Sans JP",sans-serif;font-variant-numeric:tabular-nums}
+
+/* hero */
+.hero{background:linear-gradient(160deg,#12a3a8,#0b6477);color:#fff;padding:40px 0 36px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:440px;height:440px;border-radius:50%;right:-200px;top:-170px;background:rgba(255,255,255,.09)}
+.hero:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-50px;top:-50px;background:rgba(255,194,71,.92)}
+.hero .w{position:relative;z-index:1}
+.kick{display:inline-flex;align-items:center;gap:8px;font:800 12px Inter,"Noto Sans JP",sans-serif;letter-spacing:.12em;background:rgba(0,0,0,.18);border-radius:99px;padding:5px 12px}
+.hero h1{font-size:clamp(30px,9vw,52px);line-height:1.18;font-weight:900;margin:14px 0 14px;letter-spacing:-.01em}
+.hero h1 .hl{color:#ffe27a}
+.hero .sub{color:#e3f4f5;max-width:32em;font-size:15px}
+.toc{display:grid;gap:8px;margin-top:24px;padding:0;list-style:none;counter-reset:x}
+.toc a{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);border-radius:14px;padding:10px 14px;color:#fff;text-decoration:none;font-weight:700;font-size:15px;line-height:1.5}
+.toc a:before{counter-increment:x;content:counter(x);width:28px;height:28px;border-radius:50%;background:#fff;color:var(--dark);display:grid;place-items:center;font:800 14px Inter,sans-serif;flex:none}
+.toc small{margin-left:auto;font-weight:500;opacity:.8;font-size:12px;flex:none;padding-left:8px}
+
+nav.tabs{position:sticky;top:0;z-index:5;background:rgba(243,250,250,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav.tabs .w{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}nav.tabs .w::-webkit-scrollbar{display:none}
+nav.tabs a{flex:none;padding:13px 11px;font-weight:700;font-size:14px;color:var(--muted);text-decoration:none}
+nav.tabs a.on{color:var(--brand);box-shadow:inset 0 -3px 0 var(--brand)}
+
+/* sections */
+.sec{padding:52px 0 12px}
+.tag{display:inline-block;font:800 12px Inter,"Noto Sans JP",sans-serif;letter-spacing:.08em;color:var(--brand);background:var(--mint);border-radius:99px;padding:3px 12px}
+.sec h2{font-size:clamp(24px,6.8vw,34px);line-height:1.35;font-weight:900;margin:12px 0 10px}
+.lead{color:var(--muted);margin-bottom:22px}
+.sec h3{font-size:19px;line-height:1.5;font-weight:900;margin:30px 0 10px}
+.sec p+p{margin-top:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px}
+.card+.card{margin-top:12px}
+.mark{background:linear-gradient(transparent 62%,#ffe27a 62%);font-weight:700}
+
+/* reasons */
+.reasons{display:grid;gap:12px}
+.rs{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:start}
+.rs .n{grid-row:span 2;width:44px;height:44px;border-radius:12px;background:var(--brand);color:#fff;display:grid;place-items:center;font:900 18px Inter,sans-serif}
+.rs h4{font-size:17px;line-height:1.5;font-weight:900}
+.rs p{color:var(--muted);font-size:15px}
+.stat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 6px}
+.stat div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 12px;text-align:center}
+.stat b{display:block;font:900 clamp(26px,8vw,34px)/1.2 Inter,"Noto Sans JP",sans-serif;color:var(--brand)}
+.stat b small{font-size:.5em;margin-left:2px}
+.stat span{font-size:13px;color:var(--muted);line-height:1.5;display:block;margin-top:4px}
+.src{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* trap */
+.trap{background:var(--redbg);border:1px solid #f6d3c2;border-radius:16px;padding:18px}
+.trap h3{margin-top:0;color:var(--red)}
+.tl{display:grid;gap:0;margin:8px 0 0;padding:0;list-style:none}
+.tl li{position:relative;padding:0 0 16px 30px}
+.tl li:before{content:"";position:absolute;left:8px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--red)}
+.tl li:after{content:"";position:absolute;left:12px;top:22px;bottom:2px;width:2px;background:#f2c3ad}
+.tl li:last-child:after{display:none}
+.tl b{display:block;font-size:15px}
+.tl span{font-size:14px;color:#6b4a3a;display:block;line-height:1.6}
+table.cost{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+table.cost th,table.cost td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.55}
+table.cost tr:last-child th,table.cost tr:last-child td{border-bottom:0}
+table.cost th{font-weight:700;width:46%}
+table.cost td{color:var(--muted)}
+table.cost td b{color:var(--text)}
+
+/* calculator */
+.calc{background:var(--card);border:2px solid var(--brand);border-radius:18px;padding:18px;margin-top:18px}
+.calc h3{margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.calc .hint{font-size:13px;color:var(--muted);margin-bottom:12px}
+.fld{margin-top:14px}
+.fld label{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:14px;line-height:1.5}
+.fld label output{font:800 16px Inter,"Noto Sans JP",sans-serif;color:var(--brand);flex:none}
+.fld input[type=range]{width:100%;margin:8px 0 0;accent-color:var(--brand);height:28px}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+.seg button{font:700 13px/1.35 "Noto Sans JP",sans-serif;padding:9px 4px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+.seg button small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.seg button[aria-pressed=true]{border-color:var(--brand);background:var(--mint);color:var(--dark)}
+.res{margin-top:18px;border-radius:14px;background:var(--bg);padding:14px}
+.res .row{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.res .row b{font-family:Inter,"Noto Sans JP",sans-serif;flex:none}
+.res .tot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-top:10px;font-weight:900}
+.res .tot b{font:900 clamp(24px,7vw,30px) Inter,"Noto Sans JP",sans-serif;color:var(--red)}
+.res .tot.good b{color:var(--brand)}
+.vs{margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.vs div{border-radius:12px;padding:12px;text-align:center;font-size:13px;line-height:1.5}
+.vs .a{background:var(--redbg);color:#6b4a3a}.vs .b{background:var(--mint);color:var(--dark)}
+.vs b{display:block;font:900 20px/1.3 Inter,"Noto Sans JP",sans-serif;margin-top:2px}
+.fair{font-size:13px;color:var(--muted);margin-top:12px}
+
+/* roadmap */
+.road{list-style:none;padding:0;margin:0;position:relative}
+.road:before{content:"";position:absolute;left:21px;top:20px;bottom:20px;width:3px;background:linear-gradient(var(--brand),var(--yel2));border-radius:3px}
+.st{position:relative;padding-left:58px;margin-bottom:18px}
+.st .badge{position:absolute;left:0;top:0;width:45px;height:45px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font:900 15px Inter,sans-serif;box-shadow:0 0 0 5px var(--bg)}
+.st:last-child .badge{background:var(--yel2)}
+.st .card{padding:16px 16px}
+.st .when{font:800 12px Inter,"Noto Sans JP",sans-serif;color:var(--brand);letter-spacing:.06em}
+.st h3{margin:2px 0 6px;font-size:18px}
+.st p{font-size:15px;color:var(--muted)}
+.todo{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:6px}
+.todo li{position:relative;padding-left:24px;font-size:14px;line-height:1.6}
+.todo li:before{content:"";position:absolute;left:2px;top:6px;width:13px;height:13px;border-radius:4px;border:2px solid var(--brand)}
+.tip{margin-top:12px;background:var(--yl);border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.65}
+.tip b{color:#8a5a00}
+.circles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:12px 0 4px;text-align:center}
+.circles div{border-radius:50%;aspect-ratio:1;display:grid;place-items:center;font-size:12.5px;font-weight:700;line-height:1.4;padding:6px}
+.circles div:nth-child(1){background:#d6f0f0}.circles div:nth-child(2){background:#fff0c4}.circles div:nth-child(3){background:#e4ecff}
+.dec{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:10px}
+.dec th,.dec td{border:1px solid var(--line);padding:8px;text-align:center;line-height:1.5}
+.dec th{background:var(--mint);font-weight:700}
+.dec td:first-child{text-align:left;font-weight:700;background:#fafdfd}
+
+/* models */
+.models{display:grid;gap:10px}
+.md{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:center}
+.md h4{font-size:16px;font-weight:900}
+.md p{grid-column:1/-1;font-size:14px;color:var(--muted)}
+.md .ex{font:800 13px Inter,"Noto Sans JP",sans-serif;color:var(--dark);background:var(--mint);border-radius:99px;padding:3px 10px;white-space:nowrap}
+.star{color:var(--yel2);letter-spacing:1px;font-size:13px}
+
+/* ideas */
+.ideas{display:grid;gap:10px;counter-reset:i}
+.idea{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px}
+.idea:before{counter-increment:i;content:counter(i,decimal-leading-zero);grid-row:span 3;font:900 20px Inter,sans-serif;color:var(--brand);line-height:1.4}
+.idea h4{font-size:16px;font-weight:900;line-height:1.5}
+.idea p{font-size:14px;color:var(--muted);line-height:1.65}
+.idea .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.idea .meta span{font-size:12px;font-weight:700;border-radius:99px;padding:2px 10px;background:var(--bg);border:1px solid var(--line)}
+
+/* info */
+.info{display:grid;gap:12px}
+.info .card h4{font-size:16px;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.info .card p,.info .card li{font-size:14.5px;color:var(--muted)}
+.info ul{margin:6px 0 0;padding-left:1.2em}
+.ng{background:var(--redbg);border-color:#f6d3c2}
+.ng h4{color:var(--red)}
+
+/* checklist */
+.chk{display:grid;gap:8px}
+.ck{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;font-size:15px;line-height:1.6}
+.ck input{position:absolute;opacity:0;pointer-events:none}
+.ck .bx{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid var(--line);margin-top:1px;display:grid;place-items:center;background:#fff}
+.ck .bx:after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px);opacity:0}
+.ck:has(input:checked){border-color:var(--brand);background:#f2fbfb}
+.ck input:checked+.bx{background:var(--brand);border-color:var(--brand)}
+.ck input:checked+.bx:after{opacity:1}
+.ck input:focus-visible+.bx{outline:3px solid var(--yel);outline-offset:2px}
+.prog{margin-top:14px;display:flex;align-items:center;gap:12px;font-weight:700;font-size:14px}
+.prog .bar{flex:1;height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--yel2));transition:width .3s}
+
+/* CTA */
+.cta{margin:56px 0 0;background:linear-gradient(160deg,#12a3a8,#0b6477);color:#fff;padding:44px 0 48px;text-align:center}
+.cta h2{font-size:clamp(23px,6.6vw,32px);line-height:1.4;font-weight:900}
+.cta p{color:#e3f4f5;margin:12px auto 0;max-width:30em;font-size:15px}
+.cta .gifts{display:grid;gap:8px;max-width:440px;margin:20px auto 0;text-align:left}
+.cta .gifts div{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);border-radius:12px;padding:10px 14px;font-size:14px;font-weight:700;line-height:1.5}
+.cta .gifts small{display:block;font-weight:500;opacity:.85;font-size:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;margin-top:22px;width:min(100%,440px);padding:17px 20px;border-radius:99px;background:linear-gradient(135deg,var(--yel),var(--yel2));color:#2b1d00;font-weight:900;font-size:17px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.cta .small{font-size:12.5px;opacity:.85;margin-top:10px}
+.svc{margin-top:26px;background:#fff;color:var(--text);border-radius:16px;padding:18px;text-align:left;max-width:520px;margin-left:auto;margin-right:auto}
+.svc h3{font-size:17px;font-weight:900;margin-bottom:6px}
+.svc p{color:var(--muted);font-size:14px;margin:0}
+.svc .pr{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:13.5px}
+.svc .pr b{font-family:Inter,"Noto Sans JP",sans-serif;color:var(--brand);font-size:18px}
+footer{padding:28px 0 40px;font-size:12px;color:var(--muted)}
+footer ol{padding-left:1.3em;margin:8px 0 0}
+footer a{color:var(--muted);overflow-wrap:anywhere}
+@media(min-width:640px){.reasons{grid-template-columns:1fr 1fr}.stat{grid-template-columns:repeat(4,minmax(0,1fr))}.info{grid-template-columns:1fr 1fr}.models{grid-template-columns:1fr 1fr}}
+.flow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:4px 0 6px;counter-reset:f}
+.flow div{position:relative;background:var(--card);border:1.5px solid var(--brand);border-radius:14px;padding:12px 10px 10px 40px;line-height:1.4}
+.flow div:before{counter-increment:f;content:counter(f);position:absolute;left:10px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font:800 12px/22px Inter,sans-serif;text-align:center}
+.flow div:last-child{border-color:var(--yel2);background:var(--yl)}.flow div:last-child:before{background:var(--yel2)}
+.flow b{display:block;font-size:14.5px}.flow small{font-size:12px;color:var(--muted)}
+.ai-t th{width:32%!important}
+.apiui{border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+.apih{background:var(--dark);color:#fff;font-weight:700;padding:9px 12px;font-size:13px}
+.apir{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line)}
+.apir span{font-weight:700;line-height:1.4}.apir i{font-style:normal;font-size:12px;color:var(--muted);text-align:right;flex:none;max-width:52%}
+.apir i.on{color:#0a7a3e;background:#e3f6ea;border-radius:99px;padding:2px 10px;font-weight:700}
+@media(min-width:640px){.flow{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.herol{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:20px}
+.herol .hn{font-size:12.5px;color:#d3eef0}
+.listen{display:inline-flex;align-items:center;gap:8px;margin:12px 0 0 10px;vertical-align:middle;font:700 13px/1 "Noto Sans JP",sans-serif;color:var(--dark);background:#fff;border:1.5px solid var(--brand);border-radius:99px;padding:6px 12px 6px 6px;cursor:pointer}
+.listen .ic{width:22px;height:22px;border-radius:50%;background:var(--brand);position:relative;flex:none}
+.listen .ic:after,.pbtn .ic:after{content:"";position:absolute;left:8px;top:6px;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent #fff}
+.listen.on .ic:after,.pbtn.on .ic:after{left:7px;top:7px;width:3px;height:8px;border:0;border-left:3px solid #fff;border-right:3px solid #fff;box-sizing:content-box;width:2px}
+.listen .du{font:600 12px Inter,sans-serif;color:var(--muted)}
+.listen.on{background:var(--mint)}
+.listen.big{margin:0;font-size:15px;padding:8px 16px 8px 8px;border:0;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.listen.big .ic{width:30px;height:30px;background:var(--yel2)}
+.listen.big .ic:after{left:11px;top:9px;border-width:6px 0 6px 10px}
+.listen.big.on .ic:after{left:10px;top:10px}
+.player{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(11,100,119,.97);color:#fff;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -6px 20px rgba(0,0,0,.18)}
+.pbar{height:4px;background:rgba(255,255,255,.2);cursor:pointer}.pbar i{display:block;height:100%;width:0;background:var(--yel)}
+.pin{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 12px}
+.pbtn{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:#fff;color:var(--dark);position:relative;cursor:pointer;font-size:15px}
+.pbtn .ic{position:absolute;inset:0}.pbtn .ic:after{left:16px;top:14px;border-width:6px 0 6px 10px;border-color:transparent transparent transparent var(--dark)}
+.pbtn.on .ic:after{left:14px;top:14px;border-left-color:var(--dark);border-right-color:var(--dark);height:10px}
+.pbtn.sm{width:34px;height:34px;background:rgba(255,255,255,.15);color:#fff;font-size:14px}
+.pt{flex:1;min-width:0;line-height:1.35}.pt b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pt small{font:600 12px Inter,sans-serif;opacity:.8}
+.pchip{flex:none;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;border-radius:99px;font:700 12px Inter,sans-serif;padding:6px 9px;cursor:pointer}
+body.playing{padding-bottom:72px}
+.hi{width:22px;height:22px;flex:none;color:var(--brand)}
+.calc h3 .hi{width:24px;height:24px;padding:6px;border-radius:10px;background:var(--mint);box-sizing:content-box;max-width:none}
+.info .card h4 .hi{width:20px;height:20px;padding:7px;border-radius:10px;background:var(--mint);box-sizing:content-box;max-width:none}
+.ng h4 .hi,.card.ng h4 .hi{width:20px;height:20px;padding:7px;border-radius:10px;box-sizing:content-box;max-width:none;color:var(--red);background:#ffe2d4}
+.star{display:inline-flex;gap:2px;vertical-align:-2px;margin-left:4px}.st1{width:13px;height:13px;fill:var(--yel2)}
+.pi{width:16px;height:16px;display:block;margin:auto}
+.how{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.how .hn{font:800 12px Inter,sans-serif;letter-spacing:.08em;color:#fff;background:var(--brand);border-radius:99px;padding:3px 10px}
+.how h4{font-size:17px;font-weight:900;margin:8px 0 4px;line-height:1.5}
+.how p{font-size:14.5px;color:var(--muted)}.how p b{color:var(--text)}
+.mini{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px;font-variant-numeric:tabular-nums}
+.mini th,.mini td{border:1px solid var(--line);padding:6px 6px;text-align:center}.mini th{background:var(--mint);font-weight:700}
+.dots{margin:8px 0 0;padding-left:1.2em;font-size:14px;color:var(--muted)}.dots li{margin:3px 0}.dots b{color:var(--text)}
+.rule{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;margin-top:10px;background:var(--bg);border-radius:12px;padding:12px;font-size:13.5px;align-items:center}
+.rule span{color:var(--muted)}.rule b{font-family:Inter,"Noto Sans JP",sans-serif}.rule .warn{color:var(--red)}
+.prompt{position:relative;margin-top:10px;background:#0f2a2e;border-radius:12px;padding:44px 12px 12px}
+.prompt pre{margin:0;color:#d9f1f2;font:500 12.5px/1.7 ui-monospace,Menlo,Consolas,"Noto Sans JP",monospace;white-space:pre-wrap;word-break:break-all}
+.cp{position:absolute;top:8px;right:8px;font:700 12px "Noto Sans JP",sans-serif;background:var(--yel);color:#2b1d00;border:0;border-radius:99px;padding:5px 12px;cursor:pointer}
+.mock{margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13px}
+.mh{background:var(--dark);color:#fff;padding:8px 12px;font-weight:700}.mh b{color:var(--yel)}
+.mr{padding:10px 12px}.mr .id{font:700 11px Inter,sans-serif;color:var(--muted)}.mr p{font-size:13px!important;color:var(--text)!important;margin:2px 0 8px;line-height:1.6}
+.mb{display:flex;gap:6px;justify-content:flex-end}.mb i{font-style:normal;font-weight:700;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:4px 12px}.mb i.go{background:#06c755;border-color:#06c755;color:#fff}
+@media print{.player,.listen,.herol{display:none!important}}
+@media print{nav.tabs,.calc,.btn{display:none}.sec{padding-top:24px}}
+.hlogo{display:block;width:max-content;line-height:0;margin-bottom:18px}.hlogo img{height:24px;width:auto}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="w">
+ <a class="hlogo" href="https://knotscheme.github.io/work-board/sakuapp-lp/" target="_blank" rel="noopener" aria-label="サクアプ"><img src="logo-w.png" alt="サクアプ" width="800" height="195"></a>
+ <span class="kick">TikTok限定特典　<span class="num">2026</span>年版</span>
+ <h1>未経験からの<br><span class="hl">アプリ副業</span><br>収益化ロードマップ</h1>
+ <p class="sub">なぜ今アプリなのか。AIで自分で作ると、どこで時間とお金が消えるのか。そして、最初の売上までの5ステップ。迷わず進むための地図をまとめました。</p>
+<div class="herol"><button type="button" class="listen big" data-i="0" data-all="1" aria-label="はじめから全部読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">はじめから全部聞く</span><span class="du">約10分</span></button><span class="hn">家事や移動中に、耳で読めます</span></div>
+ <ol class="toc">
+  <li><a href="#why">なぜ今、アプリ副業なのか<small>3分</small></a></li>
+  <li><a href="#trap">AIで自作する前に知ること<small>計算機つき</small></a></li>
+  <li><a href="#road">収益化までの5ステップ<small>ロードマップ</small></a></li>
+  <li><a href="#ai">最強のアプリは「API×AI分析」<small>ノウハウ</small></a></li>
+  <li><a href="#money">稼ぎ方と、お金の計算<small>試算つき</small></a></li>
+  <li><a href="#ideas">副業向けアプリのアイデア10<small>例</small></a></li>
+  <li><a href="#info">税金・手続き・NG集<small>保存版</small></a></li>
+  <li><a href="#check">スタート前チェックリスト<small>10項目</small></a></li>
+ </ol>
+</div></header>
+
+<nav class="tabs" aria-label="目次"><div class="w">
+ <a href="#why">なぜ今</a><a href="#trap">自作の落とし穴</a><a href="#road">5ステップ</a><a href="#ai">API×AI</a><a href="#money">お金</a><a href="#ideas">アイデア</a><a href="#info">税金・手続き</a><a href="#check">チェック</a>
+</div></nav>
+
+<main class="w">
+
+<!-- 1 WHY -->
+<section class="sec" id="why">
+ <span class="tag">01 なぜ今</span><button type="button" class="listen" data-i="1" aria-label="この章を聞くを読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">この章を聞く</span><span class="du">1:17</span></button>
+ <h2>なぜ今、<span class="nb">アプリ副業なのか</span></h2>
+ <p class="lead">副業を考える人が増えるなかで、アプリは「時間を売らずに積み上がる」数少ない選択肢です。</p>
+
+ <div class="stat">
+  <div><b class="num">305<small>万人</small></b><span>副業をしている人<br>（5年で約60万人増）</span></div>
+  <div><b class="num">493<small>万人</small></b><span>副業をしたい人<br>（5年で約93万人増）</span></div>
+  <div><b class="num">0<small>円〜</small></b><span>Webアプリなら<br>ストアの登録料なし</span></div>
+  <div><b class="num">1<small>つ</small></b><span>作ったアプリを<br>何人にも提供できる</span></div>
+ </div>
+ <p class="src">出典：総務省「令和4年 就業構造基本調査」（非農林業従事者の副業者数・追加就業希望者数）</p>
+
+ <div class="reasons" style="margin-top:22px">
+  <div class="card rs"><span class="n">1</span><h4>時間を売らない副業になる</h4><p>代行や受託は「働いた時間＝収入」。アプリは一度作れば、寝ている間も予約や注文を受け付けます。<span class="mark">月額課金なら、利用者が増えるほど積み上がります</span>。</p></div>
+  <div class="card rs"><span class="n">2</span><h4>AIで、作るコストが大きく下がった</h4><p>以前は数十万〜100万円以上かかった開発が、AIの登場で大きく安く、速くなりました。<span class="mark">個人が「自分のアプリ」を持てる時代</span>です。</p></div>
+  <div class="card rs"><span class="n">3</span><h4>「小さな困りごと」に需要がある</h4><p>予約の電話、紙の回数券、手書きの注文票。個人のお店や教室には、大企業が手を出さない小さな不便がたくさん残っています。</p></div>
+  <div class="card rs"><span class="n">4</span><h4>あなたの経験がそのまま強みになる</h4><p>本業や趣味で「現場の困りごと」を知っていること自体が武器です。プログラミングの経験より、<span class="mark">誰の何を解決するか</span>のほうが大事です。</p></div>
+ </div>
+</section>
+
+<!-- 2 TRAP -->
+<section class="sec" id="trap">
+ <span class="tag">02 自作の落とし穴</span><button type="button" class="listen" data-i="2" aria-label="この章を聞くを読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">この章を聞く</span><span class="du">1:07</span></button>
+ <h2>「AIで自分で作ればタダ」<br><span class="nb">…ではありません</span></h2>
+ <p class="lead">AIがあれば誰でもアプリが作れる、という話はよく聞きます。半分は本当です。ただ、未経験の方が「お金をもらえるアプリ」を公開するまでには、見えにくいコストがあります。</p>
+
+ <div class="trap">
+  <h3>未経験者がAIで作るとき、よく止まる場所</h3>
+  <ol class="tl">
+   <li><b>環境づくりでつまずく</b><span>ツールのインストール、エラーの意味がわからない。ここで数日〜数週間かかることも。</span></li>
+   <li><b>「動く」と「使える」の差</b><span>画面は出るのに、ログインや決済、データ保存がうまくいかない。AIに聞くほど直す場所が増えていく。</span></li>
+   <li><b>公開の壁</b><span>サーバー、ドメイン、HTTPS、メール設定。作るより公開のほうが難しいと感じる人も多いです。</span></li>
+   <li><b>安全性の見落とし</b><span>APIキーをうっかり公開してしまい、高額な請求が来る。他の人のデータが見えてしまう。お客様の情報を預かる以上、ここは妥協できません。</span></li>
+   <li><b>作り直し</b><span>ある程度作ってから設計の問題に気づき、最初からやり直す。いちばん時間を失うパターンです。</span></li>
+  </ol>
+ </div>
+
+ <h3>自作でかかる、主なお金</h3>
+ <table class="cost">
+  <tr><th>AIツールの有料プラン</th><td><b>月3,000円前後〜</b><br>複数使ったり上位プランにしたりすると月1万円を超えることも</td></tr>
+  <tr><th>サーバー・データベース</th><td><b>無料枠あり</b><br>利用者が増えると月数百〜数千円</td></tr>
+  <tr><th>ドメイン（URL）</th><td><b>年1,000円〜数千円</b></td></tr>
+  <tr><th>アプリストアに出す場合</th><td><b>Apple：年99ドル（日本では約1.3万円）</b><br>Google Play：初回25ドル<br>※Webアプリなら不要</td></tr>
+  <tr><th>カード決済の手数料</th><td><b>売上の3.6%</b>（Stripe・国内カードの場合）</td></tr>
+  <tr><th>いちばん大きいのは…</th><td><b>あなたの時間</b><br>本業の後、毎日1〜2時間を数ヶ月</td></tr>
+ </table>
+ <p class="src" style="margin-top:6px">※金額は2026年時点の目安です。最新の料金は各サービスの公式サイトでご確認ください。</p>
+
+ <div class="calc" id="calc1">
+  <h3><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h4"/></svg>自作したら、本当はいくら？</h3>
+  <p class="hint">スライダーを動かすと、その場で計算します。</p>
+  <div class="fld"><label for="h">完成・公開までにかかる時間<output id="hO"></output></label><input type="range" id="h" min="50" max="400" step="10" value="150"><p class="src">未経験の方が、ログイン・決済つきのアプリを公開するまでの目安は100〜300時間ほど（作るものと経験によって大きく変わります）</p></div>
+  <div class="fld"><label for="wk">1週間に使える時間<output id="wkO"></output></label><input type="range" id="wk" min="2" max="20" step="1" value="7"></div>
+  <div class="fld"><label for="wg">あなたの時給（本業の目安）<output id="wgO"></output></label><input type="range" id="wg" min="1000" max="5000" step="100" value="1500"></div>
+  <div class="fld"><label>AIツール代（月）</label><div class="seg" id="tool"><button type="button" data-v="0">無料だけ<small>機能に制限</small></button><button type="button" data-v="3000">月3,000円<small>1つ有料</small></button><button type="button" data-v="10000">月1万円<small>複数・上位</small></button></div></div>
+  <div class="res">
+   <div class="row"><span>完成までの期間</span><b id="rM"></b></div>
+   <div class="row"><span>時間を時給に換算すると</span><b id="rT"></b></div>
+   <div class="row"><span>ツール代（期間分）</span><b id="rX"></b></div>
+   <div class="tot"><span>自作の実質コスト</span><b id="rS"></b></div>
+  </div>
+  <div class="vs"><div class="a">自作<b id="vA"></b>＋学習の手間</div><div class="b">プロに頼むと<b>19,800円〜</b>最短1ヶ月</div></div>
+  <p class="fair">※作ること自体を学びたい方、時間に余裕がある方には、自作もおすすめです。この計算は「時間もお金」と考えたときの目安です。</p>
+ </div>
+</section>
+
+<!-- 3 ROADMAP -->
+<section class="sec" id="road">
+ <span class="tag">03 ロードマップ</span><button type="button" class="listen" data-i="3" aria-label="この章を聞くを読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">この章を聞く</span><span class="du">1:12</span></button>
+ <h2>最初の売上までの<br><span class="nb">5ステップ</span></h2>
+ <p class="lead">いきなり作り始めないのが、遠回りしないコツです。作るのはステップ3。その前に「売れる理由」をそろえます。</p>
+
+ <ol class="road">
+  <li class="st"><span class="badge">1</span><div class="card">
+   <span class="when">1〜2週目</span><h3>ネタを決める</h3>
+   <p>3つが重なるところを探します。</p>
+   <div class="circles"><div>自分が<br>知っている<br>現場</div><div>困っている<br>人がいる</div><div>お金を<br>払う人が<br>いる</div></div>
+   <ul class="todo"><li>本業・趣味・家族のお店など、身近な「不便」を10個書き出す</li><li>そのうち「お金を払ってでも解決したい」ものに印をつける</li><li>最初は機能を1つにしぼる（例：予約だけ）</li></ul>
+   <div class="tip"><b>ヒント：</b>「みんなに使ってほしい」より「◯◯をしている人の、◯◯を楽にする」と言えるネタが強いです。</div>
+  </div></li>
+  <li class="st"><span class="badge">2</span><div class="card">
+   <span class="when">2〜4週目</span><h3>作る前に、確かめる</h3>
+   <p>アプリが売れない一番の理由は「誰も欲しくなかった」こと。作る前に確かめれば、ここで防げます。</p>
+   <ul class="todo"><li>使ってくれそうな人に5人話を聞く（困りごと・今どうしているか・いくらなら払うか）</li><li>画面のイメージを見せて反応を見る</li><li>「できたら使いたい」人を3〜10人集める（事前登録やLINE）</li></ul>
+   <div class="tip"><b>ヒント：</b>「いいね」ではなく「いくらなら払う？」を聞くのがコツ。ここで値段もほぼ決まります。</div>
+  </div></li>
+  <li class="st"><span class="badge">3</span><div class="card">
+   <span class="when">1〜2ヶ月目</span><h3>最小限で作る</h3>
+   <p>最初から全部入りは作りません。ステップ2で「欲しい」と言われた機能だけで公開します。</p>
+   <table class="dec">
+    <tr><th></th><th>自分で作る</th><th>プロに頼む</th></tr>
+    <tr><td>お金</td><td>ツール代のみ</td><td>数万円〜</td></tr>
+    <tr><td>時間</td><td>数ヶ月</td><td>最短1ヶ月</td></tr>
+    <tr><td>向いている人</td><td>作ること自体を学びたい</td><td>早く売り始めたい</td></tr>
+   </table>
+   <div class="tip"><b>ヒント：</b>最初はスマホのブラウザで開ける「Webアプリ」がおすすめ。ストアの審査も登録料もなく、すぐ公開できます。</div>
+  </div></li>
+  <li class="st"><span class="badge">4</span><div class="card">
+   <span class="when">公開から</span><h3>届ける</h3>
+   <p>作っただけでは、誰にも見つかりません。最初の10人は「自分から届けにいく」が基本です。</p>
+   <ul class="todo"><li>ステップ2で集めた人に、最初に案内する（ここが最初のお客様）</li><li>TikTok・Instagram・Xで「作っている過程」を発信する</li><li>同じ業種のお店・教室に、直接ていねいに紹介する</li><li>使った人の声を集めて、次の発信に使う</li></ul>
+  </div></li>
+  <li class="st"><span class="badge">5</span><div class="card">
+   <span class="when">3ヶ月目〜</span><h3>収益化して、育てる</h3>
+   <p>最初の売上が出たら、声の多い順に機能を足していきます。お金の取り方は次の章で。</p>
+   <ul class="todo"><li>「よく聞かれること」「よく止まる場所」を毎月見直す</li><li>月額で続けて使ってもらえる形を考える</li><li>同じ悩みを持つ別のお客様（別の店・別の地域）に広げる</li></ul>
+   <div class="tip"><b>ヒント：</b>1つのお店のために作ったアプリを、同じ業種の別のお店にも月額で提供する。これがアプリ副業の王道パターンの1つです。</div>
+  </div></li>
+ </ol>
+</section>
+
+<!-- AI -->
+<section class="sec" id="ai">
+ <span class="tag">04 ノウハウ</span><button type="button" class="listen" data-i="4" aria-label="この章を聞くを読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">この章を聞く</span><span class="du">2:53</span></button>
+ <h2>最強のアプリは<br><span class="nb">「API連携×AI分析」</span></h2>
+ <p class="lead">予約や注文を「受け付けるだけ」のアプリは、まねされやすく値下げ競争になりがちです。いま一番強いのは、<span class="mark">外のサービスとつながり（API）、たまったデータをAIが分析して、次の一手まで提案してくれるアプリ</span>です。</p>
+
+ <div class="flow">
+  <div><b>データがたまる</b><small>予約・売上・お客様</small></div>
+  <div><b>APIでつながる</b><small>LINE・カレンダー・決済</small></div>
+  <div><b>AIが分析</b><small>傾向・予兆を見つける</small></div>
+  <div><b>次の一手を提案</b><small>文面・時期・対象</small></div>
+ </div>
+
+ <h3>なぜ「最強」なのか</h3>
+ <div class="reasons">
+  <div class="card rs"><span class="n">1</span><h4>高い値段でも選ばれる</h4><p>「記録するアプリ」は月数百円の世界。「売上を増やす提案をくれるアプリ」なら、月数千円でも払う理由になります。</p></div>
+  <div class="card rs"><span class="n">2</span><h4>やめられにくい</h4><p>使うほどデータがたまり、AIの提案が的確になります。ほかのアプリに乗りかえにくくなり、月額が長く続きます。</p></div>
+  <div class="card rs"><span class="n">3</span><h4>まねされにくい</h4><p>画面はまねできても、「その業種のデータ×分析のしかた」はまねしにくい。あなたの現場の知識が、そのまま差になります。</p></div>
+  <div class="card rs"><span class="n">4</span><h4>お客様の手間がほぼゼロ</h4><p>APIで自動でつながるので、入力し直す必要がありません。LINEや決済の情報が、勝手にたまっていきます。</p></div>
+ </div>
+
+ <h3>業種別：こんなAI分析が作れる</h3>
+ <table class="cost ai-t">
+  <tr><th>サロン</th><td>予約の間隔から<b>「そろそろ来なくなりそうな人」</b>を見つけ、LINEで送る文面まで提案</td></tr>
+  <tr><th>飲食店</th><td>曜日・天気と注文から<b>よく出るメニューと仕込み量</b>を予測</td></tr>
+  <tr><th>教室・スクール</th><td>出欠と振替から<b>退会しそうな生徒</b>を早めに知らせる</td></tr>
+  <tr><th>ネットショップ</th><td>売れ筋と在庫から<b>次に仕入れる商品</b>と、商品説明文を作成</td></tr>
+  <tr><th>クリエイター・講師</th><td>会員の反応から<b>次に作るべきコンテンツ</b>を提案</td></tr>
+ </table>
+
+ <h3>「APIを設定できる画面」を入れておく</h3>
+ <p>管理画面に<b>「連携の設定」</b>を用意して、お客様（お店）が自分でつなぎ先を選べるようにします。あとから機能を足すときも、作り直さずにすみます。</p>
+ <div class="card" style="margin-top:14px">
+  <div class="apiui">
+   <div class="apih">連携の設定</div>
+   <div class="apir"><span>LINE公式アカウント</span><i class="on">接続中</i></div>
+   <div class="apir"><span>Googleカレンダー</span><i class="on">接続中</i></div>
+   <div class="apir"><span>Stripe（決済）</span><i class="on">接続中</i></div>
+   <div class="apir"><span>AI分析（APIキー）</span><i>●●●●●●●● 設定済み</i></div>
+   <div class="apir"><span>AIの月の利用上限</span><i>1,000円まで</i></div>
+  </div>
+ </div>
+
+ <h3>AIの費用、だれが持つ？　2つの作り方</h3>
+ <table class="dec">
+  <tr><th></th><th>お客様が自分のキーを入れる</th><th>運営がまとめて持つ</th></tr>
+  <tr><td>AIの費用</td><td>お客様が直接負担<br>（あなたの原価ゼロ）</td><td>あなたが負担<br>（料金に含める）</td></tr>
+  <tr><td>使いやすさ</td><td>最初の設定が少し手間</td><td>すぐ使える</td></tr>
+  <tr><td>向いている相手</td><td>ITに慣れた人・大口</td><td>個人店・はじめての人</td></tr>
+ </table>
+ <div class="tip"><b>おすすめ：</b>最初は「運営がまとめて持つ」＋月の回数に上限をつけ、AI分析は上位プランに。たとえば<b>基本プラン月2,980円／AI分析つき月4,980円</b>のように分けると、AIの費用を料金でまかなえます。上限を超えて使いたい人向けに「自分のキーを入れる」設定も用意しておくと安心です。</div>
+
+ <div class="card ng" style="margin-top:14px">
+  <h4 style="font-size:16px;font-weight:900;color:var(--red);margin-bottom:6px;display:flex;align-items:center;gap:8px"><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4M12 17h.01"/></svg>API×AIで、ぜったい守ること</h4>
+  <ul style="margin:0;padding-left:1.2em;font-size:14.5px;color:var(--muted)">
+   <li>APIキーはサーバー側で<b>暗号化して保管</b>し、画面やプログラムに直接書かない</li>
+   <li>AIの<b>利用上限（月の金額・回数）</b>を必ず設定する。上限なしは高額請求のもと</li>
+   <li>お客様の名前や電話番号は、<b>AIに送る前に伏せる</b>（分析に個人名はいらない）</li>
+   <li>プライバシーポリシーに「AIで分析すること」と「送る先のサービス」を書く</li>
+   <li>AIの提案は「参考」として見せ、最後はお店の人が決める形にする</li>
+   <li>つなぎ先のサービスの利用規約（APIの使い方のルール）を確認する</li>
+  </ul>
+ </div>
+
+ <h3 id="ai-howto">作り方の6ステップ<br><span class="nb" style="font-size:15px;color:var(--muted);font-weight:700">例：サロンの「離れそうなお客様に、LINEで一声」</span></h3>
+ <p>「来なくなりそうなお客様を見つけて、送るLINEの文面までAIが用意する」機能を例に、作る順番を見ていきます。ほかの業種でも、流れは同じです。</p>
+ <ol class="how">
+  <li><div class="card">
+   <span class="hn">STEP 1</span><h4>ためるデータを決める</h4>
+   <p>AIに何を考えてほしいかから逆算して、記録する項目を決めます。<b>名前や電話番号は分析にいりません</b>。お客様はID（番号）で扱います。</p>
+   <table class="mini"><tr><th>お客様ID</th><th>来店日</th><th>メニュー</th><th>金額</th></tr><tr><td>C012</td><td>8/18</td><td>カラー</td><td>8,800円</td></tr><tr><td>C012</td><td>7/02</td><td>カット</td><td>5,500円</td></tr><tr><td>C031</td><td>9/30</td><td>カット</td><td>5,500円</td></tr></table>
+  </div></li>
+  <li><div class="card">
+   <span class="hn">STEP 2</span><h4>APIでつないで、自動でためる</h4>
+   <p>手で入力させると続きません。予約が入ったら、支払いが終わったら、の<b>「出来事」をきっかけに自動で記録</b>されるようにします。</p>
+   <ul class="dots"><li>予約アプリ → 予約が確定したら記録</li><li>Stripe（決済）→ 支払い完了の通知（Webhook）で金額を記録</li><li>LINE公式アカウント → 友だちとお客様IDをひもづける</li></ul>
+  </div></li>
+  <li><div class="card">
+   <span class="hn">STEP 3</span><h4>計算できることは、先に計算する</h4>
+   <p>いきなりAIに全部を任せないのがコツです。<b>数字で出せることはプログラムで計算</b>し、AIには「考える」部分だけを頼みます。費用も安くなり、結果もぶれにくくなります。</p>
+   <div class="rule"><span>いつもの来店間隔</span><b>45日</b><span>前回からの日数</span><b>72日</b><span>判定</span><b class="warn">1.5倍を超えた → 声かけ候補</b></div>
+  </div></li>
+  <li><div class="card">
+   <span class="hn">STEP 4</span><h4>AIへの指示文（プロンプト）を作る</h4>
+   <p>役割・条件・出力の形をはっきり書きます。<b>出力の形（JSON）を決めておく</b>と、アプリの画面にそのまま出せます。</p>
+   <div class="prompt"><button type="button" class="cp" data-cp="pr1">コピー</button><pre id="pr1">あなたは美容サロンの販促担当です。
+次のお客様データ（名前は伏せています）をもとに、
+再来店をうながすLINEメッセージを1人ずつ作ってください。
+
+# 条件
+・120文字以内、やさしい口調、押しつけない
+・前回のメニューに自然にふれる
+・割引やクーポンの約束はしない（お店が決めます）
+・出力は次のJSONだけ：
+  [{"id": "...", "message": "..."}]
+
+# データ
+[{"id":"C012","last_menu":"カラー","days_since":72,"usual_interval":45},
+ {"id":"C045","last_menu":"カット","days_since":60,"usual_interval":35}]</pre></div>
+  </div></li>
+  <li><div class="card">
+   <span class="hn">STEP 5</span><h4>結果は「提案」として見せる</h4>
+   <p>AIの文面を自動で送ってしまうのはNGです。管理画面に<b>「今週、声をかけたい人」と文面の下書き</b>を出し、お店の人が確認してから送ります。</p>
+   <div class="mock"><div class="mh">今週、声をかけたい人　<b>3人</b></div><div class="mr"><span class="id">C012</span><p>前回のカラーから少し時間が空きましたね。色落ちが気になるころかと思います。ご都合のよい日があれば…</p><div class="mb"><i>直す</i><i class="go">LINEで送る</i></div></div></div>
+  </div></li>
+  <li><div class="card">
+   <span class="hn">STEP 6</span><h4>上限を決めて、小さく試して、育てる</h4>
+   <ul class="dots"><li>AIの実行は<b>週1回</b>などに決める（毎回動かさない）</li><li>AIの利用料に<b>月の上限</b>を設定する</li><li>LINE公式アカウントの<b>月の送信数</b>（料金プラン）も確認する</li><li>送った人が<b>実際に来店したか</b>を記録して、文面や条件を見直す</li></ul>
+  </div></li>
+ </ol>
+ <div class="tip" style="margin-top:4px"><b>使う道具の例：</b>AIのAPI（ChatGPT・Claude・Geminiなど）／決まった時間に動かす仕組み（サーバーの定期実行）／LINE公式アカウントのMessaging API／Stripe。どれも無料枠やお試しから始められます。</div>
+ <div class="tip" style="margin-top:14px"><b>最初の一歩：</b>いきなり全部は作りません。まずはステップ3の「最小限のアプリ」でデータをためる。数ヶ月分たまったら、AI分析を1つだけ足す。この順番が、失敗しにくい作り方です。</div>
+</section>
+
+<!-- 4 MONEY -->
+<section class="sec" id="money">
+ <span class="tag">05 稼ぎ方</span><button type="button" class="listen" data-i="5" aria-label="この章を聞くを読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">この章を聞く</span><span class="du">0:54</span></button>
+ <h2>アプリの稼ぎ方と、<br><span class="nb">お金の計算</span></h2>
+ <p class="lead">アプリでお金をいただく方法は、大きく5つ。副業なら、毎月入ってくる形がいちばん安定します。</p>
+
+ <div class="models">
+  <div class="card md"><h4>月額サブスク</h4><span class="ex">例：月980円</span><p>会員サービスや便利ツールを月額で。積み上がるので副業向き。<span class="star" aria-label="おすすめ度3"><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg></span></p></div>
+  <div class="card md"><h4>お店向けに月額で貸す</h4><span class="ex">例：月2,980円/店</span><p>予約・注文アプリを、同じ業種のお店に提供。1店ずつでも安定します。<span class="star" aria-label="おすすめ度3"><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg></span></p></div>
+  <div class="card md"><h4>買い切り・都度払い</h4><span class="ex">例：1回500円</span><p>診断、テンプレート、チケットなど。始めやすい反面、毎月の集客が必要。<span class="star" aria-label="おすすめ度2"><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg></span></p></div>
+  <div class="card md"><h4>手数料モデル</h4><span class="ex">例：売上の10%</span><p>マッチングや予約仲介で、取引ごとに手数料。人が集まるまで時間がかかります。<span class="star" aria-label="おすすめ度2"><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg></span></p></div>
+  <div class="card md"><h4>自分の商売の売上アップ</h4><span class="ex">例：予約の取りこぼし減</span><p>サロンや教室を自分でしている人は、アプリで本業の売上と時間を増やすのも立派な収益化です。<span class="star" aria-label="おすすめ度3"><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg><svg class="st1" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg></span></p></div>
+ </div>
+
+ <div class="calc" id="calc2">
+  <h3><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>月額モデルの手取りを試算</h3>
+  <p class="hint">月額料金と利用者数を動かしてみてください。</p>
+  <div class="fld"><label for="pr">月額料金<output id="prO"></output></label><input type="range" id="pr" min="300" max="10000" step="100" value="2980"></div>
+  <div class="fld"><label for="us">利用者（お店）の数<output id="usO"></output></label><input type="range" id="us" min="1" max="100" step="1" value="10"></div>
+  <div class="fld"><label for="rn">運営費（サーバー代など・月）<output id="rnO"></output></label><input type="range" id="rn" min="0" max="10000" step="500" value="1000"></div>
+  <div class="fld"><label for="ini">最初の開発費<output id="iniO"></output></label><input type="range" id="ini" min="0" max="150000" step="1000" value="34800"></div>
+  <div class="res">
+   <div class="row"><span>月の売上</span><b id="mS"></b></div>
+   <div class="row"><span>決済手数料（3.6%）</span><b id="mF"></b></div>
+   <div class="row"><span>運営費</span><b id="mR"></b></div>
+   <div class="tot good"><span>毎月の手取り</span><b id="mN"></b></div>
+   <div class="row" style="border:0;margin-top:6px"><span>1年続けると</span><b id="mY"></b></div>
+   <div class="row" style="border:0"><span>開発費を回収できるまで</span><b id="mP"></b></div>
+  </div>
+  <p class="fair">※税金は含めていない、あくまで試算です。結果を約束するものではありません。</p>
+ </div>
+</section>
+
+<!-- 5 IDEAS -->
+<section class="sec" id="ideas">
+ <span class="tag">06 アイデア</span><button type="button" class="listen" data-i="6" aria-label="この章を聞くを読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">この章を聞く</span><span class="du">0:42</span></button>
+ <h2>副業向けアプリの<br><span class="nb">アイデア10</span></h2>
+ <p class="lead">そのまま使っても、組み合わせても。「自分が知っている現場」に近いものから考えるのがおすすめです。</p>
+ <div class="ideas">
+  <div class="card idea"><h4>個人サロンの予約＆カルテ</h4><p>電話なしで予約。お客様ごとの施術メモも残せる。同業のサロンに月額で提供。</p><div class="meta"><span>お店に月額</span><span>美容・リラク</span></div></div>
+  <div class="card idea"><h4>習い事教室の振替予約</h4><p>欠席の連絡と振替日の予約をアプリで。先生の連絡の手間を減らす。</p><div class="meta"><span>お店に月額</span><span>教室・スクール</span></div></div>
+  <div class="card idea"><h4>回数券・ポイントカードのデジタル化</h4><p>紙のカードをスマホに。残り回数と有効期限をお客様が自分で確認できる。</p><div class="meta"><span>お店に月額</span><span>整体・ジム</span></div></div>
+  <div class="card idea"><h4>飲食店の卓上QR注文</h4><p>テーブルのQRから注文。注文ミスと待ち時間を減らす。</p><div class="meta"><span>お店に月額</span><span>飲食</span></div></div>
+  <div class="card idea"><h4>イベント・ワークショップの申し込み</h4><p>申し込みと参加費の受け取りを1つに。地域のイベント主催者向け。</p><div class="meta"><span>手数料・月額</span><span>地域・趣味</span></div></div>
+  <div class="card idea"><h4>有料メンバーシップ</h4><p>会員だけが見られる記事・動画と、毎月の会費。自分の得意をコンテンツに。</p><div class="meta"><span>月額サブスク</span><span>クリエイター・講師</span></div></div>
+  <div class="card idea"><h4>受注制作の進捗ボード</h4><p>イラストやハンドメイドの依頼主に、進み具合と納期を見える化。</p><div class="meta"><span>本業の売上アップ</span><span>受注制作</span></div></div>
+  <div class="card idea"><h4>講師・先生のマッチング予約</h4><p>家庭教師やレッスン講師と生徒をつなぎ、予約と支払いまで。</p><div class="meta"><span>手数料</span><span>教育</span></div></div>
+  <div class="card idea"><h4>ハンドメイドの小さなネットショップ</h4><p>作品の販売を、手数料の高いモールに頼らず自分のお店で。</p><div class="meta"><span>本業の売上アップ</span><span>物販</span></div></div>
+  <div class="card idea"><h4>診断・チェックツール</h4><p>「あなたに合う◯◯」がわかる診断。集客の入口にもなり、有料版も作れる。</p><div class="meta"><span>都度払い・集客</span><span>なんでも</span></div></div>
+ </div>
+</section>
+
+<!-- 6 INFO -->
+<section class="sec" id="info">
+ <span class="tag">07 保存版</span><button type="button" class="listen" data-i="7" aria-label="この章を聞くを読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">この章を聞く</span><span class="du">0:57</span></button>
+ <h2>税金・手続き・<br><span class="nb">やってはいけないこと</span></h2>
+ <p class="lead">始めてから慌てないように、最低限ここだけは押さえておきましょう。</p>
+ <div class="info">
+  <div class="card"><h4><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg>会社のルール</h4><p>会社員の方は、まず就業規則で副業が認められているか確認しましょう。届け出が必要な会社もあります。</p></div>
+  <div class="card"><h4><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8M12 17.5v-11"/></svg>税金（会社員の場合）</h4><ul><li>副業の<b>所得</b>（売上から経費を引いた額）が年20万円以下なら、所得税の確定申告は原則不要</li><li>ただし<b>住民税の申告は必要</b>です（お住まいの市区町村へ）</li><li>20万円を超えたら確定申告をします</li></ul><p class="src" style="margin-top:6px">※条件によって変わります。くわしくは税務署・市区町村・税理士にご確認ください。</p></div>
+  <div class="card"><h4><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 13h4M10 17h4M10 9h1"/></svg>お金をもらうなら必要なページ</h4><ul><li>特定商取引法に基づく表記（販売者の情報）</li><li>プライバシーポリシー（個人情報の扱い）</li><li>利用規約（ルールと返金の扱い）</li></ul></div>
+  <div class="card"><h4><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>決済のしくみ</h4><p>カード決済は、Stripeなどの決済サービスを使うのが安全です。カード情報を自分で預からずにすみます。手数料は国内カードで売上の3.6%（Stripeの場合）。開設には本人確認と口座の登録が必要です。</p></div>
+  <div class="card"><h4><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>Webアプリから始める</h4><p>App StoreやGoogle Playに出さなくても、スマホのホーム画面に置けるWebアプリが作れます。審査も登録料もいらないので、最初の一歩に最適です。</p></div>
+  <div class="card ng"><h4><svg class="hi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4M12 17h.01"/></svg>やってはいけないこと</h4><ul><li>他社サイトの情報を無断で集めて使う（規約違反になりやすい）</li><li>他人の画像・ロゴ・キャラクターを使う</li><li>「誰でも必ず稼げる」などの大げさな宣伝</li><li>パスワードやAPIキーをプログラムに直接書いて公開する</li><li>お客様の個人情報を、目的外に使う</li></ul></div>
+ </div>
+</section>
+
+<!-- 7 CHECK -->
+<section class="sec" id="check">
+ <span class="tag">08 チェックリスト</span><button type="button" class="listen" data-i="8" aria-label="この章を聞くを読み上げる"><span class="ic" aria-hidden="true"></span><span class="lb">この章を聞く</span><span class="du">0:42</span></button>
+ <h2>スタート前<br><span class="nb">チェックリスト</span></h2>
+ <p class="lead">全部にチェックがついたら、準備はばっちりです。</p>
+ <div class="chk" id="chk">
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>副業のルール（就業規則）を確認した</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>「誰の・何を・どう楽にするか」を1文で言える</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>使ってくれそうな人に5人話を聞いた</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>「いくらなら払うか」を聞いて、値段の目安を決めた</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>最初に作る機能を1つにしぼった</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>自分で作るか、頼むかを決めた</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>お金の取り方（月額・買い切りなど）を決めた</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>公開後に最初に案内する人のリストがある</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>特定商取引法の表記・プライバシーポリシー・利用規約を用意する</span></label>
+  <label class="ck"><input type="checkbox"><span class="bx"></span><span>税金（20万円・住民税）のルールを知っている</span></label>
+ </div>
+ <div class="prog"><span id="pT">0 / 10</span><span class="bar"><i id="pB"></i></span></div>
+</section>
+</main>
+
+<section class="cta" id="cta"><div class="w">
+ <h2>「自分のアイデア、<br><span class="nb">いくらで作れる？」</span></h2>
+ <p>ロードマップのステップ1〜3を、いっしょに進めます。LINEのトークで<b>「特典」</b>と送ると、アイデアを形にする道具をすぐにお届けします。</p>
+ <div class="gifts">
+  <div>アプリ画面メーカー<small>パーツを並べるだけで、あなたのアプリの画面がつくれる</small></div>
+  <div>アプリアイデア診断<small>10問で、アイデアの伸ばしどころがわかる</small></div>
+  <div>構成案と概算見積もりを無料作成<small>登録者限定。必要な画面と機能、おおよその金額をお返しします</small></div>
+ </div>
+ <a class="btn" href="https://lin.ee/vC2S0M9" data-entry="tiktok" target="_blank" rel="noopener">【無料】LINEで特典を受け取る</a>
+ <p class="small">売り込みはしません。相談だけでもOK。ブロックもいつでも自由です。</p>
+ <div class="svc">
+  <h3>アプリ開発を頼むなら「サクアプ」</h3>
+  <p>個人事業主・副業の方のための、AIを使ったオーダーメイドのアプリ開発です。料金は「基本料金＋追加機能1文字0.5円」。見積もりの時点で総額がわかります。API連携やAI分析の機能も、追加機能としてお作りできます。</p>
+  <div class="pr"><span>基本料金 <b>19,800</b>円〜</span><span>12回払いなら 月々約<b>1,650</b>円〜</span></div>
+  <p class="src" style="margin-top:6px">※分割の場合、カード会社の分割手数料が別にかかります。</p>
+ </div>
+</div></section>
+
+<footer><div class="w">
+ <p>出典・参考</p>
+ <ol>
+  <li><a href="https://www.stat.go.jp/data/shugyou/2022/pdf/kyouyaku.pdf" target="_blank" rel="noopener">総務省統計局「令和4年 就業構造基本調査 結果の要約」</a></li>
+  <li><a href="https://financial-field.com/tax/entry-142108" target="_blank" rel="noopener">ファイナンシャルフィールド「副業 年間所得20万円以下でも申告は必要」</a></li>
+  <li><a href="https://www.issoh.co.jp/tech/details/15416/" target="_blank" rel="noopener">Stripeの国内決済手数料（2026年時点）</a></li>
+  <li><a href="https://www.issoh.co.jp/tech/details/7317/" target="_blank" rel="noopener">Apple Developer Programの年会費</a></li>
+ </ol>
+ <p style="margin-top:12px">※本資料は情報提供を目的としたもので、収入を保証するものではありません。税務・法律の判断は専門家にご確認ください。<br>音声：VOICEVOX:WhiteCUL<br>© 2026 サクアプ</p>
+</div></footer>
+
+<div class="player" id="player" hidden>
+ <div class="pbar"><i id="pFill"></i></div>
+ <div class="pin">
+  <button type="button" id="pPlay" class="pbtn" aria-label="一時停止"><span class="ic" aria-hidden="true"></span></button>
+  <div class="pt"><b id="pTitle"></b><small id="pTime"></small></div>
+  <button type="button" id="pSpeed" class="pchip" aria-label="再生速度">1.0×</button>
+  <button type="button" id="pNext" class="pbtn sm" aria-label="次の章へ"><svg class="pi" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 5.5v13a1 1 0 0 0 1.5.86L16 13.7V18a1 1 0 0 0 2 0V6a1 1 0 0 0-2 0v4.3L6.5 4.64A1 1 0 0 0 5 5.5Z"/></svg></button>
+  <button type="button" id="pClose" class="pbtn sm" aria-label="閉じる"><svg class="pi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+ </div>
+</div>
+<audio id="aud" preload="none"></audio>
+<script>
+(function(){
+var $=function(id){return document.getElementById(id)};
+var yen=function(n){return Math.round(n).toLocaleString("ja-JP")+"円"};
+/* calc1 */
+var tool=3000;
+var tb=[].slice.call(document.querySelectorAll("#tool button"));
+function c1(){
+ var h=+$("h").value,wk=+$("wk").value,wg=+$("wg").value;
+ $("hO").textContent=h+"時間";$("wkO").textContent="週"+wk+"時間";$("wgO").textContent=yen(wg);
+ var m=Math.max(1,Math.ceil(h/(wk*4.3)));
+ var t=h*wg,x=m*tool;
+ $("rM").textContent="約"+m+"ヶ月";$("rT").textContent=yen(t);$("rX").textContent=yen(x);$("rS").textContent=yen(t+x);
+ $("vA").textContent=yen(t+x);
+ tb.forEach(function(b){b.setAttribute("aria-pressed",+b.dataset.v===tool)});
+}
+tb.forEach(function(b){b.onclick=function(){tool=+b.dataset.v;c1()}});
+["h","wk","wg"].forEach(function(k){$(k).addEventListener("input",c1)});c1();
+/* calc2 */
+function c2(){
+ var pr=+$("pr").value,us=+$("us").value,rn=+$("rn").value,ini=+$("ini").value;
+ $("prO").textContent=yen(pr);$("usO").textContent=us+"件";$("rnO").textContent=yen(rn);$("iniO").textContent=yen(ini);
+ var s=pr*us,f=Math.round(s*0.036),n=s-f-rn;
+ $("mS").textContent=yen(s);$("mF").textContent="−"+yen(f);$("mR").textContent="−"+yen(rn);
+ $("mN").textContent=yen(n);$("mY").textContent=yen(n*12);
+ $("mP").textContent=n>0?(ini===0?"すぐ":"約"+Math.ceil(ini/n)+"ヶ月"):"このままでは回収できません";
+}
+["pr","us","rn","ini"].forEach(function(k){$(k).addEventListener("input",c2)});c2();
+/* checklist */
+var KEY="sakuapp-roadmap-chk",cbs=[].slice.call(document.querySelectorAll("#chk input"));
+var saved=[];try{saved=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){}
+cbs.forEach(function(c,i){c.checked=!!saved[i];c.addEventListener("change",prog)});
+function prog(){var n=cbs.filter(function(c){return c.checked}).length;$("pT").textContent=n+" / "+cbs.length;$("pB").style.width=(n/cbs.length*100)+"%";
+ try{localStorage.setItem(KEY,JSON.stringify(cbs.map(function(c){return c.checked})))}catch(e){}}
+prog();
+/* narration */
+(function(){
+ var T=["はじめに","01 なぜ今、アプリ副業なのか","02 AIで自作する前に知ること","03 最初の売上までの5ステップ","04 最強のアプリは「API連携×AI分析」","05 稼ぎ方と、お金の計算","06 副業向けアプリのアイデア10","07 税金・手続き・NG集","08 スタート前チェックリスト"];
+ var IDS=[null,"why","trap","road","ai","money","ideas","info","check"];
+ var a=$("aud"),cur=-1,auto=true,sp=[1,1.25,1.5,0.9],si=0;
+ var bs=[].slice.call(document.querySelectorAll(".listen"));
+ function mmss(t){t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+":"+("0"+t%60).slice(-2)}
+ function ui(){var p=!a.paused;bs.forEach(function(b){b.classList.toggle("on",p&&+b.dataset.i===cur)});$("pPlay").classList.toggle("on",p);$("pPlay").setAttribute("aria-label",p?"一時停止":"再生");
+  if(cur>=0){$("pTitle").textContent=T[cur];}}
+ function load(i,scroll){cur=i;a.src="audio/s"+i+".mp3";a.playbackRate=sp[si];$("player").hidden=false;document.body.classList.add("playing");
+  if(scroll&&IDS[i]){var el=document.getElementById(IDS[i]);if(el)el.scrollIntoView({behavior:"smooth"})}
+  var p=a.play();if(p&&p.catch)p.catch(function(){});ui();
+  if("mediaSession" in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:T[i],artist:"サクアプ｜アプリ副業ロードマップ"});navigator.mediaSession.setActionHandler("nexttrack",function(){next()})}catch(e){}}}
+ function next(){if(cur<T.length-1)load(cur+1,true);else stop()}
+ function stop(){a.pause();$("player").hidden=true;document.body.classList.remove("playing");cur=-1;ui()}
+ bs.forEach(function(b){b.addEventListener("click",function(){var i=+b.dataset.i;
+  if(i===cur){if(a.paused)a.play();else a.pause();ui();return}
+  load(i,false)})});
+ $("pPlay").onclick=function(){if(a.paused)a.play();else a.pause();ui()};
+ $("pNext").onclick=next;$("pClose").onclick=stop;
+ $("pSpeed").onclick=function(){si=(si+1)%sp.length;a.playbackRate=sp[si];$("pSpeed").textContent=["1.0","1.25","1.5","0.9"][si]+"×"};
+ a.addEventListener("timeupdate",function(){$("pTime").textContent=mmss(a.currentTime)+" / "+mmss(a.duration);$("pFill").style.width=(a.duration?a.currentTime/a.duration*100:0)+"%"});
+ a.addEventListener("play",ui);a.addEventListener("pause",ui);
+ a.addEventListener("ended",function(){if(auto)next();else ui()});
+ document.querySelector(".pbar").addEventListener("click",function(e){if(a.duration){var r=this.getBoundingClientRect();a.currentTime=(e.clientX-r.left)/r.width*a.duration}});
+})();
+/* copy */
+[].forEach.call(document.querySelectorAll(".cp"),function(b){b.addEventListener("click",function(){var t=document.getElementById(b.dataset.cp).textContent;
+ function ok(){b.textContent="コピーしました";setTimeout(function(){b.textContent="コピー"},1600)}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb()})}else fb();
+ function fb(){var ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(ta)}})});
+/* tabs highlight */
+var links=[].slice.call(document.querySelectorAll("nav.tabs a"));
+if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){var on=a.getAttribute("href")==="#"+e.target.id;a.classList.toggle("on",on);if(on&&a.scrollIntoView){var p=a.parentNode;p.scrollTo({left:a.offsetLeft-p.clientWidth/2+a.clientWidth/2,behavior:"smooth"})}})}})},{rootMargin:"-45% 0px -50% 0px"});
+ document.querySelectorAll("main .sec").forEach(function(s){io.observe(s)})}
+})();
+</script>
+</body>
+</html>
