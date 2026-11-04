@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;1,800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --blue:#b4502b;--blue-d:#933f20;--blue-l:#f8ece4;--grad:linear-gradient(90deg,#c8683e,#9c3f22);--gold:#c99a4a;
+  --blue:#a8740f;--blue-d:#8a5d06;--blue-l:#fdf3d9;--yel:#f3b93a;--yel-d:#e2a41f;--grad:linear-gradient(90deg,#f6c54d,#e9a628);--gold:#c99a4a;
   --ink:#241e1a;--ink2:#4a3f38;--muted:#7a6d63;--line:#ece3d8;--panel:#f6f0e8;--bg:#fffdf9;
   --r:28px;--en:"Montserrat","Noto Sans JP",sans-serif;--sans:"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;--serif:"Noto Serif JP","Hiragino Mincho ProN",serif;
   color-scheme:light;
@@ -40,12 +40,12 @@ section{padding:120px 0}
 .center{text-align:center}
 .blue{color:var(--blue)}
 .note{font-size:12.5px;color:var(--muted);line-height:1.8}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:60px;padding:0 40px;border-radius:10px;background:var(--blue);color:#fff;font-weight:700;text-decoration:none;border:0;font-size:17px;letter-spacing:.1em;cursor:pointer;font-family:inherit;transition:background .2s,transform .2s,box-shadow .2s}
-.btn:hover{background:var(--blue-d);transform:translateY(-2px);box-shadow:0 14px 26px -14px rgba(180,80,43,.8)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:60px;padding:0 40px;border-radius:10px;background:var(--yel);color:var(--ink);font-weight:700;text-decoration:none;border:0;font-size:17px;letter-spacing:.1em;cursor:pointer;font-family:inherit;transition:background .2s,transform .2s,box-shadow .2s}
+.btn:hover{background:var(--yel-d);transform:translateY(-2px);box-shadow:0 14px 26px -14px rgba(180,80,43,.8)}
 .btn.white{background:#fff;color:var(--blue)}
-.btn.white:hover{background:var(--blue);color:#fff}
+.btn.white:hover{background:var(--yel);color:var(--ink)}
 .btn.line{background:transparent;color:var(--blue);box-shadow:inset 0 0 0 2px var(--blue)}
-.btn.line:hover{background:var(--blue);color:#fff}
+.btn.line:hover{background:var(--yel);color:var(--ink)}
 .btn svg{width:22px;height:22px;flex:none}
 .btn .chev{font-family:var(--en);font-weight:700}
 .btn:focus-visible,summary:focus-visible,label:focus-within,a:focus-visible,button:focus-visible{outline:3px solid #c99a4a;outline-offset:3px}
@@ -60,13 +60,13 @@ header .wrap{display:flex;align-items:center;gap:26px;height:76px;max-width:1280
 header.solid .logo .w{display:none}
 header.solid .logo .k{display:block}
 .logo span{font:700 11px var(--en);letter-spacing:.14em;color:#fff;border:1px solid rgba(255,255,255,.6);border-radius:4px;padding:2px 7px}
-header.solid .logo span{color:var(--blue);border-color:var(--blue)}
+header.solid .logo span{color:var(--ink);border-color:var(--ink)}
 header nav{display:flex;gap:28px;margin-left:auto;font-size:14px;font-weight:700;color:#fff}
 header.solid nav{color:var(--ink)}
 header nav a{text-decoration:none;opacity:.92}
 header nav a:hover{opacity:1;color:var(--blue)}
-header .btn{min-height:46px;padding:0 22px;font-size:14px;letter-spacing:.06em;background:#fff;color:var(--blue);box-shadow:inset 0 0 0 2px var(--blue)}
-header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
+header .btn{min-height:46px;padding:0 22px;font-size:14px;letter-spacing:.06em;background:var(--yel);color:var(--ink);box-shadow:none}
+header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 @media(max-width:900px){header nav{display:none}header .btn{margin-left:auto}}
 @media(max-width:440px){.logo span{display:none}header .btn{padding:0 14px;font-size:13px}}
 
@@ -144,7 +144,7 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 @media(max-width:700px){.arcbox{height:452px;margin-top:10px}.arc{position:absolute;left:0;right:0;top:0;margin:0;transform:scale(.64);transform-origin:50% 0;-webkit-mask-image:none;mask-image:none}.arc .it .lb{font-size:22px}}
 .pills{display:grid;gap:14px;max-width:800px;margin:10px auto 0}
 .pill{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;background:var(--panel);border-radius:22px;padding:20px 28px}
-.pill b{display:grid;place-items:center;height:56px;border-radius:99px;background:var(--blue);color:#fff;font:700 21px var(--en);letter-spacing:.04em}
+.pill b{display:grid;place-items:center;height:56px;border-radius:99px;background:var(--yel);color:var(--ink);font:700 21px var(--en);letter-spacing:.04em}
 .pill p{font-size:16.5px;font-weight:500}
 @media(max-width:640px){.pill{grid-template-columns:1fr;gap:10px;padding:18px 20px;border-radius:18px;text-align:center}.pill b{height:40px;font-size:15px;width:150px;margin:0 auto}.pill p{font-size:14px}}
 
@@ -336,7 +336,7 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .tap{position:absolute;width:44px;height:44px;border-radius:50%;border:4px solid rgba(180,80,43,.8);background:rgba(180,80,43,.12);pointer-events:none;transition:left .7s cubic-bezier(.5,0,.2,1),top .7s cubic-bezier(.5,0,.2,1);z-index:5;margin:-22px 0 0 -22px}
 .adm .ah{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 10px}
 .adm .ah h4{padding:0}
-.addb{font-size:12px;font-weight:700;color:#fff;background:var(--blue);border-radius:8px;padding:6px 12px;transition:transform .2s}
+.addb{font-size:12px;font-weight:700;color:var(--ink);background:var(--yel);border-radius:8px;padding:6px 12px;transition:transform .2s}
 .addb.press{transform:scale(.92)}
 .adm .nm{display:flex;align-items:center;gap:10px;min-width:0}
 .adm .nm .th{flex:none;width:34px;height:34px;border-radius:8px;background:radial-gradient(circle at 35% 35%,#f3c690,#c46a2a 75%)}
@@ -370,7 +370,7 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .mact{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
 .mact span{font-size:12px;font-weight:700;padding:7px 14px;border-radius:8px}
 .mact .cn{color:var(--muted)}
-.mact .sv{background:var(--blue);color:#fff;transition:transform .2s}
+.mact .sv{background:var(--yel);color:var(--ink);transition:transform .2s}
 .mact .sv.press{transform:scale(.92)}
 .ph .it3{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 13px;border-top:1px solid rgba(0,0,0,.06);transition:background .4s}
 .ph .it3 b{display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -419,8 +419,8 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .ord .oc.nw{animation:ping 1.6s ease-out infinite}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,106,61,.45)}100%{box-shadow:0 0 0 10px rgba(255,106,61,0)}}
 .dn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#141414;padding:10px}
-.dn i{width:38px;height:38px;border-radius:50%;background:var(--blue);display:grid;place-items:center;margin-bottom:8px}
-.dn i svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.dn i{width:38px;height:38px;border-radius:50%;background:var(--yel);display:grid;place-items:center;margin-bottom:8px}
+.dn i svg{width:18px;height:18px;fill:none;stroke:#241e1a;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .dn b{font-size:10px;margin:0}
 .dn strong{font:800 22px var(--en)}
 .dn small{font-size:8.5px;color:var(--muted);margin-top:6px;background:#f1f2f4;border-radius:6px;padding:4px 6px}
@@ -462,7 +462,7 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .cmpt .r span:first-child{color:var(--muted);font-size:12.5px;font-weight:700}
 .cmpt .r span:nth-child(2){font-weight:900;color:var(--blue)}
 .cmpt .r span:nth-child(3){color:var(--ink2)}
-.cmpt .h span:nth-child(2){background:var(--blue);color:#fff;border-radius:99px;padding:3px 12px;justify-self:start;font-size:12px}
+.cmpt .h span:nth-child(2){background:var(--yel);color:var(--ink);border-radius:99px;padding:3px 12px;justify-self:start;font-size:12px}
 .cmpt .h span:nth-child(3){font-size:12px;font-weight:700;color:var(--muted)}
 .cmpt .t{border-bottom:0}.cmpt .t span:nth-child(2){font-size:19px}
 .olist{display:grid;gap:8px}
@@ -522,7 +522,7 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .cc .ct{display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 24px 28px;flex:1}
 .cc b{font-size:24px;font-weight:900;letter-spacing:.1em;margin-bottom:8px}
 .cc small{font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:20px}
-.cc em{margin-top:auto;width:100%;display:grid;place-items:center;min-height:56px;border-radius:10px;background:var(--blue);color:#fff;font-style:normal;font-weight:700;letter-spacing:.12em}
+.cc em{margin-top:auto;width:100%;display:grid;place-items:center;min-height:56px;border-radius:10px;background:var(--yel);color:var(--ink);font-style:normal;font-weight:700;letter-spacing:.12em}
 @media(max-width:900px){.cc{flex-direction:row}.cc .ci{flex:none;width:38%;aspect-ratio:auto}.cc .ct{padding:20px 16px}.cc b{font-size:20px}.cc small{font-size:12.5px;margin-bottom:14px}.cc em{min-height:46px;font-size:14px}}
 .contact .sub{margin-top:36px;font-size:13px;color:#e9ddd2;line-height:2}
 .contact .sub a{color:#fff;font-weight:700}
@@ -649,7 +649,7 @@ footer a:hover{color:var(--blue)}
 
 <header id="hd">
   <div class="wrap">
-    <a class="logo" href="./"><img class="w" src="../logo-w.png" alt="サクアプ" width="800" height="195"><img class="k" src="../logo.png" alt="" width="800" height="195"><span>MOBILE MENU</span></a>
+    <a class="logo" href="./"><img class="w" src="../logo-w.png" alt="サクアプ" width="800" height="195"><img class="k" src="logo-ink.png" alt="" width="800" height="195"><span>MOBILE MENU</span></a>
     <nav aria-label="ページ内"><a href="#design">デザイン</a><a href="#easy">かんたん</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a></nav>
     <a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">無料で相談</a>
   </div>
