@@ -968,7 +968,7 @@ footer a:hover{color:var(--blue)}
   function yen(n){return "¥"+n.toLocaleString("ja-JP")}
   function vars(sh){return '--sc:'+sh.c+';--sb:'+sh.bg+';--sf:'+sh.fg+';--t1:'+sh.t[0]+';--t2:'+sh.t[1]+(sh.st?';--st:'+sh.st:'')+(sh.sl?';--sl:'+sh.sl:'')+(sh.cbg?';--cbg:'+sh.cbg:'')}
   var LAY=["teishoku","cafe","izakaya","intl","ramen","bistro"];
-  var PH={"生姜焼き定食":"pork","焼き魚定食":"saba","季節の野菜天":"tempura-c","だし巻き玉子":"tamago-c","カフェラテ":"latte","季節のタルト":"tart-c","ドリップ":"drip-c","Ginger Pork":"pork","Mackerel Set":"saba","Tempura":"tempura-c","ホットサンド":"hotsand-c","Matcha Ice":"matcha-c"};
+  var PH={"生姜焼き定食":"pork","焼き魚定食":"saba","季節の野菜天":"tempura-c","だし巻き玉子":"tamago-c","カフェラテ":"latte-c","季節のタルト":"tart-c","ドリップ":"drip-c","Ginger Pork":"pork","Mackerel Set":"saba","Tempura":"tempura-c","ホットサンド":"hotsand-c","Matcha Ice":"matcha-c"};
   function phs(n){return PH[n]?' style="background:url(img/'+PH[n]+'.webp) center/cover"':''}
   function tabsOf(sh,cls){return '<div class="'+cls+'">'+sh.tabs.map(function(t,i){return'<span class="'+(i?"":"on")+'">'+t+'</span>'}).join("")+'</div>'}
   function body(sh){
