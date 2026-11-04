@@ -109,7 +109,24 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 }
 
 /* category tabs + arc showcase */
-.show{background:var(--panel);padding:64px 0 100px;overflow:hidden}
+.show{background:linear-gradient(180deg,var(--panel) 0,var(--panel) 150px,#fff 150px);padding:64px 0 100px;overflow:hidden}
+.arc .ph .scr{display:flex;flex-direction:column}
+.feed{flex:1;min-height:0;overflow:hidden;position:relative}
+.feedin{animation:feed var(--fd,11s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes feed{0%,18%{transform:translateY(0)}38%,58%{transform:translateY(-32%)}78%,100%{transform:translateY(0)}}
+.feed .sec{padding:10px 12px 4px;font-size:10.5px;font-weight:900;opacity:.8}
+.pop{position:absolute;left:10%;right:10%;top:34%;z-index:4;background:#fff;color:#141414;border-radius:16px;padding:16px 12px 14px;text-align:center;box-shadow:0 20px 40px -12px rgba(0,0,0,.45);opacity:0;transform:translateY(16px) scale(.92);animation:pop var(--pd,9s) cubic-bezier(.2,.8,.2,1) infinite;animation-delay:var(--pl,0s)}
+.pop i{display:grid;place-items:center;width:42px;height:42px;margin:0 auto 8px;border-radius:50%;background:var(--sc);color:#fff;font-style:normal;font-size:20px;font-weight:900}
+.pop b{display:block;font-size:12px;line-height:1.4}
+.pop strong{display:block;font:800 24px var(--en);color:var(--sc);margin:2px 0}
+.pop small{display:block;font-size:9.5px;color:#6b7075}
+.pop em{display:block;margin-top:9px;background:var(--sc);color:#fff;border-radius:99px;padding:5px;font-style:normal;font-size:10px;font-weight:700}
+@media(max-width:700px){.pop{left:7%;right:7%;padding:12px 8px 10px;border-radius:13px}.pop i{width:32px;height:32px;font-size:15px;margin-bottom:5px}.pop b{font-size:10px}.pop strong{font-size:18px}.pop small{font-size:8.5px}.pop em{font-size:9px;padding:4px;margin-top:6px}}
+@keyframes pop{0%,52%{opacity:0;transform:translateY(16px) scale(.92)}57%,84%{opacity:1;transform:none}89%,100%{opacity:0;transform:translateY(-8px) scale(.97)}}
+.dim{position:absolute;inset:0;z-index:3;background:rgba(0,0,0,.35);opacity:0;animation:dim var(--pd,9s) ease infinite;animation-delay:var(--pl,0s)}
+@keyframes dim{0%,52%{opacity:0}57%,84%{opacity:1}89%,100%{opacity:0}}
+.flash{position:absolute;inset:0;z-index:5;background:var(--sb,#fff);opacity:0;pointer-events:none;animation:flash var(--fd,11s) linear infinite;animation-delay:var(--dl,0s)}
+@keyframes flash{0%,95%{opacity:0}97%{opacity:1}100%{opacity:0}}
 .ctabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
 .ctabs button{border:0;font:700 14.5px var(--sans);letter-spacing:.06em;padding:12px 22px;border-radius:10px;background:#c6cad1;color:#fff;cursor:pointer;transition:background .2s,color .2s}
 .ctabs button.on{background:#fff;color:var(--blue);box-shadow:0 6px 16px -10px rgba(0,0,0,.25)}
@@ -673,9 +690,26 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
   }
   function phone(sh,short){return '<div class="ph"><div class="scr" style="'+vars(sh)+'">'+inner(sh,short)+'</div></div>'}
 
+  var POPS=[
+    ["✓","ご注文を受け付けました","128","できあがりまで少々お待ちください","閉じる"],
+    ["☕","スタンプを1つ押しました","3/10","10個でドリンク1杯無料","OK"],
+    ["🔔","スタッフを呼びました","","カウンター2にうかがいます","閉じる"],
+    ["A","Language","English","中文 ・ 한국어 にも切り替え","Done"],
+    ["＋","トッピングを選ぶ","味玉 +¥120","チャーシュー増し +¥300","カートに入れる"],
+    ["🍷","本日のワイン","¥700","南仏の赤 ・ グラス","注文する"]
+  ];
+  function arcScreen(sh,i){
+    var it=sh.items.concat(sh.items),h='<div class="sb"><span>12:04</span><span>5G</span></div><div class="hd"><span class="av">'+sh.m+'</span><div><b>'+sh.n+'</b><small>'+sh.s+'</small></div></div>';
+    h+='<div class="feed"><div class="feedin"><div class="hero2">'+sh.ban+'</div><div class="tb">'+sh.tabs.map(function(t,k){return'<span class="'+(k?"":"on")+'">'+t+'</span>'}).join("")+'</div>';
+    it.forEach(function(x,k){if(k===4)h+='<div class="sec">'+sh.tabs[1]+'</div>';h+='<div class="it2"><span class="th"></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p">'+(x[2]?yen(x[2])+'<i>+</i>':'<span class="so">売り切れ</span>')+'</span></div>'});
+    h+='</div></div><div class="cb"><span>'+sh.cart+'</span><span>'+sh.tot+'</span></div>';
+    var p=POPS[i%POPS.length];
+    h+='<div class="dim"></div><div class="pop"><i>'+p[0]+'</i><b>'+p[1]+'</b>'+(p[2]?'<strong>'+p[2]+'</strong>':'')+'<small>'+p[3]+'</small><em>'+p[4]+'</em></div><div class="flash"></div>';
+    return h;
+  }
   /* ---------- arc showcase ---------- */
   var arc=$("arc"),tabs=$("ctabs"),N=SHOPS.length*2,items=[];
-  for(var i=0;i<N;i++){var sh=SHOPS[i%SHOPS.length],el=document.createElement("div");el.className="it";el.dataset.i=i%SHOPS.length;el.innerHTML=phone(sh)+'<span class="lb">'+sh.k+'</span>';if(i>=SHOPS.length)el.setAttribute("aria-hidden","true");arc.appendChild(el);items.push(el)}
+  for(var i=0;i<N;i++){var sh=SHOPS[i%SHOPS.length],el=document.createElement("div");el.className="it";el.dataset.i=i%SHOPS.length;var si=i%SHOPS.length;el.innerHTML='<div class="ph"><div class="scr" style="'+vars(sh)+';--fd:'+(10+si%3*1.5)+'s;--dl:-'+(si*1.7+(i>=SHOPS.length?5:0))+'s;--pd:'+(8+si%2*1.5)+'s;--pl:-'+(si*2.3+(i>=SHOPS.length?4:0))+'s">'+arcScreen(sh,si)+'</div></div><span class="lb">'+sh.k+'</span>';if(i>=SHOPS.length)el.setAttribute("aria-hidden","true");arc.appendChild(el);items.push(el)}
   tabs.innerHTML=SHOPS.map(function(s,i){return'<button type="button" role="tab" data-i="'+i+'">'+s.k+'</button>'}).join("");
   var off=0,target=null,paused=false,last=0;
   function geo(){var m=matchMedia("(max-width:700px)").matches;return{step:m?16:11.5,speed:m?2.6:2.2}}
