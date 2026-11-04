@@ -325,11 +325,15 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
   .win{border-radius:0;border:0;box-shadow:none}
   .wbar{display:none}
   .wb{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
-  .side{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;padding:8px;gap:6px;border-right:0;border-bottom:1px solid var(--line)}
-  .side .nv{justify-content:center;text-align:center;white-space:nowrap;padding:8px 4px!important;font-size:12px!important;border:1px solid var(--line);background:#fff;position:relative}
+  .side{flex-direction:row;overflow-x:auto;padding:8px 40px 8px 8px;gap:6px;border-right:0;border-bottom:1px solid var(--line);scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent)}
+  .side.end{-webkit-mask-image:none;mask-image:none;padding-right:8px}
+  .side .nv{flex:none;white-space:nowrap;padding:7px 12px!important;font-size:12.5px!important;border:1px solid var(--line);border-radius:99px!important;background:#fff;position:relative}
   .side .nv.on{background:var(--mint)!important;border-color:var(--brand);color:var(--brand)}
   .side .nv .bd{position:absolute;top:-6px;right:-4px;margin:0}
   .side .nv .lk{display:none}
+  .wb{position:relative}
+  .navhint{position:absolute;right:6px;top:10px;z-index:3;width:26px;height:26px;border-radius:50%;background:var(--text);color:#fff;display:grid;place-items:center;font-size:14px;pointer-events:none;transition:opacity .2s}
+  .side.end~.navhint{opacity:0}
   .side::-webkit-scrollbar{display:none}
   .side .sh,.side .open{display:none}
   .nv{flex:none;width:auto;padding:7px 12px;font-size:12.5px}
@@ -709,6 +713,9 @@ function detailSheet(it){
 }
 
 /* ---------- admin ---------- */
+var navX=0;function navFix(){var sd=document.querySelector("#wb .side");if(!sd)return;if(!document.querySelector("#wb .navhint")){var hi=document.createElement("span");hi.className="navhint";hi.setAttribute("aria-hidden","true");hi.textContent="›";sd.after(hi)}
+  sd.scrollLeft=navX;var on=sd.querySelector(".nv.on");if(on&&matchMedia("(max-width:700px)").matches&&(on.offsetLeft+on.offsetWidth>sd.scrollLeft+sd.clientWidth-40||on.offsetLeft<sd.scrollLeft))sd.scrollLeft=on.offsetLeft-60;
+  function chk(){navX=sd.scrollLeft;sd.classList.toggle("end",sd.scrollLeft+sd.clientWidth>=sd.scrollWidth-4)}sd.addEventListener("scroll",chk,{passive:true});chk()}
 function renderA(){
   var a=UI.a,wb=$("wb");
   var prev=$("am"),keep=prev&&prev.dataset.v===a.v?prev.scrollTop:0;
@@ -722,7 +729,7 @@ function renderA(){
   if(a.edit)h+=editModal();
   if(a.line)h+='<div class="linepop" role="status"><span class="lg">LINE</span><div><b>サクアプ通知</b>'+esc(a.line)+'<br><small>たった今</small></div></div>';
   wb.innerHTML=h;
-  $("am").scrollTop=keep;
+  $("am").scrollTop=keep;navFix();
 }
 function aOrders(){
   var open=S.orders.filter(function(o){return!o.closed});

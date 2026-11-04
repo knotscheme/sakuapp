@@ -325,11 +325,15 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
   .win{border-radius:0;border:0;box-shadow:none}
   .wbar{display:none}
   .wb{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
-  .side{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;padding:8px;gap:6px;border-right:0;border-bottom:1px solid var(--line)}
-  .side .nv{justify-content:center;text-align:center;white-space:nowrap;padding:8px 4px!important;font-size:12px!important;border:1px solid var(--line);background:#fff;position:relative}
+  .side{flex-direction:row;overflow-x:auto;padding:8px 40px 8px 8px;gap:6px;border-right:0;border-bottom:1px solid var(--line);scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 56px),transparent)}
+  .side.end{-webkit-mask-image:none;mask-image:none;padding-right:8px}
+  .side .nv{flex:none;white-space:nowrap;padding:7px 12px!important;font-size:12.5px!important;border:1px solid var(--line);border-radius:99px!important;background:#fff;position:relative}
   .side .nv.on{background:var(--mint)!important;border-color:var(--brand);color:var(--brand)}
   .side .nv .bd{position:absolute;top:-6px;right:-4px;margin:0}
   .side .nv .lk{display:none}
+  .wb{position:relative}
+  .navhint{position:absolute;right:6px;top:10px;z-index:3;width:26px;height:26px;border-radius:50%;background:var(--text);color:#fff;display:grid;place-items:center;font-size:14px;pointer-events:none;transition:opacity .2s}
+  .side.end~.navhint{opacity:0}
   .side::-webkit-scrollbar{display:none}
   .side .sh,.side .open{display:none}
   .nv{flex:none;width:auto;padding:7px 12px;font-size:12.5px}
@@ -609,6 +613,9 @@ function renderC(){
 
 /* ---------- admin ---------- */
 var IC={cal:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>',kar:'<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',menu:'<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',set:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>'};
+var navX=0;function navFix(){var sd=document.querySelector("#wb .side");if(!sd)return;if(!document.querySelector("#wb .navhint")){var hi=document.createElement("span");hi.className="navhint";hi.setAttribute("aria-hidden","true");hi.textContent="›";sd.after(hi)}
+  sd.scrollLeft=navX;var on=sd.querySelector(".nv.on");if(on&&matchMedia("(max-width:700px)").matches&&(on.offsetLeft+on.offsetWidth>sd.scrollLeft+sd.clientWidth-40||on.offsetLeft<sd.scrollLeft))sd.scrollLeft=on.offsetLeft-60;
+  function chk(){navX=sd.scrollLeft;sd.classList.toggle("end",sd.scrollLeft+sd.clientWidth>=sd.scrollWidth-4)}sd.addEventListener("scroll",chk,{passive:true});chk()}
 function renderA(){
   var a=UI.a,prev=$("am"),keep=prev?prev.scrollTop:0;
   var nav=[["cal","予約カレンダー",IC.cal,Object.keys(a.fresh).length],["kar","顧客カルテ",IC.kar],["menu","メニュー管理",IC.menu],["set","受付設定",IC.set],["tpl","テンプレート",IC.menu]];
@@ -618,7 +625,7 @@ function renderA(){
   h+=({cal:aCal,kar:aKar,menu:aMenu,set:aSet,tpl:aTpl})[a.v]();
   h+='</div>';
   if(a.open)h+=drawer(a.open);
-  $("wb").innerHTML=h;$("am").scrollTop=keep;
+  $("wb").innerHTML=h;$("am").scrollTop=keep;navFix();
 }
 function dsel(){return'<div class="dsel">'+DAYS.map(function(d,i){var n=S.bookings.filter(function(b){return b.d===i}).length;return'<button type="button" data-act="ad" data-d="'+i+'" class="'+(i===UI.a.d?"on":"")+'">'+d[0]+'（'+d[1]+'）'+(n?' '+n+'件':'')+'</button>'}).join("")+'</div>'}
 function aCal(){
