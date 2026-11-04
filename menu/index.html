@@ -77,35 +77,82 @@ header .btn{min-height:42px;padding:0 20px;font-size:13.5px}
 @media(max-width:440px){.logo span{display:none}header .btn{padding:0 14px;font-size:12.5px}}
 
 /* hero */
-.hero{position:relative;min-height:max(640px,92vh);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--night)}
-.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 40%;transform-origin:65% 45%;animation:kb 24s ease-in-out infinite alternate}
-@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,16,12,.86) 0%,rgba(18,16,12,.62) 42%,rgba(18,16,12,.08) 78%),linear-gradient(0deg,rgba(18,16,12,.7) 0%,rgba(18,16,12,0) 45%)}
-.hero .wrap{position:relative;z-index:1;width:100%;max-width:1240px;padding-bottom:72px;padding-top:140px}
+.hero{position:relative;background:var(--night);color:#fff;overflow:hidden;padding:150px 0 110px}
+.hero::before{content:"";position:absolute;inset:auto -10% -40% auto;width:760px;height:760px;background:radial-gradient(closest-side,rgba(196,80,27,.22),transparent);pointer-events:none}
+.hero .wrap{position:relative;max-width:1240px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.18em;color:#e9dfcf;margin-bottom:26px}
 .hero .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.hero h1{font-size:clamp(38px,6.6vw,76px);line-height:1.32;letter-spacing:.06em;margin-bottom:26px;font-weight:600}
-.hero .sub{max-width:520px;color:#e6ded2;font-size:15.5px;line-height:2.1;margin-bottom:40px}
-.facts{display:flex;flex-wrap:wrap;gap:0;margin-bottom:40px;border-top:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.22);max-width:600px}
-.facts div{flex:1 1 0;padding:16px 20px 14px;border-left:1px solid rgba(255,255,255,.22);min-width:0}
+.hero h1{font-size:clamp(34px,4.3vw,58px);line-height:1.34;letter-spacing:.06em;margin-bottom:26px;font-weight:600}
+.hero .sub{max-width:500px;color:#d9cfbf;font-size:15.5px;line-height:2.1;margin-bottom:38px}
+.facts{display:flex;margin-bottom:38px;border-top:1px solid rgba(255,255,255,.2);border-bottom:1px solid rgba(255,255,255,.2);max-width:560px}
+.facts div{flex:1 1 0;padding:16px 20px 14px;border-left:1px solid rgba(255,255,255,.2);min-width:0}
 .facts div:first-child{border-left:0;padding-left:0}
 .facts small{display:block;font-size:11.5px;letter-spacing:.14em;color:#cfc4b3}
-.facts b{font:600 clamp(24px,3.6vw,34px)/1.2 "Inter",sans-serif;letter-spacing:-.01em}
+.facts b{font:600 clamp(24px,3.2vw,32px)/1.2 "Inter",sans-serif;letter-spacing:-.01em}
 .facts b span{font:500 14px var(--sans);margin-left:3px}
 .ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .reassure{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:22px;font-size:12.5px;color:#cfc4b3;letter-spacing:.06em}
 .reassure span::before{content:"";display:inline-block;width:12px;height:1px;background:var(--gold);vertical-align:middle;margin-right:8px}
-@media(max-width:700px){
-  .hero{min-height:auto;display:block}
-  .hero .poster{position:relative;height:auto;aspect-ratio:4/3;object-position:58% 45%;animation:none}
-  .hero::after{inset:0 0 auto 0;height:75vw;background:linear-gradient(0deg,var(--night) 2%,rgba(22,20,15,.35) 45%,rgba(22,20,15,.35) 100%)}
-  .hero .wrap{padding-top:0;margin-top:-56px;padding-bottom:52px}
+.hvis{position:relative;padding:0 0 60px 60px}
+.hphoto{border-radius:6px;overflow:hidden;aspect-ratio:4/5}
+.hphoto img{width:100%;height:100%;object-fit:cover;object-position:66% 50%;animation:kb 24s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+.hvis .hp{position:absolute;left:0;bottom:0;width:236px}
+.hcard{position:absolute;right:-16px;top:40px;width:290px;background:#fffdf9;color:var(--ink);border-radius:8px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);font-size:12px;line-height:1.55;animation:pop 6s ease-in-out infinite}
+.hcard .dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-top:5px;box-shadow:0 0 0 4px rgba(196,80,27,.18)}
+.hcard b{display:block;font-size:13px}
+.hcard small{color:var(--muted)}
+.hcard em{font-style:normal;font-size:10.5px;color:var(--muted);margin-left:auto;white-space:nowrap}
+@keyframes pop{0%,8%{opacity:0;transform:translateY(-8px)}14%,86%{opacity:1;transform:none}94%,100%{opacity:0;transform:translateY(-8px)}}
+@media(max-width:960px){
+  .hero{padding:110px 0 72px}
+  .hero .wrap{grid-template-columns:1fr;gap:52px}
+  .hvis{max-width:480px;width:100%;margin:0 auto;padding:0 0 50px 50px}
+  .hcard{right:-6px;top:24px;width:250px}
+}
+@media(max-width:560px){
+  .hvis{padding:0 0 40px 34px}
+  .hvis .hp{width:190px}
+  .hcard{width:220px;right:-4px}
   .facts div{padding:14px 12px 12px}
   .ctas .btn{width:100%}
 }
 .notice{background:var(--night2);color:#d9cfbf;font-size:13px;text-align:center;padding:14px 20px;letter-spacing:.06em}
 .notice a{color:#fff;font-weight:700;text-underline-offset:4px}
 
+/* fit */
+.fit{padding-bottom:40px}
+.fith{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:56px}
+@media(max-width:900px){.fith{grid-template-columns:1fr;gap:8px}}
+.fitg{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+@media(max-width:860px){.fitg{grid-template-columns:1fr 1fr}}
+.fitg div{padding:30px 24px 30px 0;border-right:1px solid var(--line);margin-right:24px}
+.fitg div:last-child{border-right:0;margin-right:0}
+@media(max-width:860px){.fitg div{border-right:0;margin-right:0;border-bottom:1px solid var(--line);padding:22px 12px 22px 0}.fitg div:nth-last-child(-n+2){border-bottom:0}}
+.fitg b{display:block;font-family:var(--serif);font-weight:600;font-size:20px;letter-spacing:.06em;margin-bottom:8px}
+.fitg small{display:block;color:var(--muted);font-size:13.5px;line-height:1.85}
+.fitn{margin-top:28px;font-size:15px}
+.fitn strong{background:linear-gradient(transparent 62%,rgba(196,80,27,.22) 62%)}
+/* effect */
+.effect{background:var(--paper2);border-block:1px solid var(--line)}
+.effg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+@media(max-width:860px){.effg{grid-template-columns:1fr}}
+.effg div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:32px 28px}
+.effg small{display:block;font-size:12.5px;color:var(--muted);letter-spacing:.08em;margin-bottom:10px}
+.effg b{display:block;font:500 clamp(42px,5vw,56px)/1 "Inter",sans-serif;letter-spacing:-.03em;color:var(--accent);margin-bottom:16px}
+.effg b span{font:500 15px var(--sans);color:var(--ink);margin-left:6px;letter-spacing:0}
+.effg p{font-size:14px;color:var(--ink2);line-height:1.85}
+/* compare table */
+.cmpt{border-top:1px solid var(--ink);font-size:13.5px}
+.cmpt .r{display:grid;grid-template-columns:1fr 1.05fr 1.2fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}
+.cmpt .r span:first-child{color:var(--muted);font-size:12.5px}
+.cmpt .r span:nth-child(2){font-weight:700;color:var(--accent)}
+.cmpt .r span:nth-child(3){color:var(--ink2)}
+.cmpt .h{padding:10px 0;font-size:12px;letter-spacing:.08em}
+.cmpt .h span:nth-child(2){color:var(--accent)}
+.cmpt .h span:nth-child(3){color:var(--muted);font-weight:700}
+.cmpt .t{border-bottom:1px solid var(--ink)}
+.cmpt .t span:nth-child(2){font-size:17px}
 /* pains */
 .pains{display:grid;grid-template-columns:.85fr 1.15fr;gap:72px;align-items:start}
 @media(max-width:900px){.pains{grid-template-columns:1fr;gap:40px}}
@@ -146,6 +193,20 @@ header .btn{min-height:42px;padding:0 20px;font-size:13.5px}
 .toast b{display:block;font-size:12.5px}
 .toast small{color:var(--muted)}
 @media(max-width:520px){.toast{left:0;bottom:0;width:calc(100% - 214px);min-width:130px;padding:10px 12px;font-size:11px}.toast b{font-size:11.5px}.scene .photo{max-width:72%}}
+.tab{position:absolute;right:0;bottom:0;width:min(400px,78%);background:#fffdf9;border-radius:12px;padding:14px;box-shadow:0 40px 70px -30px rgba(30,20,10,.55),0 0 0 8px #1a1814;font-size:11px;line-height:1.5}
+.tab .tt{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.tab .tt b{font-size:13px}
+.tab .tt span{font-size:10px;color:var(--muted)}
+.tk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tc{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:8px;display:grid;gap:2px;align-content:start;background:#fff}
+.tc.c{border-left-color:#0e7c8c}
+.tc.d{border-left-color:#9a9388;opacity:.75}
+.tc i{font-style:normal;font-size:9.5px;font-weight:700;color:var(--muted)}
+.tc b{font-size:11.5px}
+.tc span{color:var(--ink2);font-size:10px}
+.tc em{font-style:normal;margin-top:6px;text-align:center;font-size:9.5px;font-weight:700;color:#fff;background:var(--accent);border-radius:4px;padding:4px 2px}
+.tc.c em{background:#0e7c8c}
+@media(max-width:520px){.tc.d{display:none}.tk{grid-template-columns:1fr 1fr}.tab{width:86%}}
 .steps{list-style:none;margin:0;padding:0;counter-reset:s}
 .steps li{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--line)}
 .steps li:last-child{border-bottom:1px solid var(--line)}
@@ -279,7 +340,7 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
 
 .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
 .rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero .poster{animation:none}.rv{opacity:1;transform:none;transition:none}.sticky{transition:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hphoto img,.hcard{animation:none}.rv{opacity:1;transform:none;transition:none}.sticky{transition:none}}
 </style>
 </head>
 <body>
@@ -295,26 +356,61 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
 </header>
 
 <main>
-<section class="hero" style="padding:0">
-  <img class="poster" src="hero.webp" alt="" width="1280" height="720">
+<section class="hero">
   <div class="wrap">
-    <p class="eyebrow">個人経営の飲食店のための、QR注文</p>
-    <h1>注文は、<br>お客様のスマホで。</h1>
-    <p class="sub">テーブルのQRコードを読むだけで、お客様が自分で注文。注文取りと聞き間違いを減らして、料理と接客に手を回せるお店に。お店の雰囲気に合わせたデザインでお作りします。</p>
-    <div class="facts">
-      <div><small>初期費用</small><b class="num">9,800<span>円</span></b></div>
-      <div><small>月額</small><b class="num">1,980<span>円</span></b></div>
-      <div><small>注文手数料</small><b class="num">0<span>円</span></b></div>
+    <div class="hcopy">
+      <p class="eyebrow">個人経営の飲食店のための、QR注文</p>
+      <h1>注文は、<br>お客様のスマホで。</h1>
+      <p class="sub">テーブルのQRコードを読むだけで、お客様が自分で注文。注文取りと聞き間違いを減らして、料理と接客に手を回せるお店に。</p>
+      <div class="facts">
+        <div><small>初期費用</small><b class="num">9,800<span>円</span></b></div>
+        <div><small>月額</small><b class="num">1,980<span>円</span></b></div>
+        <div><small>注文手数料</small><b class="num">0<span>円</span></b></div>
+      </div>
+      <div class="ctas">
+        <a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで無料相談する<span class="arr">→</span></a>
+        <a class="btn line" href="#demo">デモを触ってみる</a>
+      </div>
+      <div class="reassure"><span>専用端末いらず</span><span>最低契約期間なし</span><span>月額はサーバー代・保守込み</span></div>
     </div>
-    <div class="ctas">
-      <a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで無料相談する<span class="arr">→</span></a>
-      <a class="btn line" href="#demo">デモを触ってみる</a>
+    <div class="hvis" aria-hidden="true">
+      <figure class="hphoto"><img src="hero.webp" alt="" width="1280" height="720"></figure>
+      <div class="phone hp"><div class="screen">
+        <div class="sbar"><span>12:04</span><span>5G</span></div>
+        <div class="shop"><small>TABLE 5</small><b>食堂 ともしび</b></div>
+        <div class="tabs"><span class="on">定食</span><span>一品</span><span>飲み物</span><span>甘味</span></div>
+        <div class="mi"><span><b>生姜焼き定食</b><small>ごはん大盛り無料</small></span><span class="r">¥980<span class="pl">+</span></span></div>
+        <div class="mi"><span><b>焼き魚定食</b><small>塩さばを炭火で</small></span><span class="r">¥1,080<span class="pl">+</span></span></div>
+        <div class="mi"><span><b>季節の野菜天</b><small>塩でどうぞ</small></span><span class="r">¥680<span class="pl">+</span></span></div>
+        <div class="mi"><span><b>本日の煮込み</b><small>数量限定</small></span><span class="r"><span class="so">売り切れ</span></span></div>
+        <div class="cartbar"><span>注文を送る（2点）</span><span>¥1,660</span></div>
+      </div></div>
+      <div class="hcard"><span class="dot"></span><div><b>新しい注文　テーブル5</b><small>生姜焼き定食 ×1 ・ 季節の野菜天 ×1</small></div><em>たった今</em></div>
     </div>
-    <div class="reassure"><span>専用端末いらず</span><span>最低契約期間なし</span><span>月額はサーバー代・保守込み</span></div>
   </div>
 </section>
 
 <div class="notice">正式受付は2027年6月ごろからです。先行のご案内は <a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで受付中</a></div>
+
+<section class="fit">
+  <div class="wrap">
+    <div class="fith rv">
+      <div>
+        <p class="kicker">For you</p>
+        <h2>少人数で回している、<br>街のお店のために。</h2>
+      </div>
+      <p class="lead">大手チェーン向けのシステムは、初期費用が数十万円、月額が数万円かかるものもあります。サクアプは、オーナーが厨房にもホールにも立つ規模のお店に合わせて、必要な機能と価格にしぼりました。</p>
+    </div>
+    <div class="fitg rv">
+      <div><b>カフェ・喫茶</b><small>ひとり〜2人で営業。ドリンクと軽食の注文が多い</small></div>
+      <div><b>定食・食堂</b><small>お昼のピークに注文が集中。大盛りなどの選択肢がある</small></div>
+      <div><b>居酒屋・バー</b><small>追加注文が多く、聞き間違いや伝票の書き漏れが起きやすい</small></div>
+      <div><b>ラーメン・そば</b><small>回転が速い。食券機の代わりや、トッピングの選択に</small></div>
+    </div>
+    <p class="fitn rv">目安は<strong>席数30席くらいまで</strong>、スタッフ<strong>1〜3人</strong>で回しているお店です。</p>
+  </div>
+</section>
+
 
 <section>
   <div class="wrap pains">
@@ -335,6 +431,22 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </section>
 
+<section class="effect">
+  <div class="wrap">
+    <div class="rv">
+      <p class="kicker">Effect</p>
+      <h2>注文取りがなくなると、<br>どれくらい楽になるか。</h2>
+      <p class="lead">1回の注文取り（席まで行って、聞いて、伝票に書いて、厨房に伝える）を1分として試算しました。</p>
+    </div>
+    <div class="effg rv">
+      <div><small>1日の注文取り 80回なら</small><b class="num">80<span>分 / 日</span></b><p>ピークの時間に、料理と接客へ回せる時間です。</p></div>
+      <div><small>月26日営業なら</small><b class="num">約35<span>時間 / 月</span></b><p>アルバイト1人の、およそ1週間分の勤務時間に相当します。</p></div>
+      <div><small>時給1,100円で換算すると</small><b class="num">約3.8<span>万円 / 月</span></b><p>月額1,980円に対して、これだけの手間が浮く計算です。</p></div>
+    </div>
+    <p class="note rv" style="margin-top:20px">※試算です。注文の回数・お店の広さ・QR注文を使うお客様の割合によって変わります。効果を保証するものではありません。</p>
+  </div>
+</section>
+
 <section class="how" id="how">
   <div class="wrap">
     <div class="rv">
@@ -345,17 +457,14 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
     <div class="howg">
       <div class="scene rv">
         <figure class="photo"><img src="../uc-food.webp" alt="木のテーブルに置かれた卓上QRコードとコーヒー" width="800" height="800" loading="lazy"></figure>
-        <div class="phone" role="img" aria-label="お客様のスマホに表示される注文画面のイメージ"><div class="screen">
-          <div class="sbar"><span>12:04</span><span>5G</span></div>
-          <div class="shop"><small>TABLE 5</small><b>食堂 ともしび</b></div>
-          <div class="tabs"><span class="on">定食</span><span>一品</span><span>飲み物</span><span>甘味</span></div>
-          <div class="mi"><span><b>生姜焼き定食</b><small>ごはん大盛り無料</small></span><span class="r">¥980<span class="pl">+</span></span></div>
-          <div class="mi"><span><b>焼き魚定食</b><small>塩さばを炭火で</small></span><span class="r">¥1,080<span class="pl">+</span></span></div>
-          <div class="mi"><span><b>季節の野菜天</b><small>塩でどうぞ</small></span><span class="r">¥680<span class="pl">+</span></span></div>
-          <div class="mi"><span><b>本日の煮込み</b><small>数量限定</small></span><span class="r"><span class="so">売り切れ</span></span></div>
-          <div class="cartbar"><span>注文を送る（2点）</span><span>¥1,660</span></div>
-        </div></div>
-        <div class="toast" role="img" aria-label="お店に届く通知のイメージ"><div><b>新しい注文：テーブル5</b><small>生姜焼き定食 ×1 ・ 季節の野菜天 ×1</small></div></div>
+        <div class="tab" role="img" aria-label="お店側の注文一覧画面のイメージ">
+          <div class="tt"><b>注文一覧</b><span>12:04 更新</span></div>
+          <div class="tk">
+            <div class="tc n"><i>新規</i><b>テーブル5</b><span>生姜焼き定食 ×1</span><span>季節の野菜天 ×1</span><em>調理を始める</em></div>
+            <div class="tc c"><i>調理中</i><b>テーブル2</b><span>だし巻き玉子 ×2</span><span>瓶ビール ×1</span><em>提供済みにする</em></div>
+            <div class="tc d"><i>提供済み</i><b>カウンター1</b><span>日替わり定食 ×1</span></div>
+          </div>
+        </div>
       </div>
       <ol class="steps rv">
         <li><div><span class="who">お客様</span><h3>QRコードを読む</h3><p>スマホのカメラをかざすと、そのテーブル専用のメニューが開きます。</p></div></li>
@@ -418,12 +527,19 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
 
     <div class="pgrid">
       <div class="panel rv">
-        <h3>2年間使った場合の総額</h3>
-        <p>月額制のモバイルオーダーとくらべてみました。</p>
-        <div class="bar"><div class="lb"><span>サクアプ</span><span class="num">57,320円</span></div><div class="tr"><span class="fl" style="width:16%"></span></div><small>9,800円 ＋ 1,980円 × 24ヶ月</small></div>
-        <div class="bar oth"><div class="lb"><span>一般的な月額制サービス</span><span class="num">約12万〜36万円</span></div><div class="tr"><span class="fl max" style="width:100%"></span><span class="fl" style="width:33%"></span></div><small>月額 5,000〜15,000円程度 × 24ヶ月。別途、初期費用や手数料がかかる場合があります</small></div>
-        <p class="save">同じ2年間で、<em>6万円以上</em>おさえられる計算です。</p>
-        <p class="note" style="margin-top:14px">※一般的な月額制サービスの金額は、店内向けモバイルオーダーの公開料金をもとにした目安です。サービスやプランによって異なります。</p>
+        <h3>月額制のサービスとくらべると</h3>
+        <p>店内向けモバイルオーダーの一般的な条件とくらべました。</p>
+        <div class="cmpt" role="table" aria-label="料金と条件の比較">
+          <div class="r h" role="row"><span role="columnheader"></span><span role="columnheader">サクアプ</span><span role="columnheader">一般的な月額制</span></div>
+          <div class="r" role="row"><span role="rowheader">初期費用</span><span class="num">9,800円</span><span>0円〜数十万円</span></div>
+          <div class="r" role="row"><span role="rowheader">月額</span><span class="num">1,980円</span><span>5,000〜15,000円程度</span></div>
+          <div class="r" role="row"><span role="rowheader">注文手数料</span><span>0円</span><span>サービスによりかかる</span></div>
+          <div class="r" role="row"><span role="rowheader">契約期間</span><span>しばりなし</span><span>年契約のプランもある</span></div>
+          <div class="r" role="row"><span role="rowheader">専用端末</span><span>不要</span><span>必要な場合がある</span></div>
+          <div class="r" role="row"><span role="rowheader">画面のデザイン</span><span>お店に合わせて作る</span><span>共通のひな形</span></div>
+          <div class="r t" role="row"><span role="rowheader">2年間の総額</span><span class="num">57,320円</span><span>約12万〜36万円</span></div>
+        </div>
+        <p class="note" style="margin-top:14px">※一般的な月額制サービスの条件は、店内向けモバイルオーダーの公開料金をもとにした目安です。サービスやプランによって異なります。</p>
       </div>
       <div class="panel rv" id="options">
         <h3>必要な機能だけ、あとから。</h3>
