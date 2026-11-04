@@ -373,6 +373,15 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .sheet h3{font-family:"Noto Serif JP",serif;letter-spacing:.04em}
 .sheet .bd>.yen{font-family:"Noto Serif JP",serif}
 .mt .th.ph{width:44px;height:44px}
+.tplc{cursor:pointer;background:#fff}
+.tpv{display:block;border-radius:10px;padding:12px;margin-bottom:6px;border:1px solid rgba(0,0,0,.06)}
+.tpv i{display:block;width:26px;height:4px;border-radius:2px;margin-bottom:8px}
+.tpv b{display:block;font-size:14px}.tpv small{font-size:11px;opacity:.75}
+.cs[data-tpl="night"] .it,.cs[data-tpl="night"] .ctabs,.cs[data-tpl="night"] .ch,.cs[data-tpl="night"] .cfoot,.cs[data-tpl="night"] .subh{background:transparent!important;border-color:rgba(255,255,255,.1)!important}
+.cs[data-tpl="night"] .ctabs{background:#1b1e25!important}.cs[data-tpl="night"] .it small,.cs[data-tpl="night"] .ch .nm small{color:#a7a198}.cs[data-tpl="night"] .csec h3{color:#d9b9a0}
+.cs[data-tpl="bistro"] .cfoot,.cs[data-tpl="bistro"] .ctabs{background:#f3f1e8!important}
+.cs[data-tpl="cafe"] .ctabs,.cs[data-tpl="cafe"] .cfoot{background:#f7f1ea!important}
+.cs[data-tpl="simple"] .ctabs,.cs[data-tpl="simple"] .cfoot{background:#fff!important}
 </style>
 </head>
 <body>
@@ -580,7 +589,7 @@ function renderC(){
   if(c.toast)h+='<div class="ctoast" role="status">🔔 '+esc(c.toast)+'</div>';
   if(c.proc)h+='<div class="proc"><div><div class="spin"></div>'+tr("proc")+'</div></div>';
   var sh=cs.querySelector(".sheet"),shk=sh?sh.scrollTop:0;
-  cs.innerHTML=h;
+  cs.innerHTML=h;applyTpl();
   $("cbody").scrollTop=keep;
   sh=cs.querySelector(".sheet");if(sh)sh.scrollTop=shk;
 }
@@ -606,11 +615,11 @@ function renderA(){
   var a=UI.a,wb=$("wb");
   var prev=$("am"),keep=prev&&prev.dataset.v===a.v?prev.scrollTop:0;
   var nNew=S.orders.filter(function(o){return!o.closed&&o.s==="new"}).length;
-  var nav=[["orders","注文一覧",I.orders,nNew+S.calls.length],["tables","テーブル",I.table],["menu","メニュー管理",I.menu],["qr","QRコード",I.qr],["settings","店舗設定",I.gear],["sales","売上集計",I.chart]];
+  var nav=[["orders","注文一覧",I.orders,nNew+S.calls.length],["tables","テーブル",I.table],["menu","メニュー管理",I.menu],["qr","QRコード",I.qr],["tpl","テンプレート",I.menu],["settings","店舗設定",I.gear],["sales","売上集計",I.chart]];
   var h='<nav class="side" aria-label="管理メニュー"><div class="sh"><span class="av">'+esc(S.store.mark||"店")+'</span><div><b>'+esc(S.store.name)+'</b><small>管理画面</small></div></div>';
   nav.forEach(function(n){h+='<button type="button" class="nv'+(a.v===n[0]?" on":"")+'" data-act="av" data-v="'+n[0]+'">'+n[2]+n[1]+(n[3]?'<span class="bd">'+n[3]+'</span>':"")+(n[0]==="sales"&&!S.opts.sales?'<span class="lk">追加</span>':"")+'</button>'});
   h+='<div class="open'+(S.store.open?"":" off")+'"><b>'+(S.store.open?"注文受付中":"受付を停止中")+'</b></div></nav><div class="am" id="am" data-v="'+a.v+'">';
-  h+=({orders:aOrders,tables:aTables,menu:aMenu,qr:aQR,settings:aSettings,sales:aSales})[a.v]();
+  h+=({orders:aOrders,tables:aTables,menu:aMenu,qr:aQR,tpl:aTpl,settings:aSettings,sales:aSales})[a.v]();
   h+='</div>';
   if(a.edit)h+=editModal();
   if(a.line)h+='<div class="linepop" role="status"><span class="lg">LINE</span><div><b>サクアプ通知</b>'+esc(a.line)+'<br><small>たった今</small></div></div>';
@@ -675,6 +684,9 @@ function aQR(){
   S.tables.forEach(function(t){h+='<div class="qc">'+qrSvg(t.id+S.store.name)+'<b>'+esc(t.n)+'</b><small>tomoshibi.sakuapp.jp/t/'+esc(t.id)+'</small><button type="button" class="abtn" data-act="opent" data-t="'+t.id+'">この席の画面を開く</button></div>'});
   return h+'</div><p class="note" style="margin-top:14px;font-size:12px;color:var(--muted)">※デモ用の図柄のため、カメラで読み取ることはできません。</p>';
 }
+var TPLS=[["warm","和の食堂","無料","#c8551f","#fbf6ec","#1d1b18",'"Noto Serif JP",serif'],["simple","シンプル","無料","#141716","#ffffff","#141716",'"Noto Sans JP",sans-serif'],["cafe","カフェ","無料","#7a5236","#f7f1ea","#2b2119",'"Noto Sans JP",sans-serif'],["night","夜の居酒屋","有料","#e8463a","#1b1e25","#f3f1ec",'"Noto Serif JP",serif'],["bistro","ビストロ","有料","#2f7d4f","#f3f1e8","#1f2a22",'"Noto Serif JP",serif']];
+function applyTpl(){var t=TPLS.filter(function(x){return x[0]===(S.store.tpl||"warm")})[0]||TPLS[0],cs=document.getElementById("cs");if(!cs)return;cs.style.background=t[4];cs.style.color=t[5];cs.style.fontFamily=t[6];document.documentElement.style.setProperty("--sc",t[3]);cs.dataset.tpl=t[0]}
+function aTpl(){var cur=S.store.tpl||"warm";return'<div class="ah"><h2>テンプレート</h2><span class="meta">選ぶと、お客様の画面がすぐに切り替わります</span></div><div class="tg">'+TPLS.map(function(t){return'<button type="button" class="tc tplc'+(t[0]===cur?" use":"")+'" data-act="tpl" data-t="'+t[0]+'" style="text-align:left"><span class="tpv" style="background:'+t[4]+';color:'+t[5]+';font-family:'+t[6].replace(/"/g,"&quot;")+'"><i style="background:'+t[3]+'"></i><b>食堂 ともしび</b><small>生姜焼き定食　980円</small></span><div class="h"><b>'+t[1]+'</b><span class="stt">'+(t[0]===cur?"使用中":t[2])+'</span></div>'+(t[2]==="有料"?'<small>4,800円・買い切り（デモでは無料で試せます）</small>':'<small>無料で使えます</small>')+'</button>'}).join("")+'</div>'}
 function aSettings(){
   var st=S.store;
   return'<div class="ah"><h2>店舗設定</h2><span class="meta">お客様の画面の見た目が変わります</span></div><div class="form">'+
@@ -762,6 +774,7 @@ document.addEventListener("click",function(ev){
   case"addtable":var n=S.tables.filter(function(t){return/^t\d+$/.test(t.id)}).length+1;while(S.tables.some(function(t){return t.id==="t"+n}))n++;S.tables.splice(S.tables.filter(function(t){return/^t/.test(t.id)}).length,0,{id:"t"+n,n:"テーブル"+n});save();break;
   case"opent":c.t=el.dataset.t;c.mode="dine";c.v="menu";c.det=null;if(isMobile()){UI.pane="c";window.scrollTo(0,0)}break;
   case"color":S.store.color=el.dataset.c;save();break;
+  case"tpl":S.store.tpl=el.dataset.t;var tt=TPLS.filter(function(x){return x[0]===el.dataset.t})[0];S.store.color=tt[3];save();if(isMobile())gtoast("お客様の画面のテンプレートを変えました");break;
   default:return;
   }
   renderAll();
