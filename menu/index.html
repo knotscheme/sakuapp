@@ -744,8 +744,8 @@ footer a:hover{color:var(--blue)}
           <div class="bar"><i></i><i></i><i></i><span>tomoshibi.sakuapp.jp/admin</span></div>
           <div class="ah"><h4>メニュー管理</h4><span class="addb" id="addb">＋ 商品を追加</span></div>
           <div class="row hdr"><span>商品</span><span style="text-align:right">価格</span><span style="text-align:center">売切</span></div>
-          <div class="row"><span class="nm"><i class="th"></i><span><b>生姜焼き定食</b><small>ごはん大盛り無料 ・ オプション2</small></span></span><span class="pr" id="ap0">¥980</span><span class="tg"></span></div>
-          <div class="row"><span class="nm"><i class="th"></i><span><b>焼き魚定食</b><small>塩さばを炭火で ・ オプション1</small></span></span><span class="pr">¥1,080</span><span class="tg"></span></div>
+          <div class="row"><span class="nm"><i class="th" style="background:url(img/pork.webp) center/cover"></i><span><b>生姜焼き定食</b><small>ごはん大盛り無料 ・ オプション2</small></span></span><span class="pr" id="ap0">¥980</span><span class="tg"></span></div>
+          <div class="row"><span class="nm"><i class="th" style="background:url(img/saba.webp) center/cover"></i><span><b>焼き魚定食</b><small>塩さばを炭火で ・ オプション1</small></span></span><span class="pr">¥1,080</span><span class="tg"></span></div>
           <div class="row"><span class="nm"><i class="th"></i><span><b>本日の煮込み</b><small>数量限定</small></span></span><span class="pr">¥600</span><span class="tg" id="atg"></span></div>
           <div class="row new hide" id="anew"><span class="nm"><i class="th kuri"></i><span><b>栗ごはん</b><small>新米と丹波栗 ・ オプション1</small></span></span><span class="pr">¥450</span><span class="tg"></span></div>
           <div class="mdl" id="mdl"><div class="mbox">
@@ -764,8 +764,8 @@ footer a:hover{color:var(--blue)}
           <div class="sb"><span>12:04</span><span>5G</span></div>
           <div class="hd"><span class="av">灯</span><div><b>食堂 ともしび</b><small>TABLE 5</small></div></div>
           <div class="tb"><span class="on">定食</span><span>一品</span><span>飲み物</span></div>
-          <div class="it3" id="e0"><span class="th"></span><span><b>生姜焼き定食</b><small>ごはん大盛り無料</small><span class="oc2"><i>大盛り</i><i>少なめ</i></span></span><span class="p"><span id="ep0">¥980</span><i>+</i></span></div>
-          <div class="it3"><span class="th"></span><span><b>焼き魚定食</b><small>塩さばを炭火で</small><span class="oc2"><i>ご飯大盛り</i></span></span><span class="p">¥1,080<i>+</i></span></div>
+          <div class="it3" id="e0"><span class="th" style="background:url(img/pork.webp) center/cover"></span><span><b>生姜焼き定食</b><small>ごはん大盛り無料</small><span class="oc2"><i>大盛り</i><i>少なめ</i></span></span><span class="p"><span id="ep0">¥980</span><i>+</i></span></div>
+          <div class="it3"><span class="th" style="background:url(img/saba.webp) center/cover"></span><span><b>焼き魚定食</b><small>塩さばを炭火で</small><span class="oc2"><i>ご飯大盛り</i></span></span><span class="p">¥1,080<i>+</i></span></div>
           <div class="it3" id="e2"><span class="th"></span><span><b>本日の煮込み</b><small>数量限定</small></span><span class="p" id="ep2">¥600<i>+</i></span></div>
           <div class="it3" id="enew" style="display:none"><span class="th kuri"></span><span><b>栗ごはん <em class="nw">NEW</em></b><small>新米と丹波栗</small><span class="oc2"><i>大盛り +¥100</i><i>少なめ</i></span></span><span class="p">¥450<i>+</i></span></div>
           <div class="cb"><span>注文を送る</span><span>¥0</span></div>
@@ -927,7 +927,7 @@ footer a:hover{color:var(--blue)}
   var $=function(id){return document.getElementById(id)};
   /* ---------- shop themes ---------- */
   var SHOPS0=[
-    {k:"定食・食堂",n:"食堂 ともしび",m:"灯",s:"TABLE 5 ・ 定食と季節の一品",ban:"今日の日替わり",c:"#c8551f",bg:"#fffdf9",fg:"#1d1b18",t:["#f6c79a","#d9853f"],tabs:["定食","一品","飲み物","甘味"],items:[["生姜焼き定食","ごはん大盛り無料",980],["焼き魚定食","塩さばを炭火で",1080],["季節の野菜天","塩でどうぞ",680],["本日の煮込み","数量限定",0]],cart:"注文を送る（2点）",tot:"¥1,660",d:"木のぬくもりと、手書き風の温かさ"},
+    {k:"定食・食堂",n:"食堂 ともしび",m:"灯",s:"TABLE 5 ・ 定食と季節の一品",ban:"今日の日替わり",c:"#c8551f",bg:"#fffdf9",fg:"#1d1b18",t:["#f6c79a","#d9853f"],tabs:["定食","一品","飲み物","甘味"],items:[["生姜焼き定食","ごはん大盛り無料",980],["焼き魚定食","塩さばを炭火で",1080],["季節の野菜天","塩でどうぞ",680],["だし巻き玉子","焼きたて・数量限定",0]],cart:"注文を送る（2点）",tot:"¥1,660",d:"木のぬくもりと、手書き風の温かさ"},
     {k:"カフェ",n:"CAFE LUMEN",m:"L",s:"TABLE 3 ・ 自家焙煎珈琲",ban:"Seasonal Tart",c:"#7a5236",bg:"#f7f1ea",fg:"#2b2119",t:["#e9d3bd","#a77b57"],tabs:["Coffee","Sweets","Food"],items:[["カフェラテ","エスプレッソ ダブル",550],["季節のタルト","いちじくとクリーム",620],["ドリップ","エチオピア",600],["ホットサンド","ハムとチーズ",780]],cart:"注文を送る（2点）",tot:"¥1,170",d:"余白を広くとった、落ち着いた雰囲気"},
     {k:"居酒屋・バー",n:"居酒屋 まる",m:"丸",s:"カウンター 2 ・ 炭火焼き鳥",ban:"本日のおすすめ",c:"#e8463a",bg:"#1b1e25",fg:"#f3f3f3",st:"rgba(255,255,255,.12)",sl:"rgba(255,255,255,.08)",cbg:"#e8463a",t:["#7a4a33","#2b1d17"],tabs:["焼き鳥","一品","飲み物","〆"],items:[["焼き鳥盛り","5本 おまかせ",1280],["ポテトサラダ","いぶりがっこ入り",480],["生ビール","中ジョッキ",590],["だし巻き玉子","焼きたて",0]],cart:"注文を送る（3点）",tot:"¥2,350",d:"夜のお店に合う、暗めの配色"},
     {k:"多言語対応",n:"Shokudo Tomoshibi",m:"灯",s:"TABLE 5 ・ English",ban:"Today's Special",c:"#2b6cb0",bg:"#fbfcff",fg:"#16202c",t:["#c8daf0","#5d8cc4"],tabs:["Set Meals","Sides","Drinks"],items:[["Ginger Pork","Large rice free",980],["Mackerel Set","Charcoal grilled",1080],["Tempura","Seasonal veg",680],["Matcha Ice","Kyoto matcha",380]],cart:"Place order (2)",tot:"¥1,660",d:"英語・中国語・韓国語に切り替え（追加機能）"},
@@ -939,16 +939,18 @@ footer a:hover{color:var(--blue)}
   function yen(n){return "¥"+n.toLocaleString("ja-JP")}
   function vars(sh){return '--sc:'+sh.c+';--sb:'+sh.bg+';--sf:'+sh.fg+';--t1:'+sh.t[0]+';--t2:'+sh.t[1]+(sh.st?';--st:'+sh.st:'')+(sh.sl?';--sl:'+sh.sl:'')+(sh.cbg?';--cbg:'+sh.cbg:'')}
   var LAY=["teishoku","cafe","izakaya","intl","ramen","bistro"];
+  var PH={"生姜焼き定食":"pork","焼き魚定食":"saba","季節の野菜天":"tempura-c","だし巻き玉子":"tamago-c","カフェラテ":"latte","季節のタルト":"tart-c","ドリップ":"drip-c","Ginger Pork":"pork","Mackerel Set":"saba","Tempura":"tempura-c"};
+  function phs(n){return PH[n]?' style="background:url(img/'+PH[n]+'.webp) center/cover"':''}
   function tabsOf(sh,cls){return '<div class="'+cls+'">'+sh.tabs.map(function(t,i){return'<span class="'+(i?"":"on")+'">'+t+'</span>'}).join("")+'</div>'}
   function body(sh){
     var L=sh.L,it=sh.items,h="";
     if(L==="teishoku"){
       h+='<div class="t-hd"><div class="t-noren"><i>と</i><i>も</i><i>し</i><i>び</i></div><b>食堂 ともしび</b><small>定食と季節の一品 ・ 五番卓</small></div>';
       h+='<div class="t-ban"><em>本日の日替わり</em><b>鶏の照り焼き定食</b><span>850円</span></div>'+tabsOf(sh,"t-tabs");
-      it.forEach(function(x,k){h+='<div class="t-it"><span class="th"'+(k===0?' style="background:url(img/pork.webp) center/cover"':'')+'></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p">'+(x[2]?x[2].toLocaleString()+'円':'<span class="so">売り切れ</span>')+'</span></div>'});
+      it.forEach(function(x,k){h+='<div class="t-it"><span class="th"'+phs(x[0])+'></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p">'+(x[2]?x[2].toLocaleString()+'円':'<span class="so">売り切れ</span>')+'</span></div>'});
     }else if(L==="cafe"){
       h+='<div class="c-hd"><b>LUMEN</b><small>COFFEE &amp; SWEETS ・ TABLE 3</small></div>'+tabsOf(sh,"c-tabs")+'<div class="c-grid">';
-      it.forEach(function(x,k){h+='<div class="c-card"><span class="im"'+(k===0?' style="background:url(img/latte.webp) center/cover"':'')+'></span><b>'+x[0]+'</b><small>'+yen(x[2])+'</small></div>'});
+      it.forEach(function(x,k){h+='<div class="c-card"><span class="im"'+phs(x[0])+'></span><b>'+x[0]+'</b><small>'+yen(x[2])+'</small></div>'});
       h+='</div>';
     }else if(L==="izakaya"){
       h+='<div class="i-hd"><span class="chochin">丸</span><div><b>居酒屋 まる</b><small>カウンター2 ・ 炭火焼き鳥</small></div></div>';
@@ -958,7 +960,7 @@ footer a:hover{color:var(--blue)}
       h+='<div class="m-hd"><div><b>Tomoshibi</b><small>Table 5</small></div><div class="m-lang"><span>JP</span><span class="on">EN</span><span>中</span><span>한</span></div></div>';
       h+='<div class="m-ban"><small>TODAY\'S SPECIAL</small><b>Teriyaki Chicken Set</b></div>';
       var AL=[["Wheat","Soy"],["Fish"],["Wheat","Egg"],["Milk"]];
-      it.forEach(function(x,k){h+='<div class="m-it"><span class="th"'+(k===0?' style="background:url(img/pork.webp) center/cover"':'')+'></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small><span class="alg">'+AL[k].map(function(a){return'<i>'+a+'</i>'}).join("")+'</span></span><span class="p">'+yen(x[2])+'</span></div>'});
+      it.forEach(function(x,k){h+='<div class="m-it"><span class="th"'+phs(x[0])+'></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small><span class="alg">'+AL[k].map(function(a){return'<i>'+a+'</i>'}).join("")+'</span></span><span class="p">'+yen(x[2])+'</span></div>'});
     }else if(L==="ramen"){
       h+='<div class="r-hd"><span class="big">塩</span><div><b>麺処 しお</b><small>SHIO RAMEN ・ 1番席</small></div></div><div class="r-lb">TICKET</div><div class="r-grid">';
       h+='<div class="r-tk wide on"><b>特製塩らーめん</b><small>¥1,250</small></div>';
