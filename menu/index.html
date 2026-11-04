@@ -324,6 +324,56 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .custom{text-align:center;margin-top:28px;font-size:14px;color:var(--muted)}
 .custom a{color:var(--blue);font-weight:700}
 
+/* contact */
+.contact{position:relative;overflow:hidden;background:#4aa8dc;color:#fff;text-align:center}
+.contact .bgw{position:absolute;left:50%;top:70px;transform:translateX(-50%);font:800 clamp(90px,17vw,230px)/1 var(--en);color:rgba(255,255,255,.12);white-space:nowrap;pointer-events:none}
+.contact .wrap{position:relative}
+.contact h2{font-size:clamp(28px,4.8vw,50px);letter-spacing:.08em;margin:20px 0 56px}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:left}
+@media(max-width:900px){.cgrid{grid-template-columns:1fr}}
+.cc{display:flex;flex-direction:column;background:#f4f8fb;color:var(--ink);border-radius:22px;overflow:hidden;text-decoration:none;transition:transform .25s,box-shadow .25s}
+.cc:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(0,0,0,.45)}
+.cc .ci{display:block;aspect-ratio:16/10;overflow:hidden;background:#e9eef2}
+.cc .ci img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.cc .ci.soft img{object-fit:contain;object-position:50% 100%}
+.cc:hover .ci img{transform:scale(1.05)}
+.cc .ct{display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 24px 28px;flex:1}
+.cc b{font-size:24px;font-weight:900;letter-spacing:.1em;margin-bottom:8px}
+.cc small{font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:20px}
+.cc em{margin-top:auto;width:100%;display:grid;place-items:center;min-height:56px;border-radius:10px;background:var(--blue);color:#fff;font-style:normal;font-weight:700;letter-spacing:.12em}
+@media(max-width:900px){.cc{flex-direction:row}.cc .ci{flex:none;width:38%;aspect-ratio:auto}.cc .ct{padding:20px 16px}.cc b{font-size:20px}.cc small{font-size:12.5px;margin-bottom:14px}.cc em{min-height:46px;font-size:14px}}
+.contact .sub{margin-top:36px;font-size:13px;color:#eaf6fd;line-height:2}
+.contact .sub a{color:#fff;font-weight:700}
+/* products */
+.prods{background:var(--panel);padding:90px 0}
+.prods h2{font-size:clamp(26px,3.6vw,38px);letter-spacing:.14em;margin-bottom:36px}
+.pgr{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.pgr{grid-template-columns:1fr}}
+.pd{position:relative;display:flex;align-items:center;gap:16px;min-height:220px;border-radius:20px;overflow:hidden;padding:30px;text-decoration:none;color:var(--ink);transition:transform .25s}
+.pd:hover{transform:translateY(-4px)}
+.pd.p1{background:linear-gradient(120deg,#fff 40%,#e6f3fb)}
+.pd.p2{background:linear-gradient(120deg,#e9f6fd 0%,#cfe8f8 100%)}
+.pd>span:first-child{position:relative;z-index:1;flex:1}
+.pd b{display:block;font-size:22px;font-weight:900;color:var(--blue);margin-bottom:8px}
+.pd small{display:block;font-size:13.5px;line-height:1.8;font-weight:700}
+.pd img{flex:none;width:42%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;box-shadow:0 20px 40px -20px rgba(0,0,0,.4);transform:rotate(-3deg)}
+@media(max-width:460px){.pd{padding:22px}.pd img{width:38%}.pdph{width:96px}}
+.pdph{width:120px;flex:none;transform:rotate(8deg) translateY(16px)}
+/* footer */
+footer{background:#222;color:#bfc4c9;font-size:13px;padding:0 0 calc(30px + 90px)}
+footer a{color:#e9ecef;text-decoration:none}
+footer a:hover{color:var(--blue)}
+.fg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#3a3a3a;border-bottom:1px solid #3a3a3a}
+@media(max-width:760px){.fg{grid-template-columns:1fr 1fr}}
+.fg a{display:flex;justify-content:space-between;align-items:center;background:#111;padding:22px 24px;font-weight:700;font-size:14.5px}
+.fg a::after{content:"›";font:700 20px var(--en);color:#fff}
+.fb{display:flex;flex-wrap:wrap;gap:18px 30px;justify-content:space-between;align-items:center;padding-top:36px;max-width:1280px}
+.fl2{display:flex;flex-wrap:wrap;gap:12px 24px}
+.fbr{display:flex;align-items:center;gap:18px}
+.fbr img{height:26px;width:auto}
+.fbr svg{width:22px;height:22px;display:block}
+.tagl{text-align:center;margin-top:44px;font:italic 600 clamp(26px,4vw,40px) var(--en);color:#fff;letter-spacing:.02em}
+@media(min-width:861px){footer{padding-bottom:40px}}
 /* final */
 .final{position:relative;overflow:hidden;color:#fff;text-align:center;background:var(--blue)}
 .final::before{content:"";position:absolute;inset:0;background:var(--grad);opacity:.9}
@@ -562,22 +612,39 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </section>
 
-<section class="final">
-  <div class="wrap rv">
-    <h2>お店らしいメニューを、<br>月1,980円から。</h2>
-    <p>「うちの店だとどんなデザインになる？」の相談だけでも大丈夫です。相談もお見積もりも無料です。</p>
-    <a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6c1.5-1.6 2-3.2 2-4.8C22 6.6 17.5 3 12 3Z"/></svg>LINEで無料相談する</a>
-    <p class="sub">売り込みはしません ・ 相談だけでもOK ・ LINEを使っていない方は <a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener">XのDM</a> でも受付中</p>
+<section class="contact" id="contact">
+  <span class="bgw" aria-hidden="true">CONTACT</span>
+  <div class="wrap">
+    <h2 class="rv">お店らしいメニューを、<br>月1,980円から。</h2>
+    <div class="cgrid stg">
+      <a class="cc" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu"><span class="ci"><img src="../consult.webp" alt="" width="960" height="720" loading="lazy"></span><span class="ct"><b>LINEで相談</b><small>「うちの店だとどんなデザインになる？」の確認だけでも大丈夫です</small><em>相談する ›</em></span></a>
+      <a class="cc" href="#options"><span class="ci"><img src="../uc-food.webp" alt="" width="800" height="800" loading="lazy"></span><span class="ct"><b>お見積り</b><small>必要な機能を選ぶと、その場で概算がわかります</small><em>料金を見る ›</em></span></a>
+      <a class="cc" href="demo/"><span class="ci soft"><img src="../smile.webp" alt="" width="468" height="538" loading="lazy"></span><span class="ct"><b>デモを触る</b><small>お客様の画面とお店の管理画面を、実際に操作できます</small><em>デモを開く ›</em></span></a>
+    </div>
+    <p class="sub rv">売り込みはしません ・ 相談もお見積もりも無料 ・ LINEを使っていない方は <a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener">XのDM</a> でも受付中<br>正式受付は2027年6月ごろから。先行のご案内はLINEで受付中です。</p>
+  </div>
+</section>
+
+<section class="prods">
+  <div class="wrap">
+    <h2 class="center rv">サクアプのサービス</h2>
+    <div class="pgr stg">
+      <a class="pd p1" href="../"><span><b>オーダーメイド開発</b><small>予約・決済・顧客管理を、ゼロから自由に。<br>19,800円〜、1文字0.5円の明朗会計</small></span><img src="../salon.webp" alt="" width="1376" height="768" loading="lazy"></a>
+      <a class="pd p2" href="./"><span><b>モバイルメニュー</b><small>お店らしいQR注文を、すぐに。<br>初期9,800円・月額1,980円</small></span><span class="pdph" id="pdph"></span></a>
+    </div>
   </div>
 </section>
 </main>
 
 <footer>
-  <div class="wrap">
-    <span>サクアプ モバイルメニュー ・ knotscheme</span>
-    <span class="fl2"><a href="../">オーダーメイド開発</a><a href="../terms.html">利用規約</a><a href="../privacy.html">プライバシーポリシー</a><a href="../tokushoho.html">特定商取引法に基づく表記</a></span>
-    <span>© 2026 knotscheme</span>
+  <div class="fg">
+    <a href="#design">デザイン</a><a href="#easy">かんたんな運用</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#options">お見積り</a><a href="#faq">よくある質問</a><a href="../">オーダーメイド開発</a><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで相談</a>
   </div>
+  <div class="wrap fb">
+    <span class="fl2"><a href="../terms.html">利用規約 ›</a><a href="../privacy.html">プライバシーポリシー ›</a><a href="../tokushoho.html">特定商取引法に基づく表記 ›</a></span>
+    <span class="fbr"><img src="../logo-w.png" alt="サクアプ" width="800" height="195"><span>© 2026 knotscheme</span><a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.9Zm-1.1 16.2h1.7L7.4 4.7H5.5Z"/></svg></a></span>
+  </div>
+  <p class="tagl">order, your way.</p>
 </footer>
 
 <div class="sticky" id="sticky"><span class="p">初期 <b>9,800円</b><br>月額 1,980円</span><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで無料相談</a></div>
@@ -661,6 +728,7 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
     function f(x,y){return'<rect x="'+x+'" y="'+y+'" width="7" height="7"/><rect x="'+(x+1)+'" y="'+(y+1)+'" width="5" height="5" fill="#fff"/><rect x="'+(x+2)+'" y="'+(y+2)+'" width="3" height="3"/>'}
     $("qr").innerHTML='<svg viewBox="0 0 21 21" shape-rendering="crispEdges"><g fill="#141414">'+c+f(0,0)+f(14,0)+f(0,14)+'</g></svg>'})();
 
+  $("pdph").innerHTML=phone(SHOPS[0],true);
   /* ---------- calculator ---------- */
   var OPTS=[["call","店員の呼び出しボタン","お客様のスマホから呼び出し",3000],["allergy","アレルギー表示","メニューごとに原材料を表示",3000],["lang","多言語メニュー","英語・中国語・韓国語",5000],["line","注文のLINE通知","新しい注文をLINEでお知らせ",5000],["sales","売上集計","日別・メニュー別の売上",5000],["pay","事前決済（カード）","注文と同時に支払い ※Stripe手数料別",5000],["takeout","テイクアウトの事前注文","来店前に注文・受け取り時間を指定",9800]];
   var list=$("olist");
@@ -669,7 +737,7 @@ footer .fl2{display:flex;gap:18px;flex-wrap:wrap}
     $("ocount").textContent=c;$("oprice").textContent=sum.toLocaleString("ja-JP")+"円";$("total").innerHTML=(9800+sum).toLocaleString("ja-JP")+"<i>円</i>";$("demolink").href="demo/"+(keys.length?"?opt="+keys.join(","):"")});
 
   /* ---------- header / sticky ---------- */
-  var hd=$("hd"),hero=document.querySelector(".hero"),fin=document.querySelector(".final"),st=$("sticky");
+  var hd=$("hd"),hero=document.querySelector(".hero"),fin=document.querySelector(".contact"),st=$("sticky");
   function onScroll(){var y=scrollY;hd.classList.toggle("solid",y>hero.offsetHeight-90);st.classList.toggle("on",y>hero.offsetHeight*.7&&fin.getBoundingClientRect().top>innerHeight*.7)}
   addEventListener("scroll",onScroll,{passive:true});onScroll();
 
