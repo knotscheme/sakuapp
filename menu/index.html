@@ -590,6 +590,25 @@ footer a:hover{color:var(--blue)}
 @media(max-width:900px){.flowh{grid-template-columns:1fr;gap:10px;margin-top:24px}.fh{display:grid;grid-template-columns:92px 1fr;grid-template-rows:auto auto auto 1fr;column-gap:18px;text-align:left;padding:16px 18px;align-items:start;align-content:center}.fhp{grid-column:1;grid-row:1/5;width:92px;height:181px;overflow:hidden}.fhp .ph{width:150px;max-width:none;margin:0;transform:scale(.6133);transform-origin:0 0}.fh .n{grid-column:2;font-size:24px}.fh br{display:none}.fh .who{grid-column:2;justify-self:start;margin:6px 0 8px}.fh b{grid-column:2}.fh p{grid-column:2}}
 @media(max-width:460px){.pdph{width:84px;height:166px}.pdph .ph{width:140px;transform:scale(.6);transform-origin:0 0}}
 @media(max-width:400px){.fg a{font-size:13px;padding:18px 14px}.show h2{font-size:17px}.show h2.big{font-size:20px}.adm .row b{font-size:11.5px}}
+/* small phone mocks: always render the phone at full size (240px) and scale it down, so the design never re-flows */
+.fh .fhp{display:block;width:150px;height:299px;margin:0 auto 16px;position:relative}
+.fh .fhp>.ph{position:absolute;left:0;top:0;width:240px!important;max-width:none!important;margin:0!important;-webkit-transform:scale(.625);transform:scale(.625);-webkit-transform-origin:0 0;transform-origin:0 0}
+.pd .pdph{width:120px;height:239px;position:relative}
+.pd .pdph>.ph{position:absolute;left:0;top:0;width:240px!important;max-width:none!important;-webkit-transform:scale(.5);transform:scale(.5);-webkit-transform-origin:0 0;transform-origin:0 0}
+.fh .ord .oc{font-size:14px;padding:10px 12px;border-radius:12px}.fh .ord .oc b{font-size:15px}.fh .ord{gap:10px;padding:44px 14px 14px}
+.fh .dn b{font-size:15px}.fh .dn strong{font-size:36px}.fh .dn small{font-size:12px;padding:6px 10px}.fh .dn i{width:56px;height:56px}.fh .dn i svg{width:26px;height:26px}
+@media(max-width:900px){
+  .flowh .fh .fhp{grid-column:1;grid-row:1/5;width:92px!important;height:183px!important;margin:0!important;overflow:hidden}
+  .flowh .fh .fhp>.ph{-webkit-transform:scale(.3833);transform:scale(.3833)}
+}
+@media(max-width:460px){
+  .pd .pdph{width:84px!important;height:168px!important}
+  .pd .pdph>.ph{-webkit-transform:scale(.35);transform:scale(.35)}
+}
+@media(max-width:600px){
+  .ed .edph{width:176px!important;height:352px!important;position:relative;margin:0 auto}
+  .ed .edph>.ph{position:absolute;left:0;top:0;width:240px!important;max-width:none!important;-webkit-transform:scale(.7333);transform:scale(.7333);-webkit-transform-origin:0 0;transform-origin:0 0}
+}
 .rv{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 .stg>*{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
