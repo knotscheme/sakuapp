@@ -111,8 +111,10 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 /* category tabs + arc showcase */
 .show{background:#fff;padding:0 0 100px;overflow:hidden}
 .arc .ph .scr{display:flex;flex-direction:column}
-.feed{flex:1;min-height:0;overflow:hidden;position:relative}
-.feedin{animation:feed var(--fd,11s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.feed{flex:1 1 0;min-height:0;overflow:hidden;position:relative}
+.ph .scr>*{flex-shrink:0}
+.ph .scr>.feed{flex-shrink:1}
+.arc .feedin{animation:feed var(--fd,11s) ease-in-out infinite;animation-delay:var(--dl,0s)}
 @keyframes feed{0%,18%{transform:translateY(0)}38%,58%{transform:translateY(-32%)}78%,100%{transform:translateY(0)}}
 .feed .sec{padding:10px 12px 4px;font-size:10.5px;font-weight:900;opacity:.8}
 .pop{position:absolute;left:10%;right:10%;top:34%;z-index:4;background:#fff;color:#141414;border-radius:16px;padding:16px 12px 14px;text-align:center;box-shadow:0 20px 40px -12px rgba(0,0,0,.45);opacity:0;transform:translateY(16px) scale(.92);animation:pop var(--pd,9s) cubic-bezier(.2,.8,.2,1) infinite;animation-delay:var(--pl,0s)}
@@ -136,7 +138,10 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .arc{position:relative;height:700px;margin-top:28px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%)}
 .arc .it{position:absolute;left:50%;top:60px;width:240px;margin-left:-120px;transform-origin:50% 1700px;will-change:transform;cursor:pointer}
 .arc .it .lb{display:block;text-align:center;margin-top:24px;font-weight:900;font-size:17px;color:var(--blue);letter-spacing:.1em}
-@media(max-width:700px){.arc{zoom:.64;height:700px;margin-top:10px;-webkit-mask-image:none;mask-image:none}.arc .it .lb{font-size:16px;margin-top:16px}}
+.show{position:relative;z-index:0}
+.arcbox{position:relative}
+.arc{isolation:isolate}
+@media(max-width:700px){.arcbox{height:452px;margin-top:10px}.arc{position:absolute;left:0;right:0;top:0;margin:0;transform:scale(.64);transform-origin:50% 0;-webkit-mask-image:none;mask-image:none}.arc .it .lb{font-size:22px}}
 .pills{display:grid;gap:14px;max-width:800px;margin:10px auto 0}
 .pill{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;background:var(--panel);border-radius:22px;padding:20px 28px}
 .pill b{display:grid;place-items:center;height:56px;border-radius:99px;background:var(--blue);color:#fff;font:700 21px var(--en);letter-spacing:.04em}
@@ -166,6 +171,108 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .ph .so{font:700 8.5px var(--sans);background:#8e9492;color:#fff;border-radius:4px;padding:1px 6px}
 .ph .cb{margin:auto 10px 12px;display:flex;justify-content:space-between;gap:6px;white-space:nowrap;overflow:hidden;background:var(--cbg,#141414);color:#fff;border-radius:12px;padding:10px 12px;font-weight:700;font-size:10.5px}
 
+
+/* ===== shop layouts (each shop has its own look) ===== */
+.scr[class*="L-"] .sb{position:relative;z-index:2}
+.L-teishoku{font-family:var(--sans)}
+.L-teishoku .t-hd{position:relative;padding:4px 14px 10px;text-align:center}
+.L-teishoku .t-noren{display:flex;justify-content:center;gap:3px;margin:0 auto 8px;width:78%}
+.L-teishoku .t-noren i{flex:1;height:34px;background:#b5461b;border-radius:0 0 3px 3px;display:grid;place-items:center;color:#fff8ec;font:700 13px var(--serif);font-style:normal}
+.L-teishoku .t-hd b{display:block;font:700 15px var(--serif);letter-spacing:.2em}
+.L-teishoku .t-hd small{display:block;font-size:9px;color:#8a6f5a;letter-spacing:.14em}
+.L-teishoku .t-ban{margin:0 12px 10px;padding:10px 12px;border:1.5px solid #b5461b;border-radius:6px;background:#fff8ec;position:relative}
+.L-teishoku .t-ban em{position:absolute;top:-8px;left:10px;background:#b5461b;color:#fff;font:700 8.5px var(--sans);font-style:normal;padding:1px 7px;border-radius:3px}
+.L-teishoku .t-ban b{display:block;font:700 13px var(--serif);margin-top:2px}
+.L-teishoku .t-ban span{font:700 12px var(--serif);color:#b5461b}
+.L-teishoku .t-tabs{display:flex;justify-content:space-around;border-bottom:1px solid #e8dccb;margin:0 12px;font:700 10.5px var(--serif);color:#8a6f5a}
+.L-teishoku .t-tabs span{padding:4px 2px 6px}
+.L-teishoku .t-tabs span.on{color:#1d1b18;box-shadow:inset 0 -2px 0 #b5461b}
+.L-teishoku .t-it{display:grid;grid-template-columns:46px 1fr auto;gap:10px;align-items:center;padding:9px 13px;border-bottom:1px dashed #e3d6c3}
+.L-teishoku .t-it .th{width:46px;height:46px;border-radius:4px;background:radial-gradient(circle at 35% 35%,#f3c690,#c46a2a 75%)}
+.L-teishoku .t-it b{display:block;font:700 11.5px var(--serif)}
+.L-teishoku .t-it small{display:block;font-size:8.5px;color:#8a6f5a}
+.L-teishoku .t-it .p{font:700 11.5px var(--serif);white-space:nowrap}
+.L-teishoku .t-it .so{background:#b9aa96}
+.L-teishoku .cb{background:#b5461b;border-radius:6px;font-family:var(--serif)}
+
+.L-cafe .c-hd{text-align:center;padding:10px 14px 6px}
+.L-cafe .c-hd b{display:block;font:600 16px var(--en);letter-spacing:.32em;color:#3b2a1f}
+.L-cafe .c-hd small{display:block;font:500 8px var(--en);letter-spacing:.3em;color:#a08a76;margin-top:2px}
+.L-cafe .c-tabs{display:flex;justify-content:center;gap:16px;padding:8px 0 10px;font:600 9.5px var(--en);letter-spacing:.14em;color:#a08a76}
+.L-cafe .c-tabs span.on{color:#3b2a1f;position:relative}
+.L-cafe .c-tabs span.on::after{content:"";position:absolute;left:50%;bottom:-6px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#7a5236}
+.L-cafe .c-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 10px;padding:4px 14px 10px}
+.L-cafe .c-card .im{display:block;aspect-ratio:1/1.15;border-radius:60px 60px 10px 10px;background:linear-gradient(160deg,#ead8c4,#b88a64)}
+.L-cafe .c-card:nth-child(2) .im{background:linear-gradient(160deg,#f2d9cf,#c98a6e)}
+.L-cafe .c-card:nth-child(3) .im{background:linear-gradient(160deg,#e3d2bf,#8a5f3e)}
+.L-cafe .c-card:nth-child(4) .im{background:linear-gradient(160deg,#efe2c8,#c7a46d)}
+.L-cafe .c-card b{display:block;font-size:10px;margin-top:6px;color:#3b2a1f}
+.L-cafe .c-card small{font:600 9.5px var(--en);color:#7a5236}
+.L-cafe .cb{background:transparent;color:#3b2a1f;border:1.5px solid #3b2a1f;border-radius:99px;font-family:var(--en)}
+
+.L-izakaya{background:#16181d!important;color:#f1ece4!important}
+.L-izakaya .i-hd{display:flex;align-items:center;gap:9px;padding:8px 12px 10px}
+.L-izakaya .i-hd .chochin{flex:none;width:30px;height:38px;border-radius:45%;background:radial-gradient(circle at 50% 40%,#ff7a5a,#d2311f 70%);color:#fff;display:grid;place-items:center;font:900 14px var(--serif);box-shadow:0 0 14px rgba(255,90,60,.55)}
+.L-izakaya .i-hd b{display:block;font:900 16px var(--serif);letter-spacing:.06em}
+.L-izakaya .i-hd small{font-size:8.5px;color:#a7a198}
+.L-izakaya .i-board{margin:0 10px 10px;padding:10px 12px;border-radius:6px;background:#203029;border:3px solid #6b4a2e;font-family:var(--serif)}
+.L-izakaya .i-board b{display:block;font-size:10.5px;color:#ffd86b;margin-bottom:4px}
+.L-izakaya .i-board p{display:flex;justify-content:space-between;font-size:10px;margin:2px 0;color:#f4f1e8}
+.L-izakaya .i-tabs{display:flex;gap:4px;padding:0 10px 8px}
+.L-izakaya .i-tabs span{flex:1;text-align:center;padding:5px 0;font-size:9.5px;font-weight:700;background:#262a31;color:#a7a198}
+.L-izakaya .i-tabs span.on{background:#d2311f;color:#fff}
+.L-izakaya .i-it{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-top:1px solid #2a2e35}
+.L-izakaya .i-it b{display:block;font-size:11.5px;font-weight:900}
+.L-izakaya .i-it small{font-size:8.5px;color:#a7a198}
+.L-izakaya .i-it .p{font:800 11px var(--en);background:#d2311f;color:#fff;padding:3px 8px;border-radius:3px}
+.L-izakaya .i-it .so{background:#4a4e55}
+.L-izakaya .cb{background:#d2311f;border-radius:4px}
+
+.L-intl .m-hd{display:flex;justify-content:space-between;align-items:center;padding:6px 12px 10px}
+.L-intl .m-hd b{font:700 12.5px var(--en);color:#16202c}
+.L-intl .m-hd small{display:block;font:500 8.5px var(--en);color:#6b7b8f}
+.L-intl .m-lang{display:flex;background:#eef3fa;border-radius:99px;padding:2px}
+.L-intl .m-lang span{font:700 8px var(--en);padding:3px 6px;border-radius:99px;color:#6b7b8f}
+.L-intl .m-lang span.on{background:#2b6cb0;color:#fff}
+.L-intl .m-ban{margin:0 12px 10px;border-radius:12px;padding:12px;background:linear-gradient(120deg,#2b6cb0,#5d8cc4);color:#fff}
+.L-intl .m-ban small{font:700 8px var(--en);letter-spacing:.14em;opacity:.8}
+.L-intl .m-ban b{display:block;font:700 13px var(--en)}
+.L-intl .m-it{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;margin:0 10px 7px;padding:7px;border-radius:12px;background:#fff;box-shadow:0 2px 8px -4px rgba(22,32,44,.25)}
+.L-intl .m-it .th{width:40px;height:40px;border-radius:9px;background:linear-gradient(135deg,#c8daf0,#5d8cc4)}
+.L-intl .m-it b{display:block;font:700 10.5px var(--en)}
+.L-intl .m-it small{display:block;font-size:8px;color:#6b7b8f}
+.L-intl .m-it .alg{display:flex;gap:3px;margin-top:2px}
+.L-intl .m-it .alg i{font:700 7px var(--en);font-style:normal;color:#b45309;background:#fff4e0;border-radius:3px;padding:0 4px}
+.L-intl .m-it .p{font:700 10.5px var(--en);color:#2b6cb0}
+.L-intl .cb{background:#2b6cb0;font-family:var(--en)}
+
+.L-ramen{background:#fff!important}
+.L-ramen .r-hd{margin:0 0 10px;background:#111;color:#fff;padding:10px 12px 14px;display:flex;align-items:center;gap:12px}
+.L-ramen .r-hd .big{flex:none;width:48px;height:48px;border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;font:900 26px var(--serif)}
+.L-ramen .r-hd b{display:block;font:900 15px var(--serif);letter-spacing:.2em}
+.L-ramen .r-hd small{font-size:8px;letter-spacing:.2em;color:#bbb}
+.L-ramen .r-lb{padding:0 12px 6px;font:800 9px var(--en);letter-spacing:.2em}
+.L-ramen .r-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 12px 10px}
+.L-ramen .r-tk{border:2px solid #111;padding:8px 6px;text-align:center;background:#fff}
+.L-ramen .r-tk b{display:block;font:900 11px var(--serif)}
+.L-ramen .r-tk small{font:800 10px var(--en)}
+.L-ramen .r-tk.on{background:#111;color:#fff}
+.L-ramen .r-tk.wide{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding:10px}
+.L-ramen .cb{background:#111;border-radius:0}
+
+.L-bistro{background:#f3f1e8!important;color:#1f2a22!important}
+.L-bistro .b-hd{text-align:center;padding:8px 12px 10px;border-bottom:1px solid #cfd6c8;margin:0 14px}
+.L-bistro .b-hd small{font:600 8px var(--en);letter-spacing:.4em;color:#2f7d4f}
+.L-bistro .b-hd b{display:block;font:italic 800 24px/1.1 var(--en);color:#1f2a22}
+.L-bistro .b-hd em{font:500 8.5px var(--serif);font-style:normal;color:#6a7a6c}
+.L-bistro .b-sec{text-align:center;font:italic 800 11px var(--en);color:#2f7d4f;padding:10px 0 4px}
+.L-bistro .b-it{display:flex;align-items:baseline;gap:6px;padding:5px 16px}
+.L-bistro .b-it b{font:700 10.5px var(--serif)}
+.L-bistro .b-it i{flex:1;border-bottom:1.5px dotted #9aa996;transform:translateY(-3px)}
+.L-bistro .b-it span{font:700 10px var(--en)}
+.L-bistro .b-it small{display:block;width:100%;font-size:8px;color:#6a7a6c;margin-top:-4px;padding:0 16px}
+.L-bistro .cb{background:#2f7d4f;border-radius:2px;font-family:var(--serif)}
+
 /* numbered chapters */
 .chap{position:relative;text-align:center;padding-top:20px;margin-bottom:48px}
 .chap .bgw{position:absolute;left:50%;top:-10px;transform:translateX(-50%);font:800 clamp(90px,17vw,220px)/1 var(--en);color:#f2f3f5;letter-spacing:-.02em;white-space:nowrap;pointer-events:none;z-index:0}
@@ -187,6 +294,10 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .circle .ph .scr{transition:background .6s,color .6s}
 .circle .lay{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transition:opacity .6s}
 .circle .lay.on{opacity:1}
+.circle{min-height:0;overflow:visible}
+@media(max-width:600px){.circle{aspect-ratio:auto;height:440px;background:none;box-shadow:none;border-radius:0;max-width:none}.circle::before{content:"";position:absolute;left:50%;top:50%;width:330px;height:330px;margin:-165px 0 0 -165px;border-radius:50%;background:#fff;box-shadow:0 30px 60px -40px rgba(20,40,60,.4)}.circle .ph{width:240px;max-width:none;flex:none;transform:scale(.86);z-index:1}}
+@media(max-width:400px){.circle{height:380px}.circle::before{width:280px;height:280px;margin:-140px 0 0 -140px}.circle .ph{transform:scale(.74)}}
+.circle .lay>*{flex-shrink:0}.circle .lay>.feed{flex-shrink:1}
 .circle .cap{position:absolute;bottom:9%;left:0;right:0;text-align:center;font-weight:900;font-size:16px}
 .swl{display:grid;gap:12px}
 .swl button{display:flex;align-items:center;gap:16px;width:100%;text-align:left;border:0;background:#fff;border-radius:18px;padding:16px 20px;font:700 15.5px var(--sans);color:var(--ink);cursor:pointer;position:relative;overflow:hidden;transition:box-shadow .3s}
@@ -243,6 +354,7 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .fh .n{font:italic 800 34px/1 var(--en);color:var(--blue)}
 .fh .who{display:inline-block;margin:10px 0 12px;font-size:11px;font-weight:700;color:var(--blue);background:var(--blue-l);border-radius:99px;padding:2px 12px}
 .fh .ph{width:100%;max-width:150px;margin:0 auto 16px}
+.fhp{display:block}
 .fh b{display:block;font-size:16px;font-weight:900;margin-bottom:4px}
 .fh p{font-size:13px;color:var(--muted);line-height:1.8}
 .cam{flex:1;background:#0d0d0d;display:grid;place-items:center;position:relative}
@@ -425,9 +537,9 @@ footer a:hover{color:var(--blue)}
   .mini div{padding:22px 18px;grid-template-columns:40px 1fr;column-gap:14px}.mini svg{width:32px;height:32px}.mini b{font-size:16px}.mini p{font-size:13.5px}
   .chap{margin-bottom:36px}
 }
-@media(max-width:900px){.flowh{grid-template-columns:1fr;gap:10px;margin-top:24px}.fh{display:grid;grid-template-columns:92px 1fr;grid-template-rows:auto auto auto 1fr;column-gap:18px;text-align:left;padding:16px 18px;align-items:start;align-content:center}.fh .ph{grid-column:1;grid-row:1/5;width:150px;max-width:none;margin:0;zoom:.6}.fh .n{grid-column:2;font-size:24px}.fh br{display:none}.fh .who{grid-column:2;justify-self:start;margin:6px 0 8px}.fh b{grid-column:2}.fh p{grid-column:2}}
-@media(max-width:460px){.pdph{width:140px;zoom:.6}}
-@media(max-width:400px){.fg a{font-size:13px;padding:18px 14px}.show h2{font-size:18px}.show h2.big{font-size:23px}.adm .row b{font-size:11.5px}}
+@media(max-width:900px){.flowh{grid-template-columns:1fr;gap:10px;margin-top:24px}.fh{display:grid;grid-template-columns:92px 1fr;grid-template-rows:auto auto auto 1fr;column-gap:18px;text-align:left;padding:16px 18px;align-items:start;align-content:center}.fhp{grid-column:1;grid-row:1/5;width:92px;height:181px;overflow:hidden}.fhp .ph{width:150px;max-width:none;margin:0;transform:scale(.6133);transform-origin:0 0}.fh .n{grid-column:2;font-size:24px}.fh br{display:none}.fh .who{grid-column:2;justify-self:start;margin:6px 0 8px}.fh b{grid-column:2}.fh p{grid-column:2}}
+@media(max-width:460px){.pdph{width:84px;height:166px}.pdph .ph{width:140px;transform:scale(.6);transform-origin:0 0}}
+@media(max-width:400px){.fg a{font-size:13px;padding:18px 14px}.show h2{font-size:17px}.show h2.big{font-size:20px}.adm .row b{font-size:11.5px}}
 .rv{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 .stg>*{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
@@ -472,7 +584,7 @@ footer a:hover{color:var(--blue)}
     <h2>お店の数だけ、メニューの形を。</h2>
     <h2 class="big blue">雰囲気まで、そのまま届ける</h2>
   </div>
-  <div class="arc" id="arc" aria-label="業態ごとにデザインを変えた注文画面の例（画面はイメージです）"></div>
+  <div class="arcbox"><div class="arc" id="arc" aria-label="業態ごとにデザインを変えた注文画面の例（画面はイメージです）"></div></div>
   <div class="wrap">
     <div class="pills stg">
       <div class="pill"><b>Design</b><p>色・ロゴ・メニューの見せ方を、お店の世界観に合わせて設計</p></div>
@@ -540,10 +652,10 @@ footer a:hover{color:var(--blue)}
       <h3>注文の流れ</h3>
       <p class="tx">お客様もお店も、迷わず使える4ステップです。</p>
       <div class="flowh stg">
-        <div class="fh"><span class="n">01</span><br><span class="who">お客様</span><div class="ph"><div class="scr"><div class="cam"><div class="fr" id="qr"></div></div></div></div><b>QRコードを読む</b><p>カメラをかざすと、その席のメニューが開く</p></div>
-        <div class="fh"><span class="n">02</span><br><span class="who">お客様</span><div class="ph"><div class="scr" id="flmenu"></div></div><b>選んで、送る</b><p>写真つきで選べる。追加注文も同じ画面から</p></div>
-        <div class="fh"><span class="n">03</span><br><span class="who">お店</span><div class="ph"><div class="scr"><div class="ord"><div class="oc nw"><b>テーブル5</b><br>生姜焼き定食 ×1</div><div class="oc c"><b>テーブル2</b><br>だし巻き玉子 ×2</div></div></div></div><b>注文一覧に届く</b><p>どの席から何が入ったか、すぐわかる</p></div>
-        <div class="fh"><span class="n">04</span><br><span class="who">お客様・お店</span><div class="ph"><div class="scr"><div class="dn"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>受け付けました</b><strong>128</strong><small>お会計はレジで</small></div></div></div><b>会計はいつもどおり</b><p>事前決済を付ければ、カード払いも</p></div>
+        <div class="fh"><span class="n">01</span><br><span class="who">お客様</span><div class="fhp"><div class="ph"><div class="scr"><div class="cam"><div class="fr" id="qr"></div></div></div></div></div><b>QRコードを読む</b><p>カメラをかざすと、その席のメニューが開く</p></div>
+        <div class="fh"><span class="n">02</span><br><span class="who">お客様</span><div class="fhp"><div class="ph"><div class="scr" id="flmenu"></div></div></div><b>選んで、送る</b><p>写真つきで選べる。追加注文も同じ画面から</p></div>
+        <div class="fh"><span class="n">03</span><br><span class="who">お店</span><div class="fhp"><div class="ph"><div class="scr"><div class="ord"><div class="oc nw"><b>テーブル5</b><br>生姜焼き定食 ×1</div><div class="oc c"><b>テーブル2</b><br>だし巻き玉子 ×2</div></div></div></div></div><b>注文一覧に届く</b><p>どの席から何が入ったか、すぐわかる</p></div>
+        <div class="fh"><span class="n">04</span><br><span class="who">お客様・お店</span><div class="fhp"><div class="ph"><div class="scr"><div class="dn"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>受け付けました</b><strong>128</strong><small>お会計はレジで</small></div></div></div></div><b>会計はいつもどおり</b><p>事前決済を付ければ、カード払いも</p></div>
       </div>
     </div>
   </div>
@@ -683,7 +795,7 @@ footer a:hover{color:var(--blue)}
   var RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
   var $=function(id){return document.getElementById(id)};
   /* ---------- shop themes ---------- */
-  var SHOPS=[
+  var SHOPS0=[
     {k:"定食・食堂",n:"食堂 ともしび",m:"灯",s:"TABLE 5 ・ 定食と季節の一品",ban:"今日の日替わり",c:"#c8551f",bg:"#fffdf9",fg:"#1d1b18",t:["#f6c79a","#d9853f"],tabs:["定食","一品","飲み物","甘味"],items:[["生姜焼き定食","ごはん大盛り無料",980],["焼き魚定食","塩さばを炭火で",1080],["季節の野菜天","塩でどうぞ",680],["本日の煮込み","数量限定",0]],cart:"注文を送る（2点）",tot:"¥1,660",d:"木のぬくもりと、手書き風の温かさ"},
     {k:"カフェ",n:"CAFE LUMEN",m:"L",s:"TABLE 3 ・ 自家焙煎珈琲",ban:"Seasonal Tart",c:"#7a5236",bg:"#f7f1ea",fg:"#2b2119",t:["#e9d3bd","#a77b57"],tabs:["Coffee","Sweets","Food"],items:[["カフェラテ","エスプレッソ ダブル",550],["季節のタルト","いちじくとクリーム",620],["ドリップ","エチオピア",600],["ホットサンド","ハムとチーズ",780]],cart:"注文を送る（2点）",tot:"¥1,170",d:"余白を広くとった、落ち着いた雰囲気"},
     {k:"居酒屋・バー",n:"居酒屋 まる",m:"丸",s:"カウンター 2 ・ 炭火焼き鳥",ban:"本日のおすすめ",c:"#e8463a",bg:"#1b1e25",fg:"#f3f3f3",st:"rgba(255,255,255,.12)",sl:"rgba(255,255,255,.08)",cbg:"#e8463a",t:["#7a4a33","#2b1d17"],tabs:["焼き鳥","一品","飲み物","〆"],items:[["焼き鳥盛り","5本 おまかせ",1280],["ポテトサラダ","いぶりがっこ入り",480],["生ビール","中ジョッキ",590],["だし巻き玉子","焼きたて",0]],cart:"注文を送る（3点）",tot:"¥2,350",d:"夜のお店に合う、暗めの配色"},
@@ -691,16 +803,48 @@ footer a:hover{color:var(--blue)}
     {k:"ラーメン",n:"麺処 しお",m:"塩",s:"TABLE 1 ・ 塩らーめん専門",ban:"特製塩らーめん",c:"#141414",bg:"#ffffff",fg:"#141414",t:["#efe6d2","#c9b37f"],tabs:["らーめん","トッピング","ご飯"],items:[["塩らーめん","鶏と貝の清湯",900],["特製塩","味玉・肉増し",1250],["味玉","半熟",120],["チャーシュー丼","小盛り",380]],cart:"注文を送る（2点）",tot:"¥1,020",d:"白と黒だけの、潔いデザイン"},
     {k:"ビストロ",n:"Bistro Nami",m:"N",s:"TABLE 8 ・ ワインと小皿",ban:"Vin du jour",c:"#2f7d4f",bg:"#f4f8f3",fg:"#18241b",t:["#cfe3cf","#6aa27a"],tabs:["前菜","メイン","ワイン"],items:[["前菜盛り","本日の3種",1100],["鴨のコンフィ","じゃがいものピュレ",1800],["赤ワイン","グラス 南仏",700],["ブリュレ","バニラ",550]],cart:"注文を送る（2点）",tot:"¥2,500",d:"グリーンを効かせた、軽やかな印象"}
   ];
+  var SHOPS=SHOPS0.map(function(s,i){s.L=["teishoku","cafe","izakaya","intl","ramen","bistro"][i];return s});
+  SHOPS[0].bg="#fbf6ec";SHOPS[0].cart="注文する（2品）";SHOPS[4].cart="食券を発行（2枚）";SHOPS[5].cart="Commander（2）";
   function yen(n){return "¥"+n.toLocaleString("ja-JP")}
   function vars(sh){return '--sc:'+sh.c+';--sb:'+sh.bg+';--sf:'+sh.fg+';--t1:'+sh.t[0]+';--t2:'+sh.t[1]+(sh.st?';--st:'+sh.st:'')+(sh.sl?';--sl:'+sh.sl:'')+(sh.cbg?';--cbg:'+sh.cbg:'')}
-  function inner(sh,short){
-    var h='<div class="sb"><span>12:04</span><span>5G</span></div><div class="hd"><span class="av">'+sh.m+'</span><div><b>'+sh.n+'</b><small>'+sh.s+'</small></div></div>';
-    if(!short)h+='<div class="hero2">'+sh.ban+'</div>';
-    h+='<div class="tb">'+sh.tabs.map(function(t,i){return'<span class="'+(i?"":"on")+'">'+t+'</span>'}).join("")+'</div>';
-    sh.items.slice(0,short?3:4).forEach(function(it){h+='<div class="it2"><span class="th"></span><span><b>'+it[0]+'</b><small>'+it[1]+'</small></span><span class="p">'+(it[2]?yen(it[2])+'<i>+</i>':'<span class="so">売り切れ</span>')+'</span></div>'});
-    return h+'<div class="cb"><span>'+sh.cart+'</span><span>'+sh.tot+'</span></div>';
+  var LAY=["teishoku","cafe","izakaya","intl","ramen","bistro"];
+  function tabsOf(sh,cls){return '<div class="'+cls+'">'+sh.tabs.map(function(t,i){return'<span class="'+(i?"":"on")+'">'+t+'</span>'}).join("")+'</div>'}
+  function body(sh){
+    var L=sh.L,it=sh.items,h="";
+    if(L==="teishoku"){
+      h+='<div class="t-hd"><div class="t-noren"><i>と</i><i>も</i><i>し</i><i>び</i></div><b>食堂 ともしび</b><small>定食と季節の一品 ・ 五番卓</small></div>';
+      h+='<div class="t-ban"><em>本日の日替わり</em><b>鶏の照り焼き定食</b><span>850円</span></div>'+tabsOf(sh,"t-tabs");
+      it.forEach(function(x){h+='<div class="t-it"><span class="th"></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p">'+(x[2]?x[2].toLocaleString()+'円':'<span class="so">売り切れ</span>')+'</span></div>'});
+    }else if(L==="cafe"){
+      h+='<div class="c-hd"><b>LUMEN</b><small>COFFEE &amp; SWEETS ・ TABLE 3</small></div>'+tabsOf(sh,"c-tabs")+'<div class="c-grid">';
+      it.forEach(function(x){h+='<div class="c-card"><span class="im"></span><b>'+x[0]+'</b><small>'+yen(x[2])+'</small></div>'});
+      h+='</div>';
+    }else if(L==="izakaya"){
+      h+='<div class="i-hd"><span class="chochin">丸</span><div><b>居酒屋 まる</b><small>カウンター2 ・ 炭火焼き鳥</small></div></div>';
+      h+='<div class="i-board"><b>本日のおすすめ</b><p><span>ぶり大根</span><span>580</span></p><p><span>つくね（月見）</span><span>320</span></p><p><span>菜の花のおひたし</span><span>380</span></p></div>'+tabsOf(sh,"i-tabs");
+      it.forEach(function(x){h+='<div class="i-it"><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p'+(x[2]?'':' so')+'">'+(x[2]?yen(x[2]):'品切れ')+'</span></div>'});
+    }else if(L==="intl"){
+      h+='<div class="m-hd"><div><b>Tomoshibi</b><small>Table 5</small></div><div class="m-lang"><span>JP</span><span class="on">EN</span><span>中</span><span>한</span></div></div>';
+      h+='<div class="m-ban"><small>TODAY\'S SPECIAL</small><b>Teriyaki Chicken Set</b></div>';
+      var AL=[["Wheat","Soy"],["Fish"],["Wheat","Egg"],["Milk"]];
+      it.forEach(function(x,k){h+='<div class="m-it"><span class="th"></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small><span class="alg">'+AL[k].map(function(a){return'<i>'+a+'</i>'}).join("")+'</span></span><span class="p">'+yen(x[2])+'</span></div>'});
+    }else if(L==="ramen"){
+      h+='<div class="r-hd"><span class="big">塩</span><div><b>麺処 しお</b><small>SHIO RAMEN ・ 1番席</small></div></div><div class="r-lb">TICKET</div><div class="r-grid">';
+      h+='<div class="r-tk wide on"><b>特製塩らーめん</b><small>¥1,250</small></div>';
+      it.forEach(function(x,k){if(k===1)return;h+='<div class="r-tk"><b>'+x[0]+'</b><small>'+yen(x[2])+'</small></div>'});
+      h+='<div class="r-tk"><b>大盛り</b><small>+¥150</small></div></div>';
+    }else{
+      h+='<div class="b-hd"><small>BISTRO</small><b>Nami</b><em>本日のカルト ・ 8番テーブル</em></div><div class="b-sec">Entrée</div>';
+      it.forEach(function(x,k){if(k===2)h+='<div class="b-sec">Vin &amp; Dessert</div>';h+='<div class="b-it"><b>'+x[0]+'</b><i></i><span>'+x[2].toLocaleString()+'</span></div><div class="b-it"><small>'+x[1]+'</small></div>'});
+    }
+    return h;
   }
-  function phone(sh,short){return '<div class="ph"><div class="scr" style="'+vars(sh)+'">'+inner(sh,short)+'</div></div>'}
+  function inner(sh,arc){
+    var b=body(sh);
+    return '<div class="sb"><span>12:04</span><span>5G</span></div><div class="feed"><div class="feedin">'+b+(arc?b:'')+'</div></div><div class="cb"><span>'+sh.cart+'</span><span>'+sh.tot+'</span></div>';
+  }
+  function scrAttr(sh,extra){return 'class="scr L-'+sh.L+'" style="'+vars(sh)+';background:'+sh.bg+';color:'+sh.fg+(extra||'')+'"'}
+  function phone(sh){return '<div class="ph"><div '+scrAttr(sh)+'>'+inner(sh)+'</div></div>'}
 
   var POPS=[
     ["✓","ご注文を受け付けました","128","できあがりまで少々お待ちください","閉じる"],
@@ -711,17 +855,12 @@ footer a:hover{color:var(--blue)}
     ["🍷","本日のワイン","¥700","南仏の赤 ・ グラス","注文する"]
   ];
   function arcScreen(sh,i){
-    var it=sh.items.concat(sh.items),h='<div class="sb"><span>12:04</span><span>5G</span></div><div class="hd"><span class="av">'+sh.m+'</span><div><b>'+sh.n+'</b><small>'+sh.s+'</small></div></div>';
-    h+='<div class="feed"><div class="feedin"><div class="hero2">'+sh.ban+'</div><div class="tb">'+sh.tabs.map(function(t,k){return'<span class="'+(k?"":"on")+'">'+t+'</span>'}).join("")+'</div>';
-    it.forEach(function(x,k){if(k===4)h+='<div class="sec">'+sh.tabs[1]+'</div>';h+='<div class="it2"><span class="th"></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p">'+(x[2]?yen(x[2])+'<i>+</i>':'<span class="so">売り切れ</span>')+'</span></div>'});
-    h+='</div></div><div class="cb"><span>'+sh.cart+'</span><span>'+sh.tot+'</span></div>';
     var p=POPS[i%POPS.length];
-    h+='<div class="dim"></div><div class="pop"><i>'+p[0]+'</i><b>'+p[1]+'</b>'+(p[2]?'<strong>'+p[2]+'</strong>':'')+'<small>'+p[3]+'</small><em>'+p[4]+'</em></div><div class="flash"></div>';
-    return h;
+    return inner(sh,true)+'<div class="dim"></div><div class="pop"><i>'+p[0]+'</i><b>'+p[1]+'</b>'+(p[2]?'<strong>'+p[2]+'</strong>':'')+'<small>'+p[3]+'</small><em>'+p[4]+'</em></div><div class="flash"></div>';
   }
   /* ---------- arc showcase ---------- */
   var arc=$("arc"),tabs=$("ctabs"),N=SHOPS.length*2,items=[];
-  for(var i=0;i<N;i++){var sh=SHOPS[i%SHOPS.length],el=document.createElement("div");el.className="it";el.dataset.i=i%SHOPS.length;var si=i%SHOPS.length;el.innerHTML='<div class="ph"><div class="scr" style="'+vars(sh)+';--fd:'+(10+si%3*1.5)+'s;--dl:-'+(si*1.7+(i>=SHOPS.length?5:0))+'s;--pd:'+(8+si%2*1.5)+'s;--pl:-'+(si*2.3+(i>=SHOPS.length?4:0))+'s">'+arcScreen(sh,si)+'</div></div><span class="lb">'+sh.k+'</span>';if(i>=SHOPS.length)el.setAttribute("aria-hidden","true");arc.appendChild(el);items.push(el)}
+  for(var i=0;i<N;i++){var sh=SHOPS[i%SHOPS.length],el=document.createElement("div");el.className="it";el.dataset.i=i%SHOPS.length;var si=i%SHOPS.length;el.innerHTML='<div class="ph"><div '+scrAttr(sh,';--fd:'+(10+si%3*1.5)+'s;--dl:-'+(si*1.7+(i>=SHOPS.length?5:0))+'s;--pd:'+(8+si%2*1.5)+'s;--pl:-'+(si*2.3+(i>=SHOPS.length?4:0))+'s')+'>'+arcScreen(sh,si)+'</div></div><span class="lb">'+sh.k+'</span>';if(i>=SHOPS.length)el.setAttribute("aria-hidden","true");arc.appendChild(el);items.push(el)}
   tabs.innerHTML=SHOPS.map(function(s,i){return'<button type="button" role="tab" data-i="'+i+'">'+s.k+'</button>'}).join("");
   var off=0,target=null,paused=false,last=0;
   function geo(){var m=matchMedia("(max-width:700px)").matches;return{step:m?12:11.5,speed:m?2.6:2.2}}
@@ -744,7 +883,7 @@ footer a:hover{color:var(--blue)}
   /* ---------- 01 theme switcher ---------- */
   var swl=$("swl"),swscr=$("swscr"),swi=0,swTimer;
   swl.innerHTML=SHOPS.map(function(s,i){return'<button type="button" data-i="'+i+'"><span class="dot" style="background:linear-gradient(135deg,'+s.t[0]+','+s.c+')"></span><span>'+s.k+'<small>'+s.d+'</small></span><span class="bar"></span></button>'}).join("");
-  swscr.innerHTML=SHOPS.map(function(s,i){return'<div class="lay" data-i="'+i+'" style="'+vars(s)+';background:'+s.bg+';color:'+s.fg+'">'+inner(s)+'</div>'}).join("");
+  swscr.innerHTML=SHOPS.map(function(s,i){return'<div class="lay L-'+s.L+'" data-i="'+i+'" style="'+vars(s)+';background:'+s.bg+';color:'+s.fg+'">'+inner(s)+'</div>'}).join("");
   function setSw(i){swi=i;swl.querySelectorAll("button").forEach(function(b){var on=b.dataset.i==i;b.classList.toggle("on",false);if(on){void b.offsetWidth;b.classList.add("on")}});swscr.querySelectorAll(".lay").forEach(function(l){l.classList.toggle("on",l.dataset.i==i)});
     clearTimeout(swTimer);if(!RM)swTimer=setTimeout(function(){setSw((swi+1)%SHOPS.length)},3200)}
   swl.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setSw(+b.dataset.i)});
@@ -768,13 +907,13 @@ footer a:hover{color:var(--blue)}
   var edStarted=false;
 
   /* ---------- flow phones ---------- */
-  $("flmenu").setAttribute("style",vars(SHOPS[0]));$("flmenu").innerHTML=inner(SHOPS[0],true);
+  $("flmenu").outerHTML='<div '+scrAttr(SHOPS[0])+'>'+inner(SHOPS[0])+'</div>';
   (function(){var n=21,r=7,c="";function R(){r=(r*9301+49297)%233280;return r/233280}
     for(var y=0;y<n;y++)for(var x=0;x<n;x++){if((x<8&&y<8)||(x>12&&y<8)||(x<8&&y>12))continue;if(R()<.5)c+='<rect x="'+x+'" y="'+y+'" width="1" height="1"/>'}
     function f(x,y){return'<rect x="'+x+'" y="'+y+'" width="7" height="7"/><rect x="'+(x+1)+'" y="'+(y+1)+'" width="5" height="5" fill="#fff"/><rect x="'+(x+2)+'" y="'+(y+2)+'" width="3" height="3"/>'}
     $("qr").innerHTML='<svg viewBox="0 0 21 21" shape-rendering="crispEdges"><g fill="#141414">'+c+f(0,0)+f(14,0)+f(0,14)+'</g></svg>'})();
 
-  $("pdph").innerHTML=phone(SHOPS[0],true);
+  $("pdph").innerHTML=phone(SHOPS[0]);
   /* ---------- calculator ---------- */
   var OPTS=[["call","店員の呼び出しボタン","お客様のスマホから呼び出し",3000],["allergy","アレルギー表示","メニューごとに原材料を表示",3000],["lang","多言語メニュー","英語・中国語・韓国語",5000],["line","注文のLINE通知","新しい注文をLINEでお知らせ",5000],["sales","売上集計","日別・メニュー別の売上",5000],["pay","事前決済（カード）","注文と同時に支払い ※Stripe手数料別",5000],["takeout","テイクアウトの事前注文","来店前に注文・受け取り時間を指定",9800]];
   var list=$("olist");
