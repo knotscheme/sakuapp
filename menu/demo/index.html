@@ -924,10 +924,10 @@ function aEdit(){
   h+='<section class="eds"><h3>メイン写真</h3><p class="edh">店名の下に大きく表示されます。料理や店内の写真がおすすめです</p><div class="cur" style="'+bgu(P.hero)+'"></div>'+picker("hero",P.hero)+'</section>';
   h+='<section class="eds"><h3>本日のおすすめ</h3><div class="form"><label>料理名<input type="text" data-chg="pkn" value="'+esc(P.pick.n)+'" maxlength="20"></label><label>価格（円）<input type="number" data-chg="pkp" value="'+P.pick.p+'" min="0" step="10"></label></div></section>';
   h+='<section class="eds"><h3>お知らせ</h3><textarea class="nta" data-chg="notice" maxlength="80">'+esc(P.notice)+'</textarea></section>';
-  h+='<section class="eds wide"><h3>メニューの写真</h3><p class="edh">メニューを選んで、写真を変えられます</p><div class="mrows">'+S.items.map(function(m){return'<button type="button" class="mrw'+(a.em===m.id?" on":"")+'" data-act="em" data-id="'+m.id+'"><i style="'+bgu(imgU(m.img))+'">'+(m.img?"":"写真なし")+'</i><b>'+esc(m.n[0])+'</b></button>'}).join("")+'</div>'+(a.em?'<div class="emp"><small>「'+esc(item(a.em).n[0])+'」の写真</small>'+picker("m:"+a.em,imgU(item(a.em).img))+'<button type="button" class="abtn" data-act="img" data-tg="m:'+a.em+'" data-u="">写真を外す</button></div>':'')+'</section></div>';
+  h+='</div>';
   return h;
 }
-function setImg(tg,u){if(tg.slice(0,2)==="b:"){S.page.blocks[tg.slice(2)].img=u;save();renderAll();return}if(tg.slice(0,2)==="g:"){var q=tg.split(":");S.page.blocks[q[1]].imgs[+q[2]]=u;save();renderAll();return}if(tg==="hero")S.page.hero=u;else{var m=item(tg.slice(2));if(m){m.img=u||null}}save();renderAll()}
+function setImg(tg,u){if(tg==="f:"){readForm();UI.a.edit.img=u||null;renderA();return}if(tg.slice(0,2)==="b:"){S.page.blocks[tg.slice(2)].img=u;save();renderAll();return}if(tg.slice(0,2)==="g:"){var q=tg.split(":");S.page.blocks[q[1]].imgs[+q[2]]=u;save();renderAll();return}if(tg==="hero")S.page.hero=u;else{var m=item(tg.slice(2));if(m){m.img=u||null}}save();renderAll()}
 function aSettings(){
   var st=S.store;
   return'<div class="ah"><h2>店舗設定</h2><span class="meta">お客様の画面の見た目が変わります</span></div><div class="form">'+
@@ -954,7 +954,7 @@ function editModal(){
   '<label>価格（円）<input type="number" id="f-p" value="'+e.p+'" min="0" step="10"></label>'+
   '<label>カテゴリ<select id="f-c">'+S.cats.map(function(k){return'<option value="'+k.id+'"'+(k.id===e.cat?" selected":"")+'>'+esc(k.n[0])+'</option>'}).join("")+'</select></label>'+
   '<label>説明<textarea id="f-d" maxlength="60">'+esc(e.d)+'</textarea></label>'+
-  '<div><div style="font-size:12.5px;font-weight:700;margin-bottom:6px">写真（デモではアイコンで代用）</div><div class="emj">'+EMOJI.map(function(x){return'<button type="button" data-act="emj" data-e="'+x+'" aria-pressed="'+(x===e.e)+'">'+x+'</button>'}).join("")+'</div></div>'+
+  '<div class="emp"><div style="font-size:12.5px;font-weight:700;margin-bottom:6px">写真</div>'+picker("f:",imgU(e.img))+(e.img?'<button type="button" class="abtn" data-act="img" data-tg="f:" data-u="">写真を外す</button>':'')+'</div>'+
   '</div><div class="acts">'+(e.isNew?"":'<button type="button" class="abtn warn" data-act="delitem">削除</button>')+'<button type="button" class="abtn" data-act="cancel">キャンセル</button><button type="button" class="abtn pri" data-act="saveitem">保存</button></div></div></div>';
 }
 
@@ -1002,14 +1002,14 @@ document.addEventListener("click",function(ev){
   case"callok":S.calls.splice(+el.dataset.i,1);save();break;
   case"checkout":S.orders.forEach(function(o){if(o.t===el.dataset.t&&!o.closed){o.closed=true;o.s="served"}});S.calls=S.calls.filter(function(k){return k.t!==el.dataset.t});save();break;
   case"mc":a.mc=el.dataset.c;break;
-  case"edit":it=item(el.dataset.id);a.edit={id:it.id,n:it.n[0],p:it.p,cat:it.cat,d:(it.d||[""])[0],e:it.e};break;
-  case"newitem":a.edit={isNew:true,n:"",p:500,cat:a.mc!=="all"?a.mc:S.cats[0].id,d:"",e:"🍛"};break;
+  case"edit":it=item(el.dataset.id);a.edit={id:it.id,n:it.n[0],p:it.p,cat:it.cat,d:(it.d||[""])[0],e:it.e,img:it.img||null};break;
+  case"newitem":a.edit={isNew:true,n:"",p:500,cat:a.mc!=="all"?a.mc:S.cats[0].id,d:"",e:"🍛",img:null};break;
   case"emj":readForm();a.edit.e=el.dataset.e;a.edit.pick=true;break;
   case"cancel":a.edit=null;break;
   case"saveitem":readForm();var e=a.edit;if(!e.n.trim()){alert("商品名を入力してください");return}
     var p=Math.max(0,Math.round(+e.p||0));
-    if(e.isNew){S.items.push({id:"n"+(++S.nid),cat:e.cat,e:e.e,p:p,n:[e.n,e.n,e.n,e.n],d:[e.d,e.d,e.d,e.d],a:[],o:[]})}
-    else{it=item(e.id);var chg=it.n[0]!==e.n;it.n[0]=e.n;if(chg)it.n=[e.n,e.n,e.n,e.n];it.d=it.d||["","","",""];if(it.d[0]!==e.d)it.d=[e.d,e.d,e.d,e.d];it.p=p;it.cat=e.cat;it.e=e.e;if(e.pick){it.img=null;it.hero=null}}
+    if(e.isNew){S.items.push({id:"n"+(++S.nid),cat:e.cat,e:e.e,p:p,n:[e.n,e.n,e.n,e.n],d:[e.d,e.d,e.d,e.d],a:[],o:[],img:e.img||null})}
+    else{it=item(e.id);var chg=it.n[0]!==e.n;it.n[0]=e.n;if(chg)it.n=[e.n,e.n,e.n,e.n];it.d=it.d||["","","",""];if(it.d[0]!==e.d)it.d=[e.d,e.d,e.d,e.d];it.p=p;it.cat=e.cat;it.e=e.e;if(it.img!==e.img){it.img=e.img||null;it.hero=null}}
     a.edit=null;save();break;
   case"delitem":if(!confirm("この商品を削除しますか？"))return;S.items=S.items.filter(function(i){return i.id!==a.edit.id});c.cart=c.cart.filter(function(x){return x.id!==a.edit.id});a.edit=null;save();break;
   case"addtable":var n=S.tables.filter(function(t){return/^t\d+$/.test(t.id)}).length+1;while(S.tables.some(function(t){return t.id==="t"+n}))n++;S.tables.splice(S.tables.filter(function(t){return/^t/.test(t.id)}).length,0,{id:"t"+n,n:"テーブル"+n});save();break;
