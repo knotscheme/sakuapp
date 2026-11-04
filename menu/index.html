@@ -680,6 +680,12 @@ footer a:hover{color:var(--blue)}
   .sticky .p{font-size:10px}.sticky .p b{font-size:14px}
   .sticky .btn{min-height:42px;font-size:13.5px;border-radius:8px}
 }
+/* ===== Japanese line breaking: break only between phrases ===== */
+.jp{word-break:keep-all;overflow-wrap:anywhere;line-break:strict}
+h1,h2,h3,h4,summary,.pill p,.chap p,.answer{text-wrap:balance}
+p,small,li,dd{text-wrap:pretty}
+.ef b,.pcard b,.hfacts b,.stats b,.sum .tot b,.olist em,.cmpt .num{white-space:nowrap}
+@media(max-width:400px){.mini b{font-size:15px}.pd b{font-size:17px}.chap h2{font-size:24px}}
 .rv{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 .stg>*{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
@@ -707,7 +713,7 @@ footer a:hover{color:var(--blue)}
       <p class="lede">テーブルのQRを読むだけで、お客様のスマホから注文。画面の色・書体・並べ方まで、お店の雰囲気に合わせてお作りします。</p>
       <div class="ctas"><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで無料相談する<span class="chev">›</span></a><a class="tlink" href="demo/">デモを触ってみる ›</a></div>
       <ul class="hfacts"><li><small>初期費用</small><b>9,800<span>円</span></b></li><li><small>月額</small><b>1,980<span>円</span></b></li><li><small>注文手数料</small><b>0<span>円</span></b></li></ul>
-      <p class="fine">月額はサーバー代・保守込み ・ 最低契約期間なし ・ 正式受付は2027年6月ごろから（先行のご案内はLINEで受付中）</p>
+      <p class="fine">月額はサーバー代・保守込み ・ 最低契約期間なし ・ 正式受付は2027年6月ごろから（先行のご案内はLINEで受付中）</p>
     </div>
     <div class="hvis" aria-hidden="true">
       <div class="hblk"><span class="hring"></span><img class="hplate" src="img/teishoku-top.webp" alt="" width="512" height="512"></div>
@@ -816,7 +822,7 @@ footer a:hover{color:var(--blue)}
 <section class="demo" id="demo">
   <div class="wrap center rv">
     <p style="font:800 15px var(--en);letter-spacing:.14em;color:var(--blue)">LIVE DEMO</p>
-    <h2 style="font-size:clamp(30px,4.6vw,48px)">まずは、触ってみてください。</h2>
+    <h2 style="font-size:clamp(24px,6.4vw,48px)">まずは、触ってみてください。</h2>
     <p style="color:var(--ink2);margin-top:10px">左のスマホで注文すると、右のお店の画面に届きます。右上の「追加機能を試す」で、多言語や呼び出しボタンも確かめられます。</p>
   </div>
   <div class="frame rv"><iframe id="demoframe" data-src="demo/?embed=1" title="モバイルメニューのデモ" loading="lazy"></iframe></div>
@@ -893,7 +899,7 @@ footer a:hover{color:var(--blue)}
     <div class="center rv"><p style="font:800 15px var(--en);letter-spacing:.14em;color:var(--blue)">FAQ</p><h2 style="font-size:clamp(28px,4.2vw,44px)">よくある質問</h2></div>
     <div class="faq rv">
       <details><summary>専用の端末やタブレットを買う必要はありますか？</summary><p>ありません。注文の確認は、お店にあるスマホ・タブレット・PCのブラウザでできます。厨房に1台置いておくと便利です。</p></details>
-      <details><summary>お店にWi-Fiは必要ですか？</summary><p>お客様はご自身のスマホの通信で注文するので、お客様用のWi-Fiは不要です。注文を受け取るお店側の端末は、インターネットにつながっている必要があります。</p></details>
+      <details><summary>お店にWi‑Fiは必要ですか？</summary><p>お客様はご自身のスマホの通信で注文するので、お客様用のWi‑Fiは不要です。注文を受け取るお店側の端末は、インターネットにつながっている必要があります。</p></details>
       <details><summary>月額1,980円には何が含まれますか？</summary><p>アプリを動かすサーバー代と、不具合の修正・アップデート・バックアップの保守費用です。これ以外の月額費用はかかりません。</p></details>
       <details><summary>注文が増えると料金も上がりますか？</summary><p>上がりません。サクアプへの注文手数料は0円で、注文数や売上に関係なく月額1,980円です。事前決済を追加した場合のみ、決済サービスStripeの手数料が別途かかります（Stripeへ直接のお支払い）。</p></details>
       <details><summary>デザインはどこまでお店に合わせられますか？</summary><p>色・ロゴ・写真の見せ方・カテゴリの並べ方・メニューの説明文などを、お店の雰囲気に合わせて設計します。画面の構成そのものを大きく変えたい場合は、オーダーメイド開発でご相談ください。</p></details>
@@ -1091,6 +1097,28 @@ footer a:hover{color:var(--blue)}
   function onScroll(){var y=scrollY;hd.classList.toggle("solid",true);st.classList.toggle("on",y>hero.offsetHeight-60&&fin.getBoundingClientRect().top>innerHeight*.7)}
   addEventListener("scroll",onScroll,{passive:true});onScroll();
 
+
+  /* ---------- phrase-aware line breaks for Japanese ---------- */
+  (function(){
+    if(!window.Intl||!Intl.Segmenter)return;
+    var seg=new Intl.Segmenter("ja",{granularity:"word"});
+    var HIRA=/^[ぁ-ゟー]/,PUNC=/^[、。，．・：；！？）」』】〕〉》”’!?,.:;)\]～〜\/%]/,OPEN=/[（「『【〔〈《“‘(\[]$/,DIG=/[0-9０-９,.]$/,UNIT=/^[円件分秒時日月年人回品点個枚杯本歳台席名階種割%％]/;
+    function chunks(t){var out=[],cur="",prev="";
+      for(var x of seg.segment(t)){var w=x.segment;
+        var join=!cur||HIRA.test(w)||PUNC.test(w)||OPEN.test(prev)||/^\s+$/.test(w)||(DIG.test(prev)&&(/^[0-9]/.test(w)||UNIT.test(w)))||prev==="お"||prev==="ご"||prev==="約"||(/^[ァ-ヶー]+$/.test(prev)&&/^[ァ-ヶー]/.test(w))||(/[A-Za-z0-9\-\u2011]$/.test(prev)&&/^[A-Za-z0-9\-\u2011]/.test(w))||(/[\u4e00-\u9fff]$/.test(prev)&&/^[\u4e00-\u9fff]/.test(w)&&cur.length<3)||(/[\u4e00-\u9fff]$/.test(prev)&&/^[ァ-ヶ]/.test(w)&&w.length<=4)||(/^[ァ-ヶー]+$/.test(prev)&&/^[\u4e00-\u9fff]{1,2}$/.test(w));
+        if(join&&cur&&/[、。！？]$/.test(cur)&&!PUNC.test(w))join=false;
+        if(join&&cur&&/^(は|が|を|に|で|と|の|も|へ|や|から|まで|より|だけ|など|ても|って|ので|けど)$/.test(prev)&&cur.length>=3&&!PUNC.test(w)&&!/^(は|が|を|に|で|と|の|も|へ|や|ね|よ|か)$/.test(w))join=false;
+        if(join&&cur&&(w==="お"||w==="ご")&&/[\u3041-\u309f]$/.test(cur)&&cur.length>3)join=false;
+        if(!join){out.push(cur);cur=""}cur+=w;prev=w}
+      if(cur)out.push(cur);return out}
+    var sel="main h1,main h2,main h3,main h4,main p,main li,main summary,main small,main b,main .lb,main em,main label,main .ct b,main dd";
+    document.querySelectorAll(sel).forEach(function(el){
+      if(el.closest(".ph,.adm,.arc,.mbox,script,style")||el.dataset.jp)return;el.dataset.jp=1;el.classList.add("jp");
+      var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT),nodes=[],n;while(n=w.nextNode())nodes.push(n);
+      nodes.forEach(function(tn){if(!/[぀-ヿ一-鿿]/.test(tn.nodeValue))return;var c=chunks(tn.nodeValue);if(c.length<2)return;
+        var f=document.createDocumentFragment();c.forEach(function(x,i){if(i)f.appendChild(document.createElement("wbr"));f.appendChild(document.createTextNode(x))});tn.parentNode.replaceChild(f,tn)});
+    });
+  })();
   /* ---------- reveal / count / triggers ---------- */
   function countUp(el){if(RM)return;var to=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),pre=el.dataset.pre||"",u=el.querySelector("span"),uh=u?u.outerHTML:"",t0=null;
     function f(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1300),v=to*(1-Math.pow(1-p,3));el.innerHTML=pre+(dec?v.toFixed(dec):Math.round(v).toLocaleString("ja-JP"))+uh;if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
