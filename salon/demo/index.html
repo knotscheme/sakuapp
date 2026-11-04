@@ -497,6 +497,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 
 /* images in templates */
 .mi{display:grid!important;grid-template-columns:auto 1fr auto;align-items:center}
+.mi>em{grid-column:3}.mi>span:first-child{grid-column:1/3}
 .mth{flex:none;width:56px;height:56px;border-radius:8px;background-size:cover;background-position:center;margin-right:2px}
 .mth.r{border-radius:50%;width:48px;height:48px}.mth.g{width:48px;height:48px;border-radius:2px;outline:1px solid rgba(194,163,107,.5);outline-offset:2px}
 .E-it{display:grid!important;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
@@ -562,6 +563,13 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .bk-photo .bki{height:170px}
 .bk-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.bk-gallery .bki{aspect-ratio:1}
 .bk-hours{padding:12px 14px;border-radius:12px;border:1px solid rgba(127,127,127,.25)}
+.bk-sns{text-align:center}.bk-sns h4{margin-bottom:8px}
+.snsr{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.snsr a{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--sc);color:var(--sc)}
+.snsr a:active{background:var(--sc);color:#fff}
+.snsi{display:grid!important;grid-template-columns:130px 1fr;align-items:center;gap:10px}
+.snsi span{display:flex;align-items:center;gap:6px;font-size:13px}
+@media(max-width:700px){.snsi{grid-template-columns:1fr}}
 .bk-link{text-align:center}.bkl{display:block;padding:12px;border-radius:12px;border:1.5px solid var(--sc);color:var(--sc);font-weight:700;font-size:13px}
 .ord2 .ob{display:flex;gap:4px}
 .ord2 li.cu{background:var(--mint)}
@@ -782,8 +790,10 @@ function aTpl(){var cur=curTpl()[0];var h='<div class="ah"><h2>テンプレー�
 var SECN={hero:"メイン写真",notice:"お知らせ",slots:"本日の空き時間",menu:"メニュー"};
 function picker(target,cur){return'<div class="lib">'+LIB.map(function(u){return'<button type="button" class="lb'+(u===cur?" on":"")+'" data-act="img" data-tg="'+target+'" data-u="'+u+'" style="'+bg(u)+'" aria-label="この写真にする"></button>'}).join("")+'<label class="lb up" aria-label="写真をアップロード"><input type="file" accept="image/*" data-chg="up" data-tg="'+target+'"><span>＋<br>アップロード</span></label></div>'}
 
-var BTYPES=[["text","テキスト","見出しと文章。こだわりやサロンの紹介に"],["ptext","写真＋テキスト","写真と説明を並べて。スタッフ紹介や特集に"],["photo","写真","1枚の写真を大きく"],["gallery","ギャラリー","写真を3枚並べて"],["hours","営業時間・アクセス","営業時間・定休日・住所"],["link","リンクボタン","InstagramやGoogleマップへのボタン"]];
-var BDEF={text:{title:"サロンのこだわり",text:"おひとりずつ、ゆっくりとカウンセリングしてから施術します。"},ptext:{title:"スタイリスト紹介",text:"担当の山田です。似合わせカットが得意です。お気軽にご相談ください。",img:LIB[1]},photo:{img:LIB[2]},gallery:{imgs:[LIB[0],LIB[1],LIB[2]]},hours:{title:"営業時間・アクセス",text:"10:00〜19:00（最終受付 18:00）\n定休日 毎週火曜",addr:"東京都渋谷区〇〇 1-2-3"},link:{title:"Instagramを見る",url:"https://instagram.com/"}};
+var BTYPES=[["text","テキスト","見出しと文章。こだわりやサロンの紹介に"],["ptext","写真＋テキスト","写真と説明を並べて。スタッフ紹介や特集に"],["photo","写真","1枚の写真を大きく"],["gallery","ギャラリー","写真を3枚並べて"],["hours","営業時間・アクセス","営業時間・定休日・住所"],["sns","SNSアイコン","Instagram・LINE・Xなどをアイコンで並べて"],["link","リンクボタン","ホームページや地図へのボタン"]];
+var BDEF={text:{title:"サロンのこだわり",text:"おひとりずつ、ゆっくりとカウンセリングしてから施術します。"},ptext:{title:"スタイリスト紹介",text:"担当の山田です。似合わせカットが得意です。お気軽にご相談ください。",img:LIB[1]},photo:{img:LIB[2]},gallery:{imgs:[LIB[0],LIB[1],LIB[2]]},hours:{title:"営業時間・アクセス",text:"10:00〜19:00（最終受付 18:00）\n定休日 毎週火曜",addr:"東京都渋谷区〇〇 1-2-3"},link:{title:"Googleマップで見る",url:"https://maps.google.com/"},sns:{title:"",urls:{"instagram":"https://instagram.com/","tiktok":"https://tiktok.com/","line":"https://line.me/"}}};
+var SNS=[["instagram","Instagram",'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/>'],["line","LINE",'<path d="M12 4C7 4 3 7.1 3 11c0 3.4 3.1 6.3 7.3 6.9-.2.9-.6 2.1-.6 2.1s3.9-1.7 6.6-4.7C18.9 14.3 21 12.8 21 11c0-3.9-4-7-9-7z"/>'],["x","X",'<path d="M5 4l14 16M19 4L5 20"/>'],["tiktok","TikTok",'<path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.4 2.4 2 4 4.5 4.3"/>'],["youtube","YouTube",'<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.2 9.3l4.6 2.7-4.6 2.7z" fill="currentColor"/>'],["facebook","Facebook",'<path d="M14.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H9.2v3h2.5V21"/>'],["web","ホームページ",'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z"/>'],["map","地図",'<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>']];
+function snsIco(k){var x=SNS.filter(function(s){return s[0]===k})[0];return'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+x[2]+'</svg>'}
 function bgx(u){return u?'background-image:url('+(typeof imgU==='function'?imgU(u):u)+')':''}
 function blockHTML(b){var h='<div class="BK bk-'+b.type+'">';
   if(b.type==="text")h+='<h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p>';
@@ -791,6 +801,7 @@ function blockHTML(b){var h='<div class="BK bk-'+b.type+'">';
   else if(b.type==="photo")h+='<i class="bki" style="'+bgx(b.img)+'"></i>';
   else if(b.type==="gallery")h+=(b.imgs||[]).map(function(u){return'<i class="bki" style="'+bgx(u)+'"></i>'}).join("");
   else if(b.type==="hours")h+='<h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p>'+(b.addr?'<small>📍 '+esc(b.addr)+'</small>':'');
+  else if(b.type==="sns"){var u=b.urls||{},ks=SNS.filter(function(x){return u[x[0]]});h+=(b.title?'<h4>'+esc(b.title)+'</h4>':'')+'<div class="snsr">'+(ks.length?ks.map(function(x){return'<a href="'+esc(u[x[0]])+'" target="_blank" rel="noopener" aria-label="'+x[1]+'">'+snsIco(x[0])+'</a>'}).join(""):'<small>管理画面でURLを入れると表示されます</small>')+'</div>'}
   else if(b.type==="link")h+='<span class="bkl">'+esc(b.title||"リンク")+' ›</span>';
   return h+'</div>'}
 function secName(k){if(SECN[k])return SECN[k];var b=S.page.blocks&&S.page.blocks[k];if(!b)return k;var t=BTYPES.filter(function(x){return x[0]===b.type})[0];return t[1]+(b.title&&b.title!==t[1]?'：'+b.title:'')}
@@ -798,6 +809,7 @@ function blockEditor(id){var b=S.page.blocks[id];if(!b)return"";var h='<section 
   if(b.type==="text"||b.type==="ptext"||b.type==="hours"||b.type==="link")h+='<label>'+(b.type==="link"?"ボタンの文字":"見出し")+'<input type="text" data-chg="bf" data-f="title" data-b="'+id+'" value="'+esc(b.title||"")+'" maxlength="24"></label>';
   if(b.type==="text"||b.type==="ptext"||b.type==="hours")h+='<label>'+(b.type==="hours"?"営業時間（1行ずつ）":"文章")+'<textarea data-chg="bf" data-f="text" data-b="'+id+'" maxlength="160">'+esc(b.text||"")+'</textarea></label>';
   if(b.type==="hours")h+='<label>住所<input type="text" data-chg="bf" data-f="addr" data-b="'+id+'" value="'+esc(b.addr||"")+'"></label>';
+  if(b.type==="sns")h+='<label>見出し（なくてもOK）<input type="text" data-chg="bf" data-f="title" data-b="'+id+'" value="'+esc(b.title||"")+'" maxlength="20" placeholder="例：最新情報はこちら"></label><p class="edh" style="margin:4px 0 2px">URLを入れたSNSだけ、アイコンで並びます</p>'+SNS.map(function(x){return'<label class="snsi"><span>'+snsIco(x[0])+x[1]+'</span><input type="text" inputmode="url" data-chg="bsns" data-k="'+x[0]+'" data-b="'+id+'" value="'+esc((b.urls||{})[x[0]]||"")+'" placeholder="https://"></label>'}).join("");
   if(b.type==="link")h+='<label>リンク先（URL）<input type="text" data-chg="bf" data-f="url" data-b="'+id+'" value="'+esc(b.url||"")+'"></label>';
   h+='</div>';
   if(b.type==="ptext"||b.type==="photo")h+='<div class="emp"><small>写真</small>'+picker("b:"+id,b.img)+'</div>';
@@ -886,6 +898,7 @@ document.addEventListener("change",function(ev){var el=ev.target,k=el.dataset.ch
   if(k==="st"){var v=el.value.trim();if(!v&&el.dataset.f==="name")v="サロン";S.store[el.dataset.f]=v;save();renderAll();return}
   if(k==="ccolor"){S.store.color=el.value;S.store.ccol=true;save();applyTpl();renderAll();return}
   if(k==="sopen"){S.store.open=el.checked;save();renderAll();return}
+  if(k==="bsns"){var bb=S.page.blocks[el.dataset.b];bb.urls=bb.urls||{};bb.urls[el.dataset.k]=el.value.trim();save();renderAll();return}
   if(k==="bf"){S.page.blocks[el.dataset.b][el.dataset.f]=el.value;save();renderAll();return}
   if(k==="notice"){S.page.notice=el.value.trim();save();renderAll();return}
   if(k==="up"){var f=el.files&&el.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){var im=new Image();im.onload=function(){var c=document.createElement("canvas"),sc=Math.min(1,640/Math.max(im.width,im.height));c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);var u;try{u=c.toDataURL("image/jpeg",.8)}catch(e){u=rd.result}if(LIB.indexOf(u)<0)LIB.push(u);setImg(el.dataset.tg,u)};im.src=rd.result};rd.readAsDataURL(f);return}
