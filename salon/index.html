@@ -873,6 +873,53 @@ p,small,li,dd{text-wrap:pretty}
 .pgr3 .pd .pdph{transform:none;margin:10px auto 0}
 @media(max-width:960px){.pgr3 .pd{flex-direction:row;align-items:center}.pgr3 .pd img{width:36%;height:110px;margin:0}.pgr3 .pd .pdph{margin:0}}
 
+
+/* ===== salon hero (editorial) ===== */
+.hero{background:linear-gradient(180deg,#fbf6f3,#f7ede9)!important;padding:140px 0 100px}
+.hero::before{display:none}
+.hero .wrap{grid-template-columns:.95fr 1.05fr;gap:56px}
+.eyebrow span{background:transparent;color:var(--blue);border:1px solid var(--blue);font-weight:700}
+.sh1{font-family:var(--serif)!important;font-weight:600!important;font-size:clamp(40px,5vw,68px)!important;line-height:1.38!important;letter-spacing:.08em!important}
+.sh1 em{background:none!important;color:var(--blue);border-bottom:2px solid var(--yel);padding-bottom:2px}
+.hero .lede{font-size:15.5px;line-height:2.15;letter-spacing:.06em}
+.hero .ctas .btn{box-shadow:none}
+.hfacts b{font-family:var(--serif)}
+.sv{height:620px}
+.sph{position:absolute;right:0;top:0;width:82%;height:100%;border-radius:200px 200px 24px 24px;overflow:hidden;margin:0;box-shadow:0 40px 70px -40px rgba(80,40,40,.45)}
+.sph img{width:100%;height:100%;object-fit:cover;object-position:55% 50%;animation:kb 26s ease-in-out infinite alternate}
+.sv .hp-c{left:0;top:110px;width:240px;transform:none;animation:bob 7s ease-in-out infinite;z-index:3}
+.sv .hp .hl{display:none}
+.skar{position:absolute;right:-24px;top:150px;width:270px;z-index:4;background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:18px;padding:16px 18px;box-shadow:0 30px 50px -24px rgba(80,40,40,.45);opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s cubic-bezier(.2,.8,.2,1);font-size:12px}
+.skar.v{opacity:1;transform:none}
+.skh{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.skh>span{flex:none;width:34px;height:34px;border-radius:50%;background:var(--blue-l);color:var(--blue);display:grid;place-items:center;font:700 14px var(--serif)}
+.skh b{display:block;font-size:13.5px}.skh small{font-size:10.5px;color:var(--muted)}
+.skh em{margin-left:auto;font-style:normal;font:700 10px var(--en);letter-spacing:.16em;color:var(--blue)}
+.skar dl{margin:0}.skar dl div{padding:7px 0;border-top:1px solid var(--line)}
+.skar dt{font-size:10px;color:var(--muted);font-weight:700}.skar dd{margin:0;font-size:12px;line-height:1.6}
+.skp{display:flex;gap:6px;margin-top:8px}.skp i{flex:1;aspect-ratio:1;border-radius:8px;background:linear-gradient(135deg,#d8c7c0,#9c8178)}.skp i:nth-child(2){background:linear-gradient(135deg,#c9b9a7,#7e6a5c)}.skp i:nth-child(3){background:linear-gradient(135deg,#e1d3cf,#b09690)}
+.sbook{position:absolute;right:30px;bottom:30px;z-index:4;display:flex;gap:10px;align-items:center;background:var(--ink);color:#fff;border-radius:14px;padding:12px 16px;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
+.sbook.v{opacity:1;transform:none}
+.sbook i{width:10px;height:10px;border-radius:50%;background:var(--yel);box-shadow:0 0 0 4px rgba(212,145,139,.3)}
+.sbook b{display:block;font-size:12.5px}.sbook small{font-size:11px;color:#d9cccc}
+@media(max-width:960px){
+  .hero .wrap{grid-template-columns:1fr}
+  .sv{height:560px;max-width:520px;margin:0 auto;width:100%}
+  .sph{width:78%}
+  .skar{right:0;top:130px;width:240px}
+}
+@media(max-width:600px){
+  .hero{padding:80px 0 48px}
+  .sh1{font-size:min(10vw,42px)!important;letter-spacing:.06em!important}
+  .hero .wrap{gap:0!important}
+  .sh1{margin-bottom:0!important}
+  .skar,.sbook{text-align:left}
+  .sv{height:400px;margin:18px -20px 0!important;max-width:none;width:auto!important}
+  .sph{width:70%;right:16px;height:360px;border-radius:120px 120px 16px 16px}
+  .sv .hp-c{left:16px;top:40px;margin-left:0!important;transform:scale(.66);transform-origin:0 0;animation:none}
+  .skar{right:10px;top:auto;bottom:56px;width:190px;padding:10px 12px;border-radius:14px}.skar dd{font-size:10.5px}.skp,.skh em{display:none}.skh b{font-size:12px}.skh small{font-size:9.5px;white-space:nowrap}.skh>span{width:28px;height:28px;font-size:12px}.skar dl div{padding:5px 0}
+  .sbook{right:auto;left:16px;bottom:0;padding:8px 12px}.sbook b{font-size:11px}.sbook small{font-size:9.5px}
+}
 </style>
 </head>
 <body>
@@ -890,19 +937,17 @@ p,small,li,dd{text-wrap:pretty}
   <div class="wrap">
     <div class="hcopy">
       <p class="eyebrow"><span>個人サロンのための</span>予約・顧客カルテ</p>
-      <h1><span><i>予約と、</i></span><span><i>カルテを、</i></span><span><i><em>ひとつに</em>。</i></span></h1>
+      <h1 class="sh1"><span><i>予約と、</i></span><span><i>カルテを、</i></span><span><i><em>ひとつに</em>。</i></span></h1>
       <p class="lede">InstagramやLINEから、24時間ご予約を受付。予約が入ると、そのお客様のカルテがすぐに開きます。予約ページは、お店の世界観に合わせてお作りします。</p>
       <div class="ctas"><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon">LINEで無料相談する<span class="chev">›</span></a><a class="tlink" href="demo/">デモを触ってみる ›</a></div>
       <ul class="hfacts"><li><small>初期費用</small><b>19,800<span>円</span></b></li><li><small>月額</small><b>2,980<span>円</span></b></li><li><small>予約手数料</small><b>0<span>円</span></b></li></ul>
       <p class="fine">月額はサーバー代・保守込み ・ 予約件数の上限なし ・ 正式受付は2027年6月ごろから（先行モニターはLINEで受付中）</p>
     </div>
-    <div class="hvis" aria-hidden="true">
-      <div class="hblk"><span class="hring"></span><img class="hplate" src="../uc-salon.webp" alt="" width="800" height="800"></div>
-      <div class="hp hp-l"><div class="ph"><div class="scr" id="hp0"></div></div><span class="hl">エステ</span></div>
-      <div class="hp hp-r"><div class="ph"><div class="scr" id="hp2"></div></div><span class="hl">ネイル</span></div>
-      <div class="hp hp-c"><div class="ph"><div class="scr" id="hp1"></div></div><span class="hl">美容室</span></div>
-      <div class="hn"><i></i><div><b>新しい予約　11/8（土）14:00</b><small>田中様 ・ カット＋カラー</small></div></div>
-      <div class="hbadge"><b>5</b><span>業態のデザイン例<br>お店ごとに設計</span></div>
+    <div class="hvis sv" aria-hidden="true">
+      <figure class="sph"><img src="../uc-salon.webp" alt="" width="800" height="800"></figure>
+      <div class="hp hp-c"><div class="ph"><div class="scr" id="hp1"></div></div></div>
+      <div class="skar" id="hkar"><div class="skh"><span>田</span><div><b>田中 美咲 様</b><small>来店2回目 ・ 前回 9/20</small></div><em>カルテ</em></div><dl><div><dt>前回</dt><dd>カット＋カラー（7トーン・アッシュ）</dd></div><div><dt>メモ</dt><dd>頭皮やや敏感 → 保護オイル使用。前髪は眉下で</dd></div></dl><div class="skp"><i></i><i></i><i></i></div></div>
+      <div class="sbook" id="hbook"><i></i><div><b>新しい予約</b><small>11/8（土）14:00 ・ カット＋カラー</small></div></div>
     </div>
   </div>
 </section>
@@ -1223,7 +1268,6 @@ p,small,li,dd{text-wrap:pretty}
     clearTimeout(swTimer);if(!RM)swTimer=setTimeout(function(){setSw((swi+1)%SHOPS.length)},3200)}
   swl.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setSw(+b.dataset.i)});
   setSw(0);
-  [[3,"hp0"],[1,"hp2"]].forEach(function(x){var sh=SHOPS[x[0]],e=$(x[1]);e.className="scr L-"+sh.L;e.setAttribute("style",vars(sh)+";background:"+sh.bg+";color:"+sh.fg);e.innerHTML=inner(sh)});
   var C1=["カラー","ロゴ","写真の見せ方","メニューの並び","空き枠の見せ方","初回クーポン","指名・スタッフ","施術時間"],C2=["顧客カルテ","前日リマインド","LINE通知","事前決済","キャンセル料","回数券","写真カルテ","次回のおすすめ"];
   function chipRow(a){var h=a.map(function(x){return"<span>"+x+"</span>"}).join("");return h+h}
   $("chips1").innerHTML=chipRow(C1);$("chips2").innerHTML=chipRow(C2);
@@ -1247,7 +1291,7 @@ p,small,li,dd{text-wrap:pretty}
     var m1=L.menu.querySelector('[data-m="1"]'),cb1=$("hcb1"),cb2=$("hcb2"),d1=L.date.querySelector('[data-d="1"]'),s14=$("hslots").children[3];
     var T=[];function at(ms,f){T.push(setTimeout(f,ms))}
     function run(){
-      T.forEach(clearTimeout);T=[];show("ig");tap.classList.remove("v");
+      T.forEach(clearTimeout);T=[];show("ig");tap.classList.remove("v");$("hkar").classList.remove("v");$("hbook").classList.remove("v");
       m1.classList.remove("pick");cb1.classList.add("off");cb1.firstChild.textContent="メニューを選んでください";d1.classList.remove("on");s14.classList.remove("on");cb2.classList.add("off");cb2.firstChild.textContent="日時を選んでください";$("hnt").classList.remove("v");
       at(1200,function(){tapAt($("hig"))});
       at(1800,function(){show("menu")});
@@ -1262,7 +1306,8 @@ p,small,li,dd{text-wrap:pretty}
       at(7900,function(){tapAt(cb2)});
       at(8450,function(){show("conf")});
       at(9500,function(){tapAt($("hok"))});
-      at(10050,function(){tap.classList.remove("v");show("done")});
+      at(10050,function(){tap.classList.remove("v");show("done");$("hbook").classList.add("v")});
+      at(10900,function(){$("hkar").classList.add("v")});
       at(12300,function(){show("rem")});
       at(12900,function(){$("hnt").classList.add("v")});
       at(16200,run);
