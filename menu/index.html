@@ -289,14 +289,14 @@ header.solid .btn{background:var(--blue);color:#fff;box-shadow:none}
 .sw{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:40px}
 @media(max-width:860px){.sw{grid-template-columns:1fr;gap:28px}}
 .circle{position:relative;aspect-ratio:1;border-radius:50%;background:#fff;display:grid;place-items:center;max-width:520px;width:100%;margin:0 auto;box-shadow:0 30px 60px -40px rgba(20,40,60,.4)}
-.circle .ph{width:54%;position:relative}
+.circle .ph{width:45%;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
 @media(max-width:600px){.circle .ph{width:64%}}
 .circle .ph .scr{transition:background .6s,color .6s}
 .circle .lay{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transition:opacity .6s}
 .circle .lay.on{opacity:1}
 .circle{min-height:0;overflow:visible}
-@media(max-width:600px){.circle{aspect-ratio:auto;height:440px;background:none;box-shadow:none;border-radius:0;max-width:none}.circle::before{content:"";position:absolute;left:50%;top:50%;width:330px;height:330px;margin:-165px 0 0 -165px;border-radius:50%;background:#fff;box-shadow:0 30px 60px -40px rgba(20,40,60,.4)}.circle .ph{width:240px;max-width:none;flex:none;transform:scale(.86);z-index:1}}
-@media(max-width:400px){.circle{height:380px}.circle::before{width:280px;height:280px;margin:-140px 0 0 -140px}.circle .ph{transform:scale(.74)}}
+@media(max-width:600px){.circle{aspect-ratio:auto;height:440px;background:none;box-shadow:none;border-radius:0;max-width:none}.circle::before{content:"";position:absolute;left:50%;top:50%;width:330px;height:330px;margin:-165px 0 0 -165px;border-radius:50%;background:#fff;box-shadow:0 30px 60px -40px rgba(20,40,60,.4)}.circle .ph{width:240px;max-width:none;transform:translate(-50%,-50%) scale(.86);z-index:1}}
+@media(max-width:400px){.circle{height:380px}.circle::before{width:280px;height:280px;margin:-140px 0 0 -140px}.circle .ph{transform:translate(-50%,-50%) scale(.74)}}
 .circle .lay>*{flex-shrink:0}.circle .lay>.feed{flex-shrink:1}
 .circle .cap{position:absolute;bottom:9%;left:0;right:0;text-align:center;font-weight:900;font-size:16px}
 .swl{display:grid;gap:12px}
