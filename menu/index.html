@@ -95,31 +95,52 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 .hfacts b span{font:900 13px var(--sans);margin-left:2px}
 .hfacts li:last-child b{color:var(--blue)}
 .hero .fine{margin-top:16px;font-size:11.5px;color:var(--muted);animation:fade .9s .6s both}
-.hvis{position:relative;height:620px;animation:fade 1s .2s both}
-.hph{position:absolute;right:0;top:20px;width:78%;height:520px;border-radius:28px;overflow:hidden;box-shadow:0 40px 70px -40px rgba(60,35,20,.55)}
-.hph img{width:100%;height:100%;object-fit:cover;animation:kb 24s ease-in-out infinite alternate}
-@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.1)}}
-.hphone{position:absolute;left:6%;top:50px;width:260px;filter:drop-shadow(0 40px 40px rgba(40,25,10,.35));animation:bob 6s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-10px)}}
-.hphone .lay{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transition:opacity .7s}
-.hphone .lay.on{opacity:1}
-.hphone .lay>*{flex-shrink:0}.hphone .lay>.feed{flex-shrink:1}
-.hn{position:absolute;right:-10px;bottom:120px;display:flex;gap:12px;align-items:center;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 24px 40px -20px rgba(60,35,20,.45);animation:pop2 7s ease-in-out infinite}
-.hn i{flex:none;width:12px;height:12px;border-radius:50%;background:var(--yel);box-shadow:0 0 0 5px rgba(243,185,58,.25)}
+.hvis{position:relative;height:640px;animation:fade 1s .2s both}
+.hblk{position:absolute;right:-40px;top:30px;width:92%;height:560px;border-radius:48px;background:var(--yel);overflow:hidden}
+.hblk::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 20% 0%,rgba(255,255,255,.35),transparent 60%)}
+.hring{position:absolute;right:-90px;bottom:-90px;width:420px;height:420px;border-radius:50%;border:60px solid rgba(255,255,255,.18)}
+.hplate{position:absolute;right:-70px;top:-60px;width:330px;height:330px;border-radius:50%;object-fit:cover;box-shadow:0 30px 50px -20px rgba(90,50,10,.55);animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hp{position:absolute;width:240px;transform-origin:50% 100%}
+.hp .ph{box-shadow:0 0 0 1px #3a3d42,0 50px 60px -30px rgba(60,30,5,.65)}
+.hp .scr>*{flex-shrink:0}.hp .scr>.feed{flex-shrink:1}
+.hp .hl{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);white-space:nowrap;font-size:12.5px;font-weight:900;color:var(--ink);letter-spacing:.1em}
+.hp-c{left:calc(50% - 120px);top:40px;z-index:3;animation:bob 6s ease-in-out infinite}
+.hp-l{left:calc(50% - 300px);top:110px;transform:rotate(-9deg) scale(.86);z-index:2}
+.hp-r{left:calc(50% + 60px);top:110px;transform:rotate(9deg) scale(.86);z-index:2}
+.hp-l .hl{transform:translateX(-50%) rotate(9deg)}.hp-r .hl{transform:translateX(-50%) rotate(-9deg)}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.hn{position:absolute;left:-10px;bottom:70px;z-index:4;display:flex;gap:12px;align-items:center;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 24px 40px -20px rgba(60,35,20,.5);animation:pop2 7s ease-in-out infinite}
+.hn i{flex:none;width:12px;height:12px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 5px rgba(168,116,15,.2)}
 .hn b{display:block;font-size:13.5px}
 .hn small{font-size:11.5px;color:var(--muted)}
 @keyframes pop2{0%,10%{opacity:0;transform:translateY(10px)}18%,85%{opacity:1;transform:none}93%,100%{opacity:0;transform:translateY(-6px)}}
-.hshop{position:absolute;left:calc(6% + 190px);top:20px;background:var(--ink);color:#fff;border-radius:99px;padding:8px 16px;font-size:12.5px;display:flex;gap:8px;align-items:center;box-shadow:0 14px 24px -14px rgba(0,0,0,.5)}
-.hshop span{color:var(--yel);font-weight:700;font-size:11px}
-.hshop b{transition:opacity .3s}
+.hbadge{position:absolute;right:10px;bottom:40px;z-index:4;display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:16px;padding:12px 16px;font-size:11.5px;line-height:1.5}
+.hbadge b{font:700 34px/1 var(--serif);color:var(--yel)}
 @media(max-width:960px){
   .hero{padding:104px 0 64px}
   .hero .wrap{grid-template-columns:1fr;gap:28px}
-  .hvis{height:470px;max-width:460px;width:100%;margin:0 auto;order:2}
-  .hph{width:80%;height:400px;top:30px}
-  .hphone{left:0;top:30px;width:240px;transform-origin:0 0}
-  .hshop{left:150px;top:0}
-  .hn{bottom:40px;right:0}
+  .hvis{height:560px;max-width:520px;width:100%;margin:0 auto}
+  .hblk{right:0;left:0;width:auto;height:460px;top:40px;border-radius:36px}
+  .hplate{width:240px;height:240px;right:-50px;top:-50px}
+  .hn{left:0;bottom:20px}.hbadge{right:0;bottom:-10px}
+}
+@media(max-width:600px){
+  .hero h1{font-size:40px}
+  .eyebrow{font-size:11.5px;gap:8px}.eyebrow span{font-size:11px;padding:3px 8px;white-space:nowrap}
+  .lede{font-size:14.5px;margin-bottom:26px}
+  .hero .ctas{gap:16px}.hero .ctas .btn{width:100%;min-width:0}.tlink{margin:0 auto}
+  .hfacts{margin-top:28px;justify-content:space-between}.hfacts li{padding:0 12px}.hfacts li:first-child{padding-left:0}.hfacts b{font-size:22px;white-space:nowrap}.hfacts small{white-space:nowrap}
+  .hvis{height:430px;margin:0 -20px;width:auto;max-width:none}
+  .hblk{height:340px;top:40px;border-radius:0;left:0;right:0}
+  .hplate{width:170px;height:170px;right:-40px;top:-40px}
+  .hp{width:240px}
+  .hp-c{left:50%;top:0;margin-left:-120px;transform:scale(.72);transform-origin:50% 0;animation:none}
+  .hp-l{left:50%;top:50px;margin-left:-235px;transform:rotate(-9deg) scale(.58);transform-origin:50% 0}
+  .hp-r{left:50%;top:50px;margin-left:-5px;transform:rotate(9deg) scale(.58);transform-origin:50% 0}
+  .hp .hl{display:none}
+  .hn{left:14px;bottom:24px;padding:10px 14px}.hn b{font-size:12px}
+  .hbadge{display:none}
 }
 @media(max-width:600px){
   .hero h1{font-size:40px}
@@ -127,11 +148,16 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
   .lede{font-size:14.5px;margin-bottom:26px}
   .hero .ctas{gap:16px}.hero .ctas .btn{width:100%;min-width:0}.tlink{margin:0 auto}
   .hfacts{margin-top:28px;justify-content:space-between}.hfacts li{padding:0 12px}.hfacts b{font-size:22px}
-  .hvis{height:400px}
-  .hph{height:330px;width:76%}
-  .hphone{width:240px;transform:scale(.78);animation:none}
-  .hn{padding:10px 14px;bottom:20px}.hn b{font-size:12px}
-  .hshop{left:auto;right:8px;top:2px}
+  .hvis{height:440px;margin:0 -20px;width:auto}
+  .hblk{height:360px;top:30px;border-radius:0;left:0;right:0}
+  .hplate{width:180px;height:180px;right:-40px;top:-40px}
+  .hp{width:240px}
+  .hp-c{left:50%;top:10px;margin-left:-120px;transform:scale(.72);transform-origin:50% 0;animation:none}
+  .hp-l{left:50%;top:60px;margin-left:-250px;transform:rotate(-9deg) scale(.6);transform-origin:50% 0}
+  .hp-r{left:50%;top:60px;margin-left:10px;transform:rotate(9deg) scale(.6);transform-origin:50% 0}
+  .hp .hl{display:none}
+  .hn{left:12px;bottom:20px;padding:10px 14px}.hn b{font-size:12px}
+  .hbadge{display:none}
 }
 /* category tabs + arc showcase */
 .show{background:#fff;padding:0 0 100px;overflow:hidden}
@@ -692,10 +718,12 @@ footer a:hover{color:var(--blue)}
       <p class="fine">月額はサーバー代・保守込み ・ 最低契約期間なし ・ 正式受付は2027年6月ごろから（先行のご案内はLINEで受付中）</p>
     </div>
     <div class="hvis" aria-hidden="true">
-      <figure class="hph"><img src="img/teishoku-hero.webp" alt="" width="412" height="512"></figure>
-      <div class="hphone"><div class="ph"><div class="scr" id="hscr"></div></div></div>
+      <div class="hblk"><span class="hring"></span><img class="hplate" src="img/teishoku-top.webp" alt="" width="512" height="512"></div>
+      <div class="hp hp-l"><div class="ph"><div class="scr" id="hp0"></div></div><span class="hl">居酒屋</span></div>
+      <div class="hp hp-r"><div class="ph"><div class="scr" id="hp2"></div></div><span class="hl">カフェ</span></div>
+      <div class="hp hp-c"><div class="ph"><div class="scr" id="hp1"></div></div><span class="hl">定食・食堂</span></div>
       <div class="hn"><i></i><div><b>新しい注文　テーブル5</b><small>生姜焼き定食 ×1 ・ 大盛り</small></div></div>
-      <div class="hshop" id="hshop"><span>デザイン例</span><b id="hshopn">定食・食堂</b></div>
+      <div class="hbadge"><b>3</b><span>業態のデザイン例<br>お店ごとに設計</span></div>
     </div>
   </div>
 </section>
@@ -1022,9 +1050,7 @@ footer a:hover{color:var(--blue)}
     clearTimeout(swTimer);if(!RM)swTimer=setTimeout(function(){setSw((swi+1)%SHOPS.length)},3200)}
   swl.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setSw(+b.dataset.i)});
   setSw(0);
-  var hs=$("hscr"),hi=0;hs.innerHTML=SHOPS.map(function(x,i){return'<div class="lay L-'+x.L+'" data-i="'+i+'" style="'+vars(x)+';background:'+x.bg+';color:'+x.fg+'">'+inner(x)+'</div>'}).join("");
-  function setH(i){hs.querySelectorAll(".lay").forEach(function(l){l.classList.toggle("on",l.dataset.i==i)});$("hshopn").textContent=SHOPS[i].k}
-  setH(0);if(!RM)setInterval(function(){hi=(hi+1)%SHOPS.length;setH(hi)},3000);
+  [[2,"hp0"],[0,"hp1"],[1,"hp2"]].forEach(function(x){var sh=SHOPS[x[0]],e=$(x[1]);e.className="scr L-"+sh.L;e.setAttribute("style",vars(sh)+";background:"+sh.bg+";color:"+sh.fg);e.innerHTML=inner(sh)});
   var C1=["カラー","ロゴ","写真の見せ方","カテゴリの並び","おすすめ枠","売り切れ表示","大盛り・トッピング","数量限定"],C2=["多言語メニュー","アレルギー表示","呼び出しボタン","事前決済","テイクアウト","LINE通知","売上集計","QRコード"];
   function chipRow(a){var h=a.map(function(x){return"<span>"+x+"</span>"}).join("");return h+h}
   $("chips1").innerHTML=chipRow(C1);$("chips2").innerHTML=chipRow(C2);
