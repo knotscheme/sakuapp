@@ -374,14 +374,82 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .sheet .bd>.yen{font-family:"Noto Serif JP",serif}
 .mt .th.ph{width:44px;height:44px}
 .tplc{cursor:pointer;background:#fff}
-.tpv{display:block;border-radius:10px;padding:12px;margin-bottom:6px;border:1px solid rgba(0,0,0,.06)}
-.tpv i{display:block;width:26px;height:4px;border-radius:2px;margin-bottom:8px}
-.tpv b{display:block;font-size:14px}.tpv small{font-size:11px;opacity:.75}
-.cs[data-tpl="night"] .it,.cs[data-tpl="night"] .ctabs,.cs[data-tpl="night"] .ch,.cs[data-tpl="night"] .cfoot,.cs[data-tpl="night"] .subh{background:transparent!important;border-color:rgba(255,255,255,.1)!important}
-.cs[data-tpl="night"] .ctabs{background:#1b1e25!important}.cs[data-tpl="night"] .it small,.cs[data-tpl="night"] .ch .nm small{color:#a7a198}.cs[data-tpl="night"] .csec h3{color:#d9b9a0}
+.tpg{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.tplc .pz{color:var(--brand);font-weight:700}
+.tpv{display:block;height:120px;border-radius:10px;padding:10px;margin-bottom:8px;border:1px solid rgba(0,0,0,.06);overflow:hidden;font-size:10px;line-height:1.4}
+.tpv .ph{display:inline-block;background-size:cover;background-position:center}
+.tv-nr{display:flex;gap:2px;justify-content:center;margin-bottom:6px}.tv-nr i{width:18px;height:20px;background:#b5461b;color:#fff;font:700 10px "Noto Serif JP",serif;font-style:normal;display:grid;place-items:center;border-radius:0 0 2px 2px}
+.tv-rw{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px dashed rgba(0,0,0,.15)}.tv-rw .ph{width:24px;height:24px;border-radius:3px}.tv-rw em{flex:1;font-style:normal;font-family:"Noto Serif JP",serif;font-weight:700}.tv-rw u{text-decoration:none;font-family:"Noto Serif JP",serif}
+.tv-cn{display:block;text-align:center;font:600 11px "Inter",sans-serif;letter-spacing:.3em;margin-bottom:6px}
+.tv-gr{display:grid;grid-template-columns:1fr 1fr;gap:6px}.tv-gr i{height:72px;border-radius:30px 30px 6px 6px;background-size:cover;background-position:center}
+.tv-bk{display:block;background:#111;color:#fff;margin:-10px -10px 8px;padding:8px 10px;font-weight:700}.tv-bk b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#fff;color:#111;margin-right:6px;font-family:"Noto Serif JP",serif}
+.tv-tk{display:grid;grid-template-columns:1fr 1fr;gap:4px}.tv-tk i{font-style:normal;border:1.5px solid #111;text-align:center;padding:5px 0;font-weight:700}.tv-tk i.on{background:#111;color:#fff}
+.tv-iz{display:flex;align-items:center;gap:6px;font-weight:900;margin-bottom:6px;font-family:"Noto Serif JP",serif}.tv-iz i{font-style:normal;width:18px;height:22px;border-radius:45%;background:radial-gradient(circle at 50% 40%,#ff7a5a,#d2311f 70%);color:#fff;display:grid;place-items:center;box-shadow:0 0 8px rgba(255,90,60,.6)}
+.tv-bd{display:block;background:#203029;border:2px solid #6b4a2e;padding:5px 7px;color:#ffd86b;margin-bottom:6px;font-family:"Noto Serif JP",serif}
+.tv-rw u.tag{background:#d2311f;color:#fff;padding:0 5px;font-family:"Inter",sans-serif;font-weight:700}
+.tv-bi{display:block;text-align:center;font:italic 800 20px "Inter",sans-serif}.tv-sc{display:block;text-align:center;font:italic 700 10px "Inter",sans-serif;color:#2f7d4f;margin:4px 0}
+.tv-ld{display:flex;align-items:baseline;gap:4px;padding:3px 6px}.tv-ld em{font-style:normal;font-family:"Noto Serif JP",serif;font-weight:700}.tv-ld i{flex:1;border-bottom:1.5px dotted #9aa996}.tv-ld u{text-decoration:none}
+/* ===== customer layouts per template ===== */
+.ch.tplch .av,.ch.tplch .nm b{display:none}.ch.tplch{padding-bottom:4px;border-bottom:0}
+.cs[data-tpl] .csec h3{display:flex}
+/* 和の食堂 */
+.T-hd{text-align:center;padding:2px 16px 12px}
+.T-nr{display:flex;justify-content:center;gap:4px;margin-bottom:10px}.T-nr i{width:38px;height:44px;background:var(--sc);color:#fff8ec;font:700 18px "Noto Serif JP",serif;font-style:normal;display:grid;place-items:center;border-radius:0 0 4px 4px}
+.T-hd b{display:block;font:700 18px "Noto Serif JP",serif;letter-spacing:.24em}.T-hd small{font-size:10.5px;color:#8a6f5a;letter-spacing:.16em}
+.T-ban{margin:0 16px 14px;padding:14px 14px 12px;border:1.5px solid var(--sc);border-radius:6px;background:#fff8ec;position:relative}
+.T-ban em{position:absolute;top:-10px;left:12px;background:var(--sc);color:#fff;font:700 10.5px "Noto Sans JP",sans-serif;font-style:normal;padding:2px 9px;border-radius:3px}
+.T-ban b{display:block;font:700 15px "Noto Serif JP",serif;margin-top:2px}.T-ban span{font:700 14px "Noto Serif JP",serif;color:var(--sc)}
+.T-it{grid-template-columns:76px 1fr auto!important;align-items:center}
+.T-it .th{width:76px!important;height:76px!important;border-radius:4px!important}
+.T-it em{font:700 15px "Noto Serif JP",serif;font-style:normal;white-space:nowrap}
+.cs[data-tpl="teishoku"] .csec h3::after{border-bottom:1px dashed #d9c9b5;background:none}
+/* カフェ */
+.C-hd{text-align:center;padding:4px 16px 8px}.C-hd b{display:block;font:600 22px "Inter",sans-serif;letter-spacing:.34em;padding-left:.34em}.C-hd small{font:500 10px "Inter",sans-serif;letter-spacing:.32em;color:#a08a76}
+.cs[data-tpl="cafe"] .ctabs{justify-content:center;font-family:"Inter",sans-serif}
+.cs[data-tpl="cafe"] .csec h3{justify-content:center;font-family:"Inter",sans-serif;letter-spacing:.3em}.cs[data-tpl="cafe"] .csec h3::after{display:none}
+.C-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;padding:4px 16px 8px}
+.C-c{text-align:left;display:block}.C-c .th{width:100%!important;height:auto!important;aspect-ratio:1/1.15;border-radius:90px 90px 12px 12px!important}
+.C-c b{display:block;font-size:13px;margin-top:8px;font-weight:500}.C-c small{font:600 12px "Inter",sans-serif;color:var(--sc)}
+.C-c.so{opacity:.45}
+/* 食券 */
+.K-hd{display:flex;align-items:center;gap:12px;background:#111;color:#fff;margin:0 0 4px;padding:12px 16px}
+.K-hd span{flex:none;width:52px;height:52px;border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;font:900 26px "Noto Serif JP",serif}
+.K-hd b{display:block;font:900 17px "Noto Serif JP",serif;letter-spacing:.16em}.K-hd small{font-size:10px;letter-spacing:.2em;color:#bbb}
+.cs[data-tpl="ticket"] .ctabs button{border-radius:0}
+.K-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px 16px 8px}
+.K-tk{border:2px solid #111;background:#fff;padding:12px 8px;text-align:center;display:block}
+.K-tk b{display:block;font:900 13.5px "Noto Serif JP",serif}.K-tk small{font:800 12px "Inter",sans-serif}
+.K-tk.wide{grid-column:1/-1;padding:0 0 12px;overflow:hidden}.K-tk.wide .th{width:100%!important;height:110px!important;border-radius:0!important;margin-bottom:8px}
+.K-tk:active{background:#111;color:#fff}.K-tk.so{opacity:.35;border-style:dashed}
+/* 居酒屋 */
+.Z-hd{display:flex;align-items:center;gap:12px;padding:4px 16px 12px}
+.Z-hd span{flex:none;width:40px;height:50px;border-radius:45%;background:radial-gradient(circle at 50% 40%,#ff7a5a,#d2311f 70%);color:#fff;display:grid;place-items:center;font:900 18px "Noto Serif JP",serif;box-shadow:0 0 18px rgba(255,90,60,.55)}
+.Z-hd b{display:block;font:900 19px "Noto Serif JP",serif;letter-spacing:.06em}.Z-hd small{font-size:10.5px;color:#a7a198}
+.Z-ph{height:110px;margin:0 14px 12px;border-radius:6px;background:url(../img/yakitori.webp) center 55%/cover}
+.Z-bd{margin:0 14px 12px;padding:12px 14px;border-radius:6px;background:#203029;border:4px solid #6b4a2e;font-family:"Noto Serif JP",serif}
+.Z-bd b{display:block;font-size:13px;color:#ffd86b;margin-bottom:6px}.Z-bd p{display:flex;justify-content:space-between;font-size:12.5px;margin:3px 0;color:#f4f1e8}
+.cs[data-tpl="izakaya"] .ctabs{background:#16181d!important;border-color:#2a2e35!important}
+.cs[data-tpl="izakaya"] .ctabs button{color:#a7a198}.cs[data-tpl="izakaya"] .ctabs button.on{color:#fff;box-shadow:inset 0 -2px 0 #d2311f}
+.cs[data-tpl="izakaya"] .csec h3{color:#d9b9a0}.cs[data-tpl="izakaya"] .csec h3::after{background:#2a2e35}
+.Z-it{display:flex!important;justify-content:space-between;align-items:center;grid-template-columns:none!important;border-bottom:1px solid #2a2e35!important}
+.Z-it b{font-family:"Noto Sans JP",sans-serif!important;font-weight:900!important}.Z-it small{color:#a7a198!important}
+.Z-it em{font:800 13px "Inter",sans-serif;font-style:normal;background:#d2311f;color:#fff;padding:4px 10px;border-radius:3px;white-space:nowrap}.Z-it em.x{background:#4a4e55}
+.cs[data-tpl="izakaya"] .cfoot,.cs[data-tpl="izakaya"] .subh,.cs[data-tpl="izakaya"] .ch{background:#16181d!important;border-color:#2a2e35!important}
+.cs[data-tpl="izakaya"] .hbtn,.cs[data-tpl="izakaya"] .big.ghost{background:#262a31;color:#a7a198}
+.cs[data-tpl="izakaya"] .crow,.cs[data-tpl="izakaya"] .tot,.cs[data-tpl="izakaya"] .box{border-color:#2a2e35;background:transparent}
+.cs[data-tpl="izakaya"] .sheet,.cs[data-tpl="izakaya"] .sheet .ft{background:#1e2128;color:#f1ece4}
+/* ビストロ */
+.B-hd{text-align:center;padding:4px 16px 12px;margin:0 16px;border-bottom:1px solid #cfd6c8}
+.B-hd small{font:600 10px "Inter",sans-serif;letter-spacing:.44em;color:#2f7d4f}.B-hd b{display:block;font:italic 800 34px/1.1 "Inter",sans-serif}.B-hd em{font:500 11px "Noto Serif JP",serif;font-style:normal;color:#6a7a6c}
+.cs[data-tpl="bistro"] .ctabs{justify-content:center}
+.cs[data-tpl="bistro"] .csec h3{justify-content:center;font:italic 800 15px "Inter",sans-serif;color:#2f7d4f;letter-spacing:.06em}.cs[data-tpl="bistro"] .csec h3::after{display:none}
+.B-it{display:block!important;padding:8px 22px!important;border:0!important;text-align:left}
+.B-ln{display:flex;align-items:baseline;gap:8px}.B-ln b{font:700 14px "Noto Serif JP",serif!important}.B-ln i{flex:1;border-bottom:1.5px dotted #9aa996;transform:translateY(-4px)}.B-ln em{font:600 13.5px "Inter",sans-serif;font-style:normal}
+.B-it small{display:block;font-size:11px;color:#6a7a6c}
 .cs[data-tpl="bistro"] .cfoot,.cs[data-tpl="bistro"] .ctabs{background:#f3f1e8!important}
 .cs[data-tpl="cafe"] .ctabs,.cs[data-tpl="cafe"] .cfoot{background:#f7f1ea!important}
-.cs[data-tpl="simple"] .ctabs,.cs[data-tpl="simple"] .cfoot{background:#fff!important}
+.cs[data-tpl="ticket"] .ctabs,.cs[data-tpl="ticket"] .cfoot{background:#fff!important}
+.cs[data-tpl="teishoku"] .ctabs,.cs[data-tpl="teishoku"] .cfoot{background:#fbf6ec!important}
 </style>
 </head>
 <body>
@@ -435,7 +503,7 @@ var T={
  pickup:["受け取り時間","Pickup time","取餐时间","픽업 시간"],alg:["アレルギー","Allergens","过敏原","알레르기"],no:["注文番号","Order No.","订单号","주문 번호"],
  pcs:["点","items","件","개"],noHist:["まだ注文はありません","No orders yet","还没有订单","주문 내역이 없습니다"],payBy:["お支払い方法","Payment","支付方式","결제 방법"],
  card:["クレジットカード","Credit card","信用卡","신용카드"],proc:["お支払いを処理しています…","Processing payment…","正在处理付款…","결제 처리 중…"],
- free:["無料","free","免费","무료"],pick1:["食べたいものを選んでください","Choose from the menu","请选择菜品","메뉴를 선택해 주세요"],min:["分後","min","分钟后","분 후"],menu:["メニュー","Menu","菜单","메뉴"]
+ free:["無料","free","免费","무료"],pick1:["メニューを選んでください","Choose from the menu","请选择菜品","메뉴를 선택해 주세요"],min:["分後","min","分钟后","분 후"],menu:["メニュー","Menu","菜单","메뉴"]
 };
 var ALG={"小麦":["Wheat","小麦","밀"],"卵":["Egg","鸡蛋","달걀"],"乳":["Milk","乳制品","우유"],"大豆":["Soy","大豆","대두"],"豚肉":["Pork","猪肉","돼지고기"],"鶏肉":["Chicken","鸡肉","닭고기"],"牛肉":["Beef","牛肉","쇠고기"],"さば":["Mackerel","青花鱼","고등어"],"えび":["Shrimp","虾","새우"]};
 var RICE={n:["ごはん","Rice","米饭","밥"],c:[[["普通","Regular","普通","보통"],0],[["大盛り","Large","大份","곱빼기"],0],[["少なめ","Small","少量","적게"],0]]};
@@ -479,7 +547,7 @@ function unit(it,ch){var p=it.p;(it.o||[]).forEach(function(g,gi){var c=g.c[ch[g
 function optLabel(it,ch,L){return (it.o||[]).map(function(g,gi){var ci=ch[gi]||0,c=g.c[ci];return c&&ci>0?c[0][L]:""}).filter(Boolean).join("・")}
 
 /* ---------- state ---------- */
-var KEY="sakuapp-menu-demo-v4",S;
+var KEY="sakuapp-menu-demo-v5",S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||S.v!==4)S=seed();
 // rice option objects are shared refs in seed; after JSON restore they are copies — fine.
@@ -527,6 +595,40 @@ function renderTop(){
 }
 
 /* ---------- customer ---------- */
+function priceOf(it,t){return t==="teishoku"?it.p.toLocaleString("ja-JP")+"円":t==="bistro"?it.p.toLocaleString("ja-JP"):yen(it.p)}
+function algOf(it){return S.opts.allergy&&it.a&&it.a.length?'<small class="alg">'+tr("alg")+'：'+it.a.map(function(a){return L()?ALG[a]?ALG[a][L()-1]:a:a}).map(esc).join("・")+'</small>':""}
+function tplMenu(){
+  var t=curTpl()[0],st=S.store,h="",c=UI.c;
+  var tabs='<div class="ctabs">'+S.cats.map(function(k){return'<button type="button" data-act="cat" data-c="'+k.id+'" class="'+(c.cat===k.id?"on":"")+'">'+nm(k.n)+'</button>'}).join("")+'</div>';
+  var nmS=esc(st.name),mark=esc(st.mark||"店");
+  if(t==="teishoku"){
+    h+='<div class="T-hd"><div class="T-nr">'+st.name.replace(/^食堂\s*/,"").split("").slice(0,5).map(function(ch){return"<i>"+esc(ch)+"</i>"}).join("")+'</div><b>'+nmS+'</b><small>定食と季節の一品</small></div><div class="T-ban"><em>本日の日替わり</em><b>鶏の照り焼き定食</b><span>900円</span></div>'+tabs;
+  }else if(t==="cafe"){
+    h+='<div class="C-hd"><b>'+esc(st.name.replace(/^食堂\s*/,"").toUpperCase()==="ともしび"?"TOMOSHIBI":st.name)+'</b><small>COFFEE &amp; MEALS</small></div>'+tabs;
+  }else if(t==="ticket"){
+    h+='<div class="K-hd"><span>'+mark+'</span><div><b>'+nmS+'</b><small>食券はスマホで</small></div></div>'+tabs;
+  }else if(t==="izakaya"){
+    h+='<div class="Z-hd"><span>'+mark+'</span><div><b>'+nmS+'</b><small>本日もおつかれさまです</small></div></div><div class="Z-ph"></div><div class="Z-bd"><b>本日のおすすめ</b><p><span>ぶり大根</span><span>580</span></p><p><span>つくね（月見）</span><span>320</span></p><p><span>菜の花のおひたし</span><span>380</span></p></div>'+tabs;
+  }else{
+    h+='<div class="B-hd"><small>CARTE</small><b>Tomoshibi</b><em>本日のカルト</em></div>'+tabs;
+  }
+  S.cats.forEach(function(k){
+    var its=S.items.filter(function(i){return i.cat===k.id});if(!its.length)return;
+    h+='<div class="csec" id="sec-'+k.id+'"><h3>'+nm(k.n)+'</h3>';
+    if(t==="cafe"||t==="ticket")h+='<div class="'+(t==="cafe"?"C-grid":"K-grid")+'">';
+    its.forEach(function(it,ix){
+      var so=it.so?' aria-disabled="true"':"",cls=it.so?" so":"",sold='<span class="sold">'+tr("sold")+'</span>';
+      if(t==="teishoku")h+='<button type="button" class="it T-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'>'+thumb(it)+'<span><b>'+nm(it.n)+'</b><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</span><em>'+(it.so?sold:priceOf(it,t))+'</em></button>';
+      else if(t==="cafe")h+='<button type="button" class="C-c'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'>'+thumb(it,"arch")+'<b>'+nm(it.n)+'</b><small>'+(it.so?tr("sold"):yen(it.p))+'</small></button>';
+      else if(t==="ticket")h+='<button type="button" class="K-tk'+cls+(ix===0&&k.id===S.cats[0].id?" wide":"")+'" data-act="open" data-id="'+it.id+'"'+so+'>'+(ix===0&&k.id===S.cats[0].id?thumb(it):"")+'<b>'+nm(it.n)+'</b><small>'+(it.so?tr("sold"):yen(it.p))+'</small></button>';
+      else if(t==="izakaya")h+='<button type="button" class="it Z-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'><span><b>'+nm(it.n)+'</b><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</span><em class="'+(it.so?"x":"")+'">'+(it.so?"品切れ":yen(it.p))+'</em></button>';
+      else h+='<button type="button" class="it B-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'><span class="B-ln"><b>'+nm(it.n)+'</b><i></i><em>'+(it.so?"—":priceOf(it,t))+'</em></span><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</button>';
+    });
+    if(t==="cafe"||t==="ticket")h+='</div>';
+    h+='</div>';
+  });
+  return h;
+}
 function renderC(){
   var c=UI.c,st=S.store,cs=$("cs");
   document.documentElement.style.setProperty("--sc",st.color);
@@ -535,7 +637,7 @@ function renderC(){
   var tid=c.mode==="take"?"TO":c.t;
   var prev=$("cbody"),keep=prev&&prev.dataset.v===c.v?prev.scrollTop:0;
   var h='<div class="sbar"><span>'+hm(Date.now())+'</span><span>●●● 5G</span></div>';
-  h+='<div class="ch"><span class="av">'+esc(st.mark||"店")+'</span><div class="nm"><b>'+esc(st.name)+'</b><small>'+(c.mode==="take"?tr("take"):tableLabelC(c.t))+'</small></div><div class="act">';
+  h+='<div class="ch'+(c.v==="menu"?" tplch":"")+'"><span class="av">'+esc(st.mark||"店")+'</span><div class="nm"><b>'+esc(st.name)+'</b><small>'+(c.mode==="take"?tr("take"):tableLabelC(c.t))+'</small></div><div class="act">';
   if(S.opts.lang)h+='<label class="ib">'+I.globe+'<select data-chg="lang" aria-label="Language">'+LANGS.map(function(l,i){return'<option value="'+i+'"'+(i===c.lang?" selected":"")+'>'+l[1]+'</option>'}).join("")+'</select></label>';
   if(S.opts.call&&c.mode==="dine")h+='<button type="button" class="ib call" data-act="ccall">'+I.bell+tr("call")+'</button>';
   h+='</div></div>';
@@ -544,15 +646,7 @@ function renderC(){
   h+='<div class="cbody" id="cbody" data-v="'+c.v+'">';
   var foot="";
   if(c.v==="menu"){
-    h+='<div class="ctabs">'+S.cats.map(function(k){return'<button type="button" data-act="cat" data-c="'+k.id+'" class="'+(c.cat===k.id?"on":"")+'">'+nm(k.n)+'</button>'}).join("")+'</div>';
-    S.cats.forEach(function(k){
-      var its=S.items.filter(function(i){return i.cat===k.id});if(!its.length)return;
-      h+='<div class="csec" id="sec-'+k.id+'"><h3>'+nm(k.n)+'</h3>';
-      its.forEach(function(it){
-        h+='<button type="button" class="it'+(it.so?" so":"")+'" data-act="open" data-id="'+it.id+'"'+(it.so?' aria-disabled="true"':"")+'>'+thumb(it)+'<span><b>'+nm(it.n)+'</b><small>'+nm(it.d||[""])+'</small>'+(S.opts.allergy&&it.a&&it.a.length?'<small class="alg">'+tr("alg")+'：'+it.a.map(function(a){return L()?ALG[a]?ALG[a][L()-1]:a:a}).map(esc).join("・")+'</small>':"")+'<span class="pr"><span class="yen">'+yen(it.p)+'</span>'+(it.so?'<span class="sold">'+tr("sold")+'</span>':'<span class="plus">+</span>')+'</span></span></button>';
-      });
-      h+='</div>';
-    });
+    h+=tplMenu();
     h+='<div style="height:12px"></div>';
     var mine=myOrders().length;
     foot='<button type="button" class="hbtn" data-act="cv" data-v="hist" aria-label="'+tr("hist")+'">'+I.list+(mine?'<span class="dt"></span>':"")+'</button>';
@@ -684,9 +778,17 @@ function aQR(){
   S.tables.forEach(function(t){h+='<div class="qc">'+qrSvg(t.id+S.store.name)+'<b>'+esc(t.n)+'</b><small>tomoshibi.sakuapp.jp/t/'+esc(t.id)+'</small><button type="button" class="abtn" data-act="opent" data-t="'+t.id+'">この席の画面を開く</button></div>'});
   return h+'</div><p class="note" style="margin-top:14px;font-size:12px;color:var(--muted)">※デモ用の図柄のため、カメラで読み取ることはできません。</p>';
 }
-var TPLS=[["warm","和の食堂","無料","#c8551f","#fbf6ec","#1d1b18",'"Noto Serif JP",serif'],["simple","シンプル","無料","#141716","#ffffff","#141716",'"Noto Sans JP",sans-serif'],["cafe","カフェ","無料","#7a5236","#f7f1ea","#2b2119",'"Noto Sans JP",sans-serif'],["night","夜の居酒屋","有料","#e8463a","#1b1e25","#f3f1ec",'"Noto Serif JP",serif'],["bistro","ビストロ","有料","#2f7d4f","#f3f1e8","#1f2a22",'"Noto Serif JP",serif']];
-function applyTpl(){var t=TPLS.filter(function(x){return x[0]===(S.store.tpl||"warm")})[0]||TPLS[0],cs=document.getElementById("cs");if(!cs)return;cs.style.background=t[4];cs.style.color=t[5];cs.style.fontFamily=t[6];document.documentElement.style.setProperty("--sc",t[3]);cs.dataset.tpl=t[0]}
-function aTpl(){var cur=S.store.tpl||"warm";return'<div class="ah"><h2>テンプレート</h2><span class="meta">選ぶと、お客様の画面がすぐに切り替わります</span></div><div class="tg">'+TPLS.map(function(t){return'<button type="button" class="tc tplc'+(t[0]===cur?" use":"")+'" data-act="tpl" data-t="'+t[0]+'" style="text-align:left"><span class="tpv" style="background:'+t[4]+';color:'+t[5]+';font-family:'+t[6].replace(/"/g,"&quot;")+'"><i style="background:'+t[3]+'"></i><b>食堂 ともしび</b><small>生姜焼き定食　980円</small></span><div class="h"><b>'+t[1]+'</b><span class="stt">'+(t[0]===cur?"使用中":t[2])+'</span></div>'+(t[2]==="有料"?'<small>4,800円・買い切り（デモでは無料で試せます）</small>':'<small>無料で使えます</small>')+'</button>'}).join("")+'</div>'}
+var TPLS=[["teishoku","和の食堂","無料","#b5461b","#fbf6ec","#1d1b18",'"Noto Serif JP",serif',"暖簾の店名・明朝体・日替わりの札。定食屋や食堂に"],["cafe","カフェ","無料","#7a5236","#f7f1ea","#2b2119",'"Noto Sans JP",sans-serif',"写真が主役の2列カード。カフェや喫茶に"],["ticket","食券スタイル","無料","#141414","#ffffff","#141414",'"Noto Sans JP",sans-serif',"大きなボタンで選ぶ食券機風。ラーメン・丼に"],["izakaya","夜の居酒屋","有料","#d2311f","#16181d","#f1ece4",'"Noto Sans JP",sans-serif',"提灯と黒板のおすすめ、赤い値札。居酒屋・バーに"],["bistro","ビストロ","有料","#2f7d4f","#f3f1e8","#1f2a22",'"Noto Serif JP",serif',"紙のカルト風。点線で値段につなぐ。洋食・ワインバーに"]];
+function curTpl(){var id=S.store.tpl;var t=TPLS.filter(function(x){return x[0]===id})[0];return t||TPLS[0]}
+function applyTpl(){var t=curTpl(),cs=document.getElementById("cs");if(!cs)return;cs.style.background=t[4];cs.style.color=t[5];cs.style.fontFamily=t[6];document.documentElement.style.setProperty("--sc",S.store.ccol?S.store.color:t[3]);cs.dataset.tpl=t[0]}
+function tplPrev(t){var b='<span class="tpv tv-'+t[0]+'" style="background:'+t[4]+';color:'+t[5]+'">';
+  if(t[0]==="teishoku")b+='<span class="tv-nr"><i>と</i><i>も</i><i>し</i><i>び</i></span><span class="tv-rw"><i class="ph" style="background-image:url(../img/pork.webp)"></i><em>生姜焼き定食</em><u>980円</u></span><span class="tv-rw"><i class="ph" style="background-image:url(../img/saba.webp)"></i><em>焼き魚定食</em><u>1,080円</u></span>';
+  else if(t[0]==="cafe")b+='<span class="tv-cn">TOMOSHIBI</span><span class="tv-gr"><i style="background-image:url(../img/latte-c.webp)"></i><i style="background-image:url(../img/tart-c.webp)"></i></span>';
+  else if(t[0]==="ticket")b+='<span class="tv-bk"><b>灯</b>食堂 ともしび</span><span class="tv-tk"><i class="on">生姜焼き定食</i><i>焼き魚定食</i><i>天ぷら</i><i>大盛り</i></span>';
+  else if(t[0]==="izakaya")b+='<span class="tv-iz"><i>灯</i>食堂 ともしび</span><span class="tv-bd">本日のおすすめ<br>・ぶり大根　580</span><span class="tv-rw"><em>焼き鳥 五本盛り</em><u class="tag">¥880</u></span>';
+  else b+='<span class="tv-bi">Tomoshibi</span><span class="tv-sc">Entrée</span><span class="tv-ld"><em>生姜焼き定食</em><i></i><u>980</u></span><span class="tv-ld"><em>焼き魚定食</em><i></i><u>1,080</u></span>';
+  return b+'</span>'}
+function aTpl(){var cur=curTpl()[0];return'<div class="ah"><h2>テンプレート</h2><span class="meta">選ぶと、お客様の画面のレイアウトごと切り替わります</span></div><div class="tg tpg">'+TPLS.map(function(t){return'<button type="button" class="tc tplc'+(t[0]===cur?" use":"")+'" data-act="tpl" data-t="'+t[0]+'" style="text-align:left">'+tplPrev(t)+'<div class="h"><b>'+t[1]+'</b><span class="stt">'+(t[0]===cur?"使用中":t[2])+'</span></div><small>'+t[7]+'</small>'+(t[2]==="有料"?'<small class="pz">4,800円・買い切り（デモでは無料で試せます）</small>':'')+'</button>'}).join("")+'</div><p class="note" style="margin-top:14px;font-size:12px;color:var(--muted)">※色だけを変えたい場合は「店舗設定」のテーマカラーで変えられます。</p>'}
 function aSettings(){
   var st=S.store;
   return'<div class="ah"><h2>店舗設定</h2><span class="meta">お客様の画面の見た目が変わります</span></div><div class="form">'+
@@ -773,8 +875,8 @@ document.addEventListener("click",function(ev){
   case"delitem":if(!confirm("この商品を削除しますか？"))return;S.items=S.items.filter(function(i){return i.id!==a.edit.id});c.cart=c.cart.filter(function(x){return x.id!==a.edit.id});a.edit=null;save();break;
   case"addtable":var n=S.tables.filter(function(t){return/^t\d+$/.test(t.id)}).length+1;while(S.tables.some(function(t){return t.id==="t"+n}))n++;S.tables.splice(S.tables.filter(function(t){return/^t/.test(t.id)}).length,0,{id:"t"+n,n:"テーブル"+n});save();break;
   case"opent":c.t=el.dataset.t;c.mode="dine";c.v="menu";c.det=null;if(isMobile()){UI.pane="c";window.scrollTo(0,0)}break;
-  case"color":S.store.color=el.dataset.c;save();break;
-  case"tpl":S.store.tpl=el.dataset.t;var tt=TPLS.filter(function(x){return x[0]===el.dataset.t})[0];S.store.color=tt[3];save();if(isMobile())gtoast("お客様の画面のテンプレートを変えました");break;
+  case"color":S.store.color=el.dataset.c;S.store.ccol=true;save();break;
+  case"tpl":S.store.tpl=el.dataset.t;save();if(isMobile())gtoast("お客様の画面のテンプレートを変えました");break;
   default:return;
   }
   renderAll();
