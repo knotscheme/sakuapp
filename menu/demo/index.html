@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3ede5;--card:#fff;--text:#241e1a;--muted:#7a6d63;--line:#ebe2d7;--brand:#a8740f;--mint:#fdf3d9;--accent:#f3b93a;--dark:#1f1a17;--dm:#b9ab9f;--sc:#c8551f;--new:#e8590c;--cook:#3f7a5a;--done:#8a918f;color-scheme:light}
+:root{--bg:#f3ede5;--card:#fff;--text:#241e1a;--muted:#7a6d63;--line:#ebe2d7;--brand:#a8740f;--mint:#fdf3d9;--accent:#f3b93a;--dark:#1f1a17;--dm:#b9ab9f;--sc:#c8551f;--new:#c8551f;--cook:#3f7a5a;--done:#8a918f;color-scheme:light}
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--text);font:400 14px/1.6 "Inter","Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;font-feature-settings:"palt";-webkit-text-size-adjust:100%}
@@ -345,6 +345,34 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 }
 @media(max-width:520px){.top .back span{display:none}.optbtn .l2{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ===== refined customer screen ===== */
+.th.ph{background-size:cover;background-position:center;font-size:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+.sheet .hero.ph{background-size:cover;background-position:center;height:230px}
+.cs{font-family:"Noto Sans JP",sans-serif}
+.ch{padding:10px 16px 12px;border-bottom:1px solid #efe6da}
+.ch .av{border-radius:8px;font-family:"Noto Serif JP",serif;font-size:17px;width:40px;height:40px}
+.ch .nm b{font-family:"Noto Serif JP",serif;font-weight:700;font-size:16px;letter-spacing:.12em}
+.ch .nm small{letter-spacing:.08em}
+.ctabs{gap:20px;padding:10px 16px 0;border-bottom:1px solid #efe6da}
+.ctabs button{background:none;border-radius:0;padding:4px 0 9px;font-family:"Noto Serif JP",serif;font-size:13.5px;color:#9a8b7d}
+.ctabs button.on{background:none;color:var(--text);box-shadow:inset 0 -2px 0 var(--sc)}
+.csec h3{font-family:"Noto Serif JP",serif;font-size:13px;letter-spacing:.24em;color:#8a7766;padding:20px 16px 8px;display:flex;align-items:center;gap:10px}
+.csec h3::after{content:"";flex:1;height:1px;background:#e8dccd}
+.it{grid-template-columns:84px 1fr;gap:14px;padding:12px 16px;border-bottom:1px dashed #ebdfcf}
+.it .th{border-radius:10px;width:84px;height:84px}
+.it b{font-family:"Noto Serif JP",serif;font-weight:700;font-size:14.5px;letter-spacing:.04em}
+.it .pr .yen{font-family:"Noto Serif JP",serif;font-size:15px}
+.plus{background:none;color:var(--sc);border:1.5px solid var(--sc);width:28px;height:28px}
+.sold{background:#b5a898}
+.big{border-radius:10px}
+.big.sc{background:var(--sc)}
+.cfoot{border-top:1px solid #efe6da}
+.crow .th.ph{width:52px;height:52px}
+.big span{white-space:nowrap}
+.sheet h3{font-family:"Noto Serif JP",serif;letter-spacing:.04em}
+.sheet .bd>.yen{font-family:"Noto Serif JP",serif}
+.mt .th.ph{width:44px;height:44px}
 </style>
 </head>
 <body>
@@ -408,22 +436,19 @@ var COLORS=["#c8551f","#2b6cb0","#2f7d4f","#8a3ffc","#141716"];
 function seed(){
   var now=Date.now(),m=60000;
   var items=[
-   {id:"i1",cat:"teishoku",e:"🍖",p:980,n:["生姜焼き定食","Ginger Pork Set","姜汁烧肉套餐","생강구이 정식"],d:["ごはん・味噌汁・小鉢つき。ごはん大盛り無料","With rice, miso soup & side. Large rice free","配米饭、味噌汤和小菜","밥·된장국·반찬 포함"],a:["小麦","大豆","豚肉"],o:[RICE]},
-   {id:"i2",cat:"teishoku",e:"🍗",p:1050,n:["唐揚げ定食","Karaage Chicken Set","日式炸鸡套餐","가라아게 정식"],d:["にんにく醤油に漬けた、外はカリッと中はジューシー","Crispy garlic-soy fried chicken","蒜香酱油炸鸡","마늘 간장 치킨"],a:["小麦","大豆","鶏肉"],o:[RICE,{n:["唐揚げの数","Pieces","块数","개수"],c:[[["4個","4 pcs","4块","4개"],0],[["6個","6 pcs","6块","6개"],200]]}]},
-   {id:"i3",cat:"teishoku",e:"🐟",p:1080,n:["焼き魚定食（さば）","Grilled Mackerel Set","烤青花鱼套餐","고등어구이 정식"],d:["脂ののった塩さばを炭火で","Charcoal-grilled salted mackerel","炭烤盐渍青花鱼","숯불 고등어구이"],a:["さば","大豆"],o:[RICE]},
-   {id:"i4",cat:"teishoku",e:"🍱",p:900,n:["日替わり定食","Daily Special Set","每日特选套餐","오늘의 정식"],d:["内容はスタッフにおたずねください","Ask our staff for today's dish","请向店员询问","직원에게 문의해 주세요"],a:["小麦","卵","大豆"],o:[RICE]},
-   {id:"i5",cat:"ippin",e:"🍤",p:680,n:["季節の野菜天","Seasonal Vegetable Tempura","时令蔬菜天妇罗","제철 채소 튀김"],d:["かぼちゃ・れんこん・まいたけ。塩でどうぞ","Pumpkin, lotus root & maitake","南瓜、莲藕、舞茸","단호박·연근·잎새버섯"],a:["小麦","卵"],o:[]},
-   {id:"i6",cat:"ippin",e:"🍳",p:520,n:["だし巻き玉子","Dashi Rolled Omelette","日式高汤煎蛋卷","다시마키 계란말이"],d:["注文を受けてから焼きます","Made to order","现点现做","주문 후 조리"],a:["卵","大豆"],o:[]},
-   {id:"i7",cat:"ippin",e:"🍲",p:600,n:["本日の煮込み","Today's Simmered Stew","今日炖菜","오늘의 조림"],d:["数量限定。なくなり次第終了","Limited quantity","限量供应","한정 수량"],a:["小麦","大豆","牛肉"],o:[],so:true},
-   {id:"i8",cat:"ippin",e:"🥢",p:380,n:["冷奴","Chilled Tofu","凉拌豆腐","냉두부"],d:["しょうがとねぎをのせて","With ginger & scallion","配姜和葱","생강·파 토핑"],a:["大豆"],o:[]},
-   {id:"i9",cat:"drink",e:"🍺",p:650,n:["瓶ビール","Bottled Beer","瓶装啤酒","병맥주"],d:["中瓶","Medium bottle","中瓶","중병"],a:["小麦"],o:[]},
-   {id:"i10",cat:"drink",e:"🍋",p:480,n:["レモンサワー","Lemon Sour","柠檬沙瓦","레몬사와"],d:["生レモンをしぼって","Fresh-squeezed lemon","鲜榨柠檬","생레몬"],a:[],o:[]},
-   {id:"i11",cat:"drink",e:"🍵",p:300,n:["ウーロン茶","Oolong Tea","乌龙茶","우롱차"],d:["おかわり自由ではありません","No free refills","不可续杯","리필 불가"],a:[],o:[]},
-   {id:"i12",cat:"sweet",e:"🍡",p:450,n:["白玉ぜんざい","Red Bean Soup with Mochi","白玉红豆汤","시라타마 단팥죽"],d:["温かいぜんざいに白玉をたっぷり","Warm sweet red bean soup","热红豆汤配白玉","따뜻한 단팥죽"],a:[],o:[]},
-   {id:"i13",cat:"sweet",e:"🍨",p:380,n:["抹茶アイス","Matcha Ice Cream","抹茶冰淇淋","말차 아이스크림"],d:["京都の抹茶を使った濃いめの味","Rich Kyoto matcha","浓郁京都抹茶","진한 교토 말차"],a:["乳"],o:[]}
+   {id:"i1",cat:"teishoku",e:"🍖",img:"pork",hero:"teishoku-top",p:980,n:["生姜焼き定食","Ginger Pork Set","姜汁烧肉套餐","생강구이 정식"],d:["ごはん・味噌汁・小鉢つき。ごはん大盛り無料","With rice, miso soup & side. Large rice free","配米饭、味噌汤和小菜","밥·된장국·반찬 포함"],a:["小麦","大豆","豚肉"],o:[RICE]},
+   {id:"i2",cat:"teishoku",e:"🐟",img:"saba",hero:"saba-set",p:1080,n:["焼き魚定食（さば）","Grilled Mackerel Set","烤青花鱼套餐","고등어구이 정식"],d:["脂ののった塩さばを炭火で。大根おろし添え","Charcoal-grilled salted mackerel","炭烤盐渍青花鱼","숯불 고등어구이"],a:["さば","大豆"],o:[RICE,{n:["さばの大きさ","Size","大小","크기"],c:[[["ふつう","Regular","普通","보통"],0],[["大きめ","Large","大份","크게"],200]]}]},
+   {id:"i4",cat:"teishoku",e:"🍱",img:"teishoku-hero",hero:"teishoku-hero",p:900,n:["日替わり定食","Daily Special Set","每日特选套餐","오늘의 정식"],d:["本日は鶏の照り焼き。数量限定です","Today: teriyaki chicken","今日：照烧鸡","오늘: 데리야키 치킨"],a:["小麦","大豆","鶏肉"],o:[RICE]},
+   {id:"i5",cat:"ippin",e:"🍤",img:"tempura-c",hero:"tempura",p:680,n:["季節の野菜天","Seasonal Vegetable Tempura","时令蔬菜天妇罗","제철 채소 튀김"],d:["かぼちゃ・れんこん・まいたけ。塩でどうぞ","Pumpkin, lotus root & maitake","南瓜、莲藕、舞茸","단호박·연근·잎새버섯"],a:["小麦","卵"],o:[]},
+   {id:"i6",cat:"ippin",e:"🍳",img:"tamago-c",hero:"tamagoyaki",p:520,n:["だし巻き玉子","Dashi Rolled Omelette","日式高汤煎蛋卷","다시마키 계란말이"],d:["注文を受けてから焼きます","Made to order","现点现做","주문 후 조리"],a:["卵","大豆"],o:[]},
+   {id:"i7",cat:"ippin",e:"🍢",img:"yakitori",hero:"yakitori",p:880,n:["焼き鳥 五本盛り","Assorted Yakitori (5)","烤鸡串拼盘","야키토리 5종"],d:["ねぎま・もも・つくねなど。塩かたれで","Salt or tare sauce","盐或酱汁","소금 또는 소스"],a:["小麦","大豆","鶏肉"],o:[{n:["味つけ","Seasoning","口味","맛"],c:[[["塩","Salt","盐","소금"],0],[["たれ","Tare","酱汁","소스"],0]]}]},
+   {id:"i9",cat:"drink",e:"☕",img:"drip-c",hero:"drip",p:400,n:["食後のコーヒー","After-meal Coffee","餐后咖啡","식후 커피"],d:["自家焙煎のドリップ","House-roasted drip","自家烘焙手冲","자가 로스팅 드립"],a:[],o:[]},
+   {id:"i10",cat:"drink",e:"☕",img:"latte",hero:"latte",p:500,n:["カフェラテ","Cafe Latte","拿铁","카페라테"],d:["ホットのみ","Hot only","仅热饮","핫만 가능"],a:["乳"],o:[]},
+   {id:"i13",cat:"sweet",e:"🍨",img:"matcha-c",hero:"matcha",p:380,n:["抹茶アイス","Matcha Ice Cream","抹茶冰淇淋","말차 아이스크림"],d:["京都の抹茶を使った濃いめの味","Rich Kyoto matcha","浓郁京都抹茶","진한 교토 말차"],a:["乳"],o:[]},
+   {id:"i14",cat:"sweet",e:"🍰",img:"tart-c",hero:"tart",p:550,n:["いちじくのタルト","Fig Tart","无花果挞","무화과 타르트"],d:["本日分は売り切れました","Sold out for today","今日售罄","오늘 품절"],a:["小麦","卵","乳"],o:[],so:true}
   ];
   var tables=[["t1","テーブル1"],["t2","テーブル2"],["t3","テーブル3"],["t4","テーブル4"],["t5","テーブル5"],["t6","テーブル6"],["c1","カウンター1"],["c2","カウンター2"]].map(function(x){return{id:x[0],n:x[1]}});
-  var S={v:3,store:{name:"食堂 ともしび",mark:"灯",color:"#c8551f",open:true},tables:tables,
+  var S={v:4,store:{name:"食堂 ともしび",mark:"灯",color:"#c8551f",open:true},tables:tables,
     cats:[{id:"teishoku",n:["定食","Set Meals","套餐","정식"]},{id:"ippin",n:["一品","Side Dishes","单点","일품"]},{id:"drink",n:["ドリンク","Drinks","饮品","음료"]},{id:"sweet",n:["甘味","Desserts","甜品","디저트"]}],
     items:items,orders:[],calls:[],seq:100,opts:{},nid:20};
   // past (closed) orders for sales
@@ -436,18 +461,18 @@ function seed(){
   }
   function mk(tid,list,s,ago){S.orders.push({id:"o"+(++S.nid),no:++S.seq,t:tid,items:list.map(function(x){var it=items.filter(function(i){return i.id===x[0]})[0];var ch=x[2]||it.o.map(function(){return 0});return{id:it.id,n:it.n[0],ch:ch,o:optLabel(it,ch,0),p:unit(it,ch),q:x[1]}}),s:s,at:now-ago*m,closed:false,paid:false})}
   mk("c1",[["i4",1]],"served",14);
-  mk("t2",[["i6",2],["i9",1]],"cooking",6);
+  mk("t2",[["i6",2],["i10",1]],"cooking",6);
   mk("t2",[["i5",1]],"new",2);
-  mk("t3",[["i2",1,[1,1]],["i11",2]],"new",1);
+  mk("t3",[["i2",1,[1,1]],["i9",2]],"new",1);
   return S;
 }
 function unit(it,ch){var p=it.p;(it.o||[]).forEach(function(g,gi){var c=g.c[ch[gi]||0];if(c)p+=c[1]});return p}
 function optLabel(it,ch,L){return (it.o||[]).map(function(g,gi){var ci=ch[gi]||0,c=g.c[ci];return c&&ci>0?c[0][L]:""}).filter(Boolean).join("・")}
 
 /* ---------- state ---------- */
-var KEY="sakuapp-menu-demo-v3",S;
+var KEY="sakuapp-menu-demo-v4",S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
-if(!S||S.v!==3)S=seed();
+if(!S||S.v!==4)S=seed();
 // rice option objects are shared refs in seed; after JSON restore they are copies — fine.
 var q=new URLSearchParams(location.search);
 if(q.has("opt")){S.opts={};q.get("opt").split(",").forEach(function(k){if(k)S.opts[k]=true})}
@@ -469,7 +494,7 @@ function ago(ts){var m=Math.floor((Date.now()-ts)/60000);return m<1?"たった�
 function oTotal(o){return o.items.reduce(function(s,x){return s+x.p*x.q},0)}
 function cartTotal(){return UI.c.cart.reduce(function(s,x){var it=item(x.id);return s+(it?unit(it,x.ch)*x.q:0)},0)}
 function cartCount(){return UI.c.cart.reduce(function(s,x){return s+x.q},0)}
-function thumb(it,cls){return '<span class="th '+(CAT_CLS[it.cat]||"c-other")+(cls?" "+cls:"")+'" aria-hidden="true">'+esc(it.e)+'</span>'}
+function thumb(it,cls){if(it.img)return '<span class="th ph'+(cls?" "+cls:"")+'" aria-hidden="true" style="background-image:url(../img/'+it.img+'.webp)"></span>';return '<span class="th '+(CAT_CLS[it.cat]||"c-other")+(cls?" "+cls:"")+'" aria-hidden="true">'+esc(it.e)+'</span>'}
 var I={
  back:'<svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>',
  bell:'<svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>',
@@ -567,7 +592,7 @@ function histCard(o){
 function detailSheet(it){
   var d=UI.c.det,u=unit(it,d.ch);
   var an=d.anim?" anim":"";d.anim=false;
-  var h='<div class="sheetbg'+an+'" data-act="close" data-self="1"><div class="sheet'+an+'" role="dialog" aria-label="'+nm(it.n)+'"><div class="hero '+(CAT_CLS[it.cat]||"c-other")+'">'+esc(it.e)+'<button type="button" class="x" data-act="close" aria-label="閉じる">×</button></div><div class="bd"><h3>'+nm(it.n)+'</h3><span class="yen">'+yen(it.p)+'</span><p>'+nm(it.d||[""])+'</p>';
+  var h='<div class="sheetbg'+an+'" data-act="close" data-self="1"><div class="sheet'+an+'" role="dialog" aria-label="'+nm(it.n)+'"><div class="hero '+(it.hero?'ph':(CAT_CLS[it.cat]||"c-other"))+'"'+(it.hero?' style="background-image:url(../img/'+it.hero+'.webp)"':'')+'>'+(it.hero?'':esc(it.e))+'<button type="button" class="x" data-act="close" aria-label="閉じる">×</button></div><div class="bd"><h3>'+nm(it.n)+'</h3><span class="yen">'+yen(it.p)+'</span><p>'+nm(it.d||[""])+'</p>';
   if(S.opts.allergy&&it.a){h+='<div class="algs"><b>⚠ '+tr("alg")+'</b>'+(it.a.length?it.a.map(function(a){return'<span>'+esc(L()&&ALG[a]?ALG[a][L()-1]:a)+'</span>'}).join(""):'<span>—</span>')+'</div>'}
   (it.o||[]).forEach(function(g,gi){
     h+='<div class="og"><h4>'+nm(g.n)+'</h4>'+g.c.map(function(ch,ci){return'<label><input type="radio" name="g'+gi+'" data-chg="ch" data-g="'+gi+'" value="'+ci+'"'+((d.ch[gi]||0)===ci?" checked":"")+'>'+nm(ch[0])+'<i>'+(ch[1]?"+"+yen(ch[1]):(g.n[0]==="ごはん"&&ci===1?tr("free"):""))+'</i></label>'}).join("")+'</div>';
@@ -726,12 +751,12 @@ document.addEventListener("click",function(ev){
   case"mc":a.mc=el.dataset.c;break;
   case"edit":it=item(el.dataset.id);a.edit={id:it.id,n:it.n[0],p:it.p,cat:it.cat,d:(it.d||[""])[0],e:it.e};break;
   case"newitem":a.edit={isNew:true,n:"",p:500,cat:a.mc!=="all"?a.mc:S.cats[0].id,d:"",e:"🍛"};break;
-  case"emj":readForm();a.edit.e=el.dataset.e;break;
+  case"emj":readForm();a.edit.e=el.dataset.e;a.edit.pick=true;break;
   case"cancel":a.edit=null;break;
   case"saveitem":readForm();var e=a.edit;if(!e.n.trim()){alert("商品名を入力してください");return}
     var p=Math.max(0,Math.round(+e.p||0));
     if(e.isNew){S.items.push({id:"n"+(++S.nid),cat:e.cat,e:e.e,p:p,n:[e.n,e.n,e.n,e.n],d:[e.d,e.d,e.d,e.d],a:[],o:[]})}
-    else{it=item(e.id);var chg=it.n[0]!==e.n;it.n[0]=e.n;if(chg)it.n=[e.n,e.n,e.n,e.n];it.d=it.d||["","","",""];if(it.d[0]!==e.d)it.d=[e.d,e.d,e.d,e.d];it.p=p;it.cat=e.cat;it.e=e.e}
+    else{it=item(e.id);var chg=it.n[0]!==e.n;it.n[0]=e.n;if(chg)it.n=[e.n,e.n,e.n,e.n];it.d=it.d||["","","",""];if(it.d[0]!==e.d)it.d=[e.d,e.d,e.d,e.d];it.p=p;it.cat=e.cat;it.e=e.e;if(e.pick){it.img=null;it.hero=null}}
     a.edit=null;save();break;
   case"delitem":if(!confirm("この商品を削除しますか？"))return;S.items=S.items.filter(function(i){return i.id!==a.edit.id});c.cart=c.cart.filter(function(x){return x.id!==a.edit.id});a.edit=null;save();break;
   case"addtable":var n=S.tables.filter(function(t){return/^t\d+$/.test(t.id)}).length+1;while(S.tables.some(function(t){return t.id==="t"+n}))n++;S.tables.splice(S.tables.filter(function(t){return/^t/.test(t.id)}).length,0,{id:"t"+n,n:"テーブル"+n});save();break;
@@ -758,7 +783,7 @@ document.addEventListener("change",function(ev){
   renderAll();
 });
 document.addEventListener("keydown",function(ev){if(ev.key==="Escape"){if($("optpanel").classList.contains("on"))setPanel(false);else if(UI.a.edit){UI.a.edit=null;renderA()}else if(UI.c.det){UI.c.det=null;renderC()}}});
-window.addEventListener("storage",function(ev){if(ev.key===KEY){try{var n=JSON.parse(ev.newValue);if(n&&n.v===3){S=n;renderAll()}}catch(e){}}});
+window.addEventListener("storage",function(ev){if(ev.key===KEY){try{var n=JSON.parse(ev.newValue);if(n&&n.v===4){S=n;renderAll()}}catch(e){}}});
 setInterval(function(){var f=document.activeElement;if(UI.a.edit||(f&&/INPUT|SELECT|TEXTAREA/.test(f.tagName)))return;renderA();renderTop()},20000);
 renderAll();
 })();
