@@ -325,7 +325,11 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
   .win{border-radius:0;border:0;box-shadow:none}
   .wbar{display:none}
   .wb{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
-  .side{flex-direction:row;overflow-x:auto;padding:8px;gap:4px;border-right:0;border-bottom:1px solid var(--line);scrollbar-width:none}
+  .side{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;padding:8px;gap:6px;border-right:0;border-bottom:1px solid var(--line)}
+  .side .nv{justify-content:center;text-align:center;white-space:nowrap;padding:8px 4px!important;font-size:12px!important;border:1px solid var(--line);background:#fff;position:relative}
+  .side .nv.on{background:var(--mint)!important;border-color:var(--brand);color:var(--brand)}
+  .side .nv .bd{position:absolute;top:-6px;right:-4px;margin:0}
+  .side .nv .lk{display:none}
   .side::-webkit-scrollbar{display:none}
   .side .sh,.side .open{display:none}
   .nv{flex:none;width:auto;padding:7px 12px;font-size:12.5px}
