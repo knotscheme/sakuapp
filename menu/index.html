@@ -318,6 +318,30 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 .L-bistro .b-it small{display:block;width:100%;font-size:8px;color:#6a7a6c;margin-top:-4px;padding:0 16px}
 .L-bistro .cb{background:#2f7d4f;border-radius:2px;font-family:var(--serif)}
 
+
+/* hero order sequence */
+.hseq .hl0{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transition:opacity .45s}
+.hseq .hl0.on{opacity:1}
+.hseq .hl0>*{flex-shrink:0}.hseq .hl0>.feed,.hseq .hl0>.cam,.hseq .hl0>.dn{flex:1 1 0;min-height:0}
+.hseq .cam .fr{width:56%}
+.cpill{position:absolute;left:12px;right:12px;bottom:22px;display:flex;gap:9px;align-items:center;background:#fff;color:#241e1a;border-radius:14px;padding:9px 11px;text-align:left}
+.cpill i{flex:none;width:28px;height:28px;border-radius:8px;background:#c8551f;color:#fff;display:grid;place-items:center;font:700 13px var(--serif);font-style:normal}
+.cpill b{display:block;font-size:11px}.cpill small{font-size:9.5px;color:var(--muted)}
+.hseq .dn i{width:52px;height:52px;background:#c8551f}.hseq .dn i svg{width:24px;height:24px;stroke:#fff}
+.hseq .dn b{font-size:13px}.hseq .dn strong{font-size:34px;margin:4px 0}.hseq .dn small{font-size:10px}
+.htap{position:absolute;z-index:9;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(36,30,26,.22);box-shadow:0 0 0 2px rgba(255,255,255,.9);opacity:0;transition:left .5s cubic-bezier(.5,0,.2,1),top .5s cubic-bezier(.5,0,.2,1),opacity .25s;pointer-events:none;left:50%;top:80%}
+.htap.v{opacity:1}
+.htap.pr{animation:hpr .35s}
+@keyframes hpr{50%{transform:scale(.7)}}
+.hseq .t-it{transition:background .3s}
+.hseq .t-it.sel{background:rgba(200,85,31,.12)}
+.hseq .cb{transition:opacity .3s,transform .3s}
+.hseq .cb.off{opacity:.45}
+.hseq .cb.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.05)}}
+.hadd{position:absolute;left:50%;top:58px;z-index:8;transform:translate(-50%,-8px);background:#241e1a;color:#fff;font-size:10.5px;font-weight:700;border-radius:99px;padding:6px 12px;white-space:nowrap;opacity:0;pointer-events:none}
+.hadd.v{animation:hadd 1.2s ease-out}
+@keyframes hadd{15%,70%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-6px)}}
 /* numbered chapters */
 .chap{position:relative;text-align:center;padding-top:20px;margin-bottom:48px}
 .chap .bgw{position:absolute;left:50%;top:-10px;transform:translateX(-50%);font:800 clamp(90px,17vw,220px)/1 var(--en);color:#f3ebe1;letter-spacing:-.02em;white-space:nowrap;pointer-events:none;z-index:0}
@@ -682,6 +706,7 @@ footer a:hover{color:var(--blue)}
 }
 /* ===== Japanese line breaking: break only between phrases ===== */
 .jp{word-break:keep-all;overflow-wrap:anywhere;line-break:strict}
+.nw{white-space:nowrap}
 h1,h2,h3,h4,summary,.pill p,.chap p,.answer{text-wrap:balance}
 p,small,li,dd{text-wrap:pretty}
 .ef b,.pcard b,.hfacts b,.stats b,.sum .tot b,.olist em,.cmpt .num{white-space:nowrap}
@@ -1048,7 +1073,38 @@ p,small,li,dd{text-wrap:pretty}
     clearTimeout(swTimer);if(!RM)swTimer=setTimeout(function(){setSw((swi+1)%SHOPS.length)},3200)}
   swl.addEventListener("click",function(e){var b=e.target.closest("button");if(b)setSw(+b.dataset.i)});
   setSw(0);
-  [[2,"hp0"],[0,"hp1"],[1,"hp2"]].forEach(function(x){var sh=SHOPS[x[0]],e=$(x[1]);e.className="scr L-"+sh.L;e.setAttribute("style",vars(sh)+";background:"+sh.bg+";color:"+sh.fg);e.innerHTML=inner(sh)});
+  [[2,"hp0"],[1,"hp2"]].forEach(function(x){var sh=SHOPS[x[0]],e=$(x[1]);e.className="scr L-"+sh.L;e.setAttribute("style",vars(sh)+";background:"+sh.bg+";color:"+sh.fg);e.innerHTML=inner(sh)});
+
+  /* ---------- hero: QR scan -> menu -> cart -> order ---------- */
+  (function(){
+    var sc=$("hp1"),sh=SHOPS[0];sc.className="scr hseq";sc.setAttribute("style",vars(sh)+";background:"+sh.bg+";color:"+sh.fg);
+    sc.innerHTML='<div class="hl0 lay on" data-k="cam"><div class="sb" style="background:#0d0d0d;color:#fff"><span>12:03</span><span>5G</span></div><div class="cam"><div class="fr" id="hqr"></div><div class="cpill" id="hpill"><i>灯</i><span><b>食堂 ともしび</b><small>テーブル5のメニューを開く</small></span></div></div></div>'
+      +'<div class="hl0 lay L-teishoku" data-k="menu" style="background:'+sh.bg+'">'+inner(sh)+'</div>'
+      +'<div class="hl0 lay" data-k="done" style="background:'+sh.bg+'"><div class="sb"><span>12:05</span><span>5G</span></div><div class="dn"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>ご注文を受け付けました</b><strong>128</strong><small>できあがりまで少々お待ちください</small></div></div>'
+      +'<span class="htap" id="htap"></span><span class="hadd" id="hadd">カートに追加しました</span>';
+    setTimeout(function(){if($("qr"))$("hqr").innerHTML=$("qr").innerHTML},0);
+    var tap=$("htap"),add=$("hadd"),L={};sc.querySelectorAll(".hl0").forEach(function(l){L[l.dataset.k]=l});
+    var menu=L.menu,rows=menu.querySelectorAll(".t-it"),cb=menu.querySelector(".cb"),cbs=cb.querySelectorAll("span");
+    function show(k){for(var x in L)L[x].classList.toggle("on",x===k)}
+    function pos(el){var x=0,y=0;while(el&&el!==sc){x+=el.offsetLeft;y+=el.offsetTop;el=el.offsetParent}return[x,y]}
+    function tapAt(el,dx,dy){var p=pos(el);tap.style.left=(p[0]+(dx!=null?dx:el.offsetWidth/2))+"px";tap.style.top=(p[1]+(dy!=null?dy:el.offsetHeight/2))+"px";tap.classList.add("v");setTimeout(function(){tap.classList.remove("pr");void tap.offsetWidth;tap.classList.add("pr")},520)}
+    function cart(n,t){cbs[0].textContent=n?"注文する（"+n+"品）":"食べたいものを選んでください";cbs[1].textContent=t;cb.classList.toggle("off",!n);if(n){cb.classList.remove("bump");void cb.offsetWidth;cb.classList.add("bump")}}
+    function hl(r){r.classList.add("sel");setTimeout(function(){r.classList.remove("sel")},700);add.classList.remove("v");void add.offsetWidth;add.classList.add("v")}
+    var T=[];function at(ms,f){T.push(setTimeout(f,ms))}
+    function run(){
+      T.forEach(clearTimeout);T=[];show("cam");cart(0,"");tap.classList.remove("v");menu.querySelector(".feed").scrollTop=0;
+      at(1300,function(){tapAt($("hpill"))});
+      at(2000,function(){show("menu")});
+      at(3000,function(){tapAt(rows[0])});
+      at(3550,function(){hl(rows[0]);cart(1,"¥980")});
+      at(4500,function(){tapAt(rows[1])});
+      at(5050,function(){hl(rows[1]);cart(2,"¥2,060")});
+      at(6100,function(){tapAt(cb)});
+      at(6700,function(){tap.classList.remove("v");show("done")});
+      at(9600,run);
+    }
+    if(RM){show("menu")}else run();
+  })();
   var C1=["カラー","ロゴ","写真の見せ方","カテゴリの並び","おすすめ枠","売り切れ表示","大盛り・トッピング","数量限定"],C2=["多言語メニュー","アレルギー表示","呼び出しボタン","事前決済","テイクアウト","LINE通知","売上集計","QRコード"];
   function chipRow(a){var h=a.map(function(x){return"<span>"+x+"</span>"}).join("");return h+h}
   $("chips1").innerHTML=chipRow(C1);$("chips2").innerHTML=chipRow(C2);
@@ -1100,6 +1156,14 @@ p,small,li,dd{text-wrap:pretty}
 
   /* ---------- phrase-aware line breaks for Japanese ---------- */
   (function(){
+    var NUM=/((?:約|¥|￥)?[0-9０-９][0-9０-９,，.]*(?:[0-9０-９])?(?:万円|円|件|分|秒|時間|日|か月|ヶ月|月|年|人|回|品|点|個|枚|杯|本|台|席|名|階|種|割|%|％|px)?)/g;
+    document.querySelectorAll("main h1,main h2,main h3,main h4,main p,main li,main summary,main small,main b,main em,main label,main dd,main span").forEach(function(el){
+      if(el.closest(".ph,.adm,.arc,.mbox,.nw,[data-count]"))return;
+      [].slice.call(el.childNodes).forEach(function(tn){if(tn.nodeType!==3||!/[0-9０-９]/.test(tn.nodeValue))return;
+        var parts=tn.nodeValue.split(NUM);if(parts.length<2)return;var f=document.createDocumentFragment();
+        parts.forEach(function(x,i){if(!x)return;if(i%2){var sp=document.createElement("span");sp.className="nw";sp.textContent=x;f.appendChild(sp)}else f.appendChild(document.createTextNode(x))});
+        tn.parentNode.replaceChild(f,tn)});
+    });
     if(!window.Intl||!Intl.Segmenter)return;
     var seg=new Intl.Segmenter("ja",{granularity:"word"});
     var HIRA=/^[ぁ-ゟー]/,PUNC=/^[、。，．・：；！？）」』】〕〉》”’!?,.:;)\]～〜\/%]/,OPEN=/[（「『【〔〈《“‘(\[]$/,DIG=/[0-9０-９,.]$/,UNIT=/^[円件分秒時日月年人回品点個枚杯本歳台席名階種割%％]/;
