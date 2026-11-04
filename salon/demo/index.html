@@ -494,6 +494,52 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 
 .navhint{display:none}
 @media(max-width:700px){.navhint{display:grid}}
+
+/* images in templates */
+.mi{display:grid!important;grid-template-columns:auto 1fr auto;align-items:center}
+.mth{flex:none;width:56px;height:56px;border-radius:8px;background-size:cover;background-position:center;margin-right:2px}
+.mth.r{border-radius:50%;width:48px;height:48px}.mth.g{width:48px;height:48px;border-radius:2px;outline:1px solid rgba(194,163,107,.5);outline-offset:2px}
+.E-it{display:grid!important;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.X-it{display:grid!important;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.P-it{display:grid!important;grid-template-columns:auto 1fr auto;gap:12px}
+.N-c i{background-size:cover!important;background-position:center!important}
+.N-hero{height:120px;margin:0 16px 12px;border-radius:70px 70px 14px 14px;background-size:cover;background-position:center}
+.E-hero{height:150px;margin:14px 40px 4px;border-radius:120px 120px 0 0;background-size:cover;background-position:center}
+.P-hero{height:120px;margin:4px 16px 8px;border-radius:12px;background-size:cover;background-position:center}
+.X-hero{position:relative;background:#1d2a25 center/cover;margin-bottom:6px}
+.X-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,42,37,.55),rgba(29,42,37,.95))}
+.X-hero .X-hd{position:relative;padding:60px 16px 18px}
+.X-bi{display:block;height:90px;margin:-16px -16px 12px;background-size:cover;background-position:center}
+.X-ban{overflow:hidden}
+.shero{background-size:cover!important;background-position:center!important}
+.sec-nt{margin:10px 16px;padding:10px 12px;border-radius:10px;background:rgba(0,0,0,.04);font-size:12px;line-height:1.6}
+.sec-nt b{display:block;font-size:10.5px;letter-spacing:.14em;opacity:.7}
+.sn-esthe{background:transparent;border:1px solid rgba(194,163,107,.4)}.sn-esthe b{color:#c2a36b}
+.sn-nail{background:#fbe4e4}.sn-lash{background:transparent;border:1px solid #cdb9a7;border-radius:2px}
+.cs[data-tpl="esthe"] .P-grid span{background:rgba(255,255,255,.06)}
+/* editor */
+.edg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.edg{grid-template-columns:1fr}}
+.eds{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}
+.eds.wide{grid-column:1/-1}
+.eds h3{font-size:14.5px;margin-bottom:2px}.edh{font-size:12px;color:var(--muted);margin-bottom:10px}
+.ord2{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ord2 li{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13.5px;font-weight:700}
+.oa{display:flex;align-items:center;gap:6px}.abtn.sm{min-height:30px;width:30px;padding:0}
+.abtn:disabled{opacity:.3}
+.cur{height:110px;border-radius:10px;background-size:cover;background-position:center;margin-bottom:10px}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:6px}
+.lb{aspect-ratio:1;border-radius:8px;background-size:cover;background-position:center;border:2px solid transparent;cursor:pointer}
+.lb.on{border-color:var(--brand);box-shadow:0 0 0 2px #fff inset}
+.lb.up{display:grid;place-items:center;border:1.5px dashed var(--line);background:#faf7f6;font-size:10.5px;font-weight:700;color:var(--muted);text-align:center;line-height:1.3;position:relative}
+.lb.up input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.nta{width:100%;min-height:70px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;font-size:13px}
+.mrows{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.mrw{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px 6px 6px;font-size:12.5px;background:#fff}
+.mrw.on{border-color:var(--brand);background:var(--mint)}
+.mrw i{width:36px;height:36px;border-radius:6px;background:#eee center/cover;font-style:normal;font-size:8px;display:grid;place-items:center;color:var(--muted)}
+.emp{border-top:1px solid var(--line);padding-top:10px;display:grid;gap:8px}.emp small{font-size:12px;font-weight:700}
+.emp .abtn{justify-self:start}
 /* ===== template gallery ===== */
 .tgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
 .tgc{cursor:pointer;position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;text-align:left;transition:transform .2s,box-shadow .2s}
@@ -549,15 +595,17 @@ var DAYS=[["11/7","金"],["11/8","土"],["11/9","日"],["11/10","月"],["11/11",
 var OPEN=10*60,CLOSE=19*60;
 function tm(m){return Math.floor(m/60)+":"+("0"+m%60).slice(-2)}
 function seed(){
-  return{v:1,
-    menus:[{id:"m1",n:"カット",min:60,p:5500,d:"シャンプー・ブロー込み"},{id:"m2",n:"カット＋カラー",min:120,p:12100,d:"根元〜全体。白髪染めも可"},{id:"m3",n:"カラー＋トリートメント",min:100,p:11000,d:"髪の内部まで補修"},{id:"m4",n:"ヘッドスパ",min:30,p:3300,d:"炭酸スパで頭皮すっきり"},{id:"m5",n:"縮毛矯正",min:180,p:18700,d:"本日は受付を停止中",off:true}],
+  return{v:2,
+    menus:[{id:"m1",n:"カット",min:60,p:5500,d:"シャンプー・ブロー込み",img:"../img/s-hair.webp"},{id:"m2",n:"カット＋カラー",min:120,p:12100,d:"根元〜全体。白髪染めも可",img:"../img/s-brush.webp"},{id:"m3",n:"カラー＋トリートメント",min:100,p:11000,d:"髪の内部まで補修",img:"../img/s-shelf.webp"},{id:"m4",n:"ヘッドスパ",min:30,p:3300,d:"炭酸スパで頭皮すっきり",img:"../img/s-chair.webp"},{id:"m5",n:"縮毛矯正",min:180,p:18700,d:"本日は受付を停止中",off:true}],
     customers:[{id:"c1",n:"佐藤 由紀",tel:"090-****-5521",visits:[["9/12","カット","前髪は眉上で。次回も同じ長さ"]],memo:"敬語少なめで話しやすい方"},{id:"c2",n:"鈴木 彩",tel:"080-****-1190",visits:[["10/3","カラー＋トリートメント","8トーン ベージュ。退色しやすい"],["8/20","カット","肩につく長さ"]],memo:"アレルギーなし"},{id:"c3",n:"田中 美咲",tel:"090-****-1234",visits:[["9/20","カット＋カラー","7トーン アッシュ。根元5mm。頭皮やや敏感 → 保護オイル使用"]],memo:"前髪は眉下で"}],
     bookings:[{id:"b1",d:1,s:600,m:"m1",c:"c1"},{id:"b2",d:1,s:690,m:"m3",c:"c2"},{id:"b3",d:2,s:780,m:"m2",c:"c3"},{id:"b4",d:0,s:900,m:"m1",c:"c2"}],
-    closed:{"1|960":1},nid:10};
+    closed:{"1|960":1},nid:10,
+    page:{hero:"../img/blow.webp",order:["hero","notice","slots","menu"],show:{hero:true,notice:true,slots:false,menu:true},notice:"11月は、ヘッドスパを追加の方に炭酸スパをサービス中です。"}};
 }
-var KEY="sakuapp-salon-demo-v2",S;
+var KEY="sakuapp-salon-demo-v3",S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
-if(!S||S.v!==1)S=seed();
+if(!S||S.v!==2)S=seed();
+if(!S.page)S.page=seed().page;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 var UI={pane:"c",c:{v:"menu",m:null,d:1,s:null,name:"",tel:"",last:null},a:{v:"cal",d:1,open:null,cust:null,fresh:{}}};
 var $=function(id){return document.getElementById(id)};
@@ -581,29 +629,28 @@ function renderTop(){var n=Object.keys(UI.a.fresh).length;
 /* ---------- customer ---------- */
 function mbtn(m,inner,cls){return'<button type="button" class="'+cls+(m.off?" off":"")+'" data-act="pick" data-id="'+m.id+'"'+(m.off?" disabled":"")+'>'+inner+'</button>'}
 function stp(m){return m.off?'<span class="stp">受付停止中</span>':''}
+var LIB=["../img/blow.webp","../img/interior.webp","../img/s-room.webp","../img/s-hair.webp","../img/s-brush.webp","../img/s-mirror.webp","../img/s-shelf.webp","../img/s-chair.webp"];
+function bg(u){return u?'background-image:url('+u+')':''}
 function tplMenu(force){
-  var t=force||curTpl()[0],h="";
-  if(t==="hair"){
-    h+='<div class="shd"><b>HAIR ROOM</b><span>sora</span><small>表参道 ・ 完全予約制 ・ 10:00〜19:00</small></div><div class="shero"></div><div class="ssec">MENU</div>';
-    S.menus.forEach(function(m){h+=mbtn(m,'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分 ・ '+esc(m.d)+'</small></span><em>'+yen(m.p)+'</em>',"mi")});
-  }else if(t==="nail"){
-    h+='<div class="N-hd"><small>hair room</small><b>sora</b></div><div class="N-tabs"><span class="on">すべて</span><span>カット</span><span>カラー</span><span>ケア</span></div><div class="N-grid">';
-    S.menus.forEach(function(m,i){h+=mbtn(m,'<i class="n'+(i%5)+'"></i><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分 ・ '+yen(m.p)+'</small>',"N-c")});
-    h+='</div>';
-  }else if(t==="lash"){
-    h+='<div class="E-hd"><small>hair salon</small><b>sora</b><i></i></div><div class="E-list">';
-    S.menus.forEach(function(m){h+=mbtn(m,'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分</small></span><em>'+m.p.toLocaleString("ja-JP")+'</em>',"E-it")});
-    h+='</div><div class="E-note">はじめての方は、初回のご予約で10%OFF</div>';
-  }else if(t==="esthe"){
-    var r=S.menus[1];
-    h+='<div class="X-hd"><small>PRIVATE SALON</small><b>SORA</b><i></i></div>'+mbtn(r,'<small>RECOMMEND</small><b>'+esc(r.n)+'</b><span>'+r.min+'分 ・ '+yen(r.p)+'</span>',"X-ban")+'<div class="X-sec">COURSE</div>';
-    S.menus.forEach(function(m){h+=mbtn(m,'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分</small></span><em>'+yen(m.p)+'</em>',"X-it")});
-  }else{
-    h+='<div class="P-hd"><b>sora</b><small>本日 '+DAYS[1][0]+'（'+DAYS[1][1]+'）の空き</small></div><div class="P-grid">';
-    for(var s2=OPEN;s2<OPEN+9*60;s2+=60){var b2=busy(1,s2,60);h+='<span class="'+(b2?"x":"")+'">'+tm(s2)+'</span>'}
-    h+='</div><div class="P-sec">メニューを選ぶと、空いている時間を表示します</div>';
-    S.menus.forEach(function(m){h+=mbtn(m,'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分 ・ '+esc(m.d)+'</small></span><em>'+yen(m.p)+'</em>',"P-it")});
-  }
+  var t=force||curTpl()[0],P=S.page,h="";
+  var head={hair:'<div class="shd"><b>HAIR ROOM</b><span>sora</span><small>表参道 ・ 完全予約制 ・ 10:00〜19:00</small></div>',
+    nail:'<div class="N-hd"><small>hair room</small><b>sora</b></div>',
+    lash:'<div class="E-hd"><small>hair salon</small><b>sora</b><i></i></div>',
+    esthe:'',spa:'<div class="P-hd"><b>sora</b><small>表参道 ・ 個室のプライベートサロン</small></div>'}[t];
+  if(t==="esthe")head='<div class="X-hero" style="'+bg(P.show.hero?P.hero:"")+'"><div class="X-hd"><small>PRIVATE SALON</small><b>SORA</b><i></i></div></div>';
+  h+=head;
+  function hero(){if(t==="esthe")return"";var c={hair:"shero",nail:"N-hero",lash:"E-hero",spa:"P-hero"}[t];return'<div class="'+c+'" style="'+bg(P.hero)+'"></div>'}
+  function notice(){return P.notice?'<div class="sec-nt sn-'+t+'"><b>お知らせ</b><p>'+esc(P.notice)+'</p></div>':""}
+  function slots(){var g='<div class="P-sec">本日 '+DAYS[1][0]+'（'+DAYS[1][1]+'）の空き</div><div class="P-grid">';for(var s2=OPEN;s2<OPEN+9*60;s2+=60){var b2=busy(1,s2,60);g+='<span class="'+(b2?"x":"")+'">'+tm(s2)+'</span>'}return g+'</div>'}
+  function menu(){var g="";
+    if(t==="hair"){g+='<div class="ssec">MENU</div>';S.menus.forEach(function(m){g+=mbtn(m,(m.img?'<i class="mth" style="'+bg(m.img)+'"></i>':'')+'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分 ・ '+esc(m.d)+'</small></span><em>'+yen(m.p)+'</em>',"mi")})}
+    else if(t==="nail"){g+='<div class="N-tabs"><span class="on">すべて</span><span>カット</span><span>カラー</span><span>ケア</span></div><div class="N-grid">';S.menus.forEach(function(m,i){g+=mbtn(m,'<i class="n'+(i%5)+'" style="'+bg(m.img)+'"></i><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分 ・ '+yen(m.p)+'</small>',"N-c")});g+='</div>'}
+    else if(t==="lash"){g+='<div class="E-list">';S.menus.forEach(function(m){g+=mbtn(m,(m.img?'<i class="mth r" style="'+bg(m.img)+'"></i>':'')+'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分</small></span><em>'+m.p.toLocaleString("ja-JP")+'</em>',"E-it")});g+='</div><div class="E-note">はじめての方は、初回のご予約で10%OFF</div>'}
+    else if(t==="esthe"){var r=S.menus[1];g+=mbtn(r,(r.img?'<i class="X-bi" style="'+bg(r.img)+'"></i>':'')+'<small>RECOMMEND</small><b>'+esc(r.n)+'</b><span>'+r.min+'分 ・ '+yen(r.p)+'</span>',"X-ban")+'<div class="X-sec">COURSE</div>';S.menus.forEach(function(m){g+=mbtn(m,(m.img?'<i class="mth g" style="'+bg(m.img)+'"></i>':'')+'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分</small></span><em>'+yen(m.p)+'</em>',"X-it")})}
+    else{g+='<div class="P-sec">メニュー</div>';S.menus.forEach(function(m){g+=mbtn(m,(m.img?'<i class="mth" style="'+bg(m.img)+'"></i>':'')+'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分 ・ '+esc(m.d)+'</small></span><em>'+yen(m.p)+'</em>',"P-it")})}
+    return g}
+  var F={hero:hero,notice:notice,slots:slots,menu:menu};
+  P.order.forEach(function(k){if(P.show[k]&&F[k])h+=F[k]()});
   return h;
 }
 function renderC(){
@@ -643,11 +690,11 @@ var navX=0;function navFix(){var sd=document.querySelector("#wb .side");if(!sd)r
   function chk(){navX=sd.scrollLeft;sd.classList.toggle("end",sd.scrollLeft+sd.clientWidth>=sd.scrollWidth-4)}sd.addEventListener("scroll",chk,{passive:true});chk()}
 function renderA(){
   var a=UI.a,prev=$("am"),keep=prev?prev.scrollTop:0;
-  var nav=[["cal","予約カレンダー",IC.cal,Object.keys(a.fresh).length],["kar","顧客カルテ",IC.kar],["menu","メニュー管理",IC.menu],["set","受付設定",IC.set],["tpl","テンプレート",IC.menu]];
+  var nav=[["cal","予約カレンダー",IC.cal,Object.keys(a.fresh).length],["kar","顧客カルテ",IC.kar],["menu","メニュー管理",IC.menu],["set","受付設定",IC.set],["tpl","テンプレート",IC.menu],["edit","ページ編集",IC.kar]];
   var h='<nav class="side" aria-label="管理メニュー"><div class="sh"><span class="av" style="background:#5f6b6d">so</span><div><b>HAIR ROOM sora</b><small>管理画面</small></div></div>';
   nav.forEach(function(n){h+='<button type="button" class="nv'+(a.v===n[0]?" on":"")+'" data-act="av" data-v="'+n[0]+'">'+n[2]+n[1]+(n[3]?'<span class="bd">'+n[3]+'</span>':"")+'</button>'});
   h+='<div class="open"><b>予約受付中</b></div></nav><div class="am" id="am" style="position:relative">';
-  h+=({cal:aCal,kar:aKar,menu:aMenu,set:aSet,tpl:aTpl})[a.v]();
+  h+=({cal:aCal,kar:aKar,menu:aMenu,set:aSet,tpl:aTpl,edit:aEdit})[a.v]();
   h+='</div>';
   if(a.open)h+=drawer(a.open);
   $("wb").innerHTML=h;$("am").scrollTop=keep;navFix();
@@ -689,6 +736,17 @@ function tplPrev(t){var b='<span class="tpv" style="background:'+t[4]+';color:'+
   else b+='<span class="v-c"><b class="th5">sora</b></span><span class="v-t"><i>10:00</i><i class="x">11:00</i><i class="on">13:00</i><i>14:00</i><i class="x">15:00</i><i>16:00</i></span>';
   return b+'</span>'}
 function aTpl(){var cur=curTpl()[0];var h='<div class="ah"><h2>テンプレート</h2><span class="meta">選ぶと、予約ページがレイアウトごと切り替わります</span></div><div class="tgal">'+TPLS.map(function(t){var inner=tplMenu(t[0]).replace(/ id="[^"]*"/g,"").replace(/ data-act="[^"]*"/g,"").replace(/<button\b/g,"<span").replace(/<\/button>/g,"</span>");return'<div role="button" tabindex="0" class="tgc'+(t[0]===cur?" use":"")+'" data-act="tpl" data-t="'+t[0]+'"><span class="tgs" style="--tg:'+(t[2]==="有料"?"linear-gradient(160deg,#2a2426,#4a3a3e)":"linear-gradient(160deg,#f3e3e0,#e6d0cc)")+'"><span class="tgpr'+(t[2]==="有料"?" p":"")+'">'+(t[2]==="有料"?"PREMIUM":"FREE")+'</span><span class="tgph"><span class="tgsc"><span class="cs" data-tpl="'+t[0]+'" style="display:flex;flex-direction:column;--sc:'+t[3]+';background:'+t[4]+';color:'+t[5]+'"><span class="sbar"><span>21:12</span><span>5G</span></span><span class="cbody" style="display:block;overflow:hidden">'+inner+'</span></span></span></span></span><span class="tgb"><span class="h"><b>'+t[1]+'</b><span class="stt">'+(t[2]==="有料"?"4,800円":"無料")+'</span></span><small>'+t[6]+'</small>'+(t[2]==="有料"?'<small class="pz">買い切り・デモでは無料で試せます</small>':'')+'<span class="tgu"><span>'+(t[0]===cur?"使用中":"このテンプレートにする")+'</span></span></span></div>'}).join("")+'</div>';return h}
+var SECN={hero:"メイン写真",notice:"お知らせ",slots:"本日の空き時間",menu:"メニュー"};
+function picker(target,cur){return'<div class="lib">'+LIB.map(function(u){return'<button type="button" class="lb'+(u===cur?" on":"")+'" data-act="img" data-tg="'+target+'" data-u="'+u+'" style="'+bg(u)+'" aria-label="この写真にする"></button>'}).join("")+'<label class="lb up" aria-label="写真をアップロード"><input type="file" accept="image/*" data-chg="up" data-tg="'+target+'"><span>＋<br>アップロード</span></label></div>'}
+function aEdit(){
+  var P=S.page,a=UI.a,h='<div class="ah"><h2>ページ編集</h2><span class="meta">写真の差し替え・並べ替え・表示の切り替え。左の予約ページにすぐ反映されます</span></div>';
+  h+='<div class="edg"><section class="eds"><h3>表示する順番</h3><p class="edh">↑↓で入れ替え、スイッチで表示・非表示</p><ol class="ord2">'+P.order.map(function(k,i){return'<li><span class="og">'+SECN[k]+'</span><span class="oa"><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="-1"'+(i===0?" disabled":"")+' aria-label="上へ">↑</button><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="1"'+(i===P.order.length-1?" disabled":"")+' aria-label="下へ">↓</button><label class="sw ok"><input type="checkbox" data-chg="show" data-k="'+k+'"'+(P.show[k]?" checked":"")+(k==="menu"?" disabled":"")+'><span></span></label></span></li>'}).join("")+'</ol></section>';
+  h+='<section class="eds"><h3>メイン写真</h3><p class="edh">予約ページの上部に大きく表示されます</p><div class="cur" style="'+bg(P.hero)+'"></div>'+picker("hero",P.hero)+'</section>';
+  h+='<section class="eds"><h3>お知らせ</h3><textarea class="nta" data-chg="notice" maxlength="80">'+esc(P.notice)+'</textarea></section>';
+  h+='<section class="eds wide"><h3>メニューの写真</h3><p class="edh">メニューを選んで、写真を変えられます</p><div class="mrows">'+S.menus.map(function(m){return'<button type="button" class="mrw'+(a.em===m.id?" on":"")+'" data-act="em" data-id="'+m.id+'"><i style="'+bg(m.img)+'">'+(m.img?"":"写真なし")+'</i><b>'+esc(m.n)+'</b></button>'}).join("")+'</div>'+(a.em?'<div class="emp"><small>「'+esc(menu(a.em).n)+'」の写真</small>'+picker("m:"+a.em,menu(a.em).img)+'<button type="button" class="abtn" data-act="img" data-tg="m:'+a.em+'" data-u="">写真を外す</button></div>':'')+'</section></div>';
+  return h;
+}
+function setImg(tg,u){if(tg==="hero")S.page.hero=u;else{var m=menu(tg.slice(2));if(m)m.img=u}save();renderAll()}
 function aSet(){
   var d=UI.a.d,h='<div class="ah"><h2>受付設定</h2><span class="meta">タップで受付を止める・再開する（休憩や急なお休みに）</span></div>'+dsel()+'<div class="sgrid">';
   for(var s=OPEN;s<CLOSE;s+=30){var k=d+"|"+s,bk=S.bookings.some(function(b){return b.d===d&&s>=b.s&&s<b.s+menu(b.m).min});h+='<button type="button" data-act="cls" data-s="'+s+'" class="'+(S.closed[k]?"cl":"")+(bk?" bk2":"")+'"'+(bk?" disabled":"")+'>'+tm(s)+'</button>'}
@@ -722,15 +780,22 @@ document.addEventListener("click",function(ev){
   case"cust":a.cust=el.dataset.id;break;
   case"kl":a.cust=null;break;
   case"tpl":S.tpl=el.dataset.t;save();break;
+  case"mv":var o=S.page.order,ix=o.indexOf(el.dataset.k),nx=ix+ +el.dataset.d;if(nx<0||nx>=o.length)return;o.splice(ix,1);o.splice(nx,0,el.dataset.k);save();break;
+  case"img":setImg(el.dataset.tg,el.dataset.u);return;
+  case"em":a.em=a.em===el.dataset.id?null:el.dataset.id;break;
   case"cls":var k=a.d+"|"+el.dataset.s;if(S.closed[k])delete S.closed[k];else S.closed[k]=1;save();break;
   default:return;
   }
   renderAll();
 });
-document.addEventListener("change",function(ev){var el=ev.target,k=el.dataset.chg;if(!k)return;var m=menu(el.dataset.id);
+document.addEventListener("change",function(ev){var el=ev.target,k=el.dataset.chg;if(!k)return;
+  if(k==="show"){S.page.show[el.dataset.k]=el.checked;save();renderAll();return}
+  if(k==="notice"){S.page.notice=el.value.trim();save();renderAll();return}
+  if(k==="up"){var f=el.files&&el.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){var im=new Image();im.onload=function(){var c=document.createElement("canvas"),sc=Math.min(1,640/Math.max(im.width,im.height));c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);var u;try{u=c.toDataURL("image/jpeg",.8)}catch(e){u=rd.result}if(LIB.indexOf(u)<0)LIB.push(u);setImg(el.dataset.tg,u)};im.src=rd.result};rd.readAsDataURL(f);return}
+  var m=menu(el.dataset.id);
   if(k==="price")m.p=Math.max(0,Math.round(+el.value||0));if(k==="off")m.off=el.checked;save();renderAll()});
 document.addEventListener("keydown",function(ev){if(ev.key==="Escape"&&UI.a.open){UI.a.open=null;renderA()}});
-window.addEventListener("storage",function(ev){if(ev.key===KEY){try{var n=JSON.parse(ev.newValue);if(n&&n.v===1){S=n;renderAll()}}catch(e){}}});
+window.addEventListener("storage",function(ev){if(ev.key===KEY){try{var n=JSON.parse(ev.newValue);if(n&&n.v===2){S=n;renderAll()}}catch(e){}}});
 renderAll();
 })();
 </script>
