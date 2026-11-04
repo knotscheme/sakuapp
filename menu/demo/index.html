@@ -274,6 +274,11 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .sws{display:flex;gap:8px;flex-wrap:wrap}
 .swc{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
 .swc[aria-pressed="true"]{box-shadow:0 0 0 2px var(--text)}
+.sws{align-items:center}
+.swp,.form label.swp{display:inline-flex;flex-direction:row;align-items:center;gap:6px;margin:0;border:1px solid var(--line);border-radius:999px;padding:4px 12px 4px 4px;font-size:12.5px;font-weight:700;cursor:pointer;background:#fff}
+.swp input{width:28px;height:28px;border:0;padding:0;border-radius:50%;background:none;cursor:pointer}
+.swp input::-webkit-color-swatch-wrapper{padding:0}.swp input::-webkit-color-swatch{border:0;border-radius:50%}.swp input::-moz-color-swatch{border:0;border-radius:50%}
+.lnk{background:none;border:0;padding:0;color:var(--brand);text-decoration:underline;font:inherit;cursor:pointer}
 .emj{display:flex;flex-wrap:wrap;gap:6px}
 .emj button{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);font-size:20px}
 .emj button[aria-pressed="true"]{border-color:var(--brand);background:var(--mint)}
@@ -601,7 +606,7 @@ var ALG={"小麦":["Wheat","小麦","밀"],"卵":["Egg","鸡蛋","달걀"],"乳"
 var RICE={n:["ごはん","Rice","米饭","밥"],c:[[["普通","Regular","普通","보통"],0],[["大盛り","Large","大份","곱빼기"],0],[["少なめ","Small","少量","적게"],0]]};
 var EMOJI=["🍖","🍗","🐟","🍱","🍤","🍳","🍲","🥢","🍺","🍵","🍋","🍡","🍨","🍛","🍜","🥗","🍙","🥟","🍶","🥤"];
 var CAT_CLS={teishoku:"c-teishoku",ippin:"c-ippin",drink:"c-drink",sweet:"c-sweet"};
-var COLORS=["#c8551f","#2b6cb0","#2f7d4f","#8a3ffc","#141716"];
+var COLORS=["#b5461b","#a8740f","#7a5236","#8a2f37","#2f6b4f","#2d4a6b","#141414"];
 function seed(){
   var now=Date.now(),m=60000;
   var items=[
@@ -933,7 +938,7 @@ function aSettings(){
   return'<div class="ah"><h2>店舗設定</h2><span class="meta">お客様の画面の見た目が変わります</span></div><div class="form">'+
   '<label>店名<input type="text" data-chg="sname" value="'+esc(st.name)+'" maxlength="20"></label>'+
   '<label>アイコンの文字（1文字）<input type="text" data-chg="smark" value="'+esc(st.mark)+'" maxlength="1" style="max-width:80px"></label>'+
-  '<div><div style="font-size:12.5px;font-weight:700;margin-bottom:6px">テーマカラー</div><div class="sws">'+COLORS.map(function(c){return'<button type="button" class="swc" style="background:'+c+'" data-act="color" data-c="'+c+'" aria-label="色 '+c+'" aria-pressed="'+(st.color===c)+'"></button>'}).join("")+'</div></div>'+
+  (function(){var cur=st.ccol?st.color:curTpl()[3];return'<div><div style="font-size:12.5px;font-weight:700;margin-bottom:6px">テーマカラー</div><div class="sws">'+COLORS.map(function(c){return'<button type="button" class="swc" style="background:'+c+'" data-act="color" data-c="'+c+'" aria-label="色 '+c+'" aria-pressed="'+(st.ccol&&st.color===c)+'"></button>'}).join("")+'<label class="swp" aria-label="好きな色を選ぶ"><input type="color" data-chg="ccolor" value="'+cur+'"><span>自由に選ぶ</span></label></div><p class="edh" style="margin-top:8px">今の色：<b style="color:'+cur+'">'+cur.toUpperCase()+'</b>'+(st.ccol?'　<button type="button" class="lnk" data-act="colreset">テンプレートの色に戻す</button>':'（テンプレートの色）')+'</p></div>'})()+
   '<div><div style="font-size:12.5px;font-weight:700;margin-bottom:6px">注文の受付</div><label class="sw ok" style="font-weight:600"><input type="checkbox" data-chg="open"'+(st.open?" checked":"")+'><span></span>'+(st.open?"受け付けています":"止めています（お客様の画面に表示されます）")+'</label></div>'+
   '</div>';
 }
@@ -1015,6 +1020,7 @@ document.addEventListener("click",function(ev){
   case"addtable":var n=S.tables.filter(function(t){return/^t\d+$/.test(t.id)}).length+1;while(S.tables.some(function(t){return t.id==="t"+n}))n++;S.tables.splice(S.tables.filter(function(t){return/^t/.test(t.id)}).length,0,{id:"t"+n,n:"テーブル"+n});save();break;
   case"opent":c.t=el.dataset.t;c.mode="dine";c.v="menu";c.det=null;if(isMobile()){UI.pane="c";window.scrollTo(0,0)}break;
   case"color":S.store.color=el.dataset.c;S.store.ccol=true;save();break;
+  case"colreset":S.store.ccol=false;save();break;
   case"tpl":S.store.tpl=el.dataset.t;save();if(isMobile())gtoast("お客様の画面のテンプレートを変えました");break;
   case"mv":var o=S.page.order,ix=o.indexOf(el.dataset.k),nx=ix+ +el.dataset.d;if(nx<0||nx>=o.length)return;o.splice(ix,1);o.splice(nx,0,el.dataset.k);save();break;
   case"img":setImg(el.dataset.tg,el.dataset.u);return;
@@ -1030,9 +1036,11 @@ document.addEventListener("click",function(ev){
   renderAll();
 });
 function readForm(){var e=UI.a.edit;if(!e||!$("f-n"))return;e.n=$("f-n").value;e.p=$("f-p").value;e.cat=$("f-c").value;e.d=$("f-d").value}
+document.addEventListener("input",function(ev){if(ev.target.dataset&&ev.target.dataset.chg==="ccolor")document.documentElement.style.setProperty("--sc",ev.target.value)});
 document.addEventListener("change",function(ev){
   var el=ev.target,k=el.dataset.chg;if(!k)return;var it;
   if(k==="show"){S.page.show[el.dataset.k]=el.checked;save();renderAll();return}
+  if(k==="ccolor"){S.store.color=el.value;S.store.ccol=true;save();renderAll();return}
   if(k==="bf"){S.page.blocks[el.dataset.b][el.dataset.f]=el.value;save();renderAll();return}
   if(k==="notice"){S.page.notice=el.value.trim();save();renderAll();return}
   if(k==="pkn"){S.page.pick.n=el.value.trim()||"本日のおすすめ";save();renderAll();return}

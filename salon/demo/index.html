@@ -541,8 +541,16 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .emp{border-top:1px solid var(--line);padding-top:10px;display:grid;gap:8px}.emp small{font-size:12px;font-weight:700}
 .emp .abtn{justify-self:start}
 
-.mph{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;text-align:left;cursor:pointer;font:inherit;color:inherit}.mph b{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}.mth{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:10px;border:1px dashed var(--line);background:#f6f1ef center/cover;color:var(--muted);font-size:10.5px;font-style:normal}.mth[style*="url"]{border:0}.mmin{font-style:normal;display:none}@media(max-width:700px){.mt .tmc{display:none}.mmin{display:inline}.mth{width:42px;height:42px}}.mtop{display:flex;justify-content:flex-end;margin-bottom:12px}
+.mph{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0;text-align:left;cursor:pointer;font:inherit;color:inherit}.mph b{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}.amth{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:10px;border:1px dashed var(--line);background:#f6f1ef center/cover;color:var(--muted);font-size:10.5px;font-style:normal}.amth[style*="url"]{border:0}.mmin{font-style:normal;display:none}@media(max-width:700px){.mt .tmc{display:none}.mmin{display:inline}.amth{width:42px;height:42px}}.mtop{display:flex;justify-content:flex-end;margin-bottom:12px}
 .mt th,.mt td:nth-child(2){white-space:nowrap}
+.sws{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.swc{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}
+.swc[aria-pressed="true"]{box-shadow:0 0 0 2px var(--text)}
+.swp,.form label.swp{display:inline-flex;flex-direction:row;align-items:center;gap:6px;margin:0;border:1px solid var(--line);border-radius:999px;padding:4px 12px 4px 4px;font-size:12.5px;font-weight:700;cursor:pointer;background:#fff}
+.swp input{width:28px;height:28px;border:0;padding:0;border-radius:50%;background:none;cursor:pointer}
+.swp input::-webkit-color-swatch-wrapper{padding:0}.swp input::-webkit-color-swatch{border:0;border-radius:50%}.swp input::-moz-color-swatch{border:0;border-radius:50%}
+.lnk{background:none;border:0;padding:0;color:var(--brand);text-decoration:underline;font:inherit;cursor:pointer}
+.cls-bn{margin:10px 16px 0;padding:10px 12px;border-radius:10px;background:#f6e7e5;color:#8a2f37;font-size:12.5px;font-weight:700;text-align:center}
 /* custom blocks */
 .BK{margin:12px 16px}
 .BK h4{margin:0 0 4px;font-size:14px}
@@ -627,6 +635,8 @@ function seed(){
 var KEY="sakuapp-salon-demo-v3",S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||S.v!==2)S=seed();
+function ensureStore(){if(!S.store)S.store={name:"sora",sub:"HAIR ROOM",area:"表参道",lead:"完全予約制",hours:"10:00〜19:00",mark:"so",color:"#954049",ccol:false,open:true}}ensureStore();
+document.addEventListener("input",function(ev){if(ev.target.dataset&&ev.target.dataset.chg==="ccolor")document.documentElement.style.setProperty("--sc",ev.target.value)});
 if(!S.page)S.page=seed().page;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 var UI={pane:"c",c:{v:"menu",m:null,d:1,s:null,name:"",tel:"",last:null},a:{v:"cal",d:1,open:null,cust:null,fresh:{}}};
@@ -649,17 +659,19 @@ function renderTop(){var n=Object.keys(UI.a.fresh).length;
   $("paneC").classList.toggle("on",UI.pane==="c");$("paneA").classList.toggle("on",UI.pane==="a")}
 
 /* ---------- customer ---------- */
-function mbtn(m,inner,cls){return'<button type="button" class="'+cls+(m.off?" off":"")+'" data-act="pick" data-id="'+m.id+'"'+(m.off?" disabled":"")+'>'+inner+'</button>'}
+function mbtn(m,inner,cls){var x=m.off||!S.store.open;return'<button type="button" class="'+cls+(x?" off":"")+'" data-act="pick" data-id="'+m.id+'"'+(x?" disabled":"")+'>'+inner+'</button>'}
 function stp(m){return m.off?'<span class="stp">受付停止中</span>':''}
 var LIB=["../img/blow.webp","../img/interior.webp","../img/s-room.webp","../img/s-hair.webp","../img/s-brush.webp","../img/s-mirror.webp","../img/s-shelf.webp","../img/s-chair.webp"];
 function bg(u){return u?'background-image:url('+u+')':''}
 function tplMenu(force){
   var t=force||curTpl()[0],P=S.page,h="";
-  var head={hair:'<div class="shd"><b>HAIR ROOM</b><span>sora</span><small>表参道 ・ 完全予約制 ・ 10:00〜19:00</small></div>',
-    nail:'<div class="N-hd"><small>hair room</small><b>sora</b></div>',
-    lash:'<div class="E-hd"><small>hair salon</small><b>sora</b><i></i></div>',
-    esthe:'',spa:'<div class="P-hd"><b>sora</b><small>表参道 ・ 個室のプライベートサロン</small></div>'}[t];
-  if(t==="esthe")head='<div class="X-hero" style="'+bg(P.show.hero?P.hero:"")+'"><div class="X-hd"><small>PRIVATE SALON</small><b>SORA</b><i></i></div></div>';
+  var st=S.store,SN=esc(st.name),SU=esc(st.sub),inf=esc([st.area,st.lead,st.hours].filter(Boolean).join(" ・ "));
+  var head={hair:'<div class="shd"><b>'+SU+'</b><span>'+SN+'</span><small>'+inf+'</small></div>',
+    nail:'<div class="N-hd"><small>'+SU+'</small><b>'+SN+'</b></div>',
+    lash:'<div class="E-hd"><small>'+SU+'</small><b>'+SN+'</b><i></i></div>',
+    esthe:'',spa:'<div class="P-hd"><b>'+SN+'</b><small>'+inf+'</small></div>'}[t];
+  if(t==="esthe")head='<div class="X-hero" style="'+bg(P.show.hero?P.hero:"")+'"><div class="X-hd"><small>'+SU+'</small><b>'+SN.toUpperCase()+'</b><i></i></div></div>';
+  if(!st.open)head+='<div class="cls-bn">ただいまネット予約を停止しています</div>';
   h+=head;
   function hero(){if(t==="esthe")return"";var c={hair:"shero",nail:"N-hero",lash:"E-hero",spa:"P-hero"}[t];return'<div class="'+c+'" style="'+bg(P.hero)+'"></div>'}
   function notice(){return P.notice?'<div class="sec-nt sn-'+t+'"><b>お知らせ</b><p>'+esc(P.notice)+'</p></div>':""}
@@ -712,11 +724,11 @@ var navX=0;function navFix(){var sd=document.querySelector("#wb .side");if(!sd)r
   function chk(){navX=sd.scrollLeft;sd.classList.toggle("end",sd.scrollLeft+sd.clientWidth>=sd.scrollWidth-4)}sd.addEventListener("scroll",chk,{passive:true});chk()}
 function renderA(){
   var a=UI.a,prev=$("am"),keep=prev?prev.scrollTop:0;
-  var nav=[["cal","予約カレンダー",IC.cal,Object.keys(a.fresh).length],["kar","顧客カルテ",IC.kar],["menu","メニュー管理",IC.menu],["set","受付設定",IC.set],["tpl","テンプレート",IC.menu],["edit","ページ編集",IC.kar]];
-  var h='<nav class="side" aria-label="管理メニュー"><div class="sh"><span class="av" style="background:#5f6b6d">so</span><div><b>HAIR ROOM sora</b><small>管理画面</small></div></div>';
+  var nav=[["cal","予約カレンダー",IC.cal,Object.keys(a.fresh).length],["kar","顧客カルテ",IC.kar],["menu","メニュー管理",IC.menu],["set","受付設定",IC.set],["tpl","テンプレート",IC.menu],["edit","ページ編集",IC.kar],["store","サロン設定",IC.set]];
+  var h='<nav class="side" aria-label="管理メニュー"><div class="sh"><span class="av" style="background:var(--sc)">'+esc(S.store.mark||"店")+'</span><div><b>'+esc(S.store.name)+'</b><small>管理画面</small></div></div>';
   nav.forEach(function(n){h+='<button type="button" class="nv'+(a.v===n[0]?" on":"")+'" data-act="av" data-v="'+n[0]+'">'+n[2]+n[1]+(n[3]?'<span class="bd">'+n[3]+'</span>':"")+'</button>'});
-  h+='<div class="open"><b>予約受付中</b></div></nav><div class="am" id="am" style="position:relative">';
-  h+=({cal:aCal,kar:aKar,menu:aMenu,set:aSet,tpl:aTpl,edit:aEdit})[a.v]();
+  h+='<div class="open'+(S.store.open?"":" off")+'"><b>'+(S.store.open?"予約受付中":"予約を停止中")+'</b></div></nav><div class="am" id="am" style="position:relative">';
+  h+=({cal:aCal,kar:aKar,menu:aMenu,set:aSet,tpl:aTpl,edit:aEdit,store:aStore})[a.v]();
   h+='</div>';
   if(a.open)h+=drawer(a.open);
   $("wb").innerHTML=h;$("am").scrollTop=keep;navFix();
@@ -745,7 +757,7 @@ function aKar(){
   return'<div class="ah"><h2>顧客カルテ</h2><span class="meta">'+S.customers.length+'名</span></div><div class="clist">'+S.customers.map(function(c){var nb=S.bookings.filter(function(b){return b.c===c.id}).sort(function(x,y){return x.d-y.d||x.s-y.s})[0];return'<button type="button" class="crw" data-act="cust" data-id="'+c.id+'"><span class="kav">'+esc(c.n.charAt(0))+'</span><span><b>'+esc(c.n)+' 様</b><small>'+(c.visits[0]?"前回 "+c.visits[0][0]+" "+esc(c.visits[0][1]):"はじめて")+'</small></span><em>'+(nb?"次回 "+DAYS[nb.d][0]+" "+tm(nb.s):"")+'</em></button>'}).join("")+'</div>';
 }
 function aMenu(){
-  return'<div class="ah"><h2>メニュー管理</h2><span class="meta">変更は予約ページにすぐ反映されます</span></div><div class="mtop"><button type="button" class="abtn pri" data-act="mnew">＋ メニューを追加</button></div><table class="mt"><thead><tr><th>メニュー</th><th class="tmc">時間</th><th>料金</th><th>受付停止</th></tr></thead><tbody>'+S.menus.map(function(m){return'<tr><td class="nmc"><button type="button" class="mph" data-act="medit" data-id="'+m.id+'"><i class="mth" style="'+bg(m.img)+'">'+(m.img?'':'写真')+'</i><span><b>'+esc(m.n)+'</b><small><em class="mmin">'+m.min+'分・</em>'+esc(m.d)+'</small></span></button></td><td class="tmc">'+m.min+'分</td><td><span class="pin">¥<input type="number" min="0" step="100" value="'+m.p+'" data-chg="price" data-id="'+m.id+'" aria-label="'+esc(m.n)+'の料金"></span></td><td><label class="sw"><input type="checkbox" data-chg="off" data-id="'+m.id+'"'+(m.off?" checked":"")+'><span></span></label></td></tr>'}).join("")+'</tbody></table><p class="edh" style="margin-top:10px">メニュー名をタップすると、写真・説明・時間を編集できます</p>'+(UI.a.medit?mModal():'');
+  return'<div class="ah"><h2>メニュー管理</h2><span class="meta">変更は予約ページにすぐ反映されます</span></div><div class="mtop"><button type="button" class="abtn pri" data-act="mnew">＋ メニューを追加</button></div><table class="mt"><thead><tr><th>メニュー</th><th class="tmc">時間</th><th>料金</th><th>受付停止</th></tr></thead><tbody>'+S.menus.map(function(m){return'<tr><td class="nmc"><button type="button" class="mph" data-act="medit" data-id="'+m.id+'"><i class="amth" style="'+bg(m.img)+'">'+(m.img?'':'写真')+'</i><span><b>'+esc(m.n)+'</b><small><em class="mmin">'+m.min+'分・</em>'+esc(m.d)+'</small></span></button></td><td class="tmc">'+m.min+'分</td><td><span class="pin">¥<input type="number" min="0" step="100" value="'+m.p+'" data-chg="price" data-id="'+m.id+'" aria-label="'+esc(m.n)+'の料金"></span></td><td><label class="sw"><input type="checkbox" data-chg="off" data-id="'+m.id+'"'+(m.off?" checked":"")+'><span></span></label></td></tr>'}).join("")+'</tbody></table><p class="edh" style="margin-top:10px">メニュー名をタップすると、写真・説明・時間を編集できます</p>'+(UI.a.medit?mModal():'');
 }
 function mModal(){var e=UI.a.medit,mins=[];for(var t=10;t<=240;t+=10)mins.push(t);if(mins.indexOf(+e.min)<0){mins.push(+e.min);mins.sort(function(x,y){return x-y})}
   return'<div class="modalbg"><div class="modal" role="dialog" aria-label="メニューの編集"><h3>'+(e.isNew?"メニューを追加":"メニューを編集")+'</h3><div class="form">'+
@@ -758,7 +770,7 @@ function mModal(){var e=UI.a.medit,mins=[];for(var t=10;t<=240;t+=10)mins.push(t
 function readM(){var e=UI.a.medit;if(!e||!$("f-n"))return;e.n=$("f-n").value;e.d=$("f-d").value;e.min=+$("f-m").value;e.p=$("f-p").value}
 var TPLS=[["hair","ミニマル","無料","#5f6b6d","#fbfaf8","#2a2d2e","細い英字の店名と大きな写真。余白の多い1列リスト。美容室に"],["nail","フォトカード","無料","#c9767e","#fff7f6","#4a2f33","写真のカードを2列で。デザインを見せたいネイル・まつげに"],["lash","エレガント","無料","#9a7458","#f8f2ec","#3b2c22","筆記体の店名と点線のリスト。上品な小さなサロンに"],["esthe","ラグジュアリー","有料","#c2a36b","#1d2a25","#f1ece2","深い緑とゴールド。おすすめコースの額縁。エステ・プライベートサロンに"],["spa","タイムファースト","有料","#3d5a73","#f2f5f7","#1f2d38","今日の空き時間を最初に見せる。ヘッドスパ・リラクに"]];
 function curTpl(){return TPLS.filter(function(x){return x[0]===S.tpl})[0]||TPLS[0]}
-function applyTpl(){var t=curTpl(),cs=document.getElementById("cs");cs.style.background=t[4];cs.style.color=t[5];cs.dataset.tpl=t[0];document.documentElement.style.setProperty("--sc",t[3])}
+function applyTpl(){var t=curTpl(),cs=document.getElementById("cs");cs.style.background=t[4];cs.style.color=t[5];cs.dataset.tpl=t[0];document.documentElement.style.setProperty("--sc",S.store&&S.store.ccol?S.store.color:t[3])}
 function tplPrev(t){var b='<span class="tpv" style="background:'+t[4]+';color:'+t[5]+'">';
   if(t[0]==="hair")b+='<span class="v-c"><small>HAIR ROOM</small><b class="th1">sora</b></span><i class="v-img"></i><span class="v-r"><em>カット</em><u>¥5,500</u></span>';
   else if(t[0]==="nail")b+='<span class="v-c"><b class="th2">sora</b></span><span class="v-g"><i></i><i></i><i></i></span>';
@@ -801,6 +813,19 @@ function aEdit(){
   return h;
 }
 function setImg(tg,u){if(tg==="f:"){readM();UI.a.medit.img=u||null;renderA();return}if(tg.slice(0,2)==="b:"){S.page.blocks[tg.slice(2)].img=u;save();renderAll();return}if(tg.slice(0,2)==="g:"){var q=tg.split(":");S.page.blocks[q[1]].imgs[+q[2]]=u;save();renderAll();return}if(tg==="hero")S.page.hero=u;else{var m=menu(tg.slice(2));if(m)m.img=u}save();renderAll()}
+var COLORS=["#954049","#c9767e","#9a7458","#5f6b6d","#3d5a73","#4f6b4a","#2a2d2e"];
+function colorUI(st,t){var cur=st.ccol?st.color:t[3];return'<div><div style="font-size:12.5px;font-weight:700;margin-bottom:6px">テーマカラー</div><div class="sws">'+COLORS.map(function(c){return'<button type="button" class="swc" style="background:'+c+'" data-act="color" data-c="'+c+'" aria-label="色 '+c+'" aria-pressed="'+(st.ccol&&st.color===c)+'"></button>'}).join("")+'<label class="swp" aria-label="好きな色を選ぶ"><input type="color" data-chg="ccolor" value="'+cur+'"><span>自由に選ぶ</span></label></div><p class="edh" style="margin-top:8px">今の色：<b style="color:'+cur+'">'+cur.toUpperCase()+'</b>'+(st.ccol?'　<button type="button" class="lnk" data-act="colreset">テンプレートの色に戻す</button>':'（テンプレートの色）')+'</p></div>'}
+function aStore(){var st=S.store;
+  return'<div class="ah"><h2>サロン設定</h2><span class="meta">予約ページの店名や色が変わります</span></div><div class="form">'+
+  '<label>サロン名<input type="text" data-chg="st" data-f="name" value="'+esc(st.name)+'" maxlength="16"></label>'+
+  '<label>店名の上の小さな文字（英字がおすすめ）<input type="text" data-chg="st" data-f="sub" value="'+esc(st.sub)+'" maxlength="20"></label>'+
+  '<label>エリア<input type="text" data-chg="st" data-f="area" value="'+esc(st.area)+'" maxlength="12"></label>'+
+  '<label>ひとこと<input type="text" data-chg="st" data-f="lead" value="'+esc(st.lead)+'" maxlength="16"></label>'+
+  '<label>営業時間<input type="text" data-chg="st" data-f="hours" value="'+esc(st.hours)+'" maxlength="20"></label>'+
+  '<label>アイコンの文字（2文字まで）<input type="text" data-chg="st" data-f="mark" value="'+esc(st.mark)+'" maxlength="2" style="max-width:90px"></label>'+
+  colorUI(st,curTpl())+
+  '<div><div style="font-size:12.5px;font-weight:700;margin-bottom:6px">ネット予約の受付</div><label class="sw ok" style="font-weight:600"><input type="checkbox" data-chg="sopen"'+(st.open?" checked":"")+'><span></span>'+(st.open?"受け付けています":"止めています（予約ページに表示されます）")+'</label></div>'+
+  '</div>'}
 function aSet(){
   var d=UI.a.d,h='<div class="ah"><h2>受付設定</h2><span class="meta">タップで受付を止める・再開する（休憩や急なお休みに）</span></div>'+dsel()+'<div class="sgrid">';
   for(var s=OPEN;s<CLOSE;s+=30){var k=d+"|"+s,bk=S.bookings.some(function(b){return b.d===d&&s>=b.s&&s<b.s+menu(b.m).min});h+='<button type="button" data-act="cls" data-s="'+s+'" class="'+(S.closed[k]?"cl":"")+(bk?" bk2":"")+'"'+(bk?" disabled":"")+'>'+tm(s)+'</button>'}
@@ -813,7 +838,7 @@ document.addEventListener("click",function(ev){
   var el=ev.target.closest("[data-act]");if(!el)return;var c=UI.c,a=UI.a,act=el.dataset.act;
   switch(act){
   case"pane":UI.pane=el.dataset.p;$("gt").innerHTML="";break;
-  case"reset":if(!confirm("デモを最初の状態に戻しますか？"))return;S=seed();UI.c={v:"menu",m:null,d:1,s:null};UI.a={v:"cal",d:1,open:null,cust:null,fresh:{}};save();break;
+  case"reset":if(!confirm("デモを最初の状態に戻しますか？"))return;S=seed();ensureStore();UI.c={v:"menu",m:null,d:1,s:null};UI.a={v:"cal",d:1,open:null,cust:null,fresh:{}};save();break;
   case"pick":c.m=el.dataset.id;c.s=null;c.v="date";break;
   case"cv":if(el.dataset.v==="info"){}c.v=el.dataset.v;if(c.v==="menu"){c.s=null}break;
   case"day":c.d=+el.dataset.d;c.s=null;break;
@@ -843,6 +868,8 @@ document.addEventListener("click",function(ev){
   case"bclose":a.bed=null;break;
   case"bdel":if(!confirm("このセクションを削除しますか？"))return;var db=el.dataset.b;delete S.page.blocks[db];S.page.order=S.page.order.filter(function(x){return x!==db});delete S.page.show[db];a.bed=null;save();break;
   case"em":a.em=a.em===el.dataset.id?null:el.dataset.id;break;
+  case"color":S.store.color=el.dataset.c;S.store.ccol=true;save();applyTpl();break;
+  case"colreset":S.store.ccol=false;save();applyTpl();break;
   case"medit":var mm=menu(el.dataset.id);a.medit={id:mm.id,n:mm.n,d:mm.d||"",min:mm.min,p:mm.p,img:mm.img||null};break;
   case"mnew":a.medit={isNew:true,n:"",d:"",min:60,p:5000,img:null};break;
   case"mcancel":a.medit=null;break;
@@ -856,13 +883,16 @@ document.addEventListener("click",function(ev){
 });
 document.addEventListener("change",function(ev){var el=ev.target,k=el.dataset.chg;if(!k)return;
   if(k==="show"){S.page.show[el.dataset.k]=el.checked;save();renderAll();return}
+  if(k==="st"){var v=el.value.trim();if(!v&&el.dataset.f==="name")v="サロン";S.store[el.dataset.f]=v;save();renderAll();return}
+  if(k==="ccolor"){S.store.color=el.value;S.store.ccol=true;save();applyTpl();renderAll();return}
+  if(k==="sopen"){S.store.open=el.checked;save();renderAll();return}
   if(k==="bf"){S.page.blocks[el.dataset.b][el.dataset.f]=el.value;save();renderAll();return}
   if(k==="notice"){S.page.notice=el.value.trim();save();renderAll();return}
   if(k==="up"){var f=el.files&&el.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){var im=new Image();im.onload=function(){var c=document.createElement("canvas"),sc=Math.min(1,640/Math.max(im.width,im.height));c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);var u;try{u=c.toDataURL("image/jpeg",.8)}catch(e){u=rd.result}if(LIB.indexOf(u)<0)LIB.push(u);setImg(el.dataset.tg,u)};im.src=rd.result};rd.readAsDataURL(f);return}
   var m=menu(el.dataset.id);
   if(k==="price")m.p=Math.max(0,Math.round(+el.value||0));if(k==="off")m.off=el.checked;save();renderAll()});
 document.addEventListener("keydown",function(ev){if(ev.key!=="Escape")return;if(UI.a.medit){UI.a.medit=null;renderA()}else if(UI.a.open){UI.a.open=null;renderA()}});
-window.addEventListener("storage",function(ev){if(ev.key===KEY){try{var n=JSON.parse(ev.newValue);if(n&&n.v===2){S=n;renderAll()}}catch(e){}}});
+window.addEventListener("storage",function(ev){if(ev.key===KEY){try{var n=JSON.parse(ev.newValue);if(n&&n.v===2){S=n;ensureStore();renderAll()}}catch(e){}}});
 renderAll();
 })();
 </script>
