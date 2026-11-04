@@ -461,6 +461,44 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 
 .navhint{display:none}
 @media(max-width:700px){.navhint{display:grid}}
+
+/* hero images & sections */
+.MH{background-size:cover;background-position:center}
+.MH-t{height:130px;margin:0 16px 14px;border-radius:4px}
+.MH-c{height:150px;margin:4px 16px 12px;border-radius:120px 120px 14px 14px}
+.MH-k{height:130px;margin:0 0 6px}
+.MH-z{height:120px;margin:0 14px 12px;border-radius:6px}
+.MH-b{height:120px;margin:12px 22px 4px;border-radius:2px;filter:saturate(.85)}
+.M-nt{margin:10px 16px;padding:10px 12px;border-radius:10px;background:rgba(0,0,0,.04);font-size:12px;line-height:1.6}
+.M-nt b{display:block;font-size:10.5px;letter-spacing:.14em;opacity:.7}
+.mn-izakaya{background:#262a31}.mn-bistro{background:transparent;border-top:1px solid #cfd6c8;border-bottom:1px solid #cfd6c8;border-radius:0;text-align:center}
+.mn-teishoku{background:#fff8ec;border:1px dashed #d9c9b5}
+.C-pk{margin:6px 16px 10px;padding:14px;border-radius:14px;background:#efe3d4;text-align:center}.C-pk small{font:600 9.5px "Inter",sans-serif;letter-spacing:.24em;opacity:.7}.C-pk b{display:block;font-size:15px;margin:2px 0}.C-pk span{font:600 13px "Inter",sans-serif;color:var(--sc)}
+.K-pk{display:flex;justify-content:space-between;margin:8px 16px;padding:10px 12px;border:2px solid #111;font-size:12.5px}.K-pk b{background:#111;color:#fff;padding:0 6px}
+.B-pk{margin:10px 22px;text-align:center;padding:10px;border:1px solid #cfd6c8}.B-pk small{font:italic 700 11px "Inter",sans-serif;color:#2f7d4f}.B-pk b{display:block;font:700 14px "Noto Serif JP",serif}.B-pk span{font:600 13px "Inter",sans-serif}
+.Z-it .th.zt{width:52px!important;height:52px!important;border-radius:6px!important;margin-right:10px;flex:none}
+.Z-it{gap:0}.Z-it>span:not(.th){flex:1}
+/* editor */
+.edg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.edg{grid-template-columns:1fr}}
+.eds{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}
+.eds.wide{grid-column:1/-1}
+.eds h3{font-size:14.5px;margin-bottom:2px}.edh{font-size:12px;color:var(--muted);margin-bottom:10px}
+.ord2{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ord2 li{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13.5px;font-weight:700}
+.oa{display:flex;align-items:center;gap:6px}.abtn.sm{min-height:30px;width:30px;padding:0}.abtn:disabled{opacity:.3}
+.cur{height:110px;border-radius:10px;background-size:cover;background-position:center;margin-bottom:10px;background-color:#eee}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:6px}
+.lb{aspect-ratio:1;border-radius:8px;background-size:cover;background-position:center;border:2px solid transparent;cursor:pointer}
+.lb.on{border-color:var(--brand);box-shadow:0 0 0 2px #fff inset}
+.lb.up{display:grid;place-items:center;border:1.5px dashed var(--line);background:#faf7f2;font-size:10.5px;font-weight:700;color:var(--muted);text-align:center;line-height:1.3;position:relative}
+.lb.up input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.nta{width:100%;min-height:70px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;font-size:13px}
+.mrows{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.mrw{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px 6px 6px;font-size:12.5px;background:#fff}
+.mrw.on{border-color:var(--brand);background:var(--mint)}
+.mrw i{width:36px;height:36px;border-radius:6px;background:#eee center/cover;font-style:normal;font-size:8px;display:grid;place-items:center;color:var(--muted)}
+.emp{border-top:1px solid var(--line);padding-top:10px;display:grid;gap:8px}.emp small{font-size:12px;font-weight:700}.emp .abtn{justify-self:start}
 /* ===== template gallery ===== */
 .tgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
 .tgc{cursor:pointer;position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;text-align:left;transition:transform .2s,box-shadow .2s}
@@ -559,9 +597,10 @@ function seed(){
    {id:"i14",cat:"sweet",e:"🍰",img:"tart-c",hero:"tart",p:550,n:["いちじくのタルト","Fig Tart","无花果挞","무화과 타르트"],d:["本日分は売り切れました","Sold out for today","今日售罄","오늘 품절"],a:["小麦","卵","乳"],o:[],so:true}
   ];
   var tables=[["t1","テーブル1"],["t2","テーブル2"],["t3","テーブル3"],["t4","テーブル4"],["t5","テーブル5"],["t6","テーブル6"],["c1","カウンター1"],["c2","カウンター2"]].map(function(x){return{id:x[0],n:x[1]}});
-  var S={v:4,store:{name:"食堂 ともしび",mark:"灯",color:"#c8551f",open:true},tables:tables,
+  var S={v:5,store:{name:"食堂 ともしび",mark:"灯",color:"#c8551f",open:true},tables:tables,
     cats:[{id:"teishoku",n:["定食","Set Meals","套餐","정식"]},{id:"ippin",n:["一品","Side Dishes","单点","일품"]},{id:"drink",n:["ドリンク","Drinks","饮品","음료"]},{id:"sweet",n:["甘味","Desserts","甜品","디저트"]}],
-    items:items,orders:[],calls:[],seq:100,opts:{},nid:20};
+    items:items,orders:[],calls:[],seq:100,opts:{},nid:20,
+    page:{hero:"../img/teishoku-hero.webp",order:["hero","pick","notice","menu"],show:{hero:true,pick:true,notice:false,menu:true},notice:"11月は、新米のごはんをおかわり無料でご用意しています。",pick:{n:"鶏の照り焼き定食",p:900}}};
   // past (closed) orders for sales
   var r=7;function rnd(){r=(r*9301+49297)%233280;return r/233280}
   for(var k=0;k<22;k++){
@@ -581,9 +620,9 @@ function unit(it,ch){var p=it.p;(it.o||[]).forEach(function(g,gi){var c=g.c[ch[g
 function optLabel(it,ch,L){return (it.o||[]).map(function(g,gi){var ci=ch[gi]||0,c=g.c[ci];return c&&ci>0?c[0][L]:""}).filter(Boolean).join("・")}
 
 /* ---------- state ---------- */
-var KEY="sakuapp-menu-demo-v5",S;
+var KEY="sakuapp-menu-demo-v6",S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
-if(!S||S.v!==4)S=seed();
+if(!S||S.v!==5)S=seed();
 // rice option objects are shared refs in seed; after JSON restore they are copies — fine.
 var q=new URLSearchParams(location.search);
 if(q.has("opt")){S.opts={};q.get("opt").split(",").forEach(function(k){if(k)S.opts[k]=true})}
@@ -605,7 +644,8 @@ function ago(ts){var m=Math.floor((Date.now()-ts)/60000);return m<1?"たった�
 function oTotal(o){return o.items.reduce(function(s,x){return s+x.p*x.q},0)}
 function cartTotal(){return UI.c.cart.reduce(function(s,x){var it=item(x.id);return s+(it?unit(it,x.ch)*x.q:0)},0)}
 function cartCount(){return UI.c.cart.reduce(function(s,x){return s+x.q},0)}
-function thumb(it,cls){if(it.img)return '<span class="th ph'+(cls?" "+cls:"")+'" aria-hidden="true" style="background-image:url(../img/'+it.img+'.webp)"></span>';return '<span class="th '+(CAT_CLS[it.cat]||"c-other")+(cls?" "+cls:"")+'" aria-hidden="true">'+esc(it.e)+'</span>'}
+function imgU(v){return !v?"":(/^(data:|\.\.\/|https?:)/.test(v)?v:"../img/"+v+".webp")}
+function thumb(it,cls){if(it.img)return '<span class="th ph'+(cls?" "+cls:"")+'" aria-hidden="true" style="background-image:url('+imgU(it.img)+')"></span>';return '<span class="th '+(CAT_CLS[it.cat]||"c-other")+(cls?" "+cls:"")+'" aria-hidden="true">'+esc(it.e)+'</span>'}
 var I={
  back:'<svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>',
  bell:'<svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>',
@@ -631,36 +671,43 @@ function renderTop(){
 /* ---------- customer ---------- */
 function priceOf(it,t){return t==="teishoku"?it.p.toLocaleString("ja-JP")+"円":t==="bistro"?it.p.toLocaleString("ja-JP"):yen(it.p)}
 function algOf(it){return S.opts.allergy&&it.a&&it.a.length?'<small class="alg">'+tr("alg")+'：'+it.a.map(function(a){return L()?ALG[a]?ALG[a][L()-1]:a:a}).map(esc).join("・")+'</small>':""}
+var LIB=["../img/teishoku-hero.webp","../img/teishoku-top.webp","../img/in-shokudo.webp","../img/in-cafe.webp","../img/in-izakaya.webp","../img/in-bistro.webp","../img/in-ramen.webp","../img/yakitori.webp","../img/saba-set.webp","../img/tempura.webp","../img/latte.webp","../img/ramen.webp"];
+function bgu(u){return u?'background-image:url('+u+')':''}
 function tplMenu(force){
-  var t=force||curTpl()[0],st=S.store,h="",c=UI.c;
+  var t=force||curTpl()[0],st=S.store,P=S.page,h="",c=UI.c;
   var tabs='<div class="ctabs">'+S.cats.map(function(k){return'<button type="button" data-act="cat" data-c="'+k.id+'" class="'+(c.cat===k.id?"on":"")+'">'+nm(k.n)+'</button>'}).join("")+'</div>';
   var nmS=esc(st.name),mark=esc(st.mark||"店");
-  if(t==="teishoku"){
-    h+='<div class="T-hd"><div class="T-nr">'+st.name.replace(/^食堂\s*/,"").split("").slice(0,5).map(function(ch){return"<i>"+esc(ch)+"</i>"}).join("")+'</div><b>'+nmS+'</b><small>定食と季節の一品</small></div><div class="T-ban"><em>本日の日替わり</em><b>鶏の照り焼き定食</b><span>900円</span></div>'+tabs;
-  }else if(t==="cafe"){
-    h+='<div class="C-hd"><b>'+esc(st.name.replace(/^食堂\s*/,"").toUpperCase()==="ともしび"?"TOMOSHIBI":st.name)+'</b><small>COFFEE &amp; MEALS</small></div>'+tabs;
-  }else if(t==="ticket"){
-    h+='<div class="K-hd"><span>'+mark+'</span><div><b>'+nmS+'</b><small>食券はスマホで</small></div></div>'+tabs;
-  }else if(t==="izakaya"){
-    h+='<div class="Z-hd"><span>'+mark+'</span><div><b>'+nmS+'</b><small>本日もおつかれさまです</small></div></div><div class="Z-ph"></div><div class="Z-bd"><b>本日のおすすめ</b><p><span>ぶり大根</span><span>580</span></p><p><span>つくね（月見）</span><span>320</span></p><p><span>菜の花のおひたし</span><span>380</span></p></div>'+tabs;
-  }else{
-    h+='<div class="B-hd"><small>CARTE</small><b>Tomoshibi</b><em>本日のカルト</em></div>'+tabs;
-  }
-  S.cats.forEach(function(k){
-    var its=S.items.filter(function(i){return i.cat===k.id});if(!its.length)return;
-    h+='<div class="csec" id="sec-'+k.id+'"><h3>'+nm(k.n)+'</h3>';
-    if(t==="cafe"||t==="ticket")h+='<div class="'+(t==="cafe"?"C-grid":"K-grid")+'">';
-    its.forEach(function(it,ix){
-      var so=it.so?' aria-disabled="true"':"",cls=it.so?" so":"",sold='<span class="sold">'+tr("sold")+'</span>';
-      if(t==="teishoku")h+='<button type="button" class="it T-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'>'+thumb(it)+'<span><b>'+nm(it.n)+'</b><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</span><em>'+(it.so?sold:priceOf(it,t))+'</em></button>';
-      else if(t==="cafe")h+='<button type="button" class="C-c'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'>'+thumb(it,"arch")+'<b>'+nm(it.n)+'</b><small>'+(it.so?tr("sold"):yen(it.p))+'</small></button>';
-      else if(t==="ticket")h+='<button type="button" class="K-tk'+cls+(ix===0&&k.id===S.cats[0].id?" wide":"")+'" data-act="open" data-id="'+it.id+'"'+so+'>'+(ix===0&&k.id===S.cats[0].id?thumb(it):"")+'<b>'+nm(it.n)+'</b><small>'+(it.so?tr("sold"):yen(it.p))+'</small></button>';
-      else if(t==="izakaya")h+='<button type="button" class="it Z-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'><span><b>'+nm(it.n)+'</b><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</span><em class="'+(it.so?"x":"")+'">'+(it.so?"品切れ":yen(it.p))+'</em></button>';
-      else h+='<button type="button" class="it B-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'><span class="B-ln"><b>'+nm(it.n)+'</b><i></i><em>'+(it.so?"—":priceOf(it,t))+'</em></span><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</button>';
-    });
-    if(t==="cafe"||t==="ticket")h+='</div>';
-    h+='</div>';
-  });
+  var head={teishoku:'<div class="T-hd"><div class="T-nr">'+st.name.replace(/^食堂\s*/,"").split("").slice(0,5).map(function(ch){return"<i>"+esc(ch)+"</i>"}).join("")+'</div><b>'+nmS+'</b><small>定食と季節の一品</small></div>',
+    cafe:'<div class="C-hd"><b>'+(st.name==="食堂 ともしび"?"TOMOSHIBI":nmS)+'</b><small>COFFEE &amp; MEALS</small></div>',
+    ticket:'<div class="K-hd"><span>'+mark+'</span><div><b>'+nmS+'</b><small>食券はスマホで</small></div></div>',
+    izakaya:'<div class="Z-hd"><span>'+mark+'</span><div><b>'+nmS+'</b><small>本日もおつかれさまです</small></div></div>',
+    bistro:'<div class="B-hd"><small>CARTE</small><b>Tomoshibi</b><em>本日のカルト</em></div>'}[t];
+  h+=head;
+  function hero(){var cl={teishoku:"MH-t",cafe:"MH-c",ticket:"MH-k",izakaya:"MH-z",bistro:"MH-b"}[t];return P.hero?'<div class="MH '+cl+'" style="'+bgu(P.hero)+'"></div>':""}
+  function pick(){var k=P.pick;if(t==="teishoku")return'<div class="T-ban"><em>本日の日替わり</em><b>'+esc(k.n)+'</b><span>'+k.p.toLocaleString("ja-JP")+'円</span></div>';
+    if(t==="izakaya")return'<div class="Z-bd"><b>本日のおすすめ</b><p><span>'+esc(k.n)+'</span><span>'+k.p+'</span></p><p><span>ぶり大根</span><span>580</span></p><p><span>菜の花のおひたし</span><span>380</span></p></div>';
+    if(t==="bistro")return'<div class="B-pk"><small>Plat du jour</small><b>'+esc(k.n)+'</b><span>'+k.p.toLocaleString("ja-JP")+'</span></div>';
+    if(t==="ticket")return'<div class="K-pk"><b>本日の限定</b><span>'+esc(k.n)+'　'+yen(k.p)+'</span></div>';
+    return'<div class="C-pk"><small>TODAY\'S SPECIAL</small><b>'+esc(k.n)+'</b><span>'+yen(k.p)+'</span></div>'}
+  function notice(){return P.notice?'<div class="M-nt mn-'+t+'"><b>お知らせ</b><p>'+esc(P.notice)+'</p></div>':""}
+  function menu(){var g=tabs;
+    S.cats.forEach(function(k){
+      var its=S.items.filter(function(i){return i.cat===k.id});if(!its.length)return;
+      g+='<div class="csec" id="sec-'+k.id+'"><h3>'+nm(k.n)+'</h3>';
+      if(t==="cafe"||t==="ticket")g+='<div class="'+(t==="cafe"?"C-grid":"K-grid")+'">';
+      its.forEach(function(it,ix){
+        var so=it.so?' aria-disabled="true"':"",cls=it.so?" so":"",sold='<span class="sold">'+tr("sold")+'</span>';
+        if(t==="teishoku")g+='<button type="button" class="it T-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'>'+thumb(it)+'<span><b>'+nm(it.n)+'</b><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</span><em>'+(it.so?sold:priceOf(it,t))+'</em></button>';
+        else if(t==="cafe")g+='<button type="button" class="C-c'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'>'+thumb(it,"arch")+'<b>'+nm(it.n)+'</b><small>'+(it.so?tr("sold"):yen(it.p))+'</small></button>';
+        else if(t==="ticket")g+='<button type="button" class="K-tk'+cls+(ix===0&&k.id===S.cats[0].id?" wide":"")+'" data-act="open" data-id="'+it.id+'"'+so+'>'+(ix===0&&k.id===S.cats[0].id?thumb(it):"")+'<b>'+nm(it.n)+'</b><small>'+(it.so?tr("sold"):yen(it.p))+'</small></button>';
+        else if(t==="izakaya")g+='<button type="button" class="it Z-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'>'+(it.img?thumb(it,"zt"):"")+'<span><b>'+nm(it.n)+'</b><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</span><em class="'+(it.so?"x":"")+'">'+(it.so?"品切れ":yen(it.p))+'</em></button>';
+        else g+='<button type="button" class="it B-it'+cls+'" data-act="open" data-id="'+it.id+'"'+so+'><span class="B-ln"><b>'+nm(it.n)+'</b><i></i><em>'+(it.so?"—":priceOf(it,t))+'</em></span><small>'+nm(it.d||[""])+'</small>'+algOf(it)+'</button>';
+      });
+      if(t==="cafe"||t==="ticket")g+='</div>';
+      g+='</div>';
+    });return g}
+  var F={hero:hero,pick:pick,notice:notice,menu:menu};
+  P.order.forEach(function(k){if(P.show[k]&&F[k])h+=F[k]()});
   return h;
 }
 function renderC(){
@@ -746,11 +793,11 @@ function renderA(){
   var a=UI.a,wb=$("wb");
   var prev=$("am"),keep=prev&&prev.dataset.v===a.v?prev.scrollTop:0;
   var nNew=S.orders.filter(function(o){return!o.closed&&o.s==="new"}).length;
-  var nav=[["orders","注文一覧",I.orders,nNew+S.calls.length],["tables","テーブル",I.table],["menu","メニュー管理",I.menu],["qr","QRコード",I.qr],["tpl","テンプレート",I.menu],["settings","店舗設定",I.gear],["sales","売上集計",I.chart]];
+  var nav=[["orders","注文一覧",I.orders,nNew+S.calls.length],["tables","テーブル",I.table],["menu","メニュー管理",I.menu],["qr","QRコード",I.qr],["tpl","テンプレート",I.menu],["edit","ページ編集",I.gear],["settings","店舗設定",I.gear],["sales","売上集計",I.chart]];
   var h='<nav class="side" aria-label="管理メニュー"><div class="sh"><span class="av">'+esc(S.store.mark||"店")+'</span><div><b>'+esc(S.store.name)+'</b><small>管理画面</small></div></div>';
   nav.forEach(function(n){h+='<button type="button" class="nv'+(a.v===n[0]?" on":"")+'" data-act="av" data-v="'+n[0]+'">'+n[2]+n[1]+(n[3]?'<span class="bd">'+n[3]+'</span>':"")+(n[0]==="sales"&&!S.opts.sales?'<span class="lk">追加</span>':"")+'</button>'});
   h+='<div class="open'+(S.store.open?"":" off")+'"><b>'+(S.store.open?"注文受付中":"受付を停止中")+'</b></div></nav><div class="am" id="am" data-v="'+a.v+'">';
-  h+=({orders:aOrders,tables:aTables,menu:aMenu,qr:aQR,tpl:aTpl,settings:aSettings,sales:aSales})[a.v]();
+  h+=({orders:aOrders,tables:aTables,menu:aMenu,qr:aQR,tpl:aTpl,edit:aEdit,settings:aSettings,sales:aSales})[a.v]();
   h+='</div>';
   if(a.edit)h+=editModal();
   if(a.line)h+='<div class="linepop" role="status"><span class="lg">LINE</span><div><b>サクアプ通知</b>'+esc(a.line)+'<br><small>たった今</small></div></div>';
@@ -826,6 +873,18 @@ function tplPrev(t){var b='<span class="tpv tv-'+t[0]+'" style="background:'+t[4
   else b+='<span class="tv-bi">Tomoshibi</span><span class="tv-sc">Entrée</span><span class="tv-ld"><em>生姜焼き定食</em><i></i><u>980</u></span><span class="tv-ld"><em>焼き魚定食</em><i></i><u>1,080</u></span>';
   return b+'</span>'}
 function aTpl(){var cur=curTpl()[0],keep=UI.c.cat;var h='<div class="ah"><h2>テンプレート</h2><span class="meta">選ぶと、お客様の画面がレイアウトごと切り替わります</span></div><div class="tgal">'+TPLS.map(function(t){var inner=tplMenu(t[0]).replace(/ id="[^"]*"/g,"").replace(/ data-act="[^"]*"/g,"").replace(/<button\b/g,"<span").replace(/<\/button>/g,"</span>");return'<div role="button" tabindex="0" class="tgc'+(t[0]===cur?" use":"")+'" data-act="tpl" data-t="'+t[0]+'"><span class="tgs" style="--tg:'+(t[2]==="有料"?"linear-gradient(160deg,#2a2622,#4a3f36)":"linear-gradient(160deg,#efe6da,#e3d4c2)")+'"><span class="tgpr'+(t[2]==="有料"?" p":"")+'">'+(t[2]==="有料"?"PREMIUM":"FREE")+'</span><span class="tgph"><span class="tgsc"><span class="cs" data-tpl="'+t[0]+'" style="display:flex;--sc:'+t[3]+';background:'+t[4]+';color:'+t[5]+';font-family:'+t[6].replace(/"/g,"&quot;")+'"><span class="sbar"><span>12:04</span><span>5G</span></span><span class="cbody" style="display:block;overflow:hidden">'+inner+'</span></span></span></span></span><span class="tgb"><span class="h"><b>'+t[1]+'</b><span class="stt">'+(t[2]==="有料"?"4,800円":"無料")+'</span></span><small>'+t[7]+'</small>'+(t[2]==="有料"?'<small class="pz">買い切り・デモでは無料で試せます</small>':'')+'<span class="tgu"><span>'+(t[0]===cur?"使用中":"このテンプレートにする")+'</span></span></span></div>'}).join("")+'</div><p class="note" style="margin-top:14px;font-size:12px;color:var(--muted)">※色だけを変えたい場合は「店舗設定」のテーマカラーで変えられます。</p>';return h}
+var SECN={hero:"メイン写真",pick:"本日のおすすめ",notice:"お知らせ",menu:"メニュー"};
+function picker(tg,cur){return'<div class="lib">'+LIB.map(function(u){return'<button type="button" class="lb'+(u===cur?" on":"")+'" data-act="img" data-tg="'+tg+'" data-u="'+u+'" style="'+bgu(u)+'" aria-label="この写真にする"></button>'}).join("")+'<label class="lb up" aria-label="写真をアップロード"><input type="file" accept="image/*" data-chg="up" data-tg="'+tg+'"><span>＋<br>アップロード</span></label></div>'}
+function aEdit(){
+  var P=S.page,a=UI.a,h='<div class="ah"><h2>ページ編集</h2><span class="meta">写真の差し替え・並べ替え・表示の切り替え。左のお客様の画面にすぐ反映されます</span></div>';
+  h+='<div class="edg"><section class="eds"><h3>表示する順番</h3><p class="edh">↑↓で入れ替え、スイッチで表示・非表示</p><ol class="ord2">'+P.order.map(function(k,i){return'<li><span>'+SECN[k]+'</span><span class="oa"><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="-1"'+(i===0?" disabled":"")+' aria-label="上へ">↑</button><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="1"'+(i===P.order.length-1?" disabled":"")+' aria-label="下へ">↓</button><label class="sw ok"><input type="checkbox" data-chg="show" data-k="'+k+'"'+(P.show[k]?" checked":"")+(k==="menu"?" disabled":"")+'><span></span></label></span></li>'}).join("")+'</ol></section>';
+  h+='<section class="eds"><h3>メイン写真</h3><p class="edh">店名の下に大きく表示されます。料理や店内の写真がおすすめです</p><div class="cur" style="'+bgu(P.hero)+'"></div>'+picker("hero",P.hero)+'</section>';
+  h+='<section class="eds"><h3>本日のおすすめ</h3><div class="form"><label>料理名<input type="text" data-chg="pkn" value="'+esc(P.pick.n)+'" maxlength="20"></label><label>価格（円）<input type="number" data-chg="pkp" value="'+P.pick.p+'" min="0" step="10"></label></div></section>';
+  h+='<section class="eds"><h3>お知らせ</h3><textarea class="nta" data-chg="notice" maxlength="80">'+esc(P.notice)+'</textarea></section>';
+  h+='<section class="eds wide"><h3>メニューの写真</h3><p class="edh">メニューを選んで、写真を変えられます</p><div class="mrows">'+S.items.map(function(m){return'<button type="button" class="mrw'+(a.em===m.id?" on":"")+'" data-act="em" data-id="'+m.id+'"><i style="'+bgu(imgU(m.img))+'">'+(m.img?"":"写真なし")+'</i><b>'+esc(m.n[0])+'</b></button>'}).join("")+'</div>'+(a.em?'<div class="emp"><small>「'+esc(item(a.em).n[0])+'」の写真</small>'+picker("m:"+a.em,imgU(item(a.em).img))+'<button type="button" class="abtn" data-act="img" data-tg="m:'+a.em+'" data-u="">写真を外す</button></div>':'')+'</section></div>';
+  return h;
+}
+function setImg(tg,u){if(tg==="hero")S.page.hero=u;else{var m=item(tg.slice(2));if(m){m.img=u||null}}save();renderAll()}
 function aSettings(){
   var st=S.store;
   return'<div class="ah"><h2>店舗設定</h2><span class="meta">お客様の画面の見た目が変わります</span></div><div class="form">'+
@@ -914,6 +973,9 @@ document.addEventListener("click",function(ev){
   case"opent":c.t=el.dataset.t;c.mode="dine";c.v="menu";c.det=null;if(isMobile()){UI.pane="c";window.scrollTo(0,0)}break;
   case"color":S.store.color=el.dataset.c;S.store.ccol=true;save();break;
   case"tpl":S.store.tpl=el.dataset.t;save();if(isMobile())gtoast("お客様の画面のテンプレートを変えました");break;
+  case"mv":var o=S.page.order,ix=o.indexOf(el.dataset.k),nx=ix+ +el.dataset.d;if(nx<0||nx>=o.length)return;o.splice(ix,1);o.splice(nx,0,el.dataset.k);save();break;
+  case"img":setImg(el.dataset.tg,el.dataset.u);return;
+  case"em":a.em=a.em===el.dataset.id?null:el.dataset.id;break;
   default:return;
   }
   renderAll();
@@ -921,6 +983,11 @@ document.addEventListener("click",function(ev){
 function readForm(){var e=UI.a.edit;if(!e||!$("f-n"))return;e.n=$("f-n").value;e.p=$("f-p").value;e.cat=$("f-c").value;e.d=$("f-d").value}
 document.addEventListener("change",function(ev){
   var el=ev.target,k=el.dataset.chg;if(!k)return;var it;
+  if(k==="show"){S.page.show[el.dataset.k]=el.checked;save();renderAll();return}
+  if(k==="notice"){S.page.notice=el.value.trim();save();renderAll();return}
+  if(k==="pkn"){S.page.pick.n=el.value.trim()||"本日のおすすめ";save();renderAll();return}
+  if(k==="pkp"){S.page.pick.p=Math.max(0,Math.round(+el.value||0));save();renderAll();return}
+  if(k==="up"){var f=el.files&&el.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){var im=new Image();im.onload=function(){var c=document.createElement("canvas"),sc=Math.min(1,640/Math.max(im.width,im.height));c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);var u;try{u=c.toDataURL("image/jpeg",.8)}catch(e){u=rd.result}if(LIB.indexOf(u)<0)LIB.push(u);setImg(el.dataset.tg,u)};im.src=rd.result};rd.readAsDataURL(f);return}
   switch(k){
   case"lang":UI.c.lang=+el.value;break;
   case"pick":UI.c.pick=+el.value;break;
@@ -935,7 +1002,7 @@ document.addEventListener("change",function(ev){
   renderAll();
 });
 document.addEventListener("keydown",function(ev){if(ev.key==="Escape"){if($("optpanel").classList.contains("on"))setPanel(false);else if(UI.a.edit){UI.a.edit=null;renderA()}else if(UI.c.det){UI.c.det=null;renderC()}}});
-window.addEventListener("storage",function(ev){if(ev.key===KEY){try{var n=JSON.parse(ev.newValue);if(n&&n.v===4){S=n;renderAll()}}catch(e){}}});
+window.addEventListener("storage",function(ev){if(ev.key===KEY){try{var n=JSON.parse(ev.newValue);if(n&&n.v===5){S=n;renderAll()}}catch(e){}}});
 setInterval(function(){var f=document.activeElement;if(UI.a.edit||(f&&/INPUT|SELECT|TEXTAREA/.test(f.tagName)))return;renderA();renderTop()},20000);
 renderAll();
 })();
