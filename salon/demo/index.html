@@ -540,6 +540,26 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .mrw i{width:36px;height:36px;border-radius:6px;background:#eee center/cover;font-style:normal;font-size:8px;display:grid;place-items:center;color:var(--muted)}
 .emp{border-top:1px solid var(--line);padding-top:10px;display:grid;gap:8px}.emp small{font-size:12px;font-weight:700}
 .emp .abtn{justify-self:start}
+
+/* custom blocks */
+.BK{margin:12px 16px}
+.BK h4{margin:0 0 4px;font-size:14px}
+.BK p{margin:0;font-size:12.5px;line-height:1.75;opacity:.85}
+.BK small{display:block;margin-top:6px;font-size:11.5px;opacity:.75}
+.bki{display:block;background-size:cover;background-position:center;border-radius:10px}
+.bk-text{padding:4px 2px}
+.bk-ptext{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center}.bk-ptext .bki{height:96px}
+.bk-photo .bki{height:170px}
+.bk-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.bk-gallery .bki{aspect-ratio:1}
+.bk-hours{padding:12px 14px;border-radius:12px;border:1px solid rgba(127,127,127,.25)}
+.bk-link{text-align:center}.bkl{display:block;padding:12px;border-radius:12px;border:1.5px solid var(--sc);color:var(--sc);font-weight:700;font-size:13px}
+.ord2 .ob{display:flex;gap:4px}
+.ord2 li.cu{background:var(--mint)}
+.addb2{width:100%;margin-top:10px;border:1.5px dashed var(--line);border-radius:10px;padding:12px;font-weight:700;color:var(--brand);background:#fff;cursor:pointer}
+.btg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.btc{text-align:left;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;cursor:pointer}.btc:hover{border-color:var(--brand)}
+.btc b{display:block;font-size:13.5px}.btc small{font-size:11.5px;color:var(--muted);line-height:1.5}
+.bked .form{max-width:none}
 /* ===== template gallery ===== */
 .tgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
 .tgc{cursor:pointer;position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden;text-align:left;transition:transform .2s,box-shadow .2s}
@@ -650,7 +670,7 @@ function tplMenu(force){
     else{g+='<div class="P-sec">メニュー</div>';S.menus.forEach(function(m){g+=mbtn(m,(m.img?'<i class="mth" style="'+bg(m.img)+'"></i>':'')+'<span><b>'+esc(m.n)+stp(m)+'</b><small>'+m.min+'分 ・ '+esc(m.d)+'</small></span><em>'+yen(m.p)+'</em>',"P-it")})}
     return g}
   var F={hero:hero,notice:notice,slots:slots,menu:menu};
-  P.order.forEach(function(k){if(P.show[k]&&F[k])h+=F[k]()});
+  P.order.forEach(function(k){if(!P.show[k])return;if(F[k])h+=F[k]();else if(P.blocks&&P.blocks[k])h+=blockHTML(P.blocks[k])});
   return h;
 }
 function renderC(){
@@ -738,15 +758,38 @@ function tplPrev(t){var b='<span class="tpv" style="background:'+t[4]+';color:'+
 function aTpl(){var cur=curTpl()[0];var h='<div class="ah"><h2>テンプレート</h2><span class="meta">選ぶと、予約ページがレイアウトごと切り替わります</span></div><div class="tgal">'+TPLS.map(function(t){var inner=tplMenu(t[0]).replace(/ id="[^"]*"/g,"").replace(/ data-act="[^"]*"/g,"").replace(/<button\b/g,"<span").replace(/<\/button>/g,"</span>");return'<div role="button" tabindex="0" class="tgc'+(t[0]===cur?" use":"")+'" data-act="tpl" data-t="'+t[0]+'"><span class="tgs" style="--tg:'+(t[2]==="有料"?"linear-gradient(160deg,#2a2426,#4a3a3e)":"linear-gradient(160deg,#f3e3e0,#e6d0cc)")+'"><span class="tgpr'+(t[2]==="有料"?" p":"")+'">'+(t[2]==="有料"?"PREMIUM":"FREE")+'</span><span class="tgph"><span class="tgsc"><span class="cs" data-tpl="'+t[0]+'" style="display:flex;flex-direction:column;--sc:'+t[3]+';background:'+t[4]+';color:'+t[5]+'"><span class="sbar"><span>21:12</span><span>5G</span></span><span class="cbody" style="display:block;overflow:hidden">'+inner+'</span></span></span></span></span><span class="tgb"><span class="h"><b>'+t[1]+'</b><span class="stt">'+(t[2]==="有料"?"4,800円":"無料")+'</span></span><small>'+t[6]+'</small>'+(t[2]==="有料"?'<small class="pz">買い切り・デモでは無料で試せます</small>':'')+'<span class="tgu"><span>'+(t[0]===cur?"使用中":"このテンプレートにする")+'</span></span></span></div>'}).join("")+'</div>';return h}
 var SECN={hero:"メイン写真",notice:"お知らせ",slots:"本日の空き時間",menu:"メニュー"};
 function picker(target,cur){return'<div class="lib">'+LIB.map(function(u){return'<button type="button" class="lb'+(u===cur?" on":"")+'" data-act="img" data-tg="'+target+'" data-u="'+u+'" style="'+bg(u)+'" aria-label="この写真にする"></button>'}).join("")+'<label class="lb up" aria-label="写真をアップロード"><input type="file" accept="image/*" data-chg="up" data-tg="'+target+'"><span>＋<br>アップロード</span></label></div>'}
+
+var BTYPES=[["text","テキスト","見出しと文章。こだわりやサロンの紹介に"],["ptext","写真＋テキスト","写真と説明を並べて。スタッフ紹介や特集に"],["photo","写真","1枚の写真を大きく"],["gallery","ギャラリー","写真を3枚並べて"],["hours","営業時間・アクセス","営業時間・定休日・住所"],["link","リンクボタン","InstagramやGoogleマップへのボタン"]];
+var BDEF={text:{title:"サロンのこだわり",text:"おひとりずつ、ゆっくりとカウンセリングしてから施術します。"},ptext:{title:"スタイリスト紹介",text:"担当の山田です。似合わせカットが得意です。お気軽にご相談ください。",img:LIB[1]},photo:{img:LIB[2]},gallery:{imgs:[LIB[0],LIB[1],LIB[2]]},hours:{title:"営業時間・アクセス",text:"10:00〜19:00（最終受付 18:00）\n定休日 毎週火曜",addr:"東京都渋谷区〇〇 1-2-3"},link:{title:"Instagramを見る",url:"https://instagram.com/"}};
+function bgx(u){return u?'background-image:url('+(typeof imgU==='function'?imgU(u):u)+')':''}
+function blockHTML(b){var h='<div class="BK bk-'+b.type+'">';
+  if(b.type==="text")h+='<h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p>';
+  else if(b.type==="ptext")h+='<i class="bki" style="'+bgx(b.img)+'"></i><div><h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p></div>';
+  else if(b.type==="photo")h+='<i class="bki" style="'+bgx(b.img)+'"></i>';
+  else if(b.type==="gallery")h+=(b.imgs||[]).map(function(u){return'<i class="bki" style="'+bgx(u)+'"></i>'}).join("");
+  else if(b.type==="hours")h+='<h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p>'+(b.addr?'<small>📍 '+esc(b.addr)+'</small>':'');
+  else if(b.type==="link")h+='<span class="bkl">'+esc(b.title||"リンク")+' ›</span>';
+  return h+'</div>'}
+function secName(k){if(SECN[k])return SECN[k];var b=S.page.blocks&&S.page.blocks[k];if(!b)return k;var t=BTYPES.filter(function(x){return x[0]===b.type})[0];return t[1]+(b.title&&b.title!==t[1]?'：'+b.title:'')}
+function blockEditor(id){var b=S.page.blocks[id];if(!b)return"";var h='<section class="eds wide bked"><h3>「'+esc(secName(id))+'」を編集</h3><div class="form">';
+  if(b.type==="text"||b.type==="ptext"||b.type==="hours"||b.type==="link")h+='<label>'+(b.type==="link"?"ボタンの文字":"見出し")+'<input type="text" data-chg="bf" data-f="title" data-b="'+id+'" value="'+esc(b.title||"")+'" maxlength="24"></label>';
+  if(b.type==="text"||b.type==="ptext"||b.type==="hours")h+='<label>'+(b.type==="hours"?"営業時間（1行ずつ）":"文章")+'<textarea data-chg="bf" data-f="text" data-b="'+id+'" maxlength="160">'+esc(b.text||"")+'</textarea></label>';
+  if(b.type==="hours")h+='<label>住所<input type="text" data-chg="bf" data-f="addr" data-b="'+id+'" value="'+esc(b.addr||"")+'"></label>';
+  if(b.type==="link")h+='<label>リンク先（URL）<input type="text" data-chg="bf" data-f="url" data-b="'+id+'" value="'+esc(b.url||"")+'"></label>';
+  h+='</div>';
+  if(b.type==="ptext"||b.type==="photo")h+='<div class="emp"><small>写真</small>'+picker("b:"+id,b.img)+'</div>';
+  if(b.type==="gallery")[0,1,2].forEach(function(i){h+='<div class="emp"><small>写真 '+(i+1)+'</small>'+picker("g:"+id+":"+i,b.imgs[i])+'</div>'});
+  return h+'<div class="acts" style="margin-top:12px"><button type="button" class="abtn warn" data-act="bdel" data-b="'+id+'">このセクションを削除</button><button type="button" class="abtn pri" data-act="bclose">完了</button></div></section>'}
+function addPicker(){return'<section class="eds wide addp"><h3>追加するセクションを選ぶ</h3><div class="btg">'+BTYPES.map(function(t){return'<button type="button" class="btc" data-act="badd" data-ty="'+t[0]+'"><b>'+t[1]+'</b><small>'+t[2]+'</small></button>'}).join("")+'</div><button type="button" class="abtn" data-act="baddx" style="margin-top:10px">やめる</button></section>'}
 function aEdit(){
-  var P=S.page,a=UI.a,h='<div class="ah"><h2>ページ編集</h2><span class="meta">写真の差し替え・並べ替え・表示の切り替え。左の予約ページにすぐ反映されます</span></div>';
-  h+='<div class="edg"><section class="eds"><h3>表示する順番</h3><p class="edh">↑↓で入れ替え、スイッチで表示・非表示</p><ol class="ord2">'+P.order.map(function(k,i){return'<li><span class="og">'+SECN[k]+'</span><span class="oa"><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="-1"'+(i===0?" disabled":"")+' aria-label="上へ">↑</button><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="1"'+(i===P.order.length-1?" disabled":"")+' aria-label="下へ">↓</button><label class="sw ok"><input type="checkbox" data-chg="show" data-k="'+k+'"'+(P.show[k]?" checked":"")+(k==="menu"?" disabled":"")+'><span></span></label></span></li>'}).join("")+'</ol></section>';
+  var P=S.page,a=UI.a,h='<div class="ah"><h2>ページ編集</h2><span class="meta">写真の差し替え・並べ替え・表示の切り替え。予約ページにすぐ反映されます</span></div>';
+  h+='<div class="edg"><section class="eds"><h3>表示する順番</h3><p class="edh">↑↓で入れ替え、スイッチで表示・非表示</p><ol class="ord2">'+P.order.map(function(k,i){return'<li'+(SECN[k]?'':' class="cu"')+'><span class="onm">'+esc(secName(k))+'</span><span class="oa"><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="-1"'+(i===0?" disabled":"")+' aria-label="上へ">↑</button><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="1"'+(i===P.order.length-1?" disabled":"")+' aria-label="下へ">↓</button>'+(SECN[k]?'':'<button type="button" class="abtn sm" data-act="bedit" data-b="'+k+'" aria-label="編集">✎</button>')+'<label class="sw ok"><input type="checkbox" data-chg="show" data-k="'+k+'"'+(P.show[k]?" checked":"")+(k==="menu"?" disabled":"")+'><span></span></label></span></li>'}).join("")+'</ol><button type="button" class="addb2" data-act="baddo">＋ セクションを追加</button></section>'+(a.badd?addPicker():'')+(a.bed&&P.blocks&&P.blocks[a.bed]?blockEditor(a.bed):'');
   h+='<section class="eds"><h3>メイン写真</h3><p class="edh">予約ページの上部に大きく表示されます</p><div class="cur" style="'+bg(P.hero)+'"></div>'+picker("hero",P.hero)+'</section>';
   h+='<section class="eds"><h3>お知らせ</h3><textarea class="nta" data-chg="notice" maxlength="80">'+esc(P.notice)+'</textarea></section>';
   h+='<section class="eds wide"><h3>メニューの写真</h3><p class="edh">メニューを選んで、写真を変えられます</p><div class="mrows">'+S.menus.map(function(m){return'<button type="button" class="mrw'+(a.em===m.id?" on":"")+'" data-act="em" data-id="'+m.id+'"><i style="'+bg(m.img)+'">'+(m.img?"":"写真なし")+'</i><b>'+esc(m.n)+'</b></button>'}).join("")+'</div>'+(a.em?'<div class="emp"><small>「'+esc(menu(a.em).n)+'」の写真</small>'+picker("m:"+a.em,menu(a.em).img)+'<button type="button" class="abtn" data-act="img" data-tg="m:'+a.em+'" data-u="">写真を外す</button></div>':'')+'</section></div>';
   return h;
 }
-function setImg(tg,u){if(tg==="hero")S.page.hero=u;else{var m=menu(tg.slice(2));if(m)m.img=u}save();renderAll()}
+function setImg(tg,u){if(tg.slice(0,2)==="b:"){S.page.blocks[tg.slice(2)].img=u;save();renderAll();return}if(tg.slice(0,2)==="g:"){var q=tg.split(":");S.page.blocks[q[1]].imgs[+q[2]]=u;save();renderAll();return}if(tg==="hero")S.page.hero=u;else{var m=menu(tg.slice(2));if(m)m.img=u}save();renderAll()}
 function aSet(){
   var d=UI.a.d,h='<div class="ah"><h2>受付設定</h2><span class="meta">タップで受付を止める・再開する（休憩や急なお休みに）</span></div>'+dsel()+'<div class="sgrid">';
   for(var s=OPEN;s<CLOSE;s+=30){var k=d+"|"+s,bk=S.bookings.some(function(b){return b.d===d&&s>=b.s&&s<b.s+menu(b.m).min});h+='<button type="button" data-act="cls" data-s="'+s+'" class="'+(S.closed[k]?"cl":"")+(bk?" bk2":"")+'"'+(bk?" disabled":"")+'>'+tm(s)+'</button>'}
@@ -782,6 +825,12 @@ document.addEventListener("click",function(ev){
   case"tpl":S.tpl=el.dataset.t;save();break;
   case"mv":var o=S.page.order,ix=o.indexOf(el.dataset.k),nx=ix+ +el.dataset.d;if(nx<0||nx>=o.length)return;o.splice(ix,1);o.splice(nx,0,el.dataset.k);save();break;
   case"img":setImg(el.dataset.tg,el.dataset.u);return;
+  case"baddo":a.badd=!a.badd;a.bed=null;break;
+  case"baddx":a.badd=false;break;
+  case"badd":S.page.blocks=S.page.blocks||{};var bid="x"+Date.now().toString(36),ty=el.dataset.ty,bd=JSON.parse(JSON.stringify(BDEF[ty]));bd.type=ty;S.page.blocks[bid]=bd;var mi=S.page.order.indexOf("menu");S.page.order.splice(mi<0?S.page.order.length:mi,0,bid);S.page.show[bid]=true;a.badd=false;a.bed=bid;save();break;
+  case"bedit":a.bed=a.bed===el.dataset.b?null:el.dataset.b;a.badd=false;break;
+  case"bclose":a.bed=null;break;
+  case"bdel":if(!confirm("このセクションを削除しますか？"))return;var db=el.dataset.b;delete S.page.blocks[db];S.page.order=S.page.order.filter(function(x){return x!==db});delete S.page.show[db];a.bed=null;save();break;
   case"em":a.em=a.em===el.dataset.id?null:el.dataset.id;break;
   case"cls":var k=a.d+"|"+el.dataset.s;if(S.closed[k])delete S.closed[k];else S.closed[k]=1;save();break;
   default:return;
@@ -790,6 +839,7 @@ document.addEventListener("click",function(ev){
 });
 document.addEventListener("change",function(ev){var el=ev.target,k=el.dataset.chg;if(!k)return;
   if(k==="show"){S.page.show[el.dataset.k]=el.checked;save();renderAll();return}
+  if(k==="bf"){S.page.blocks[el.dataset.b][el.dataset.f]=el.value;save();renderAll();return}
   if(k==="notice"){S.page.notice=el.value.trim();save();renderAll();return}
   if(k==="up"){var f=el.files&&el.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){var im=new Image();im.onload=function(){var c=document.createElement("canvas"),sc=Math.min(1,640/Math.max(im.width,im.height));c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);var u;try{u=c.toDataURL("image/jpeg",.8)}catch(e){u=rd.result}if(LIB.indexOf(u)<0)LIB.push(u);setImg(el.dataset.tg,u)};im.src=rd.result};rd.readAsDataURL(f);return}
   var m=menu(el.dataset.id);
