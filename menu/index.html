@@ -277,6 +277,7 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 .L-ramen .r-hd .big{flex:none;width:48px;height:48px;border-radius:50%;background:#fff;color:#111;display:grid;place-items:center;font:900 26px var(--serif)}
 .L-ramen .r-hd b{display:block;font:900 15px var(--serif);letter-spacing:.2em}
 .L-ramen .r-hd small{font-size:8px;letter-spacing:.2em;color:#bbb}
+.L-ramen .r-ph{height:96px;margin:0 12px 10px;background:url(img/ramen.webp) center 45%/cover;border:2px solid #111}
 .L-ramen .r-lb{padding:0 12px 6px;font:800 9px var(--en);letter-spacing:.2em}
 .L-ramen .r-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 12px 10px}
 .L-ramen .r-tk{border:2px solid #111;padding:8px 6px;text-align:center;background:#fff}
@@ -327,7 +328,7 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 .circle .cap{position:absolute;bottom:9%;left:0;right:0;text-align:center;font-weight:900;font-size:16px}
 .swl{display:grid;gap:12px}
 .swl button{display:flex;align-items:center;gap:16px;width:100%;text-align:left;border:0;background:#fff;border-radius:18px;padding:16px 20px;font:700 15.5px var(--sans);color:var(--ink);cursor:pointer;position:relative;overflow:hidden;transition:box-shadow .3s}
-.swl button .dot{flex:none;width:34px;height:34px;border-radius:50%;box-shadow:0 0 0 3px #fff,0 0 0 4px var(--line)}
+.swl button .dot{flex:none;width:56px;height:42px;border-radius:10px;box-shadow:0 0 0 3px #fff,0 0 0 4px var(--line)}
 .swl button small{display:block;font-weight:500;color:var(--muted);font-size:12.5px}
 .swl button.on{box-shadow:0 0 0 2px var(--blue)}
 .swl button .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--grad)}
@@ -939,7 +940,7 @@ footer a:hover{color:var(--blue)}
   function yen(n){return "¥"+n.toLocaleString("ja-JP")}
   function vars(sh){return '--sc:'+sh.c+';--sb:'+sh.bg+';--sf:'+sh.fg+';--t1:'+sh.t[0]+';--t2:'+sh.t[1]+(sh.st?';--st:'+sh.st:'')+(sh.sl?';--sl:'+sh.sl:'')+(sh.cbg?';--cbg:'+sh.cbg:'')}
   var LAY=["teishoku","cafe","izakaya","intl","ramen","bistro"];
-  var PH={"生姜焼き定食":"pork","焼き魚定食":"saba","季節の野菜天":"tempura-c","だし巻き玉子":"tamago-c","カフェラテ":"latte","季節のタルト":"tart-c","ドリップ":"drip-c","Ginger Pork":"pork","Mackerel Set":"saba","Tempura":"tempura-c"};
+  var PH={"生姜焼き定食":"pork","焼き魚定食":"saba","季節の野菜天":"tempura-c","だし巻き玉子":"tamago-c","カフェラテ":"latte","季節のタルト":"tart-c","ドリップ":"drip-c","Ginger Pork":"pork","Mackerel Set":"saba","Tempura":"tempura-c","ホットサンド":"hotsand-c","Matcha Ice":"matcha-c"};
   function phs(n){return PH[n]?' style="background:url(img/'+PH[n]+'.webp) center/cover"':''}
   function tabsOf(sh,cls){return '<div class="'+cls+'">'+sh.tabs.map(function(t,i){return'<span class="'+(i?"":"on")+'">'+t+'</span>'}).join("")+'</div>'}
   function body(sh){
@@ -962,7 +963,7 @@ footer a:hover{color:var(--blue)}
       var AL=[["Wheat","Soy"],["Fish"],["Wheat","Egg"],["Milk"]];
       it.forEach(function(x,k){h+='<div class="m-it"><span class="th"'+phs(x[0])+'></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small><span class="alg">'+AL[k].map(function(a){return'<i>'+a+'</i>'}).join("")+'</span></span><span class="p">'+yen(x[2])+'</span></div>'});
     }else if(L==="ramen"){
-      h+='<div class="r-hd"><span class="big">塩</span><div><b>麺処 しお</b><small>SHIO RAMEN ・ 1番席</small></div></div><div class="r-lb">TICKET</div><div class="r-grid">';
+      h+='<div class="r-hd"><span class="big">塩</span><div><b>麺処 しお</b><small>SHIO RAMEN ・ 1番席</small></div></div><div class="r-ph"></div><div class="r-lb">TICKET</div><div class="r-grid">';
       h+='<div class="r-tk wide on"><b>特製塩らーめん</b><small>¥1,250</small></div>';
       it.forEach(function(x,k){if(k===1)return;h+='<div class="r-tk"><b>'+x[0]+'</b><small>'+yen(x[2])+'</small></div>'});
       h+='<div class="r-tk"><b>大盛り</b><small>+¥150</small></div></div>';
@@ -1015,7 +1016,7 @@ footer a:hover{color:var(--blue)}
 
   /* ---------- 01 theme switcher ---------- */
   var swl=$("swl"),swscr=$("swscr"),swi=0,swTimer;
-  swl.innerHTML=SHOPS.map(function(s,i){return'<button type="button" data-i="'+i+'"><span class="dot" style="background:linear-gradient(135deg,'+s.t[0]+','+s.c+')"></span><span>'+s.k+'<small>'+s.d+'</small></span><span class="bar"></span></button>'}).join("");
+  swl.innerHTML=SHOPS.map(function(s,i){return'<button type="button" data-i="'+i+'"><span class="dot" style="background:url(img/'+["in-shokudo","in-cafe","in-izakaya","in-shokudo","in-ramen","in-bistro"][i]+'.webp) center/cover"></span><span>'+s.k+'<small>'+s.d+'</small></span><span class="bar"></span></button>'}).join("");
   swscr.innerHTML=SHOPS.map(function(s,i){return'<div class="lay L-'+s.L+'" data-i="'+i+'" style="'+vars(s)+';background:'+s.bg+';color:'+s.fg+'">'+inner(s)+'</div>'}).join("");
   function setSw(i){swi=i;swl.querySelectorAll("button").forEach(function(b){var on=b.dataset.i==i;b.classList.toggle("on",false);if(on){void b.offsetWidth;b.classList.add("on")}});swscr.querySelectorAll(".lay").forEach(function(l){l.classList.toggle("on",l.dataset.i==i)});
     clearTimeout(swTimer);if(!RM)swTimer=setTimeout(function(){setSw((swi+1)%SHOPS.length)},3200)}
