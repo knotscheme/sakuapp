@@ -131,7 +131,8 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
   .lede{font-size:14.5px;margin-bottom:26px}
   .hero .ctas{gap:16px}.hero .ctas .btn{width:100%;min-width:0}.tlink{margin:0 auto}
   .hfacts{margin-top:28px;justify-content:space-between}.hfacts li{padding:0 12px}.hfacts li:first-child{padding-left:0}.hfacts b{font-size:22px;white-space:nowrap}.hfacts small{white-space:nowrap}
-  .hvis{height:430px;margin:0 -20px;width:auto;max-width:none}
+  .hvis{height:390px;margin:0 -20px;width:auto;max-width:none}
+  .hero{padding-bottom:0}
   .hblk{height:340px;top:40px;border-radius:0;left:0;right:0}
   .hplate{width:170px;height:170px;right:-40px;top:-40px}
   .hp{width:240px}
@@ -160,7 +161,7 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
   .hbadge{display:none}
 }
 /* category tabs + arc showcase */
-.show{background:#fff;padding:0 0 100px;overflow:hidden}
+.show{background:#fff;padding:40px 0 100px;overflow:hidden}
 .arc .ph .scr{display:flex;flex-direction:column}
 .feed{flex:1 1 0;min-height:0;overflow:hidden;position:relative}
 .ph .scr>*{flex-shrink:0}
@@ -180,10 +181,10 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 @keyframes dim{0%,52%{opacity:0}57%,84%{opacity:1}89%,100%{opacity:0}}
 .flash{position:absolute;inset:0;z-index:5;background:var(--sb,#fff);opacity:0;pointer-events:none;animation:flash var(--fd,11s) linear infinite;animation-delay:var(--dl,0s)}
 @keyframes flash{0%,95%{opacity:0}97%{opacity:1}100%{opacity:0}}
-.ctabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;background:var(--panel);padding:44px 20px}
-.ctabs button{border:0;font:700 14.5px var(--sans);letter-spacing:.06em;padding:12px 22px;border-radius:10px;background:#d7cbbd;color:#fff;cursor:pointer;transition:background .2s,color .2s}
-.ctabs button.on{background:#fff;color:var(--blue);box-shadow:0 6px 16px -10px rgba(0,0,0,.25)}
-@media(max-width:600px){.ctabs{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding:18px 20px;margin-bottom:36px;scrollbar-width:none}.ctabs::-webkit-scrollbar{display:none}.ctabs button{flex:none;padding:10px 16px;font-size:13px}}
+.ctabs{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;width:max-content;max-width:calc(100% - 40px);margin:32px auto 0;background:var(--panel);padding:5px;border-radius:99px}
+.ctabs button{border:0;font:700 14px var(--sans);letter-spacing:.06em;padding:10px 20px;border-radius:99px;background:transparent;color:var(--muted);cursor:pointer;transition:background .2s,color .2s}
+.ctabs button.on{background:var(--ink);color:#fff;box-shadow:0 6px 16px -10px rgba(0,0,0,.4)}
+@media(max-width:600px){.ctabs{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;max-width:none;width:auto;margin:22px 20px 0;scrollbar-width:none}.ctabs::-webkit-scrollbar{display:none}.ctabs button{flex:none;padding:10px 16px;font-size:13px}}
 .show h2{font-size:clamp(20px,3.8vw,40px);text-align:center;margin-bottom:6px}
 .show h2.big{font-size:clamp(25px,5.6vw,60px);margin-bottom:0}
 .arc{position:relative;height:700px;margin-top:28px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%)}
@@ -729,11 +730,11 @@ footer a:hover{color:var(--blue)}
 </section>
 
 <section class="show" id="show">
-  <div class="ctabs" id="ctabs" role="tablist" aria-label="業態を選ぶ"></div>
   <div class="wrap rv">
     <h2>お店の数だけ、メニューの形を。</h2>
     <h2 class="big blue">雰囲気まで、そのまま届ける</h2>
   </div>
+  <div class="ctabs" id="ctabs" role="tablist" aria-label="業態を選ぶ"></div>
   <div class="arcbox"><div class="arc" id="arc" aria-label="業態ごとにデザインを変えた注文画面の例（画面はイメージです）"></div></div>
   <div class="wrap">
     <div class="pills stg">
