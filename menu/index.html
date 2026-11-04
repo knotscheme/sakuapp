@@ -1188,7 +1188,7 @@ p,small,li,dd{text-wrap:pretty}
   (function(){
     var NUM=/((?:約|¥|￥)?[0-9０-９][0-9０-９,，.]*(?:[0-9０-９])?(?:万円|円|件|分|秒|時間|日|か月|ヶ月|月|年|人|回|品|点|個|枚|杯|本|台|席|名|階|種|割|%|％|px)?)/g;
     document.querySelectorAll("main h1,main h2,main h3,main h4,main p,main li,main summary,main small,main b,main em,main label,main dd,main span").forEach(function(el){
-      if(el.closest(".ph,.adm,.arc,.mbox,.nw,[data-count]"))return;
+      if(el.closest(".ph,.adm,.arc,.mbox,.nw,[data-count],.hfacts,.pcard,.ef,.tot,.stats"))return;
       var d=getComputedStyle(el).display;if(/flex|grid/.test(d)&&[].some.call(el.childNodes,function(n){return n.nodeType===3&&/[0-9０-９]/.test(n.nodeValue)})){var w=document.createElement("span");while(el.firstChild)w.appendChild(el.firstChild);el.appendChild(w);el=w}
       [].slice.call(el.childNodes).forEach(function(tn){if(tn.nodeType!==3||!/[0-9０-９]/.test(tn.nodeValue))return;
         var parts=tn.nodeValue.split(NUM);if(parts.length<2)return;var f=document.createDocumentFragment();
