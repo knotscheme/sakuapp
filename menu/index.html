@@ -342,6 +342,18 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 .hadd{position:absolute;left:50%;top:58px;z-index:8;transform:translate(-50%,-8px);background:#241e1a;color:#fff;font-size:10.5px;font-weight:700;border-radius:99px;padding:6px 12px;white-space:nowrap;opacity:0;pointer-events:none}
 .hadd.v{animation:hadd 1.2s ease-out}
 @keyframes hadd{15%,70%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-6px)}}
+
+.hseq .ch2{display:flex;align-items:baseline;gap:8px;padding:8px 14px 10px;border-bottom:1px solid #e8dccb}
+.hseq .ch2 span{font-size:18px;color:#8a6f5a}.hseq .ch2 b{font:700 15px var(--serif)}.hseq .ch2 small{margin-left:auto;font-size:10px;color:#8a6f5a}
+.hseq .cl{flex:1 1 0;min-height:0;padding:4px 0}
+.hseq .cr{display:grid;grid-template-columns:44px 1fr auto auto;gap:9px;align-items:center;padding:10px 14px;border-bottom:1px dashed #e3d6c3}
+.hseq .cr .th{width:44px;height:44px;border-radius:8px}
+.hseq .cr b{display:block;font:700 11.5px var(--serif)}.hseq .cr small{font-size:9px;color:#8a6f5a}
+.hseq .cr .q{font:700 11px var(--en);color:#8a6f5a}.hseq .cr em{font:700 11.5px var(--serif);font-style:normal}
+.hseq .cn{margin:12px 14px;padding:8px;border-radius:8px;background:#f3eadf;font-size:9.5px;font-weight:700;text-align:center;color:#6a5444}
+.hseq .ctot{display:flex;justify-content:space-between;align-items:baseline;padding:10px 16px;border-top:1px solid #e8dccb}
+.hseq .ctot span{font-size:11px;font-weight:700}.hseq .ctot b{font:700 20px var(--serif)}
+.hseq .csend{margin:0 10px 12px;background:#b5461b;color:#fff;border-radius:6px;padding:11px;text-align:center;font:700 12px var(--serif);letter-spacing:.1em}
 /* numbered chapters */
 .chap{position:relative;text-align:center;padding-top:20px;margin-bottom:48px}
 .chap .bgw{position:absolute;left:50%;top:-10px;transform:translateX(-50%);font:800 clamp(90px,17vw,220px)/1 var(--en);color:#f3ebe1;letter-spacing:-.02em;white-space:nowrap;pointer-events:none;z-index:0}
@@ -1080,6 +1092,7 @@ p,small,li,dd{text-wrap:pretty}
     var sc=$("hp1"),sh=SHOPS[0];sc.className="scr hseq";sc.setAttribute("style",vars(sh)+";background:"+sh.bg+";color:"+sh.fg);
     sc.innerHTML='<div class="hl0 lay on" data-k="cam"><div class="sb" style="background:#0d0d0d;color:#fff"><span>12:03</span><span>5G</span></div><div class="cam"><div class="fr" id="hqr"></div><div class="cpill" id="hpill"><i>灯</i><span><b>食堂 ともしび</b><small>テーブル5のメニューを開く</small></span></div></div></div>'
       +'<div class="hl0 lay L-teishoku" data-k="menu" style="background:'+sh.bg+'">'+inner(sh)+'</div>'
+      +'<div class="hl0 lay" data-k="cart" style="background:'+sh.bg+'"><div class="sb"><span>12:04</span><span>5G</span></div><div class="ch2"><span>‹</span><b>カート</b><small>テーブル5</small></div><div class="cl"><div class="cr"><span class="th" style="background:url(img/pork.webp) center/cover"></span><span><b>生姜焼き定食</b><small>ごはん大盛り</small></span><span class="q">×1</span><em>¥980</em></div><div class="cr"><span class="th" style="background:url(img/saba.webp) center/cover"></span><span><b>焼き魚定食</b><small>ごはん普通</small></span><span class="q">×1</span><em>¥1,080</em></div><div class="cn">お会計は最後にレジでお願いします</div></div><div class="ctot"><span>合計</span><b>¥2,060</b></div><div class="csend" id="hsend">注文を送る</div></div>'
       +'<div class="hl0 lay" data-k="done" style="background:'+sh.bg+'"><div class="sb"><span>12:05</span><span>5G</span></div><div class="dn"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>ご注文を受け付けました</b><strong>128</strong><small>できあがりまで少々お待ちください</small></div></div>'
       +'<span class="htap" id="htap"></span><span class="hadd" id="hadd">カートに追加しました</span>';
     setTimeout(function(){if($("qr"))$("hqr").innerHTML=$("qr").innerHTML},0);
@@ -1100,8 +1113,10 @@ p,small,li,dd{text-wrap:pretty}
       at(4500,function(){tapAt(rows[1])});
       at(5050,function(){hl(rows[1]);cart(2,"¥2,060")});
       at(6100,function(){tapAt(cb)});
-      at(6700,function(){tap.classList.remove("v");show("done")});
-      at(9600,run);
+      at(6650,function(){show("cart")});
+      at(7900,function(){tapAt($("hsend"))});
+      at(8450,function(){tap.classList.remove("v");show("done")});
+      at(11400,run);
     }
     if(RM){show("menu")}else run();
   })();
