@@ -240,6 +240,7 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 .L-izakaya .i-hd .chochin{flex:none;width:30px;height:38px;border-radius:45%;background:radial-gradient(circle at 50% 40%,#ff7a5a,#d2311f 70%);color:#fff;display:grid;place-items:center;font:900 14px var(--serif);box-shadow:0 0 14px rgba(255,90,60,.55)}
 .L-izakaya .i-hd b{display:block;font:900 16px var(--serif);letter-spacing:.06em}
 .L-izakaya .i-hd small{font-size:8.5px;color:#a7a198}
+.L-izakaya .i-ph{height:84px;margin:0 10px 8px;border-radius:6px;background:url(img/yakitori.webp) center 55%/cover}
 .L-izakaya .i-board{margin:0 10px 10px;padding:10px 12px;border-radius:6px;background:#203029;border:3px solid #6b4a2e;font-family:var(--serif)}
 .L-izakaya .i-board b{display:block;font-size:10.5px;color:#ffd86b;margin-bottom:4px}
 .L-izakaya .i-board p{display:flex;justify-content:space-between;font-size:10px;margin:2px 0;color:#f4f1e8}
@@ -690,7 +691,7 @@ footer a:hover{color:var(--blue)}
       <p class="fine">月額はサーバー代・保守込み ・ 最低契約期間なし ・ 正式受付は2027年6月ごろから（先行のご案内はLINEで受付中）</p>
     </div>
     <div class="hvis" aria-hidden="true">
-      <figure class="hph"><img src="../uc-food.webp" alt="" width="800" height="800"></figure>
+      <figure class="hph"><img src="img/teishoku-hero.webp" alt="" width="412" height="512"></figure>
       <div class="hphone"><div class="ph"><div class="scr" id="hscr"></div></div></div>
       <div class="hn"><i></i><div><b>新しい注文　テーブル5</b><small>生姜焼き定食 ×1 ・ 大盛り</small></div></div>
       <div class="hshop" id="hshop"><span>デザイン例</span><b id="hshopn">定食・食堂</b></div>
@@ -888,8 +889,8 @@ footer a:hover{color:var(--blue)}
   <div class="wrap">
     <h2 class="rv">お店らしいメニューを、<br>月1,980円から。</h2>
     <div class="cgrid stg">
-      <a class="cc" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu"><span class="ci"><img src="../consult.webp" alt="" width="960" height="720" loading="lazy"></span><span class="ct"><b>LINEで相談</b><small>「うちの店だとどんなデザインになる？」の確認だけでも大丈夫です</small><em>相談する ›</em></span></a>
-      <a class="cc" href="#options"><span class="ci"><img src="../uc-food.webp" alt="" width="800" height="800" loading="lazy"></span><span class="ct"><b>お見積り</b><small>必要な機能を選ぶと、その場で概算がわかります</small><em>料金を見る ›</em></span></a>
+      <a class="cc" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu"><span class="ci"><img src="img/line-chat.webp" alt="" width="512" height="286" loading="lazy"></span><span class="ct"><b>LINEで相談</b><small>「うちの店だとどんなデザインになる？」の確認だけでも大丈夫です</small><em>相談する ›</em></span></a>
+      <a class="cc" href="#options"><span class="ci"><img src="img/in-shokudo.webp" alt="" width="512" height="286" loading="lazy"></span><span class="ct"><b>お見積り</b><small>必要な機能を選ぶと、その場で概算がわかります</small><em>料金を見る ›</em></span></a>
       <a class="cc" href="demo/"><span class="ci soft"><img src="../smile.webp" alt="" width="468" height="538" loading="lazy"></span><span class="ct"><b>デモを触る</b><small>お客様の画面とお店の管理画面を、実際に操作できます</small><em>デモを開く ›</em></span></a>
     </div>
     <p class="sub rv">売り込みはしません ・ 相談もお見積もりも無料 ・ LINEを使っていない方は <a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener">XのDM</a> でも受付中<br>正式受付は2027年6月ごろから。先行のご案内はLINEで受付中です。</p>
@@ -944,20 +945,20 @@ footer a:hover{color:var(--blue)}
     if(L==="teishoku"){
       h+='<div class="t-hd"><div class="t-noren"><i>と</i><i>も</i><i>し</i><i>び</i></div><b>食堂 ともしび</b><small>定食と季節の一品 ・ 五番卓</small></div>';
       h+='<div class="t-ban"><em>本日の日替わり</em><b>鶏の照り焼き定食</b><span>850円</span></div>'+tabsOf(sh,"t-tabs");
-      it.forEach(function(x){h+='<div class="t-it"><span class="th"></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p">'+(x[2]?x[2].toLocaleString()+'円':'<span class="so">売り切れ</span>')+'</span></div>'});
+      it.forEach(function(x,k){h+='<div class="t-it"><span class="th"'+(k===0?' style="background:url(img/pork.webp) center/cover"':'')+'></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p">'+(x[2]?x[2].toLocaleString()+'円':'<span class="so">売り切れ</span>')+'</span></div>'});
     }else if(L==="cafe"){
       h+='<div class="c-hd"><b>LUMEN</b><small>COFFEE &amp; SWEETS ・ TABLE 3</small></div>'+tabsOf(sh,"c-tabs")+'<div class="c-grid">';
-      it.forEach(function(x){h+='<div class="c-card"><span class="im"></span><b>'+x[0]+'</b><small>'+yen(x[2])+'</small></div>'});
+      it.forEach(function(x,k){h+='<div class="c-card"><span class="im"'+(k===0?' style="background:url(img/latte.webp) center/cover"':'')+'></span><b>'+x[0]+'</b><small>'+yen(x[2])+'</small></div>'});
       h+='</div>';
     }else if(L==="izakaya"){
       h+='<div class="i-hd"><span class="chochin">丸</span><div><b>居酒屋 まる</b><small>カウンター2 ・ 炭火焼き鳥</small></div></div>';
-      h+='<div class="i-board"><b>本日のおすすめ</b><p><span>ぶり大根</span><span>580</span></p><p><span>つくね（月見）</span><span>320</span></p><p><span>菜の花のおひたし</span><span>380</span></p></div>'+tabsOf(sh,"i-tabs");
+      h+='<div class="i-ph"></div><div class="i-board"><b>本日のおすすめ</b><p><span>ぶり大根</span><span>580</span></p><p><span>つくね（月見）</span><span>320</span></p><p><span>菜の花のおひたし</span><span>380</span></p></div>'+tabsOf(sh,"i-tabs");
       it.forEach(function(x){h+='<div class="i-it"><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><span class="p'+(x[2]?'':' so')+'">'+(x[2]?yen(x[2]):'品切れ')+'</span></div>'});
     }else if(L==="intl"){
       h+='<div class="m-hd"><div><b>Tomoshibi</b><small>Table 5</small></div><div class="m-lang"><span>JP</span><span class="on">EN</span><span>中</span><span>한</span></div></div>';
       h+='<div class="m-ban"><small>TODAY\'S SPECIAL</small><b>Teriyaki Chicken Set</b></div>';
       var AL=[["Wheat","Soy"],["Fish"],["Wheat","Egg"],["Milk"]];
-      it.forEach(function(x,k){h+='<div class="m-it"><span class="th"></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small><span class="alg">'+AL[k].map(function(a){return'<i>'+a+'</i>'}).join("")+'</span></span><span class="p">'+yen(x[2])+'</span></div>'});
+      it.forEach(function(x,k){h+='<div class="m-it"><span class="th"'+(k===0?' style="background:url(img/pork.webp) center/cover"':'')+'></span><span><b>'+x[0]+'</b><small>'+x[1]+'</small><span class="alg">'+AL[k].map(function(a){return'<i>'+a+'</i>'}).join("")+'</span></span><span class="p">'+yen(x[2])+'</span></div>'});
     }else if(L==="ramen"){
       h+='<div class="r-hd"><span class="big">塩</span><div><b>麺処 しお</b><small>SHIO RAMEN ・ 1番席</small></div></div><div class="r-lb">TICKET</div><div class="r-grid">';
       h+='<div class="r-tk wide on"><b>特製塩らーめん</b><small>¥1,250</small></div>';
