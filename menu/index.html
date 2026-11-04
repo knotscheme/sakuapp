@@ -609,6 +609,34 @@ footer a:hover{color:var(--blue)}
   .ed .edph{width:176px!important;height:352px!important;position:relative;margin:0 auto}
   .ed .edph>.ph{position:absolute;left:0;top:0;width:240px!important;max-width:none!important;-webkit-transform:scale(.7333);transform:scale(.7333);-webkit-transform-origin:0 0;transform-origin:0 0}
 }
+/* ===== mobile breathing room ===== */
+@media(max-width:600px){
+  html{scroll-padding-top:64px}
+  header .wrap{height:60px;padding:0 16px}
+  .logo img{height:22px}
+  header .btn{min-height:36px;padding:0 14px;font-size:12.5px;border-radius:8px}
+  section{padding:72px 0}
+  .wrap{padding:0 20px}
+  .panel{margin-left:-20px;margin-right:-20px;border-radius:0;padding:40px 20px}
+  .panel+.panel{margin-top:0;border-top:1px solid #e9ebee}
+  .panel h3{font-size:21px;line-height:1.55}
+  .panel>p.tx{font-size:14.5px;line-height:1.95}
+  .chap{margin-bottom:28px}
+  .chap .no{font-size:60px;margin-bottom:18px}
+  .chap .bgw{font-size:80px;top:0}
+  .chap h2{font-size:27px}
+  .chap p{font-size:15px}
+  .mini{gap:12px}
+  .mini div{background:#fff;border:1px solid #eceef1}
+  .faq details{padding:0 18px}
+  .faq summary{font-size:14.5px;padding:18px 32px 18px 0}
+  .pill{background:#fff;border:1px solid #eceef1}
+  .sticky{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:6px 6px 6px 14px;border-radius:12px;gap:8px}
+  .sticky .p{font-size:10px}.sticky .p b{font-size:14px}
+  .sticky .btn{min-height:42px;font-size:13.5px;border-radius:8px}
+  .hero h1{font-size:42px;margin-bottom:22px}
+  .hlead p{font-size:16.5px}
+}
 .rv{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 .stg>*{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
