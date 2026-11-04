@@ -354,6 +354,15 @@ header.solid .btn{background:var(--yel);color:var(--ink);box-shadow:none}
 .hseq .ctot{display:flex;justify-content:space-between;align-items:baseline;padding:10px 16px;border-top:1px solid #e8dccb}
 .hseq .ctot span{font-size:11px;font-weight:700}.hseq .ctot b{font:700 20px var(--serif)}
 .hseq .csend{margin:0 10px 12px;background:#b5461b;color:#fff;border-radius:6px;padding:11px;text-align:center;font:700 12px var(--serif);letter-spacing:.1em}
+
+.hseq .csend.ghost{background:transparent;color:#b5461b;box-shadow:inset 0 0 0 1.5px #b5461b}
+.hseq #hst{transition:background .3s,color .3s}.hseq #hst.ok{background:#e3efe1;color:#2f6b3a}
+.hseq .cb.pay{background:#241e1a}
+.hseq .thx .ty{background:#241e1a;color:#f3b93a;font:700 22px var(--serif);font-style:normal}
+.hseq .thx b{font:700 14px var(--serif);letter-spacing:.06em}
+.hseq .thx small.big{font-size:12px;font-weight:700;color:#b5461b;background:none;margin-top:4px}
+.hseq .bill{width:100%;margin:14px 0 10px;border-top:1px dashed #d9c9b5;border-bottom:1px dashed #d9c9b5;padding:12px 4px;display:grid;grid-template-columns:1fr auto;gap:2px 8px;text-align:left;font-size:9.5px;color:#8a6f5a}
+.hseq .bill b{grid-column:1/-1;text-align:right;font:700 24px var(--serif);color:#241e1a}
 /* numbered chapters */
 .chap{position:relative;text-align:center;padding-top:20px;margin-bottom:48px}
 .chap .bgw{position:absolute;left:50%;top:-10px;transform:translateX(-50%);font:800 clamp(90px,17vw,220px)/1 var(--en);color:#f3ebe1;letter-spacing:-.02em;white-space:nowrap;pointer-events:none;z-index:0}
@@ -1093,7 +1102,8 @@ p,small,li,dd{text-wrap:pretty}
     sc.innerHTML='<div class="hl0 lay on" data-k="cam"><div class="sb" style="background:#0d0d0d;color:#fff"><span>12:03</span><span>5G</span></div><div class="cam"><div class="fr" id="hqr"></div><div class="cpill" id="hpill"><i>灯</i><span><b>食堂 ともしび</b><small>テーブル5のメニューを開く</small></span></div></div></div>'
       +'<div class="hl0 lay L-teishoku" data-k="menu" style="background:'+sh.bg+'">'+inner(sh)+'</div>'
       +'<div class="hl0 lay" data-k="cart" style="background:'+sh.bg+'"><div class="sb"><span>12:04</span><span>5G</span></div><div class="ch2"><span>‹</span><b>カート</b><small>テーブル5</small></div><div class="cl"><div class="cr"><span class="th" style="background:url(img/pork.webp) center/cover"></span><span><b>生姜焼き定食</b><small>ごはん大盛り</small></span><span class="q">×1</span><em>¥980</em></div><div class="cr"><span class="th" style="background:url(img/saba.webp) center/cover"></span><span><b>焼き魚定食</b><small>ごはん普通</small></span><span class="q">×1</span><em>¥1,080</em></div><div class="cn">お会計は最後にレジでお願いします</div></div><div class="ctot"><span>合計</span><b>¥2,060</b></div><div class="csend" id="hsend">注文を送る</div></div>'
-      +'<div class="hl0 lay" data-k="done" style="background:'+sh.bg+'"><div class="sb"><span>12:05</span><span>5G</span></div><div class="dn"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>ご注文を受け付けました</b><strong>128</strong><small>できあがりまで少々お待ちください</small></div></div>'
+      +'<div class="hl0 lay" data-k="done" style="background:'+sh.bg+'"><div class="sb"><span>12:05</span><span>5G</span></div><div class="dn"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b id="hdt">ご注文を受け付けました</b><strong>128</strong><small id="hst">できあがりまで少々お待ちください</small></div><div class="csend ghost" id="hback">メニューに戻る</div></div>'
+      +'<div class="hl0 lay" data-k="thx" style="background:'+sh.bg+'"><div class="sb"><span>12:31</span><span>5G</span></div><div class="dn thx"><i class="ty">灯</i><b>ありがとうございました</b><small class="big">レジでお支払いください</small><div class="bill"><span>テーブル5 ・ 注文番号128</span><span>2品</span><b>¥2,060</b></div><small>またのご来店をお待ちしております</small></div></div>'
       +'<span class="htap" id="htap"></span><span class="hadd" id="hadd">カートに追加しました</span>';
     setTimeout(function(){if($("qr"))$("hqr").innerHTML=$("qr").innerHTML},0);
     var tap=$("htap"),add=$("hadd"),L={};sc.querySelectorAll(".hl0").forEach(function(l){L[l.dataset.k]=l});
@@ -1105,7 +1115,7 @@ p,small,li,dd{text-wrap:pretty}
     function hl(r){r.classList.add("sel");setTimeout(function(){r.classList.remove("sel")},700);add.classList.remove("v");void add.offsetWidth;add.classList.add("v")}
     var T=[];function at(ms,f){T.push(setTimeout(f,ms))}
     function run(){
-      T.forEach(clearTimeout);T=[];show("cam");cart(0,"");tap.classList.remove("v");menu.querySelector(".feed").scrollTop=0;
+      T.forEach(clearTimeout);T=[];show("cam");cart(0,"");cb.classList.remove("pay");$("hdt").textContent="ご注文を受け付けました";$("hst").textContent="できあがりまで少々お待ちください";$("hst").classList.remove("ok");tap.classList.remove("v");menu.querySelector(".feed").scrollTop=0;
       at(1300,function(){tapAt($("hpill"))});
       at(2000,function(){show("menu")});
       at(3000,function(){tapAt(rows[0])});
@@ -1116,7 +1126,12 @@ p,small,li,dd{text-wrap:pretty}
       at(6650,function(){show("cart")});
       at(7900,function(){tapAt($("hsend"))});
       at(8450,function(){tap.classList.remove("v");show("done")});
-      at(11400,run);
+      at(10000,function(){$("hdt").textContent="お料理ができあがりました";$("hst").textContent="お席までお持ちします";$("hst").classList.add("ok")});
+      at(11600,function(){tapAt($("hback"))});
+      at(12150,function(){tap.classList.remove("v");cbs[0].textContent="お会計する（2品）";cbs[1].textContent="¥2,060";cb.classList.add("pay");show("menu")});
+      at(13500,function(){tapAt(cb)});
+      at(14050,function(){tap.classList.remove("v");show("thx")});
+      at(17500,run);
     }
     if(RM){show("menu")}else run();
   })();
