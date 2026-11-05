@@ -775,6 +775,14 @@ p,small,li,dd{text-wrap:pretty}
 .htrial b{background:var(--blue);color:#fff;border-radius:6px;padding:5px 12px;font-size:14px;letter-spacing:.04em}
 .pmon .trial{background:var(--blue)!important}.pmon .trial small{color:rgba(255,255,255,.8)}.pmon .trial b{color:#fff}
 @media(max-width:600px){.htrial{order:6;justify-content:center;margin:22px 0 0}}
+
+.pgr3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:960px){.pgr3{grid-template-columns:1fr}}
+.pd.p3{background:linear-gradient(120deg,#fff 40%,#f7efe4)}
+.pgr3 .pd{flex-direction:column;align-items:flex-start;min-height:0}
+.pgr3 .pd img{width:100%;height:140px;transform:none;margin-top:14px}
+.pgr3 .pd .pdph{transform:none;margin:10px auto 0}
+@media(max-width:960px){.pgr3 .pd{flex-direction:row;align-items:center}.pgr3 .pd img{width:36%;height:110px;margin:0}.pgr3 .pd .pdph{margin:0}}
 </style>
 </head>
 <body>
@@ -1015,9 +1023,10 @@ p,small,li,dd{text-wrap:pretty}
 <section class="prods">
   <div class="wrap">
     <h2 class="center rv">サクアプのサービス</h2>
-    <div class="pgr stg">
+    <div class="pgr pgr3 stg">
       <a class="pd p1" href="../"><span><b>オーダーメイド開発</b><small>予約・決済・顧客管理を、ゼロから自由に。<br>19,800円〜、1文字0.5円の明朗会計</small></span><img src="../salon.webp" alt="" width="1376" height="768" loading="lazy"></a>
       <a class="pd p2" href="./"><span><b>モバイルメニュー</b><small>お店らしいQR注文を、すぐに。<br>初期0円〜・月額1,980円</small></span><span class="pdph" id="pdph"></span></a>
+      <a class="pd p3" href="../salon/"><span><b>サロン予約</b><small>予約・カルテ・再来店のお知らせを、ひとつに。<br>初期0円〜・月額1,980円</small></span><img src="../salon/img/interior.webp" alt="" width="412" height="512" loading="lazy"></a>
     </div>
   </div>
 </section>
