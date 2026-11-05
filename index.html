@@ -1427,6 +1427,40 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 .pho .pst i.mth{padding:0;border-radius:8px;background-color:var(--pl)}
 .pho .pst{position:relative!important;width:auto!important;z-index:auto;filter:none;pointer-events:auto;overflow:hidden;display:flex;align-items:center}
 .pho .pst .lkb{position:absolute}
+
+/* ===== remaining mocks: quality ===== */
+.hero-dev .ls i{background-size:cover;color:transparent;box-shadow:0 0 0 2px #fff}
+.hero-dev .av2,.stage .av{background-size:cover;color:transparent}
+.hero-dev .hph2{border-radius:.9em;height:6.4em;background-size:cover;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:.6em .8em;color:#fff}
+.hero-dev .hph2::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.55))}
+.hero-dev .hph2 small,.hero-dev .hph2 b{position:relative}.hero-dev .hph2 small{font-size:.55em;letter-spacing:.2em;opacity:.9}.hero-dev .hph2 b{font-size:1.15em;letter-spacing:.06em;line-height:1.1}
+.hero-dev .sv{display:flex;align-items:center;gap:.5em}.hero-dev .sv i{flex:none;width:2.2em;height:2.2em;border-radius:.5em;background-size:cover}.hero-dev .sv span{flex:1}
+.stage .rw .a{background-size:cover;color:transparent;box-shadow:0 0 0 2px #fff}
+.stage .cover.cph{background-size:cover!important;position:relative;overflow:hidden;min-height:96px;display:flex;flex-direction:column;justify-content:flex-end}
+.stage .cover.cph::before,.stage .cover.cph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,40,45,.05) 20%,rgba(10,40,45,.7));border:0;border-radius:0;width:auto;height:auto;right:0;top:0}
+.stage .cover.cph b,.stage .cover.cph small{position:relative;z-index:1}
+.stage .svc{display:flex;align-items:center;gap:10px}.stage .svc>div{flex:1}
+.stage .svc .sth{flex:none;width:36px;height:36px;border-radius:9px;background-size:cover}
+.mps{padding:0!important;gap:0!important;position:relative}
+.mps .mx{position:absolute;left:0;top:0;width:170px;height:349px;transform:scale(.329);transform-origin:0 0;background:#fff;color:#1a1a1a;font:500 11px/1.4 "Noto Sans JP",sans-serif;padding:30px 12px 12px;display:flex;flex-direction:column;gap:8px;text-align:left}
+.mps .mh{display:flex;justify-content:space-between;align-items:center}.mps .mh b{font:800 16px Montserrat,sans-serif}
+.mps .cb{width:18px;height:18px;border-radius:50%;background:#9a6a3e;color:#fff;font:800 10px/18px Montserrat;text-align:center;font-style:normal}
+.mps .mxb{height:110px;border-radius:14px;background-size:cover;margin:-4px -2px 4px}
+.mps .mt{font-size:17px;font-weight:900}
+.mps .mi{border:1.5px solid #dbe5e6;border-radius:10px;padding:9px 10px;color:#9aa;background:#fff}
+.mps .mbt{border-radius:12px;padding:11px;text-align:center;color:#fff;font-weight:800;margin-top:auto}
+.mps .ms{text-align:center;color:#0e7c8c;font-weight:700}
+.mps .mp{display:flex;align-items:center;gap:7px;font-weight:700}.mps .ma{width:26px;height:26px;border-radius:50%;background-size:cover}
+.mps .mim{height:96px;border-radius:12px;background-size:cover}
+.mps .mrw{display:flex;align-items:center;gap:5px;font-weight:700}.mps .hrt{color:#e5484d;font-style:normal;font-size:15px}
+.mps .mcd{flex:1;border-radius:18px;background-size:cover;position:relative;display:flex;align-items:flex-end;overflow:hidden;box-shadow:0 10px 20px -10px rgba(0,0,0,.4)}
+.mps .mcd::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.65))}
+.mps .mcd div{position:relative;color:#fff;padding:12px}.mps .mcd b{display:block;font-size:17px}.mps .mcd small{font-size:10px;opacity:.9}
+.mps .mtg{display:flex;gap:5px}.mps .mtg span{font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;background:#ffe1dc;color:#d9473a}
+.mps .mbs{display:flex;justify-content:center;gap:22px}.mps .mbs i{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:18px;background:#fff;color:#999;box-shadow:0 6px 14px -6px rgba(0,0,0,.35)}.mps .mbs i.y{background:#ff5a6e;color:#fff}
+.mps .mgd{display:grid;grid-template-columns:1fr 1fr;gap:7px}.mps .mgd i{display:block;aspect-ratio:1;border-radius:10px;background-size:cover}.mps .mgd b{font:800 10px Montserrat,sans-serif}
+.mps .mx{width:calc(100% / .329)!important;height:calc(100% / .329)!important}
+.hero-dev .hph2{height:7.4em;background-position:center 22%!important}
 </style>
 </head>
 <body>
@@ -1490,14 +1524,14 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
  <div class="hero-dev" aria-hidden="true">
   <div class="lap"><div class="scr">
    <div class="rail"><i class="lg"></i><svg class="ico"><use href="#i-board"/></svg><svg class="ico"><use href="#i-cal"/></svg><svg class="ico"><use href="#i-db"/></svg><svg class="ico"><use href="#i-yen"/></svg></div>
-   <div class="mn2"><div class="tp"><div><b>ダッシュボード</b><small>2026年10月</small></div><span class="av2">M</span></div>
+   <div class="mn2"><div class="tp"><div><b>ダッシュボード</b><small>2026年10月</small></div><span class="av2" style="background-image:url(salon/img/st7.webp);background-position:center 25%"></span></div>
     <div class="k3"><div><small>予約</small><b>128件</b><em>▲ 12%</em></div><div><small>売上</small><b>¥356k</b><em>▲ 8%</em></div><div><small>リピート</small><b>64%</b><em>▲ 5pt</em></div></div>
     <div class="ch"><svg viewBox="0 0 300 50" preserveAspectRatio="none"><defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16919f" stop-opacity=".35"/><stop offset="1" stop-color="#16919f" stop-opacity="0"/></linearGradient></defs><path d="M0 40C30 36 50 38 80 30S130 32 160 22 220 18 250 10 290 6 300 4V50H0Z" fill="url(#hg)"/><path d="M0 40C30 36 50 38 80 30S130 32 160 22 220 18 250 10 290 6 300 4" fill="none" stroke="#0e7c8c" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
-    <div class="ls"><div><i>佐</i><span>10:00 カット</span><u>確定</u></div><div><i>田</i><span>11:30 カラー</span><u>決済済</u></div></div>
+    <div class="ls"><div><i style="background-image:url(salon/img/st3.webp);background-position:center 25%"></i><span>10:00 カット</span><u>確定</u></div><div><i style="background-image:url(salon/img/st1.webp);background-position:center 25%"></i><span>11:30 カラー</span><u>決済済</u></div></div>
    </div></div><div class="base"></div></div>
   <div class="ph"><div class="pf"><div class="nt"></div>
-   <div class="cv"><small>次回のご予約</small><b>11/2（月） 11:30</b><span>カット ・ 60分</span></div>
-   <div class="sv on"><span>カット</span><b>¥5,500</b></div><div class="sv"><span>カラー</span><b>¥8,800</b></div>
+   <div class="hph2" style="background-image:url(salon/img/st5.webp);background-position:center 30%"><small>HAIR ROOM</small><b>sora</b></div><div class="cv"><small>次回のご予約</small><b>11/2（月） 11:30</b><span>カット ・ 60分</span></div>
+   <div class="sv on"><i style="background-image:url(salon/img/st9.webp);background-position:center 20%"></i><span>カット</span><b>¥5,500</b></div><div class="sv"><i style="background-image:url(salon/img/st4.webp);background-position:center 20%"></i><span>カラー</span><b>¥8,800</b></div>
    <div class="sl"><i>10:00</i><i class="on">11:30</i><i>13:00</i></div><div class="bt">予約する</div>
   </div></div>
   <div class="nchip c1"><svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg><span>新規予約が入りました<small>佐藤さん ・ 11/2 11:30</small></span></div>
@@ -1548,11 +1582,11 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 <div class="bar"><i></i><i></i><i></i><u>https://your-salon.app/admin</u></div>
 <div class="app"><aside class="sb"><div class="lg"><i></i>Salon Mio</div>
 <a class="on"><svg class="ico sm"><use href="#i-board"/></svg>ダッシュボード</a><a><svg class="ico sm"><use href="#i-cal"/></svg>予約</a><a><svg class="ico sm"><use href="#i-db"/></svg>顧客カルテ</a><a><svg class="ico sm"><use href="#i-yen"/></svg>売上</a><a><svg class="ico sm"><use href="#i-key"/></svg>設定</a></aside>
-<div class="mn"><div class="top"><div><b>おはようございます、美緒さん</b><span>10月27日（火）　本日の予約 8件</span></div><div class="av">M</div></div>
+<div class="mn"><div class="top"><div><b>おはようございます、美緒さん</b><span>10月27日（火）　本日の予約 8件</span></div><div class="av" style="background-image:url(salon/img/st7.webp);background-position:center 25%"></div></div>
 <div class="kp"><div><small>今月の予約</small><b>128件</b><span class="up">▲ 12%</span></div><div><small>売上</small><b>¥356,000</b><span class="up">▲ 8%</span></div><div><small>リピート率</small><b>64%</b><span class="up">▲ 5pt</span></div></div>
 <div class="two"><div class="pnl"><h5>売上の推移</h5><svg viewBox="0 0 300 110" width="100%" height="110"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16919f" stop-opacity=".35"/><stop offset="1" stop-color="#16919f" stop-opacity="0"/></linearGradient></defs><path d="M0 28H300M0 58H300M0 88H300" stroke="var(--line)"/><path d="M0 90C30 80 50 84 80 66S130 70 160 50 220 40 250 24 290 14 300 10V110H0Z" fill="url(#ag)"/><path d="M0 90C30 80 50 84 80 66S130 70 160 50 220 40 250 24 290 14 300 10" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linecap="round"/><circle cx="250" cy="24" r="5" fill="#f0a010" stroke="#fff" stroke-width="2"/></svg></div>
-<div class="pnl"><h5>本日の予約</h5><div class="rw"><span class="a">佐</span><div><b>佐藤さん</b><small>10:00 カット</small></div><span class="pill">確定</span></div><div class="rw"><span class="a">田</span><div><b>田中さん</b><small>11:30 カラー</small></div><span class="pill">決済済</span></div><div class="rw"><span class="a">鈴</span><div><b>鈴木さん</b><small>14:00 パーマ</small></div><span class="pill">確定</span></div></div></div>
-</div></div></div></figure><figure><div class="phone" aria-hidden="true"><div class="notch"></div><div class="pb2"><div class="sbar"><span>9:41</span><span>●●●</span></div><div class="cover"><b>Salon Mio</b><small>表参道 ・ 10:00–20:00</small></div><div class="pcnt"><h4>メニューを選ぶ</h4><div class="svc on"><div><b>カット</b><small>60分</small></div><b>¥5,500</b></div><div class="svc"><div><b>カラー</b><small>90分</small></div><b>¥8,800</b></div><div class="days"><span>月<br>12</span><span class="on">火<br>13</span><span>水<br>14</span><span>木<br>15</span><span>金<br>16</span></div><div class="slots"><span>10:00</span><span class="on">11:30</span><span>13:00</span></div><div class="pbtn">カード決済で予約する</div></div><div class="tabs"><span class="on">予約</span><span>履歴</span><span>クーポン</span><span>マイページ</span></div></div></div><figcaption class="cap">お客様の予約画面</figcaption></figure></div>
+<div class="pnl"><h5>本日の予約</h5><div class="rw"><span class="a" style="background-image:url(salon/img/st3.webp);background-position:center 25%"></span><div><b>佐藤さん</b><small>10:00 カット</small></div><span class="pill">確定</span></div><div class="rw"><span class="a" style="background-image:url(salon/img/st1.webp);background-position:center 25%"></span><div><b>田中さん</b><small>11:30 カラー</small></div><span class="pill">決済済</span></div><div class="rw"><span class="a" style="background-image:url(salon/img/st6.webp);background-position:center 25%"></span><div><b>鈴木さん</b><small>14:00 パーマ</small></div><span class="pill">確定</span></div></div></div>
+</div></div></div></figure><figure><div class="phone" aria-hidden="true"><div class="notch"></div><div class="pb2"><div class="sbar"><span>9:41</span><span>●●●</span></div><div class="cover cph" style="background-image:url(salon/img/interior.webp);background-position:center 45%"><b>Salon Mio</b><small>表参道 ・ 10:00–20:00</small></div><div class="pcnt"><h4>メニューを選ぶ</h4><div class="svc on"><i class="sth" style="background-image:url(salon/img/st9.webp);background-position:center 20%"></i><div><b>カット</b><small>60分</small></div><b>¥5,500</b></div><div class="svc"><i class="sth" style="background-image:url(salon/img/st4.webp);background-position:center 20%"></i><div><b>カラー</b><small>90分</small></div><b>¥8,800</b></div><div class="days"><span>月<br>12</span><span class="on">火<br>13</span><span>水<br>14</span><span>木<br>15</span><span>金<br>16</span></div><div class="slots"><span>10:00</span><span class="on">11:30</span><span>13:00</span></div><div class="pbtn">カード決済で予約する</div></div><div class="tabs"><span class="on">予約</span><span>履歴</span><span>クーポン</span><span>マイページ</span></div></div></div><figcaption class="cap">お客様の予約画面</figcaption></figure></div>
  <p class="cap hint2">PC画面は左のメニュー、スマホ画面は下のメニューを押すと、ほかの画面も見られます。</p>
  <p class="cap" style="margin-top:6px">※画面はイメージです。内容はご要望に合わせて作ります。</p>
 </div></section>
@@ -1624,7 +1658,7 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 <section class="alt" id="price"><div class="wrap">
  <h2>基本料金＋1文字<span class="nb">0.5円。</span><wbr>これだけです。</h2>
  <p class="lead">まずは「かんたんWebサービス」から。必要になったら機能を足せます。</p>
- <div class="plist"><div class="pr1 first"><div><span class="tag">まずはここから</span><h3>かんたんWebサービス</h3><p>ログインと管理画面のあるシンプルなWebサービス</p></div><div class="pp"><b>19,800<small>円</small></b><span>12回なら月々 約1,650円〜</span></div><div class="mph" aria-hidden="true"><i class="k-nt"></i><div class="mps k-login"><i class="k-lg"></i><i class="k-ip"></i><i class="k-ip"></i><i class="k-bt"></i><i class="k-ln"></i></div></div></div><div class="pr1"><div><h3>SNS</h3><p>投稿・フォロー・コミュニティの仕組み</p></div><div class="pp"><b>29,800<small>円</small></b><span>12回なら月々 約2,484円〜</span></div><div class="mph" aria-hidden="true"><i class="k-nt"></i><div class="mps k-sns"><div class="k-po"><i class="k-av"></i><i class="k-tx"></i></div><i class="k-ph"></i><div class="k-ac"><i class="k-hr"></i><i class="k-tx k-s"></i></div><div class="k-po"><i class="k-av k-b"></i><i class="k-tx"></i></div><i class="k-ph k-b"></i></div></div></div><div class="pr1"><div><h3>マッチング</h3><p>人と人、人と仕事を引き合わせる仕組み</p></div><div class="pp"><b>49,800<small>円</small></b><span>12回なら月々 約4,150円〜</span></div><div class="mph" aria-hidden="true"><i class="k-nt"></i><div class="mps k-match"><div class="k-cd"><i class="k-pic"></i><i class="k-nm"></i><i class="k-tg"></i></div><div class="k-bt2"><i class="k-no"></i><i class="k-yes"></i></div></div></div></div><div class="pr1"><div><h3>ネットショップ</h3><p>商品・カート・決済までそろった販売サイト</p></div><div class="pp"><b>69,800<small>円</small></b><span>12回なら月々 約5,817円〜</span></div><div class="mph" aria-hidden="true"><i class="k-nt"></i><div class="mps k-shop"><i class="k-sb"></i><div class="k-gd"><i></i><i></i><i></i><i></i></div><i class="k-cart"></i></div></div></div></div>
+ <div class="plist"><div class="pr1 first"><div><span class="tag">まずはここから</span><h3>かんたんWebサービス</h3><p>ログインと管理画面のあるシンプルなWebサービス</p></div><div class="pp"><b>19,800<small>円</small></b><span>12回なら月々 約1,650円〜</span></div><div class="mph" aria-hidden="true"><i class="k-nt"></i><div class="mps k-login"><div class="mx" style="background:#f4f8f8"><div class="mxb" style="background-image:url(menu/img/in-cafe.webp);background-position:center"></div><b class="mt">ようこそ</b><span class="mi">メールアドレス</span><span class="mi">パスワード</span><span class="mbt" style="background:#0e7c8c">ログイン</span><small class="ms">アカウントを作成</small></div></div></div></div><div class="pr1"><div><h3>SNS</h3><p>投稿・フォロー・コミュニティの仕組み</p></div><div class="pp"><b>29,800<small>円</small></b><span>12回なら月々 約2,484円〜</span></div><div class="mph" aria-hidden="true"><i class="k-nt"></i><div class="mps k-sns"><div class="mx"><div class="mh"><b>Feed</b></div><div class="mp"><i class="ma" style="background-image:url(salon/img/st1.webp);background-position:center 25%"></i><span>hana_cafe</span></div><div class="mim" style="background-image:url(menu/img/latte-c.webp);background-position:center"></div><div class="mrw"><i class="hrt">♥</i><span>128</span></div><div class="mp"><i class="ma" style="background-image:url(salon/img/st3.webp);background-position:center 25%"></i><span>sora_hair</span></div><div class="mim" style="background-image:url(salon/img/st5.webp);background-position:center 30%"></div></div></div></div></div><div class="pr1"><div><h3>マッチング</h3><p>人と人、人と仕事を引き合わせる仕組み</p></div><div class="pp"><b>49,800<small>円</small></b><span>12回なら月々 約4,150円〜</span></div><div class="mph" aria-hidden="true"><i class="k-nt"></i><div class="mps k-match"><div class="mx" style="background:#fff4f2"><div class="mh"><b>Match</b></div><div class="mcd" style="background-image:url(salon/img/st7.webp);background-position:center 25%"><div><b>Yui, 28</b><small>デザイナー ・ 渋谷</small></div></div><div class="mtg"><span>カフェ巡り</span><span>写真</span></div><div class="mbs"><i>✕</i><i class="y">♥</i></div></div></div></div></div></div><div class="pr1"><div><h3>ネットショップ</h3><p>商品・カート・決済までそろった販売サイト</p></div><div class="pp"><b>69,800<small>円</small></b><span>12回なら月々 約5,817円〜</span></div><div class="mph" aria-hidden="true"><i class="k-nt"></i><div class="mps k-shop"><div class="mx" style="background:#faf7f2"><div class="mh"><b>hibi</b><i class="cb">2</i></div><div class="mgd"><span><i style="background-image:url(menu/img/latte-c.webp);background-position:center"></i><b>¥2,420</b></span><span><i style="background-image:url(salon/img/s-chair.webp);background-position:center"></i><b>¥12,800</b></span><span><i style="background-image:url(salon/img/s-mirror.webp);background-position:center"></i><b>¥8,800</b></span><span><i style="background-image:url(salon/img/s-brush.webp);background-position:center"></i><b>¥3,300</b></span></div><span class="mbt" style="background:#9a6a3e">カートを見る</span></div></div></div></div></div>
  <div class="xtra">
   <div class="xcard">
    <div class="xh"><span class="xl">追加機能</span><div class="xf"><span>1文字</span><em>＝</em><strong>0.5<small>円</small></strong></div></div>
@@ -1876,7 +1910,7 @@ var win=document.querySelector("figure.win");
 if(win){
   var inner=win.querySelector(":scope > div[aria-hidden]");if(inner)inner.removeAttribute("aria-hidden");
   var mn=win.querySelector(".mn"),links=[].slice.call(win.querySelectorAll(".sb a"));
-  var top=function(t,s){return '<div class="top"><div><b>'+t+'</b><span>'+s+'</span></div><div class="av">M</div></div>'};
+  var top=function(t,s){return '<div class="top"><div><b>'+t+'</b><span>'+s+'</span></div><div class="av" style="background-image:url(salon/img/st7.webp);background-position:center 25%"></div></div>'};
   var r=function(a,n,s,p){return '<div class="rw"><span class="a">'+a+'</span><div><b>'+n+'</b><small>'+s+'</small></div><span class="pill">'+p+'</span></div>'};
   var A=[mn.innerHTML,
    top("予約","10月27日（火）　本日の予約 8件")+
