@@ -21,7 +21,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Montserrat:ital,wght@0,700;0,800;1,600&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;900&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f3fafa;--card:#fff;--text:#0f2a2e;--muted:#4f6a6e;--line:#d3e8e8;--brand:#0e7c8c;--mint:#e0f3f3;--accent:#f0a010;--ink:#0b6477;--ink-t:#fff;--ink-m:#d4eef0;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{height:100%;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
@@ -1207,6 +1207,110 @@ header#hd .btn{min-height:34px;padding:0 16px;font-size:13px;border-radius:999px
 .mxsc .cal span{padding:5px 0;border-radius:6px}.mxsc .cal span.o{background:var(--a);color:#fff}.mxsc .cal span.x{opacity:.3}
 @media(max-width:700px){.mxshow{padding:64px 0 40px}.mxbox{height:430px;margin-top:4px}.mxarc{position:absolute;left:0;right:0;top:0;margin:0;transform:scale(.64);transform-origin:50% 0;-webkit-mask-image:none;mask-image:none}.mxit .lb{font-size:21px}}
 @media(prefers-reduced-motion:reduce){.mxsc *{animation:none!important}}
+/* ===== app mock details ===== */
+.mxsc .ap{flex:1;display:flex;flex-direction:column;min-height:0;position:relative}
+.mxsc .ic{width:15px;height:15px;flex:none}
+.ap-top{display:flex;align-items:center;justify-content:space-between;padding:6px 12px 8px}.ap-top strong{font-size:12px;font-weight:800;letter-spacing:.02em}.ap-top b{width:15px}
+.ap-ban{position:relative;height:108px;margin:2px 10px 8px;border-radius:14px;background-size:cover;overflow:hidden;display:flex;align-items:flex-end}
+.ap-ban.sm{height:78px}
+.ap-ban::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.6))}
+.ap-ban>div{position:relative;z-index:1;color:#fff;padding:10px 12px}.ap-ban small{display:block;font:700 7px Montserrat,sans-serif;letter-spacing:.22em;opacity:.9}.ap-ban b{display:block;font:600 18px/1.1 Montserrat,"Noto Sans JP",sans-serif;letter-spacing:.04em}.ap-ban span{font-size:8px;opacity:.9}
+.ap-card{margin:0 10px 8px;border-radius:14px;padding:10px;background:#fff;color:#222;box-shadow:0 6px 16px -12px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.04)}
+.ap-next{display:flex;align-items:center;gap:9px}.ap-next small{display:block;font-size:7.5px;color:#888}.ap-next b{display:block;font-size:11.5px}.ap-next span{font-size:8px;color:#666}.ap-next em{margin-left:auto;font-style:normal;font-size:8px;font-weight:800;color:var(--a);background:color-mix(in srgb,var(--a) 12%,#fff);padding:3px 7px;border-radius:99px}
+.av{flex:none;width:30px;height:30px;border-radius:50%;background-size:cover;box-shadow:0 0 0 2px #fff,0 2px 6px rgba(0,0,0,.2)}
+.ib{flex:none;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--a) 12%,#fff)}
+.ap-h{margin:2px 14px 4px;font-size:9.5px;font-weight:800;opacity:.75}
+.ap-li{display:flex;align-items:center;gap:9px;margin:0 10px 6px;padding:6px;border-radius:12px;background:#fff;color:#222;box-shadow:0 0 0 1px rgba(0,0,0,.04)}
+.ap-li>i{flex:none;width:40px;height:40px;border-radius:9px;background-size:cover}.ap-li>div{flex:1;min-width:0}.ap-li b{display:block;font-size:10px}.ap-li small{display:block;font-size:7.5px;color:#888}.ap-li em{font-style:normal;font-weight:800;font-size:10px;color:var(--a)}
+.ap-li .q{flex:none;width:22px;height:22px;border-radius:50%;background:var(--a);color:#fff;display:grid;place-items:center;font-weight:800;font-size:10px}
+.ap-li .ad{flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--a);color:var(--a);display:grid;place-items:center}.ap-li .ad .ic{width:11px;height:11px}
+.ap-cta{margin:auto 10px 8px;border-radius:12px;padding:10px;text-align:center;font-weight:800;font-size:10.5px;color:#fff;background:var(--a);box-shadow:0 10px 18px -10px var(--a);animation:mxp 2.6s ease-in-out infinite}
+.ap-tab{display:flex;justify-content:space-around;padding:7px 6px 11px;border-top:1px solid rgba(127,127,127,.15);background:inherit;margin-top:auto}
+.ap .ap-cta+.ap-tab{margin-top:0}
+.ap-tab span{display:flex;flex-direction:column;align-items:center;gap:2px;opacity:.45}.ap-tab span.on{opacity:1;color:var(--a)}.ap-tab i{font-style:normal;font-size:7px;font-weight:700}
+.ap-stamp{padding:12px}.ap-sh{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px}.ap-sh small{display:block;font-size:7.5px;color:#888}.ap-sh b{font:800 22px Montserrat,sans-serif;color:var(--a)}.ap-sh b i{font-size:11px;font-style:normal;color:#bbb}.ap-sh em{font-style:normal;font-size:8px;font-weight:700;text-align:right;color:#666;line-height:1.4}
+.ap-stamp .stm{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.ap-stamp .stm i{aspect-ratio:1;border-radius:50%;border:1.5px dashed #d8cfc4;display:grid;place-items:center;color:#fff}
+.ap-stamp .stm i.on{background:var(--a);border:0;box-shadow:inset 0 -2px 0 rgba(0,0,0,.15)}.ap-stamp .stm i .ic{width:12px;height:12px}
+.ap-stamp .stm i.gf{border:1.5px solid #e2a41f;color:#e2a41f}
+.ap-stamp .stm i.nw{animation:mxs 2.6s ease-in-out infinite}
+.ap-cp{display:flex;gap:9px;margin:0 10px 8px;border-radius:14px;overflow:hidden;background:var(--a);color:#fff;position:relative}
+.ap-cp::after{content:"";position:absolute;left:56px;top:0;bottom:0;border-left:2px dashed rgba(255,255,255,.4)}
+.ap-cp>i{flex:none;width:58px;background-size:cover}.ap-cp>div{padding:8px 4px 8px 6px}.ap-cp small{display:block;font-size:7px;opacity:.8}.ap-cp b{display:block;font-size:10.5px;line-height:1.35}.ap-cp span{font-size:7px;opacity:.8}
+.ap-qr{display:flex;align-items:center;gap:10px}.ap-qr .qr{flex:none;border-radius:4px}.ap-qr b{display:block;font-size:9px}.ap-qr small{display:block;font:700 10px Montserrat,sans-serif;letter-spacing:.04em}.ap-qr span{display:block;font-size:7.5px;color:#888;margin-top:3px;line-height:1.4}
+.ap-mem{margin:2px 10px 10px;border-radius:16px;padding:12px;color:#fff;background:linear-gradient(135deg,#ff6a3d,#ff9a3c 55%,#ffcf6b);box-shadow:0 16px 26px -16px #ff6a3d;position:relative;overflow:hidden}
+.ap-mem::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.18)}
+.ap-mt small{display:block;font:700 7px Montserrat,sans-serif;letter-spacing:.2em;opacity:.85}.ap-mt b{font:800 14px Montserrat,sans-serif;letter-spacing:.08em}
+.ap-mn{margin:14px 0 6px}.ap-mn b{display:block;font:700 10.5px Montserrat,sans-serif;letter-spacing:.1em}.ap-mn small{font:600 8px Montserrat,sans-serif;opacity:.85}
+.ap-mem .bc{display:block;width:100%;height:26px;background:#fff;border-radius:4px;padding:3px}
+.ap-ring{display:flex;align-items:center;gap:12px;margin:0 14px 8px}.ap-ring svg{width:66px;height:66px}.ap-ring .rg{animation:mxr 3.2s ease-in-out infinite}
+@keyframes mxr{0%{stroke-dashoffset:201}60%,100%{stroke-dashoffset:60}}
+.ap-ring b{font:800 22px Montserrat,sans-serif}.ap-ring b i{font-size:10px;font-style:normal;margin-left:2px}.ap-ring small{display:block;font-size:8px;opacity:.6}
+.ap-busy{margin:0 14px 8px;font-size:8px}.ap-busy small{opacity:.6}.ap-busy div{height:6px;border-radius:3px;background:#2a2d33;margin:4px 0}.ap-busy div i{display:block;height:100%;border-radius:3px;background:#3ccf8e}.ap-busy b{color:#3ccf8e;font-size:9px}
+.ap-days{display:flex;gap:4px;margin:0 10px 8px}.ap-days span{flex:1;text-align:center;border-radius:10px;padding:5px 0;background:#fff;font:700 11px Montserrat,sans-serif;color:#333;box-shadow:0 0 0 1px rgba(0,0,0,.04)}.ap-days small{display:block;font:600 7px "Noto Sans JP";opacity:.6}.ap-days span.on{background:var(--a);color:#fff}
+.ap-ls{display:flex;align-items:center;gap:9px;margin:0 10px 6px;padding:7px 8px;border-radius:12px;background:#fff;color:#222;box-shadow:0 0 0 1px rgba(0,0,0,.04)}
+.ap-ls>div{flex:1;min-width:0}.ap-ls b{display:block;font-size:9.5px}.ap-ls small{display:block;font-size:7.5px;color:#888}.ap-ls u{display:block;height:3px;border-radius:2px;background:#eee;margin-top:4px}.ap-ls u i{display:block;height:100%;border-radius:2px;background:var(--a)}
+.ap-ls em{font-style:normal;font-weight:800;font-size:8.5px;color:var(--a)}.ap-ls.x{opacity:.55}.ap-ls.x em{color:#999}
+.ap-ls em.bd{font-size:7.5px;color:#fff;background:#e2a41f;padding:2px 7px;border-radius:99px}.ap-ls em.bd.n{background:var(--a)}
+.ap-tkt{margin:2px 10px 8px;border-radius:16px;padding:14px 12px 12px;color:#fff;background:linear-gradient(135deg,#2f6fb0,#5aa0d8);position:relative;box-shadow:0 16px 26px -18px #2f6fb0}
+.ap-tkt::before,.ap-tkt::after{content:"";position:absolute;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:#eef3f8}.ap-tkt::before{left:-7px}.ap-tkt::after{right:-7px}
+.ap-tkt small{display:block;font-size:7.5px;opacity:.85}.ap-tkt b{display:block;font-size:10px;margin-top:2px}.ap-tkt strong{font:800 30px/1 Montserrat,sans-serif;margin-right:3px}
+.ap-tkt .dots{display:flex;gap:3px;margin-top:10px}.ap-tkt .dots i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.3)}.ap-tkt .dots i.on{background:#fff}
+.ap-hs{display:flex;align-items:center;gap:8px;margin:0 14px;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:9px}.ap-hs span{font:600 8px Montserrat,sans-serif;opacity:.6;width:28px}.ap-hs b{flex:1;font-weight:700}.ap-hs em{font-style:normal;font-weight:800;color:#999}.ap-hs em.p{color:var(--a)}
+.ap-srch{display:flex;align-items:center;gap:6px;margin:4px 10px 8px;padding:7px 10px;border-radius:99px;background:#fff;color:#999;box-shadow:0 0 0 1px rgba(0,0,0,.05);position:relative}.ap-srch span{flex:1;font-size:8.5px}.ap-srch .ic:last-of-type{color:#333}
+.ap-srch .cb{position:absolute;right:5px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--a);color:#fff;font:800 7px/12px Montserrat,sans-serif;text-align:center;font-style:normal}
+.ap-pg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:0 10px 8px}.ap-pg span{display:block}.ap-pg i{position:relative;display:block;aspect-ratio:1;border-radius:12px;background-size:cover}.ap-pg u{position:absolute;right:5px;top:5px;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center;color:#999}.ap-pg u .ic{width:11px;height:11px}.ap-pg u.on{color:#e5484d}.ap-pg u.on .ic{fill:#e5484d}
+.ap-pg b{display:block;font-size:9px;margin-top:4px}.ap-pg em{font-style:normal;font:800 9.5px Montserrat,sans-serif}
+.ap-chips{display:flex;gap:5px;margin:0 10px 8px}.ap-chips span{font-size:8.5px;font-weight:700;padding:4px 10px;border-radius:99px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.06)}.ap-chips span.on{background:var(--a);color:#fff;box-shadow:none}
+.ap-cart{display:flex;align-items:center;justify-content:space-between;margin:auto 10px 10px;padding:8px 8px 8px 12px;border-radius:14px;background:#2b1a0e;color:#fff}.ap-cart small{display:block;font-size:7px;opacity:.7}.ap-cart b{font-size:10.5px}.ap-cart strong{background:var(--a);border-radius:10px;padding:7px 12px;font-size:10px;animation:mxp 2.6s ease-in-out infinite}
+.ap-ev{position:relative;height:150px;margin:2px 10px 10px;border-radius:16px;background-size:cover;overflow:hidden;display:flex;align-items:flex-end}
+.ap-ev::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,20,80,.1),rgba(40,20,80,.8))}
+.ap-ev>div{position:relative;z-index:1;color:#fff;padding:10px 12px}.ap-ev small{font-size:8px;opacity:.85}.ap-ev b{display:block;font-size:14px;font-weight:900}.ap-ev span{display:flex;align-items:center;gap:3px;font-size:8px;opacity:.9}.ap-ev span .ic{width:10px;height:10px}
+.ap-ev .dt{position:absolute;z-index:2;left:10px;top:10px;background:#fff;color:#22193a;border-radius:10px;padding:4px 8px;text-align:center;line-height:1.1}.ap-ev .dt b{font:800 15px Montserrat,sans-serif;color:#6b4fd0}.ap-ev .dt small{font:700 7px Montserrat,sans-serif;opacity:.7}
+.ap-tix{margin:0 10px 8px;border-radius:16px;background:#fff;color:#222;box-shadow:0 10px 24px -16px rgba(60,30,120,.6);overflow:hidden}
+.ap-tix .t1{display:flex;justify-content:space-between;padding:10px 12px;border-bottom:2px dashed #e6e0f5}.ap-tix .t1 small{display:block;font-size:7px;color:#999}.ap-tix .t1 b{font-size:10px}
+.ap-tix .t2{text-align:center;padding:10px}.ap-tix .t2 .qr{display:block;margin:0 auto 4px}.ap-tix .t2 small{font-size:7.5px;color:#888}
+.ap-kp{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 10px 8px}.ap-kp>div{background:#fff;color:#222;border-radius:12px;padding:8px;box-shadow:0 0 0 1px rgba(0,0,0,.04)}.ap-kp small{display:block;font-size:7px;color:#888}.ap-kp b{display:block;font:800 12px Montserrat,sans-serif}.ap-kp em{font-style:normal;font-size:7.5px;font-weight:800;color:#2f9e5b}.ap-kp svg{display:block;width:100%;height:16px;margin-top:3px}
+.ap-ch{margin:0 10px 8px;border-radius:12px;background:#fff;padding:8px 8px 4px;box-shadow:0 0 0 1px rgba(0,0,0,.04)}.ap-ch small{font-size:7.5px;color:#888}.ap-ch svg{display:block;width:100%;height:56px}
+.ap-ch .ln2{stroke-dasharray:260;animation:mxl 4s ease-in-out infinite}@keyframes mxl{0%{stroke-dashoffset:260}50%,100%{stroke-dashoffset:0}}
+.ap-pf{display:flex;align-items:center;gap:10px;margin:4px 12px 10px}.ap-pf .av{width:48px;height:48px}.ap-pf b{display:block;font-size:12px}.ap-pf small{display:block;font-size:8px;opacity:.65}.ap-pf span{display:flex;align-items:center;gap:3px;font:700 8.5px Montserrat,"Noto Sans JP",sans-serif;margin-top:2px}.ap-pf span .ic{width:11px;height:11px;fill:#f2b01e}
+.ap-plan{display:flex;align-items:center;gap:9px}.ap-plan b{display:block;font-size:10px}.ap-plan small{font-size:7.5px;color:#888}
+.ap-sl{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:0 10px 8px}.ap-sl span{text-align:center;padding:6px 0;border-radius:9px;background:#fff;font:700 9.5px Montserrat,sans-serif;box-shadow:0 0 0 1px rgba(0,0,0,.05)}.ap-sl span.x{opacity:.3;text-decoration:line-through}.ap-sl span.on{background:var(--a);color:#fff}
+
+.mxsc .sb{background:transparent!important}
+.mxsc .ap{overflow:hidden}
+.ap-next b,.ap-next em{white-space:nowrap}.ap-next>div{min-width:0}.ap-next span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap-ban{height:92px}.ap-ban.sm{height:66px}
+.ap-pg{gap:6px}.ap-pg i{aspect-ratio:1/.82}
+.ap-li{margin-bottom:5px;padding:5px}.ap-li>i{width:36px;height:36px}
+.ap-ev{height:118px}
+.ap-tix .t2{padding:8px}.ap-tix .t1{padding:8px 12px}
+.ap-ch svg{height:40px}
+.ap-pf{margin:2px 12px 8px}.ap-pf .av{width:42px;height:42px}
+.ap-card{padding:9px}
+.ap-kp b{font-size:11px}
+.ap-cp>div{padding:6px 4px 6px 6px}.ap-cp b{font-size:10px}
+
+/* ===== shared footer ===== */
+footer.sfoot{display:block;background:#1f1a17;color:#bfc4c9;font-size:13px;padding:0 0 calc(30px + 90px);margin:0}
+footer.sfoot a{color:#e9ecef;text-decoration:none}
+footer.sfoot a:hover{color:#fff;opacity:.8}
+footer.sfoot .fg{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#3a312b;border-bottom:1px solid #3a312b}
+footer.sfoot .fg a{display:flex;justify-content:space-between;align-items:center;background:#171310;padding:22px 24px;font-weight:700;font-size:14.5px}
+footer.sfoot .fg a::after{content:"›";font:700 20px Montserrat,sans-serif;color:#fff}
+footer.sfoot .wrap.fb{display:flex;flex-wrap:wrap;gap:18px 30px;justify-content:space-between;align-items:center;padding-top:36px;max-width:1280px;margin:0 auto}
+footer.sfoot .fl2{display:flex;flex-wrap:wrap;gap:12px 24px}
+footer.sfoot .fbr{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
+footer.sfoot .fbr img{height:26px;width:auto}
+footer.sfoot .fsn{display:flex;gap:8px}
+footer.sfoot .fsn a{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#2c2521}
+footer.sfoot .fsn svg{width:17px;height:17px;display:block}
+footer.sfoot .tagl{text-align:center;margin:44px 0 0;font:italic 600 clamp(26px,4vw,40px) Montserrat,sans-serif;color:#fff;letter-spacing:.02em}
+@media(max-width:760px){footer.sfoot .fg{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){footer.sfoot .fg a{font-size:13px;padding:18px 14px}}
+@media(min-width:861px){footer.sfoot{padding-bottom:40px}}
+footer.sfoot{padding-bottom:40px}
+footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box}
 </style>
 </head>
 <body>
@@ -1544,7 +1648,16 @@ header#hd .btn{min-height:34px;padding:0 16px;font-size:13px;border-radius:999px
 </div></section>
 </main>
 
-<footer><div class="wrap"><span class="flogo"><img src="logo.png" alt="サクアプ" width="800" height="195" loading="lazy"><span>knotscheme</span></span><span class="fsns"><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" aria-label="サクアプのLINE" data-entry="lp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6c1.5-1.6 2-3.2 2-4.8C22 6.6 17.5 3 12 3Z"/></svg><span>LINE</span></a><a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener" aria-label="サクアプのX"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.9Zm-1.1 16.2h1.7L7.4 4.7H5.5Z"/></svg><span>X</span></a><a href="https://www.tiktok.com/@sakuapp" target="_blank" rel="noopener" aria-label="サクアプのTikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 3c.4 2.1 1.7 3.5 3.9 3.7v3.1c-1.4.1-2.7-.3-3.9-1v6.1c0 3.9-3.1 6.1-6 6.1-3.2 0-5.6-2.4-5.6-5.6 0-3.6 3.3-6 6.7-5.4v3.2c-1.6-.4-3.5.5-3.5 2.3 0 1.4 1 2.4 2.4 2.4 1.5 0 2.6-1 2.6-2.8V3Z"/></svg><span>TikTok</span></a><a href="https://note.com/charm_turkey6392" target="_blank" rel="noopener" aria-label="サクアプのnote"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h10.5C18 4 20 6 20 9.5V20h-4V10.2C16 8.8 15.2 8 13.8 8H8v12H4Z"/></svg><span>note</span></a></span><span class="flinks"><a href="terms.html">利用規約</a>　<a href="privacy.html">プライバシーポリシー</a>　<a href="tokushoho.html">特定商取引法に基づく表記</a></span><span>© 2026 knotscheme</span></div></footer>
+<footer class="sfoot">
+  <div class="fg">
+    <a href="#why">選ばれる理由</a><a href="#apps">作れるアプリ</a><a href="#price">料金</a><a href="#flow">制作の流れ</a><a href="#faq">よくある質問</a><a href="menu/">モバイルメニュー</a><a href="salon/">サロン予約</a><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="lp">LINEで相談</a>
+  </div>
+  <div class="wrap fb">
+    <span class="fl2"><a href="terms.html">利用規約 ›</a><a href="privacy.html">プライバシーポリシー ›</a><a href="tokushoho.html">特定商取引法に基づく表記 ›</a><a href="account/">お支払い・解約 ›</a></span>
+    <span class="fbr"><img src="logo-w.png" alt="サクアプ" width="800" height="195" loading="lazy"><span>© 2026 knotscheme</span><span class="fsn"><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" aria-label="LINE"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s5.9-3.5 8-6c1.5-1.6 2-3.2 2-4.8C22 6.6 17.5 3 12 3Z"/></svg></a><a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.9Zm-1.1 16.2h1.7L7.4 4.7H5.5Z"/></svg></a><a href="https://www.tiktok.com/@sakuapp" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 3c.4 2.1 1.7 3.5 3.9 3.7v3.1c-1.4.1-2.7-.3-3.9-1v6.1c0 3.9-3.1 6.1-6 6.1-3.2 0-5.6-2.4-5.6-5.6 0-3.6 3.3-6 6.7-5.4v3.2c-1.6-.4-3.5.5-3.5 2.3 0 1.4 1 2.4 2.4 2.4 1.5 0 2.6-1 2.6-2.8V3Z"/></svg></a><a href="https://note.com/charm_turkey6392" target="_blank" rel="noopener" aria-label="note"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h10.5C18 4 20 6 20 9.5V20h-4V10.2C16 8.8 15.2 8 13.8 8H8v12H4Z"/></svg></a></span></span>
+  </div>
+  <p class="tagl">make it yours.</p>
+</footer>
 
 <script>
 (function(){
@@ -1832,21 +1945,103 @@ var vis=new Set();var io=new IntersectionObserver(function(es){es.forEach(functi
  var arc=document.getElementById("mxarc");if(!arc)return;
  var RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
  function sb(c){return'<div class="sb" style="color:'+c+'"><span>9:41</span><span>5G</span></div>'}
+ var I={
+  home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+  cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+  bag:'<path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+  tk:'<path d="M3 8a2 2 0 0 0 0 4v0a2 2 0 0 1 0 4v2h18v-2a2 2 0 0 1 0-4 2 2 0 0 0 0-4V6H3z"/>',
+  chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4z"/>',
+  star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+  bell:'<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
+  srch:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+  heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  gift:'<rect x="3" y="9" width="18" height="12" rx="2"/><path d="M12 9v12M3 13h18M12 9C10 4 6 5 7.5 8M12 9c2-5 6-4 4.5-1"/>',
+  pin:'<path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  video:'<rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10l5-3v10l-5-3z"/>'
+ };
+ function ic(k,c){return'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="'+(c||"currentColor")+'" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+I[k]+'</svg>'}
+ function tab(on,list){return'<div class="ap-tab">'+list.map(function(t,i){return'<span class="'+(i===on?"on":"")+'">'+ic(t[0])+'<i>'+t[1]+'</i></span>'}).join("")+'</div>'}
+ function apTop(t,l,r){return'<div class="ap-top">'+(l?ic(l):'<b></b>')+'<strong>'+t+'</strong>'+(r?ic(r):'<b></b>')+'</div>'}
+ var seed=7;function rnd(){seed=(seed*9301+49297)%233280;return seed/233280}
+ function qr(sz){var n=21,c=sz/n,h='<svg class="qr" viewBox="0 0 '+sz+' '+sz+'" width="'+sz+'" height="'+sz+'"><rect width="'+sz+'" height="'+sz+'" fill="#fff"/>';
+  function fin(x,y){h+='<rect x="'+x*c+'" y="'+y*c+'" width="'+7*c+'" height="'+7*c+'" fill="#111"/><rect x="'+(x+1)*c+'" y="'+(y+1)*c+'" width="'+5*c+'" height="'+5*c+'" fill="#fff"/><rect x="'+(x+2)*c+'" y="'+(y+2)*c+'" width="'+3*c+'" height="'+3*c+'" fill="#111"/>'}
+  for(var y=0;y<n;y++)for(var x=0;x<n;x++){if((x<8&&y<8)||(x>12&&y<8)||(x<8&&y>12))continue;if(rnd()>.52)h+='<rect x="'+(x*c).toFixed(2)+'" y="'+(y*c).toFixed(2)+'" width="'+c.toFixed(2)+'" height="'+c.toFixed(2)+'" fill="#111"/>'}
+  fin(0,0);fin(14,0);fin(0,14);return h+'</svg>'}
+ function bar(){var h='<svg class="bc" viewBox="0 0 160 30" preserveAspectRatio="none">',x=0;while(x<158){var w=1+Math.floor(rnd()*3);if(rnd()>.4)h+='<rect x="'+x+'" y="0" width="'+w+'" height="30" fill="#111"/>';x+=w+1}return h+'</svg>'}
+ function ph(u,pos){return'background-image:url('+u+');background-position:'+(pos||"center")+'"'}
  var A=[
-  ["予約","#0e7c8c","#e9f6f6","#12302f",'<div class="hd"><small>HAIR SALON</small><b>sora</b></div><div class="cd"><small>次回のご予約</small><b>11/8（土）14:00</b><div>カット＋カラー ・ 120分</div></div><div class="row"><span><b>カット</b><small>60分</small></span><em>¥5,500</em></div><div class="row"><span><b>カラー</b><small>90分</small></span><em>¥8,800</em></div><div class="row"><span><b>ヘッドスパ</b><small>30分</small></span><em>¥3,300</em></div><div class="bt">日時を選ぶ</div>'],
-  ["ポイントカード","#8a5a35","#f6efe6","#3a2618",'<div class="hd"><small>COFFEE STAND</small><b>Lumen</b></div><div class="cd"><small>スタンプ 7 / 10</small><div class="stm"><i class="on">☕</i><i class="on">☕</i><i class="on">☕</i><i class="on">☕</i><i class="on">☕</i><i class="on">☕</i><i class="on nw">☕</i><i></i><i></i><i>🎁</i></div></div><div class="cd" style="text-align:center"><small>レジでこの画面を見せてください</small><div class="qr"></div></div><div class="bt">特典を見る</div>'],
-  ["会員証","#ff5a36","#15181c","#f2f2f2",'<div class="hd"><small>24H FITNESS</small><b>MOVE GYM</b></div><div class="tk" style="--b:#ff9a3c"><small>MEMBER</small><b>山田 健太 様</b><span>スタンダード会員</span><div class="bar"></div></div><div class="kp"><div><small>今月の来館</small><b>12回</b></div><div><small>連続</small><b>5日</b></div></div><div class="bt">入館する</div>'],
-  ["レッスン予約","#4f8a5b","#f1f6ef","#1f3122",'<div class="hd"><small>YOGA STUDIO</small><b>nami</b></div><div class="cal"><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span><span>日</span><span class="x">3</span><span>4</span><span class="o">5</span><span>6</span><span>7</span><span>8</span><span class="x">9</span></div><div class="row"><span><b>朝ヨガ</b><small>7:00〜 ・ 60分</small></span><em>残り2</em></div><div class="row"><span><b>ピラティス</b><small>10:00〜 ・ 50分</small></span><em>残り5</em></div><div class="row"><span><b>夜のリラックス</b><small>19:30〜 ・ 60分</small></span><em>満席</em></div><div class="bt">予約する</div>'],
-  ["回数券","#2f6fb0","#eef4fa","#14273a",'<div class="hd"><small>整体院</small><b>からだ整骨院</b></div><div class="tk" style="--b:#5aa0d8"><small>10回券</small><b>残り</b><strong>3</strong><span> / 10回</span><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="cd"><small>有効期限</small><b>2027年3月31日</b></div><div class="bt">次回を予約</div>'],
-  ["ネットショップ","#b0703c","#faf6f0","#2e241c",'<div class="hd"><small>ZAKKA</small><b>hibi no dogu</b></div><div class="g2"><span><i style="background-image:url(menu/img/latte-c.webp)"></i><b>マグカップ</b><em>¥2,420</em></span><span><i style="background-image:url(salon/img/s-shelf.webp)"></i><b>ボトルセット</b><em>¥3,300</em></span><span><i style="background-image:url(salon/img/s-chair.webp)"></i><b>木のスツール</b><em>¥12,800</em></span><span><i style="background-image:url(salon/img/s-mirror.webp)"></i><b>丸ミラー</b><em>¥8,800</em></span></div><div class="bt">カートに入れる（2点）</div>'],
-  ["テイクアウト","#d2561f","#fff6ee","#3a1f10",'<div class="hd"><small>お弁当</small><b>まんぷく亭</b></div><div class="g2"><span><i style="background-image:url(menu/img/pork.webp)"></i><b>生姜焼き弁当</b><em>¥780</em></span><span><i style="background-image:url(menu/img/saba.webp)"></i><b>焼き鮭弁当</b><em>¥720</em></span></div><div class="cd"><small>受け取り時間</small><b>今日 12:15</b></div><div class="bt">注文する ¥1,500</div>'],
-  ["イベント受付","#7a4fd0","#f5f1fc","#251a3a",'<div class="hd"><small>EVENT</small><b>手しごと市 2026</b></div><div class="tk" style="--b:#b48cf0"><small>11/23（月・祝）10:00〜</small><b>入場チケット ・ 1名</b><span>会場：みどり公園</span></div><div class="cd" style="text-align:center"><small>受付でこの画面を見せてください</small><div class="qr"></div></div><div class="bt">チケットを表示</div>'],
-  ["顧客管理","#0e7c8c","#f4f8f8","#12302f",'<div class="hd"><small>お店の管理画面</small><b>ダッシュボード</b></div><div class="kp"><div><small>今月の売上</small><b>¥356k</b></div><div><small>リピート率</small><b>64%</b></div></div><div class="chart"><i style="height:40%"></i><i style="height:65%;animation-delay:-.4s"></i><i style="height:50%;animation-delay:-.8s"></i><i style="height:80%;animation-delay:-1.2s"></i><i style="height:60%;animation-delay:-1.6s"></i><i style="height:90%;animation-delay:-2s"></i></div><div class="row"><span><b>佐藤 さま</b><small>来店5回目 ・ 前回 10/12</small></span><em>VIP</em></div><div class="row"><span><b>田中 さま</b><small>はじめて ・ 11/2</small></span><em>NEW</em></div>'],
-  ["オンライン相談","#28456e","#eef2f8","#16243a",'<div class="hd"><small>キャリア相談</small><b>みらい相談室</b></div><div class="cd"><small>相談の種類</small><b>はじめての方 30分 ・ 無料</b></div><div class="cal"><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span><span>日</span><span>10</span><span class="o">11</span><span>12</span><span class="x">13</span><span>14</span><span>15</span><span class="x">16</span></div><div class="row"><span><b>11/11 20:00</b><small>オンライン（ビデオ通話）</small></span><em>空き</em></div><div class="bt">この時間で申し込む</div>']
+  ["予約","#2f6f73",'#f7f6f3','#1f2a2b',
+   '<div class="ap-ban" style="'+ph("salon/img/st5.webp","center 30%")+'><div><small>HAIR ROOM</small><b>sora</b><span>表参道 ・ 完全予約制</span></div></div>'+
+   '<div class="ap-card ap-next"><i class="av" style="'+ph("salon/img/st3.webp")+'></i><div><small>次回のご予約</small><b>11/8（土）14:00</b><span>カット＋カラー ・ 担当 佐藤</span></div><em>確定</em></div>'+
+   '<p class="ap-h">人気のメニュー</p>'+
+   '<div class="ap-li"><i style="'+ph("salon/img/st4.webp","center 20%")+'></i><div><b>カット＋カラー</b><small>120分 ・ 白髪染めも可</small></div><em>¥12,100</em></div>'+
+   '<div class="ap-li"><i style="'+ph("salon/img/st9.webp","center 20%")+'></i><div><b>カット</b><small>60分 ・ シャンプー込み</small></div><em>¥5,500</em></div>'+
+   '<div class="ap-cta">日時を選んで予約</div>'+tab(0,[["home","ホーム"],["cal","予約"],["star","スタイル"],["user","マイページ"]])],
+  ["ポイントカード","#7a4e2d",'#f6f1ea','#2e2118',
+   apTop("Lumen","","bell")+
+   '<div class="ap-card ap-stamp"><div class="ap-sh"><span><small>スタンプカード</small><b>7<i>/10</i></b></span><em>あと3個で<br>ドリンク1杯無料</em></div><div class="stm">'+[1,1,1,1,1,1,2,0,0,3].map(function(v){return'<i class="'+(v===1?"on":v===2?"on nw":v===3?"gf":"")+'">'+(v===3?ic("gift"):v?ic("star"):"")+'</i>'}).join("")+'</div></div>'+
+   '<div class="ap-cp"><i style="'+ph("menu/img/tart-c.webp")+'></i><div><small>会員限定クーポン</small><b>季節のタルト<br>50円引き</b><span>11/30まで</span></div></div>'+
+   '<div class="ap-card ap-qr">'+qr(64)+'<div><b>会員番号</b><small>0012-4589</small><span>レジでこの画面を<br>見せてください</span></div></div>'+
+   tab(1,[["home","ホーム"],["star","スタンプ"],["gift","クーポン"],["user","会員"]])],
+  ["会員証","#ff6a3d",'#121417','#f2f2f2',
+   apTop("MOVE GYM","","bell")+
+   '<div class="ap-mem"><div class="ap-mt"><small>MEMBERSHIP</small><b>STANDARD</b></div><div class="ap-mn"><b>YAMADA KENTA</b><small>No. 0482-1190</small></div>'+bar()+'</div>'+
+   '<div class="ap-ring"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" stroke="#2a2d33" stroke-width="8" fill="none"/><circle class="rg" cx="40" cy="40" r="32" stroke="#ff6a3d" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="201" stroke-dashoffset="60" transform="rotate(-90 40 40)"/></svg><div><b>12<i>回</i></b><small>今月の来館</small></div></div>'+
+   '<div class="ap-busy"><small>いまの混雑</small><div><i style="width:32%"></i></div><b>空いています</b></div>'+
+   '<div class="ap-cta">QRで入館する</div>'+tab(0,[["home","ホーム"],["tk","会員証"],["chart","記録"],["user","マイページ"]])],
+  ["レッスン予約","#4d7d5a",'#f3f5f0','#1f2b22',
+   '<div class="ap-ban sm" style="'+ph("salon/img/esthe-room.webp")+'><div><small>YOGA STUDIO</small><b>nami</b></div></div>'+
+   '<div class="ap-days">'+[["月","3"],["火","4"],["水","5"],["木","6"],["金","7"],["土","8"]].map(function(d,i){return'<span class="'+(i===2?"on":"")+'"><small>'+d[0]+'</small>'+d[1]+'</span>'}).join("")+'</div>'+
+   '<div class="ap-ls"><i class="av" style="'+ph("salon/img/st1.webp","center 25%")+'></i><div><b>朝ヨガ ・ 60分</b><small>7:00〜 ・ Mika</small><u><i style="width:80%"></i></u></div><em>残り2</em></div>'+
+   '<div class="ap-ls"><i class="av" style="'+ph("salon/img/st7.webp","center 25%")+'></i><div><b>ピラティス ・ 50分</b><small>10:00〜 ・ Rina</small><u><i style="width:50%"></i></u></div><em>残り5</em></div>'+
+   '<div class="ap-ls x"><i class="av" style="'+ph("salon/img/st4.webp","center 25%")+'></i><div><b>リラックス ・ 60分</b><small>19:30〜 ・ Aya</small><u><i style="width:100%"></i></u></div><em>満席</em></div>'+
+   '<div class="ap-cta">朝ヨガを予約する</div>'+tab(1,[["home","ホーム"],["cal","レッスン"],["tk","チケット"],["user","マイページ"]])],
+  ["回数券","#2f6fb0",'#eef3f8','#142334',
+   apTop("からだ整骨院","back","bell")+
+   '<div class="ap-tkt"><div><small>10回券 ・ 有効期限 2027/3/31</small><b><strong>3</strong>回 残っています</b></div><div class="dots">'+[1,1,1,0,0,0,0,0,0,0].map(function(v){return'<i class="'+(v?"on":"")+'"></i>'}).join("")+'</div></div>'+
+   '<div class="ap-card ap-next"><span class="ib">'+ic("cal","#2f6fb0")+'</span><div><small>次回のご予約</small><b>11/12（水）18:30</b><span>全身調整 ・ 40分</span></div></div>'+
+   '<p class="ap-h">ご利用履歴</p>'+
+   '<div class="ap-hs"><span>10/29</span><b>全身調整</b><em>−1回</em></div><div class="ap-hs"><span>10/15</span><b>骨盤ケア</b><em>−1回</em></div><div class="ap-hs"><span>10/01</span><b>回数券を購入</b><em class="p">+10回</em></div>'+
+   tab(2,[["home","ホーム"],["cal","予約"],["tk","回数券"],["user","マイページ"]])],
+  ["ネットショップ","#9a6a3e",'#faf7f2','#2b231b',
+   '<div class="ap-srch">'+ic("srch")+'<span>アイテムを探す</span>'+ic("bag")+'<i class="cb">2</i></div>'+
+   '<div class="ap-ban sm" style="'+ph("salon/img/s-shelf.webp")+'><div><small>NEW ARRIVAL</small><b>暮らしの道具</b></div></div>'+
+   '<div class="ap-pg">'+[["menu/img/latte-c.webp","ラテボウル","2,420"],["salon/img/s-chair.webp","木のスツール","12,800"],["salon/img/s-mirror.webp","丸ミラー","8,800"],["salon/img/s-brush.webp","ヘアブラシ","3,300"]].map(function(x,i){return'<span><i style="'+ph(x[0])+'>'+(i===1?'<u class="on">'+ic("heart")+'</u>':'<u>'+ic("heart")+'</u>')+'</i><b>'+x[1]+'</b><em>¥'+x[2]+'</em></span>'}).join("")+'</div>'+
+   tab(0,[["home","ホーム"],["srch","さがす"],["heart","お気に入り"],["bag","カート"]])],
+  ["テイクアウト","#c4561f",'#fffaf5','#33200f',
+   '<div class="ap-ban" style="'+ph("menu/img/teishoku-top.webp")+'><div><small>お弁当・おそうざい</small><b>まんぷく亭</b><span>'+'受け取り 11:00〜20:00'+'</span></div></div>'+
+   '<div class="ap-chips"><span class="on">お弁当</span><span>おかず</span><span>ドリンク</span></div>'+
+   '<div class="ap-li"><i style="'+ph("menu/img/pork.webp")+'></i><div><b>生姜焼き弁当</b><small>ごはん大盛り無料</small><em>¥780</em></div><span class="q">2</span></div>'+
+   '<div class="ap-li"><i style="'+ph("menu/img/saba.webp")+'></i><div><b>焼きさば弁当</b><small>脂ののった国産さば</small><em>¥820</em></div><span class="ad">'+ic("plus")+'</span></div>'+
+   '<div class="ap-cart"><span><small>受け取り 今日 12:15</small><b>2点 ・ ¥1,560</b></span><strong>注文へ</strong></div>'],
+  ["イベント受付","#6b4fd0",'#f5f2fb','#22193a',
+   '<div class="ap-ev" style="'+ph("menu/img/in-cafe.webp")+'><span class="dt"><b>23</b><small>NOV</small></span><div><small>手しごと市 2026</small><b>クラフトマーケット</b><span>'+ic("pin","#fff")+'みどり公園 ・ 10:00〜</span></div></div>'+
+   '<div class="ap-tix"><div class="t1"><span><small>チケット</small><b>一般 ・ 1名</b></span><span><small>入場</small><b>10:00〜</b></span></div><div class="t2">'+qr(62)+'<small>受付でこの画面を見せてください</small></div></div>'+
+   '<div class="ap-cta">ウォレットに追加</div>'],
+  ["顧客管理","#0e7c8c",'#f3f6f7','#13282b',
+   apTop("ダッシュボード","","bell")+
+   '<div class="ap-kp"><div><small>今月の売上</small><b>¥356,200</b><em>▲ 12%</em><svg viewBox="0 0 60 18"><path d="M0 14L10 12 20 13 30 8 40 9 50 4 60 3" fill="none" stroke="#0e7c8c" stroke-width="2"/></svg></div><div><small>リピート率</small><b>64%</b><em>▲ 5pt</em><svg viewBox="0 0 60 18"><path d="M0 12L10 13 20 10 30 11 40 7 50 8 60 5" fill="none" stroke="#e2a41f" stroke-width="2"/></svg></div></div>'+
+   '<div class="ap-ch"><small>予約数（週）</small><svg viewBox="0 0 180 64" preserveAspectRatio="none"><defs><linearGradient id="mxg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e7c8c" stop-opacity=".3"/><stop offset="1" stop-color="#0e7c8c" stop-opacity="0"/></linearGradient></defs><path class="ln" d="M0 50C20 44 30 48 45 38S75 40 90 28 120 30 135 18 165 14 180 8V64H0Z" fill="url(#mxg)"/><path class="ln2" d="M0 50C20 44 30 48 45 38S75 40 90 28 120 30 135 18 165 14 180 8" fill="none" stroke="#0e7c8c" stroke-width="2.2"/></svg></div>'+
+   '<p class="ap-h">最近のお客様</p>'+
+   '<div class="ap-ls"><i class="av" style="'+ph("salon/img/st2.webp","center 25%")+'></i><div><b>佐藤 美咲 様</b><small>来店5回目 ・ 前回 10/12</small></div><em class="bd">VIP</em></div>'+
+   '<div class="ap-ls"><i class="av" style="'+ph("salon/img/st6.webp","center 25%")+'></i><div><b>田中 結衣 様</b><small>はじめて ・ 11/2</small></div><em class="bd n">NEW</em></div>'+
+   tab(0,[["chart","分析"],["cal","予約"],["user","顧客"],["chat","連絡"]])],
+  ["オンライン相談","#2c4a75",'#f1f4f9','#16233a',
+   apTop("みらい相談室","back","")+
+   '<div class="ap-pf"><i class="av" style="'+ph("salon/img/st3.webp","center 25%")+'></i><div><b>中村 さとみ</b><small>キャリアコンサルタント</small><span>'+ic("star","#f2b01e")+'4.9 ・ 相談 320件</span></div></div>'+
+   '<div class="ap-chips"><span class="on">転職</span><span>副業</span><span>働き方</span></div>'+
+   '<div class="ap-card ap-plan"><span class="ib">'+ic("video","#2c4a75")+'</span><div><b>はじめての方 30分</b><small>ビデオ通話 ・ 初回無料</small></div></div>'+
+   '<p class="ap-h">11/11（火）の空き</p><div class="ap-sl"><span>10:00</span><span class="x">13:00</span><span>15:30</span><span class="on">20:00</span><span>21:00</span><span class="x">22:00</span></div>'+
+   '<div class="ap-cta">20:00で申し込む</div>']
  ];
  var N=A.length*2,items=[];
  for(var i=0;i<N;i++){var a=A[i%A.length],el=document.createElement("div");el.className="mxit";
-  el.innerHTML='<div class="mxph"><div class="mxsc" style="--a:'+a[1]+';background:'+a[2]+';color:'+a[3]+'">'+sb(a[3])+a[4]+'</div></div><span class="lb">'+a[0]+'</span>';arc.appendChild(el);items.push(el)}
+  el.innerHTML='<div class="mxph"><div class="mxsc" style="--a:'+a[1]+';background:'+a[2]+';color:'+a[3]+'">'+sb(a[3])+'<div class="ap">'+a[4]+'</div></div></div><span class="lb">'+a[0]+'</span>';arc.appendChild(el);items.push(el)}
  var off=0,last=0,vis=true;
  if("IntersectionObserver"in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(arc);
  function geo(){var m=matchMedia("(max-width:700px)").matches;return{step:m?13.5:11,speed:m?2.6:2.1}}
