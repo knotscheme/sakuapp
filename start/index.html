@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>お申し込み｜サクアプ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--c:#954049;--cl:#f5e2e0;--bg:#fdfaf8;--ink:#2a2224;--ink2:#5a5052;--muted:#8a8082;--line:#ecdfdc;--card:#fff;--on:#fff}
+body[data-s="menu"]{--c:#a8740f;--cl:#fdf1d8;--bg:#fffdf9;--ink:#241e1a;--ink2:#5b5048;--muted:#8d8278;--line:#eee3d3;--on:#fff}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.8 "Noto Sans JP","Hiragino Sans",sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--c)}
+.w{max-width:720px;margin:0 auto;padding:0 16px}
+header{border-bottom:1px solid var(--line);background:#fff}
+header .w{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:900 22px "Noto Sans JP";color:var(--ink);text-decoration:none;letter-spacing:.02em}
+.logo small{font:700 10px Montserrat,sans-serif;letter-spacing:.14em;border:1.5px solid var(--ink);border-radius:4px;padding:2px 6px;margin-left:8px;vertical-align:4px}
+header .back{font-size:13px;color:var(--muted);text-decoration:none}
+main{padding:36px 0 80px}
+h1{font:700 clamp(24px,5.6vw,32px)/1.45 "Noto Serif JP",serif;margin:0 0 8px;word-break:keep-all;overflow-wrap:anywhere}
+.lead{color:var(--ink2);margin:0 0 28px}
+.trial{display:inline-block;background:var(--c);color:var(--on);font-weight:700;border-radius:6px;padding:3px 10px;font-size:14px;margin-right:6px}
+.steps{display:flex;gap:6px;margin:0 0 22px;padding:0;list-style:none}
+.steps li{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);border-bottom:3px solid var(--line);padding-bottom:6px}
+.steps li.on{color:var(--c);border-color:var(--c)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 22px;margin-bottom:16px}
+.card h2{font-size:17px;margin:0 0 14px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{position:relative;display:block;border:2px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;background:#fff}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt:has(input:checked){border-color:var(--c);background:var(--cl)}
+.opt:has(input:focus-visible){outline:3px solid var(--c);outline-offset:2px}
+.opt b{display:block;font-size:16px}
+.opt em{font-style:normal;font:700 20px "Noto Serif JP",serif;color:var(--c)}
+.opt small{display:block;color:var(--ink2);font-size:13px;line-height:1.6;margin-top:4px}
+label.f{display:block;font-weight:700;font-size:14px}
+label.f input{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+label.f input:focus{outline:2px solid var(--c);border-color:var(--c)}
+.hint{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.conf{width:100%;border-collapse:collapse;font-size:14.5px}
+.conf th,.conf td{text-align:left;vertical-align:top;padding:12px 4px;border-bottom:1px solid var(--line)}
+.conf th{width:30%;color:var(--ink2);font-weight:700;font-size:13.5px;padding-right:12px}
+.conf td b{font-size:16px}
+.conf tr.big td{color:var(--c);font-weight:700}
+.warn{background:var(--cl);border-radius:12px;padding:14px 16px;font-size:14px;margin:16px 0 0}
+.warn b{color:var(--c)}
+.agree{display:flex;gap:10px;align-items:flex-start;margin:18px 0 0;font-size:14.5px;cursor:pointer}
+.agree input{width:20px;height:20px;margin-top:3px;accent-color:var(--c);flex:none}
+.go{display:flex;width:100%;align-items:center;justify-content:center;gap:8px;min-height:60px;margin-top:18px;border:0;border-radius:12px;background:var(--c);color:var(--on);font:700 17px "Noto Sans JP";letter-spacing:.06em;cursor:pointer}
+.go:disabled{opacity:.4;cursor:not-allowed}
+.closed{margin-top:14px;text-align:center;font-size:14px;color:var(--ink2)}
+.closed a{font-weight:700}
+.legal{font-size:12.5px;color:var(--muted);text-align:center;margin-top:18px}
+.legal a{color:var(--muted)}
+.err{color:#c92a2a;font-size:13px;margin-top:6px;display:none}
+.err.on{display:block}
+</style>
+</head>
+<body data-s="salon">
+<header><div class="w"><a class="logo" href="../" id="logo">サクアプ<small id="tag">SALON</small></a><a class="back" id="back" href="../salon/">← サービスのページへ</a></div></header>
+<main class="w">
+  <h1 id="ttl">お申し込み</h1>
+  <p class="lead"><span class="trial">30日間無料</span>カードを登録して、今日から使い始められます。期間中に解約すれば料金はかかりません。</p>
+  <ol class="steps" aria-label="お申し込みの流れ"><li class="on">内容を選ぶ</li><li class="on">最終確認</li><li>カード登録</li></ol>
+
+  <form id="f" novalidate>
+    <section class="card">
+      <h2>1. サービス</h2>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="s" value="menu"><b>モバイルメニュー</b><small>飲食店のQR注文</small></label>
+        <label class="opt"><input type="radio" name="s" value="salon"><b>サロン予約</b><small>予約・顧客カルテ・再来店のお知らせ</small></label>
+      </div>
+    </section>
+    <section class="card">
+      <h2>2. 始め方</h2>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="p" value="self" checked><b>セルフ</b><em>0円</em><small>テンプレートを選んで、自分で設定します</small></label>
+        <label class="opt"><input type="radio" name="p" value="omakase"><b>おまかせ</b><em>9,800円</em><small>メニュー表と写真を送るだけ。初期設定を済ませてお渡しします</small></label>
+      </div>
+      <p class="hint">お店専用の画面や機能を作りたい場合は、<a href="../">オーダーメイド開発</a>をご覧ください。</p>
+    </section>
+    <section class="card">
+      <h2>3. メールアドレス</h2>
+      <label class="f">ご連絡先のメールアドレス<input type="email" id="em" autocomplete="email" inputmode="email" placeholder="example@mail.com" required></label>
+      <p class="err" id="emerr">メールアドレスを正しく入力してください。</p>
+      <p class="hint">管理画面のご案内と、課金前のお知らせをお送りします。店名は次のカード登録の画面で入力します。</p>
+    </section>
+
+    <section class="card" aria-labelledby="ct">
+      <h2 id="ct">4. 最終確認</h2>
+      <table class="conf">
+        <tr><th>サービス</th><td><b id="c-s"></b></td></tr>
+        <tr><th>始め方</th><td id="c-p"></td></tr>
+        <tr class="big"><th>本日のお支払い</th><td id="c-now"></td></tr>
+        <tr><th>無料お試し期間</th><td id="c-trial"></td></tr>
+        <tr class="big"><th>月額料金</th><td id="c-mon"></td></tr>
+        <tr><th>契約期間</th><td>最低契約期間はありません。1か月ごとに自動で更新します。</td></tr>
+        <tr><th>お支払い方法</th><td>クレジットカード（決済はStripeを利用します）</td></tr>
+        <tr><th>解約</th><td>お支払い・解約のページからいつでも解約できます。解約時点の請求期間の末日で終了し、日割りの返金はありません。<b>無料お試し期間中に解約すれば、月額料金はかかりません。</b></td></tr>
+        <tr><th>お知らせ</th><td>初回の請求の7日前と前日に、メールでお知らせします。</td></tr>
+        <tr><th>対象外</th><td>有料テンプレート（3,000〜5,000円）と追加機能は、ご購入時に別途お支払いいただきます。無料お試しは1店舗につき1回まで、先行モニター特典との併用はできません。</td></tr>
+      </table>
+      <p class="warn" id="c-warn"></p>
+      <label class="agree"><input type="checkbox" id="ag"><span>上記の内容と、<a href="../terms.html" target="_blank" rel="noopener">利用規約</a>・<a href="../privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します。</span></label>
+      <button type="submit" class="go" id="go" disabled>30日間無料で始める ›</button>
+      <p class="hint" style="text-align:center">次の画面（Stripe）でカードを登録します。本日の請求は上記の金額のみです。</p>
+      <p class="closed" id="closed" hidden></p>
+    </section>
+  </form>
+  <p class="legal"><a href="../tokushoho.html">特定商取引法に基づく表記</a> ・ <a href="../terms.html">利用規約</a> ・ <a href="../account/">お支払い・解約</a></p>
+</main>
+<script src="config.js"></script>
+<script>
+(function(){
+  var B=window.SAKUAPP_BILLING||{},$=function(i){return document.getElementById(i)},f=$("f");
+  var NAME={menu:"モバイルメニュー",salon:"サロン予約"},PLAN={self:"セルフ（初期費用0円）",omakase:"おまかせ（初期費用9,800円）"};
+  var q=new URLSearchParams(location.search),s0=q.get("s")==="menu"?"menu":"salon",p0=q.get("p")==="omakase"?"omakase":"self";
+  f.s.value=s0;f.p.value=p0;
+  function yen(n){return n.toLocaleString("ja-JP")+"円"}
+  function d(x){return x.getFullYear()+"年"+(x.getMonth()+1)+"月"+x.getDate()+"日"}
+  function link(){var s=f.s.value,p=f.p.value;return(B.LINKS&&B.LINKS[s]&&B.LINKS[s][p])||""}
+  function upd(){
+    var s=f.s.value,p=f.p.value,days=B.TRIAL_DAYS||30,now=new Date(),end=new Date(now),first=new Date(now);
+    end.setDate(end.getDate()+days-1);first.setDate(first.getDate()+days);
+    document.body.dataset.s=s;$("tag").textContent=s==="menu"?"MOBILE MENU":"SALON";$("back").href="../"+s+"/";
+    $("ttl").textContent=NAME[s]+"のお申し込み";
+    $("c-s").textContent=NAME[s];$("c-p").textContent=PLAN[p];
+    $("c-now").textContent=p==="omakase"?yen(B.OMAKASE||9800)+"（おまかせの初期費用）":"0円";
+    $("c-trial").textContent=d(now)+" 〜 "+d(end)+"（"+days+"日間）";
+    $("c-mon").textContent=yen(B.MONTHLY||1980)+"（"+d(first)+"から、1か月ごとに自動で請求）";
+    $("c-warn").innerHTML="<b>"+d(first)+"に、月額"+yen(B.MONTHLY||1980)+"が自動で請求されます。</b>続けない場合は、"+d(end)+"までに解約してください。";
+    var open=!!B.OPEN&&!!link();
+    $("closed").hidden=open;if(!open)$("closed").innerHTML=(B.OPEN_NOTE||"ただいま受付前です。")+(B.LINE_URL?' <a href="'+B.LINE_URL+'" target="_blank" rel="noopener">LINEで相談する ›</a>':"");
+    $("go").disabled=!open||!$("ag").checked;
+  }
+  f.addEventListener("change",upd);upd();
+  f.addEventListener("submit",function(e){
+    e.preventDefault();var em=$("em").value.trim(),ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+    $("emerr").classList.toggle("on",!ok);if(!ok){$("em").focus();return}
+    var u=link();if(!B.OPEN||!u)return;
+    var url=new URL(u);url.searchParams.set("prefilled_email",em);url.searchParams.set("client_reference_id",f.s.value+"_"+f.p.value);
+    location.href=url.toString();
+  });
+})();
+</script>
+</body>
+</html>

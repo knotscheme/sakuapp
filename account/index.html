@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>お支払い・解約｜サクアプ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--c:#954049;--cl:#f5e2e0;--bg:#fdfaf8;--ink:#2a2224;--ink2:#5a5052;--muted:#8a8082;--line:#ecdfdc;--card:#fff;--on:#fff}
+body[data-s="menu"]{--c:#a8740f;--cl:#fdf1d8;--bg:#fffdf9;--ink:#241e1a;--ink2:#5b5048;--muted:#8d8278;--line:#eee3d3;--on:#fff}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.8 "Noto Sans JP","Hiragino Sans",sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--c)}
+.w{max-width:720px;margin:0 auto;padding:0 16px}
+header{border-bottom:1px solid var(--line);background:#fff}
+header .w{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:900 22px "Noto Sans JP";color:var(--ink);text-decoration:none;letter-spacing:.02em}
+.logo small{font:700 10px Montserrat,sans-serif;letter-spacing:.14em;border:1.5px solid var(--ink);border-radius:4px;padding:2px 6px;margin-left:8px;vertical-align:4px}
+header .back{font-size:13px;color:var(--muted);text-decoration:none}
+main{padding:36px 0 80px}
+h1{font:700 clamp(24px,5.6vw,32px)/1.45 "Noto Serif JP",serif;margin:0 0 8px;word-break:keep-all;overflow-wrap:anywhere}
+.lead{color:var(--ink2);margin:0 0 28px}
+.trial{display:inline-block;background:var(--c);color:var(--on);font-weight:700;border-radius:6px;padding:3px 10px;font-size:14px;margin-right:6px}
+.steps{display:flex;gap:6px;margin:0 0 22px;padding:0;list-style:none}
+.steps li{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--muted);border-bottom:3px solid var(--line);padding-bottom:6px}
+.steps li.on{color:var(--c);border-color:var(--c)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 22px;margin-bottom:16px}
+.card h2{font-size:17px;margin:0 0 14px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{position:relative;display:block;border:2px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;background:#fff}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt:has(input:checked){border-color:var(--c);background:var(--cl)}
+.opt:has(input:focus-visible){outline:3px solid var(--c);outline-offset:2px}
+.opt b{display:block;font-size:16px}
+.opt em{font-style:normal;font:700 20px "Noto Serif JP",serif;color:var(--c)}
+.opt small{display:block;color:var(--ink2);font-size:13px;line-height:1.6;margin-top:4px}
+label.f{display:block;font-weight:700;font-size:14px}
+label.f input{display:block;width:100%;margin-top:6px;font:inherit;font-weight:400;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+label.f input:focus{outline:2px solid var(--c);border-color:var(--c)}
+.hint{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.conf{width:100%;border-collapse:collapse;font-size:14.5px}
+.conf th,.conf td{text-align:left;vertical-align:top;padding:12px 4px;border-bottom:1px solid var(--line)}
+.conf th{width:34%;color:var(--ink2);font-weight:700;font-size:13.5px;padding-right:12px}
+.conf td b{font-size:16px}
+.conf tr.big td{color:var(--c);font-weight:700}
+.warn{background:var(--cl);border-radius:12px;padding:14px 16px;font-size:14px;margin:16px 0 0}
+.warn b{color:var(--c)}
+.agree{display:flex;gap:10px;align-items:flex-start;margin:18px 0 0;font-size:14.5px;cursor:pointer}
+.agree input{width:20px;height:20px;margin-top:3px;accent-color:var(--c);flex:none}
+.go{display:flex;width:100%;align-items:center;justify-content:center;gap:8px;min-height:60px;margin-top:18px;border:0;border-radius:12px;background:var(--c);color:var(--on);font:700 17px "Noto Sans JP";letter-spacing:.06em;cursor:pointer}
+.go:disabled{opacity:.4;cursor:not-allowed}
+.closed{margin-top:14px;text-align:center;font-size:14px;color:var(--ink2)}
+.closed a{font-weight:700}
+.legal{font-size:12.5px;color:var(--muted);text-align:center;margin-top:18px}
+.legal a{color:var(--muted)}
+.err{color:#c92a2a;font-size:13px;margin-top:6px;display:none}
+.err.on{display:block}
+</style><style>.next{counter-reset:n;list-style:none;padding:0;margin:0}.next li{position:relative;padding:0 0 16px 44px}.next li::before{counter-increment:n;content:counter(n);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--c);color:var(--on);display:grid;place-items:center;font:700 14px Montserrat,sans-serif}.next b{display:block}.btn2{display:flex;align-items:center;justify-content:center;min-height:56px;border-radius:12px;background:var(--c);color:var(--on);font-weight:700;text-decoration:none;margin-top:10px}.btn2.ghost{background:#fff;color:var(--c);border:2px solid var(--c)}</style>
+</head>
+<body data-s="salon">
+<header><div class="w"><a class="logo" href="../">サクアプ</a><a class="back" id="back" href="../">← トップへ</a></div></header>
+<main class="w">
+  <h1>お支払い・解約</h1>
+  <p class="lead">モバイルメニュー・サロン予約の、カードの変更・領収書の確認・解約はこちらから行えます。</p>
+  <section class="card">
+    <h2>お客様ページを開く</h2>
+    <p style="margin:0">お申し込みのメールアドレスを入力すると、ログイン用のリンクがメールで届きます（決済サービスStripeのページです）。</p>
+    <a class="btn2" id="portal" href="#">お客様ページを開く ›</a>
+    <p class="closed" id="closed" hidden></p>
+  </section>
+  <section class="card">
+    <h2>できること</h2>
+    <ul style="margin:0;padding-left:1.2em">
+      <li>登録しているクレジットカードの変更</li>
+      <li>請求書・領収書の確認とダウンロード</li>
+      <li>解約（請求期間の末日で終了します。無料お試し期間中なら料金はかかりません）</li>
+    </ul>
+  </section>
+  <p class="legal"><a href="../terms.html">利用規約</a> ・ <a href="../tokushoho.html">特定商取引法に基づく表記</a></p>
+</main>
+<script src="../start/config.js"></script>
+<script>
+(function(){var B=window.SAKUAPP_BILLING||{},a=document.getElementById("portal"),c=document.getElementById("closed");
+  if(B.PORTAL_URL){a.href=B.PORTAL_URL}else{a.removeAttribute("href");a.style.opacity=".4";a.setAttribute("aria-disabled","true");c.hidden=false;c.innerHTML=(B.OPEN_NOTE||"ただいま準備中です。")+(B.LINE_URL?' <a href="'+B.LINE_URL+'" target="_blank" rel="noopener">LINEで相談する ›</a>':"")}
+})();
+</script>
+</body>
+</html>
