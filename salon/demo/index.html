@@ -650,6 +650,7 @@ function seed(){
 var KEY="sakuapp-salon-demo-v3",S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||S.v!==2)S=seed();
+function migLink(){var B=S.page&&S.page.blocks;if(!B)return;for(var k in B){var b=B[k];if(b&&b.type==="link"&&/instagram/i.test((b.title||"")+(b.url||""))){B[k]={type:"sns",title:"",urls:{instagram:"https://instagram.com/",tiktok:"https://tiktok.com/",line:"https://line.me/"}};save()}}}migLink();
 function ensureStore(){if(S.page&&!S.page.ig1){S.page.ig1=true;S.page.blocks=S.page.blocks||{};S.page.blocks.ig={type:"insta",title:"STYLE",acct:"sora_hair",imgs:["../img/st1.webp","../img/st4.webp","../img/st3.webp","../img/st7.webp","../img/st9.webp","../img/st6.webp","../img/st2.webp","../img/st8.webp","../img/st5.webp"]};S.page.order.push("ig");S.page.show.ig=true;save()}
 if(!S.store)S.store={name:"sora",sub:"HAIR ROOM",area:"表参道",lead:"完全予約制",hours:"10:00〜19:00",mark:"so",color:"#954049",ccol:false,open:true}}ensureStore();
 document.addEventListener("input",function(ev){if(ev.target.dataset&&ev.target.dataset.chg==="ccolor")document.documentElement.style.setProperty("--sc",ev.target.value)});

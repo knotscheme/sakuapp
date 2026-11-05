@@ -656,6 +656,7 @@ function optLabel(it,ch,L){return (it.o||[]).map(function(g,gi){var ci=ch[gi]||0
 var KEY="sakuapp-menu-demo-v6",S;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 if(!S||S.v!==5)S=seed();
+function migLink(){var B=S.page&&S.page.blocks;if(!B)return;for(var k in B){var b=B[k];if(b&&b.type==="link"&&/instagram/i.test((b.title||"")+(b.url||""))){B[k]={type:"sns",title:"",urls:{instagram:"https://instagram.com/",line:"https://line.me/",map:"https://maps.google.com/"}};save()}}}migLink();
 // rice option objects are shared refs in seed; after JSON restore they are copies — fine.
 var q=new URLSearchParams(location.search);
 if(q.has("opt")){S.opts={};q.get("opt").split(",").forEach(function(k){if(k)S.opts[k]=true})}
