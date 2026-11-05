@@ -964,8 +964,7 @@ p,small,li,dd{text-wrap:pretty}
 .L-esthe .e-hero{margin:0 0 6px;padding:22px 0 18px;background:linear-gradient(180deg,rgba(18,28,24,.45),rgba(29,42,37,.92) 92%),url(img/esthe.webp) center/cover,url(img/s-room.webp) center/cover}
 .L-spa .p-hero{height:70px;margin:0 14px 6px;border-radius:12px;background:url(img/headspa.webp) center/cover,url(img/s-chair.webp) center 55%/cover}
 .L-nail .n0 i{background:url(img/nail1.webp) center/cover,linear-gradient(160deg,#f6d6d6,#e7a8b0)}.L-nail .n1 i{background:url(img/nail2.webp) center/cover,linear-gradient(160deg,#efe1d8,#c8a796)}.L-nail .n2 i{background:url(img/nail3.webp) center/cover,radial-gradient(circle at 30% 30%,#fff,#b7b7d6 60%,#6f6d9e)}.L-nail .n3 i{background:url(img/nail4.webp) center/cover,linear-gradient(180deg,#fbeee9 70%,#fff 70%)}.L-nail .n4 i{background:url(img/nail5.webp) center/cover,linear-gradient(90deg,#f3c7c0 50%,#d8b4d1 50%)}.L-nail .n5 i{background:url(img/nail6.webp) center/cover,linear-gradient(160deg,#d9a46b,#8b4f3a)}
-.L-nail .n-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px 9px!important;padding:4px 16px!important}.L-nail .n-c i{aspect-ratio:1/0.9!important;border-radius:36px 36px 10px 10px!important}
-.L-nail .n-tabs{gap:4px;padding:0 8px 8px}.L-nail .n-tabs span{white-space:nowrap;padding:4px 8px;font-size:9px}
+.L-nail .n-tabs{gap:4px;padding:0 6px 8px}.L-nail .n-tabs span{white-space:nowrap;padding:4px 7px;font-size:8.5px}.L-nail .n-c small{white-space:nowrap;letter-spacing:-.02em}
 .swl button .sp-hair{background:url(img/st5.webp) center 30%/cover}
 .swl button .sp-nail{background:url(img/nail1.webp) center/cover,linear-gradient(160deg,#f6d6d6,#e7a8b0)}
 .swl button .sp-lash{background:url(img/lash.webp) center/cover,url(img/s-mirror.webp) center/cover}
@@ -1267,7 +1266,7 @@ p,small,li,dd{text-wrap:pretty}
       h+='<div class="s-sec">11/8（土）の空き</div><div class="s-slot">'+slots("14:00",[1,4])+'</div>';
     }else if(L==="nail"){
       h+='<div class="n-hd"><b>nail atelier</b><span>momo</span></div><div class="n-tabs"><span class="on">定額デザイン</span><span>ワンカラー</span><span>フット</span></div><div class="n-grid">';
-      for(var k=0;k<4;k++)h+='<div class="n-c n'+k+'"><i></i><small>'+["くすみピンク","ニュアンス","マグネット","フレンチ"][k]+'</small></div>';
+      for(var k=0;k<6;k++)h+='<div class="n-c n'+k+'"><i></i><small>'+["くすみピンク","ニュアンス","マグネット","フレンチ","ちぐはぐ","秋カラー"][k]+'</small></div>';
       h+='</div><div class="n-pr"><b>'+it[1][0]+'</b><span>'+it[1][1]+' ・ '+it[1][2]+'</span></div>';
     }else if(L==="lash"){
       h+='<div class="l-hd"><small>eyelash salon</small><b>Lumi</b><i></i></div><div class="l-hero"></div><div class="l-list">';
