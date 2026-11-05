@@ -1147,8 +1147,9 @@ header#hd .btn{min-height:34px;padding:0 16px;font-size:13px;border-radius:999px
 .fsns svg{width:16px;height:16px;color:var(--brand)}
 
 /* services */
-.svc{background:#f6f1ea}
-.svc h2{text-align:center;font-size:clamp(26px,3.6vw,38px);letter-spacing:.14em;margin:0 0 36px}
+.svcs{background:#f6f1ea;padding:96px 0 110px;border:0}
+@media(max-width:860px){.svcs{padding:64px 0 76px}}
+.svcs h2{text-align:center;font-size:clamp(26px,3.6vw,38px);letter-spacing:.14em;margin:0 0 36px}
 .svc-g{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .svc-c{display:flex;flex-direction:column;gap:14px;border-radius:20px;padding:28px;text-decoration:none;color:var(--text);background:linear-gradient(120deg,#fff 40%,#f6ebe0);transition:transform .25s,box-shadow .25s}
 .svc-c:hover{transform:translateY(-4px);box-shadow:0 24px 40px -28px rgba(0,0,0,.35)}
@@ -1778,7 +1779,7 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 </div></section>
 
 <!-- CTA -->
-<section class="svc" id="services" aria-labelledby="svc-h"><div class="wrap">
+<section class="svcs" id="services" aria-labelledby="svc-h"><div class="wrap">
  <h2 id="svc-h">サクアプのサービス</h2>
  <div class="svc-g">
   <a class="svc-c s1" href="#intro"><span><b>オーダーメイド開発</b><small>予約・決済・顧客管理を、ゼロから自由に。<br>19,800円〜、1文字0.5円の明朗会計</small><em>このページ</em></span><img src="salon.webp" alt="" width="1376" height="768" loading="lazy"></a>
