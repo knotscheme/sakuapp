@@ -955,6 +955,21 @@ p,small,li,dd{text-wrap:pretty}
 /* style photos */
 .igg i:nth-child(1){background:url(img/st1.webp) center/cover!important}.igg i:nth-child(2){background:url(img/st4.webp) center/cover!important}.igg i:nth-child(3){background:url(img/st3.webp) center/cover!important}.igg i:nth-child(4){background:url(img/st7.webp) center/cover!important}.igg i:nth-child(5){background:url(img/st9.webp) center/cover!important}.igg i:nth-child(6){background:url(img/st6.webp) center/cover!important}.igg i:nth-child(7){background:url(img/st2.webp) center/cover!important}.igg i:nth-child(8){background:url(img/st8.webp) center/cover!important}.igg i:nth-child(9){background:url(img/st5.webp) center/cover!important}
 .kph i:nth-child(1),.skp i:nth-child(1){background:url(img/st6.webp) center/cover!important}.kph i:nth-child(2),.skp i:nth-child(2){background:url(img/st7.webp) center/cover!important}.kph i:nth-child(3),.skp i:nth-child(3){background:url(img/st4.webp) center/cover!important}
+
+/* shop photos (img/nail1-6, lash, esthe, headspa があれば優先、なければ既存写真) */
+.L-hair .s-it{justify-content:flex-start;gap:9px}.L-hair .s-it span{flex:1}
+.L-hair .s-th{flex:none;width:30px;height:30px;border-radius:4px;background:#ddd center/cover}
+.L-hair .s-th.t0{background-image:url(img/st5.webp)}.L-hair .s-th.t1{background-image:url(img/st4.webp)}.L-hair .s-th.t2{background-image:url(img/st8.webp)}.L-hair .s-th.t3{background-image:url(img/st9.webp)}
+.L-lash .l-hero{height:78px;margin:8px 14px 2px;border-radius:2px;background:url(img/lash.webp) center/cover,url(img/s-mirror.webp) center 45%/cover}
+.L-esthe .e-hero{margin:0 0 6px;padding:22px 0 18px;background:linear-gradient(180deg,rgba(18,28,24,.45),rgba(29,42,37,.92) 92%),url(img/esthe.webp) center/cover,url(img/s-room.webp) center/cover}
+.L-spa .p-hero{height:70px;margin:0 14px 6px;border-radius:12px;background:url(img/headspa.webp) center/cover,url(img/s-chair.webp) center 55%/cover}
+.L-nail .n0 i{background:url(img/nail1.webp) center/cover,linear-gradient(160deg,#f6d6d6,#e7a8b0)}.L-nail .n1 i{background:url(img/nail2.webp) center/cover,linear-gradient(160deg,#efe1d8,#c8a796)}.L-nail .n2 i{background:url(img/nail3.webp) center/cover,radial-gradient(circle at 30% 30%,#fff,#b7b7d6 60%,#6f6d9e)}.L-nail .n3 i{background:url(img/nail4.webp) center/cover,linear-gradient(180deg,#fbeee9 70%,#fff 70%)}.L-nail .n4 i{background:url(img/nail5.webp) center/cover,linear-gradient(90deg,#f3c7c0 50%,#d8b4d1 50%)}.L-nail .n5 i{background:url(img/nail6.webp) center/cover,linear-gradient(160deg,#d9a46b,#8b4f3a)}
+.L-nail .n-tabs{gap:4px;padding:0 8px 8px}.L-nail .n-tabs span{white-space:nowrap;padding:4px 8px;font-size:9px}
+.swl button .sp-hair{background:url(img/st5.webp) center 30%/cover}
+.swl button .sp-nail{background:url(img/nail1.webp) center/cover,linear-gradient(160deg,#f6d6d6,#e7a8b0)}
+.swl button .sp-lash{background:url(img/lash.webp) center/cover,url(img/s-mirror.webp) center/cover}
+.swl button .sp-esthe{background:url(img/esthe.webp) center/cover,url(img/s-room.webp) center/cover}
+.swl button .sp-spa{background:url(img/headspa.webp) center/cover,url(img/s-chair.webp) center/cover}
 </style>
 </head>
 <body>
@@ -1247,21 +1262,21 @@ p,small,li,dd{text-wrap:pretty}
     if(L==="hair"){
       h+='<div class="s-hd"><b>HAIR ROOM</b><span>sora</span><small>表参道 ・ 完全予約制</small></div><div class="s-hero"></div>';
       h+='<div class="s-sec">MENU</div>';
-      it.forEach(function(x,k){h+='<div class="s-it'+(k===1?' pick':'')+'"><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><em>'+x[2]+'</em></div>'});
+      it.forEach(function(x,k){h+='<div class="s-it'+(k===1?' pick':'')+'"><i class="s-th t'+k+'"></i><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><em>'+x[2]+'</em></div>'});
       h+='<div class="s-sec">11/8（土）の空き</div><div class="s-slot">'+slots("14:00",[1,4])+'</div>';
     }else if(L==="nail"){
       h+='<div class="n-hd"><b>nail atelier</b><span>momo</span></div><div class="n-tabs"><span class="on">定額デザイン</span><span>ワンカラー</span><span>フット</span></div><div class="n-grid">';
       for(var k=0;k<6;k++)h+='<div class="n-c n'+k+'"><i></i><small>'+["くすみピンク","ニュアンス","マグネット","フレンチ","ちぐはぐ","秋カラー"][k]+'</small></div>';
       h+='</div><div class="n-pr"><b>'+it[1][0]+'</b><span>'+it[1][1]+' ・ '+it[1][2]+'</span></div>';
     }else if(L==="lash"){
-      h+='<div class="l-hd"><small>eyelash salon</small><b>Lumi</b><i></i></div><div class="l-list">';
+      h+='<div class="l-hd"><small>eyelash salon</small><b>Lumi</b><i></i></div><div class="l-hero"></div><div class="l-list">';
       it.forEach(function(x,k){h+='<div class="l-it"><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><em>'+x[2]+'</em></div>'});
       h+='</div><div class="l-note">はじめての方は、初回クーポンで10%OFF</div>';
     }else if(L==="esthe"){
-      h+='<div class="e-hd"><small>PRIVATE SALON</small><b>AURA</b><i></i></div><div class="e-ban"><small>RECOMMEND</small><b>フェイシャル プレミアム</b><span>90分 ・ ¥14,300</span></div>';
+      h+='<div class="e-hero"><div class="e-hd"><small>PRIVATE SALON</small><b>AURA</b><i></i></div></div><div class="e-ban"><small>RECOMMEND</small><b>フェイシャル プレミアム</b><span>90分 ・ ¥14,300</span></div>';
       it.forEach(function(x,k){h+='<div class="e-it"><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><em>'+x[2]+'</em></div>'});
     }else{
-      h+='<div class="p-hd"><b>head spa 凪</b><small>nagi ・ 個室 1席</small></div><div class="p-days">'+DAYS.map(function(d,i){return'<span class="'+(i===1?"on":"")+'"><small>'+d[1]+'</small>'+d[0].split("/")[1]+'</span>'}).join("")+'</div>';
+      h+='<div class="p-hero"></div><div class="p-hd"><b>head spa 凪</b><small>nagi ・ 個室 1席</small></div><div class="p-days">'+DAYS.map(function(d,i){return'<span class="'+(i===1?"on":"")+'"><small>'+d[1]+'</small>'+d[0].split("/")[1]+'</span>'}).join("")+'</div>';
       h+='<div class="p-grid">'+["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"].map(function(t,i){return'<span class="'+([1,2,5].indexOf(i)>-1?"x":"")+(i===4?" on":"")+'">'+t+'</span>'}).join("")+'</div>';
       h+='<div class="p-menu"><small>選択中のメニュー</small><b>'+it[1][0]+'</b><span>'+it[1][1]+' ・ '+it[1][2]+'</span></div>';
     }
@@ -1304,7 +1319,7 @@ p,small,li,dd{text-wrap:pretty}
   /* ---------- 01 theme switcher ---------- */
   var TPLP=[0,0,0,1,1];
   var swl=$("swl"),swscr=$("swscr"),swi=0,swTimer;
-  swl.innerHTML=SHOPS.map(function(s,i){return'<button type="button" data-i="'+i+'"><span class="dot sdot L-'+s.L+'" style="background:'+s.bg+'"><i style="background:'+s.c+'"></i></span><span>'+s.k+(TPLP[i]?'<em class="tpb p">有料</em>':'<em class="tpb">無料</em>')+'<small>'+s.d+'</small></span><span class="bar"></span></button>'}).join("");
+  swl.innerHTML=SHOPS.map(function(s,i){return'<button type="button" data-i="'+i+'"><span class="dot sdot sp-'+s.L+'"><i style="background:'+s.c+'"></i></span><span>'+s.k+(TPLP[i]?'<em class="tpb p">有料</em>':'<em class="tpb">無料</em>')+'<small>'+s.d+'</small></span><span class="bar"></span></button>'}).join("");
   swscr.innerHTML=SHOPS.map(function(s,i){return'<div class="lay L-'+s.L+'" data-i="'+i+'" style="'+vars(s)+';background:'+s.bg+';color:'+s.fg+'">'+inner(s)+'</div>'}).join("");
   function setSw(i){swi=i;swl.querySelectorAll("button").forEach(function(b){var on=b.dataset.i==i;b.classList.toggle("on",false);if(on){void b.offsetWidth;b.classList.add("on")}});swscr.querySelectorAll(".lay").forEach(function(l){l.classList.toggle("on",l.dataset.i==i)});
     clearTimeout(swTimer);if(!RM)swTimer=setTimeout(function(){setSw((swi+1)%SHOPS.length)},3200)}
