@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#fdfaf8">
-<title>サクアプ サロン予約｜個人サロンのための予約・顧客カルテ</title>
+<title>サクアプ サロン予約｜また来てくれる、個人サロンの予約・カルテ</title>
 <meta name="description" content="お店の世界観のまま、24時間予約を受け付け。予約と顧客カルテが一体になった、個人サロンのための予約システム。初期費用0円から、月額1,980円（サーバー代・保守込み）、予約手数料0円。">
 <link rel="canonical" href="https://knotscheme.github.io/sakuapp/salon/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="サクアプ">
-<meta property="og:title" content="サクアプ サロン予約｜個人サロンのための予約・顧客カルテ">
-<meta property="og:description" content="予約と顧客カルテが一体。お店の世界観に合わせた予約ページを、初期費用0円から・月額1,980円で。予約件数の上限なし、予約手数料0円。">
+<meta property="og:title" content="サクアプ サロン予約｜また来てくれる、個人サロンの予約・カルテ">
+<meta property="og:description" content="カルテから次回のご案内を自動でお送りし、再来店につなげます。予約と顧客カルテが一体。お店の世界観に合わせた予約ページを、初期費用0円から・月額1,980円で。予約件数の上限なし、予約手数料0円。">
 <meta property="og:url" content="https://knotscheme.github.io/sakuapp/salon/">
 <meta property="og:image" content="https://knotscheme.github.io/sakuapp/ogp.jpg">
 <meta property="og:locale" content="ja_JP">
@@ -970,6 +970,37 @@ p,small,li,dd{text-wrap:pretty}
 .swl button .sp-lash{background:url(img/lash.webp) center/cover,url(img/s-mirror.webp) center/cover}
 .swl button .sp-esthe{background:url(img/esthe.webp) center/cover,url(img/s-room.webp) center/cover}
 .swl button .sp-spa{background:url(img/headspa.webp) center/cover,url(img/s-chair.webp) center/cover}
+
+/* ===== 再来店（目玉） ===== */
+.hpick{display:inline-flex;align-items:center;gap:10px;margin:0 0 22px;padding:8px 14px 8px 8px;border-radius:99px;background:#fff;border:1px solid var(--blue-l);box-shadow:0 8px 20px -14px rgba(120,50,60,.5);color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:700;animation:fade .9s .5s both}
+.hpick b{background:var(--blue);color:#fff;border-radius:99px;padding:4px 10px;font-size:11.5px;letter-spacing:.06em}
+.hpick em{font-style:normal;color:var(--blue);margin-left:4px}
+.hpick i{font-style:normal;color:var(--blue)}
+.skar .nx{background:var(--blue-l);margin:4px -10px 0;padding:8px 10px!important;border-radius:10px;border-top:0!important}.skar .nx dt{color:var(--blue)}.skar .nx dd{font-weight:700}
+.hseq .nt2{top:150px}.hseq .nt2 u{display:inline-block;margin-top:6px;text-decoration:none;font-weight:700;font-size:9.5px;background:rgba(255,255,255,.9);color:#954049;padding:3px 8px;border-radius:99px}
+.hseq .same{text-decoration:none;font-size:8px;font-weight:700;color:#fff;background:#954049;border-radius:99px;padding:1px 6px;margin-left:5px;vertical-align:1px}
+.rep{background:linear-gradient(180deg,#fff,#fbf3f1);padding:110px 0 100px}
+.rep-h{text-align:center;max-width:720px;margin:0 auto}
+.rep-e{font:800 15px var(--en);letter-spacing:.14em;color:var(--blue)}
+.rep-h h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.4vw,50px);line-height:1.4;letter-spacing:.06em;margin:8px 0 16px}
+.rep-h>p:last-child{color:var(--ink2);line-height:1.9}
+.rep-g{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;margin-top:56px}
+.rep-s{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.rep-s li{display:flex;gap:18px;background:#fff;border-radius:18px;padding:20px 22px;box-shadow:0 10px 30px -24px rgba(120,50,60,.5)}
+.rep-s>li>span{font:800 22px var(--en);color:var(--blue);line-height:1.2}
+.rep-s b{display:block;font-size:17px;margin-bottom:4px}.rep-s p{margin:0;color:var(--ink2);font-size:14px;line-height:1.75}
+.rep-v{position:relative;padding:10px 0 60px}
+.rv-msg{background:#fff;border-radius:22px;padding:22px 22px 20px;box-shadow:0 30px 60px -30px rgba(120,50,60,.45);max-width:400px;margin:0 auto}
+.rv-mh{display:flex;align-items:center;gap:10px;margin-bottom:12px}.rv-mh i{width:34px;height:34px;border-radius:50%;background:#5f6b6d;color:#fff;display:grid;place-items:center;font:700 12px var(--en);font-style:normal}.rv-mh b{flex:1;font-size:14px}.rv-mh small{color:var(--muted);font-size:12px}
+.rv-msg p{margin:0 0 16px;line-height:1.85;font-size:14.5px}.rv-msg strong{color:var(--blue)}
+.rv-btn{display:block;text-align:center;background:var(--blue);color:#fff;border-radius:12px;padding:13px;font-weight:700;font-size:14px}
+.rv-st{position:absolute;right:0;bottom:0;background:var(--ink);color:#fff;border-radius:18px;padding:16px 20px;min-width:250px;box-shadow:0 24px 40px -20px rgba(40,20,20,.6)}
+.rv-st small{display:block;font-size:11.5px;color:#d9cccc}.rv-st div{display:flex;gap:18px;align-items:baseline;margin-top:4px}.rv-st b{font:800 28px var(--en)}.rv-st b span{font-size:13px;margin-left:2px}.rv-st b+b{font-size:20px;color:var(--yel)}
+.rv-st em{position:absolute;top:-9px;right:14px;background:var(--yel);border-radius:99px;padding:2px 8px;font-style:normal;font-size:10px;color:#fff}
+.ef-hl{background:var(--blue)!important;color:#fff}.ef-hl small,.ef-hl p{color:#f3dcda!important}.ef-hl b,.ef-hl b span{color:#fff!important}
+.sp{display:none}
+@media(max-width:860px){.rep{padding:72px 0 64px}.rep-g{grid-template-columns:1fr;gap:28px;margin-top:32px}.rep-v{order:-1;padding-bottom:70px}.rv-st{right:8px;min-width:0}.pc{display:none}.sp{display:inline}.rep-s li{padding:16px 18px;gap:14px}.rep-s b{font-size:15.5px}.rep-s p{font-size:13.5px}}
+@media(max-width:600px){.hpick{order:4;align-self:center;justify-self:center;font-size:12.5px;margin:0 auto 22px}.hcopy .lede{margin-bottom:16px!important}}
 </style>
 </head>
 <body>
@@ -987,9 +1018,9 @@ p,small,li,dd{text-wrap:pretty}
   <div class="wrap">
     <div class="hcopy">
       <p class="eyebrow"><span>個人サロンのための</span>予約・顧客カルテ</p>
-      <h1 class="sh1"><span><i><em>サロンらしい</em>、</i></span><span><i>予約ページを。</i></span></h1>
-      <p class="ssub">予約・カルテ・リマインドを、ひとつに。</p>
-      <p class="lede">InstagramやLINEから、24時間ご予約を受付。予約が入ると、そのお客様のカルテがすぐに開きます。予約ページは、お店の世界観に合わせてお作りします。</p>
+      <h1 class="sh1"><span><i><em>また来てくれる</em>、</i></span><span><i>予約ページを。</i></span></h1>
+      <p class="ssub">カルテから、次回のご案内まで自動で。</p>
+      <p class="lede">施術の記録をもとに、「そろそろ次回」のご案内を自動でお送りします。お客様はワンタップで前回と同じメニューを予約。InstagramやLINEからの予約も24時間受け付けます。</p><a class="hpick" href="#repeat"><b>目玉機能</b><span>再来店のお知らせ <em>追加料金なし</em></span><i>›</i></a>
       <div class="ctas"><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon">LINEで無料相談する<span class="chev">›</span></a><a class="tlink" href="demo/">デモを触ってみる ›</a></div>
       <ul class="hfacts"><li><small>初期費用</small><b>0<span>円〜</span></b></li><li><small>月額</small><b>1,980<span>円</span></b></li><li><small>予約手数料</small><b>0<span>円</span></b></li></ul>
       <p class="fine">月額はサーバー代・保守込み ・ 予約件数の上限なし ・ 正式受付は2027年6月ごろから（先行モニターはLINEで受付中）</p>
@@ -997,12 +1028,29 @@ p,small,li,dd{text-wrap:pretty}
     <div class="hvis sv" aria-hidden="true">
       <figure class="sph"><img src="img/interior.webp" alt="" width="412" height="512"></figure>
       <div class="hp hp-c"><div class="ph"><div class="scr" id="hp1"></div></div></div>
-      <div class="skar" id="hkar"><div class="skh"><span>田</span><div><b>田中 美咲 様</b><small>来店2回目 ・ 前回 9/20</small></div><em>カルテ</em></div><dl><div><dt>前回</dt><dd>カット＋カラー（7トーン・アッシュ）</dd></div><div><dt>メモ</dt><dd>頭皮やや敏感 → 保護オイル使用。前髪は眉下で</dd></div></dl><div class="skp"><i></i><i></i><i></i></div></div>
-      <div class="sbook" id="hbook"><i></i><div><b>新しい予約</b><small>11/8（土）14:00 ・ カット＋カラー</small></div></div>
+      <div class="skar" id="hkar"><div class="skh"><span>田</span><div><b>田中 美咲 様</b><small>来店2回目 ・ 前回 9/20</small></div><em>カルテ</em></div><dl><div><dt>前回</dt><dd>カット＋カラー（7トーン・アッシュ）</dd></div><div><dt>メモ</dt><dd>頭皮やや敏感 → 保護オイル使用。前髪は眉下で</dd></div><div class="nx"><dt>次回のご案内</dt><dd>6週間後（12/20ごろ）に自動でお送りします</dd></div></dl><div class="skp"><i></i><i></i><i></i></div></div>
+      <div class="sbook" id="hbook"><i></i><div><b>お知らせから予約が入りました</b><small>11/8（土）14:00 ・ カット＋カラー</small></div></div>
     </div>
   </div>
 </section>
 
+<section class="rep" id="repeat">
+  <div class="wrap">
+    <div class="rep-h rv"><p class="rep-e">REPEAT</p><h2>お客様が、<br class="sp">また来てくれる。</h2><p>カルテに残した施術から、次回のご案内を自動でお送りします。<br class="pc">サクアプへの追加料金なし。月額1,980円のままです。</p></div>
+    <div class="rep-g">
+      <ol class="rep-s stg">
+        <li><span>01</span><div><b>周期を決めておく</b><p>メニューごとに「カット6週間」「カラー8週間」など。お客様ごとにも変えられます。</p></div></li>
+        <li><span>02</span><div><b>時期が来たら、自動でお知らせ</b><p>前回の施術内容を添えて、お店の名前でお送りします。お店がすることはありません。</p></div></li>
+        <li><span>03</span><div><b>ワンタップで、前回と同じ予約</b><p>前回のメニューが選ばれた状態で予約ページが開くので、迷わず予約できます。</p></div></li>
+        <li><span>04</span><div><b>戻ってきた数が見える</b><p>お知らせから入った予約の件数と売上を、管理画面で確認できます。</p></div></li>
+      </ol>
+      <div class="rep-v rv" aria-hidden="true">
+        <div class="rv-msg"><div class="rv-mh"><i>so</i><b>HAIR ROOM sora</b><small>10:00</small></div><p>田中 美咲 様<br>前回の<strong>カット＋カラー（9/20）</strong>から6週間がたちました。根元が気になってくる頃かもしれません。</p><span class="rv-btn">前回と同じメニューで予約する</span></div>
+        <div class="rv-st"><small>今月、お知らせから戻ってきたお客様</small><div><b>8<span>人</span></b><b>¥76,800</b></div><em>表示例</em></div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="show" id="show">
   <div class="wrap rv">
     <h2>サロンの数だけ、予約ページの形を。</h2>
@@ -1102,12 +1150,12 @@ p,small,li,dd{text-wrap:pretty}
     <div class="chap rv"><span class="bgw">PRICE</span><span class="no">03</span><p>予約件数の上限なし、手数料なし</p><h2>個人サロンのための料金</h2></div>
 
     <div class="panel rv">
-      <h3>DMでの予約対応がなくなると、<span class="blue">これだけ手が空く</span></h3>
-      <p class="tx">DMや電話での予約のやり取り（空きの確認・日程の調整・確定の連絡）を、1件3分として試算しました。</p>
+      <h3>手が空いて、<span class="blue">お客様が戻ってくる</span></h3>
+      <p class="tx">DMや電話での予約のやり取りを1件3分、客単価を7,000円として試算しました。</p>
       <div class="effg stg">
         <div class="ef"><small>1日の予約対応 10件なら</small><b data-count="30" data-pre="約">約30<span>分 / 日</span></b><p>施術の合間や営業後の返信がなくなります。</p></div>
         <div class="ef"><small>月25日営業なら</small><b data-count="12.5" data-pre="約" data-dec="1">約12.5<span>時間 / 月</span></b><p>施術にして、およそ6〜8人分の時間です。</p></div>
-        <div class="ef"><small>無断キャンセルが月1件減れば</small><b data-count="7000" data-pre="約">約7,000<span>円 / 月</span></b><p>客単価7,000円なら、1件で月額1,980円の3か月分以上になる計算です。</p></div>
+        <div class="ef ef-hl"><small>お知らせで再来店が月3人増えれば</small><b data-count="21000" data-pre="約">約21,000<span>円 / 月</span></b><p>客単価7,000円の場合。1人戻るだけで、月額1,980円の3か月分以上です。</p></div>
       </div>
       <p class="note" style="margin-top:16px">※試算です。予約の件数・客単価・リマインドの効果はお店によって変わります。効果を保証するものではありません。</p>
     </div>
@@ -1188,7 +1236,9 @@ p,small,li,dd{text-wrap:pretty}
       <details><summary>ホットペッパーなど、ほかの予約サービスと併用できますか？</summary><p>併用できます。ただし、ほかのサービスとの自動連携はしていません。ほかのサービスで入った予約は、二重予約にならないよう管理画面で枠を埋めてください（ワンタップでできます）。</p></details>
       <details><summary>お客様は会員登録やアプリが必要ですか？</summary><p>必要ありません。お名前・電話番号・メールアドレスを入れるだけで予約できます。予約の確認と前日のお知らせはメールで届きます（追加機能でLINEにもできます）。</p></details>
       <details><summary>カルテに入れたお客様の情報は安全ですか？</summary><p>通信はすべて暗号化し、お店ごとにデータを分けて保管しています。データは毎日バックアップし、閲覧できるのはお店のアカウントだけです。</p></details>
-      <details><summary>月額1,980円には何が含まれますか？</summary><p>予約ページとカルテを動かすサーバー代、予約確認・リマインドのメール送信、不具合の修正・アップデート・バックアップの保守費用です。これ以外の月額費用はかかりません。</p></details>
+      <details><summary>再来店のお知らせに追加料金はかかりますか？</summary><p>かかりません。メールでのお知らせは月額1,980円に含まれます。LINEで送る場合（追加機能）は、お店のLINE公式アカウントの料金プランに応じて、LINE側のメッセージ料金がかかることがあります。</p></details>
+      <details><summary>お知らせを送る時期は選べますか？</summary><p>選べます。メニューごとに「カット6週間」「カラー8週間」のように決められ、お客様ごとに変えることもできます。送りたくないお客様は、カルテからオフにできます。</p></details>
+      <details><summary>月額1,980円には何が含まれますか？</summary><p>予約ページとカルテを動かすサーバー代、予約確認・リマインド・再来店のお知らせのメール送信、不具合の修正・アップデート・バックアップの保守費用です。これ以外の月額費用はかかりません。</p></details>
       <details><summary>予約が増えると料金も上がりますか？</summary><p>上がりません。予約件数の上限はなく、予約手数料も0円です。事前決済を追加した場合のみ、決済サービスStripeの手数料が別途かかります（Stripeへ直接のお支払い）。</p></details>
       <details><summary>先行モニターの条件を教えてください</summary><p>先着5店舗まで、おまかせ設定（9,800円）と有料テンプレート1つが無料になります。条件は、最初の6か月のご継続（その後は1か月ごとの自動更新）と、導入事例としての掲載です。6か月以内に解約される場合は、残りの月数分の月額をお支払いいただきます。解約のご連絡は、更新月の前月末までにお願いします。</p></details>
       <details><summary>解約したいときはどうすればいいですか？</summary><p>通常プランは最低契約期間がなく、月単位で解約できます（先行モニターは上記の条件があります）。解約後は予約ページの公開が止まります。カルテのデータは、ご希望があればCSVでお渡しします。</p></details>
@@ -1201,7 +1251,7 @@ p,small,li,dd{text-wrap:pretty}
 <section class="contact" id="contact">
   <span class="bgw" aria-hidden="true">CONTACT</span>
   <div class="wrap">
-    <h2 class="rv">サロンらしい予約ページを、<br>月1,980円から。</h2>
+    <h2 class="rv">また来てくれる予約ページを、<br>月1,980円から。</h2>
     <div class="cgrid stg">
       <a class="cc" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon"><span class="ci"><img src="../consult.webp" alt="" width="960" height="720" loading="lazy"></span><span class="ct"><b>LINEで相談</b><small>「うちのサロンだとどんな予約ページになる？」の確認だけでも大丈夫です</small><em>相談する ›</em></span></a>
       <a class="cc" href="#options"><span class="ci"><img src="img/blow.webp" alt="" width="512" height="343" loading="lazy"></span><span class="ct"><b>お見積り</b><small>必要な機能を選ぶと、その場で概算がわかります</small><em>料金を見る ›</em></span></a>
@@ -1334,8 +1384,8 @@ p,small,li,dd{text-wrap:pretty}
     var sc=$("hp1"),sh=SHOPS[0];sc.className="scr hseq L-hair";sc.setAttribute("style",vars(sh)+";background:"+sh.bg+";color:"+sh.fg);
     var SB=function(t,dark){return'<div class="sb"'+(dark?' style="background:#000;color:#fff"':'')+'><span>'+t+'</span><span>5G</span></div>'};
     sc.innerHTML=
-      '<div class="hl0 lay on" data-k="ig" style="background:#fff;color:#111">'+SB("21:12")+'<div class="ig"><div class="igh"><i></i><div><b>hairroom_sora</b><small>表参道の完全予約制サロン</small></div></div><div class="igs"><span><b>128</b>投稿</span><span><b>2,340</b>フォロワー</span></div><p>白とグレーの小さなサロンです。<br>ご予約は下のリンクから ↓</p><span class="iglink" id="hig">🔗 sora.sakuapp.jp</span><div class="igg"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>'
-     +'<div class="hl0 lay" data-k="menu" style="background:'+sh.bg+'">'+SB("21:12")+'<div class="s-hd"><b>HAIR ROOM</b><span>sora</span><small>表参道 ・ 完全予約制</small></div><div class="s-hero"></div><div class="s-sec">MENU</div>'+sh.items.map(function(x,k){return'<div class="s-it" data-m="'+k+'"><span><b>'+x[0]+'</b><small>'+x[1]+'</small></span><em>'+x[2]+'</em></div>'}).join("")+'<div class="cb off" id="hcb1"><span>メニューを選んでください</span><span>›</span></div></div>'
+      '<div class="hl0 lay on" data-k="msg" style="background:linear-gradient(160deg,#d9cbc6,#9b8f99);color:#fff">'+SB("10:00")+'<div class="lock"><b>10:00</b><small>11月1日（土）</small></div><div class="nt nt2" id="hmsg"><i>so</i><div><b>HAIR ROOM sora</b><small>田中様、前回のカット＋カラーから6週間がたちました。今月の空きはこちらからご覧いただけます。</small><u>前回と同じメニューで予約 ›</u></div><em>今</em></div></div>'
+     +'<div class="hl0 lay" data-k="menu" style="background:'+sh.bg+'">'+SB("21:12")+'<div class="s-hd"><b>HAIR ROOM</b><span>sora</span><small>表参道 ・ 完全予約制</small></div><div class="s-hero"></div><div class="s-sec">MENU</div>'+sh.items.map(function(x,k){return'<div class="s-it" data-m="'+k+'"><span><b>'+x[0]+'</b><small>'+x[1]+(k===1?'<s class="same">前回と同じ</s>':'')+'</small></span><em>'+x[2]+'</em></div>'}).join("")+'<div class="cb off" id="hcb1"><span>メニューを選んでください</span><span>›</span></div></div>'
      +'<div class="hl0 lay" data-k="date" style="background:'+sh.bg+'">'+SB("21:13")+'<div class="ch2"><span>‹</span><b>日時を選ぶ</b><small>120分</small></div><div class="p-days s-days">'+DAYS.map(function(d,i){return'<span data-d="'+i+'"><small>'+d[1]+'</small>'+d[0].split("/")[1]+'</span>'}).join("")+'</div><div class="s-sec">11/8（土）</div><div class="s-slot big" id="hslots">'+slots("",[1,4])+'</div><div class="cb off" id="hcb2"><span>日時を選んでください</span><span>›</span></div></div>'
      +'<div class="hl0 lay" data-k="conf" style="background:'+sh.bg+'">'+SB("21:13")+'<div class="ch2"><span>‹</span><b>予約内容の確認</b></div><div class="cf"><div><small>日時</small><b>11/8（土）14:00〜16:00</b></div><div><small>メニュー</small><b>カット＋カラー</b><em>¥12,100</em></div><div><small>お名前</small><b>田中 美咲</b></div><div><small>電話番号</small><b>090-****-1234</b></div></div><div class="cn">変更・キャンセルは前日までに</div><div class="csend" id="hok">予約を確定する</div></div>'
      +'<div class="hl0 lay" data-k="done" style="background:'+sh.bg+'">'+SB("21:13")+'<div class="dn"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>ご予約を受け付けました</b><strong>11/8 14:00</strong><small>確認メールをお送りしました</small></div></div>'
@@ -1348,28 +1398,25 @@ p,small,li,dd{text-wrap:pretty}
     var m1=L.menu.querySelector('[data-m="1"]'),cb1=$("hcb1"),cb2=$("hcb2"),d1=L.date.querySelector('[data-d="1"]'),s14=$("hslots").children[3];
     var T=[];function at(ms,f){T.push(setTimeout(f,ms))}
     function run(){
-      T.forEach(clearTimeout);T=[];show("ig");tap.classList.remove("v");$("hkar").classList.remove("v");$("hbook").classList.remove("v");
+      T.forEach(clearTimeout);T=[];show("msg");$("hmsg").classList.remove("v");tap.classList.remove("v");$("hkar").classList.remove("v");$("hbook").classList.remove("v");
       m1.classList.remove("pick");cb1.classList.add("off");cb1.firstChild.textContent="メニューを選んでください";d1.classList.remove("on");s14.classList.remove("on");cb2.classList.add("off");cb2.firstChild.textContent="日時を選んでください";$("hnt").classList.remove("v");
-      at(1200,function(){tapAt($("hig"))});
-      at(1800,function(){show("menu")});
-      at(2700,function(){tapAt(m1)});
-      at(3250,function(){m1.classList.add("pick");cb1.classList.remove("off");cb1.firstChild.textContent="日時を選ぶ（120分）"});
-      at(4100,function(){tapAt(cb1)});
-      at(4650,function(){show("date")});
-      at(5400,function(){tapAt(d1)});
-      at(5950,function(){d1.classList.add("on")});
-      at(6600,function(){tapAt(s14)});
-      at(7150,function(){s14.classList.add("on");cb2.classList.remove("off");cb2.firstChild.textContent="11/8（土）14:00で予約"});
-      at(7900,function(){tapAt(cb2)});
-      at(8450,function(){show("conf")});
-      at(9500,function(){tapAt($("hok"))});
-      at(10050,function(){tap.classList.remove("v");show("done");$("hbook").classList.add("v")});
-      at(10900,function(){$("hkar").classList.add("v")});
-      at(12300,function(){show("rem")});
-      at(12900,function(){$("hnt").classList.add("v")});
-      at(16200,run);
+      at(700,function(){$("hmsg").classList.add("v")});
+      at(2000,function(){tapAt($("hmsg"))});
+      at(2600,function(){show("menu");m1.classList.add("pick");cb1.classList.remove("off");cb1.firstChild.textContent="前回と同じメニューで日時を選ぶ"});
+      at(3600,function(){tapAt(cb1)});
+      at(4150,function(){show("date")});
+      at(4900,function(){tapAt(d1)});
+      at(5450,function(){d1.classList.add("on")});
+      at(6100,function(){tapAt(s14)});
+      at(6650,function(){s14.classList.add("on");cb2.classList.remove("off");cb2.firstChild.textContent="11/8（土）14:00で予約"});
+      at(7400,function(){tapAt(cb2)});
+      at(7950,function(){show("conf")});
+      at(9000,function(){tapAt($("hok"))});
+      at(9550,function(){tap.classList.remove("v");show("done");$("hbook").classList.add("v")});
+      at(10400,function(){$("hkar").classList.add("v")});
+      at(15000,run);
     }
-    if(RM){show("menu")}else run();
+    if(RM){show("msg");$("hmsg").classList.add("v")}else run();
   })();
 
   /* ---------- 02 admin calendar -> karte ---------- */
@@ -1417,7 +1464,7 @@ p,small,li,dd{text-wrap:pretty}
   (function(){
     var NUM=/((?:約|¥|￥)?[0-9０-９][0-9０-９,，.]*(?:[0-9０-９])?(?:万円|円|件|分|秒|時間|日|か月|ヶ月|月|年|人|回|品|点|個|枚|杯|本|台|席|名|階|種|割|%|％|px)?)/g;
     document.querySelectorAll("main h1,main h2,main h3,main h4,main p,main li,main summary,main small,main b,main em,main label,main dd,main span").forEach(function(el){
-      if(el.closest(".ph,.adm,.arc,.mbox,.nw,[data-count],.hfacts,.pcard,.ef,.tot,.stats,.plan .pp,.pmon,.psel"))return;
+      if(el.closest(".ph,.adm,.arc,.mbox,.nw,[data-count],.hfacts,.pcard,.ef,.tot,.stats,.plan .pp,.pmon,.psel,.rv-st"))return;
       var d=getComputedStyle(el).display;if(/flex|grid/.test(d)&&[].some.call(el.childNodes,function(n){return n.nodeType===3&&/[0-9０-９]/.test(n.nodeValue)})){var w=document.createElement("span");while(el.firstChild)w.appendChild(el.firstChild);el.appendChild(w);el=w}
       [].slice.call(el.childNodes).forEach(function(tn){if(tn.nodeType!==3||!/[0-9０-９]/.test(tn.nodeValue))return;
         var parts=tn.nodeValue.split(NUM);if(parts.length<2)return;var f=document.createDocumentFragment();
