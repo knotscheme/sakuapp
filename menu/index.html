@@ -770,6 +770,11 @@ p,small,li,dd{text-wrap:pretty}
 .plan.pgo .pp{color:var(--muted)}
 .pgo-l{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-weight:800;font-size:14.5px;color:var(--blue);border-bottom:2px solid currentColor;padding-bottom:2px}
 .pgo-l i{font-style:normal}
+
+.htrial{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:26px 0 4px;font-size:13px;color:var(--ink2)}
+.htrial b{background:var(--blue);color:#fff;border-radius:6px;padding:5px 12px;font-size:14px;letter-spacing:.04em}
+.pmon .trial{background:var(--blue)!important}.pmon .trial small{color:rgba(255,255,255,.8)}.pmon .trial b{color:#fff}
+@media(max-width:600px){.htrial{order:6;justify-content:center;margin:22px 0 0}}
 </style>
 </head>
 <body>
@@ -790,7 +795,7 @@ p,small,li,dd{text-wrap:pretty}
       <h1><span><i>QRで注文。</i></span><span><i>メニューは、</i></span><span><i><em>お店らしく</em>。</i></span></h1>
       <p class="lede">テーブルのQRを読むだけで、お客様のスマホから注文。画面の色・書体・並べ方まで、お店の雰囲気に合わせてお作りします。</p>
       <div class="ctas"><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで無料相談する<span class="chev">›</span></a><a class="tlink" href="demo/">デモを触ってみる ›</a></div>
-      <ul class="hfacts"><li><small>初期費用</small><b>0<span>円〜</span></b></li><li><small>月額</small><b>1,980<span>円</span></b></li><li><small>注文手数料</small><b>0<span>円</span></b></li></ul>
+      <p class="htrial"><b>はじめの30日間は無料</b><span>期間中に解約すれば0円</span></p><ul class="hfacts"><li><small>初期費用</small><b>0<span>円〜</span></b></li><li><small>月額</small><b>1,980<span>円</span></b></li><li><small>注文手数料</small><b>0<span>円</span></b></li></ul>
       <p class="fine">月額はサーバー代・保守込み ・ 最低契約期間なし ・ 正式受付は2027年6月ごろから（先行のご案内はLINEで受付中）</p>
     </div>
     <div class="hvis" aria-hidden="true">
@@ -929,8 +934,8 @@ p,small,li,dd{text-wrap:pretty}
         <div class="plan rec"><span class="pbadge">いちばん人気</span><small>まるごと任せる</small><b class="pn">おまかせ</b><b class="pp">9,800<span>円</span></b><ul><li>テンプレート選びから代行</li><li>メニュー表と料理の写真を送るだけ</li><li>メニュー登録・初期設定まで済ませてお渡し</li></ul></div>
         <a class="plan pgo" href="../" aria-label="オーダーメイド開発のページへ"><small>ゼロから専用に作る</small><b class="pn">オーダー</b><b class="pp">19,800<span>円〜</span></b><ul><li>お店専用の画面・機能を設計</li><li>ヒアリングからお見積りまで担当者が対応</li><li>オーダーメイド開発のページでご案内</li></ul><span class="pgo-l">オーダーメイド開発を見る <i>›</i></span></a>
       </div>
-      <div class="pmon"><span><small>月額</small><b>1,980円</b></span><span><small>注文手数料</small><b>0円</b></span><span><small>最低契約期間</small><b>なし</b></span><span><small>有料テンプレート</small><b>3,000〜5,000円</b></span></div>
-      <p class="note" style="margin-top:10px">※セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダーメイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
+      <div class="pmon"><span class="trial"><small>無料お試し</small><b>30日間</b></span><span><small>月額（お試しのあと）</small><b>1,980円</b></span><span><small>注文手数料</small><b>0円</b></span><span><small>最低契約期間</small><b>なし</b></span></div>
+      <p class="note" style="margin-top:10px">※月額は、30日間の無料お試しのあと自動で始まります（お申し込み時にクレジットカードの登録が必要です。課金の7日前と前日にメールでお知らせし、期間中に管理画面から解約すれば料金はかかりません）。初期費用（おまかせ）・有料テンプレート（3,000〜5,000円）・追加機能は、お試しの対象外です。セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダーメイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
       <div class="pgrid">
         <div class="card">
           <h4>月額制のサービスとくらべると</h4>
@@ -943,7 +948,7 @@ p,small,li,dd{text-wrap:pretty}
             <div class="r" role="row"><span role="rowheader">契約期間</span><span>しばりなし</span><span>年契約のプランもある</span></div>
             <div class="r" role="row"><span role="rowheader">専用端末</span><span>不要</span><span>必要な場合がある</span></div>
             <div class="r" role="row"><span role="rowheader">画面のデザイン</span><span>テンプレート（専用設計も可）</span><span>共通のひな形</span></div>
-            <div class="r t" role="row"><span role="rowheader">2年間の総額</span><span>47,520円〜</span><span>約12万〜36万円</span></div>
+            <div class="r t" role="row"><span role="rowheader">2年間の総額</span><span>45,540円〜</span><span>約12万〜36万円</span></div>
           </div>
           <p class="note" style="margin-top:12px">※一般的な月額制サービスの条件は、店内向けモバイルオーダーの公開料金をもとにした目安です。サービスやプランによって異なります。</p>
         </div>
@@ -986,7 +991,8 @@ p,small,li,dd{text-wrap:pretty}
       <details><summary>月額1,980円には何が含まれますか？</summary><p>アプリを動かすサーバー代と、不具合の修正・アップデート・バックアップの保守費用です。これ以外の月額費用はかかりません。</p></details>
       <details><summary>注文が増えると料金も上がりますか？</summary><p>上がりません。サクアプへの注文手数料は0円で、注文数や売上に関係なく月額1,980円です。事前決済を追加した場合のみ、決済サービスStripeの手数料が別途かかります（Stripeへ直接のお支払い）。</p></details>
       <details><summary>会計はどうなりますか？</summary><p>基本は、これまでどおりお店のレジでお会計いただけます。追加機能の「事前決済」をつけると、注文と同時にカードで支払ってもらうこともできます。</p></details>
-      <details><summary>解約したいときはどうすればいいですか？</summary><p>最低契約期間はありません。ご連絡いただければ、月単位で解約できます。解約後はメニューの公開が止まります。</p></details>
+      <details><summary>30日間の無料お試しのあとは、どうなりますか？</summary><p>31日目から月額1,980円が、登録したクレジットカードに自動で請求されます。課金の7日前と前日にメールでお知らせするので、続けない場合はそれまでに管理画面から解約してください。無料お試しは1店舗につき1回で、先行モニター特典との併用はできません。</p></details>
+      <details><summary>解約したいときはどうすればいいですか？</summary><p>最低契約期間はありません。管理画面からいつでも解約でき、その請求期間の終わりで終了します。無料お試しの期間中に解約すれば、料金はかかりません。解約後はメニューの公開が止まります。</p></details>
       <details><summary>今使っているPOSレジと連携できますか？</summary><p>標準ではレジとの連携は含まれていません。お使いのレジによって対応できるかが変わるため、ご相談ください。</p></details>
     </div>
     <p class="custom">画面や機能をゼロから自由に作りたい場合は、<a href="../">オーダーメイド開発（19,800円〜）</a>をご覧ください。</p>
@@ -1028,7 +1034,7 @@ p,small,li,dd{text-wrap:pretty}
   <p class="tagl">order, your way.</p>
 </footer>
 
-<div class="sticky" id="sticky"><span class="p">初期 <b>0円〜</b><br>月額 1,980円</span><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで無料相談</a></div>
+<div class="sticky" id="sticky"><span class="p"><b>30日間無料</b><br>以降 月額1,980円</span><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで無料相談</a></div>
 
 <script>
 (function(){

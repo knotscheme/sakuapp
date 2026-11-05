@@ -1007,6 +1007,11 @@ p,small,li,dd{text-wrap:pretty}
 .plan.pgo .pp{color:var(--muted)}
 .pgo-l{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-weight:800;font-size:14.5px;color:var(--blue);border-bottom:2px solid currentColor;padding-bottom:2px}
 .pgo-l i{font-style:normal}
+
+.htrial{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:26px 0 4px;font-size:13px;color:var(--ink2)}
+.htrial b{background:var(--blue);color:#fff;border-radius:6px;padding:5px 12px;font-size:14px;letter-spacing:.04em}
+.pmon .trial{background:var(--blue)!important}.pmon .trial small{color:rgba(255,255,255,.8)}.pmon .trial b{color:#fff}
+@media(max-width:600px){.htrial{order:6;justify-content:center;margin:22px 0 0}}
 </style>
 </head>
 <body>
@@ -1028,7 +1033,7 @@ p,small,li,dd{text-wrap:pretty}
       <p class="ssub">カルテから、次回のご案内まで自動で。</p>
       <p class="lede">施術の記録をもとに、「そろそろ次回」のご案内を自動でお送りします。お客様はワンタップで前回と同じメニューを予約。InstagramやLINEからの予約も24時間受け付けます。</p><a class="hpick" href="#repeat"><b>目玉機能</b><span>再来店のお知らせ <em>追加料金なし</em></span><i>›</i></a>
       <div class="ctas"><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon">LINEで無料相談する<span class="chev">›</span></a><a class="tlink" href="demo/">デモを触ってみる ›</a></div>
-      <ul class="hfacts"><li><small>初期費用</small><b>0<span>円〜</span></b></li><li><small>月額</small><b>1,980<span>円</span></b></li><li><small>予約手数料</small><b>0<span>円</span></b></li></ul>
+      <p class="htrial"><b>はじめの30日間は無料</b><span>期間中に解約すれば0円</span></p><ul class="hfacts"><li><small>初期費用</small><b>0<span>円〜</span></b></li><li><small>月額</small><b>1,980<span>円</span></b></li><li><small>予約手数料</small><b>0<span>円</span></b></li></ul>
       <p class="fine">月額はサーバー代・保守込み ・ 予約件数の上限なし ・ 正式受付は2027年6月ごろから（先行モニターはLINEで受付中）</p>
     </div>
     <div class="hvis sv" aria-hidden="true">
@@ -1173,8 +1178,8 @@ p,small,li,dd{text-wrap:pretty}
         <div class="plan rec"><span class="pbadge">いちばん人気</span><small>まるごと任せる</small><b class="pn">おまかせ</b><b class="pp">9,800<span>円</span></b><ul><li>テンプレート選びから代行</li><li>メニュー表とお店の写真を送るだけ</li><li>メニュー登録・初期設定まで済ませてお渡し</li></ul></div>
         <a class="plan pgo" href="../" aria-label="オーダーメイド開発のページへ"><small>ゼロから専用に作る</small><b class="pn">オーダー</b><b class="pp">19,800<span>円〜</span></b><ul><li>サロン専用の画面・機能を設計</li><li>ヒアリングからお見積りまで担当者が対応</li><li>オーダーメイド開発のページでご案内</li></ul><span class="pgo-l">オーダーメイド開発を見る <i>›</i></span></a>
       </div>
-      <div class="pmon"><span><small>月額</small><b>1,980円</b></span><span><small>予約手数料</small><b>0円</b></span><span><small>最低契約期間</small><b>なし</b></span><span><small>有料テンプレート</small><b>3,000〜5,000円</b></span></div>
-      <p class="note" style="margin-top:10px">※セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダーメイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
+      <div class="pmon"><span class="trial"><small>無料お試し</small><b>30日間</b></span><span><small>月額（お試しのあと）</small><b>1,980円</b></span><span><small>予約手数料</small><b>0円</b></span><span><small>最低契約期間</small><b>なし</b></span></div>
+      <p class="note" style="margin-top:10px">※月額は、30日間の無料お試しのあと自動で始まります（お申し込み時にクレジットカードの登録が必要です。課金の7日前と前日にメールでお知らせし、期間中に管理画面から解約すれば料金はかかりません）。初期費用（おまかせ）・有料テンプレート（3,000〜5,000円）・追加機能は、お試しの対象外です。セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダーメイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
 
       <div class="mon">
         <span class="mtag">先着5店舗</span>
@@ -1201,7 +1206,7 @@ p,small,li,dd{text-wrap:pretty}
             <div class="r" role="row"><span role="rowheader">予約ページ</span><span>テンプレート（専用設計も可）</span><span>共通のひな形</span></div>
             <div class="r" role="row"><span role="rowheader">顧客カルテ</span><span>標準で一体</span><span>サービスにより別料金</span></div>
             <div class="r" role="row"><span role="rowheader">ほかの店の表示</span><span>なし</span><span>ポータル型は並んで表示</span></div>
-            <div class="r t" role="row"><span role="rowheader">2年間の総額</span><span>47,520円〜</span><span>プランにより0円〜</span></div>
+            <div class="r t" role="row"><span role="rowheader">2年間の総額</span><span>45,540円〜</span><span>プランにより0円〜</span></div>
           </div>
           <p class="note" style="margin-top:12px">※一般的な予約サービスの条件は、公開されている料金プランをもとにした目安です。サービスやプランによって異なります。</p>
         </div>
@@ -1247,7 +1252,8 @@ p,small,li,dd{text-wrap:pretty}
       <details><summary>月額1,980円には何が含まれますか？</summary><p>予約ページとカルテを動かすサーバー代、予約確認・リマインド・再来店のお知らせのメール送信、不具合の修正・アップデート・バックアップの保守費用です。これ以外の月額費用はかかりません。</p></details>
       <details><summary>予約が増えると料金も上がりますか？</summary><p>上がりません。予約件数の上限はなく、予約手数料も0円です。事前決済を追加した場合のみ、決済サービスStripeの手数料が別途かかります（Stripeへ直接のお支払い）。</p></details>
       <details><summary>先行モニターの条件を教えてください</summary><p>先着5店舗まで、おまかせ設定（9,800円）と有料テンプレート1つが無料になります。条件は、最初の6か月のご継続（その後は1か月ごとの自動更新）と、導入事例としての掲載です。6か月以内に解約される場合は、残りの月数分の月額をお支払いいただきます。解約のご連絡は、更新月の前月末までにお願いします。</p></details>
-      <details><summary>解約したいときはどうすればいいですか？</summary><p>通常プランは最低契約期間がなく、月単位で解約できます（先行モニターは上記の条件があります）。解約後は予約ページの公開が止まります。カルテのデータは、ご希望があればCSVでお渡しします。</p></details>
+      <details><summary>30日間の無料お試しのあとは、どうなりますか？</summary><p>31日目から月額1,980円が、登録したクレジットカードに自動で請求されます。課金の7日前と前日にメールでお知らせするので、続けない場合はそれまでに管理画面から解約してください。無料お試しは1店舗につき1回で、先行モニター特典との併用はできません。</p></details>
+      <details><summary>解約したいときはどうすればいいですか？</summary><p>通常プランは最低契約期間がなく、管理画面からいつでも解約でき、その請求期間の終わりで終了します（先行モニターは上記の条件があります）。無料お試しの期間中に解約すれば、料金はかかりません。解約後は予約ページの公開が止まります。カルテのデータは、ご希望があればCSVでお渡しします。</p></details>
       <details><summary>スタッフが複数いても使えますか？</summary><p>使えます。スタッフごとの空き枠や指名予約は、追加機能「スタッフ複数・指名予約」で対応します。</p></details>
     </div>
     <p class="custom">画面や機能をゼロから自由に作りたい場合は、<a href="../">オーダーメイド開発（19,800円〜）</a>をご覧ください。</p>
@@ -1290,7 +1296,7 @@ p,small,li,dd{text-wrap:pretty}
   <p class="tagl">book your way.</p>
 </footer>
 
-<div class="sticky" id="sticky"><span class="p">初期 <b>0円〜</b><br>月額 1,980円</span><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon">LINEで無料相談</a></div>
+<div class="sticky" id="sticky"><span class="p"><b>30日間無料</b><br>以降 月額1,980円</span><a class="btn" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon">LINEで無料相談</a></div>
 
 <script>
 (function(){
