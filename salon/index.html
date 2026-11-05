@@ -1001,6 +1001,12 @@ p,small,li,dd{text-wrap:pretty}
 .sp{display:none}
 @media(max-width:860px){.rep{padding:72px 0 64px}.rep-g{grid-template-columns:1fr;gap:28px;margin-top:32px}.rep-v{order:-1;padding-bottom:70px}.rv-st{right:8px;min-width:0}.pc{display:none}.sp{display:inline}.rep-s li{padding:16px 18px;gap:14px}.rep-s b{font-size:15.5px}.rep-s p{font-size:13.5px}}
 @media(max-width:600px){.hpick{order:4;align-self:center;justify-self:center;font-size:12.5px;margin:0 auto 22px}.hcopy .lede{margin-bottom:16px!important}}
+
+.plan.pgo{display:block;text-decoration:none;color:inherit;background:#fff;border:2px dashed var(--line);transition:border-color .2s,transform .2s,box-shadow .2s}
+.plan.pgo:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 18px 36px -24px rgba(0,0,0,.35)}
+.plan.pgo .pp{color:var(--muted)}
+.pgo-l{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-weight:800;font-size:14.5px;color:var(--blue);border-bottom:2px solid currentColor;padding-bottom:2px}
+.pgo-l i{font-style:normal}
 </style>
 </head>
 <body>
@@ -1072,7 +1078,7 @@ p,small,li,dd{text-wrap:pretty}
     <div class="chap rv"><span class="bgw">DESIGN</span><span class="no">01</span><p>サロンの世界観に合わせた</p><h2>予約ページを自由に設計</h2></div>
     <div class="panel rv">
       <h3>テンプレートを選ぶだけで、<span class="blue">サロンらしい予約ページに。</span></h3>
-      <p class="tx">業態に合わせたテンプレートを、無料でたくさんご用意しています。色・ロゴ・写真を入れるだけで、サロンの世界観に合った予約ページに。もっとこだわりたい方には、デザイン性の高い有料テンプレートや、お店専用に作るオーダーもあります。</p>
+      <p class="tx">業態に合わせたテンプレートを、無料でたくさんご用意しています。色・ロゴ・写真を入れるだけで、サロンの世界観に合った予約ページに。もっとこだわりたい方には、デザイン性の高い有料テンプレートや、お店専用に作る<a href="../">オーダーメイド開発</a>もあります。</p>
       <div class="sw">
         <div class="circle"><div class="ph" id="swph"><div class="scr" id="swscr"></div></div></div>
         <div class="swl" id="swl"></div>
@@ -1165,10 +1171,10 @@ p,small,li,dd{text-wrap:pretty}
       <div class="plans stg">
         <div class="plan"><small>自分で設定</small><b class="pn">セルフ</b><b class="pp">0<span>円</span></b><ul><li>無料テンプレートから選ぶ</li><li>メニュー・写真を自分で登録</li><li>管理画面の使い方ガイドつき</li></ul></div>
         <div class="plan rec"><span class="pbadge">いちばん人気</span><small>まるごと任せる</small><b class="pn">おまかせ</b><b class="pp">9,800<span>円</span></b><ul><li>テンプレート選びから代行</li><li>メニュー表とお店の写真を送るだけ</li><li>メニュー登録・初期設定まで済ませてお渡し</li></ul></div>
-        <div class="plan"><small>世界観にこだわる</small><b class="pn">オーダー</b><b class="pp">19,800<span>円〜</span></b><ul><li>お店専用にデザイン</li><li>有料テンプレートのカスタマイズも</li><li>おまかせの内容もすべて含む</li></ul></div>
+        <a class="plan pgo" href="../" aria-label="オーダーメイド開発のページへ"><small>ゼロから専用に作る</small><b class="pn">オーダー</b><b class="pp">19,800<span>円〜</span></b><ul><li>サロン専用の画面・機能を設計</li><li>ヒアリングからお見積りまで担当者が対応</li><li>オーダーメイド開発のページでご案内</li></ul><span class="pgo-l">オーダーメイド開発を見る <i>›</i></span></a>
       </div>
       <div class="pmon"><span><small>月額</small><b>1,980円</b></span><span><small>予約手数料</small><b>0円</b></span><span><small>最低契約期間</small><b>なし</b></span><span><small>有料テンプレート</small><b>3,000〜5,000円</b></span></div>
-      <p class="note" style="margin-top:10px">※プランはあとから変えられます（セルフで始めて、おまかせやオーダーに切り替えることもできます）。月額にはサーバー代・保守が含まれます。</p>
+      <p class="note" style="margin-top:10px">※セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダーメイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
 
       <div class="mon">
         <span class="mtag">先着5店舗</span>
@@ -1192,7 +1198,7 @@ p,small,li,dd{text-wrap:pretty}
             <div class="r" role="row"><span role="rowheader">月額</span><span>1,980円</span><span>無料〜1万円台</span></div>
             <div class="r" role="row"><span role="rowheader">予約件数</span><span>上限なし</span><span>無料プランは上限あり</span></div>
             <div class="r" role="row"><span role="rowheader">予約手数料</span><span>0円</span><span>サービスによりかかる</span></div>
-            <div class="r" role="row"><span role="rowheader">予約ページ</span><span>テンプレート＋オーダー</span><span>共通のひな形</span></div>
+            <div class="r" role="row"><span role="rowheader">予約ページ</span><span>テンプレート（専用設計も可）</span><span>共通のひな形</span></div>
             <div class="r" role="row"><span role="rowheader">顧客カルテ</span><span>標準で一体</span><span>サービスにより別料金</span></div>
             <div class="r" role="row"><span role="rowheader">ほかの店の表示</span><span>なし</span><span>ポータル型は並んで表示</span></div>
             <div class="r t" role="row"><span role="rowheader">2年間の総額</span><span>47,520円〜</span><span>プランにより0円〜</span></div>
@@ -1202,7 +1208,7 @@ p,small,li,dd{text-wrap:pretty}
         <div class="card" id="options">
           <h4>必要な機能だけ、あとから</h4>
           <p>追加機能はすべて買い切り。月額は1,980円のまま変わりません。</p>
-          <div class="psel" id="psel"><label><input type="radio" name="pl" value="0" checked>セルフ<b>0円</b></label><label><input type="radio" name="pl" value="9800">おまかせ<b>9,800円</b></label><label><input type="radio" name="pl" value="19800">オーダー<b>19,800円〜</b></label></div>
+          <div class="psel" id="psel"><label><input type="radio" name="pl" value="0" checked>セルフ<b>0円</b></label><label><input type="radio" name="pl" value="9800">おまかせ<b>9,800円</b></label></div>
           <div class="olist" id="olist"></div>
           <div class="sum" aria-live="polite">
             <div class="ln"><span>初期費用（<span id="pname">セルフ</span>）</span><span id="pbase">0円</span></div>
@@ -1449,7 +1455,7 @@ p,small,li,dd{text-wrap:pretty}
   var OPTS=[["tmpl","有料テンプレート","デザイン性の高いテンプレート（価格は種類による）",4800],["line","LINEで予約通知・前日リマインド","予約の確定と前日のお知らせをLINEで",5000],["pay","事前カード決済・キャンセル料","予約時にカード登録、キャンセル料を自動請求 ※Stripe手数料別",5000],["photo","カルテに写真を保存","ビフォーアフターを施術ごとに記録",3000],["staff","スタッフ複数・指名予約","スタッフごとの空き枠と指名料",5000],["ticket","回数券・プリペイド","回数券の販売と残り回数の管理",9800],["next","次回予約のおすすめ","前回から◯週間でお知らせを自動送信",5000],["shop","物販（ホームケア商品）","予約と一緒に商品も購入できる",9800]];
   var list=$("olist");
   OPTS.forEach(function(o,i){var l=document.createElement("label");l.innerHTML='<input type="checkbox" data-i="'+i+'"><span><b>'+o[1]+'</b><small>'+o[2]+'</small></span><em>+'+o[3].toLocaleString("ja-JP")+'円</em>';list.appendChild(l)});
-  var PB=0,PN={"0":"セルフ","9800":"おまかせ","19800":"オーダー"};
+  var PB=0,PN={"0":"セルフ","9800":"おまかせ"};
   $("psel").addEventListener("change",function(e){PB=+e.target.value;$("pname").textContent=PN[e.target.value];$("pbase").textContent=PB.toLocaleString("ja-JP")+"円"+(PB===19800?"〜":"");list.dispatchEvent(new Event("change"))});
   list.addEventListener("change",function(){var sum=0,c=0,keys=[];list.querySelectorAll("input:checked").forEach(function(x){var o=OPTS[+x.dataset.i];sum+=o[3];c++;keys.push(o[0])});
     $("ocount").textContent=c;$("oprice").textContent=sum.toLocaleString("ja-JP")+"円";$("total").innerHTML=(PB+sum).toLocaleString("ja-JP")+"<i>円</i>";$("demolink").href="demo/"+(keys.length?"?opt="+keys.join(","):"")});
