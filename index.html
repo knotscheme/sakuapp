@@ -1790,6 +1790,25 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 .ec-story{margin:12px 10px 0;height:100px;border-radius:8px;background-size:cover}
 .ec-st{margin:0 12px 8px;font-size:7.5px;line-height:1.6;color:#555}
 .ec-ft{margin-top:4px;padding:10px 12px 14px;border-top:.5px solid #e5e3de;font-size:6.5px;color:#888}
+
+/* ===== template wall ===== */
+.tplx{position:relative;overflow:hidden;background:#eef5f5;padding:0 0 96px}
+.twall{position:relative;height:520px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 12%,#000 80%,transparent);mask-image:linear-gradient(180deg,transparent,#000 12%,#000 80%,transparent)}
+.twin{position:absolute;left:50%;top:50%;display:flex;gap:26px;transform:translate(-50%,-50%) rotate(-16deg) scale(.78);transform-origin:center}
+.tcol{display:flex;flex-direction:column;gap:26px;animation:tcol var(--dur) linear infinite}
+.tcol.up{animation-direction:reverse;margin-top:-180px}
+.tph{width:220px;flex:none}
+.tph .mxph{box-shadow:0 0 0 1px #3a3d42,0 30px 40px -24px rgba(10,40,45,.45)}
+@keyframes tcol{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.tplx .wrap{position:relative;margin-top:-30px}
+.tplx h2{font-size:clamp(28px,4.4vw,48px);line-height:1.35;margin:6px 0 14px}
+.tplx-s{color:var(--muted);max-width:640px;line-height:1.9}
+.tplx-st{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tplx-st li{background:#fff;border-radius:16px;padding:22px 22px 20px;box-shadow:0 0 0 1px var(--line)}
+.tplx-st span{font:800 14px Montserrat,Inter,sans-serif;color:#0e7c8c;letter-spacing:.08em}
+.tplx-st b{display:block;font-size:17px;margin:6px 0 6px}.tplx-st p{margin:0;font-size:14px;color:var(--muted);line-height:1.75}
+@media(max-width:860px){.twall{height:380px}.twin{transform:translate(-50%,-50%) rotate(-16deg) scale(.42)}.tplx-st{grid-template-columns:1fr}.tplx{padding-bottom:72px}}
+@media(prefers-reduced-motion:reduce){.tcol{animation:none}}
 </style>
 </head>
 <body>
@@ -1930,6 +1949,19 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
  <p class="cap" style="margin-top:6px">※画面はイメージです。内容はご要望に合わせて作ります。</p>
 </div></section>
 
+<section class="tplx" id="templates" aria-labelledby="tplx-h">
+ <div class="twall" aria-hidden="true"><div class="twin" id="twin"></div></div>
+ <div class="wrap">
+  <p class="mx-e">TEMPLATE</p>
+  <h2 id="tplx-h">ゼロからも、<br class="sp-only">テンプレートからも。</h2>
+  <p class="tplx-s">予約・会員証・ネットショップなど、よく使われる形のテンプレートをご用意しています。選んだテンプレートを土台に、あなたのお店に合わせて作り変えるので、ゼロから考えるより打ち合わせがスムーズです。</p>
+  <ol class="tplx-st">
+   <li><span>01</span><b>テンプレートを選ぶ</b><p>業種や使い方から、近い形を選びます。画面を見ながら決められます。</p></li>
+   <li><span>02</span><b>お店に合わせて差し替え</b><p>ロゴ・色・写真・文章・メニューを、あなたのお店のものに。</p></li>
+   <li><span>03</span><b>必要な機能を足す</b><p>決済・LINE通知・AI分析など、足りない機能はオーダーメイドで追加。</p></li>
+  </ol>
+ </div>
+</section>
 <!-- USE CASES -->
 <section id="usecase"><div class="wrap">
  <h2><span class="nw">あなたの商売に、</span><wbr>そのまま使える5つ。</h2>
@@ -2569,6 +2601,9 @@ var vis=new Set();var io=new IntersectionObserver(function(es){es.forEach(functi
  };
  var PIN=".ap-tab,.ap-cta,.ap-cart,.ec-sticky";
  var NOSCROLL={gym:1,event:1,match:1,cafe:1};
+ (function(){var w=document.getElementById("twin");if(!w)return;var cols=5,per=4,h="";
+  for(var c=0;c<cols;c++){h+='<div class="tcol'+(c%2?' up':'')+'" style="--dur:'+(46+c*6)+'s">';var seq="";for(var r=0;r<per;r++){var a=A[(c*per+r*3+c)%A.length];seq+='<div class="tph"><div class="mxph"><div class="mxsc th-'+TH[(c*per+r*3+c)%A.length]+'" style="--a:'+a[1]+';background:'+a[2]+';color:'+a[3]+'">'+sb(a[3])+'<div class="ap">'+a[4]+'</div></div></div></div>'}h+=seq+seq+'</div>'}
+  w.innerHTML=h;})();
  var N=A.length*2,items=[];
  for(var i=0;i<N;i++){var a=A[i%A.length],el=document.createElement("div");el.className="mxit";el.dataset.k=i%A.length;
   el.innerHTML='<div class="mxph"><div class="mxsc th-'+TH[i%A.length]+'" style="--a:'+a[1]+';background:'+a[2]+';color:'+a[3]+'">'+sb(a[3])+'<div class="ap">'+a[4]+'</div></div></div><span class="lb">'+a[0]+'</span>';
