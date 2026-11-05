@@ -1160,6 +1160,53 @@ header#hd .btn{min-height:34px;padding:0 16px;font-size:13px;border-radius:999px
 .svc-c img{width:100%;height:150px;object-fit:cover;border-radius:12px;box-shadow:0 20px 40px -22px rgba(0,0,0,.4)}
 @media(max-width:960px){.svc-g{grid-template-columns:1fr}.svc-c{flex-direction:row;align-items:center}.svc-c>span{flex:1}.svc-c img{width:36%;height:110px}}
 @media(max-width:460px){.svc-c{padding:22px}.svc-c b{font-size:18px;white-space:nowrap}.svc-c small{font-size:12.5px}}
+
+/* ===== app arc (main) ===== */
+.mxshow{background:#fff;padding:96px 0 70px;overflow:hidden;position:relative;z-index:0}
+.mxshow .wrap{text-align:center}
+.mx-e{font:800 14px Montserrat,"Noto Sans JP",sans-serif;letter-spacing:.16em;color:#0e7c8c;margin:0 0 6px}
+.mxshow h2{font-size:clamp(26px,4.4vw,48px);line-height:1.35;margin:0 0 12px}
+.mx-s{color:var(--muted);max-width:640px;margin:0 auto}
+.mx-n{text-align:center;font-size:12px;color:var(--muted);margin:0}
+.mxbox{position:relative}
+.mxarc{position:relative;height:660px;margin-top:20px;isolation:isolate;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%)}
+.mxit{position:absolute;left:50%;top:40px;width:220px;margin-left:-110px;transform-origin:50% 1600px;will-change:transform}
+.mxit .lb{display:block;text-align:center;margin-top:20px;font-weight:900;font-size:16px;letter-spacing:.08em;color:var(--text)}
+.mxph{border-radius:36px;background:linear-gradient(145deg,#2a2c30,#0e0f11 40%,#1d1f22);padding:7px;box-shadow:0 0 0 1px #3a3d42,0 40px 60px -34px rgba(10,40,45,.55)}
+.mxsc{position:relative;border-radius:29px;overflow:hidden;aspect-ratio:9/18.5;display:flex;flex-direction:column;font:500 10px/1.5 "Noto Sans JP",sans-serif;text-align:left}
+.mxsc::before{content:"";position:absolute;top:8px;left:50%;width:30%;height:15px;margin-left:-15%;border-radius:10px;background:#0b0b0c;z-index:5}
+.mxsc .sb{display:flex;justify-content:space-between;padding:9px 16px 4px;font:700 9px Montserrat,sans-serif}
+.mxsc .hd{padding:10px 14px 6px}.mxsc .hd small{display:block;font-size:8px;opacity:.6;letter-spacing:.1em}.mxsc .hd b{font-size:15px;font-weight:900}
+.mxsc .cd{margin:6px 12px;border-radius:12px;padding:10px 12px;background:rgba(255,255,255,.9);color:#222;box-shadow:0 1px 0 rgba(0,0,0,.05)}
+.mxsc .cd small{display:block;font-size:8px;opacity:.6}.mxsc .cd b{font-size:12px}
+.mxsc .bt{margin:auto 12px 12px;border-radius:12px;padding:10px;text-align:center;font-weight:800;font-size:10.5px;color:#fff;background:var(--a);animation:mxp 2.4s ease-in-out infinite}
+@keyframes mxp{50%{transform:scale(1.03);box-shadow:0 8px 18px -8px var(--a)}}
+.mxsc .row{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-bottom:1px solid rgba(0,0,0,.06)}
+.mxsc .row b{font-size:10.5px}.mxsc .row small{display:block;font-size:8px;opacity:.6}.mxsc .row em{font-style:normal;font-weight:800;color:var(--a)}
+.mxsc .stm{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:4px 2px}
+.mxsc .stm i{aspect-ratio:1;border-radius:50%;border:1.5px dashed rgba(0,0,0,.2);display:grid;place-items:center;font-style:normal;font-size:11px}
+.mxsc .stm i.on{background:var(--a);border:0;color:#fff}
+.mxsc .stm i.nw{animation:mxs 2.6s ease-in-out infinite}
+@keyframes mxs{0%,40%{transform:scale(0);opacity:0}55%{transform:scale(1.2);opacity:1}70%,100%{transform:scale(1)}}
+.mxsc .qr{width:74px;height:74px;margin:8px auto;background:conic-gradient(#111 25%,#fff 0 50%,#111 0 75%,#fff 0) 0 0/12px 12px;border:5px solid #fff;outline:1px solid #ddd;border-radius:6px}
+.mxsc .bar{height:34px;margin:8px 0 4px;background:repeating-linear-gradient(90deg,#111 0 2px,#fff 2px 3px,#111 3px 4px,#fff 4px 7px)}
+.mxsc .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:4px 12px}
+.mxsc .g2 span{display:block;border-radius:10px;overflow:hidden;background:#fff;color:#222}
+.mxsc .g2 i{display:block;aspect-ratio:1;background:center/cover}
+.mxsc .g2 b{display:block;font-size:9px;padding:4px 6px 0}.mxsc .g2 em{display:block;font-style:normal;font-size:9px;font-weight:800;padding:0 6px 6px;color:var(--a)}
+.mxsc .kp{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px 12px}
+.mxsc .kp div{background:#fff;color:#222;border-radius:10px;padding:8px}.mxsc .kp small{display:block;font-size:8px;opacity:.6}.mxsc .kp b{font:800 15px Montserrat,sans-serif}
+.mxsc .chart{margin:6px 12px;height:60px;border-radius:10px;background:#fff;display:flex;align-items:flex-end;gap:5px;padding:8px}
+.mxsc .chart i{flex:1;background:var(--a);border-radius:3px 3px 0 0;opacity:.85;animation:mxc 3s ease-in-out infinite}
+@keyframes mxc{0%{transform:scaleY(.3)}50%{transform:scaleY(1)}100%{transform:scaleY(.3)}}
+.mxsc .chart i{transform-origin:bottom}
+.mxsc .tk{margin:8px 12px;border-radius:14px;padding:14px;color:#fff;background:linear-gradient(135deg,var(--a),var(--b));position:relative}
+.mxsc .tk small{display:block;font-size:8px;opacity:.85;letter-spacing:.1em}.mxsc .tk b{display:block;font-size:13px;margin:2px 0}.mxsc .tk strong{font:800 26px Montserrat,sans-serif}
+.mxsc .dots{display:flex;gap:4px;margin-top:8px}.mxsc .dots i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.35)}.mxsc .dots i.on{background:#fff}
+.mxsc .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;padding:4px 12px;text-align:center;font:700 8.5px Montserrat,sans-serif}
+.mxsc .cal span{padding:5px 0;border-radius:6px}.mxsc .cal span.o{background:var(--a);color:#fff}.mxsc .cal span.x{opacity:.3}
+@media(max-width:700px){.mxshow{padding:64px 0 40px}.mxbox{height:430px;margin-top:4px}.mxarc{position:absolute;left:0;right:0;top:0;margin:0;transform:scale(.64);transform-origin:50% 0;-webkit-mask-image:none;mask-image:none}.mxit .lb{font-size:21px}}
+@media(prefers-reduced-motion:reduce){.mxsc *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -1191,7 +1238,7 @@ header#hd .btn{min-height:34px;padding:0 16px;font-size:13px;border-radius:999px
 </defs></svg>
 <header id="hd"><div class="wrap"><div class="hbar">
  <a class="logo" href="#top" aria-label="サクアプ"><img src="logo-w.png" alt="サクアプ" width="800" height="195" style="height:17px;width:auto;display:block"></a>
- <nav aria-label="ページ内メニュー"><a href="#why">選ばれる理由</a><a href="#usecase">作れるアプリ</a><a href="#price">料金</a><a href="#flow">流れ</a><a href="#faq">FAQ</a></nav>
+ <nav aria-label="ページ内メニュー"><a href="#why">選ばれる理由</a><a href="#apps">作れるアプリ</a><a href="#price">料金</a><a href="#flow">流れ</a><a href="#faq">FAQ</a></nav>
  <a class="btn" href="https://lin.ee/vC2S0M9" data-entry="lp" target="_blank" rel="noopener"><span class="pc-only">無料で相談する</span><span class="sp-only">【無料】LINEで相談する</span></a>
 </div></div></header>
 
@@ -1247,6 +1294,11 @@ header#hd .btn{min-height:34px;padding:0 16px;font-size:13px;border-radius:999px
 </div></section>
 
 <!-- PAIN -->
+<section class="mxshow" id="apps" aria-labelledby="mx-h">
+ <div class="wrap"><p class="mx-e">APPS</p><h2 id="mx-h">どんなアプリも、<br class="sp-only">あなた専用に。</h2><p class="mx-s">予約・会員証・ポイントカード・ネットショップまで。<br class="pc-only">業種と使い方に合わせて、ゼロから作ります。</p></div>
+ <div class="mxbox"><div class="mxarc" id="mxarc" aria-hidden="true"></div></div>
+ <p class="mx-n">※画面はイメージです</p>
+</section>
 <section class="alt"><div class="wrap">
  <div class="phead">
  <h2>アプリを<br class="spbr"><span class="nw">つくりたい。</span><br class="spbr"><span class="nw">でも、</span><wbr>現実は。</h2>
@@ -1772,6 +1824,37 @@ addEventListener("hashchange",function(){setTimeout(function(){els.forEach(funct
 (function(){var h=document.getElementById("hd");if(!h||!("IntersectionObserver" in window))return;
 var vis=new Set();var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)vis.add(e.target);else vis.delete(e.target)});h.classList.toggle("quiet",vis.size>0)},{rootMargin:"-25% 0px -25% 0px"});
 [].forEach.call(document.querySelectorAll(".ucp .bd .pho,#usecase .ucp .bd,.stage"),function(el){io.observe(el)});
+})();
+</script>
+
+<script>
+(function(){
+ var arc=document.getElementById("mxarc");if(!arc)return;
+ var RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ function sb(c){return'<div class="sb" style="color:'+c+'"><span>9:41</span><span>5G</span></div>'}
+ var A=[
+  ["予約","#0e7c8c","#e9f6f6","#12302f",'<div class="hd"><small>HAIR SALON</small><b>sora</b></div><div class="cd"><small>次回のご予約</small><b>11/8（土）14:00</b><div>カット＋カラー ・ 120分</div></div><div class="row"><span><b>カット</b><small>60分</small></span><em>¥5,500</em></div><div class="row"><span><b>カラー</b><small>90分</small></span><em>¥8,800</em></div><div class="row"><span><b>ヘッドスパ</b><small>30分</small></span><em>¥3,300</em></div><div class="bt">日時を選ぶ</div>'],
+  ["ポイントカード","#8a5a35","#f6efe6","#3a2618",'<div class="hd"><small>COFFEE STAND</small><b>Lumen</b></div><div class="cd"><small>スタンプ 7 / 10</small><div class="stm"><i class="on">☕</i><i class="on">☕</i><i class="on">☕</i><i class="on">☕</i><i class="on">☕</i><i class="on">☕</i><i class="on nw">☕</i><i></i><i></i><i>🎁</i></div></div><div class="cd" style="text-align:center"><small>レジでこの画面を見せてください</small><div class="qr"></div></div><div class="bt">特典を見る</div>'],
+  ["会員証","#ff5a36","#15181c","#f2f2f2",'<div class="hd"><small>24H FITNESS</small><b>MOVE GYM</b></div><div class="tk" style="--b:#ff9a3c"><small>MEMBER</small><b>山田 健太 様</b><span>スタンダード会員</span><div class="bar"></div></div><div class="kp"><div><small>今月の来館</small><b>12回</b></div><div><small>連続</small><b>5日</b></div></div><div class="bt">入館する</div>'],
+  ["レッスン予約","#4f8a5b","#f1f6ef","#1f3122",'<div class="hd"><small>YOGA STUDIO</small><b>nami</b></div><div class="cal"><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span><span>日</span><span class="x">3</span><span>4</span><span class="o">5</span><span>6</span><span>7</span><span>8</span><span class="x">9</span></div><div class="row"><span><b>朝ヨガ</b><small>7:00〜 ・ 60分</small></span><em>残り2</em></div><div class="row"><span><b>ピラティス</b><small>10:00〜 ・ 50分</small></span><em>残り5</em></div><div class="row"><span><b>夜のリラックス</b><small>19:30〜 ・ 60分</small></span><em>満席</em></div><div class="bt">予約する</div>'],
+  ["回数券","#2f6fb0","#eef4fa","#14273a",'<div class="hd"><small>整体院</small><b>からだ整骨院</b></div><div class="tk" style="--b:#5aa0d8"><small>10回券</small><b>残り</b><strong>3</strong><span> / 10回</span><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="cd"><small>有効期限</small><b>2027年3月31日</b></div><div class="bt">次回を予約</div>'],
+  ["ネットショップ","#b0703c","#faf6f0","#2e241c",'<div class="hd"><small>ZAKKA</small><b>hibi no dogu</b></div><div class="g2"><span><i style="background-image:url(menu/img/latte-c.webp)"></i><b>マグカップ</b><em>¥2,420</em></span><span><i style="background-image:url(salon/img/s-shelf.webp)"></i><b>ボトルセット</b><em>¥3,300</em></span><span><i style="background-image:url(salon/img/s-chair.webp)"></i><b>木のスツール</b><em>¥12,800</em></span><span><i style="background-image:url(salon/img/s-mirror.webp)"></i><b>丸ミラー</b><em>¥8,800</em></span></div><div class="bt">カートに入れる（2点）</div>'],
+  ["テイクアウト","#d2561f","#fff6ee","#3a1f10",'<div class="hd"><small>お弁当</small><b>まんぷく亭</b></div><div class="g2"><span><i style="background-image:url(menu/img/pork.webp)"></i><b>生姜焼き弁当</b><em>¥780</em></span><span><i style="background-image:url(menu/img/saba.webp)"></i><b>焼き鮭弁当</b><em>¥720</em></span></div><div class="cd"><small>受け取り時間</small><b>今日 12:15</b></div><div class="bt">注文する ¥1,500</div>'],
+  ["イベント受付","#7a4fd0","#f5f1fc","#251a3a",'<div class="hd"><small>EVENT</small><b>手しごと市 2026</b></div><div class="tk" style="--b:#b48cf0"><small>11/23（月・祝）10:00〜</small><b>入場チケット ・ 1名</b><span>会場：みどり公園</span></div><div class="cd" style="text-align:center"><small>受付でこの画面を見せてください</small><div class="qr"></div></div><div class="bt">チケットを表示</div>'],
+  ["顧客管理","#0e7c8c","#f4f8f8","#12302f",'<div class="hd"><small>お店の管理画面</small><b>ダッシュボード</b></div><div class="kp"><div><small>今月の売上</small><b>¥356k</b></div><div><small>リピート率</small><b>64%</b></div></div><div class="chart"><i style="height:40%"></i><i style="height:65%;animation-delay:-.4s"></i><i style="height:50%;animation-delay:-.8s"></i><i style="height:80%;animation-delay:-1.2s"></i><i style="height:60%;animation-delay:-1.6s"></i><i style="height:90%;animation-delay:-2s"></i></div><div class="row"><span><b>佐藤 さま</b><small>来店5回目 ・ 前回 10/12</small></span><em>VIP</em></div><div class="row"><span><b>田中 さま</b><small>はじめて ・ 11/2</small></span><em>NEW</em></div>'],
+  ["オンライン相談","#28456e","#eef2f8","#16243a",'<div class="hd"><small>キャリア相談</small><b>みらい相談室</b></div><div class="cd"><small>相談の種類</small><b>はじめての方 30分 ・ 無料</b></div><div class="cal"><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span><span>日</span><span>10</span><span class="o">11</span><span>12</span><span class="x">13</span><span>14</span><span>15</span><span class="x">16</span></div><div class="row"><span><b>11/11 20:00</b><small>オンライン（ビデオ通話）</small></span><em>空き</em></div><div class="bt">この時間で申し込む</div>']
+ ];
+ var N=A.length*2,items=[];
+ for(var i=0;i<N;i++){var a=A[i%A.length],el=document.createElement("div");el.className="mxit";
+  el.innerHTML='<div class="mxph"><div class="mxsc" style="--a:'+a[1]+';background:'+a[2]+';color:'+a[3]+'">'+sb(a[3])+a[4]+'</div></div><span class="lb">'+a[0]+'</span>';arc.appendChild(el);items.push(el)}
+ var off=0,last=0,vis=true;
+ if("IntersectionObserver"in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(arc);
+ function geo(){var m=matchMedia("(max-width:700px)").matches;return{step:m?13.5:11,speed:m?2.6:2.1}}
+ function norm(x,t){x=((x%t)+t)%t;return x>t/2?x-t:x}
+ function frame(t){var g=geo(),tot=g.step*N,dt=last?Math.min(64,t-last):16;last=t;if(vis&&!RM)off-=g.speed*dt/1000;
+  items.forEach(function(el,i){var x=norm(i*g.step+off,tot),ax=Math.abs(x);el.style.transform="rotate("+x.toFixed(3)+"deg)";el.style.visibility=ax>46?"hidden":"visible";el.style.opacity=Math.max(0,Math.min(1,(46-ax)/10));el.style.zIndex=100-Math.round(ax)});
+  requestAnimationFrame(frame)}
+ requestAnimationFrame(frame);
 })();
 </script>
 </body>
