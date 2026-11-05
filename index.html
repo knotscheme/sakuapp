@@ -1462,6 +1462,8 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 .mps .mgd{display:grid;grid-template-columns:1fr 1fr;gap:7px}.mps .mgd i{display:block;aspect-ratio:1;border-radius:10px;background-size:cover}.mps .mgd b{font:800 10px Montserrat,sans-serif}
 .mps .mx{width:calc(100% / .329)!important;height:calc(100% / .329)!important}
 .hero-dev .hph2{height:7.4em;background-position:center 22%!important}
+.mxbox{user-select:none;-webkit-user-select:none}
+@media(max-width:700px){.mxbox{height:410px}}
 </style>
 </head>
 <body>
@@ -1552,7 +1554,7 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 <section class="mxshow" id="apps" aria-labelledby="mx-h">
  <div class="wrap"><p class="mx-e">APPS</p><h2 id="mx-h">どんなアプリも、<br class="sp-only">あなた専用に。</h2><p class="mx-s">予約・会員証・ポイントカード・ネットショップまで。<br class="pc-only">業種と使い方に合わせて、ゼロから作ります。</p></div>
  <div class="mxbox"><div class="mxarc" id="mxarc" aria-hidden="true"></div></div>
- <p class="mx-n">※画面はイメージです</p>
+ <p class="mx-n">左右にドラッグ（スワイプ）して回せます ・ ※画面はイメージです</p>
 </section>
 <section class="alt"><div class="wrap">
  <div class="phead">
@@ -2225,7 +2227,18 @@ var vis=new Set();var io=new IntersectionObserver(function(es){es.forEach(functi
  if("IntersectionObserver"in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(arc);
  function geo(){var m=matchMedia("(max-width:700px)").matches;return{step:m?13.5:11,speed:m?2.6:2.1}}
  function norm(x,t){x=((x%t)+t)%t;return x>t/2?x-t:x}
- function frame(t){var g=geo(),tot=g.step*N,dt=last?Math.min(64,t-last):16;last=t;if(vis&&!RM)off-=g.speed*dt/1000;
+ var drag=null,vel=0,hold=0,box=arc.parentNode,moved=false;
+ function degPerPx(){var r=arc.getBoundingClientRect(),sc=r.width/arc.offsetWidth||1;return 360/(2*Math.PI*1600*sc)}
+ box.style.touchAction="pan-y";box.style.cursor="grab";
+ box.addEventListener("pointerdown",function(e){drag={x:e.clientX,y:e.clientY,o:off,t:performance.now(),lx:e.clientX,id:e.pointerId,h:null};vel=0;moved=false});
+ box.addEventListener("pointermove",function(e){if(!drag||drag.id!==e.pointerId)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+  if(drag.h===null){if(Math.abs(dx)<6&&Math.abs(dy)<6)return;drag.h=Math.abs(dx)>Math.abs(dy);if(drag.h){try{box.setPointerCapture(e.pointerId)}catch(_){}box.style.cursor="grabbing"}}
+  if(!drag.h)return;moved=true;e.preventDefault();var now=performance.now(),k=degPerPx();off=drag.o+dx*k;var dtt=Math.max(1,now-drag.t);vel=(e.clientX-drag.lx)*k/dtt*1000;drag.lx=e.clientX;drag.t=now});
+ function end(){if(!drag)return;drag=null;box.style.cursor="grab";hold=performance.now()+2500}
+ box.addEventListener("pointerup",end);box.addEventListener("pointercancel",end);
+ box.addEventListener("click",function(e){if(moved){e.preventDefault();e.stopPropagation()}},true);
+ function frame(t){var g=geo(),tot=g.step*N,dt=last?Math.min(64,t-last):16;last=t;
+  if(!drag){if(Math.abs(vel)>.5){off+=vel*dt/1000;vel*=Math.pow(.93,dt/16)}else{vel=0;if(vis&&!RM&&t>hold)off-=g.speed*dt/1000}}
   items.forEach(function(el,i){var x=norm(i*g.step+off,tot),ax=Math.abs(x);el.style.transform="rotate("+x.toFixed(3)+"deg)";el.style.visibility=ax>46?"hidden":"visible";el.style.opacity=Math.max(0,Math.min(1,(46-ax)/10));el.style.zIndex=100-Math.round(ax)});
   requestAnimationFrame(frame)}
  requestAnimationFrame(frame);
