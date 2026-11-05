@@ -1694,6 +1694,85 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 .mps .ecm .ec-bar{font-size:9px;padding:5px 0}.mps .ecm .ec-hd{position:relative;padding:8px 12px}.mps .ecm .ec-hd img{height:20px}
 .mps .ecm .ec-hero{height:150px}.mps .ecm .ec-hero b{font-size:14px;margin-bottom:8px}.mps .ecm .ec-btn{font-size:10px}
 .mps .ecm .ec-gd{margin-top:10px}.mps .ecm .ec-cd em{font-size:11px}
+
+/* ===== HERO premium composite (.hx) ===== */
+.hero-dev{container-type:inline-size;padding:0!important}
+.hx{position:relative;width:100%;aspect-ratio:1/.9;font-size:calc(100cqw / 60);font-family:"Inter","Noto Sans JP",sans-serif;color:#0f2a2e;-webkit-font-smoothing:antialiased}
+.hx *{box-sizing:border-box}
+.hx svg{display:block}
+.hx-glow{position:absolute;inset:6% 2% 0 8%;background:radial-gradient(60% 55% at 40% 45%,rgba(14,154,167,.28),transparent 70%),radial-gradient(40% 40% at 85% 70%,rgba(255,200,61,.3),transparent 70%);filter:blur(1.5em);z-index:0}
+/* laptop window */
+.hx-lap{position:absolute;left:0;top:7%;width:80%;border-radius:1.2em;background:#fff;box-shadow:0 0 0 .1em rgba(15,42,46,.08),0 3em 5em -2.4em rgba(10,50,60,.45),0 1em 2em -1em rgba(10,50,60,.2);overflow:hidden;z-index:1;animation:hxf 7s ease-in-out infinite}
+.hx-wb{display:flex;align-items:center;gap:.5em;height:2.6em;padding:0 1.1em;background:#f4f7f7;border-bottom:.1em solid #e6eded}
+.hx-wb>i{width:.75em;height:.75em;border-radius:50%;background:#ff5f57}.hx-wb>i:nth-child(2){background:#febc2e}.hx-wb>i:nth-child(3){background:#28c840}
+.hx-wb span{margin:0 auto;display:flex;align-items:center;gap:.4em;padding:.3em 1.4em;border-radius:.6em;background:#fff;font-size:.95em;color:#6a7a7c;box-shadow:inset 0 0 0 .08em #e1e8e8}.hx-wb span svg{width:.9em;height:.9em;color:#3aa66a}
+.hx-app{display:flex;height:34em}
+.hx-app aside{flex:none;width:4.4em;background:linear-gradient(180deg,#0e6f7c,#0a4f5b);display:flex;flex-direction:column;align-items:center;gap:.9em;padding:1.1em 0}
+.hx-lg{width:2.4em;height:2.4em;border-radius:.7em;background:linear-gradient(135deg,#ffd36b,#f0a010);color:#5a3a00;display:grid;place-items:center;font-weight:900;font-size:1.05em;margin-bottom:.4em}
+.hx-app aside em{width:2.6em;height:2.6em;border-radius:.8em;display:grid;place-items:center;color:rgba(255,255,255,.6)}.hx-app aside em svg{width:1.35em;height:1.35em}
+.hx-app aside em.on{background:rgba(255,255,255,.16);color:#fff}
+.hx-app main{flex:1;min-width:0;padding:1.4em 1.6em;background:#f7fafa;display:flex;flex-direction:column;gap:1.1em}
+.hx-top{display:flex;align-items:center;gap:1em}.hx-top>div{flex:1}.hx-top small{display:block;font-size:.9em;color:#7b8b8d}.hx-top b{font-size:1.45em;font-weight:800;letter-spacing:-.01em}
+.hx-sr{display:flex;align-items:center;gap:.4em;padding:.5em .9em;border-radius:.7em;background:#fff;color:#93a2a4;font-size:.95em;box-shadow:inset 0 0 0 .08em #e1e8e8}.hx-sr svg{width:1.1em;height:1.1em}.hx-sr u{text-decoration:none}
+.hx-av{width:2.8em;height:2.8em;border-radius:50%;background-size:cover;box-shadow:0 0 0 .2em #fff,0 .2em .6em rgba(0,0,0,.15)}
+.hx-kp{display:grid;grid-template-columns:repeat(3,1fr);gap:.9em}
+.hx-kp>div{position:relative;background:#fff;border-radius:.9em;padding:1em 1.1em;box-shadow:0 0 0 .08em #e6eded,0 .6em 1.2em -1em rgba(10,50,60,.3)}
+.hx-kp small{display:block;font-size:.85em;color:#7b8b8d}.hx-kp b{display:block;font-size:1.75em;font-weight:800;letter-spacing:-.02em;margin:.15em 0 .1em;font-variant-numeric:tabular-nums}
+.hx-kp em{font-style:normal;font-size:.85em;font-weight:700;color:#17a05d}
+.hx-kp svg{position:absolute;right:1em;bottom:1em;width:5em;height:1.8em}
+.hx-sp{stroke-dasharray:120;stroke-dashoffset:120;animation:hxl 1.6s .4s cubic-bezier(.3,.7,.3,1) forwards}
+.hx-ring{position:absolute;right:1em;top:50%;width:3em;height:3em;margin-top:-1.5em;border-radius:50%;background:conic-gradient(#0e9aa7 calc(var(--v)*1%),#e8f0f0 0);-webkit-mask:radial-gradient(circle,transparent 52%,#000 54%);mask:radial-gradient(circle,transparent 52%,#000 54%)}
+.hx-row{flex:1;display:grid;grid-template-columns:1.35fr 1fr;gap:.9em;min-height:0}
+.hx-ch,.hx-ls{background:#fff;border-radius:.9em;padding:1em 1.1em;box-shadow:0 0 0 .08em #e6eded}
+.hx-chh{display:flex;justify-content:space-between;align-items:center}.hx-chh b,.hx-ls>b{font-size:1.05em;font-weight:800}
+.hx-chh span{display:flex;gap:.2em;background:#f1f5f5;border-radius:.5em;padding:.2em}.hx-chh i{font-style:normal;font-size:.8em;padding:.2em .6em;border-radius:.4em;color:#7b8b8d}.hx-chh i.on{background:#fff;color:#0f2a2e;font-weight:700;box-shadow:0 .1em .3em rgba(0,0,0,.08)}
+.hx-bars{display:flex;align-items:flex-end;gap:.7em;height:calc(100% - 2.2em);padding-top:1em}
+.hx-bars>div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.35em}
+.hx-bars i{width:100%;height:var(--h);border-radius:.4em .4em .15em .15em;background:linear-gradient(180deg,#19b3bf,#0e7c8c);transform-origin:bottom;animation:hxb 1s var(--d) cubic-bezier(.3,.7,.3,1) both}
+.hx-bars>div:last-child i{background:linear-gradient(180deg,#ffd36b,#f0a010)}
+.hx-bars small{font-size:.75em;color:#93a2a4}
+.hx-ls{display:flex;flex-direction:column;gap:.55em}
+.hx-ls>div{display:flex;align-items:center;gap:.6em;padding:.35em 0;border-bottom:.08em solid #eef3f3}.hx-ls>div:last-child{border:0}
+.hx-ls i{flex:none;width:2.3em;height:2.3em;border-radius:50%;background-size:cover}
+.hx-ls span{flex:1;min-width:0}.hx-ls span b{display:block;font-size:.95em;white-space:nowrap}.hx-ls span small{font-size:.78em;color:#7b8b8d}
+.hx-ls em{font-style:normal;font-size:.75em;font-weight:700;padding:.25em .6em;border-radius:.4em;background:#e3f6ee;color:#17a05d}.hx-ls em.pd{background:#e6f1fb;color:#2f6fb0}
+/* phone */
+.hx-ph{position:absolute;right:0;top:17%;width:32%;aspect-ratio:9/19;border-radius:3.4em;background:#0f1416;padding:.55em;box-shadow:0 0 0 .12em #2b3236,0 3em 4em -1.6em rgba(10,40,45,.55);z-index:3;animation:hxf 7s ease-in-out -3.5s infinite}
+.hx-scr{position:relative;height:100%;border-radius:2.9em;overflow:hidden;background:#fbfaf8;display:flex;flex-direction:column}
+.hx-scr::before{content:"";position:absolute;top:.7em;left:50%;width:32%;height:1.5em;margin-left:-16%;border-radius:1em;background:#0f1416;z-index:4}
+.hx-ps{position:absolute;z-index:3;left:0;right:0;top:0;display:flex;justify-content:space-between;padding:.9em 1.6em;font-size:.85em;font-weight:700;color:#fff}.hx-ps i{width:1.6em;height:.75em;border-radius:.2em;border:.12em solid #fff}
+.hx-hero{position:relative;height:38%;background-size:cover;display:flex;align-items:flex-end;padding:1em 1.2em;color:#fff;flex:none}
+.hx-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),transparent 35%,rgba(0,0,0,.65))}
+.hx-hero>div{position:relative;z-index:1}.hx-hero small{font-size:.65em;letter-spacing:.3em;opacity:.9}.hx-hero b{display:block;font:300 2em/1 "Inter",sans-serif;letter-spacing:.12em}.hx-hero em{font-style:normal;font-size:.75em;opacity:.9}
+.hx-b,.hx-f{position:absolute;z-index:2;top:3em;width:2.2em;height:2.2em;border-radius:50%;background:rgba(255,255,255,.88);color:#222;display:grid;place-items:center}.hx-b{left:.9em}.hx-f{right:.9em}.hx-b svg,.hx-f svg{width:1.1em;height:1.1em}
+.hx-h{margin:.9em 1.2em .3em;font-size:.7em;font-weight:700;letter-spacing:.2em;color:#9aa;text-transform:uppercase}
+.hx-mi{display:flex;align-items:center;gap:.6em;margin:0 .9em;padding:.55em .4em;border-bottom:.08em solid #ece9e4;border-radius:.6em;transition:background .3s,box-shadow .3s}
+.hx-mi.on{background:#fff;box-shadow:0 0 0 .12em #2f6f73}
+.hx-mi i{flex:none;width:2.6em;height:2.6em;border-radius:.5em;background-size:cover}.hx-mi span{flex:1;min-width:0}.hx-mi b{display:block;font-size:.85em}.hx-mi small{font-size:.7em;color:#888}.hx-mi em{font-style:normal;font-weight:700;font-size:.85em}
+.hx-sl{display:grid;grid-template-columns:repeat(4,1fr);gap:.35em;margin:.7em .9em}.hx-sl i{font-style:normal;text-align:center;font-size:.72em;font-weight:700;padding:.5em 0;border-radius:.5em;box-shadow:inset 0 0 0 .1em #e2ded8}.hx-sl i.x{opacity:.35;text-decoration:line-through}.hx-sl i.on{background:#2f6f73;color:#fff;box-shadow:none}
+.hx-cta{margin:auto .9em 1.4em;padding:.9em;border-radius:.9em;background:#1f2a2b;color:#fff;text-align:center;font-size:.78em;font-weight:800;animation:hxc 9s ease-in-out infinite}
+.hx-tap{position:absolute;left:50%;bottom:2.4em;width:2.4em;height:2.4em;margin-left:-1.2em;border-radius:50%;background:rgba(255,255,255,.4);border:.2em solid rgba(255,255,255,.95);box-shadow:0 .2em .8em rgba(0,0,0,.35);opacity:0;animation:hxt 9s ease-in-out infinite;z-index:5}
+/* floating cards */
+.hx-c{position:absolute;z-index:4;display:flex;align-items:center;gap:.8em;padding:.9em 1.1em;border-radius:1.1em;background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 0 0 .08em rgba(15,42,46,.06),0 1.6em 2.6em -1.2em rgba(10,50,60,.45);opacity:0;transform:translateY(.8em) scale(.96)}
+.hx-c b{display:block;font-size:1.05em;font-weight:800;white-space:nowrap}.hx-c small{display:block;font-size:.85em;color:#6a7a7c;line-height:1.45}
+.hx-n1{left:-2%;top:0;animation:hxn 9s .6s ease-out infinite}
+.hx-n1>i{flex:none;width:2.8em;height:2.8em;border-radius:50%;background-size:cover;box-shadow:0 0 0 .2em #e3f6ee}
+.hx-n1>em{font-style:normal;font-size:.8em;color:#93a2a4;align-self:flex-start}
+.hx-n2{right:24%;bottom:21%;animation:hxn 9s 3.4s ease-out infinite}
+.hx-card{flex:none;width:4.6em;height:3em;border-radius:.5em;padding:.4em .5em;background:linear-gradient(135deg,#1a2a6c,#2f6fb0 60%,#4fa3d9);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+.hx-card small{font:800 .6em Inter,sans-serif;font-style:italic;letter-spacing:.06em;color:#fff}.hx-card b{font-size:.62em!important;font-weight:600;letter-spacing:.08em}
+.hx-ok{flex:none;width:2.2em;height:2.2em;border-radius:50%;background:#17a05d;color:#fff;display:grid;place-items:center}.hx-ok svg{width:1.2em;height:1.2em}
+.hx-n3{left:3%;bottom:1%;max-width:55%;align-items:flex-start;animation:hxn 9s 5.6s ease-out infinite;background:linear-gradient(135deg,rgba(255,255,255,.97),rgba(246,250,255,.97))}
+.hx-n3 small strong{color:#7a4fd0}
+.hx-ai{flex:none;width:2.4em;height:2.4em;border-radius:.8em;background:linear-gradient(135deg,#7a4fd0,#0e9aa7);color:#fff;display:grid;place-items:center}.hx-ai svg{width:1.3em;height:1.3em}
+@keyframes hxf{50%{transform:translateY(-.6em)}}
+@keyframes hxl{to{stroke-dashoffset:0}}
+@keyframes hxb{from{transform:scaleY(0)}}
+@keyframes hxn{0%{opacity:0;transform:translateY(.8em) scale(.96)}6%,80%{opacity:1;transform:none}88%,100%{opacity:0;transform:translateY(-.4em) scale(.98)}}
+@keyframes hxt{0%,22%{opacity:0;transform:scale(1)}27%{opacity:1}31%{transform:scale(.7)}35%{transform:scale(1)}40%,100%{opacity:0}}
+@keyframes hxc{0%,29%{background:#1f2a2b}31%,45%{background:#17a05d}50%,100%{background:#1f2a2b}}
+@media(prefers-reduced-motion:reduce){.hx *{animation:none!important}.hx-c{opacity:1;transform:none}.hx-sp{stroke-dashoffset:0}}
+@media(max-width:860px){.hero2 .hero-dev{margin:30px -4px 10px!important}.hx{aspect-ratio:1/.92}}
 </style>
 </head>
 <body>
@@ -1754,23 +1833,40 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
    <div class="stats"><div><b><span class="cu" data-to="1">1</span>ヶ月</b><small>最短の開発</small></div><div><b><span class="cu" data-to="0.5" data-dec="1">0.5</span>円</b><small>追加機能1文字</small></div><div><b>最大<span class="cu" data-to="60">60</span>回</b><small>カードの分割払い</small></div></div>
   </div>
   <div class="hr">
- <div class="hero-dev" aria-hidden="true">
-  <div class="lap"><div class="scr">
-   <div class="rail"><i class="lg"></i><svg class="ico"><use href="#i-board"/></svg><svg class="ico"><use href="#i-cal"/></svg><svg class="ico"><use href="#i-db"/></svg><svg class="ico"><use href="#i-yen"/></svg></div>
-   <div class="mn2"><div class="tp"><div><b>ダッシュボード</b><small>2026年10月</small></div><span class="av2" style="background-image:url(salon/img/st7.webp);background-position:center 25%"></span></div>
-    <div class="k3"><div><small>予約</small><b>128件</b><em>▲ 12%</em></div><div><small>売上</small><b>¥356k</b><em>▲ 8%</em></div><div><small>リピート</small><b>64%</b><em>▲ 5pt</em></div></div>
-    <div class="ch"><svg viewBox="0 0 300 50" preserveAspectRatio="none"><defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16919f" stop-opacity=".35"/><stop offset="1" stop-color="#16919f" stop-opacity="0"/></linearGradient></defs><path d="M0 40C30 36 50 38 80 30S130 32 160 22 220 18 250 10 290 6 300 4V50H0Z" fill="url(#hg)"/><path d="M0 40C30 36 50 38 80 30S130 32 160 22 220 18 250 10 290 6 300 4" fill="none" stroke="#0e7c8c" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
-    <div class="ls"><div><i style="background-image:url(salon/img/st3.webp);background-position:center 25%"></i><span>10:00 カット</span><u>確定</u></div><div><i style="background-image:url(salon/img/st1.webp);background-position:center 25%"></i><span>11:30 カラー</span><u>決済済</u></div></div>
-   </div></div><div class="base"></div></div>
-  <div class="ph"><div class="pf"><div class="nt"></div>
-   <div class="hph2" style="background-image:url(salon/img/st5.webp);background-position:center 30%"><small>HAIR ROOM</small><b>sora</b></div><div class="cv"><small>次回のご予約</small><b>11/2（月） 11:30</b><span>カット ・ 60分</span></div>
-   <div class="sv on"><i style="background-image:url(salon/img/st9.webp);background-position:center 20%"></i><span>カット</span><b>¥5,500</b></div><div class="sv"><i style="background-image:url(salon/img/st4.webp);background-position:center 20%"></i><span>カラー</span><b>¥8,800</b></div>
-   <div class="sl"><i>10:00</i><i class="on">11:30</i><i>13:00</i></div><div class="bt">予約する</div>
-  </div></div>
-  <div class="nchip c1"><svg class="ico" aria-hidden="true"><use href="#i-cal"/></svg><span>新規予約が入りました<small>佐藤さん ・ 11/2 11:30</small></span></div>
-  <div class="nchip c2"><svg class="ico" aria-hidden="true"><use href="#i-card"/></svg><span>決済完了 ¥5,500<small>カード決済（Stripe）</small></span></div>
-  <div class="nchip c3"><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg><span>LINEで通知を送信<small>前日リマインド</small></span></div>
+ <div class="hero-dev" aria-hidden="true"><div class="hx">
+ <div class="hx-glow"></div>
+ <div class="hx-lap">
+  <div class="hx-wb"><i></i><i></i><i></i><span><svg viewBox="0 0 24 24"><path d="M7 11V8a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/></svg>your-salon.app/admin</span></div>
+  <div class="hx-app">
+   <aside><b class="hx-lg">M</b><em class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></em><em class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></em><em class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></em><em class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l6 8 6-8M12 12v8M8 13h8M8 17h8"/></svg></em><em class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></em><em class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1c.6.5 1.3.9 2 1.2L10 21h4l.5-2.6c.7-.3 1.4-.7 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"/></svg></em></aside>
+   <main>
+    <div class="hx-top"><div><small>10月27日（火）</small><b>おはようございます、美緒さん</b></div><span class="hx-sr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><u>検索</u></span><i class="hx-av" style="background-image:url(salon/img/st7.webp);background-position:center 25%"></i></div>
+    <div class="hx-kp">
+     <div><small>今月の売上</small><b class="hx-cnt" data-to="356200" data-pre="¥">¥356,200</b><em>▲ 12.4%</em><svg viewBox="0 0 80 22" preserveAspectRatio="none"><path class="hx-sp" d="M0 18 L13 15 L26 16 L40 10 L53 11 L66 5 L80 3" fill="none" stroke="#0e9aa7" stroke-width="2"/></svg></div>
+     <div><small>予約数</small><b class="hx-cnt" data-to="128">128</b><em>▲ 8.1%</em><svg viewBox="0 0 80 22" preserveAspectRatio="none"><path class="hx-sp" d="M0 16 L13 17 L26 12 L40 13 L53 8 L66 9 L80 5" fill="none" stroke="#f0a010" stroke-width="2"/></svg></div>
+     <div><small>リピート率</small><b class="hx-cnt" data-to="64" data-suf="%">64%</b><em>▲ 5pt</em><div class="hx-ring"><i style="--v:64"></i></div></div>
+    </div>
+    <div class="hx-row">
+     <div class="hx-ch"><div class="hx-chh"><b>売上の推移</b><span><i class="on">週</i><i>月</i><i>年</i></span></div><div class="hx-bars"><div><i style="--h:38%;--d:0ms"></i><small>月</small></div><div><i style="--h:52%;--d:90ms"></i><small>火</small></div><div><i style="--h:44%;--d:180ms"></i><small>水</small></div><div><i style="--h:63%;--d:270ms"></i><small>木</small></div><div><i style="--h:58%;--d:360ms"></i><small>金</small></div><div><i style="--h:74%;--d:450ms"></i><small>土</small></div><div><i style="--h:86%;--d:540ms"></i><small>日</small></div></div></div>
+     <div class="hx-ls"><b>本日の予約</b><div><i style="background-image:url(salon/img/st3.webp);background-position:center 25%"></i><span><b>佐藤 美咲</b><small>10:00 カット</small></span><em class="ok">確定</em></div><div><i style="background-image:url(salon/img/st1.webp);background-position:center 25%"></i><span><b>田中 結衣</b><small>11:30 カラー</small></span><em class="pd">決済済</em></div><div><i style="background-image:url(salon/img/st6.webp);background-position:center 25%"></i><span><b>鈴木 遥</b><small>14:00 パーマ</small></span><em class="ok">確定</em></div></div>
+    </div>
+   </main>
+  </div>
  </div>
+ <div class="hx-ph"><div class="hx-scr">
+  <div class="hx-ps"><span>9:41</span><i></i></div>
+  <div class="hx-hero" style="background-image:url(salon/img/st5.webp);background-position:center 28%"><span class="hx-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></span><span class="hx-f"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><div><small>HAIR ROOM</small><b>sora</b><em>★ 4.9 ・ 表参道</em></div></div>
+  <p class="hx-h">メニュー</p>
+  <div class="hx-mi on"><i style="background-image:url(salon/img/st9.webp);background-position:center 20%"></i><span><b>カット＋カラー</b><small>120分</small></span><em>¥12,100</em></div>
+  <div class="hx-mi"><i style="background-image:url(salon/img/st4.webp);background-position:center 20%"></i><span><b>カット</b><small>60分</small></span><em>¥5,500</em></div>
+  <div class="hx-sl"><i>10:00</i><i class="x">11:30</i><i class="on">14:00</i><i>15:30</i></div>
+  <div class="hx-cta">11/8（土）14:00で予約する</div>
+  <span class="hx-tap"></span>
+ </div></div>
+ <div class="hx-c hx-n1"><i style="background-image:url(salon/img/st3.webp);background-position:center 25%"></i><span><b>新しい予約が入りました</b><small>佐藤 美咲 様 ・ 11/8 14:00</small></span><em>今</em></div>
+ <div class="hx-c hx-n2"><div class="hx-card"><small>VISA</small><b>•••• 4242</b></div><span><b>¥12,100 決済完了</b><small>カード決済（Stripe）</small></span><em class="hx-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></em></div>
+ <div class="hx-c hx-n3"><em class="hx-ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg></em><span><b>AIの提案</b><small>来週は土曜の予約が<strong>+18%</strong>の見込み。<br>スタッフを1名追加しませんか？</small></span></div>
+</div></div>
   </div>
  </div>
  <div class="eband">
@@ -2501,6 +2597,13 @@ var vis=new Set();var io=new IntersectionObserver(function(es){es.forEach(functi
   items.forEach(function(el,i){var x=norm(i*g.step+off,tot),ax=Math.abs(x);el.style.transform="rotate("+x.toFixed(3)+"deg)";el.style.visibility=ax>46?"hidden":"visible";el.style.opacity=Math.max(0,Math.min(1,(46-ax)/10));el.style.zIndex=100-Math.round(ax)});
   requestAnimationFrame(frame)}
  requestAnimationFrame(frame);
+})();
+</script>
+
+<script>
+(function(){var els=document.querySelectorAll(".hx-cnt");if(!els.length||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ function run(el){var to=+el.dataset.to,pre=el.dataset.pre||"",suf=el.dataset.suf||"",t0=null;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1400),v=Math.round(to*(1-Math.pow(1-k,3)));el.textContent=pre+v.toLocaleString("ja-JP")+suf;if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){run(e.target);io.unobserve(e.target)}})});els.forEach(function(e){io.observe(e)});
 })();
 </script>
 </body>
