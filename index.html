@@ -1773,6 +1773,23 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 @keyframes hxc{0%,29%{background:#1f2a2b}31%,45%{background:#17a05d}50%,100%{background:#1f2a2b}}
 @media(prefers-reduced-motion:reduce){.hx *{animation:none!important}.hx-c{opacity:1;transform:none}.hx-sp{stroke-dashoffset:0}}
 @media(max-width:860px){.hero2 .hero-dev{margin:30px -4px 10px!important}.hx{aspect-ratio:1/.92}}
+
+/* scrolling page in arc screens */
+.mxsc .apv{flex:1;min-height:0;overflow:hidden;position:relative}
+.mxsc .api{display:flex;flex-direction:column;min-height:100%;will-change:transform}
+.mxsc .apv+.ap-cta,.mxsc .apv~.ap-cart{margin-top:6px}
+.xs-st{display:flex;gap:10px;padding:0 14px 6px}.xs-st span{display:flex;flex-direction:column;align-items:center;gap:2px}.xs-st i{width:38px;height:38px;border-radius:50%;background-size:cover}.xs-st b{font-size:8.5px}.xs-st small{font-size:7px;opacity:.6}
+.xs-g{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:0 12px 8px}.xs-g i{aspect-ratio:1;background-size:cover;border-radius:3px}
+.xs-rv b,.xs-ac b,.xs-ai b{display:block;font-size:9px;margin-bottom:2px}.xs-rv small,.xs-ac small,.xs-ai small{font-size:8px;line-height:1.5;color:#666}
+.xs-rv b{color:#d39b14}.xs-ai b{color:#7a4fd0}
+.ec-more{margin-top:7px}
+.ec-more-b{text-align:center;margin:10px 0}.ec-more-b span{display:inline-block;background:#6bd64f;color:#fff;font-size:8px;font-weight:700;padding:5px 14px;border-radius:6px}
+.ec-bn{position:relative;margin:4px 10px 4px;height:84px;border-radius:8px;background-size:cover;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
+.ec-bn::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.42)}.ec-bn>div{position:relative}.ec-bn b{display:block;font-size:9px;margin-bottom:6px}
+.ec-rs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:0 10px;text-align:center}.ec-rs i{display:block;font-style:normal;font-size:14px}.ec-rs b{display:block;font-size:8px}.ec-rs small{font-size:6.5px;color:#777}
+.ec-story{margin:12px 10px 0;height:100px;border-radius:8px;background-size:cover}
+.ec-st{margin:0 12px 8px;font-size:7.5px;line-height:1.6;color:#555}
+.ec-ft{margin-top:4px;padding:10px 12px 14px;border-top:.5px solid #e5e3de;font-size:6.5px;color:#888}
 </style>
 </head>
 <body>
@@ -2539,9 +2556,24 @@ var vis=new Set();var io=new IntersectionObserver(function(es){es.forEach(functi
    tab(0,[["home","ホーム"],["srch","さがす"],["plus","投稿"],["user","マイページ"]])]
  ];
  var TH=["salon","cafe","gym","yoga","clinic","shop","bento","event","dash","consult","match","sns"];
+ var XP=function(u,pos){return'background-image:url('+u+');background-position:'+(pos||"center")};
+ var EXTRA={
+  salon:'<p class="ap-h">スタイリスト</p><div class="xs-st">'+[["st3","佐藤","店長"],["st1","田中","カラー"],["st7","鈴木","カット"]].map(function(x){return'<span><i style="'+XP("salon/img/"+x[0]+".webp","center 25%")+'"></i><b>'+x[1]+'</b><small>'+x[2]+'</small></span>'}).join("")+'</div><p class="ap-h">スタイル</p><div class="xs-g">'+["st2","st4","st6","st8","st9","st5"].map(function(x){return'<i style="'+XP("salon/img/"+x+".webp","center 25%")+'"></i>'}).join("")+'</div><p class="ap-h">口コミ</p><div class="ap-card xs-rv"><b>★★★★★</b><small>毎回イメージ通りに仕上げてくれます。予約もLINEから簡単でした。</small></div><div class="ap-card xs-ac"><b>アクセス</b><small>表参道駅 A2出口 徒歩3分 ・ 10:00〜19:00 ・ 火曜定休</small></div>',
+  yoga:'<p class="ap-h">はじめての方へ</p><div class="ap-card xs-rv"><b>体験レッスン ¥1,000</b><small>手ぶらでOK。マット・タオルは無料で貸し出しています。</small></div><p class="ap-h">インストラクター</p><div class="xs-st">'+[["st1","Mika"],["st7","Rina"],["st4","Aya"]].map(function(x){return'<span><i style="'+XP("salon/img/"+x[0]+".webp","center 25%")+'"></i><b>'+x[1]+'</b></span>'}).join("")+'</div>',
+  clinic:'<p class="ap-h">お知らせ</p><div class="ap-hs"><span>11/01</span><b>年末年始の営業時間</b><em>NEW</em></div><div class="ap-hs"><span>10/20</span><b>回数券の有効期限を延長</b><em></em></div><div class="ap-card xs-rv"><b>院長より</b><small>姿勢のクセは、続けて通うことで少しずつ整います。</small></div>',
+  bento:'<div class="tk-it"><div><b>だし巻き玉子</b><small>おかず単品・ふわふわ</small><em>¥320</em></div><i style="'+XP("menu/img/tamago-c.webp")+'"><u class="ad">＋</u></i></div><div class="tk-it"><div><b>天ぷら盛り合わせ</b><small>えび・季節の野菜</small><em>¥680</em></div><i style="'+XP("menu/img/tempura-c.webp")+'"><u class="ad">＋</u></i></div><div class="tk-it"><div><b>抹茶ラテ</b><small>ドリンク</small><em>¥450</em></div><i style="'+XP("menu/img/matcha-c.webp")+'"><u class="ad">＋</u></i></div>',
+  dash:'<p class="ap-h">今週の予約</p><div class="ap-ls"><i class="av" style="'+XP("salon/img/st1.webp","center 25%")+'"></i><div><b>鈴木 遥 様</b><small>11/9 14:00 ・ パーマ</small></div><em class="bd n">確定</em></div><div class="ap-ls"><i class="av" style="'+XP("salon/img/st4.webp","center 25%")+'"></i><div><b>高橋 舞 様</b><small>11/10 11:00 ・ カラー</small></div><em class="bd n">確定</em></div><div class="ap-card xs-ai"><b>✦ AIの提案</b><small>先月来店の12名に「そろそろ」のお知らせを送りませんか？</small></div>',
+  consult:'<p class="ap-h">口コミ</p><div class="ap-card xs-rv"><b>★★★★★ 30代・会社員</b><small>転職の軸が整理できて、気持ちが楽になりました。</small></div><div class="ap-card xs-rv"><b>★★★★★ 20代・副業</b><small>具体的な次の一歩まで一緒に考えてくれました。</small></div>',
+  sns:'<div class="sn-ph"><i class="av" style="'+XP("salon/img/st1.webp","center 25%")+'"></i><div><b>yui_daily</b><small>渋谷</small></div></div><div class="sn-img" style="'+XP("menu/img/latte.webp")+'"></div><p class="sn-cp"><b>yui_daily</b> 朝のラテで一息。</p>',
+  shop:'<div class="ec-gd ec-more">'+[["p5","code-a0009"],["p6","code-a0015"]].map(function(x){return'<span class="ec-cd"><i style="'+XP("img/ec/"+x[0]+".webp")+'"></i><b>ゆったり Tシャツ プリントデザイン '+x[1]+'</b><u><s style="'+XP("img/ec/"+x[0]+".webp")+'"></s><s style="'+XP("img/ec/"+x[0]+".webp")+'"></s></u><em>¥2,980</em></span>'}).join("")+'</div><div class="ec-more-b"><span>もっと見る</span></div><div class="ec-bn" style="'+XP("img/ec/bn2.webp","center 30%")+'"><div><b>LINE登録でクーポンをプレゼント</b><span class="ec-btn">今すぐ友達登録</span></div></div><p class="ec-h">選ばれる理由</p><div class="ec-rs"><span><i>🚚</i><b>送料無料</b><small>全国メール便</small></span><span><i>🛡</i><b>品質保証</b><small>無償交換</small></span><span><i>⏱</i><b>即日発送</b><small>15時まで</small></span></div><div class="ec-story" style="'+XP("img/ec/bn1.webp","30% center")+'"></div><p class="ec-h" style="text-align:left;margin-left:12px">Brand story</p><p class="ec-st">Into the Unknown World。クラシカルなアートに、現代的な遊び心を。</p><div class="ec-ft">© 2026 A.I.T ・ 特定商取引法に基づく表記 ・ プライバシーポリシー</div>'
+ };
+ var PIN=".ap-tab,.ap-cta,.ap-cart,.ec-sticky";
+ var NOSCROLL={gym:1,event:1,match:1,cafe:1};
  var N=A.length*2,items=[];
  for(var i=0;i<N;i++){var a=A[i%A.length],el=document.createElement("div");el.className="mxit";el.dataset.k=i%A.length;
-  el.innerHTML='<div class="mxph"><div class="mxsc th-'+TH[i%A.length]+'" style="--a:'+a[1]+';background:'+a[2]+';color:'+a[3]+'">'+sb(a[3])+'<div class="ap">'+a[4]+'</div></div></div><span class="lb">'+a[0]+'</span>';arc.appendChild(el);items.push(el)}
+  el.innerHTML='<div class="mxph"><div class="mxsc th-'+TH[i%A.length]+'" style="--a:'+a[1]+';background:'+a[2]+';color:'+a[3]+'">'+sb(a[3])+'<div class="ap">'+a[4]+'</div></div></div><span class="lb">'+a[0]+'</span>';
+  (function(th,ap){if(NOSCROLL[th])return;var v=document.createElement("div");v.className="apv";var n=document.createElement("div");n.className="api";var pins=[];[].slice.call(ap.children).forEach(function(c){if(c.matches(PIN))pins.push(c);else n.appendChild(c)});if(EXTRA[th])n.insertAdjacentHTML("beforeend",EXTRA[th]);v.appendChild(n);ap.insertBefore(v,ap.firstChild);pins.forEach(function(c){ap.appendChild(c)})})(TH[i%A.length],el.querySelector(".ap"));
+  arc.appendChild(el);items.push(el)}
  function pos(el,sc){var x=0,y=0;while(el&&el!==sc){x+=el.offsetLeft;y+=el.offsetTop;el=el.offsetParent}return[x,y]}
  function runner(item,k,delay){
   var sc=item.querySelector(".mxsc"),ap=sc.querySelector(".ap"),orig=ap.innerHTML;
@@ -2567,7 +2599,13 @@ var vis=new Set();var io=new IntersectionObserver(function(es){es.forEach(functi
    consult:[[700,function(){tap(q(".ap-sl span",2))}],[1200,function(){q(".ap-sl span",3).classList.remove("on");q(".ap-sl span",2).classList.add("on");q(".ap-cta").textContent="15:30で申し込む"}],[2300,function(){tap(q(".ap-cta"))}],[2850,function(){toast("✓ お申し込みが完了しました")}]]
   };
   var steps=S[TH[k]]||[];
-  function loop(){T.forEach(clearTimeout);T=[];ap.innerHTML=orig;tp.classList.remove("v");to.classList.remove("v");sc.classList.remove("dimd");if(RM)return;steps.forEach(function(st){at(st[0],st[1])});at(6200,loop)}
+  function loop(){T.forEach(clearTimeout);T=[];ap.innerHTML=orig;tp.classList.remove("v");to.classList.remove("v");sc.classList.remove("dimd");if(RM)return;
+   var api=ap.querySelector(".api"),apv=ap.querySelector(".apv"),off=0;
+   if(api&&apv){var d=api.scrollHeight-apv.clientHeight;if(d>8){var down=Math.max(1600,Math.min(3600,d*9));
+     at(500,function(){api.style.transition="transform "+down+"ms cubic-bezier(.45,.05,.35,1)";api.style.transform="translateY(-"+d+"px)"});
+     at(500+down+700,function(){api.style.transition="transform 1100ms cubic-bezier(.45,.05,.35,1)";api.style.transform="none"});
+     off=500+down+700+1100+300}}
+   steps.forEach(function(st){at(off+st[0],st[1])});at(off+6200,loop)}
   setTimeout(loop,delay);
  }
  if(!RM)items.forEach(function(el,i){runner(el,+el.dataset.k,(i%A.length)*620+(i>=A.length?3100:0))});
