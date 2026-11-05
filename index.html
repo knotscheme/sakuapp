@@ -1464,6 +1464,111 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 .hero-dev .hph2{height:7.4em;background-position:center 22%!important}
 .mxbox{user-select:none;-webkit-user-select:none}
 @media(max-width:700px){.mxbox{height:410px}}
+
+/* =====================================================================
+   PRO MOCK SYSTEM — applied last to every mock on the page
+   radius scale: 4 / 8 / 12 ・ hairline 0.5px ・ lists instead of card stacks
+   ===================================================================== */
+.mxsc,.pho{-webkit-font-smoothing:antialiased;font-feature-settings:"palt"}
+.mxsc{font-family:"Inter","Noto Sans JP",sans-serif}
+/* ---- arc app screens ---- */
+.mxsc .sb{padding:10px 18px 2px;font:600 9.5px Inter,sans-serif;letter-spacing:-.01em}
+.mxsc .ap-top{padding:4px 14px 10px}.mxsc .ap-top strong{font-size:13px;font-weight:700;letter-spacing:-.01em}
+.mxsc .ap-card{border-radius:8px;box-shadow:none;border:.5px solid rgba(0,0,0,.09);margin:0 12px 10px;padding:10px 11px}
+.mxsc .ap-ban{border-radius:8px;margin:0 12px 12px}
+.mxsc .ap-ban::after{background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55))}
+.mxsc .ap-h{margin:6px 14px 4px;font:600 8px/1 Inter,"Noto Sans JP",sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.5}
+/* list rows: hairlines, no boxes */
+.mxsc .ap-li,.mxsc .ap-ls{background:transparent;box-shadow:none;border-radius:0;margin:0 0 0 14px;padding:8px 14px 8px 0;border-bottom:.5px solid rgba(127,127,127,.22)}
+.mxsc .ap-li>i{width:38px;height:38px;border-radius:6px}
+.mxsc .ap-li b,.mxsc .ap-ls b{font-size:10px;font-weight:600;letter-spacing:-.005em}
+.mxsc .ap-li em,.mxsc .ap-ls em{font:600 10px Inter,sans-serif;color:inherit}
+.mxsc .ap-li .q{border-radius:6px;width:20px;height:20px;font-size:9.5px}
+.mxsc .ap-li .ad{border-radius:6px;width:20px;height:20px;border-width:1px}
+.mxsc .av{width:28px;height:28px;box-shadow:none}
+.mxsc .ap-ls em.bd{border-radius:4px;font-size:7px;letter-spacing:.04em}
+.mxsc .ap-ls.x{opacity:.45}
+.mxsc .ap-ls u{height:2px}
+/* buttons */
+.mxsc .ap-cta{border-radius:10px;padding:11px;font-size:10.5px;font-weight:700;letter-spacing:.01em;box-shadow:none;animation:none;margin:auto 12px 10px}
+.mxsc .ap-chips span{border-radius:6px;padding:4px 9px;font-weight:600;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.14);background:transparent}
+.mxsc .ap-chips span.on{box-shadow:none}
+/* tab bar */
+.mxsc .ap-tab{padding:6px 4px 12px;border-top:.5px solid rgba(127,127,127,.25);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.mxsc .ap-tab .ic{width:16px;height:16px;stroke-width:1.6}.mxsc .ap-tab i{font-size:6.5px;font-weight:600}
+.mxsc .ap-tab span{opacity:.4}
+/* specific components */
+.mxsc .ap-next em{border-radius:4px;font-size:7.5px}
+.mxsc .ib{border-radius:6px}
+.mxsc .ap-stamp .stm i{border-width:1px}
+.mxsc .ap-cp{border-radius:8px}
+.mxsc .ap-mem{border-radius:10px}
+.mxsc .ap-tkt{border-radius:10px}
+.mxsc .ap-days{gap:0;margin:0 12px 10px;border-radius:8px;overflow:hidden;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.12)}
+.mxsc .ap-days span{border-radius:0;box-shadow:none;background:transparent;border-right:.5px solid rgba(0,0,0,.08)}
+.mxsc .ap-days span:last-child{border-right:0}
+.mxsc .ap-pg i{border-radius:4px}
+.mxsc .ap-pg b{font-weight:500}
+.mxsc .ap-srch{border-radius:8px;box-shadow:none;background:rgba(127,127,127,.1)}
+.mxsc .ap-cart{border-radius:10px}.mxsc .ap-cart strong{border-radius:7px;animation:none}
+.mxsc .ap-ev{border-radius:10px}.mxsc .ap-ev .dt{border-radius:6px}
+.mxsc .ap-tix{border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,.06),0 8px 20px -12px rgba(60,30,120,.35)}
+.mxsc .ap-kp>div,.mxsc .ap-ch{border-radius:8px;box-shadow:none;border:.5px solid rgba(0,0,0,.08)}
+.mxsc .ap-sl{gap:4px}.mxsc .ap-sl span{border-radius:6px;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.14);background:transparent}
+.mxsc .ap-sl span.on{box-shadow:none}
+.mxsc .ap-toast{border-radius:10px;font-weight:600}
+.mxsc .ap-sheet{border-radius:14px 14px 0 0}
+.mxsc .ap-push{border-radius:12px}
+/* keep the per-app personality where intended */
+.th-salon .ap-ban,.th-shop .ap-ban,.th-event .ap-ev,.th-shop .ap-pg i{border-radius:0}
+.th-salon .ap-card,.th-salon .ap-cta{border-radius:2px}
+.th-gym .ap-mem,.th-gym .ap-cta{border-radius:3px}
+.th-yoga .ap-cta,.th-yoga .ap-days{border-radius:999px}
+.th-bento .ap-li{margin:0 12px 8px;padding:6px;border-radius:4px}
+.th-dash .ap-ls{background:transparent;border:0;border-bottom:.5px solid rgba(0,0,0,.1)}
+
+/* ---- use-case phones (.pho) ---- */
+.pho{border-width:7px;border-radius:38px}
+.pho .ah{padding:6px 16px 10px}.pho .ah b{font-size:14.5px;letter-spacing:-.01em}
+.pho .lgm{border-radius:7px;width:26px;height:26px;font-size:12px}
+.pho .chp{border-radius:6px;font-size:10px;padding:3px 8px}
+.pho .hero3{border-radius:10px;margin:0 14px}
+.pho .cats{padding:12px 14px 6px;gap:4px}.pho .cats span{border-radius:6px;border:0;box-shadow:inset 0 0 0 .5px var(--pl);background:transparent;padding:4px 9px;font-weight:600}
+.pho .cats .on{box-shadow:none}
+.pho .mrow{margin:0 0 0 16px;padding:9px 16px 9px 0;border-radius:0;background:transparent;border:0;border-bottom:.5px solid var(--pl);box-shadow:none}
+.pho .mrow.sel{border:0;border-bottom:.5px solid var(--pl);background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--pm) 6%,transparent))}
+.pho .mrow .mth{width:42px;height:42px;border-radius:6px}
+.pho .mrow b{font-size:12.5px;font-weight:600}.pho .mrow em{font-weight:700;font-size:12.5px}
+.pho .plus{border-radius:7px;width:22px;height:22px;font-size:13px}
+.pho .cart3,.pho .cta3{border-radius:12px;box-shadow:none}
+.pho .dts{gap:0;border-radius:8px;overflow:hidden;box-shadow:inset 0 0 0 .5px var(--pl)}.pho .dts span{border:0;border-radius:0;border-right:.5px solid var(--pl);background:transparent}.pho .dts span:last-child{border-right:0}
+.pho .slt{gap:5px}.pho .slt span{border-radius:7px;border:0;box-shadow:inset 0 0 0 .5px var(--pl);background:transparent}
+.pho .tbar{border-top:.5px solid var(--pl);padding:7px 6px 14px}
+.pho .tkt{border-radius:12px}
+.pho .nxt,.pho .prj{border-radius:10px;border:.5px solid var(--pl);box-shadow:none}
+.pho .pst{margin:0 0 0 16px;padding:9px 16px 9px 0;border-radius:0;background:transparent;border:0;border-bottom:.5px solid var(--pl);box-shadow:none}
+.pho .pst i{border-radius:4px}
+.pho .lkd{margin:6px 14px;padding:12px;border-radius:10px;border:.5px solid var(--pl)}
+.pho .tg1{border-radius:4px;font-weight:600}
+.pho .sty i{box-shadow:none}
+.pho .sheet{border-radius:14px}.pho .ntf{border-radius:14px}
+.pho .sheet .ck{border-radius:9px}.pho .ntf .app{border-radius:7px}
+/* ---- hero / stage / mini ---- */
+.hero-dev .k3>div,.stage .kp>div,.stage .pnl{border-radius:8px;box-shadow:none}
+.stage .svc{border-radius:0!important;background:transparent!important;border:0!important;border-bottom:.5px solid var(--line)!important;padding:9px 2px!important}
+.stage .svc.on{background:linear-gradient(90deg,transparent,rgba(14,124,140,.06))!important}
+.stage .days span,.stage .slots span{border-radius:7px}
+.stage .pbtn{border-radius:10px}
+.stage .cover.cph{border-radius:10px}
+.hero-dev .sv{border-radius:6px}.hero-dev .bt{border-radius:8px}
+.mps .mcd{border-radius:12px}.mps .mim,.mps .mxb{border-radius:8px}.mps .mbt{border-radius:9px}.mps .mgd i{border-radius:4px}.mps .mi{border-radius:7px}
+.mxsc .ap-chips span.on,.mxsc .ap-sl span.on,.mxsc .ap-days span.on{background:var(--a);color:#fff}
+.th-bento .ap-chips span.on{background:#33200f}
+.pho .cats .on{background:var(--pt);color:var(--pb)}
+.pho .dts .on,.pho .slt .on{background:var(--pm);color:#fff}
+.mxsc .ap-tab span.on{opacity:1;color:var(--a)}
+.th-salon .ap-tab span.on{color:#1f2a2b}.th-shop .ap-tab span.on{color:#2b231b}
+.th-yoga .ap-days{border-radius:12px}
 </style>
 </head>
 <body>
