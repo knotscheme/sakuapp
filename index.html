@@ -1637,7 +1637,9 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 #usecase .uci h3{font-size:clamp(22px,2.6vw,28px);margin:10px 0 8px}
 @media(max-width:860px){
  #usecase .ucp{display:flex;flex-direction:column}
- #usecase .ucp .bd{order:-1}
+ #usecase .ucp .bd{order:-1;align-self:stretch;width:100%;justify-items:center}
+ #usecase .ucp .uci{align-self:stretch}
+ #usecase .ucp .bd .pho{width:min(300px,calc(100vw - 72px));margin-inline:auto}
  #usecase .uci{order:0}
 }
 
