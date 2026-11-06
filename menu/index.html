@@ -821,6 +821,13 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 @media(max-width:860px){.hero h1{font-size:min(9.4vw,38px)!important}main .show h2.big{font-size:clamp(27px,7.6vw,32px)!important}main section:not(.hero,.show){padding-top:84px!important;padding-bottom:84px!important}}
 .ef b{white-space:nowrap;font-size:clamp(30px,3vw,40px)!important}.ef b span{font-size:.38em!important}
 .skic{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.16em;flex:none}.estars{display:inline-flex;gap:1px;color:#f2b01e;vertical-align:-.1em}.estars .skic{width:1em;height:1em}
+
+/* ===== line-break polish (site-wide) ===== */
+h1,h2,h3,h4,h5,summary,dt,th,figcaption,button,.btn,.tag,.chip,.ucpr,.all{word-break:keep-all;overflow-wrap:anywhere}
+h1,h2,h3,h4,summary,figcaption{text-wrap:balance}
+p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
+.nw{display:inline-block}
+@media(max-width:480px){.cmp2 th,.cmp2 td{font-size:11.5px!important;padding-left:5px!important;padding-right:5px!important}.cmp2 tbody th{padding-left:10px!important}.mt{font-size:13.5px!important}.cmp2 thead .us{font-size:13px!important}}
 </style>
 </head>
 <body>
@@ -876,7 +883,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
     <div class="chap rv"><span class="bgw">DESIGN</span><span class="no">01</span><p>お店の雰囲気に合わせた</p><h2>デザインを自由に設計</h2></div>
     <div class="panel rv">
       <h3>テンプレートを選ぶだけで、<span class="blue">お店らしい画面に。</span></h3>
-      <p class="tx">業態に合わせたテンプレートを、無料でたくさんご用意しています。色・ロゴ・写真を入れるだけで、お店の雰囲気に合った注文画面に。もっとこだわりたい方には、デザイン性の高い有料テンプレートや、お店専用に作る<a href="../">オーダーメイド開発</a>もあります。</p>
+      <p class="tx">業態に合わせたテンプレートを、無料でたくさんご用意しています。色・ロゴ・写真を入れるだけで、お店の雰囲気に合った注文画面に。もっとこだわりたい方には、デザイン性の高い有料テンプレートや、お店専用に作る<a href="../">オーダー<wbr>メイド開発</a>もあります。</p>
       <div class="sw">
         <div class="circle"><div class="ph" id="swph"><div class="scr" id="swscr"></div></div></div>
         <div class="swl" id="swl"></div>
@@ -978,10 +985,10 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
       <div class="plans stg">
         <div class="plan"><small>自分で設定</small><b class="pn">セルフ</b><b class="pp">0<span>円</span></b><ul><li>無料テンプレートから選ぶ</li><li>メニュー・写真を自分で登録</li><li>管理画面の使い方ガイドつき</li></ul></div>
         <div class="plan rec"><span class="pbadge">いちばん人気</span><small>まるごと任せる</small><b class="pn">おまかせ</b><b class="pp">9,800<span>円</span></b><ul><li>テンプレート選びから代行</li><li>メニュー表と料理の写真を送るだけ</li><li>メニュー登録・初期設定まで済ませてお渡し</li></ul></div>
-        <a class="plan pgo" href="../" aria-label="オーダーメイド開発のページへ"><small>ゼロから専用に作る</small><b class="pn">オーダー</b><b class="pp">19,800<span>円〜</span></b><ul><li>お店専用の画面・機能を設計</li><li>ヒアリングからお見積りまで担当者が対応</li><li>オーダーメイド開発のページでご案内</li></ul><span class="pgo-l">オーダーメイド開発を見る <i>›</i></span></a>
+        <a class="plan pgo" href="../" aria-label="オーダーメイド開発のページへ"><small>ゼロから専用に作る</small><b class="pn">オーダー</b><b class="pp">19,800<span>円〜</span></b><ul><li>お店専用の画面・機能を設計</li><li>ヒアリングからお見積りまで担当者が対応</li><li>オーダー<wbr>メイド開発のページでご案内</li></ul><span class="pgo-l">オーダー<wbr>メイド開発を見る <i>›</i></span></a>
       </div>
       <div class="pmon"><span class="trial"><small>無料お試し</small><b>30日間</b></span><span><small>月額（お試しのあと）</small><b>1,980円</b></span><span><small>注文手数料</small><b>0円</b></span><span><small>最低契約期間</small><b>なし</b></span></div>
-      <p class="note" style="margin-top:10px">※月額は、30日間の無料お試しのあと自動で始まります（お申し込み時にクレジットカードの登録が必要です。課金の7日前と前日にメールでお知らせし、期間中に管理画面から解約すれば料金はかかりません）。初期費用（おまかせ）・有料テンプレート（3,000〜5,000円）・追加機能は、お試しの対象外です。セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダーメイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
+      <p class="note" style="margin-top:10px">※月額は、30日間の無料お試しのあと自動で始まります（お申し込み時にクレジットカードの登録が必要です。課金の7日前と前日にメールでお知らせし、期間中に管理画面から解約すれば料金はかかりません）。初期費用（おまかせ）・有料テンプレート（3,000〜5,000円）・追加機能は、お試しの対象外です。セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダー<wbr>メイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
       <div class="pgrid">
         <div class="card">
           <h4>月額制のサービスとくらべると</h4>
@@ -1021,7 +1028,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
     <div class="acc rv">
       <details open><summary>導入サポート</summary><p>セルフプランなら、管理画面でテンプレートを選び、メニューと写真を登録するだけで始められます。おまかせプランなら、LINEでお店の業態や席数をお聞きし、今のメニュー表と料理の写真を送っていただくだけで、テンプレート選び・メニュー登録（30品まで）・QRの発行までこちらで行います。</p></details>
       <details><summary>運用・保守</summary><p>月額1,980円に、サーバー代と不具合の修正・アップデート・バックアップが含まれます。メニュー・価格・売り切れの変更は、管理画面からいつでもご自身でできます。</p></details>
-      <details><summary>機能の追加</summary><p>多言語、呼び出しボタン、アレルギー表示、LINE通知、売上集計、事前決済、テイクアウトなど。必要になったタイミングで、買い切りで追加できます。画面や機能をゼロから作りたい場合は、オーダーメイド開発もご相談いただけます。</p></details>
+      <details><summary>機能の追加</summary><p>多言語、呼び出しボタン、アレルギー表示、LINE通知、売上集計、事前決済、テイクアウトなど。必要になったタイミングで、買い切りで追加できます。画面や機能をゼロから作りたい場合は、オーダー<wbr>メイド開発もご相談いただけます。</p></details>
     </div>
   </div>
 </section>
@@ -1041,7 +1048,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
       <details><summary>解約したいときはどうすればいいですか？</summary><p>最低契約期間はありません。管理画面からいつでも解約でき、その請求期間の終わりで終了します。無料お試しの期間中に解約すれば、料金はかかりません。解約後はメニューの公開が止まります。</p></details>
       <details><summary>今使っているPOSレジと連携できますか？</summary><p>標準ではレジとの連携は含まれていません。お使いのレジによって対応できるかが変わるため、ご相談ください。</p></details>
     </div>
-    <p class="custom">画面や機能をゼロから自由に作りたい場合は、<a href="../">オーダーメイド開発（19,800円〜）</a>をご覧ください。</p>
+    <p class="custom">画面や機能をゼロから自由に作りたい場合は、<a href="../">オーダー<wbr>メイド開発（19,800円〜）</a>をご覧ください。</p>
   </div>
 </section>
 
@@ -1051,7 +1058,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
     <h2 class="rv">お店らしいメニューを、<br>月1,980円から。</h2>
     <div class="cgrid stg">
       <a class="cc" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu"><span class="ci"><img src="img/line-chat.webp" alt="" width="512" height="286" loading="lazy"></span><span class="ct"><b>LINEで相談</b><small>「うちの店だとどんなデザインになる？」の確認だけでも大丈夫です</small><em>相談する ›</em></span></a>
-      <a class="cc" href="#options"><span class="ci"><img src="img/in-shokudo.webp" alt="" width="512" height="286" loading="lazy"></span><span class="ct"><b>お見積り</b><small>必要な機能を選ぶと、その場で概算がわかります</small><em>料金を見る ›</em></span></a>
+      <a class="cc" href="#options"><span class="ci"><img src="img/in-shokudo.webp" alt="" width="512" height="286" loading="lazy"></span><span class="ct"><b>お見積り</b><small>必要な機能を選ぶと、その場で概算がわかります</small><em>料金を見る&nbsp;›</em></span></a>
       <a class="cc" href="demo/"><span class="ci soft"><img src="../smile.webp" alt="" width="468" height="538" loading="lazy"></span><span class="ct"><b>デモを触る</b><small>お客様の画面とお店の管理画面を、実際に操作できます</small><em>デモを開く ›</em></span></a>
     </div>
     <p class="sub rv">売り込みはしません ・ 相談もお見積もりも無料 ・ LINEを使っていない方は <a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener">XのDM</a> でも受付中<br>正式受付は2027年6月ごろから。先行のご案内はLINEで受付中です。</p>
@@ -1062,7 +1069,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
   <div class="wrap">
     <h2 class="center rv">サクアプのサービス</h2>
     <div class="pgr pgr3 stg">
-      <a class="pd p1" href="../"><span><b>オーダーメイド開発</b><small>予約・決済・顧客管理を、ゼロから自由に。<br>19,800円〜、1文字0.5円の明朗会計</small></span><img src="../salon.webp" alt="" width="1376" height="768" loading="lazy"></a>
+      <a class="pd p1" href="../"><span><b>オーダー<wbr>メイド開発</b><small>予約・決済・顧客管理を、ゼロから自由に。<br>19,800円〜、1文字0.5円の明朗会計</small></span><img src="../salon.webp" alt="" width="1376" height="768" loading="lazy"></a>
       <a class="pd p2" href="./"><span><b>モバイルメニュー</b><small>お店らしいQR注文を、すぐに。<br>初期0円〜・月額1,980円</small></span><span class="pdph" id="pdph"></span></a>
       <a class="pd p3" href="../salon/"><span><b>サロン予約</b><small>予約・カルテ・再来店のお知らせを、ひとつに。<br>初期0円〜・月額1,980円</small></span><img src="../salon/img/interior.webp" alt="" width="412" height="512" loading="lazy"></a>
     </div>
@@ -1072,7 +1079,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 
 <footer class="sfoot">
   <div class="fg">
-    <a href="#design">デザイン</a><a href="#easy">かんたんな運用</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a><a href="../salon/">サロン予約</a><a href="../">オーダーメイド開発</a><a href="../guide/">サービス資料</a><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで相談</a>
+    <a href="#design">デザイン</a><a href="#easy">かんたんな運用</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a><a href="../salon/">サロン予約</a><a href="../">オーダー<wbr>メイド開発</a><a href="../guide/">サービス資料</a><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="menu">LINEで相談</a>
   </div>
   <div class="wrap fb">
     <span class="fl2"><a href="../terms.html">利用規約 ›</a><a href="../privacy.html">プライバシーポリシー ›</a><a href="../tokushoho.html">特定商取引法に基づく表記 ›</a><a href="../account/">お支払い・解約 ›</a></span>
@@ -1320,5 +1327,6 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
   if("IntersectionObserver" in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting){loadDemo();if(fr.src)o.disconnect()}},{rootMargin:"400px"}).observe(fr)}else loadDemo();
 })();
 </script>
+<script src="../js/budoux.js" defer></script>
 </body>
 </html>

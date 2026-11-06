@@ -60,7 +60,13 @@ label.f input:focus{outline:2px solid var(--c);border-color:var(--c)}
 .legal a{color:var(--muted)}
 .err{color:#c92a2a;font-size:13px;margin-top:6px;display:none}
 .err.on{display:block}
-</style><style>.next{counter-reset:n;list-style:none;padding:0;margin:0}.next li{position:relative;padding:0 0 16px 44px}.next li::before{counter-increment:n;content:counter(n);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--c);color:var(--on);display:grid;place-items:center;font:700 14px Montserrat,sans-serif}.next b{display:block}.btn2{display:flex;align-items:center;justify-content:center;min-height:56px;border-radius:12px;background:var(--c);color:var(--on);font-weight:700;text-decoration:none;margin-top:10px}.btn2.ghost{background:#fff;color:var(--c);border:2px solid var(--c)}</style>
+</style><style>.next{counter-reset:n;list-style:none;padding:0;margin:0}.next li{position:relative;padding:0 0 16px 44px}.next li::before{counter-increment:n;content:counter(n);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--c);color:var(--on);display:grid;place-items:center;font:700 14px Montserrat,sans-serif}.next b{display:block}.btn2{display:flex;align-items:center;justify-content:center;min-height:56px;border-radius:12px;background:var(--c);color:var(--on);font-weight:700;text-decoration:none;margin-top:10px}.btn2.ghost{background:#fff;color:var(--c);border:2px solid var(--c)}
+/* ===== line-break polish (site-wide) ===== */
+h1,h2,h3,h4,h5,summary,dt,th,figcaption,button,.btn,.tag,.chip,.ucpr,.all{word-break:keep-all;overflow-wrap:anywhere}
+h1,h2,h3,h4,summary,figcaption{text-wrap:balance}
+p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
+.nw{display:inline-block}
+</style>
 </head>
 <body data-s="salon">
 <header><div class="w"><a class="logo" href="../">サクアプ</a><a class="back" id="back" href="../">← トップへ</a></div></header>
@@ -89,5 +95,6 @@ label.f input:focus{outline:2px solid var(--c);border-color:var(--c)}
   if(B.PORTAL_URL){a.href=B.PORTAL_URL}else{a.removeAttribute("href");a.style.opacity=".4";a.setAttribute("aria-disabled","true");c.hidden=false;c.innerHTML=(B.OPEN_NOTE||"ただいま準備中です。")+(B.LINE_URL?' <a href="'+B.LINE_URL+'" target="_blank" rel="noopener">LINEで相談する ›</a>':"")}
 })();
 </script>
+<script src="../js/budoux.js" defer></script>
 </body>
 </html>

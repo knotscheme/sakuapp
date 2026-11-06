@@ -1050,6 +1050,13 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 @media(max-width:860px){.sh1{font-size:min(9.2vw,38px)!important}main .show h2.big{font-size:clamp(27px,7.6vw,32px)!important}main section:not(.hero,.show){padding-top:84px!important;padding-bottom:84px!important}}
 .ef b{white-space:nowrap;font-size:clamp(30px,3vw,40px)!important}.ef b span{font-size:.38em!important}
 .skic{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.16em;flex:none}.estars{display:inline-flex;gap:1px;color:#f2b01e;vertical-align:-.1em}.estars .skic{width:1em;height:1em}
+
+/* ===== line-break polish (site-wide) ===== */
+h1,h2,h3,h4,h5,summary,dt,th,figcaption,button,.btn,.tag,.chip,.ucpr,.all{word-break:keep-all;overflow-wrap:anywhere}
+h1,h2,h3,h4,summary,figcaption{text-wrap:balance}
+p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
+.nw{display:inline-block}
+@media(max-width:480px){.cmp2 th,.cmp2 td{font-size:11.5px!important;padding-left:5px!important;padding-right:5px!important}.cmp2 tbody th{padding-left:10px!important}.mt{font-size:13.5px!important}.cmp2 thead .us{font-size:13px!important}}
 </style>
 </head>
 <body>
@@ -1121,7 +1128,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
     <div class="chap rv"><span class="bgw">DESIGN</span><span class="no">01</span><p>サロンの世界観に合わせた</p><h2>予約ページを自由に設計</h2></div>
     <div class="panel rv">
       <h3>テンプレートを選ぶだけで、<span class="blue">サロンらしい予約ページに。</span></h3>
-      <p class="tx">業態に合わせたテンプレートを、無料でたくさんご用意しています。色・ロゴ・写真を入れるだけで、サロンの世界観に合った予約ページに。もっとこだわりたい方には、デザイン性の高い有料テンプレートや、お店専用に作る<a href="../">オーダーメイド開発</a>もあります。</p>
+      <p class="tx">業態に合わせたテンプレートを、無料でたくさんご用意しています。色・ロゴ・写真を入れるだけで、サロンの世界観に合った予約ページに。もっとこだわりたい方には、デザイン性の高い有料テンプレートや、お店専用に作る<a href="../">オーダー<wbr>メイド開発</a>もあります。</p>
       <div class="sw">
         <div class="circle"><div class="ph" id="swph"><div class="scr" id="swscr"></div></div></div>
         <div class="swl" id="swl"></div>
@@ -1214,16 +1221,16 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
       <div class="plans stg">
         <div class="plan"><small>自分で設定</small><b class="pn">セルフ</b><b class="pp">0<span>円</span></b><ul><li>無料テンプレートから選ぶ</li><li>メニュー・写真を自分で登録</li><li>管理画面の使い方ガイドつき</li></ul></div>
         <div class="plan rec"><span class="pbadge">いちばん人気</span><small>まるごと任せる</small><b class="pn">おまかせ</b><b class="pp">9,800<span>円</span></b><ul><li>テンプレート選びから代行</li><li>メニュー表とお店の写真を送るだけ</li><li>メニュー登録・初期設定まで済ませてお渡し</li></ul></div>
-        <a class="plan pgo" href="../" aria-label="オーダーメイド開発のページへ"><small>ゼロから専用に作る</small><b class="pn">オーダー</b><b class="pp">19,800<span>円〜</span></b><ul><li>サロン専用の画面・機能を設計</li><li>ヒアリングからお見積りまで担当者が対応</li><li>オーダーメイド開発のページでご案内</li></ul><span class="pgo-l">オーダーメイド開発を見る <i>›</i></span></a>
+        <a class="plan pgo" href="../" aria-label="オーダーメイド開発のページへ"><small>ゼロから専用に作る</small><b class="pn">オーダー</b><b class="pp">19,800<span>円〜</span></b><ul><li>サロン専用の画面・機能を設計</li><li>ヒアリングからお見積りまで担当者が対応</li><li>オーダー<wbr>メイド開発のページでご案内</li></ul><span class="pgo-l">オーダー<wbr>メイド開発を見る <i>›</i></span></a>
       </div>
       <div class="pmon"><span class="trial"><small>無料お試し</small><b>30日間</b></span><span><small>月額（お試しのあと）</small><b>1,980円</b></span><span><small>予約手数料</small><b>0円</b></span><span><small>最低契約期間</small><b>なし</b></span></div>
-      <p class="note" style="margin-top:10px">※月額は、30日間の無料お試しのあと自動で始まります（お申し込み時にクレジットカードの登録が必要です。課金の7日前と前日にメールでお知らせし、期間中に管理画面から解約すれば料金はかかりません）。初期費用（おまかせ）・有料テンプレート（3,000〜5,000円）・追加機能は、お試しの対象外です。セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダーメイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
+      <p class="note" style="margin-top:10px">※月額は、30日間の無料お試しのあと自動で始まります（お申し込み時にクレジットカードの登録が必要です。課金の7日前と前日にメールでお知らせし、期間中に管理画面から解約すれば料金はかかりません）。初期費用（おまかせ）・有料テンプレート（3,000〜5,000円）・追加機能は、お試しの対象外です。セルフで始めて、あとからおまかせに切り替えることもできます。お店専用に作りたくなったら、オーダー<wbr>メイド開発へ移行できます。月額にはサーバー代・保守が含まれます。</p>
 
       <div class="mon">
         <span class="mtag">先着5店舗</span>
-        <div class="mhd"><b>先行モニター特典</b><p>導入事例として掲載させていただけるサロン様は、<strong>おまかせ設定（9,800円）と有料テンプレート1つが無料</strong>になります。</p></div>
+        <div class="mhd"><b>先行モニター特典</b><p>導入事例として掲載させていただけるサロン様は、<strong>おまかせ<wbr>設定（9,800円）と有料テンプレート1つが無料</strong>になります。</p></div>
         <dl class="mdl2">
-          <div><dt>おまかせ設定</dt><dd><s>9,800円</s> → <b>0円</b></dd></div><div><dt>有料テンプレート</dt><dd>お好きなものを1つ <b>無料</b></dd></div>
+          <div><dt>おまかせ<wbr>設定</dt><dd><s>9,800円</s> → <b>0円</b></dd></div><div><dt>有料テンプレート</dt><dd>お好きなものを1つ <b>無料</b></dd></div>
           <div><dt>月額</dt><dd>1,980円（サーバー代・保守込み）</dd></div>
           <div><dt>契約期間</dt><dd><span class="nw">最初の6か月</span><small class="dd2">その後は1か月ごとの自動更新</small></dd></div>
           <div><dt>途中解約</dt><dd>6か月以内の解約は、残りの月数分の月額をお支払いいただきます</dd></div>
@@ -1271,7 +1278,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
     <div class="acc rv">
       <details open><summary>導入サポート</summary><p>セルフプランなら、管理画面でテンプレートを選び、メニューと営業時間を登録するだけで始められます。おまかせプランなら、LINEでサロンの業態やメニュー、営業時間をお聞きし、メニュー表とお店の写真を送っていただくだけで、テンプレート選び・メニュー登録（20件まで）・予約ページの公開までこちらで行います。</p></details>
       <details><summary>運用・保守</summary><p>月額1,980円に、サーバー代と不具合の修正・アップデート・バックアップが含まれます。カルテのデータは毎日バックアップします。メニュー・料金・営業時間・受付の停止は、管理画面からいつでもご自身でできます。</p></details>
-      <details><summary>機能の追加</summary><p>LINE通知、事前決済・キャンセル料、写真カルテ、スタッフ複数・指名、回数券、次回予約のおすすめ、物販など。必要になったタイミングで、買い切りで追加できます。画面や機能をゼロから作りたい場合は、オーダーメイド開発もご相談いただけます。</p></details>
+      <details><summary>機能の追加</summary><p>LINE通知、事前決済・キャンセル料、写真カルテ、スタッフ複数・指名、回数券、次回予約のおすすめ、物販など。必要になったタイミングで、買い切りで追加できます。画面や機能をゼロから作りたい場合は、オーダー<wbr>メイド開発もご相談いただけます。</p></details>
     </div>
   </div>
 </section>
@@ -1289,12 +1296,12 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
       <details><summary>お知らせを送る時期は選べますか？</summary><p>選べます。メニューごとに「カット6週間」「カラー8週間」のように決められ、お客様ごとに変えることもできます。送りたくないお客様は、カルテからオフにできます。</p></details>
       <details><summary>月額1,980円には何が含まれますか？</summary><p>予約ページとカルテを動かすサーバー代、予約確認・リマインド・再来店のお知らせのメール送信、不具合の修正・アップデート・バックアップの保守費用です。これ以外の月額費用はかかりません。</p></details>
       <details><summary>予約が増えると料金も上がりますか？</summary><p>上がりません。予約件数の上限はなく、予約手数料も0円です。事前決済を追加した場合のみ、決済サービスStripeの手数料が別途かかります（Stripeへ直接のお支払い）。</p></details>
-      <details><summary>先行モニターの条件を教えてください</summary><p>先着5店舗まで、おまかせ設定（9,800円）と有料テンプレート1つが無料になります。条件は、最初の6か月のご継続（その後は1か月ごとの自動更新）と、導入事例としての掲載です。6か月以内に解約される場合は、残りの月数分の月額をお支払いいただきます。解約のご連絡は、更新月の前月末までにお願いします。</p></details>
+      <details><summary>先行モニターの条件を教えてください</summary><p>先着5店舗まで、おまかせ<wbr>設定（9,800円）と有料テンプレート1つが無料になります。条件は、最初の6か月のご継続（その後は1か月ごとの自動更新）と、導入事例としての掲載です。6か月以内に解約される場合は、残りの月数分の月額をお支払いいただきます。解約のご連絡は、更新月の前月末までにお願いします。</p></details>
       <details><summary>30日間の無料お試しのあとは、どうなりますか？</summary><p>31日目から月額1,980円が、登録したクレジットカードに自動で請求されます。課金の7日前と前日にメールでお知らせするので、続けない場合はそれまでに管理画面から解約してください。無料お試しは1店舗につき1回で、先行モニター特典との併用はできません。</p></details>
       <details><summary>解約したいときはどうすればいいですか？</summary><p>通常プランは最低契約期間がなく、管理画面からいつでも解約でき、その請求期間の終わりで終了します（先行モニターは上記の条件があります）。無料お試しの期間中に解約すれば、料金はかかりません。解約後は予約ページの公開が止まります。カルテのデータは、ご希望があればCSVでお渡しします。</p></details>
       <details><summary>スタッフが複数いても使えますか？</summary><p>使えます。スタッフごとの空き枠や指名予約は、追加機能「スタッフ複数・指名予約」で対応します。</p></details>
     </div>
-    <p class="custom">画面や機能をゼロから自由に作りたい場合は、<a href="../">オーダーメイド開発（19,800円〜）</a>をご覧ください。</p>
+    <p class="custom">画面や機能をゼロから自由に作りたい場合は、<a href="../">オーダー<wbr>メイド開発（19,800円〜）</a>をご覧ください。</p>
   </div>
 </section>
 
@@ -1304,7 +1311,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
     <h2 class="rv">また来てくれる予約ページを、<br>月1,980円から。</h2>
     <div class="cgrid stg">
       <a class="cc" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon"><span class="ci"><img src="../consult.webp" alt="" width="960" height="720" loading="lazy"></span><span class="ct"><b>LINEで相談</b><small>「うちのサロンだとどんな予約ページになる？」の確認だけでも大丈夫です</small><em>相談する ›</em></span></a>
-      <a class="cc" href="#options"><span class="ci"><img src="img/blow.webp" alt="" width="512" height="343" loading="lazy"></span><span class="ct"><b>お見積り</b><small>必要な機能を選ぶと、その場で概算がわかります</small><em>料金を見る ›</em></span></a>
+      <a class="cc" href="#options"><span class="ci"><img src="img/blow.webp" alt="" width="512" height="343" loading="lazy"></span><span class="ct"><b>お見積り</b><small>必要な機能を選ぶと、その場で概算がわかります</small><em>料金を見る&nbsp;›</em></span></a>
       <a class="cc" href="demo/"><span class="ci soft"><img src="../smile.webp" alt="" width="468" height="538" loading="lazy"></span><span class="ct"><b>デモを触る</b><small>予約ページと管理画面・カルテを、実際に操作できます</small><em>デモを開く ›</em></span></a>
     </div>
     <p class="sub rv">売り込みはしません ・ 相談もお見積もりも無料 ・ LINEを使っていない方は <a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener">XのDM</a> でも受付中<br>正式受付は2027年6月ごろから。先行モニター（先着5店舗）はLINEで受付中です。</p>
@@ -1315,7 +1322,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
   <div class="wrap">
     <h2 class="center rv">サクアプのサービス</h2>
     <div class="pgr pgr3 stg">
-      <a class="pd p1" href="../"><span><b>オーダーメイド開発</b><small>予約・決済・顧客管理を、ゼロから自由に。<br>19,800円〜、1文字0.5円の明朗会計</small></span><img src="../salon.webp" alt="" width="1376" height="768" loading="lazy"></a>
+      <a class="pd p1" href="../"><span><b>オーダー<wbr>メイド開発</b><small>予約・決済・顧客管理を、ゼロから自由に。<br>19,800円〜、1文字0.5円の明朗会計</small></span><img src="../salon.webp" alt="" width="1376" height="768" loading="lazy"></a>
       <a class="pd p3" href="../menu/"><span><b>モバイルメニュー</b><small>お店らしいQR注文を、すぐに。<br>初期0円〜・月額1,980円</small></span><img src="../menu/img/teishoku-top.webp" alt="" width="512" height="512" loading="lazy"></a>
       <a class="pd p2" href="./"><span><b>サロン予約</b><small>予約・カルテ・再来店のお知らせを、ひとつに。<br>初期0円〜・月額1,980円</small></span><span class="pdph" id="pdph"></span></a>
     </div>
@@ -1325,7 +1332,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 
 <footer class="sfoot">
   <div class="fg">
-    <a href="#design">デザイン</a><a href="#easy">かんたんな運用</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a><a href="../menu/">モバイルメニュー</a><a href="../">オーダーメイド開発</a><a href="../guide/">サービス資料</a><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon">LINEで相談</a>
+    <a href="#design">デザイン</a><a href="#easy">かんたんな運用</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a><a href="../menu/">モバイルメニュー</a><a href="../">オーダー<wbr>メイド開発</a><a href="../guide/">サービス資料</a><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="salon">LINEで相談</a>
   </div>
   <div class="wrap fb">
     <span class="fl2"><a href="../terms.html">利用規約 ›</a><a href="../privacy.html">プライバシーポリシー ›</a><a href="../tokushoho.html">特定商取引法に基づく表記 ›</a><a href="../account/">お支払い・解約 ›</a></span>
@@ -1554,5 +1561,6 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
   if("IntersectionObserver" in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting){loadDemo();if(fr.src)o.disconnect()}},{rootMargin:"400px"}).observe(fr)}else loadDemo();
 })();
 </script>
+<script src="../js/budoux.js" defer></script>
 </body>
 </html>
