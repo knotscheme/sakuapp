@@ -2058,6 +2058,15 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 @media(max-width:600px){.scene video{aspect-ratio:4/3;border-radius:16px}}
 @media(max-width:860px){.twall{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 28px,#000 80%,transparent)!important;mask-image:linear-gradient(180deg,transparent 0,#000 28px,#000 80%,transparent)!important;margin-top:4px}.twin{top:calc(50% - 18px)!important}}
 .pho.j[style*="#9a3b25"]:not([data-s="0"]) .tbar,.pho.j.has-tbar2:not([data-s="0"]) .tbar{margin-top:auto!important}
+
+/* Safari 26: avoid toolbar color extension from the fixed bar panel */
+@media(max-width:860px){
+ header#hd,header#hd .wrap{background:transparent!important}
+ header#hd .hbar{background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:0!important;box-shadow:none!important;padding:0!important}
+ header#hd .hdoc{box-shadow:0 10px 24px -12px rgba(5,40,50,.45),0 0 0 1px rgba(14,124,140,.08)!important;background:#fff!important}
+ header#hd .btn{box-shadow:0 10px 24px -10px rgba(140,90,0,.55)!important}
+ header#hd{bottom:calc(env(safe-area-inset-bottom,0px) + 14px)!important}
+}
 </style>
 </head>
 <body>
