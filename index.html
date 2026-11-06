@@ -1839,6 +1839,11 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 .endline span{display:inline-block}.endline span{padding:0!important}.endline span:first-child{padding-left:6px!important}.endline span:last-child{padding-right:6px!important}@media(max-width:600px){.endline span{padding:0 6px!important}}@media(max-width:600px){.endline .spbr{display:inline}}
 .esum .em{white-space:nowrap}.esum .em b{font-size:clamp(30px,2.6vw,40px)}
 .hero2 .stats small{white-space:nowrap;font-size:11.5px;letter-spacing:0}
+/* template wall: no gap, soft top edge */
+main > section:has(+ #templates){padding-bottom:36px!important;border-bottom:0!important}
+@media(max-width:860px){main > section:has(+ #templates){padding-bottom:24px!important}}
+.tplx{background:linear-gradient(180deg,#fff 0,#eef5f5 260px)!important}
+.twall{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 70px,#000 80%,transparent)!important;mask-image:linear-gradient(180deg,transparent 0,#000 70px,#000 80%,transparent)!important}
 </style>
 </head>
 <body>
