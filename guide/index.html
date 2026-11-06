@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>サービス資料｜サクアプ</title>
+<meta name="description" content="サクアプのサービス資料。個人事業主・副業の方のためのオーダーメイドアプリ。作れるアプリ、機能、料金、お支払い方法、導入の流れをまとめました。">
+<meta property="og:title" content="サービス資料｜サクアプ">
+<meta property="og:description" content="作れるアプリ・機能・料金・導入の流れを、14ページでまとめました。">
+<meta property="og:image" content="https://knotscheme.github.io/sakuapp/ogp.jpg">
+<link rel="icon" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#0e7c8c;--brand-d:#0a5d69;--ink:#0f2a2e;--sub:#5b6f72;--line:#dfe9e9;--bg:#eef3f3;--soft:#f4f9f9;--acc:#f4c04e;--card:#fff}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.7;letter-spacing:.04em}
+a{color:inherit}
+.num{font-family:Inter,"Noto Sans JP",sans-serif;letter-spacing:-.01em}
+/* toolbar */
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px 20px;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .lg img{height:22px;display:block}
+.bar .tt{font-size:12px;font-weight:700;color:var(--sub);margin-right:auto;white-space:nowrap}
+.bar a.b,.bar button{font:700 12.5px "Noto Sans JP",sans-serif;letter-spacing:.04em;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.bar button{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.bar a.b{background:var(--brand);color:#fff}
+.bar svg{width:15px;height:15px;vertical-align:-3px;margin-right:5px}
+.deck{max-width:1120px;margin:0 auto;padding:28px 20px 60px;display:flex;flex-direction:column;gap:28px}
+.intro{font-size:13px;color:var(--sub);text-align:center;margin:0}
+/* slide */
+.s{position:relative;background:var(--card);border-radius:18px;box-shadow:0 20px 40px -28px rgba(15,42,46,.35);overflow:hidden;aspect-ratio:16/9;padding:5.2% 6% 5%;display:flex;flex-direction:column}
+.pg{position:absolute;right:3.2%;bottom:4.4%;font:600 11px Inter,sans-serif;color:#9fb0b2;letter-spacing:.1em}
+.pg b{color:var(--brand)}
+.brandmark{position:absolute;left:6%;bottom:4.4%;font:800 11px Inter,sans-serif;letter-spacing:.18em;color:#b9c7c8}
+.ey{font:800 11.5px Inter,sans-serif;letter-spacing:.22em;color:var(--brand);margin:0 0 10px}
+.s h2{font-size:clamp(22px,2.7vw,32px);font-weight:900;line-height:1.35;letter-spacing:.03em;margin:0 0 6px}
+.s h2 em{font-style:normal;background:linear-gradient(transparent 62%,rgba(244,192,78,.55) 62%)}
+.lead{font-size:13.5px;color:var(--sub);margin:0 0 22px}
+.grow{flex:1;min-height:0}
+/* 1 cover */
+.cover{background:radial-gradient(120% 120% at 100% 0%,#14909f 0%,#0b6370 45%,#073f47 100%);color:#fff;padding:6% 6%}
+.cover .ey{color:#9fe0e6}
+.cover h1{font-size:clamp(30px,4.6vw,56px);font-weight:900;line-height:1.25;letter-spacing:.03em;margin:0}
+.cover h1 span{display:block}
+.cover p.cs{font-size:15px;font-weight:700;opacity:.92;margin:22px 0 0;line-height:1.9}
+.cover .meta{margin-top:auto;display:flex;gap:18px;align-items:center;font-size:12px;opacity:.85}
+.cover .meta img{height:26px}
+.cover .phs{position:absolute;right:4%;top:50%;transform:translateY(-50%) rotate(-6deg);display:flex;gap:14px}
+.cover .phs i{display:block;width:clamp(90px,12vw,150px);aspect-ratio:300/599;border-radius:22px;background-size:cover;background-position:top;box-shadow:0 30px 50px -20px rgba(0,0,0,.6);border:3px solid #10272b}
+.cover .phs i:nth-child(2){transform:translateY(-34px)}
+.cover .pg,.cover .brandmark{color:rgba(255,255,255,.55)}.cover .pg b{color:#fff}
+/* cards */
+.g{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.c{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
+.c h3{font-size:15px;font-weight:800;margin:0 0 6px;line-height:1.45}
+.c p{font-size:12.5px;color:var(--sub);margin:0;line-height:1.75}
+.ic{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#fff;color:var(--brand);box-shadow:0 0 0 1px var(--line);margin-bottom:12px}
+.ic svg{width:20px;height:20px}
+/* 2 worries */
+.wr .c{display:flex;gap:14px;align-items:flex-start;background:#fff}
+.wr .c .ic{flex:none;margin:0;background:#fff5f2;color:#d0603f;box-shadow:none}
+.s .note{margin-top:auto;padding-top:18px;font-size:17px;font-weight:900;text-align:center}
+.s .note em{font-style:normal;color:var(--brand)}
+/* 3 stats */
+.def{font-size:clamp(17px,1.8vw,21px);font-weight:800;line-height:1.7;margin:4px 0 26px}
+.def em{font-style:normal;color:var(--brand)}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.st div{border-top:3px solid var(--brand);background:var(--soft);border-radius:4px 4px 14px 14px;padding:16px 18px}
+.st small{display:block;font-size:12px;font-weight:700;color:var(--sub)}
+.st b{display:block;font:800 clamp(28px,3.4vw,42px)/1.15 Inter,"Noto Sans JP",sans-serif;color:var(--ink);margin:6px 0 4px;letter-spacing:-.01em}
+.st b i{font-style:normal;font-size:.42em;font-weight:700;margin-left:3px}
+.st p{font-size:12px;color:var(--sub);margin:0;line-height:1.7}
+/* 4 services */
+.sv .c{background:#fff;display:flex;flex-direction:column}
+.sv .tg{display:inline-block;align-self:flex-start;font-size:10.5px;font-weight:800;color:var(--brand);background:#e6f4f5;border-radius:999px;padding:3px 10px;margin-bottom:10px}
+.sv .pr{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);font-size:12px;color:var(--sub)}
+.sv .pr b{font:800 20px Inter,"Noto Sans JP",sans-serif;color:var(--ink)}
+.sv .for{font-size:11.5px;color:var(--ink);font-weight:700;margin:10px 0 0}
+/* 5 apps */
+.apps{display:grid;grid-template-columns:repeat(6,1fr);gap:12px 10px}
+.apps figure{margin:0;text-align:center}
+.apps i{display:block;aspect-ratio:300/420;border-radius:12px;background-size:cover;background-position:top;box-shadow:0 10px 20px -14px rgba(15,42,46,.5);border:1px solid var(--line)}
+.apps figcaption{font-size:11px;font-weight:700;margin-top:6px;line-height:1.4}
+/* 6 features */
+.ft{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ft div{display:flex;align-items:center;gap:10px;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.ft .ic{margin:0;width:32px;height:32px;flex:none}.ft .ic svg{width:17px;height:17px}
+.ft b{font-size:12.5px;line-height:1.35;flex:1}
+.ft em{font:800 15px Inter,sans-serif;font-style:normal;color:var(--brand)}
+.ftn{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:12px;color:var(--sub)}
+.ftn b{font:800 26px Inter,sans-serif;color:var(--ink)}
+/* 7 before/after */
+.ba{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ba .c{background:#fff;padding:0;overflow:hidden}
+.ba .ph{height:96px;background-size:cover;background-position:center}
+.ba .in{padding:14px 16px 16px}
+.ba .row{display:grid;grid-template-columns:44px 1fr;gap:8px;font-size:12px;line-height:1.6;margin-top:8px}
+.ba .row span{font:800 10px Inter,sans-serif;letter-spacing:.08em;border-radius:6px;text-align:center;padding:3px 0;align-self:start}
+.ba .bf span{background:#f1f1ee;color:#8a8a80}.ba .af span{background:var(--brand);color:#fff}
+.ba .af p{font-weight:700;color:var(--ink)}
+.ba p{margin:0;color:var(--sub)}
+/* 8 price */
+.pt{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.pt h3{font-size:13px;font-weight:800;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.pt h3:before{content:"";width:4px;height:14px;border-radius:2px;background:var(--brand)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-weight:700}
+td.r{text-align:right;white-space:nowrap}
+td.r b{font:800 16px Inter,"Noto Sans JP",sans-serif}
+td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;line-height:1.5}
+.box{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.mini{font-size:11px;color:var(--sub);line-height:1.7;margin:10px 0 0}
+.hl{display:inline-block;font-size:10.5px;font-weight:800;color:#8a5a00;background:#fff1cf;border-radius:999px;padding:2px 9px;margin-left:6px;vertical-align:1px}
+/* 9 pay */
+.pay{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.pay div{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.pay div.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.pay small{display:block;font-size:12px;font-weight:700;opacity:.8}
+.pay b{display:block;font:800 clamp(22px,2.6vw,30px)/1.2 Inter,"Noto Sans JP",sans-serif;margin:6px 0 2px}
+.pay b i{font-style:normal;font-size:.45em;margin-left:2px}
+.pay span{font-size:11px;opacity:.85}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12px}
+.cards div{border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.cards b{display:block;font-size:13px}
+/* 10 extras */
+.eq{display:flex;align-items:center;justify-content:center;gap:18px;background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:16px}
+.eq b{font:800 clamp(28px,3.4vw,40px) Inter,"Noto Sans JP",sans-serif}
+.eq span{font-size:13px;color:var(--sub);font-weight:700}
+.eq i{font-style:normal;font-size:24px;color:var(--brand);font-weight:800}
+.ex td.r b{color:var(--brand)}
+/* 11 flow */
+.fl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:6px}
+.fl div{position:relative;padding:0 14px 0 0}
+.fl div:not(:last-child):after{content:"";position:absolute;top:22px;left:52px;right:6px;height:2px;background:repeating-linear-gradient(90deg,var(--brand) 0 6px,transparent 6px 11px)}
+.fl .n{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--brand);color:#fff;font:800 18px Inter,sans-serif;margin-bottom:12px;position:relative;z-index:1}
+.fl h3{font-size:15px;font-weight:800;margin:0 0 6px}
+.fl p{font-size:12px;color:var(--sub);margin:0;line-height:1.75}
+.fl small{display:inline-block;margin-top:8px;font-size:11px;font-weight:800;color:var(--brand);background:#e6f4f5;border-radius:999px;padding:2px 10px}
+.after{margin-top:auto;display:flex;gap:14px;align-items:center;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 18px;font-size:12.5px}
+.after b{font-size:13.5px}
+.after .num{font-size:20px;font-weight:800;color:var(--brand);margin-left:auto;white-space:nowrap}
+/* 12 faq */
+.fq{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 18px}
+.fq div{border-bottom:1px solid var(--line);padding:4px 0 12px}
+.fq h3{font-size:13.5px;font-weight:800;margin:0 0 4px;display:flex;gap:8px}
+.fq h3:before{content:"Q";font:800 13px Inter,sans-serif;color:var(--brand)}
+.fq p{font-size:12px;color:var(--sub);margin:0 0 0 18px;line-height:1.75}
+/* 13 monitor */
+.mo .c{background:#fff}
+.mo .big{font:800 30px Inter,"Noto Sans JP",sans-serif;color:var(--ink);margin:6px 0}
+.mo ul{margin:10px 0 0;padding:0;list-style:none;font-size:12.5px}
+.mo li{display:flex;gap:8px;padding:5px 0;border-top:1px dashed var(--line);line-height:1.6}
+.mo li:before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--brand);margin-top:8px}
+.mo .sch{margin-top:auto;padding-top:14px;font-size:12px;color:var(--sub);text-align:center}
+/* 14 contact */
+.ct{background:linear-gradient(140deg,#0b6370,#073f47);color:#fff}
+.ct .ey{color:#9fe0e6}
+.ct h2{color:#fff}
+.ct .lead{color:rgba(255,255,255,.8)}
+.ctg{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;margin-top:8px}
+.qr{background:#fff;border-radius:16px;padding:12px;width:clamp(140px,17vw,190px)}
+.qr img{display:block;width:100%;height:auto}
+.qr p{margin:6px 0 0;text-align:center;font-size:11px;font-weight:800;color:var(--ink)}
+.ctl ul{list-style:none;margin:0 0 20px;padding:0;font-size:14px}
+.ctl li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);display:flex;gap:10px}
+.ctl li b{color:var(--acc);font-family:Inter,sans-serif}
+.cbtn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--brand-d);font-weight:800;font-size:15px;text-decoration:none;border-radius:12px;padding:14px 26px}
+.ctl .url{display:block;margin-top:14px;font-size:12px;opacity:.75}
+.ct .pg,.ct .brandmark{color:rgba(255,255,255,.5)}.ct .pg b{color:#fff}
+.foot{text-align:center;font-size:12px;color:var(--sub);padding:0 20px 40px}
+.foot a{color:var(--brand);font-weight:700}
+/* responsive: phones read slides as cards */
+@media (max-width:860px){
+ .bar{padding:9px 14px;gap:8px}.bar .tt{display:none}.bar .lg{margin-right:auto}
+ .bar a.b,.bar button{padding:8px 12px;font-size:12px}
+ .deck{padding:18px 14px 40px;gap:16px}
+ .s{aspect-ratio:auto;padding:30px 20px 44px;border-radius:16px}
+ .s h2{font-size:22px}
+ .lead{font-size:13px;margin-bottom:18px}
+ .g2,.g3,.g4,.st,.ba,.pt,.fq,.sv,.cards{grid-template-columns:1fr}
+ .wr.g2{grid-template-columns:1fr}
+ .apps{grid-template-columns:repeat(3,1fr)}
+ .ft{grid-template-columns:repeat(2,1fr)}.ft div{padding:10px}.ft b{font-size:11.5px}
+ .pay{grid-template-columns:repeat(2,1fr)}
+ .fl{grid-template-columns:1fr;gap:18px}.fl div{padding:0 0 0 62px;min-height:46px}.fl .n{position:absolute;left:0;top:0;margin:0}.fl div:not(:last-child):after{left:22px;top:50px;bottom:-16px;right:auto;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--brand) 0 6px,transparent 6px 11px)}
+ .after{flex-wrap:wrap;margin-top:18px}.after .num{margin-left:0}
+ .cover{min-height:560px;padding:34px 22px 44px}
+ .cover h1{font-size:32px}
+ .cover p.cs{font-size:13.5px}
+ .cover .phs{position:static;transform:rotate(-5deg);margin:28px auto 22px;justify-content:center}
+ .cover .phs i{width:92px;border-radius:16px}
+ .cover .meta{margin-top:10px}
+ .ctg{grid-template-columns:1fr;gap:20px;justify-items:center;text-align:center}
+ .ctl ul{text-align:left}
+ .eq{flex-wrap:wrap;gap:8px 12px}
+ table{font-size:12px}
+ .mo .sch{margin-top:14px}
+ .s .note{margin-top:18px}
+}
+/* print / PDF: one 16:9 slide per page */
+@page{size:1280px 720px;margin:0}
+@media print{
+ body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bar,.intro,.foot{display:none!important}
+ .deck{max-width:none;padding:0;gap:0;display:block}
+ .s{width:1280px;height:720px;aspect-ratio:auto;border-radius:0;box-shadow:none;break-after:page;page-break-after:always;padding:60px 76px 56px}
+ .s h2{font-size:32px}
+ .cover h1{font-size:56px}
+ .cover .phs i{width:150px}
+}
+
+.cover .meta img{height:26px;width:auto}
+.bar .lg img{width:auto}
+.apps i{aspect-ratio:300/350}.apps{gap:10px 10px}
+@media (min-width:861px){
+ .s h2{font-size:clamp(24px,3vw,36px)}
+ .lead{font-size:15px;margin-bottom:26px}
+ .c{padding:22px 22px 20px}.c h3{font-size:17px}.c p{font-size:13.5px}
+ .g{gap:18px}
+ .s .note{font-size:20px}
+ .def{font-size:clamp(18px,2vw,23px);margin-bottom:34px}
+ .st b{font-size:clamp(32px,3.8vw,48px)}.st p{font-size:13px}.st div{padding:20px 22px}
+ .sv .pr b{font-size:22px}.sv .for{font-size:12.5px}
+ .ft{gap:12px}.ft div{padding:16px}.ft b{font-size:14px}.ft em{font-size:17px}
+ .ba .ph{height:130px}.ba .row{font-size:13px}.ba .in{padding:18px 18px 20px}
+ table{font-size:13.5px}th,td{padding:11px 10px}td.r b{font-size:18px}
+ .pay b{font-size:clamp(24px,3vw,34px)}.pay div{padding:22px 16px}.cards{font-size:13px}.cards div{padding:12px 16px}
+ .eq{padding:24px;margin-bottom:22px}
+ .fl h3{font-size:17px}.fl p{font-size:13.5px}
+ .fq{gap:16px 26px}.fq h3{font-size:15px}.fq p{font-size:13px}
+ .mo ul{font-size:13.5px}.mo .big{font-size:34px}
+ .mini{font-size:12px}
+}
+@media (max-width:860px){.s{padding-bottom:62px}.pg{bottom:20px}.brandmark{bottom:20px;left:20px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="g-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+ <symbol id="g-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+ <symbol id="g-yen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l6 8 6-8M12 12v8M8 13h8M8 17h8"/></symbol>
+ <symbol id="g-puzzle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4H4z"/></symbol>
+ <symbol id="g-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+ <symbol id="g-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+ <symbol id="g-mega" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4l13 5V5zM16 9a3 3 0 0 1 0 6M7 15l1 5h3l-1-4"/></symbol>
+ <symbol id="g-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></symbol>
+ <symbol id="g-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6 15h4"/></symbol>
+ <symbol id="g-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+ <symbol id="g-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+ <symbol id="g-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></symbol>
+ <symbol id="g-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
+ <symbol id="g-ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+ <symbol id="g-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+ <symbol id="g-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+ <symbol id="g-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+ <symbol id="g-wall" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+</svg>
+
+<header class="bar">
+ <a class="lg" href="../"><img src="../logo.png" alt="サクアプ" width="800" height="195"></a>
+ <span class="tt">サービス資料（全14ページ）</span>
+ <button type="button" id="pdf"><svg><use href="#g-dl"/></svg>PDFで保存</button>
+ <a class="b" href="https://lin.ee/vC2S0M9" data-entry="guide" target="_blank" rel="noopener">LINEで相談</a>
+</header>
+
+<main class="deck">
+<p class="intro">サクアプのサービス内容を14ページにまとめました。右上の「PDFで保存」から、保存や印刷もできます。</p>
+
+<!-- 1 -->
+<section class="s cover" aria-label="表紙">
+ <p class="ey">SERVICE GUIDE</p>
+ <h1><span>あなた専用の</span><span>アプリを、</span><span>もっと身近に。</span></h1>
+ <p class="cs">個人事業主・副業の方のための<br>オーダーメイドアプリ開発「サクアプ」</p>
+ <div class="phs" aria-hidden="true"><i style="background-image:url(../features/img/app0.webp)"></i><i style="background-image:url(../features/img/app10.webp)"></i><i style="background-image:url(../features/img/app5.webp)"></i></div>
+ <div class="meta"><img src="../logo-w.png" alt="サクアプ" width="800" height="195"><span>サービス資料 ・ 2026年11月版</span></div>
+ <span class="pg"><b>01</b> / 14</span>
+</section>
+
+<!-- 2 -->
+<section class="s" aria-label="こんなお悩みありませんか">
+ <p class="ey">PROBLEM</p>
+ <h2>こんなお悩み、ありませんか？</h2>
+ <p class="lead">小さなお店や個人の仕事ほど、仕組みづくりは後回しになりがちです。</p>
+ <div class="g g2 wr">
+  <div class="c"><span class="ic"><svg><use href="#g-chat"/></svg></span><div><h3>予約や注文を、DM・電話でさばいている</h3><p>施術中や営業中に返信できず、取りこぼしが出てしまう。</p></div></div>
+  <div class="c"><span class="ic"><svg><use href="#g-db"/></svg></span><div><h3>お客様の情報がバラバラ</h3><p>ノート、LINE、表計算に分かれていて、前回の内容をすぐに見返せない。</p></div></div>
+  <div class="c"><span class="ic"><svg><use href="#g-yen"/></svg></span><div><h3>アプリは高そうで、あきらめている</h3><p>開発会社に頼むと数十万円から。個人の予算では手が出ない。</p></div></div>
+  <div class="c"><span class="ic"><svg><use href="#g-puzzle"/></svg></span><div><h3>ノーコードでは、やりたいことが作れない</h3><p>ひな形に合わせるしかなく、自分のやり方に合わない。</p></div></div>
+ </div>
+ <p class="note">その仕組み、<em>19,800円から</em>あなた専用に作れます。</p>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>02</b> / 14</span>
+</section>
+
+<!-- 3 -->
+<section class="s" aria-label="サクアプとは">
+ <p class="ey">ABOUT</p>
+ <h2>サクアプとは</h2>
+ <p class="def">ひな形ではなく、プログラムを書いて作る<em>オーダーメイドのアプリ</em>を、<br>個人でも頼める価格と速さでお届けするサービスです。</p>
+ <div class="st">
+  <div><small>初期費用</small><b>19,800<i>円〜</i></b><p>12回払いなら月々 約1,650円〜。<br>カードの分割は最大60回まで。</p></div>
+  <div><small>開発期間</small><b>1週間<i>〜</i>1<i>ヶ月</i></b><p>AIと進める開発で、<br>アイデアを短い期間で形にします。</p></div>
+  <div><small>追加機能</small><b>1文字 0.5<i>円</i></b><p>プログラムの文字数で計算。<br>見積もりの時点で金額がわかります。</p></div>
+ </div>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>03</b> / 14</span>
+</section>
+
+<!-- 4 -->
+<section class="s" aria-label="3つのサービス">
+ <p class="ey">SERVICES</p>
+ <h2>目的に合わせて選べる、3つのサービス</h2>
+ <p class="lead">ゼロから専用に作るか、業種別のテンプレートから始めるかを選べます。</p>
+ <div class="g g3 sv">
+  <div class="c"><span class="tg">オーダーメイド開発</span><h3>あなた専用のアプリを、ゼロから</h3><p>予約・決済・会員・SNS・マッチング・ネットショップなど、やりたいことに合わせて設計します。</p><p class="for">こんな方に：自分の事業に合った仕組みがほしい</p><div class="pr">初期費用 <b>19,800円〜</b></div></div>
+  <div class="c"><span class="tg">飲食店向け</span><h3>卓上QRのモバイルメニュー</h3><p>テーブルのQRからメニューを開いて注文。注文取りの手間を減らし、ピーク時の接客に時間を回せます。</p><p class="for">こんな方に：カフェ・食堂・居酒屋などのお店</p><div class="pr">初期0円〜 ・ 月額 <b>1,980円</b></div></div>
+  <div class="c"><span class="tg">個人サロン向け</span><h3>予約・カルテ・再来店のお知らせ</h3><p>24時間のWeb予約と顧客カルテが一体に。メニューごとに再来店のお知らせも自動で送れます。</p><p class="for">こんな方に：ヘア・ネイル・エステなどのサロン</p><div class="pr">初期0円〜 ・ 月額 <b>1,980円</b></div></div>
+ </div>
+ <p class="mini">※飲食店向け・サロン向けは、30日間の無料お試しのあと月額が自動で始まります。</p>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>04</b> / 14</span>
+</section>
+
+<!-- 5 -->
+<section class="s" aria-label="作れるアプリの例">
+ <p class="ey">EXAMPLES</p>
+ <h2>こんなアプリが作れます</h2>
+ <p class="lead">業種や目的に合わせて、画面も機能も自由に組み合わせられます。</p>
+ <div class="apps grow">
+  <figure><i style="background-image:url(../features/img/app0.webp)"></i><figcaption>サロン予約</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app1.webp)"></i><figcaption>カフェの会員証</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app2.webp)"></i><figcaption>ジムの会員アプリ</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app3.webp)"></i><figcaption>ヨガのレッスン予約</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app4.webp)"></i><figcaption>整体の回数券</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app5.webp)"></i><figcaption>ネットショップ</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app6.webp)"></i><figcaption>テイクアウト注文</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app7.webp)"></i><figcaption>イベントのチケット</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app8.webp)"></i><figcaption>売上の管理画面</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app9.webp)"></i><figcaption>オンライン相談</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app10.webp)"></i><figcaption>マッチング</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app11.webp)"></i><figcaption>SNS</figcaption></figure>
+ </div>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>05</b> / 14</span>
+</section>
+
+<!-- 6 -->
+<section class="s" aria-label="主な機能">
+ <p class="ey">FEATURES</p>
+ <h2>選べる機能は、<em>110種類</em>以上</h2>
+ <p class="lead">必要な機能だけを選んで組み合わせます。あとから足すこともできます。</p>
+ <div class="ft">
+  <div><span class="ic"><svg><use href="#g-grid"/></svg></span><b>汎用機能</b><em>14</em></div>
+  <div><span class="ic"><svg><use href="#g-bell"/></svg></span><b>プッシュ通知・お知らせ</b><em>10</em></div>
+  <div><span class="ic"><svg><use href="#g-mega"/></svg></span><b>マーケティング</b><em>12</em></div>
+  <div><span class="ic"><svg><use href="#g-cal"/></svg></span><b>予約・受付</b><em>10</em></div>
+  <div><span class="ic"><svg><use href="#g-card"/></svg></span><b>決済・お金</b><em>8</em></div>
+  <div><span class="ic"><svg><use href="#g-user"/></svg></span><b>会員・顧客管理</b><em>9</em></div>
+  <div><span class="ic"><svg><use href="#g-bag"/></svg></span><b>販売・EC</b><em>9</em></div>
+  <div><span class="ic"><svg><use href="#g-play"/></svg></span><b>メディア</b><em>8</em></div>
+  <div><span class="ic"><svg><use href="#g-people"/></svg></span><b>コミュニティ</b><em>6</em></div>
+  <div><span class="ic"><svg><use href="#g-ai"/></svg></span><b>分析・AI</b><em>8</em></div>
+  <div><span class="ic"><svg><use href="#g-gear"/></svg></span><b>管理・運用</b><em>7</em></div>
+  <div><span class="ic"><svg><use href="#g-link"/></svg></span><b>外部サービス連携</b><em>9</em></div>
+ </div>
+ <div class="ftn"><span>くわしくは、サイトの「機能一覧」ページでご覧いただけます。</span><span>合計 <b>110</b> 機能</span></div>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>06</b> / 14</span>
+</section>
+
+<!-- 7 -->
+<section class="s" aria-label="導入イメージ">
+ <p class="ey">USE CASES</p>
+ <h2>導入すると、こう変わります</h2>
+ <p class="lead">業種ごとの、使う前と使ったあとのイメージです。</p>
+ <div class="ba">
+  <div class="c"><div class="ph" style="background-image:url(../uc-food.webp)"></div><div class="in"><h3>飲食店</h3>
+   <div class="row bf"><span>BEFORE</span><p>席まで行って注文を聞き、伝票に書いて厨房へ伝える。</p></div>
+   <div class="row af"><span>AFTER</span><p>テーブルのQRからお客様が注文。厨房にそのまま届く。</p></div></div></div>
+  <div class="c"><div class="ph" style="background-image:url(../uc-salon.webp)"></div><div class="in"><h3>個人サロン</h3>
+   <div class="row bf"><span>BEFORE</span><p>施術の合間や営業後に、DMや電話で予約のやりとり。</p></div>
+   <div class="row af"><span>AFTER</span><p>24時間Webで予約。前日のお知らせとカルテも自動でまとまる。</p></div></div></div>
+  <div class="c"><div class="ph" style="background-image:url(../uc-seitai.webp)"></div><div class="in"><h3>整体・教室</h3>
+   <div class="row bf"><span>BEFORE</span><p>紙の回数券で、残りの回数や有効期限の確認に手間がかかる。</p></div>
+   <div class="row af"><span>AFTER</span><p>お客様がマイページで残り回数を確認。期限の前にお知らせ。</p></div></div></div>
+ </div>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>07</b> / 14</span>
+</section>
+
+<!-- 8 -->
+<section class="s" aria-label="料金プラン">
+ <p class="ey">PRICE</p>
+ <h2>料金は「基本料金＋追加機能」だけ</h2>
+ <p class="lead">見積もりの時点で金額をお出しします。ご了承のない追加請求はありません。</p>
+ <div class="pt">
+  <div><h3>オーダーメイド開発（基本プラン）</h3>
+   <table>
+    <tr><th>かんたんWebサービス<small>ログインと管理画面のあるシンプルなWebサービス</small></th><td class="r"><b>19,800</b>円<small>12回なら月々 約1,650円〜</small></td></tr>
+    <tr><th>SNS<small>投稿・フォロー・コミュニティの仕組み</small></th><td class="r"><b>29,800</b>円<small>12回なら月々 約2,484円〜</small></td></tr>
+    <tr><th>マッチング<small>人と人、人と仕事を引き合わせる仕組み</small></th><td class="r"><b>49,800</b>円<small>12回なら月々 約4,150円〜</small></td></tr>
+    <tr><th>ネットショップ<small>商品・カート・決済までそろった販売サイト</small></th><td class="r"><b>69,800</b>円<small>12回なら月々 約5,817円〜</small></td></tr>
+   </table>
+   <p class="mini">運用保守プラン（任意）：月額1,980円。不具合の対応・アップデート・バックアップなど。</p>
+  </div>
+  <div><h3>飲食店向け・サロン向け</h3>
+   <div class="box">
+   <table>
+    <tr><th>セルフ<small>テンプレートを選んで自分で登録</small></th><td class="r"><b>0</b>円</td></tr>
+    <tr><th>おまかせ<span class="hl">人気</span><small>メニュー登録・初期設定まで代行</small></th><td class="r"><b>9,800</b>円</td></tr>
+    <tr><th>月額<small>サーバー代・保守込み、手数料0円</small></th><td class="r"><b>1,980</b>円</td></tr>
+   </table>
+   </div>
+   <p class="mini">※30日間の無料お試しのあと、月額が自動で始まります。最低契約期間はなく、管理画面からいつでも解約できます。</p>
+  </div>
+ </div>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>08</b> / 14</span>
+</section>
+
+<!-- 9 -->
+<section class="s" aria-label="お支払い方法">
+ <p class="ey">PAYMENT</p>
+ <h2>分割払いで、<em>月々1,650円</em>から</h2>
+ <p class="lead">クレジットカードで、一括・分割・リボ・ボーナス払いから選べます（かんたんWebサービス 19,800円の場合）。</p>
+ <div class="pay">
+  <div class="on"><small>一括</small><b>19,800<i>円</i></b><span>運用保守 1ヶ月無料の特典つき</span></div>
+  <div><small>3回</small><b>6,600<i>円〜</i></b><span>月々の目安</span></div>
+  <div><small>6回</small><b>3,300<i>円〜</i></b><span>月々の目安</span></div>
+  <div><small>12回</small><b>1,650<i>円〜</i></b><span>月々の目安</span></div>
+ </div>
+ <div class="cards">
+  <div><b>Visa ・ Mastercard</b>最大60回まで</div>
+  <div><b>JCB</b>最大24回まで</div>
+  <div><b>American Express ・ デビット</b>一括払いのみ</div>
+ </div>
+ <p class="mini">※「月々の目安」は金額を回数で割ったものです。実際には、カード会社の分割手数料が別にかかります（2回払いは通常かかりません）。お支払いは決済サービスStripeの画面で行います。</p>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>09</b> / 14</span>
+</section>
+
+<!-- 10 -->
+<section class="s" aria-label="追加機能の考え方">
+ <p class="ey">ADD-ONS</p>
+ <h2>追加機能は、文字数でわかりやすく</h2>
+ <p class="lead">機能をつくるプログラムの文字数（作業量の目安）で計算します。数えるのはこちらなので、調べる必要はありません。</p>
+ <div class="eq"><span>プログラム</span><b>1文字</b><i>＝</i><b>0.5円</b><span>（1,000文字＝500円）</span></div>
+ <table class="ex">
+  <tr><th>メール自動送信<small>予約や注文の確認メールなど</small></th><td>約10,000文字</td><td class="r"><b>+5,000</b>円</td></tr>
+  <tr><th>画像アップロード<small>写真の投稿・登録など</small></th><td>約8,000文字</td><td class="r"><b>+4,000</b>円</td></tr>
+  <tr><th>データCSV出力<small>顧客や売上のデータを書き出す</small></th><td>約5,000文字</td><td class="r"><b>+2,500</b>円</td></tr>
+ </table>
+ <p class="mini">※追加機能の価格は、プログラムを作る分です。Stripe・LINEなど外部サービスの開設や設定は、ご自身で行っていただくか、代行（別途お見積もり）となります。</p>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>10</b> / 14</span>
+</section>
+
+<!-- 11 -->
+<section class="s" aria-label="導入の流れ">
+ <p class="ey">FLOW</p>
+ <h2>ご相談から運用開始まで、4ステップ</h2>
+ <p class="lead">むずかしい言葉は使いません。ざっくりしたアイデアで大丈夫です。</p>
+ <div class="fl">
+  <div><span class="n">1</span><h3>無料相談</h3><p>アイデアをお聞かせください。LINEで気軽にどうぞ。</p><small>無料</small></div>
+  <div><span class="n">2</span><h3>明朗お見積もり</h3><p>基本料金と追加機能の文字数で金額を出します。見てから決められます。</p><small>無料</small></div>
+  <div><span class="n">3</span><h3>開発</h3><p>AIと進めて、短い期間で形にします。</p><small>1週間〜1ヶ月</small></div>
+  <div><span class="n">4</span><h3>確認＆運用スタート</h3><p>動きを確かめたら、その日から使いはじめられます。</p><small>公開</small></div>
+ </div>
+ <div class="after"><span class="ic" style="margin:0"><svg><use href="#g-wall"/></svg></span><div><b>公開したあとも安心</b><br>運用保守プランで、不具合の対応・アップデート・動作チェック・バックアップ・月1回までの修正を承ります。</div><span class="num">月額 1,980円</span></div>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>11</b> / 14</span>
+</section>
+
+<!-- 12 -->
+<section class="s" aria-label="よくある質問">
+ <p class="ey">FAQ</p>
+ <h2>よくある質問</h2>
+ <p class="lead">お申し込み前の不安を、先に解消します。</p>
+ <div class="fq">
+  <div><h3>専門用語がわからなくても大丈夫？</h3><p>大丈夫です。むずかしい言葉を使わずにお話しします。ITの知識がなくても、ざっくりしたアイデアで頼めます。</p></div>
+  <div><h3>あとから追加で請求されませんか？</h3><p>金額は見積もりの時点で先にお出しします。内容を大きく変える場合も、改めてお見積もりし、ご了承をいただいてから進めます。</p></div>
+  <div><h3>個人情報や決済情報は安全ですか？</h3><p>カード情報はStripeの画面で処理され、アプリには保存されません。通信は暗号化し、データはお客様ごとに分けて管理します。</p></div>
+  <div><h3>公開後の修正はお願いできますか？</h3><p>メニューや画像は管理画面からご自身で変えられます。それ以外は運用保守プラン（月額1,980円）か、修正1回3,000円〜で承ります。</p></div>
+  <div><h3>ノーコードのツールと何が違いますか？</h3><p>ひな形ではなく、プログラムを書いて作ります。「この機能は作れない」が起きにくく、成長に合わせて作り足せます。</p></div>
+  <div><h3>キャンセルや返金はできますか？</h3><p>開発の着手前は全額を返金します。納品後も、こちらの原因による不具合は90日以内なら何度でも無償で修正します。</p></div>
+ </div>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>12</b> / 14</span>
+</section>
+
+<!-- 13 -->
+<section class="s mo" aria-label="先行モニター募集">
+ <p class="ey">EARLY ACCESS</p>
+ <h2>いまだけの、先行モニター募集</h2>
+ <p class="lead">正式受付は2027年6月ごろからです。それまでの間、数を限って先行モニターを受け付けています。</p>
+ <div class="g g2">
+  <div class="c"><span class="ic"><svg><use href="#g-puzzle"/></svg></span><h3>オーダーメイド開発</h3><div class="big">月5名様まで</div>
+   <ul><li>noteの先行モニター記事からお申し込み</li><li>記事の代金が、そのまま開発費に充てられます</li><li>アイデアの文字数見積もりと構成案づくりも無料</li></ul></div>
+  <div class="c"><span class="ic"><svg><use href="#g-cal"/></svg></span><h3>個人サロン向け</h3><div class="big">先着5店舗</div>
+   <ul><li>おまかせ設定（9,800円）と有料テンプレート1つが無料</li><li>最初の6か月のご継続（その後は1か月ごとの自動更新）</li><li>導入事例として、お店の写真と感想を掲載させていただきます</li></ul></div>
+ </div>
+ <p class="sch">くわしい条件は、LINEでお気軽にお問い合わせください。</p>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>13</b> / 14</span>
+</section>
+
+<!-- 14 -->
+<section class="s ct" aria-label="お問い合わせ">
+ <p class="ey">CONTACT</p>
+ <h2>まずは、無料でご相談ください</h2>
+ <p class="lead">「こんなの作れる？」の気軽な相談から、どうぞ。相談も、最初の見積もりも無料です。</p>
+ <div class="ctg">
+  <div class="qr"><img src="line-qr.svg" alt="LINE友だち追加のQRコード" width="232" height="232"><p>LINEで友だち追加</p></div>
+  <div class="ctl">
+   <ul><li><b>01</b>QRコードを読み取るか、下のボタンから友だち追加</li><li><b>02</b>作りたいもののイメージを、ざっくり送るだけ</li><li><b>03</b>金額と期間の目安を、無料でお返しします</li></ul>
+   <a class="cbtn" href="https://lin.ee/vC2S0M9" data-entry="guide" target="_blank" rel="noopener">【無料】LINEで相談する ›</a>
+   <span class="url">knotscheme.github.io/sakuapp</span>
+  </div>
+ </div>
+ <span class="brandmark">SAKUAPP</span><span class="pg"><b>14</b> / 14</span>
+</section>
+</main>
+<p class="foot"><a href="../">サクアプのトップページへ ›</a></p>
+<script>
+document.getElementById("pdf").addEventListener("click",function(){window.print()});
+</script>
+</body>
+</html>
