@@ -100,6 +100,40 @@ body.mdopen{overflow:hidden}
  .mdi h2{font-size:20px}
  .mdx{right:12px;top:12px;background:rgba(255,255,255,.9)}
 }
+
+/* refined controls (no chunky pills) */
+.steps2{display:flex;justify-content:center;align-items:center;gap:0;margin:26px auto 0;padding:0;list-style:none;max-width:560px}
+.steps2 li{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:13px;font-weight:800;position:relative}
+.steps2 li+li:before{content:"";position:absolute;left:-30%;right:70%;top:10px;height:1px;background:linear-gradient(90deg,transparent,#b9d6d9,transparent)}
+.steps2 em{font:italic 600 18px/1 Montserrat,Inter,sans-serif;background:linear-gradient(135deg,#19a7b6,#0a5d69);-webkit-background-clip:text;background-clip:text;color:transparent}
+.flt{gap:0!important;justify-content:flex-start!important;flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin:30px 0 22px!important}
+.flt::-webkit-scrollbar{display:none}
+.flt button{flex:none;border:0!important;background:none!important;border-radius:0!important;padding:12px 16px!important;color:var(--sub)!important;font-size:14px!important;position:relative}
+.flt button[aria-pressed="true"]{color:var(--ink)!important}
+.flt button[aria-pressed="true"]:after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;border-radius:2px;background:var(--brand)}
+@media(min-width:601px){.flt{justify-content:center!important}}
+.tplay{align-items:flex-end!important;padding:0!important;background:linear-gradient(180deg,transparent 55%,rgba(10,40,45,.55))!important;opacity:1}
+.tplay span{background:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;border-radius:0!important;padding:0 0 14px!important;font-size:12px!important;color:#fff!important;text-shadow:0 1px 8px rgba(0,0,0,.35);gap:7px!important}
+.tplay svg{width:20px!important;height:20px!important;padding:5px;border:1.2px solid rgba(255,255,255,.85);border-radius:50%;box-sizing:border-box}
+.tc:hover .tplay span{transform:none}
+@media(max-width:600px){.tplay span{font-size:10.5px!important;padding-bottom:10px!important}.tplay svg{width:18px!important;height:18px!important;padding:4px}.steps2 li{font-size:12px}}
+
+.tplay{background:linear-gradient(180deg,transparent 62%,rgba(10,40,45,.38))!important}
+.tb ul{gap:0 10px!important}
+.tb li{background:none!important;border:0!important;padding:0!important;border-radius:0!important;color:var(--sub);font-weight:600!important}
+.tb li:before{content:"・";color:#9fb5b7}
+.tb li:first-child:before{content:""}
+@media(max-width:600px){
+ .tplay span{font-size:0!important;padding:0 10px 10px 0!important;gap:0!important}
+ .tplay{justify-content:flex-end!important}
+ .tplay svg{width:30px!important;height:30px!important;padding:8px!important;background:rgba(255,255,255,.9);color:var(--ink);border:0!important;box-shadow:0 6px 16px -6px rgba(0,0,0,.35)}
+ .tb li{font-size:10.5px!important}
+}
+@media(max-width:600px){.tplay svg{width:26px!important;height:26px!important;padding:7px!important}}
+.tb ul{display:block!important;font-size:0}
+.tb li{display:inline;font-size:11.5px}
+@media(max-width:600px){.tb li{font-size:10.5px!important}}
+.tb li:before{content:" ・ "!important}.tb li:first-child:before{content:""!important}
 </style>
 </head>
 <body>
@@ -109,35 +143,35 @@ body.mdopen{overflow:hidden}
   <p class="ey">TEMPLATES</p>
   <h1>テンプレートから選んで、<wbr>あなた専用に。</h1>
   <p class="lead">よく使われる形を12種類ご用意しました。画面を押すと、動きを見られます。近いものを選べば、ロゴ・色・写真・メニューを差し替え、足りない機能を足して、あなたのアプリに仕上げます。</p>
-  <ol class="steps"><li><b>1</b>テンプレートを選ぶ</li><li><b>2</b>お店に合わせて差し替え</li><li><b>3</b>必要な機能を足す</li></ol>
+  <ol class="steps2"><li><em>01</em>選ぶ</li><li><em>02</em>差し替える</li><li><em>03</em>機能を足す</li></ol>
  </div>
  <div class="flt" role="group" aria-label="種類で絞り込む">
   <button type="button" data-f="all" aria-pressed="true">すべて</button><button type="button" data-f="yoyaku" aria-pressed="false">予約</button><button type="button" data-f="kaiin" aria-pressed="false">会員</button><button type="button" data-f="hanbai" aria-pressed="false">販売</button><button type="button" data-f="comm" aria-pressed="false">つながる</button><button type="button" data-f="kanri" aria-pressed="false">管理</button>
  </div>
  <div class="gd">
-<article class="tc" data-cat="yoyaku" data-k="0"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app0.webp" alt="サロン予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="yoyaku" data-k="0"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app0.webp" alt="サロン予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">予約</span><h3>サロン予約</h3><p class="who">ヘア・ネイル・エステなど</p><ul><li>Web予約</li><li>メニュー表示</li><li>スタッフ指名</li><li>マイページ</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="yoyaku" data-k="3"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app3.webp" alt="レッスン予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="yoyaku" data-k="3"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app3.webp" alt="レッスン予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">予約</span><h3>レッスン予約</h3><p class="who">ヨガ・ピラティス・教室</p><ul><li>クラス予約</li><li>残席表示</li><li>回数券</li><li>お知らせ</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="yoyaku" data-k="4"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app4.webp" alt="回数券・次回予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="yoyaku" data-k="4"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app4.webp" alt="回数券・次回予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">予約</span><h3>回数券・次回予約</h3><p class="who">整体・整骨院・スクール</p><ul><li>回数券の残り</li><li>次回予約</li><li>利用履歴</li><li>お知らせ</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="yoyaku" data-k="9"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app9.webp" alt="オンライン相談予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="yoyaku" data-k="9"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app9.webp" alt="オンライン相談予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">予約</span><h3>オンライン相談予約</h3><p class="who">コンサル・カウンセリング</p><ul><li>相談枠の予約</li><li>ビデオ通話</li><li>口コミ</li><li>事前決済</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="kaiin" data-k="1"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app1.webp" alt="スタンプ・会員証テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="kaiin" data-k="1"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app1.webp" alt="スタンプ・会員証テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">会員</span><h3>スタンプ・会員証</h3><p class="who">カフェ・パン屋・小売店</p><ul><li>スタンプカード</li><li>クーポン</li><li>会員証QR</li><li>お知らせ</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="kaiin" data-k="2"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app2.webp" alt="ジム会員アプリテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="kaiin" data-k="2"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app2.webp" alt="ジム会員アプリテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">会員</span><h3>ジム会員アプリ</h3><p class="who">ジム・スタジオ</p><ul><li>デジタル会員証</li><li>入館QR</li><li>来館記録</li><li>プラン管理</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="hanbai" data-k="5"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app5.webp" alt="ネットショップテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="hanbai" data-k="5"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app5.webp" alt="ネットショップテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">販売</span><h3>ネットショップ</h3><p class="who">雑貨・アパレル・食品</p><ul><li>商品一覧</li><li>カート</li><li>カード決済</li><li>注文管理</li></ul><div class="tf"><span class="pr">69,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="hanbai" data-k="6"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app6.webp" alt="テイクアウト注文テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="hanbai" data-k="6"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app6.webp" alt="テイクアウト注文テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">販売</span><h3>テイクアウト注文</h3><p class="who">飲食店・お弁当</p><ul><li>メニュー</li><li>事前注文</li><li>受け取り時間</li><li>通知</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="hanbai" data-k="7"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app7.webp" alt="イベント・チケットテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="hanbai" data-k="7"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app7.webp" alt="イベント・チケットテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">販売</span><h3>イベント・チケット</h3><p class="who">マルシェ・教室・ライブ</p><ul><li>チケット販売</li><li>QR受付</li><li>残数表示</li><li>ウォレット追加</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="comm" data-k="10"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app10.webp" alt="マッチングテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="comm" data-k="10"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app10.webp" alt="マッチングテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">つながる</span><h3>マッチング</h3><p class="who">婚活・出会い・人材</p><ul><li>プロフィール</li><li>いいね</li><li>マッチング</li><li>メッセージ</li></ul><div class="tf"><span class="pr">49,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="comm" data-k="11"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app11.webp" alt="SNS・コミュニティテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="comm" data-k="11"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app11.webp" alt="SNS・コミュニティテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">つながる</span><h3>SNS・コミュニティ</h3><p class="who">ファンクラブ・サークル</p><ul><li>投稿</li><li>フォロー</li><li>いいね・コメント</li><li>ストーリー</li></ul><div class="tf"><span class="pr">29,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
-<article class="tc" data-cat="kanri" data-k="8"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>動かして見る</span></button><img src="../features/img/app8.webp" alt="売上・顧客の管理画面テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<article class="tc" data-cat="kanri" data-k="8"><div class="tv"><button type="button" class="tplay" aria-label="このテンプレートを動かして見る"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>タップで動きを見る</span></button><img src="../features/img/app8.webp" alt="売上・顧客の管理画面テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
 <div class="tb"><span class="tcat">管理</span><h3>売上・顧客の管理画面</h3><p class="who">すべての業種</p><ul><li>売上グラフ</li><li>予約数</li><li>顧客一覧</li><li>リピート率</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
  </div>
  <div class="zero"><div><b>近いものがなくても大丈夫です。</b><p>テンプレートにない形も、ゼロからオーダーメイドで作れます。</p></div><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">【無料】LINEで相談する</a></div>
