@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>テンプレート一覧｜サクアプ</title>
+<meta name="description" content="予約・会員証・ネットショップ・マッチング・SNSなど、よく使われる形のアプリのテンプレート一覧。選んだテンプレートを土台に、あなたのお店に合わせて作り変えます。">
+<meta property="og:title" content="テンプレート一覧｜サクアプ">
+<meta property="og:image" content="https://knotscheme.github.io/sakuapp/ogp.jpg">
+<meta name="theme-color" content="#f3fafa">
+<link rel="icon" href="../favicon.png"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Montserrat:ital,wght@0,700;0,800;1,600&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#0e7c8c;--brand-d:#0a5d69;--ink:#0f2a2e;--sub:#5b6f72;--line:#dfe9e9;--bg:#f3fafa;--soft:#f4f9f9;--acc:#f4c04e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.7;letter-spacing:.04em;-webkit-text-size-adjust:100%}
+a{color:inherit}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px 20px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top img{height:22px;width:auto;display:block}
+.top .sp{margin-right:auto}
+.top a.b{font:700 12.5px "Noto Sans JP",sans-serif;text-decoration:none;border-radius:999px;padding:9px 16px;white-space:nowrap;background:var(--acc);color:#141716}
+.top a.g{font:700 12.5px "Noto Sans JP",sans-serif;text-decoration:none;color:var(--brand);white-space:nowrap}
+.w{max-width:1120px;margin:0 auto;padding:0 20px}
+.hd{text-align:center;padding:56px 0 26px}
+.ey{font:800 12px Inter,sans-serif;letter-spacing:.22em;color:var(--brand);margin:0 0 10px}
+h1{font-size:clamp(26px,4vw,40px);font-weight:900;line-height:1.35;margin:0 0 12px;word-break:keep-all;overflow-wrap:anywhere}
+.lead{font-size:14px;color:var(--sub);margin:0 auto;max-width:36em;text-wrap:pretty}
+.steps{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:22px 0 0;padding:0;list-style:none}
+.steps li{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:700}
+.steps b{font:800 11px Inter,sans-serif;color:#fff;background:var(--brand);border-radius:999px;width:20px;height:20px;display:grid;place-items:center}
+.flt{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:28px 0 26px}
+.flt button{font:700 13px "Noto Sans JP",sans-serif;letter-spacing:.04em;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer}
+.flt button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.gd{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:30px}
+.tc{background:#fff;border:1px solid #e3ecec;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 22px 40px -36px rgba(15,42,46,.4)}
+.tc[hidden]{display:none}
+.tv{background:linear-gradient(160deg,#eaf5f6,#f7f3ec);padding:26px 0 0;display:flex;justify-content:center;height:300px;overflow:hidden}
+.tv img{width:170px;height:auto;border-radius:24px 24px 0 0;border:3px solid #10272b;border-bottom:0;box-shadow:0 24px 40px -20px rgba(15,42,46,.45);align-self:flex-start}
+.tb{padding:18px 20px 18px;display:flex;flex-direction:column;flex:1}
+.tcat{align-self:flex-start;font-size:11px;font-weight:800;color:var(--brand);background:#e1f2f3;border-radius:999px;padding:3px 11px}
+.tb h3{font-size:18px;font-weight:900;margin:8px 0 2px;word-break:keep-all;overflow-wrap:anywhere}
+.who{font-size:12px;color:var(--sub);margin:0 0 10px}
+.tb ul{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tb li{font-size:11.5px;font-weight:700;background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:3px 9px;white-space:nowrap}
+.tf{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;border-top:1px dashed var(--line)}
+.pr{font:800 18px Inter,"Noto Sans JP",sans-serif}
+.tcta{font-size:12.5px;font-weight:800;color:var(--brand);text-decoration:none;white-space:nowrap}
+.zero{margin:10px 0 60px;background:linear-gradient(120deg,#0b3d44,#0e6c78);color:#fff;border-radius:22px;padding:28px;display:flex;align-items:center;gap:20px;justify-content:space-between;flex-wrap:wrap}
+.zero b{display:block;font-size:19px;font-weight:900;margin-bottom:4px;word-break:keep-all}
+.zero p{margin:0;font-size:13px;opacity:.85}
+.zero a{background:var(--acc);color:#141716;text-decoration:none;font-weight:800;border-radius:14px;padding:14px 22px;white-space:nowrap}
+.note{font-size:11.5px;color:var(--sub);text-align:center;margin:-40px 0 50px}
+.ft{text-align:center;font-size:12px;color:var(--sub);padding:0 20px 40px}
+.ft a{color:var(--brand);font-weight:700;margin:0 8px}
+@media(max-width:900px){.gd{grid-template-columns:1fr 1fr;gap:14px}}
+@media(max-width:600px){
+ .top{padding:9px 14px}.top a.g{display:none}
+ .hd{padding:36px 0 18px}
+ .gd{grid-template-columns:1fr 1fr;gap:10px}
+ .tv{height:210px;padding-top:16px}.tv img{width:118px;border-radius:17px 17px 0 0;border-width:2px}
+ .tb{padding:12px 12px 12px}.tb h3{font-size:14.5px}.who{font-size:10.5px;margin-bottom:8px}
+ .tb li{font-size:10px;padding:2px 7px}.tb ul{gap:4px;margin-bottom:10px}
+ .tf{flex-direction:column;align-items:flex-start;gap:4px}.pr{font-size:15px}.tcta{font-size:11.5px}
+ .flt button{font-size:12px;padding:7px 12px}
+ .zero{padding:22px}.zero a{width:100%;text-align:center}
+}
+</style>
+</head>
+<body>
+<header class="top"><a class="sp" href="../"><img src="../logo.png" alt="サクアプ" width="800" height="195"></a><a class="g" href="../guide/">サービス資料</a><a class="b" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">LINEで相談</a></header>
+<main class="w">
+ <div class="hd">
+  <p class="ey">TEMPLATES</p>
+  <h1>テンプレートから選んで、<wbr>あなた専用に。</h1>
+  <p class="lead">よく使われる形を12種類ご用意しました。近いものを選べば、ロゴ・色・写真・メニューを差し替え、足りない機能を足して、あなたのアプリに仕上げます。</p>
+  <ol class="steps"><li><b>1</b>テンプレートを選ぶ</li><li><b>2</b>お店に合わせて差し替え</li><li><b>3</b>必要な機能を足す</li></ol>
+ </div>
+ <div class="flt" role="group" aria-label="種類で絞り込む">
+  <button type="button" data-f="all" aria-pressed="true">すべて</button><button type="button" data-f="yoyaku" aria-pressed="false">予約</button><button type="button" data-f="kaiin" aria-pressed="false">会員</button><button type="button" data-f="hanbai" aria-pressed="false">販売</button><button type="button" data-f="comm" aria-pressed="false">つながる</button><button type="button" data-f="kanri" aria-pressed="false">管理</button>
+ </div>
+ <div class="gd">
+<article class="tc" data-cat="yoyaku"><div class="tv"><img src="../features/img/app0.webp" alt="サロン予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">予約</span><h3>サロン予約</h3><p class="who">ヘア・ネイル・エステなど</p><ul><li>Web予約</li><li>メニュー表示</li><li>スタッフ指名</li><li>マイページ</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="yoyaku"><div class="tv"><img src="../features/img/app3.webp" alt="レッスン予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">予約</span><h3>レッスン予約</h3><p class="who">ヨガ・ピラティス・教室</p><ul><li>クラス予約</li><li>残席表示</li><li>回数券</li><li>お知らせ</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="yoyaku"><div class="tv"><img src="../features/img/app4.webp" alt="回数券・次回予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">予約</span><h3>回数券・次回予約</h3><p class="who">整体・整骨院・スクール</p><ul><li>回数券の残り</li><li>次回予約</li><li>利用履歴</li><li>お知らせ</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="yoyaku"><div class="tv"><img src="../features/img/app9.webp" alt="オンライン相談予約テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">予約</span><h3>オンライン相談予約</h3><p class="who">コンサル・カウンセリング</p><ul><li>相談枠の予約</li><li>ビデオ通話</li><li>口コミ</li><li>事前決済</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="kaiin"><div class="tv"><img src="../features/img/app1.webp" alt="スタンプ・会員証テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">会員</span><h3>スタンプ・会員証</h3><p class="who">カフェ・パン屋・小売店</p><ul><li>スタンプカード</li><li>クーポン</li><li>会員証QR</li><li>お知らせ</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="kaiin"><div class="tv"><img src="../features/img/app2.webp" alt="ジム会員アプリテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">会員</span><h3>ジム会員アプリ</h3><p class="who">ジム・スタジオ</p><ul><li>デジタル会員証</li><li>入館QR</li><li>来館記録</li><li>プラン管理</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="hanbai"><div class="tv"><img src="../features/img/app5.webp" alt="ネットショップテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">販売</span><h3>ネットショップ</h3><p class="who">雑貨・アパレル・食品</p><ul><li>商品一覧</li><li>カート</li><li>カード決済</li><li>注文管理</li></ul><div class="tf"><span class="pr">69,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="hanbai"><div class="tv"><img src="../features/img/app6.webp" alt="テイクアウト注文テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">販売</span><h3>テイクアウト注文</h3><p class="who">飲食店・お弁当</p><ul><li>メニュー</li><li>事前注文</li><li>受け取り時間</li><li>通知</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="hanbai"><div class="tv"><img src="../features/img/app7.webp" alt="イベント・チケットテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">販売</span><h3>イベント・チケット</h3><p class="who">マルシェ・教室・ライブ</p><ul><li>チケット販売</li><li>QR受付</li><li>残数表示</li><li>ウォレット追加</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="comm"><div class="tv"><img src="../features/img/app10.webp" alt="マッチングテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">つながる</span><h3>マッチング</h3><p class="who">婚活・出会い・人材</p><ul><li>プロフィール</li><li>いいね</li><li>マッチング</li><li>メッセージ</li></ul><div class="tf"><span class="pr">49,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="comm"><div class="tv"><img src="../features/img/app11.webp" alt="SNS・コミュニティテンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">つながる</span><h3>SNS・コミュニティ</h3><p class="who">ファンクラブ・サークル</p><ul><li>投稿</li><li>フォロー</li><li>いいね・コメント</li><li>ストーリー</li></ul><div class="tf"><span class="pr">29,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+<article class="tc" data-cat="kanri"><div class="tv"><img src="../features/img/app8.webp" alt="売上・顧客の管理画面テンプレートの画面" width="300" height="599" loading="lazy" decoding="async"></div>
+<div class="tb"><span class="tcat">管理</span><h3>売上・顧客の管理画面</h3><p class="who">すべての業種</p><ul><li>売上グラフ</li><li>予約数</li><li>顧客一覧</li><li>リピート率</li></ul><div class="tf"><span class="pr">19,800円〜</span><a class="tcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">これで相談する ›</a></div></div></article>
+ </div>
+ <div class="zero"><div><b>近いものがなくても大丈夫です。</b><p>テンプレートにない形も、ゼロからオーダーメイドで作れます。</p></div><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">【無料】LINEで相談する</a></div>
+ <p class="note">※画面はイメージです。価格は基本プランの目安で、追加する機能によって変わります（追加機能は1文字0.5円）。</p>
+</main>
+<p class="ft"><a href="../">トップページ</a><a href="../features/">機能一覧</a><a href="../guide/">サービス資料</a></p>
+<script>
+(function(){var bs=document.querySelectorAll(".flt button"),cs=document.querySelectorAll(".tc");
+[].forEach.call(bs,function(b){b.addEventListener("click",function(){var f=b.dataset.f;[].forEach.call(bs,function(x){x.setAttribute("aria-pressed",x===b)});[].forEach.call(cs,function(c){c.hidden=!(f==="all"||c.dataset.cat===f)})})});})();
+</script>
+<script src="../js/budoux.js" defer></script>
+</body>
+</html>
