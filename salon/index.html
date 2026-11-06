@@ -1049,6 +1049,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 @media(min-width:861px){.sh1{font-size:clamp(36px,3.6vw,52px)!important}main .show h2.big{font-size:clamp(36px,4vw,56px)!important}main section:not(.hero,.show,.rep){padding-top:120px!important;padding-bottom:120px!important}.rep{padding:130px 0 120px!important}}
 @media(max-width:860px){.sh1{font-size:min(9.2vw,38px)!important}main .show h2.big{font-size:clamp(27px,7.6vw,32px)!important}main section:not(.hero,.show){padding-top:84px!important;padding-bottom:84px!important}}
 .ef b{white-space:nowrap;font-size:clamp(30px,3vw,40px)!important}.ef b span{font-size:.38em!important}
+.ei{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.16em;flex:none}.estars{display:inline-flex;gap:1px;color:#f2b01e;vertical-align:-.1em}.estars .ei{width:1em;height:1em}
 </style>
 </head>
 <body>
@@ -1386,10 +1387,10 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
   function phone(sh){return '<div class="ph"><div '+scrAttr(sh)+'>'+inner(sh)+'</div></div>'}
   var POPS=[
     ["✓","ご予約を受け付けました","11/8 14:00","カット＋カラー ・ 担当 佐藤","閉じる"],
-    ["♡","このデザインを保存しました","","次回の予約でそのまま選べます","OK"],
-    ["🔔","明日のご予約です","11:30","eyelash Lumi ・ まつげパーマ","確認する"],
+    ["<svg class='ei' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 7.5 2.8C19.5 15.4 12 20 12 20z'/></svg>","このデザインを保存しました","","次回の予約でそのまま選べます","OK"],
+    ["<svg class='ei' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M6 16V11a6 6 0 0 1 12 0v5l2 2H4z'/><path d='M10 21h4'/></svg>","明日のご予約です","11:30","eyelash Lumi ・ まつげパーマ","確認する"],
     ["✓","はじめての方へ","10%OFF","初回クーポンを適用しました","予約へ進む"],
-    ["🌙","残りわずか","14:00","この時間は残り1枠です","予約する"]
+    ["<svg class='ei' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z'/></svg>","残りわずか","14:00","この時間は残り1枠です","予約する"]
   ];
   function arcScreen(sh,i){var p=POPS[i%POPS.length];return inner(sh,true)+'<div class="dim"></div><div class="pop"><i>'+p[0]+'</i><b>'+p[1]+'</b>'+(p[2]?'<strong>'+p[2]+'</strong>':'')+'<small>'+p[3]+'</small><em>'+p[4]+'</em></div><div class="flash"></div>'}
 
@@ -1488,7 +1489,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 
   /* ---------- flow phones ---------- */
   function fl(id,html,bg,fg){var e=$(id);e.className="scr L-hair";e.setAttribute("style",vars(SHOPS[0])+";background:"+(bg||SHOPS[0].bg)+";color:"+(fg||SHOPS[0].fg));e.innerHTML=html}
-  fl("fl0",'<div class="sb"><span>21:12</span><span>5G</span></div><div class="ig"><div class="igh"><i></i><div><b>hairroom_sora</b><small>表参道の完全予約制サロン</small></div></div><p>ご予約は下のリンクから ↓</p><span class="iglink">🔗 sora.sakuapp.jp</span><div class="igg"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>',"#fff","#111");
+  fl("fl0",'<div class="sb"><span>21:12</span><span>5G</span></div><div class="ig"><div class="igh"><i></i><div><b>hairroom_sora</b><small>表参道の完全予約制サロン</small></div></div><p>ご予約は下のリンクから ↓</p><span class="iglink"><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg> sora.sakuapp.jp</span><div class="igg"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>',"#fff","#111");
   fl("fl1",'<div class="sb"><span>21:13</span><span>5G</span></div><div class="ch2"><span>‹</span><b>日時を選ぶ</b></div><div class="p-days s-days">'+DAYS.map(function(d,i){return'<span class="'+(i===1?"on":"")+'"><small>'+d[1]+'</small>'+d[0].split("/")[1]+'</span>'}).join("")+'</div><div class="s-slot big">'+slots("14:00",[1,4])+'</div><div class="cb"><span>14:00で予約</span><span>›</span></div>');
   fl("fl2",'<div class="sb" style="color:#fff"><span>19:00</span><span>5G</span></div><div class="lock"><b>19:00</b><small>11月7日（金）</small></div><div class="nt v"><i>so</i><div><b>HAIR ROOM sora</b><small>明日 14:00からのご予約です。</small></div><em>今</em></div>',"linear-gradient(160deg,#c9b8b4,#8f8a96)","#fff");
   fl("fl3",'<div class="sb"><span>16:10</span><span>5G</span></div><div class="ch2"><span>‹</span><b>カルテ</b><small>田中 美咲 様</small></div><div class="cf"><div><small>11/8 施術</small><b>カット＋カラー</b></div><div><small>薬剤</small><b>7トーン アッシュ</b></div><div><small>メモ</small><b>根元5mm。次回は6週間後</b></div></div><div class="kph" style="padding:0 14px"><i></i><i></i><i></i></div>');

@@ -820,6 +820,7 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 @media(min-width:861px){.hero h1{font-size:clamp(40px,4vw,56px)!important}main .show h2.big{font-size:clamp(36px,4vw,56px)!important}main section:not(.hero,.show){padding-top:120px!important;padding-bottom:120px!important}}
 @media(max-width:860px){.hero h1{font-size:min(9.4vw,38px)!important}main .show h2.big{font-size:clamp(27px,7.6vw,32px)!important}main section:not(.hero,.show){padding-top:84px!important;padding-bottom:84px!important}}
 .ef b{white-space:nowrap;font-size:clamp(30px,3vw,40px)!important}.ef b span{font-size:.38em!important}
+.ei{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.16em;flex:none}.estars{display:inline-flex;gap:1px;color:#f2b01e;vertical-align:-.1em}.estars .ei{width:1em;height:1em}
 </style>
 </head>
 <body>
@@ -1142,11 +1143,11 @@ main p:not(:is(.ph,.pho,.mxsc,.fph,.flap,.hx,.adm,.win,.phone,.stage,.edph,.circ
 
   var POPS=[
     ["✓","ご注文を受け付けました","128","できあがりまで少々お待ちください","閉じる"],
-    ["☕","スタンプを1つ押しました","3/10","10個でドリンク1杯無料","OK"],
-    ["🔔","スタッフを呼びました","","カウンター2にうかがいます","閉じる"],
+    ["<svg class='ei' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z'/><path d='M17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v2M12 3v2'/></svg>","スタンプを1つ押しました","3/10","10個でドリンク1杯無料","OK"],
+    ["<svg class='ei' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M6 16V11a6 6 0 0 1 12 0v5l2 2H4z'/><path d='M10 21h4'/></svg>","スタッフを呼びました","","カウンター2にうかがいます","閉じる"],
     ["A","Language","English","中文 ・ 한국어 にも切り替え","Done"],
     ["＋","トッピングを選ぶ","味玉 +¥120","チャーシュー増し +¥300","カートに入れる"],
-    ["🍷","本日のワイン","¥700","南仏の赤 ・ グラス","注文する"]
+    ["<svg class='ei' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M8 3h8c0 5-1.5 8-4 8s-4-3-4-8zM12 11v8M8.5 21h7'/></svg>","本日のワイン","¥700","南仏の赤 ・ グラス","注文する"]
   ];
   function arcScreen(sh,i){
     var p=POPS[i%POPS.length];

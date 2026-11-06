@@ -608,6 +608,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .tgu span{display:block;text-align:center;border-radius:10px;padding:9px;font-weight:700;font-size:13px;background:var(--text);color:#fff}
 .tgc.use .tgu span{background:var(--mint);color:var(--brand)}
 @media(max-width:700px){.tgal{grid-template-columns:1fr}.tgs{height:260px}.tgph{width:160px;height:250px}.tgsc{transform:scale(.4111)}}
+.ei{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.16em;flex:none}.estars{display:inline-flex;gap:1px;color:#f2b01e;vertical-align:-.1em}.estars .ei{width:1em;height:1em}
 </style>
 </head>
 <body>
@@ -727,7 +728,7 @@ function renderC(){
   }else if(c.v==="done"){
     var bk=S.bookings.filter(function(b){return b.id===c.last})[0],m3=bk&&menu(bk.m);
     h+='<div class="okc"><div class="ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>ご予約を受け付けました</h3>'+(bk?'<div class="dt">'+DAYS[bk.d][0]+' '+tm(bk.s)+'</div><p>'+esc(m3.n)+' ・ '+yen(m3.p)+'</p>':'')+'</div>';
-    h+='<div class="mail"><b>✉ 確認メールを送信しました</b><small>前日の19:00に、リマインドのメールもお送りします。</small></div>';
+    h+='<div class="mail"><b><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> 確認メールを送信しました</b><small>前日の19:00に、リマインドのメールもお送りします。</small></div>';
     foot='<button type="button" class="big center" data-act="cv" data-v="menu">トップに戻る</button>';
   }
   h+='</div><div class="cfoot">'+foot+'</div>';
@@ -809,7 +810,7 @@ function blockHTML(b){var h='<div class="BK bk-'+b.type+'">';
   else if(b.type==="ptext")h+='<i class="bki" style="'+bgx(b.img)+'"></i><div><h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p></div>';
   else if(b.type==="photo")h+='<i class="bki" style="'+bgx(b.img)+'"></i>';
   else if(b.type==="gallery")h+=(b.imgs||[]).map(function(u){return'<i class="bki" style="'+bgx(u)+'"></i>'}).join("");
-  else if(b.type==="hours")h+='<h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p>'+(b.addr?'<small>📍 '+esc(b.addr)+'</small>':'');
+  else if(b.type==="hours")h+='<h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p>'+(b.addr?'<small><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> '+esc(b.addr)+'</small>':'');
   else if(b.type==="insta"){var ia=esc(b.acct||"");h+='<div class="igh">'+(b.title?'<h4>'+esc(b.title)+'</h4>':'')+'<a class="igp" href="https://instagram.com/'+encodeURIComponent(b.acct||"")+'" target="_blank" rel="noopener">'+snsIco("instagram")+'@'+ia+'</a></div><div class="igg">'+(b.imgs||[]).map(function(u){return'<i class="bki" style="'+bgx(u)+'"></i>'}).join("")+'</div><a class="igf" href="https://instagram.com/'+encodeURIComponent(b.acct||"")+'" target="_blank" rel="noopener">Instagramでもっと見る ›</a>'}
   else if(b.type==="sns"){var u=b.urls||{},ks=SNS.filter(function(x){return u[x[0]]});h+=(b.title?'<h4>'+esc(b.title)+'</h4>':'')+'<div class="snsr">'+(ks.length?ks.map(function(x){return'<a href="'+esc(u[x[0]])+'" target="_blank" rel="noopener" aria-label="'+x[1]+'">'+snsIco(x[0])+'</a>'}).join(""):'<small>管理画面でURLを入れると表示されます</small>')+'</div>'}
   else if(b.type==="link")h+='<span class="bkl">'+esc(b.title||"リンク")+' ›</span>';
@@ -830,7 +831,7 @@ function blockEditor(id){var b=S.page.blocks[id];if(!b)return"";var h='<section 
 function addPicker(){return'<section class="eds wide addp"><h3>追加するセクションを選ぶ</h3><div class="btg">'+BTYPES.map(function(t){return'<button type="button" class="btc" data-act="badd" data-ty="'+t[0]+'"><b>'+t[1]+'</b><small>'+t[2]+'</small></button>'}).join("")+'</div><button type="button" class="abtn" data-act="baddx" style="margin-top:10px">やめる</button></section>'}
 function aEdit(){
   var P=S.page,a=UI.a,h='<div class="ah"><h2>ページ編集</h2><span class="meta">写真の差し替え・並べ替え・表示の切り替え。予約ページにすぐ反映されます</span></div>';
-  h+='<div class="edg"><section class="eds"><h3>表示する順番</h3><p class="edh">↑↓で入れ替え、スイッチで表示・非表示</p><ol class="ord2">'+P.order.map(function(k,i){return'<li'+(SECN[k]?'':' class="cu"')+'><span class="onm">'+esc(secName(k))+'</span><span class="oa"><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="-1"'+(i===0?" disabled":"")+' aria-label="上へ">↑</button><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="1"'+(i===P.order.length-1?" disabled":"")+' aria-label="下へ">↓</button>'+(SECN[k]?'':'<button type="button" class="abtn sm" data-act="bedit" data-b="'+k+'" aria-label="編集">✎</button>')+'<label class="sw ok"><input type="checkbox" data-chg="show" data-k="'+k+'"'+(P.show[k]?" checked":"")+(k==="menu"?" disabled":"")+'><span></span></label></span></li>'}).join("")+'</ol><button type="button" class="addb2" data-act="baddo">＋ セクションを追加</button></section>'+(a.badd?addPicker():'')+(a.bed&&P.blocks&&P.blocks[a.bed]?blockEditor(a.bed):'');
+  h+='<div class="edg"><section class="eds"><h3>表示する順番</h3><p class="edh">↑↓で入れ替え、スイッチで表示・非表示</p><ol class="ord2">'+P.order.map(function(k,i){return'<li'+(SECN[k]?'':' class="cu"')+'><span class="onm">'+esc(secName(k))+'</span><span class="oa"><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="-1"'+(i===0?" disabled":"")+' aria-label="上へ">↑</button><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="1"'+(i===P.order.length-1?" disabled":"")+' aria-label="下へ">↓</button>'+(SECN[k]?'':'<button type="button" class="abtn sm" data-act="bedit" data-b="'+k+'" aria-label="編集"><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></button>')+'<label class="sw ok"><input type="checkbox" data-chg="show" data-k="'+k+'"'+(P.show[k]?" checked":"")+(k==="menu"?" disabled":"")+'><span></span></label></span></li>'}).join("")+'</ol><button type="button" class="addb2" data-act="baddo">＋ セクションを追加</button></section>'+(a.badd?addPicker():'')+(a.bed&&P.blocks&&P.blocks[a.bed]?blockEditor(a.bed):'');
   h+='<section class="eds"><h3>メイン写真</h3><p class="edh">予約ページの上部に大きく表示されます</p><div class="cur" style="'+bg(P.hero)+'"></div>'+picker("hero",P.hero)+'</section>';
   h+='<section class="eds"><h3>お知らせ</h3><textarea class="nta" data-chg="notice" maxlength="80">'+esc(P.notice)+'</textarea></section>';
   h+='</div>';
