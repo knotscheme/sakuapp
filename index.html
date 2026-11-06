@@ -1811,6 +1811,10 @@ footer.sfoot .wrap.fb{padding-left:24px;padding-right:24px;box-sizing:border-box
 @media(prefers-reduced-motion:reduce){.tcol{animation:none}}
 #usecase .ucpr.ucf{margin-left:18px;color:var(--text)}
 @media(max-width:600px){#usecase .ucpr.ucf{margin-left:0;margin-top:14px}}
+/* tighten gap before template section */
+section:has(+ #templates){padding-bottom:40px!important;border-bottom:0!important}
+.twall{-webkit-mask-image:linear-gradient(180deg,#000 0,#000 78%,transparent)!important;mask-image:linear-gradient(180deg,#000 0,#000 78%,transparent)!important}
+@media(max-width:860px){section:has(+ #templates){padding-bottom:28px!important}.twall{height:340px!important}}
 </style>
 </head>
 <body>
