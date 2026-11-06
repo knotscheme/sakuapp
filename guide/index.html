@@ -389,6 +389,142 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
  .bn{grid-template-columns:1fr 1fr}.bn>div{padding:16px}.bn h3{font-size:14.5px}
  .tm{grid-template-columns:1fr}
 }
+
+/* ===== v4: visual-first ===== */
+.vz{flex:1;min-height:0;margin-top:14px}
+.vz figure{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:22px 22px 16px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.vz figcaption{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:14px}
+.kp{display:block;font:800 clamp(38px,4.6vw,58px)/1 Inter,"Noto Sans JP",sans-serif;color:var(--brand);letter-spacing:-.02em;margin:12px 0 6px}
+.kp i{font-style:normal;font-size:.36em;color:var(--ink);margin-left:4px}
+.vz .sr{width:100%;text-align:center}
+.one{font-size:14px;font-weight:700;margin:6px 0 4px;line-height:1.6}
+.one strong{color:var(--brand)}
+.one.big{font-size:clamp(17px,2vw,22px);margin:6px 0 22px}
+.pict{display:grid;grid-template-columns:repeat(5,1fr);gap:6px 10px;width:min(210px,80%)}
+.pict i{display:block;aspect-ratio:24/32;background:#cfe3e5;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'%3E%3Ccircle cx='12' cy='7' r='5.5'/%3E%3Cpath d='M2 30v-8a10 10 0 0 1 20 0v8z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 32'%3E%3Ccircle cx='12' cy='7' r='5.5'/%3E%3Cpath d='M2 30v-8a10 10 0 0 1 20 0v8z'/%3E%3C/svg%3E") center/contain no-repeat}
+.pict i.on{background:var(--brand)}
+.bub{position:relative;width:170px;height:96px}
+.bub span{position:absolute;border-radius:18px;background:#06c755}
+.bub span:after{content:"";position:absolute;bottom:-7px;left:18px;border:8px solid transparent;border-top-color:#06c755;border-bottom:0}
+.bub span:nth-child(1){left:0;top:4px;width:96px;height:34px;opacity:.55}
+.bub span:nth-child(2){right:0;top:30px;width:110px;height:38px;opacity:.8}
+.bub span:nth-child(2):after{left:auto;right:18px}
+.bub span:nth-child(3){left:20px;top:62px;width:80px;height:30px}
+.vz .bars{width:100%;height:108px;margin:0}
+.bars.tall{height:150px;width:80%}
+.bars.tall span:before{height:calc(var(--h) * 2.6%)}
+.bars.tall i{font-size:12px}
+.bars.tall u{font-size:11.5px}
+.donut{width:clamp(140px,15vw,180px)}
+.vz .donut:before{background:var(--soft)}
+.hb2{width:100%;display:flex;flex-direction:column;gap:14px;margin:6px 0 10px}
+.hb2 div{display:grid;grid-template-columns:64px 1fr 62px;align-items:center;gap:10px}
+.hb2 span{font-size:13px;font-weight:800;text-align:left;line-height:1.2}
+.hb2 span small{display:block;font-size:10.5px;font-weight:700;color:var(--sub)}
+.hb2 i{display:block;height:30px;border-radius:0 8px 8px 0;background:linear-gradient(90deg,var(--brand) calc(var(--w)*1%),#d9ecee 0)}
+.hb2 i.hot{background:linear-gradient(90deg,#d0603f calc(var(--w)*1%),#f6ddd5 0)}
+.hb2 b{font:800 20px Inter,sans-serif;text-align:left}
+.hb2.big{flex:1;justify-content:center}.hb2.big i{height:40px}.hb2.big b{font-size:24px}.hb2.big div{grid-template-columns:70px 1fr 78px}
+.day{margin:16px 0 18px}
+.dbar{position:relative;height:56px;border-radius:12px;background:#eef1f1;overflow:visible}
+.dbar span{position:absolute;top:0;bottom:0;left:calc(var(--a)/24*100%);width:calc((var(--b) - var(--a))/24*100%)}
+.dbar .cl{background:repeating-linear-gradient(135deg,#e3e7e7 0 8px,#eef1f1 8px 16px)}
+.dbar .cl:first-child{border-radius:12px 0 0 12px}.dbar .cl:nth-child(3){border-radius:0 12px 12px 0}
+.dbar .op{background:var(--brand);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:800}
+.dbar em{position:absolute;top:-14px;bottom:-14px;left:calc(var(--a)/24*100%);width:calc(1.6/24*100%);border:3px solid #d0603f;border-radius:10px;font-style:normal}
+.dbar em:after{content:"予約のピーク 20〜21時";position:absolute;top:-30px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:12.5px;font-weight:800;color:#fff;background:#d0603f;border-radius:999px;padding:3px 12px}
+.dax{display:flex;justify-content:space-between;margin-top:20px}
+.dax u{text-decoration:none;font:600 11px Inter,"Noto Sans JP",sans-serif;color:var(--sub)}
+.day p{text-align:center;font-size:15px;font-weight:800;margin:10px 0 0}
+.day p strong{color:#d0603f}
+.dbar{margin-top:40px}
+.lsx>div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+.lsx .ic{margin:0 0 6px}.lsx .ic.r{background:#fff1ec;color:#d0603f;box-shadow:none}
+.lsx b{font-size:14.5px}.lsx small{font-size:12px;color:var(--sub)}
+.hub{flex:1;position:relative;min-height:330px;margin-top:6px}
+.hub:before{content:"";position:absolute;left:50%;top:50%;width:min(62%,560px);aspect-ratio:2/1;transform:translate(-50%,-50%);border:2px dashed #bfe2e5;border-radius:50%}
+.hc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:1}
+.hc i{width:clamp(96px,10vw,124px);aspect-ratio:300/599;border-radius:18px;background-size:cover;background-position:top;border:3px solid #10272b;box-shadow:0 24px 40px -20px rgba(15,42,46,.6)}
+.hc b{font-size:13px;font-weight:900;background:var(--ink);color:#fff;border-radius:999px;padding:4px 14px}
+.hn{position:absolute;width:min(30%,260px);background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;grid-template-areas:"i b" "i s";column-gap:12px;align-items:center;box-shadow:0 14px 28px -22px rgba(15,42,46,.5)}
+.hn .ic{grid-area:i;margin:0;background:var(--brand);color:#fff;box-shadow:none;width:44px;height:44px;border-radius:13px}
+.hn b{grid-area:b;font-size:15.5px;font-weight:900}.hn small{grid-area:s;font-size:12px;color:var(--sub)}
+.hn.n1{left:0;top:4%}.hn.n2{right:0;top:4%}.hn.n3{left:0;bottom:4%}.hn.n4{right:0;bottom:4%}
+.blk{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;width:min(300px,92%);min-height:84px;align-content:end}
+.blk u{display:block;aspect-ratio:1;border-radius:3px;background:var(--brand)}
+.blk u.hf{background:linear-gradient(90deg,var(--brand) 50%,#d9ecee 50%)}
+.cmpb{display:flex;flex-direction:column;gap:22px}
+.cmpb .row{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center}
+.cmpb .lb{font-size:14px;font-weight:800}
+.tr2{display:flex;flex-direction:column;gap:8px}
+.ln{position:relative;height:40px;width:calc(var(--w)*1%);min-width:170px;border-radius:0 10px 10px 0;display:flex;align-items:center;justify-content:space-between;padding:0 14px;gap:10px;white-space:nowrap}
+.ln b{font-size:12.5px}.ln em{font-style:normal;font:800 16px Inter,"Noto Sans JP",sans-serif}
+.ln.gray{background:#e6eaea;color:#6b7b7d}
+.ln.me{background:var(--brand);color:#fff;min-width:230px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+.chips span{display:inline-flex;align-items:center;gap:10px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:13.5px;font-weight:700}
+.chips span b{font-size:11.5px;color:#fff;background:var(--brand);border-radius:999px;padding:2px 10px}
+.svx>div{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:20px 16px 18px;gap:6px}
+.svx i{width:clamp(92px,9.5vw,118px);aspect-ratio:300/520;border-radius:16px;background-size:cover;background-position:top;border:3px solid #10272b;margin-bottom:8px;box-shadow:0 18px 30px -18px rgba(15,42,46,.55)}
+.svx .tg{font-size:11.5px;font-weight:800;color:var(--brand);background:#e1f2f3;border-radius:999px;padding:3px 12px}
+.svx b{font-size:16px;font-weight:900}
+.svx em{font-style:normal;font:800 22px Inter,"Noto Sans JP",sans-serif;color:var(--ink)}
+.prc{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;flex:1;min-height:0;align-items:center}
+.pb{display:flex;flex-direction:column;gap:14px}
+.pb div{display:grid;grid-template-columns:150px 1fr;grid-template-areas:"n b" "n s";column-gap:12px;align-items:center}
+.pb span{grid-area:n;font-size:13.5px;font-weight:800}
+.pb i{grid-area:b;display:flex;height:30px;width:calc(var(--w)*1%);min-width:110px;background:var(--brand);border-radius:0 8px 8px 0;position:relative}
+.pb b{grid-area:b;position:relative;z-index:1;color:#fff;font:800 14px Inter,"Noto Sans JP",sans-serif;padding-left:12px;align-self:center}
+.pb small{grid-area:s;font-size:11.5px;color:var(--sub);margin-top:3px}
+.pside{display:flex;flex-direction:column;gap:14px}
+.adx{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:16px 18px;text-align:center}
+.adx small{display:block;font-size:12px;font-weight:800;color:var(--sub)}
+.eqx{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:6px 0 10px}
+.eqx span{font-size:14px;font-weight:800}.eqx i{font-style:normal;color:var(--brand);font-weight:800}.eqx b{font:800 30px Inter,"Noto Sans JP",sans-serif;color:var(--brand)}
+.mtr{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:0 auto 6px;width:90%}
+.mtr u{height:14px;border-radius:3px;background:#bfe2e5}
+.adx .cc{font-weight:700}
+.mm{display:block;font:800 30px Inter,"Noto Sans JP",sans-serif;margin-top:4px}.mm i{font-style:normal;font-size:.45em;margin-left:3px}
+.flx{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:28px 0 8px;position:relative}
+.flx:before{content:"";position:absolute;left:12.5%;right:12.5%;top:44px;height:3px;background:repeating-linear-gradient(90deg,var(--brand) 0 8px,transparent 8px 14px)}
+.flx>div{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+.ci{display:grid;place-items:center;width:90px;height:90px;border-radius:50%;background:#fff;border:3px solid var(--brand);color:var(--brand);margin-bottom:10px;position:relative;z-index:1}
+.ci svg{width:38px;height:38px}
+.ci.on{background:var(--brand);color:#fff}
+.flx em{font-style:normal;font:800 11px Inter,sans-serif;letter-spacing:.14em;color:var(--brand)}
+.flx b{font-size:17px;font-weight:900}
+.flx small{font-size:12px;font-weight:700;color:var(--sub);background:var(--soft);border-radius:999px;padding:2px 12px;margin-top:2px}
+.chips.c2{justify-content:center;margin-top:auto}
+.mox>div{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;align-items:flex-start}
+.mox .tg{font-size:12px;font-weight:800;color:var(--brand);background:#e1f2f3;border-radius:999px;padding:3px 12px}
+.mox>div>b{font:900 clamp(34px,4vw,48px)/1.1 Inter,"Noto Sans JP",sans-serif;margin:14px 0 4px}
+.mox>div>b i{font-style:normal;font-size:.45em;margin-left:2px}
+.mox .chips{margin-top:10px}.mox .chips span{background:#fff;font-size:12.5px;padding:7px 14px}
+.mox small{margin-top:10px;font-size:11.5px;color:var(--sub)}
+.mox{flex:1;margin-top:18px}
+.ctl ul{font-size:15px}
+@media (max-width:860px){
+ .vz{grid-template-columns:1fr!important}
+ .hub{min-height:0;display:flex;flex-direction:column;gap:10px}
+ .hub:before{display:none}
+ .hc,.hn{position:static;transform:none;width:auto}
+ .hc{margin:4px 0 8px}
+ .day .dbar em:after{font-size:10.5px;padding:2px 8px}
+ .dbar .op{font-size:12px}
+ .lsx{grid-template-columns:1fr 1fr}
+ .cmpb .row{grid-template-columns:1fr;gap:6px}
+ .ln{min-width:0;width:100%!important}.ln.gray{width:100%!important}
+ .tr2 .ln.me{width:72%!important}
+ .svx{grid-template-columns:1fr}
+ .prc{grid-template-columns:1fr}
+ .pb div{grid-template-columns:1fr;grid-template-areas:"n" "b" "s"}
+ .pb i{min-width:120px}
+ .flx{grid-template-columns:1fr 1fr;gap:22px 8px}.flx:before{display:none}
+ .ci{width:72px;height:72px}.ci svg{width:30px;height:30px}
+ .mox{grid-template-columns:1fr}
+ .chips span{font-size:12.5px}
+}
+@media (max-width:860px){.dbar em:after{left:auto;right:-6px;transform:none}}
 </style>
 </head>
 <body>
@@ -411,6 +547,12 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
  <symbol id="g-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
  <symbol id="g-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
  <symbol id="g-wall" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+
+ <symbol id="g-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+ <symbol id="g-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/><path d="M15 3l6 6M21 3l-6 6"/></symbol>
+ <symbol id="g-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></symbol>
+ <symbol id="g-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15l-3-3c1.5-5 5-8 11-8 0 6-3 9.5-8 11z"/><path d="M9 12H5l2-3h4M12 15v4l3-2v-4"/><circle cx="15" cy="9" r="1.3"/></symbol>
+ <symbol id="g-person" viewBox="0 0 24 32" fill="currentColor"><circle cx="12" cy="7" r="5.5"/><path d="M2 30v-8a10 10 0 0 1 20 0v8z"/></symbol>
 </svg>
 
 <header class="bar">
@@ -434,126 +576,143 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 </section>
 
 <!-- 2 -->
-<section class="s" aria-label="世の中の変化">
+<section class="s" aria-label="暮らしはスマホで完結する時代へ">
  <p class="ey">01 ・ WHY NOW</p>
  <h2>暮らしは、<em>スマホで完結</em>する時代へ</h2>
- <p class="lead">調べる、連絡する、支払う。お客様の毎日は、ほとんどがスマホの中で済むようになりました。</p>
- <div class="g g3 dg">
-  <div><small>スマートフォンの保有率（個人）</small><b>80.5<i>%</i></b><p>8割を超え、増加が続いています。</p><span class="sr">総務省「令和6年 通信利用動向調査」</span></div>
-  <div><small>LINEの国内月間利用者数</small><b>1<i>億人</i></b><p>2025年12月に1億人を突破しました。</p><span class="sr">LINEヤフー 2026年1月発表</span></div>
-  <div class="ch"><small>キャッシュレス決済の比率</small><b>42.8<i>%</i></b>
-   <div class="bars" aria-label="2020年29.7%、2021年32.5%、2022年36.0%、2023年39.3%、2024年42.8%"><span style="--h:29.7"><i>29.7</i><u>20</u></span><span style="--h:32.5"><i>32.5</i><u>21</u></span><span style="--h:36"><i>36.0</i><u>22</u></span><span style="--h:39.3"><i>39.3</i><u>23</u></span><span class="on" style="--h:42.8"><i>42.8</i><u>24</u></span></div>
-   <span class="sr">経済産業省 2025年3月発表（2024年）</span></div>
+ <div class="g g3 vz">
+  <figure><figcaption>スマホを持っている人</figcaption>
+   <div class="pict" role="img" aria-label="10人中8人"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+   <b class="kp">80.5<i>%</i></b><span class="sr">総務省「令和6年 通信利用動向調査」（個人）</span></figure>
+  <figure><figcaption>LINEの国内月間利用者</figcaption>
+   <div class="bub" aria-hidden="true"><span></span><span></span><span></span></div>
+   <b class="kp">1<i>億人</i></b><span class="sr">LINEヤフー 2026年1月発表</span></figure>
+  <figure><figcaption>キャッシュレス決済の比率</figcaption>
+   <div class="bars" role="img" aria-label="2020年29.7%から2024年42.8%へ"><span style="--h:29.7"><i>29.7</i><u>2020</u></span><span style="--h:32.5"><i>32.5</i><u>21</u></span><span style="--h:36"><i>36.0</i><u>22</u></span><span style="--h:39.3"><i>39.3</i><u>23</u></span><span class="on" style="--h:42.8"><i>42.8</i><u>24</u></span></div>
+   <b class="kp">42.8<i>%</i></b><span class="sr">経済産業省 2025年3月発表（2024年）</span></figure>
  </div>
- <div class="sum2">お客様に選ばれるには、<b>スマホで完結する入口</b>が欠かせません。</div>
+ <div class="sum2">お客様に選ばれるには、<b>スマホで完結する入口</b>が欠かせない</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>02</b> / 14</span>
 </section>
 
 <!-- 3 -->
-<section class="s" aria-label="お客様の行動の変化">
+<section class="s" aria-label="お客様は電話せず好きな時間に">
  <p class="ey">01 ・ WHY NOW</p>
  <h2>お客様は「電話せず、<em>好きな時間に</em>」</h2>
- <p class="lead">予約や問い合わせは、お店が開いていない時間に集まっています。</p>
- <div class="g g2 big2">
-  <div class="dg1"><small>ネット予約のうち、営業時間外に入った予約</small>
+ <div class="g g2 vz">
+  <figure><figcaption>営業時間外に入ったネット予約</figcaption>
    <div class="donut" style="--p:51.6"><b>51.6<i>%</i></b></div>
-   <p>営業時間を10〜19時とした場合。予約がいちばん多い時間帯は<strong>20〜21時</strong>でした。</p>
-   <span class="sr">予約システム「Coubic」2018年調査</span></div>
-  <div class="dg1"><small>電話での会話に苦手意識がある20代</small>
-   <div class="donut" style="--p:58"><b>58<i>%</i></b></div>
-   <p>30代でも49%。電話でしか予約できないお店は、それだけで選ばれにくくなっています。</p>
-   <span class="sr">ソフトバンク 2024年3月調査</span></div>
+   <p class="one">予約のピークは <strong>20〜21時</strong></p>
+   <span class="sr">予約システム「Coubic」2018年調査（営業時間10〜19時の場合）</span></figure>
+  <figure><figcaption>電話に苦手意識がある人</figcaption>
+   <div class="hb2">
+    <div><span>20代</span><i style="--w:58"></i><b>58%</b></div>
+    <div><span>30代</span><i style="--w:49"></i><b>49%</b></div>
+   </div>
+   <p class="one">電話だけの受付は、<strong>選ばれにくい</strong></p>
+   <span class="sr">ソフトバンク 2024年3月調査</span></figure>
  </div>
- <div class="sum2"><b>営業時間外</b>と<b>電話以外</b>の受け皿があるかどうかが、予約の数を左右します。</div>
+ <div class="sum2"><b>営業時間外</b>と<b>電話以外</b>の受け皿が、予約の数を左右する</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>03</b> / 14</span>
 </section>
 
 <!-- 4 -->
-<section class="s" aria-label="働き手の現状">
+<section class="s" aria-label="お店や個人は手が足りない">
  <p class="ey">01 ・ WHY NOW</p>
  <h2>一方で、お店や個人は<em>手が足りない</em></h2>
- <p class="lead">人手不足が続くなか、ひとりで接客も事務もこなす働き方が増えています。</p>
- <div class="g g4 dg dg4">
-  <div><small>正社員が不足している企業</small><b>53.4<i>%</i></b><span class="sr">帝国データバンク 2025年1月</span></div>
-  <div><small>非正社員が不足している飲食店</small><b>65.3<i>%</i></b><span class="sr">帝国データバンク 2025年4月（業種別で最も高い）</span></div>
-  <div><small>副業をしている人</small><b>332<i>万人</i></b><span class="sr">総務省「就業構造基本調査」2022年（10年で4割強増）</span></div>
-  <div><small>フリーランスとして働く人</small><b>462<i>万人</i></b><span class="sr">内閣官房「フリーランス実態調査」2020年</span></div>
+ <div class="g g2 vz">
+  <figure><figcaption>人手が不足している企業の割合</figcaption>
+   <div class="hb2 big">
+    <div><span>全体<small>正社員</small></span><i style="--w:53.4"></i><b>53.4%</b></div>
+    <div><span>飲食店<small>非正社員</small></span><i class="hot" style="--w:65.3"></i><b>65.3%</b></div>
+   </div>
+   <span class="sr">帝国データバンク 2025年1月・4月（飲食店は業種別で最も高い）</span></figure>
+  <figure><figcaption>副業をしている人</figcaption>
+   <div class="bars tall" role="img" aria-label="2012年234万人、2017年268万人、2022年332万人"><span style="--h:23.4"><i>234万</i><u>2012</u></span><span style="--h:26.8"><i>268万</i><u>2017</u></span><span class="on" style="--h:33.2"><i>332万</i><u>2022</u></span></div>
+   <p class="one">10年で <strong>4割増</strong>。ひとりで全部こなす人が増えている</p>
+   <span class="sr">総務省「就業構造基本調査」2022年</span></figure>
  </div>
- <div class="sum2"><b>お客様の期待</b>は上がり、<b>使える時間</b>は減っている。その差を埋めるのが「仕組み」です。</div>
+ <div class="sum2"><b>お客様の期待</b>は上がり、<b>使える時間</b>は減っている</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>04</b> / 14</span>
 </section>
 
 <!-- 5 -->
-<section class="s" aria-label="起きている機会損失">
+<section class="s" aria-label="そのままだと起きる取りこぼし">
  <p class="ey">02 ・ PROBLEM</p>
- <h2>そのままだと、こんな<em>取りこぼし</em>が</h2>
- <p class="lead">どれも、仕組みがあれば防げることばかりです。</p>
- <div class="ls">
-  <div><span class="n">01</span><div><h3>夜の予約・注文を逃す</h3><p>お客様が予約したい20〜21時に、お店は閉まっている。DMの返信は翌日になり、その間に他のお店へ。</p></div></div>
-  <div><span class="n">02</span><div><h3>電話に出られない</h3><p>施術中・調理中は電話に出られない。かけ直しても、つながらないことも。</p></div></div>
-  <div><span class="n">03</span><div><h3>また来てもらうきっかけがない</h3><p>お客様の情報がノートやLINEに散らばり、「そろそろ来店の時期」をお知らせできない。</p></div></div>
-  <div><span class="n">04</span><div><h3>大手サービスの中で、比べられる</h3><p>予約ポータルでは、となりに他のお店が並びます。手数料や掲載料がかかることも。</p></div></div>
+ <h2>そのままだと、<em>取りこぼし</em>が起きる</h2>
+ <div class="day" role="img" aria-label="営業時間10時から19時。予約のピークは閉店後の20時から21時">
+  <div class="dbar"><span class="cl" style="--a:0;--b:10"></span><span class="op" style="--a:10;--b:19">営業時間</span><span class="cl" style="--a:19;--b:24"></span><em style="--a:20"></em></div>
+  <div class="dax"><u>0時</u><u>6</u><u>12</u><u>18</u><u>24時</u></div>
+  <p>お客様が予約したい時間に、<strong>お店は閉まっている</strong></p>
  </div>
- <div class="sum2">この4つは、<b>自分専用のアプリ</b>でまとめて解決できます。</div>
+ <div class="g g4 lsx">
+  <div><span class="ic r"><svg><use href="#g-moon"/></svg></span><b>夜の予約を逃す</b><small>返信は翌日に</small></div>
+  <div><span class="ic r"><svg><use href="#g-phone"/></svg></span><b>電話に出られない</b><small>施術中・調理中</small></div>
+  <div><span class="ic r"><svg><use href="#g-db"/></svg></span><b>情報がバラバラ</b><small>次の来店につながらない</small></div>
+  <div><span class="ic r"><svg><use href="#g-people"/></svg></span><b>他店と並べられる</b><small>予約ポータルの中で</small></div>
+ </div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>05</b> / 14</span>
 </section>
 
 <!-- 6 -->
 <section class="s" aria-label="サクアプで得られること">
  <p class="ey">03 ・ BENEFITS</p>
- <h2>サクアプで、<em>得られること</em></h2>
- <p class="lead">あなた専用のアプリが、あなたの代わりに24時間働きます。</p>
- <div class="g g4 bn">
-  <div><span class="ic"><svg><use href="#g-cal"/></svg></span><h3>24時間、受け付ける</h3><p>寝ている間も、施術中も、予約や注文が入る。</p></div>
-  <div><span class="ic"><svg><use href="#g-bell"/></svg></span><h3>自動で、知らせる</h3><p>前日のリマインドや再来店のお知らせを、自動で送る。</p></div>
-  <div><span class="ic"><svg><use href="#g-db"/></svg></span><h3>お客様の情報が、残る</h3><p>来店履歴やカルテが一か所にまとまり、次の提案に活かせる。</p></div>
-  <div><span class="ic"><svg><use href="#g-wall"/></svg></span><h3>自分のブランドで、選ばれる</h3><p>他店と並ばない、自分だけの画面。お店らしさをそのまま伝えられる。</p></div>
+ <h2>あなた専用のアプリが、<em>24時間働く</em></h2>
+ <div class="hub">
+  <div class="hc"><i style="background-image:url(../features/img/app0.webp)"></i><b>あなたのアプリ</b></div>
+  <div class="hn n1"><span class="ic"><svg><use href="#g-cal"/></svg></span><b>24時間 受付</b><small>夜も施術中も予約が入る</small></div>
+  <div class="hn n2"><span class="ic"><svg><use href="#g-bell"/></svg></span><b>自動でお知らせ</b><small>前日リマインド・再来店</small></div>
+  <div class="hn n3"><span class="ic"><svg><use href="#g-db"/></svg></span><b>顧客データが残る</b><small>履歴・カルテを一か所に</small></div>
+  <div class="hn n4"><span class="ic"><svg><use href="#g-wall"/></svg></span><b>自分のブランド</b><small>他店と並ばない画面</small></div>
  </div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>06</b> / 14</span>
 </section>
 
 <!-- 7 -->
-<section class="s" aria-label="時間の効果">
+<section class="s" aria-label="生まれる時間">
  <p class="ey">03 ・ BENEFITS</p>
  <h2>手が空いた時間を、<em>お客様のために</em></h2>
- <p class="lead">やりとりや注文取りの手間がなくなると、どれくらい時間が生まれるかを試算しました。</p>
- <div class="g g2 tm">
-  <div><span class="tg">飲食店 ・ 卓上QR注文</span><b>約35<i>時間 / 月</i></b><p>1回の注文取りを1分、1日80回、月26日営業として試算。アルバイト1人の、およそ1週間分の勤務時間です。</p></div>
-  <div><span class="tg">個人サロン ・ Web予約</span><b>約12.5<i>時間 / 月</i></b><p>DMや電話での予約対応を1件3分、1日10件、月25日営業として試算。施術にして、およそ6〜8人分の時間です。</p></div>
+ <div class="g g2 vz tmx">
+  <figure><figcaption>飲食店 ・ 卓上QR注文</figcaption>
+   <div class="blk" aria-hidden="true"><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u></div>
+   <b class="kp">約35<i>時間 / 月</i></b>
+   <p class="one">＝ アルバイト1人の <strong>約1週間分</strong></p>
+   <span class="sr">試算：注文取り1回1分 × 1日80回 × 月26日</span></figure>
+  <figure><figcaption>個人サロン ・ Web予約</figcaption>
+   <div class="blk" aria-hidden="true"><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="hf"></u></div>
+   <b class="kp">約12.5<i>時間 / 月</i></b>
+   <p class="one">＝ 施術 <strong>約6〜8人分</strong></p>
+   <span class="sr">試算：予約対応1件3分 × 1日10件 × 月25日</span></figure>
  </div>
- <p class="mini">※試算です。注文や予約の回数、お店の状況によって変わります。効果を保証するものではありません。</p>
- <div class="ba ba2">
-  <div><b>飲食店</b><p><s>席まで注文を聞きに行く</s> → テーブルのQRから注文、厨房にそのまま届く</p></div>
-  <div><b>個人サロン</b><p><s>営業後にDMで予約の返信</s> → 24時間Web予約、前日のお知らせも自動</p></div>
-  <div><b>整体・教室</b><p><s>紙の回数券で残りを確認</s> → お客様がマイページで残り回数を確認</p></div>
- </div>
+ <p class="mini">※試算です。お店の状況によって変わり、効果を保証するものではありません。■＝1時間</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>07</b> / 14</span>
 </section>
 
 <!-- 8 -->
-<section class="s sec" aria-label="サービス紹介">
+<section class="s" aria-label="サクアプとは">
  <p class="ey">04 ・ SERVICE</p>
  <h2>サクアプとは</h2>
- <p class="def">ひな形ではなく、プログラムを書いて作る<em>オーダーメイドのアプリ</em>を、<br>個人でも頼める価格と速さでお届けするサービスです。</p>
- <div class="st">
-  <div><small>初期費用</small><b>19,800<i>円〜</i></b><p>12回払いなら月々 約1,650円〜。<br>カードの分割は最大60回まで。</p></div>
-  <div><small>開発期間</small><b>1週間<i>〜</i>1<i>ヶ月</i></b><p>AIと進める開発で、<br>アイデアを短い期間で形にします。</p></div>
-  <div><small>追加機能</small><b>1文字 0.5<i>円</i></b><p>プログラムの文字数で計算。<br>見積もりの時点で金額がわかります。</p></div>
+ <p class="one big">オーダーメイドのアプリを、<strong>個人でも頼める価格と速さ</strong>で</p>
+ <div class="cmpb">
+  <div class="row"><span class="lb">初期費用</span>
+   <div class="tr2"><div class="ln gray" style="--w:100"><b>開発会社の相場</b><em>数十万円〜</em></div><div class="ln me" style="--w:12"><b>サクアプ</b><em>19,800円〜</em></div></div></div>
+  <div class="row"><span class="lb">できるまで</span>
+   <div class="tr2"><div class="ln gray" style="--w:100"><b>開発会社の相場</b><em>数ヶ月〜</em></div><div class="ln me" style="--w:22"><b>サクアプ</b><em>1週間〜1ヶ月</em></div></div></div>
  </div>
+ <div class="chips"><span><b>12回払い</b>月々 約1,650円〜</span><span><b>追加機能</b>1文字0.5円</span><span><b>分割</b>最大60回</span></div>
+ <p class="mini">※開発会社の相場はイメージです。会社や内容によって異なります。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>08</b> / 14</span>
 </section>
 
 <!-- 9 -->
 <section class="s" aria-label="3つのサービス">
  <p class="ey">04 ・ SERVICE</p>
- <h2>目的に合わせて選べる、3つのサービス</h2>
- <p class="lead">ゼロから専用に作るか、業種別のテンプレートから始めるかを選べます。</p>
- <div class="g g3 sv">
-  <div class="c"><span class="tg">オーダーメイド開発</span><h3>あなた専用のアプリを、ゼロから</h3><p>予約・決済・会員・SNS・マッチング・ネットショップなど、やりたいことに合わせて設計します。</p><div class="pr">初期費用 <b>19,800円〜</b></div></div>
-  <div class="c"><span class="tg">飲食店向け</span><h3>卓上QRのモバイルメニュー</h3><p>テーブルのQRからメニューを開いて注文。注文手数料は0円です。</p><div class="pr">初期0円〜 ・ 月額 <b>1,980円</b></div></div>
-  <div class="c"><span class="tg">個人サロン向け</span><h3>予約・カルテ・再来店のお知らせ</h3><p>24時間のWeb予約と顧客カルテが一体に。予約件数の上限も、予約手数料もありません。</p><div class="pr">初期0円〜 ・ 月額 <b>1,980円</b></div></div>
+ <h2>目的に合わせて選べる、<em>3つのサービス</em></h2>
+ <div class="g g3 svx">
+  <div><i style="background-image:url(../features/img/app10.webp)"></i><span class="tg">オーダーメイド開発</span><b>ゼロから専用に</b><em>19,800円〜</em></div>
+  <div><i style="background-image:url(../features/img/app6.webp)"></i><span class="tg">飲食店向け</span><b>卓上QRで注文</b><em>月額1,980円</em></div>
+  <div><i style="background-image:url(../features/img/app0.webp)"></i><span class="tg">個人サロン向け</span><b>予約とカルテを一つに</b><em>月額1,980円</em></div>
  </div>
- <p class="mini">※飲食店向け・サロン向けは、30日間の無料お試しのあと月額が自動で始まります。最低契約期間はありません。</p>
+ <p class="mini">※飲食店向け・サロン向けは初期0円から。30日間の無料お試しのあと月額が自動で始まります。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>09</b> / 14</span>
 </section>
 
@@ -561,78 +720,67 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <section class="s" aria-label="作れるアプリの例">
  <p class="ey">04 ・ SERVICE</p>
  <h2>こんなアプリが作れます</h2>
- <p class="lead">選べる機能は110種類以上。画面も機能も、自由に組み合わせられます。</p>
  <div class="apps grow">
   <figure><i style="background-image:url(../features/img/app0.webp)"></i><figcaption>サロン予約</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app1.webp)"></i><figcaption>カフェの会員証</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app2.webp)"></i><figcaption>ジムの会員アプリ</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app3.webp)"></i><figcaption>ヨガのレッスン予約</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app3.webp)"></i><figcaption>ヨガの予約</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app4.webp)"></i><figcaption>整体の回数券</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app5.webp)"></i><figcaption>ネットショップ</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app6.webp)"></i><figcaption>テイクアウト注文</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app7.webp)"></i><figcaption>イベントのチケット</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app8.webp)"></i><figcaption>売上の管理画面</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app6.webp)"></i><figcaption>テイクアウト</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app7.webp)"></i><figcaption>イベント</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app8.webp)"></i><figcaption>管理画面</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app9.webp)"></i><figcaption>オンライン相談</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app10.webp)"></i><figcaption>マッチング</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app11.webp)"></i><figcaption>SNS</figcaption></figure>
  </div>
+ <p class="mini">選べる機能は110種類以上。画面も機能も自由に組み合わせられます。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>10</b> / 14</span>
 </section>
 
 <!-- 11 -->
 <section class="s" aria-label="料金">
  <p class="ey">05 ・ PRICE</p>
- <h2>料金は「基本料金＋追加機能」だけ</h2>
- <p class="lead">見積もりの時点で金額をお出しします。ご了承のない追加請求はありません。</p>
- <div class="pt">
-  <div><h3>オーダーメイド開発（基本プラン）</h3>
-   <table>
-    <tr><th>かんたんWebサービス<small>ログインと管理画面のあるシンプルなWebサービス</small></th><td class="r"><b>19,800</b>円<small>12回なら月々 約1,650円〜</small></td></tr>
-    <tr><th>SNS<small>投稿・フォロー・コミュニティの仕組み</small></th><td class="r"><b>29,800</b>円<small>12回なら月々 約2,484円〜</small></td></tr>
-    <tr><th>マッチング<small>人と人、人と仕事を引き合わせる仕組み</small></th><td class="r"><b>49,800</b>円<small>12回なら月々 約4,150円〜</small></td></tr>
-    <tr><th>ネットショップ<small>商品・カート・決済までそろった販売サイト</small></th><td class="r"><b>69,800</b>円<small>12回なら月々 約5,817円〜</small></td></tr>
-   </table>
+ <h2>料金は<em>「基本料金＋追加機能」</em>だけ</h2>
+ <div class="prc">
+  <div class="pb">
+   <div><span>かんたんWebサービス</span><i style="--w:28.4"></i><b>19,800円</b><small>月々 約1,650円〜</small></div>
+   <div><span>SNS</span><i style="--w:42.7"></i><b>29,800円</b><small>月々 約2,484円〜</small></div>
+   <div><span>マッチング</span><i style="--w:71.3"></i><b>49,800円</b><small>月々 約4,150円〜</small></div>
+   <div><span>ネットショップ</span><i style="--w:100"></i><b>69,800円</b><small>月々 約5,817円〜</small></div>
   </div>
-  <div><h3>追加機能・保守</h3>
-   <div class="box">
-   <table>
-    <tr><th>追加機能<small>プログラム1,000文字＝500円</small></th><td class="r"><b>1文字0.5</b>円</td></tr>
-    <tr><th>運用保守プラン（任意）<small>不具合の対応・アップデート・バックアップ</small></th><td class="r"><b>1,980</b>円/月</td></tr>
-   </table>
-   </div>
-   <p class="mini">※分割払いは、カード会社の手数料が別にかかります（Visa・Mastercardは最大60回、JCBは最大24回）。一括払いなら、運用保守プランの最初の1ヶ月が無料です。</p>
+  <div class="pside">
+   <div class="adx"><small>追加機能</small><div class="eqx"><span>1文字</span><i>＝</i><b>0.5円</b></div><div class="mtr" aria-hidden="true"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><small class="cc">1,000文字 ＝ 500円</small></div>
+   <div class="adx"><small>運用保守（任意）</small><b class="mm">1,980<i>円/月</i></b></div>
   </div>
  </div>
+ <p class="mini">※「月々」は12回払いの目安。カード会社の分割手数料が別にかかります。見積もり後のご了承のない追加請求はありません。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>11</b> / 14</span>
 </section>
 
 <!-- 12 -->
 <section class="s" aria-label="導入の流れ">
  <p class="ey">06 ・ FLOW</p>
- <h2>ご相談から運用開始まで、4ステップ</h2>
- <p class="lead">むずかしい言葉は使いません。ざっくりしたアイデアで大丈夫です。</p>
- <div class="fl">
-  <div><span class="n">1</span><h3>無料相談</h3><p>アイデアをお聞かせください。LINEで気軽にどうぞ。</p><small>無料</small></div>
-  <div><span class="n">2</span><h3>明朗お見積もり</h3><p>基本料金と追加機能の文字数で金額を出します。見てから決められます。</p><small>無料</small></div>
-  <div><span class="n">3</span><h3>開発</h3><p>AIと進めて、短い期間で形にします。</p><small>1週間〜1ヶ月</small></div>
-  <div><span class="n">4</span><h3>確認＆運用スタート</h3><p>動きを確かめたら、その日から使いはじめられます。</p><small>公開</small></div>
+ <h2>ご相談から公開まで、<em>4ステップ</em></h2>
+ <div class="flx">
+  <div><span class="ci"><svg><use href="#g-chat"/></svg></span><em>STEP 1</em><b>LINEで相談</b><small>無料</small></div>
+  <div><span class="ci"><svg><use href="#g-yen"/></svg></span><em>STEP 2</em><b>お見積もり</b><small>無料</small></div>
+  <div><span class="ci"><svg><use href="#g-code"/></svg></span><em>STEP 3</em><b>開発</b><small>1週間〜1ヶ月</small></div>
+  <div><span class="ci on"><svg><use href="#g-rocket"/></svg></span><em>STEP 4</em><b>公開・運用</b><small>その日から使える</small></div>
  </div>
- <div class="after"><span class="ic" style="margin:0"><svg><use href="#g-wall"/></svg></span><div><b>あんしんの返金・修正</b><br>開発の着手前なら全額返金。納品後90日以内なら、こちらの原因による不具合は何度でも無償で修正します。</div></div>
+ <div class="chips c2"><span><b>着手前</b>全額返金</span><span><b>納品後90日</b>不具合は何度でも無償修正</span></div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>12</b> / 14</span>
 </section>
 
 <!-- 13 -->
-<section class="s mo" aria-label="先行モニター募集">
+<section class="s" aria-label="先行モニター募集">
  <p class="ey">EARLY ACCESS</p>
- <h2>いまだけの、先行モニター募集</h2>
- <p class="lead">正式受付は2027年6月ごろからです。それまでの間、数を限って先行モニターを受け付けています。</p>
- <div class="g g2">
-  <div class="c"><h3>オーダーメイド開発</h3><div class="big">月5名様まで</div>
-   <ul><li>noteの先行モニター記事からお申し込み</li><li>記事の代金が、そのまま開発費に充てられます</li><li>アイデアの文字数見積もりと構成案づくりも無料</li></ul></div>
-  <div class="c"><h3>個人サロン向け</h3><div class="big">先着5店舗</div>
-   <ul><li>おまかせ設定（9,800円）と有料テンプレート1つが無料</li><li>最初の6か月のご継続（その後は1か月ごとの自動更新）</li><li>導入事例として、お店の写真と感想を掲載させていただきます</li></ul></div>
+ <h2>いまだけの、<em>先行モニター</em>募集</h2>
+ <div class="g g2 mox">
+  <div><span class="tg">オーダーメイド開発</span><b>月5名様<i>まで</i></b><p class="chips"><span>記事代 → 開発費に</span><span>文字数見積もり 無料</span><span>構成案づくり 無料</span></p></div>
+  <div><span class="tg">個人サロン向け</span><b>先着5<i>店舗</i></b><p class="chips"><span>おまかせ設定 9,800円 → 0円</span><span>有料テンプレート1つ 無料</span></p><small>条件：最初の6か月のご継続・導入事例の掲載</small></div>
  </div>
- <p class="sch">くわしい条件は、LINEでお気軽にお問い合わせください。</p>
+ <p class="mini">※正式受付は2027年6月ごろからです。くわしい条件はLINEでお問い合わせください。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>13</b> / 14</span>
 </section>
 
@@ -640,11 +788,10 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <section class="s ct" aria-label="お問い合わせ">
  <p class="ey">CONTACT</p>
  <h2>まずは、無料でご相談ください</h2>
- <p class="lead">「こんなの作れる？」の気軽な相談から、どうぞ。相談も、最初の見積もりも無料です。</p>
  <div class="ctg">
   <div class="qr"><img src="line-qr.svg" alt="LINE友だち追加のQRコード" width="232" height="232"><p>LINEで友だち追加</p></div>
   <div class="ctl">
-   <ul><li><b>01</b>QRコードを読み取るか、下のボタンから友だち追加</li><li><b>02</b>作りたいもののイメージを、ざっくり送るだけ</li><li><b>03</b>金額と期間の目安を、無料でお返しします</li></ul>
+   <ul><li><b>01</b>友だち追加</li><li><b>02</b>作りたいものを、ざっくり送る</li><li><b>03</b>金額と期間の目安が届く（無料）</li></ul>
    <a class="cbtn" href="https://lin.ee/vC2S0M9" data-entry="guide" target="_blank" rel="noopener">【無料】LINEで相談する ›</a>
    <span class="url">knotscheme.github.io/sakuapp</span>
   </div>
