@@ -525,6 +525,97 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
  .chips span{font-size:12.5px}
 }
 @media (max-width:860px){.dbar em:after{left:auto;right:-6px;transform:none}}
+
+/* ===== v5: refined charts & phrase-safe wrapping ===== */
+.s h1,.s h2,.s figcaption,.s .one,.s b,.s .sum2,.s .chips span,.s .lsx small,.s .hn small,.s .cs,.ctl li,.svx .tg,.cc2 small,.cc2 span{word-break:keep-all;overflow-wrap:anywhere}
+.s h2{text-wrap:balance}
+.vz figure{background:#fff;border:1px solid #e3ecec;box-shadow:0 1px 0 rgba(15,42,46,.02),0 22px 40px -34px rgba(15,42,46,.35);border-radius:20px;padding:24px 22px 16px}
+.vz figcaption{font-size:13px;font-weight:700;color:var(--sub);letter-spacing:.06em;margin-bottom:10px}
+.rw{position:relative;display:grid;place-items:center;margin:6px 0 4px}
+.ring{width:clamp(140px,14vw,176px);height:auto;display:block}
+.rv{position:absolute;font:300 clamp(30px,3.2vw,40px)/1 Inter,sans-serif;color:var(--ink);letter-spacing:-.02em}
+.rv i{font-style:normal;font-size:.42em;font-weight:500;margin-left:2px;color:var(--sub)}
+.lc{width:100%;height:auto;max-height:170px;margin:4px 0 2px;overflow:visible}
+.lc .tv{font:600 11px Inter,"Noto Sans JP",sans-serif;fill:#7b8e90}
+.lc .tv.on{font-size:13px;font-weight:800;fill:#0e7c8c}
+.lc .tl{font:500 10px Inter,sans-serif;fill:#9fb0b2;letter-spacing:.04em}
+.one{font-size:14px;font-weight:700;color:var(--ink)}
+.one strong{color:var(--brand)}
+.hbx{width:100%;display:flex;flex-direction:column;gap:18px;margin:14px 0 12px}
+.hbx>div{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:14px}
+.hbx span{font-size:13px;font-weight:800;text-align:left;line-height:1.25}
+.hbx span small{display:block;font-size:10.5px;font-weight:600;color:var(--sub);letter-spacing:.04em}
+.hbx i{display:block;height:8px;border-radius:999px;background:#e9f0f1;overflow:hidden}
+.hbx u{display:block;height:100%;width:calc(var(--w)*1%);border-radius:999px;background:linear-gradient(90deg,#19a7b6,#0a5d69)}
+.hbx u.hot{background:linear-gradient(90deg,#f0937a,#d0503a)}
+.hbx b{font:300 30px/1 Inter,sans-serif;color:var(--ink);letter-spacing:-.02em;min-width:72px;text-align:right}
+.hbx b small{font-size:.45em;font-weight:500;color:var(--sub);margin-left:2px}
+.hbx.big{flex:1;justify-content:center;gap:26px}.hbx.big i{height:10px}.hbx.big b{font-size:36px}
+.kp{font-weight:300;color:var(--ink)}
+.kp i{color:var(--sub);font-weight:500}
+.sum2{background:linear-gradient(100deg,#0b3d44,#0e5f6a);border-radius:16px;font-weight:700;letter-spacing:.06em}
+/* clock */
+.dayx{flex:1;display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;margin:6px 0 14px}
+.cw{position:relative;width:clamp(220px,25vw,300px)}
+.clk{width:100%;height:auto;display:block}
+.clk .tl{font:600 11px Inter,"Noto Sans JP",sans-serif;fill:#8ea0a2}
+.cc2{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cc2 small{font-size:11px;font-weight:700;color:var(--sub);letter-spacing:.04em}
+.cc2 b{font:300 30px/1.2 Inter,"Noto Sans JP",sans-serif;color:#d0503a;margin:2px 0}
+.cc2 span{font-size:12px;font-weight:800;color:var(--ink)}
+.lg2{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.lg2 li{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:12px;font-size:15px;font-weight:800;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.lg2 li small{font:500 13px Inter,"Noto Sans JP",sans-serif;color:var(--sub)}
+.lg2 i{width:14px;height:14px;border-radius:4px}
+.lg2 .k1{background:linear-gradient(135deg,#19a7b6,#0a5d69)}.lg2 .k2{background:#e4664a}.lg2 .k3{background:#edf2f2;box-shadow:inset 0 0 0 1px #d6e0e1}
+.lsx>div{border-radius:16px;border-color:#e3ecec;padding:16px 12px}
+.lsx .ic.r{background:none;color:#d0503a;box-shadow:inset 0 0 0 1px #f2d3ca;border-radius:50%}
+/* hub refine */
+.hub:before{border:1px solid #d6e9eb;border-style:solid;opacity:.9}
+.hn{border-color:#e3ecec;box-shadow:0 20px 36px -28px rgba(15,42,46,.45)}
+.hn .ic{background:linear-gradient(135deg,#19a7b6,#0a5d69);border-radius:50%}
+.hc i{border-width:2px;box-shadow:0 30px 60px -24px rgba(14,124,140,.55)}
+/* time */
+.yr{width:min(320px,94%);display:flex;flex-direction:column;gap:10px;margin:14px 0 8px}
+.yr>div{display:grid;grid-template-columns:42px 1fr 52px;align-items:center;gap:10px}
+.yr span{font-size:11.5px;font-weight:700;color:var(--sub);text-align:left}
+.yr i{display:block;height:8px;border-radius:999px;background:#e9f0f1;overflow:hidden}
+.yr u{display:block;height:100%;width:calc(var(--w)*1%);border-radius:999px;background:linear-gradient(90deg,#19a7b6,#0a5d69)}
+.yr b{font:700 13px Inter,sans-serif;text-align:right}
+/* compare bars refine */
+.ln{height:36px;border-radius:999px}
+.ln.gray{background:#eef2f2}
+.ln.me{background:linear-gradient(90deg,#19a7b6,#0a5d69)}
+.pb i{height:10px;border-radius:999px;background:linear-gradient(90deg,#19a7b6,#0a5d69);align-self:end}
+.pb b{color:var(--ink);padding:0;align-self:start;margin-top:-30px;font-size:15px}
+.pb div{grid-template-areas:"n b" "n s";row-gap:4px}
+.pb span{align-self:center}
+.mtr u{background:linear-gradient(90deg,#bfe2e5,#8fd0d6)}
+.ci{border-width:1.5px;box-shadow:0 18px 30px -22px rgba(14,124,140,.6)}
+.ci.on{background:linear-gradient(135deg,#19a7b6,#0a5d69);border-color:transparent}
+.flx:before{background:linear-gradient(90deg,#bfe2e5,#0e7c8c);height:1.5px}
+@media (max-width:860px){
+ .dayx{grid-template-columns:1fr;justify-items:center;gap:18px}
+ .cw{width:min(260px,80vw)}
+ .lg2{width:100%}
+ .hbx.big b,.hbx b{font-size:26px;min-width:60px}
+ .pb b{margin-top:0}
+ .pb div{grid-template-areas:"n" "b" "s"}
+ .pb i{align-self:auto}
+}
+@media (min-width:861px){.cw{width:clamp(200px,20vw,250px)}.dayx{margin:0 0 10px}}
+.nw,.chips span b,.ctl li b,.flx small,.apps figcaption{white-space:nowrap}
+.ctl li b{flex:none}
+.s .flx small,.s .svx b,.s .mox small{word-break:keep-all;overflow-wrap:anywhere}
+@media (max-width:860px){
+ .apps figcaption{font-size:clamp(9.5px,2.8vw,11px)}
+ .pb div{grid-template-columns:1fr auto;grid-template-areas:"n v" "b b" "s s";row-gap:5px}
+ .pb b{grid-area:v;margin:0;align-self:center;font-size:14px}
+ .pb i{grid-area:b}
+ .chips span{white-space:normal}
+}
+.chips .nwc{white-space:nowrap}
+@media (max-width:860px){.pb i{min-width:0}}
 </style>
 </head>
 <body>
@@ -569,7 +660,7 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <section class="s cover" aria-label="表紙">
  <p class="ey">SERVICE GUIDE</p>
  <h1><span>あなた専用の</span><span>アプリを、</span><span>もっと身近に。</span></h1>
- <p class="cs">個人事業主・副業の方のための<br>オーダーメイドアプリ開発「サクアプ」</p>
+ <p class="cs">個人事業主・<wbr>副業の方のための<br>オーダーメイド<wbr>アプリ開発<wbr>「サクアプ」</p>
  <div class="phs" aria-hidden="true"><i style="background-image:url(../features/img/app0.webp)"></i><i style="background-image:url(../features/img/app10.webp)"></i><i style="background-image:url(../features/img/app5.webp)"></i></div>
  <div class="meta"><img src="../logo-w.png" alt="サクアプ" width="800" height="195"><span>サービス資料 ・ 2026年11月版</span></div>
  <span class="pg"><b>01</b> / 14</span>
@@ -578,77 +669,77 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <!-- 2 -->
 <section class="s" aria-label="暮らしはスマホで完結する時代へ">
  <p class="ey">01 ・ WHY NOW</p>
- <h2>暮らしは、<em>スマホで完結</em>する時代へ</h2>
+ <h2>暮らしは、<wbr><em>スマホで完結</em>する<wbr>時代へ</h2>
  <div class="g g3 vz">
-  <figure><figcaption>スマホを持っている人</figcaption>
-   <div class="pict" role="img" aria-label="10人中8人"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
-   <b class="kp">80.5<i>%</i></b><span class="sr">総務省「令和6年 通信利用動向調査」（個人）</span></figure>
-  <figure><figcaption>LINEの国内月間利用者</figcaption>
-   <div class="bub" aria-hidden="true"><span></span><span></span><span></span></div>
-   <b class="kp">1<i>億人</i></b><span class="sr">LINEヤフー 2026年1月発表</span></figure>
-  <figure><figcaption>キャッシュレス決済の比率</figcaption>
-   <div class="bars" role="img" aria-label="2020年29.7%から2024年42.8%へ"><span style="--h:29.7"><i>29.7</i><u>2020</u></span><span style="--h:32.5"><i>32.5</i><u>21</u></span><span style="--h:36"><i>36.0</i><u>22</u></span><span style="--h:39.3"><i>39.3</i><u>23</u></span><span class="on" style="--h:42.8"><i>42.8</i><u>24</u></span></div>
-   <b class="kp">42.8<i>%</i></b><span class="sr">経済産業省 2025年3月発表（2024年）</span></figure>
+  <figure><figcaption>スマホを<wbr>持っている人</figcaption>
+   <div class="rw"><svg class="ring" viewBox="0 0 168 168" aria-hidden="true"><defs><linearGradient id="gr1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19a7b6"/><stop offset="1" stop-color="#0a5d69"/></linearGradient></defs><circle cx="84.0" cy="84.0" r="77.5" fill="none" stroke="#e7eff0" stroke-width="9"/><circle cx="84.0" cy="84.0" r="77.5" fill="none" stroke="url(#gr1)" stroke-width="9" stroke-linecap="round" stroke-dasharray="392.0 486.9" transform="rotate(-90 84.0 84.0)"/></svg><b class="rv">80.5<i>%</i></b></div>
+   <p class="one">8割を超え、<wbr>増加が続く</p><span class="sr">総務省「令和6年 通信利用動向調査」（個人）</span></figure>
+  <figure><figcaption>LINEの<wbr>国内月間利用者</figcaption>
+   <svg class="lc" viewBox="0 0 320 150" aria-hidden="true"><defs><linearGradient id="gr2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e7c8c" stop-opacity=".22"/><stop offset="1" stop-color="#0e7c8c" stop-opacity="0"/></linearGradient></defs><line x1="18" x2="302" y1="26.0" y2="26.0" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="58.7" y2="58.7" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="91.3" y2="91.3" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="124.0" y2="124.0" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><path d="M18.0,124 L18.0,79.1 L302.0,42.3 L302.0,124 Z" fill="url(#gr2)"/><polyline points="18.0,79.1 302.0,42.3" fill="none" stroke="#0e7c8c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="18.0" cy="79.1" r="3.2" fill="#fff" stroke="#0e7c8c" stroke-width="2"/><text x="18.0" y="68.1" text-anchor="middle" class="tv">8,200万</text><text x="18.0" y="144" text-anchor="middle" class="tl">2019</text><circle cx="302.0" cy="42.3" r="5" fill="#0e7c8c" stroke="#0e7c8c" stroke-width="2"/><text x="302.0" y="31.3" text-anchor="middle" class="tv on">1億</text><text x="302.0" y="144" text-anchor="middle" class="tl">2025</text></svg>
+   <p class="one">ついに<strong>1億人</strong>を<wbr>突破</p><span class="sr">LINE 2019年決算／LINEヤフー 2026年1月発表</span></figure>
+  <figure><figcaption>キャッシュレス<wbr>決済の比率</figcaption>
+   <svg class="lc" viewBox="0 0 320 150" aria-hidden="true"><defs><linearGradient id="gr3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e7c8c" stop-opacity=".22"/><stop offset="1" stop-color="#0e7c8c" stop-opacity="0"/></linearGradient></defs><line x1="18" x2="302" y1="26.0" y2="26.0" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="58.7" y2="58.7" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="91.3" y2="91.3" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="124.0" y2="124.0" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><path d="M18.0,124 L18.0,98.6 L89.0,86.1 L160.0,70.5 L231.0,55.8 L302.0,40.3 L302.0,124 Z" fill="url(#gr3)"/><polyline points="18.0,98.6 89.0,86.1 160.0,70.5 231.0,55.8 302.0,40.3" fill="none" stroke="#0e7c8c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="18.0" cy="98.6" r="3.2" fill="#fff" stroke="#0e7c8c" stroke-width="2"/><text x="18.0" y="87.6" text-anchor="middle" class="tv">29.7%</text><text x="18.0" y="144" text-anchor="middle" class="tl">2020</text><circle cx="89.0" cy="86.1" r="3.2" fill="#fff" stroke="#0e7c8c" stroke-width="2"/><text x="89.0" y="75.1" text-anchor="middle" class="tv">32.5%</text><text x="89.0" y="144" text-anchor="middle" class="tl">21</text><circle cx="160.0" cy="70.5" r="3.2" fill="#fff" stroke="#0e7c8c" stroke-width="2"/><text x="160.0" y="59.5" text-anchor="middle" class="tv">36.0%</text><text x="160.0" y="144" text-anchor="middle" class="tl">22</text><circle cx="231.0" cy="55.8" r="3.2" fill="#fff" stroke="#0e7c8c" stroke-width="2"/><text x="231.0" y="44.8" text-anchor="middle" class="tv">39.3%</text><text x="231.0" y="144" text-anchor="middle" class="tl">23</text><circle cx="302.0" cy="40.3" r="5" fill="#0e7c8c" stroke="#0e7c8c" stroke-width="2"/><text x="302.0" y="29.3" text-anchor="middle" class="tv on">42.8%</text><text x="302.0" y="144" text-anchor="middle" class="tl">24</text></svg>
+   <p class="one">5年で<strong>＋13ポイント</strong></p><span class="sr">経済産業省 2025年3月発表</span></figure>
  </div>
- <div class="sum2">お客様に選ばれるには、<b>スマホで完結する入口</b>が欠かせない</div>
+ <div class="sum2">お客様に選ばれるには、<wbr><b>スマホで完結する入口</b>が<wbr>欠かせない</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>02</b> / 14</span>
 </section>
 
 <!-- 3 -->
 <section class="s" aria-label="お客様は電話せず好きな時間に">
  <p class="ey">01 ・ WHY NOW</p>
- <h2>お客様は「電話せず、<em>好きな時間に</em>」</h2>
+ <h2>お客様は<wbr>「電話せず、<wbr><em>好きな時間に</em>」</h2>
  <div class="g g2 vz">
-  <figure><figcaption>営業時間外に入ったネット予約</figcaption>
-   <div class="donut" style="--p:51.6"><b>51.6<i>%</i></b></div>
-   <p class="one">予約のピークは <strong>20〜21時</strong></p>
+  <figure><figcaption>営業時間外に入った<wbr>ネット予約</figcaption>
+   <div class="rw"><svg class="ring" viewBox="0 0 180 180" aria-hidden="true"><defs><linearGradient id="gr4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19a7b6"/><stop offset="1" stop-color="#0a5d69"/></linearGradient></defs><circle cx="90.0" cy="90.0" r="83.0" fill="none" stroke="#e7eff0" stroke-width="10"/><circle cx="90.0" cy="90.0" r="83.0" fill="none" stroke="url(#gr4)" stroke-width="10" stroke-linecap="round" stroke-dasharray="269.1 521.5" transform="rotate(-90 90.0 90.0)"/></svg><b class="rv">51.6<i>%</i></b></div>
+   <p class="one">予約のピークは<wbr><strong>20〜21時</strong></p>
    <span class="sr">予約システム「Coubic」2018年調査（営業時間10〜19時の場合）</span></figure>
-  <figure><figcaption>電話に苦手意識がある人</figcaption>
-   <div class="hb2">
-    <div><span>20代</span><i style="--w:58"></i><b>58%</b></div>
-    <div><span>30代</span><i style="--w:49"></i><b>49%</b></div>
+  <figure><figcaption>電話に<wbr>苦手意識がある人</figcaption>
+   <div class="hbx">
+    <div><span>20代</span><i><u style="--w:58"></u></i><b>58<small>%</small></b></div>
+    <div><span>30代</span><i><u style="--w:49"></u></i><b>49<small>%</small></b></div>
    </div>
-   <p class="one">電話だけの受付は、<strong>選ばれにくい</strong></p>
+   <p class="one">電話だけの受付は、<wbr><strong>選ばれにくい</strong></p>
    <span class="sr">ソフトバンク 2024年3月調査</span></figure>
  </div>
- <div class="sum2"><b>営業時間外</b>と<b>電話以外</b>の受け皿が、予約の数を左右する</div>
+ <div class="sum2"><b>営業時間外</b>と<wbr><b>電話以外</b>の受け皿が、<wbr>予約の数を<wbr>左右する</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>03</b> / 14</span>
 </section>
 
 <!-- 4 -->
 <section class="s" aria-label="お店や個人は手が足りない">
  <p class="ey">01 ・ WHY NOW</p>
- <h2>一方で、お店や個人は<em>手が足りない</em></h2>
+ <h2>一方で、<wbr>お店や個人は<wbr><em>手が足りない</em></h2>
  <div class="g g2 vz">
-  <figure><figcaption>人手が不足している企業の割合</figcaption>
-   <div class="hb2 big">
-    <div><span>全体<small>正社員</small></span><i style="--w:53.4"></i><b>53.4%</b></div>
-    <div><span>飲食店<small>非正社員</small></span><i class="hot" style="--w:65.3"></i><b>65.3%</b></div>
+  <figure><figcaption>人手が不足している<wbr>企業の割合</figcaption>
+   <div class="hbx big">
+    <div><span>全体<small>正社員</small></span><i><u style="--w:53.4"></u></i><b>53.4<small>%</small></b></div>
+    <div><span>飲食店<small>非正社員</small></span><i><u class="hot" style="--w:65.3"></u></i><b>65.3<small>%</small></b></div>
    </div>
-   <span class="sr">帝国データバンク 2025年1月・4月（飲食店は業種別で最も高い）</span></figure>
-  <figure><figcaption>副業をしている人</figcaption>
-   <div class="bars tall" role="img" aria-label="2012年234万人、2017年268万人、2022年332万人"><span style="--h:23.4"><i>234万</i><u>2012</u></span><span style="--h:26.8"><i>268万</i><u>2017</u></span><span class="on" style="--h:33.2"><i>332万</i><u>2022</u></span></div>
-   <p class="one">10年で <strong>4割増</strong>。ひとりで全部こなす人が増えている</p>
+   <p class="one">飲食店は<wbr><strong>業種別で最も高い</strong></p>
+   <span class="sr">帝国データバンク 2025年1月・4月</span></figure>
+  <figure><figcaption>副業を<wbr>している人</figcaption>
+   <svg class="lc" viewBox="0 0 320 150" aria-hidden="true"><defs><linearGradient id="gr5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e7c8c" stop-opacity=".22"/><stop offset="1" stop-color="#0e7c8c" stop-opacity="0"/></linearGradient></defs><line x1="18" x2="302" y1="26.0" y2="26.0" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="58.7" y2="58.7" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="91.3" y2="91.3" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><line x1="18" x2="302" y1="124.0" y2="124.0" stroke="#e3ebec" stroke-width="1" stroke-dasharray="2 4"/><path d="M18.0,124 L18.0,101.8 L160.0,79.6 L302.0,37.8 L302.0,124 Z" fill="url(#gr5)"/><polyline points="18.0,101.8 160.0,79.6 302.0,37.8" fill="none" stroke="#0e7c8c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="18.0" cy="101.8" r="3.2" fill="#fff" stroke="#0e7c8c" stroke-width="2"/><text x="18.0" y="90.8" text-anchor="middle" class="tv">234万人</text><text x="18.0" y="144" text-anchor="middle" class="tl">2012</text><circle cx="160.0" cy="79.6" r="3.2" fill="#fff" stroke="#0e7c8c" stroke-width="2"/><text x="160.0" y="68.6" text-anchor="middle" class="tv">268万人</text><text x="160.0" y="144" text-anchor="middle" class="tl">2017</text><circle cx="302.0" cy="37.8" r="5" fill="#0e7c8c" stroke="#0e7c8c" stroke-width="2"/><text x="302.0" y="26.8" text-anchor="middle" class="tv on">332万人</text><text x="302.0" y="144" text-anchor="middle" class="tl">2022</text></svg>
+   <p class="one">10年で<wbr><strong>4割増</strong></p>
    <span class="sr">総務省「就業構造基本調査」2022年</span></figure>
  </div>
- <div class="sum2"><b>お客様の期待</b>は上がり、<b>使える時間</b>は減っている</div>
+ <div class="sum2"><b>お客様の期待</b>は<wbr>上がり、<wbr><b>使える時間</b>は<wbr>減っている</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>04</b> / 14</span>
 </section>
 
 <!-- 5 -->
 <section class="s" aria-label="そのままだと起きる取りこぼし">
  <p class="ey">02 ・ PROBLEM</p>
- <h2>そのままだと、<em>取りこぼし</em>が起きる</h2>
- <div class="day" role="img" aria-label="営業時間10時から19時。予約のピークは閉店後の20時から21時">
-  <div class="dbar"><span class="cl" style="--a:0;--b:10"></span><span class="op" style="--a:10;--b:19">営業時間</span><span class="cl" style="--a:19;--b:24"></span><em style="--a:20"></em></div>
-  <div class="dax"><u>0時</u><u>6</u><u>12</u><u>18</u><u>24時</u></div>
-  <p>お客様が予約したい時間に、<strong>お店は閉まっている</strong></p>
+ <h2>そのままだと、<wbr><em>取りこぼし</em>が<wbr>起きる</h2>
+ <div class="dayx">
+  <div class="cw"><svg class="clk" viewBox="-20 -20 320 320" aria-hidden="true"><defs><linearGradient id="gr6" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19a7b6"/><stop offset="1" stop-color="#0a5d69"/></linearGradient></defs><circle cx="140.0" cy="140.0" r="104" fill="none" stroke="#edf2f2" stroke-width="20"/><path d="M192.0 230.1 A104 104 0 0 1 39.5 113.1" fill="none" stroke="url(#gr6)" stroke-width="20" stroke-linecap="butt"/><path d="M49.9 88.0 A104 104 0 0 1 88.0 49.9" fill="none" stroke="#e4664a" stroke-width="20" stroke-linecap="round"/><line x1="140.0" y1="20.0" x2="140.0" y2="14.0" stroke="#b9c9cb" stroke-width="1.6"/><line x1="171.1" y1="24.1" x2="171.8" y2="21.2" stroke="#b9c9cb" stroke-width="1"/><line x1="200.0" y1="36.1" x2="201.5" y2="33.5" stroke="#b9c9cb" stroke-width="1"/><line x1="224.9" y1="55.1" x2="227.0" y2="53.0" stroke="#b9c9cb" stroke-width="1"/><line x1="243.9" y1="80.0" x2="246.5" y2="78.5" stroke="#b9c9cb" stroke-width="1"/><line x1="255.9" y1="108.9" x2="258.8" y2="108.2" stroke="#b9c9cb" stroke-width="1"/><line x1="260.0" y1="140.0" x2="266.0" y2="140.0" stroke="#b9c9cb" stroke-width="1.6"/><line x1="255.9" y1="171.1" x2="258.8" y2="171.8" stroke="#b9c9cb" stroke-width="1"/><line x1="243.9" y1="200.0" x2="246.5" y2="201.5" stroke="#b9c9cb" stroke-width="1"/><line x1="224.9" y1="224.9" x2="227.0" y2="227.0" stroke="#b9c9cb" stroke-width="1"/><line x1="200.0" y1="243.9" x2="201.5" y2="246.5" stroke="#b9c9cb" stroke-width="1"/><line x1="171.1" y1="255.9" x2="171.8" y2="258.8" stroke="#b9c9cb" stroke-width="1"/><line x1="140.0" y1="260.0" x2="140.0" y2="266.0" stroke="#b9c9cb" stroke-width="1.6"/><line x1="108.9" y1="255.9" x2="108.2" y2="258.8" stroke="#b9c9cb" stroke-width="1"/><line x1="80.0" y1="243.9" x2="78.5" y2="246.5" stroke="#b9c9cb" stroke-width="1"/><line x1="55.1" y1="224.9" x2="53.0" y2="227.0" stroke="#b9c9cb" stroke-width="1"/><line x1="36.1" y1="200.0" x2="33.5" y2="201.5" stroke="#b9c9cb" stroke-width="1"/><line x1="24.1" y1="171.1" x2="21.2" y2="171.8" stroke="#b9c9cb" stroke-width="1"/><line x1="20.0" y1="140.0" x2="14.0" y2="140.0" stroke="#b9c9cb" stroke-width="1.6"/><line x1="24.1" y1="108.9" x2="21.2" y2="108.2" stroke="#b9c9cb" stroke-width="1"/><line x1="36.1" y1="80.0" x2="33.5" y2="78.5" stroke="#b9c9cb" stroke-width="1"/><line x1="55.1" y1="55.1" x2="53.0" y2="53.0" stroke="#b9c9cb" stroke-width="1"/><line x1="80.0" y1="36.1" x2="78.5" y2="33.5" stroke="#b9c9cb" stroke-width="1"/><line x1="108.9" y1="24.1" x2="108.2" y2="21.2" stroke="#b9c9cb" stroke-width="1"/><text x="140.0" y="4.0" text-anchor="middle" class="tl">0時</text><text x="280.0" y="144.0" text-anchor="middle" class="tl">6時</text><text x="140.0" y="284.0" text-anchor="middle" class="tl">12時</text><text x="0.0" y="144.0" text-anchor="middle" class="tl">18時</text></svg><div class="cc2"><small>お客様が<wbr>予約したい時間</small><b>20〜21時</b><span>お店は<wbr>閉店後</span></div></div>
+  <ul class="lg2"><li><i class="k1"></i>営業時間<small>10〜19時</small></li><li><i class="k2"></i>予約のピーク<small>20〜21時</small></li><li><i class="k3"></i>受付できない<small>営業時間外</small></li></ul>
  </div>
  <div class="g g4 lsx">
-  <div><span class="ic r"><svg><use href="#g-moon"/></svg></span><b>夜の予約を逃す</b><small>返信は翌日に</small></div>
-  <div><span class="ic r"><svg><use href="#g-phone"/></svg></span><b>電話に出られない</b><small>施術中・調理中</small></div>
-  <div><span class="ic r"><svg><use href="#g-db"/></svg></span><b>情報がバラバラ</b><small>次の来店につながらない</small></div>
-  <div><span class="ic r"><svg><use href="#g-people"/></svg></span><b>他店と並べられる</b><small>予約ポータルの中で</small></div>
+  <div><span class="ic r"><svg><use href="#g-moon"/></svg></span><b>夜の予約を<wbr>逃す</b><small>返信は<wbr>翌日に</small></div>
+  <div><span class="ic r"><svg><use href="#g-phone"/></svg></span><b>電話に<wbr>出られない</b><small>施術中・<wbr>調理中</small></div>
+  <div><span class="ic r"><svg><use href="#g-db"/></svg></span><b>情報が<wbr>バラバラ</b><small>次の来店に<wbr>つながらない</small></div>
+  <div><span class="ic r"><svg><use href="#g-people"/></svg></span><b>他店と<wbr>並べられる</b><small>予約ポータルの<wbr>中で</small></div>
  </div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>05</b> / 14</span>
 </section>
@@ -656,7 +747,7 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <!-- 6 -->
 <section class="s" aria-label="サクアプで得られること">
  <p class="ey">03 ・ BENEFITS</p>
- <h2>あなた専用のアプリが、<em>24時間働く</em></h2>
+ <h2>あなた専用の<wbr>アプリが、<wbr><em>24時間働く</em></h2>
  <div class="hub">
   <div class="hc"><i style="background-image:url(../features/img/app0.webp)"></i><b>あなたのアプリ</b></div>
   <div class="hn n1"><span class="ic"><svg><use href="#g-cal"/></svg></span><b>24時間 受付</b><small>夜も施術中も予約が入る</small></div>
@@ -670,20 +761,18 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <!-- 7 -->
 <section class="s" aria-label="生まれる時間">
  <p class="ey">03 ・ BENEFITS</p>
- <h2>手が空いた時間を、<em>お客様のために</em></h2>
+ <h2>手が空いた時間を、<wbr><em>お客様のために</em></h2>
  <div class="g g2 vz tmx">
   <figure><figcaption>飲食店 ・ 卓上QR注文</figcaption>
-   <div class="blk" aria-hidden="true"><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u></div>
-   <b class="kp">約35<i>時間 / 月</i></b>
-   <p class="one">＝ アルバイト1人の <strong>約1週間分</strong></p>
+   <b class="kp">約35<i>時間 / 月</i></b><div class="yr"><div><span>1ヶ月</span><i><u style="--w:8.3"></u></i><b>35h</b></div><div><span>1年</span><i><u style="--w:100"></u></i><b>420h</b></div></div>
+   <p class="one">＝ アルバイト1人の<wbr><strong>約1週間分</strong></p>
    <span class="sr">試算：注文取り1回1分 × 1日80回 × 月26日</span></figure>
   <figure><figcaption>個人サロン ・ Web予約</figcaption>
-   <div class="blk" aria-hidden="true"><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u class="hf"></u></div>
-   <b class="kp">約12.5<i>時間 / 月</i></b>
+   <b class="kp">約12.5<i>時間 / 月</i></b><div class="yr"><div><span>1ヶ月</span><i><u style="--w:8.3"></u></i><b>12.5h</b></div><div><span>1年</span><i><u style="--w:35.7"></u></i><b>150h</b></div></div>
    <p class="one">＝ 施術 <strong>約6〜8人分</strong></p>
    <span class="sr">試算：予約対応1件3分 × 1日10件 × 月25日</span></figure>
  </div>
- <p class="mini">※試算です。お店の状況によって変わり、効果を保証するものではありません。■＝1時間</p>
+ <p class="mini">※試算です。お店の状況によって変わり、効果を保証するものではありません。1年は1ヶ月×12で計算。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>07</b> / 14</span>
 </section>
 
@@ -691,7 +780,7 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <section class="s" aria-label="サクアプとは">
  <p class="ey">04 ・ SERVICE</p>
  <h2>サクアプとは</h2>
- <p class="one big">オーダーメイドのアプリを、<strong>個人でも頼める価格と速さ</strong>で</p>
+ <p class="one big">オーダーメイドの<wbr>アプリを、<wbr><strong>個人でも<wbr>頼める<wbr>価格と速さ</strong>で</p>
  <div class="cmpb">
   <div class="row"><span class="lb">初期費用</span>
    <div class="tr2"><div class="ln gray" style="--w:100"><b>開発会社の相場</b><em>数十万円〜</em></div><div class="ln me" style="--w:12"><b>サクアプ</b><em>19,800円〜</em></div></div></div>
@@ -706,11 +795,11 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <!-- 9 -->
 <section class="s" aria-label="3つのサービス">
  <p class="ey">04 ・ SERVICE</p>
- <h2>目的に合わせて選べる、<em>3つのサービス</em></h2>
+ <h2>目的に合わせて<wbr>選べる、<wbr><em>3つのサービス</em></h2>
  <div class="g g3 svx">
   <div><i style="background-image:url(../features/img/app10.webp)"></i><span class="tg">オーダーメイド開発</span><b>ゼロから専用に</b><em>19,800円〜</em></div>
   <div><i style="background-image:url(../features/img/app6.webp)"></i><span class="tg">飲食店向け</span><b>卓上QRで注文</b><em>月額1,980円</em></div>
-  <div><i style="background-image:url(../features/img/app0.webp)"></i><span class="tg">個人サロン向け</span><b>予約とカルテを一つに</b><em>月額1,980円</em></div>
+  <div><i style="background-image:url(../features/img/app0.webp)"></i><span class="tg">個人サロン向け</span><b>予約とカルテを<wbr>一つに</b><em>月額1,980円</em></div>
  </div>
  <p class="mini">※飲食店向け・サロン向けは初期0円から。30日間の無料お試しのあと月額が自動で始まります。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>09</b> / 14</span>
@@ -719,18 +808,18 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <!-- 10 -->
 <section class="s" aria-label="作れるアプリの例">
  <p class="ey">04 ・ SERVICE</p>
- <h2>こんなアプリが作れます</h2>
+ <h2>こんなアプリが<wbr>作れます</h2>
  <div class="apps grow">
   <figure><i style="background-image:url(../features/img/app0.webp)"></i><figcaption>サロン予約</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app1.webp)"></i><figcaption>カフェの会員証</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app2.webp)"></i><figcaption>ジムの会員アプリ</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app3.webp)"></i><figcaption>ヨガの予約</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app4.webp)"></i><figcaption>整体の回数券</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app1.webp)"></i><figcaption>カフェ会員証</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app2.webp)"></i><figcaption>ジム会員証</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app3.webp)"></i><figcaption>ヨガ予約</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app4.webp)"></i><figcaption>整体回数券</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app5.webp)"></i><figcaption>ネットショップ</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app6.webp)"></i><figcaption>テイクアウト</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app7.webp)"></i><figcaption>イベント</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app8.webp)"></i><figcaption>管理画面</figcaption></figure>
-  <figure><i style="background-image:url(../features/img/app9.webp)"></i><figcaption>オンライン相談</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app9.webp)"></i><figcaption>相談予約</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app10.webp)"></i><figcaption>マッチング</figcaption></figure>
   <figure><i style="background-image:url(../features/img/app11.webp)"></i><figcaption>SNS</figcaption></figure>
  </div>
@@ -741,7 +830,7 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <!-- 11 -->
 <section class="s" aria-label="料金">
  <p class="ey">05 ・ PRICE</p>
- <h2>料金は<em>「基本料金＋追加機能」</em>だけ</h2>
+ <h2>料金は<wbr><em>「基本料金＋追加機能」</em><wbr>だけ</h2>
  <div class="prc">
   <div class="pb">
    <div><span>かんたんWebサービス</span><i style="--w:28.4"></i><b>19,800円</b><small>月々 約1,650円〜</small></div>
@@ -750,7 +839,7 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
    <div><span>ネットショップ</span><i style="--w:100"></i><b>69,800円</b><small>月々 約5,817円〜</small></div>
   </div>
   <div class="pside">
-   <div class="adx"><small>追加機能</small><div class="eqx"><span>1文字</span><i>＝</i><b>0.5円</b></div><div class="mtr" aria-hidden="true"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><small class="cc">1,000文字 ＝ 500円</small></div>
+   <div class="adx"><small>追加機能</small><div class="eqx"><span>1文字</span><i>＝</i><b>0.5円</b></div><div class="mtr" aria-hidden="true"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div><small class="c">1,000文字 ＝ 500円</small></div>
    <div class="adx"><small>運用保守（任意）</small><b class="mm">1,980<i>円/月</i></b></div>
   </div>
  </div>
@@ -761,24 +850,24 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <!-- 12 -->
 <section class="s" aria-label="導入の流れ">
  <p class="ey">06 ・ FLOW</p>
- <h2>ご相談から公開まで、<em>4ステップ</em></h2>
+ <h2>ご相談から<wbr>公開まで、<wbr><em>4ステップ</em></h2>
  <div class="flx">
   <div><span class="ci"><svg><use href="#g-chat"/></svg></span><em>STEP 1</em><b>LINEで相談</b><small>無料</small></div>
   <div><span class="ci"><svg><use href="#g-yen"/></svg></span><em>STEP 2</em><b>お見積もり</b><small>無料</small></div>
   <div><span class="ci"><svg><use href="#g-code"/></svg></span><em>STEP 3</em><b>開発</b><small>1週間〜1ヶ月</small></div>
-  <div><span class="ci on"><svg><use href="#g-rocket"/></svg></span><em>STEP 4</em><b>公開・運用</b><small>その日から使える</small></div>
+  <div><span class="ci on"><svg><use href="#g-rocket"/></svg></span><em>STEP 4</em><b>公開・運用</b><small>すぐ使える</small></div>
  </div>
- <div class="chips c2"><span><b>着手前</b>全額返金</span><span><b>納品後90日</b>不具合は何度でも無償修正</span></div>
+ <div class="chips c2"><span><b>着手前</b>全額返金</span><span><b>納品後90日</b>不具合は<wbr>何度でも<wbr>無償修正</span></div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>12</b> / 14</span>
 </section>
 
 <!-- 13 -->
 <section class="s" aria-label="先行モニター募集">
  <p class="ey">EARLY ACCESS</p>
- <h2>いまだけの、<em>先行モニター</em>募集</h2>
+ <h2>いまだけの、<wbr><em>先行モニター</em>募集</h2>
  <div class="g g2 mox">
   <div><span class="tg">オーダーメイド開発</span><b>月5名様<i>まで</i></b><p class="chips"><span>記事代 → 開発費に</span><span>文字数見積もり 無料</span><span>構成案づくり 無料</span></p></div>
-  <div><span class="tg">個人サロン向け</span><b>先着5<i>店舗</i></b><p class="chips"><span>おまかせ設定 9,800円 → 0円</span><span>有料テンプレート1つ 無料</span></p><small>条件：最初の6か月のご継続・導入事例の掲載</small></div>
+  <div><span class="tg">個人サロン向け</span><b>先着5<i>店舗</i></b><p class="chips"><span class="nwc">おまかせ設定 9,800円→0円</span><span>有料テンプレート<wbr>1つ 無料</span></p><small>条件：最初の6か月のご継続・導入事例の掲載</small></div>
  </div>
  <p class="mini">※正式受付は2027年6月ごろからです。くわしい条件はLINEでお問い合わせください。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>13</b> / 14</span>
@@ -787,11 +876,11 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <!-- 14 -->
 <section class="s ct" aria-label="お問い合わせ">
  <p class="ey">CONTACT</p>
- <h2>まずは、無料でご相談ください</h2>
+ <h2>まずは、<wbr>無料で<wbr>ご相談ください</h2>
  <div class="ctg">
   <div class="qr"><img src="line-qr.svg" alt="LINE友だち追加のQRコード" width="232" height="232"><p>LINEで友だち追加</p></div>
   <div class="ctl">
-   <ul><li><b>01</b>友だち追加</li><li><b>02</b>作りたいものを、ざっくり送る</li><li><b>03</b>金額と期間の目安が届く（無料）</li></ul>
+   <ul><li><b>01</b>友だち追加</li><li><b>02</b>作りたいものを、<wbr>ざっくり送る</li><li><b>03</b>金額と期間の<wbr>目安が届く（無料）</li></ul>
    <a class="cbtn" href="https://lin.ee/vC2S0M9" data-entry="guide" target="_blank" rel="noopener">【無料】LINEで相談する ›</a>
    <span class="url">knotscheme.github.io/sakuapp</span>
   </div>
