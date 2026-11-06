@@ -14,7 +14,7 @@ header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);-webkit
 .hb{display:flex;align-items:center;justify-content:space-between;height:60px}
 .hb img{height:18px;width:auto;display:block}
 .hb .cta{display:inline-flex;align-items:center;height:40px;padding:0 18px;border-radius:999px;background:var(--accent);color:#1b1b1b;font-weight:800;font-size:14px;text-decoration:none}
-.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 12px;border-top:1px solid var(--line)}.tabs::-webkit-scrollbar{display:none}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 max(8px,calc((100% - 1120px)/2 + 8px));border-top:1px solid var(--line)}.tabs::-webkit-scrollbar{display:none}
 .tabs a{flex:none;padding:12px 12px;font-size:14px;font-weight:700;color:var(--muted);text-decoration:none;border-bottom:3px solid transparent}
 .tabs a.on{color:var(--text);border-color:var(--brand)}
 .hero{padding-top:40px;padding-bottom:10px}
@@ -61,6 +61,15 @@ header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);-webkit
 .fbd h3{font-size:21px;margin:0 0 12px;font-weight:800}.fbd p{margin:0;font-size:14.5px;line-height:1.85;color:#3c5154}
 .fn{display:block;margin-top:14px;padding-top:12px;border-top:1px solid #d9e1e2;font-size:12.5px;color:var(--muted)}
 .fp{margin-top:auto;padding-top:16px;font:700 13.5px Inter,"Noto Sans JP",sans-serif;color:var(--brand)}
+/* fill the last row: no empty slots */
+@media(min-width:961px){
+.fgd{grid-template-columns:repeat(6,1fr)}.fc{grid-column:span 2}
+.fc:first-child:nth-last-child(3n+2)~.fc:nth-last-child(-n+2),.fc:nth-last-child(2):nth-child(3n+1),.fc:nth-last-child(1):nth-child(3n+2){grid-column:span 3}
+.fc:last-child:nth-child(3n+1){grid-column:1/-1;flex-direction:row}
+.fc:last-child:nth-child(3n+1) .fv{flex:0 0 50%;height:auto;min-height:300px}
+.fc:last-child:nth-child(3n+1) .fbd{justify-content:center;padding:40px 48px}
+}
+@media(min-width:601px) and (max-width:960px){.fc:last-child:nth-child(odd){grid-column:1/-1}}
 .note{font-size:13px;color:var(--muted);margin:26px 0 0}
 .end{margin:56px auto 80px;text-align:center;padding:44px 20px;border-radius:24px;background:linear-gradient(135deg,#0e7c8c,#0b5e6d);color:#fff}
 .end h2{margin:0 0 8px;font-size:clamp(22px,3.4vw,30px)}.end p{margin:0 0 20px;opacity:.9}
