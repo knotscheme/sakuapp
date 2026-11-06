@@ -555,7 +555,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .tgu span{display:block;text-align:center;border-radius:10px;padding:9px;font-weight:700;font-size:13px;background:var(--text);color:#fff}
 .tgc.use .tgu span{background:var(--mint);color:var(--brand)}
 @media(max-width:700px){.tgal{grid-template-columns:1fr}.tgs{height:260px}.tgph{width:160px;height:250px}.tgsc{transform:scale(.4111)}}
-.ei{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.16em;flex:none}.estars{display:inline-flex;gap:1px;color:#f2b01e;vertical-align:-.1em}.estars .ei{width:1em;height:1em}
+.skic{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.16em;flex:none}.estars{display:inline-flex;gap:1px;color:#f2b01e;vertical-align:-.1em}.estars .skic{width:1em;height:1em}
 </style>
 </head>
 <body>
@@ -613,7 +613,7 @@ var T={
 };
 var ALG={"小麦":["Wheat","小麦","밀"],"卵":["Egg","鸡蛋","달걀"],"乳":["Milk","乳制品","우유"],"大豆":["Soy","大豆","대두"],"豚肉":["Pork","猪肉","돼지고기"],"鶏肉":["Chicken","鸡肉","닭고기"],"牛肉":["Beef","牛肉","쇠고기"],"さば":["Mackerel","青花鱼","고등어"],"えび":["Shrimp","虾","새우"]};
 var RICE={n:["ごはん","Rice","米饭","밥"],c:[[["普通","Regular","普通","보통"],0],[["大盛り","Large","大份","곱빼기"],0],[["少なめ","Small","少量","적게"],0]]};
-function eic(e){return /[\u2615\u{1F37A}\u{1F375}\u{1F964}\u{1F376}\u{1F34B}]/u.test(e||"")?'<svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v2M12 3v2"/></svg>':'<svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 2-3 6v4h3v8"/></svg>'}
+function eic(e){return /[\u2615\u{1F37A}\u{1F375}\u{1F964}\u{1F376}\u{1F34B}]/u.test(e||"")?'<svg class="skic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 3v2M12 3v2"/></svg>':'<svg class="skic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 0-3 2-3 6v4h3v8"/></svg>'}
 var EMOJI=["🍖","🍗","🐟","🍱","🍤","🍳","🍲","🥢","🍺","🍵","🍋","🍡","🍨","🍛","🍜","🥗","🍙","🥟","🍶","🥤"];
 var CAT_CLS={teishoku:"c-teishoku",ippin:"c-ippin",drink:"c-drink",sweet:"c-sweet"};
 var COLORS=["#b5461b","#a8740f","#7a5236","#8a2f37","#2f6b4f","#2d4a6b","#141414"];
@@ -776,7 +776,7 @@ function renderC(){
     });
     if(c.cart.length){
       if(c.mode==="take"){var now=Date.now();h+='<div class="box"><b>'+tr("pickup")+'</b><select data-chg="pick">'+[15,30,45,60].map(function(m,i){return'<option value="'+i+'"'+(i===c.pick?" selected":"")+'>'+hm(now+m*60000)+'（'+m+tr("min")+'）</option>'}).join("")+'</select></div>'}
-      if(S.opts.pay)h+='<div class="box"><b>'+tr("payBy")+'</b><div class="card-pay"><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6 15h4"/></svg> '+tr("card")+'<i>Stripe</i></div></div>';
+      if(S.opts.pay)h+='<div class="box"><b>'+tr("payBy")+'</b><div class="card-pay"><svg class="skic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6 15h4"/></svg> '+tr("card")+'<i>Stripe</i></div></div>';
       else if(c.mode==="dine")h+='<div class="box" style="text-align:center">'+tr("reg")+'</div>';
       h+='<div class="tot"><span>'+tr("total")+'</span><span class="yen">'+yen(cartTotal())+'</span></div>';
     }
@@ -797,7 +797,7 @@ function renderC(){
   }
   h+='</div><div class="cfoot">'+foot+'</div>';
   if(c.det){var it=item(c.det.id);if(it)h+=detailSheet(it)}
-  if(c.toast)h+='<div class="ctoast" role="status"><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg> '+esc(c.toast)+'</div>';
+  if(c.toast)h+='<div class="ctoast" role="status"><svg class="skic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg> '+esc(c.toast)+'</div>';
   if(c.proc)h+='<div class="proc"><div><div class="spin"></div>'+tr("proc")+'</div></div>';
   var sh=cs.querySelector(".sheet"),shk=sh?sh.scrollTop:0;
   cs.innerHTML=h;applyTpl();
@@ -813,7 +813,7 @@ function detailSheet(it){
   var d=UI.c.det,u=unit(it,d.ch);
   var an=d.anim?" anim":"";d.anim=false;
   var h='<div class="sheetbg'+an+'" data-act="close" data-self="1"><div class="sheet'+an+'" role="dialog" aria-label="'+nm(it.n)+'"><div class="hero '+(it.hero?'ph':(CAT_CLS[it.cat]||"c-other"))+'"'+(it.hero?' style="background-image:url(../img/'+it.hero+'.webp)"':'')+'>'+(it.hero?'':eic(it.e))+'<button type="button" class="x" data-act="close" aria-label="閉じる">×</button></div><div class="bd"><h3>'+nm(it.n)+'</h3><span class="yen">'+yen(it.p)+'</span><p>'+nm(it.d||[""])+'</p>';
-  if(S.opts.allergy&&it.a){h+='<div class="algs"><b><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg> '+tr("alg")+'</b>'+(it.a.length?it.a.map(function(a){return'<span>'+esc(L()&&ALG[a]?ALG[a][L()-1]:a)+'</span>'}).join(""):'<span>—</span>')+'</div>'}
+  if(S.opts.allergy&&it.a){h+='<div class="algs"><b><svg class="skic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg> '+tr("alg")+'</b>'+(it.a.length?it.a.map(function(a){return'<span>'+esc(L()&&ALG[a]?ALG[a][L()-1]:a)+'</span>'}).join(""):'<span>—</span>')+'</div>'}
   (it.o||[]).forEach(function(g,gi){
     h+='<div class="og"><h4>'+nm(g.n)+'</h4>'+g.c.map(function(ch,ci){return'<label><input type="radio" name="g'+gi+'" data-chg="ch" data-g="'+gi+'" value="'+ci+'"'+((d.ch[gi]||0)===ci?" checked":"")+'>'+nm(ch[0])+'<i>'+(ch[1]?"+"+yen(ch[1]):(g.n[0]==="ごはん"&&ci===1?tr("free"):""))+'</i></label>'}).join("")+'</div>';
   });
@@ -843,7 +843,7 @@ function renderA(){
 function aOrders(){
   var open=S.orders.filter(function(o){return!o.closed});
   var h='<div class="ah"><h2>注文一覧</h2><span class="meta">本日 '+S.orders.length+'件 ・ '+hm(Date.now())+' 更新</span></div>';
-  if(S.calls.length)h+='<div class="calls">'+S.calls.map(function(c,i){return'<div class="callb" role="alert"><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg> '+esc(tableName(c.t))+' から呼び出し<small style="font-weight:500;color:var(--muted)">'+ago(c.at)+'</small><button type="button" class="abtn" data-act="callok" data-i="'+i+'">対応した</button></div>'}).join("")+'</div>';
+  if(S.calls.length)h+='<div class="calls">'+S.calls.map(function(c,i){return'<div class="callb" role="alert"><svg class="skic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg> '+esc(tableName(c.t))+' から呼び出し<small style="font-weight:500;color:var(--muted)">'+ago(c.at)+'</small><button type="button" class="abtn" data-act="callok" data-i="'+i+'">対応した</button></div>'}).join("")+'</div>';
   var cols=[["new","新規"],["cooking","調理中"],["served","提供済み"]];
   h+='<div class="kb">'+cols.map(function(col){
     var os=open.filter(function(o){return o.s===col[0]}).sort(function(x,y){return col[0]==="served"?y.at-x.at:x.at-y.at});
@@ -922,7 +922,7 @@ function blockHTML(b){var h='<div class="BK bk-'+b.type+'">';
   else if(b.type==="ptext")h+='<i class="bki" style="'+bgx(b.img)+'"></i><div><h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p></div>';
   else if(b.type==="photo")h+='<i class="bki" style="'+bgx(b.img)+'"></i>';
   else if(b.type==="gallery")h+=(b.imgs||[]).map(function(u){return'<i class="bki" style="'+bgx(u)+'"></i>'}).join("");
-  else if(b.type==="hours")h+='<h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p>'+(b.addr?'<small><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> '+esc(b.addr)+'</small>':'');
+  else if(b.type==="hours")h+='<h4>'+esc(b.title||"")+'</h4><p>'+esc(b.text||"").replace(/\n/g,"<br>")+'</p>'+(b.addr?'<small><svg class="skic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg> '+esc(b.addr)+'</small>':'');
   else if(b.type==="sns"){var u=b.urls||{},ks=SNS.filter(function(x){return u[x[0]]});h+=(b.title?'<h4>'+esc(b.title)+'</h4>':'')+'<div class="snsr">'+(ks.length?ks.map(function(x){return'<a href="'+esc(u[x[0]])+'" target="_blank" rel="noopener" aria-label="'+x[1]+'">'+snsIco(x[0])+'</a>'}).join(""):'<small>管理画面でURLを入れると表示されます</small>')+'</div>'}
   else if(b.type==="link")h+='<span class="bkl">'+esc(b.title||"リンク")+' ›</span>';
   return h+'</div>'}
@@ -940,7 +940,7 @@ function blockEditor(id){var b=S.page.blocks[id];if(!b)return"";var h='<section 
 function addPicker(){return'<section class="eds wide addp"><h3>追加するセクションを選ぶ</h3><div class="btg">'+BTYPES.map(function(t){return'<button type="button" class="btc" data-act="badd" data-ty="'+t[0]+'"><b>'+t[1]+'</b><small>'+t[2]+'</small></button>'}).join("")+'</div><button type="button" class="abtn" data-act="baddx" style="margin-top:10px">やめる</button></section>'}
 function aEdit(){
   var P=S.page,a=UI.a,h='<div class="ah"><h2>ページ編集</h2><span class="meta">写真の差し替え・並べ替え・表示の切り替え。お客様の画面にすぐ反映されます</span></div>';
-  h+='<div class="edg"><section class="eds"><h3>表示する順番</h3><p class="edh">↑↓で入れ替え、スイッチで表示・非表示</p><ol class="ord2">'+P.order.map(function(k,i){return'<li'+(SECN[k]?'':' class="cu"')+'><span class="onm">'+esc(secName(k))+'</span><span class="oa"><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="-1"'+(i===0?" disabled":"")+' aria-label="上へ">↑</button><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="1"'+(i===P.order.length-1?" disabled":"")+' aria-label="下へ">↓</button>'+(SECN[k]?'':'<button type="button" class="abtn sm" data-act="bedit" data-b="'+k+'" aria-label="編集"><svg class="ei" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></button>')+'<label class="sw ok"><input type="checkbox" data-chg="show" data-k="'+k+'"'+(P.show[k]?" checked":"")+(k==="menu"?" disabled":"")+'><span></span></label></span></li>'}).join("")+'</ol><button type="button" class="addb2" data-act="baddo">＋ セクションを追加</button></section>'+(a.badd?addPicker():'')+(a.bed&&P.blocks&&P.blocks[a.bed]?blockEditor(a.bed):'');
+  h+='<div class="edg"><section class="eds"><h3>表示する順番</h3><p class="edh">↑↓で入れ替え、スイッチで表示・非表示</p><ol class="ord2">'+P.order.map(function(k,i){return'<li'+(SECN[k]?'':' class="cu"')+'><span class="onm">'+esc(secName(k))+'</span><span class="oa"><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="-1"'+(i===0?" disabled":"")+' aria-label="上へ">↑</button><button type="button" class="abtn sm" data-act="mv" data-k="'+k+'" data-d="1"'+(i===P.order.length-1?" disabled":"")+' aria-label="下へ">↓</button>'+(SECN[k]?'':'<button type="button" class="abtn sm" data-act="bedit" data-b="'+k+'" aria-label="編集"><svg class="skic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg></button>')+'<label class="sw ok"><input type="checkbox" data-chg="show" data-k="'+k+'"'+(P.show[k]?" checked":"")+(k==="menu"?" disabled":"")+'><span></span></label></span></li>'}).join("")+'</ol><button type="button" class="addb2" data-act="baddo">＋ セクションを追加</button></section>'+(a.badd?addPicker():'')+(a.bed&&P.blocks&&P.blocks[a.bed]?blockEditor(a.bed):'');
   h+='<section class="eds"><h3>メイン写真</h3><p class="edh">店名の下に大きく表示されます。料理や店内の写真がおすすめです</p><div class="cur" style="'+bgu(P.hero)+'"></div>'+picker("hero",P.hero)+'</section>';
   h+='<section class="eds"><h3>本日のおすすめ</h3><div class="form"><label>料理名<input type="text" data-chg="pkn" value="'+esc(P.pick.n)+'" maxlength="20"></label><label>価格（円）<input type="number" data-chg="pkp" value="'+P.pick.p+'" min="0" step="10"></label></div></section>';
   h+='<section class="eds"><h3>お知らせ</h3><textarea class="nta" data-chg="notice" maxlength="80">'+esc(P.notice)+'</textarea></section>';
