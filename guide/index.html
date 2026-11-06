@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>サービス資料｜サクアプ</title>
-<meta name="description" content="サクアプのサービス資料。個人事業主・副業の方のためのオーダーメイドアプリ。ほかの選択肢との比較、見積もり例、かかる費用の全体像、進め方、契約についてまとめました。">
+<meta name="description" content="サクアプのサービス資料。個人事業主・副業の方のためのオーダーメイドアプリ。なぜ今、自分専用のアプリが必要なのかを、世の中のデータとあわせてご紹介します。">
 <meta property="og:title" content="サービス資料｜サクアプ">
-<meta property="og:description" content="比較・見積もり例・費用・進め方・契約を、14ページでまとめました。">
+<meta property="og:description" content="なぜ今、自分専用のアプリが必要なのか。データとサービス内容を14ページで。">
 <meta property="og:image" content="https://knotscheme.github.io/sakuapp/ogp.jpg">
 <link rel="icon" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -216,7 +216,7 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 
 .cover .meta img{height:26px;width:auto}
 .bar .lg img{width:auto}
-.apps i{aspect-ratio:300/350}.apps{gap:10px 10px}
+.apps i{aspect-ratio:300/320}.apps{gap:10px 10px}
 @media (min-width:861px){
  .s h2{font-size:clamp(24px,3vw,36px)}
  .lead{font-size:15px;margin-bottom:26px}
@@ -330,6 +330,65 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
  .cost td:nth-of-type(2):before{content:"支払い先：";color:var(--sub);font-size:11.5px}
  .cost td:nth-of-type(2){font-size:12.5px}
 }
+
+/* ===== v3: data & benefits ===== */
+.dg>div{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:22px 22px 18px;display:flex;flex-direction:column}
+.dg small{font-size:12.5px;font-weight:700;color:var(--sub)}
+.dg b{display:block;font:800 clamp(40px,5vw,64px)/1.05 Inter,"Noto Sans JP",sans-serif;color:var(--brand);letter-spacing:-.02em;margin:10px 0 8px}
+.dg b i{font-style:normal;font-size:.36em;font-weight:800;margin-left:4px;color:var(--ink)}
+.dg p{font-size:13px;color:var(--ink);margin:0 0 10px;line-height:1.7}
+.sr{margin-top:auto;display:block;font-size:10.5px;color:#8a9b9d;line-height:1.5;padding-top:8px;border-top:1px dashed var(--line)}
+.sr:before{content:"出典：";}
+.bars{display:flex;align-items:flex-end;gap:8px;height:92px;margin:2px 0 12px}
+.bars span{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.bars span:before{content:"";display:block;width:100%;height:calc(var(--h) * 1.9%);background:#bfe2e5;border-radius:5px 5px 0 0;order:2}
+.bars span.on:before{background:var(--brand)}
+.bars i{font-style:normal;font:700 10px Inter,sans-serif;color:var(--sub);order:1;margin-bottom:3px}
+.bars span.on i{color:var(--brand)}
+.bars u{text-decoration:none;font:600 10px Inter,sans-serif;color:#9fb0b2;order:3;margin-top:4px}
+.dg .ch b{margin-bottom:4px}
+.big2 .dg1{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"s s" "d p" "r r";gap:10px 22px;align-items:center;background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:22px}
+.dg1 small{grid-area:s;font-size:13px;font-weight:700;color:var(--sub)}
+.dg1 p{grid-area:p;font-size:13.5px;margin:0;line-height:1.8}
+.dg1 p strong{color:var(--brand)}
+.dg1 .sr{grid-area:r}
+.donut{grid-area:d;width:clamp(120px,13vw,160px);aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--brand) calc(var(--p)*1%),#d9ecee 0);display:grid;place-items:center;position:relative}
+.donut:before{content:"";position:absolute;inset:16%;border-radius:50%;background:var(--soft)}
+.donut b{position:relative;font:800 clamp(26px,2.8vw,36px) Inter,sans-serif;color:var(--ink)}
+.donut b i{font-style:normal;font-size:.5em;margin-left:1px}
+.dg4 b{font-size:clamp(34px,3.8vw,50px)}
+.sum2{margin-top:auto;background:var(--ink);color:#fff;border-radius:14px;padding:16px 22px;font-size:15px;font-weight:700;text-align:center;line-height:1.7}
+.sum2 b{color:var(--acc)}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ls>div{display:flex;gap:16px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:#fff}
+.ls .n{flex:none;font:800 26px/1 Inter,sans-serif;color:#d0603f}
+.ls h3{font-size:16px;font-weight:800;margin:0 0 6px}
+.ls p{font-size:13px;color:var(--sub);margin:0;line-height:1.75}
+.bn>div{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:22px 20px;text-align:left}
+.bn .ic{width:46px;height:46px;border-radius:14px;background:var(--brand);color:#fff;box-shadow:none}
+.bn .ic svg{width:24px;height:24px}
+.bn h3{font-size:16.5px;font-weight:900;margin:4px 0 8px;line-height:1.45}
+.bn p{font-size:13px;color:var(--sub);margin:0;line-height:1.8}
+.tm>div{background:linear-gradient(135deg,#0e7c8c,#0a5d69);color:#fff;border-radius:16px;padding:20px 24px}
+.tm .tg{display:inline-block;font-size:11px;font-weight:800;background:rgba(255,255,255,.18);border-radius:999px;padding:3px 11px}
+.tm b{display:block;font:800 clamp(34px,4vw,50px)/1.1 Inter,"Noto Sans JP",sans-serif;margin:10px 0 6px}
+.tm b i{font-style:normal;font-size:.36em;margin-left:4px}
+.tm p{font-size:12.5px;margin:0;opacity:.9;line-height:1.75}
+.ba2{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ba2>div{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+.ba2 b{font-size:13px}.ba2 p{font-size:12px;margin:4px 0 0;color:var(--ink);line-height:1.7}
+.ba2 s{color:#9aa7a8}
+.sec .def{margin-top:10px}
+@media (min-width:861px){.big2{gap:18px}}
+@media (max-width:860px){
+ .dg>div{padding:18px}
+ .big2 .dg1{grid-template-columns:1fr;grid-template-areas:"s" "d" "p" "r";justify-items:center;text-align:center}
+ .ls,.ba2{grid-template-columns:1fr}
+ .dg4{grid-template-columns:1fr 1fr}.dg4 b{font-size:30px}.dg4>div{padding:14px}
+ .sum2{margin-top:16px;font-size:14px}
+ .bn{grid-template-columns:1fr 1fr}.bn>div{padding:16px}.bn h3{font-size:14.5px}
+ .tm{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -362,225 +421,203 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 </header>
 
 <main class="deck">
-<p class="intro">ご検討いただくときに知っておきたいこと（比較・見積もり例・費用の全体像・進め方・契約）を、14ページにまとめました。右上の「PDFで保存」から、保存や印刷もできます。</p>
+<p class="intro">サクアプのサービス資料です。右上の「PDFで保存」から、保存や印刷もできます。</p>
 
 <!-- 1 -->
 <section class="s cover" aria-label="表紙">
  <p class="ey">SERVICE GUIDE</p>
  <h1><span>あなた専用の</span><span>アプリを、</span><span>もっと身近に。</span></h1>
- <p class="cs">ご検討用 サービス資料<br>比較 ・ 見積もり例 ・ 費用 ・ 進め方 ・ 契約</p>
+ <p class="cs">個人事業主・副業の方のための<br>オーダーメイドアプリ開発「サクアプ」</p>
  <div class="phs" aria-hidden="true"><i style="background-image:url(../features/img/app0.webp)"></i><i style="background-image:url(../features/img/app10.webp)"></i><i style="background-image:url(../features/img/app5.webp)"></i></div>
- <div class="meta"><img src="../logo-w.png" alt="サクアプ" width="800" height="195"><span>2026年11月版</span></div>
+ <div class="meta"><img src="../logo-w.png" alt="サクアプ" width="800" height="195"><span>サービス資料 ・ 2026年11月版</span></div>
  <span class="pg"><b>01</b> / 14</span>
 </section>
 
 <!-- 2 -->
-<section class="s" aria-label="サクアプの全体像">
- <p class="ey">OVERVIEW</p>
- <h2>サクアプの全体像</h2>
- <p class="lead">個人事業主・副業の方のための、オーダーメイドのアプリ開発サービスです。</p>
- <div class="st">
-  <div><small>初期費用</small><b>19,800<i>円〜</i></b><p>12回払いなら月々 約1,650円〜</p></div>
-  <div><small>開発期間</small><b>1週間<i>〜</i>1<i>ヶ月</i></b><p>AIと進める開発で、短い期間で形に</p></div>
-  <div><small>追加機能</small><b>1文字 0.5<i>円</i></b><p>プログラムの文字数で、金額が先にわかる</p></div>
+<section class="s" aria-label="世の中の変化">
+ <p class="ey">01 ・ WHY NOW</p>
+ <h2>暮らしは、<em>スマホで完結</em>する時代へ</h2>
+ <p class="lead">調べる、連絡する、支払う。お客様の毎日は、ほとんどがスマホの中で済むようになりました。</p>
+ <div class="g g3 dg">
+  <div><small>スマートフォンの保有率（個人）</small><b>80.5<i>%</i></b><p>8割を超え、増加が続いています。</p><span class="sr">総務省「令和6年 通信利用動向調査」</span></div>
+  <div><small>LINEの国内月間利用者数</small><b>1<i>億人</i></b><p>2025年12月に1億人を突破しました。</p><span class="sr">LINEヤフー 2026年1月発表</span></div>
+  <div class="ch"><small>キャッシュレス決済の比率</small><b>42.8<i>%</i></b>
+   <div class="bars" aria-label="2020年29.7%、2021年32.5%、2022年36.0%、2023年39.3%、2024年42.8%"><span style="--h:29.7"><i>29.7</i><u>20</u></span><span style="--h:32.5"><i>32.5</i><u>21</u></span><span style="--h:36"><i>36.0</i><u>22</u></span><span style="--h:39.3"><i>39.3</i><u>23</u></span><span class="on" style="--h:42.8"><i>42.8</i><u>24</u></span></div>
+   <span class="sr">経済産業省 2025年3月発表（2024年）</span></div>
  </div>
- <div class="g g3 ov">
-  <div><b>オーダーメイド開発</b><span>ゼロからあなた専用に</span><em>19,800円〜</em></div>
-  <div><b>飲食店向け モバイルメニュー</b><span>卓上QRで注文</span><em>初期0円〜 ・ 月額1,980円</em></div>
-  <div><b>個人サロン向け 予約・カルテ</b><span>予約と顧客管理をひとつに</span><em>初期0円〜 ・ 月額1,980円</em></div>
- </div>
- <p class="mini">作れるアプリの画面や110種類の機能は、サイトの「作れるアプリ」「機能一覧」でご覧いただけます。この資料では、ご検討に必要な情報をまとめています。</p>
+ <div class="sum2">お客様に選ばれるには、<b>スマホで完結する入口</b>が欠かせません。</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>02</b> / 14</span>
 </section>
 
 <!-- 3 -->
-<section class="s" aria-label="ほかの選択肢との比較">
- <p class="ey">COMPARISON</p>
- <h2>ほかの選択肢と、何が違う？</h2>
- <p class="lead">アプリや仕組みを用意する、代表的な4つの方法をくらべました。</p>
- <div class="tw"><table class="cmp">
-  <thead><tr><th></th><th>開発会社に依頼</th><th>ノーコードで自作</th><th>月額の予約・注文サービス</th><th class="me">サクアプ</th></tr></thead>
-  <tbody>
-   <tr><th>初期費用</th><td>数十万円〜</td><td>0円〜</td><td>0円〜</td><td class="me"><b>19,800円〜</b></td></tr>
-   <tr><th>毎月の費用</th><td>保守契約による</td><td>ツールの月額</td><td>無料〜1万円台程度</td><td class="me"><b>保守は任意</b>（月額1,980円）</td></tr>
-   <tr><th>できるまで</th><td>数ヶ月〜</td><td>自分の作業時間しだい</td><td>すぐ使える</td><td class="me"><b>1週間〜1ヶ月</b></td></tr>
-   <tr><th>画面・機能の自由度</th><td>高い</td><td>ツールの範囲内</td><td>共通のひな形</td><td class="me"><b>オーダーメイド</b></td></tr>
-   <tr><th>作る手間</th><td>打ち合わせが中心</td><td>すべて自分で</td><td>設定のみ</td><td class="me"><b>アイデアを伝えるだけ</b></td></tr>
-   <tr><th>あとから機能を足す</th><td>都度見積もり</td><td>ツールの範囲内</td><td>サービスの提供範囲内</td><td class="me"><b>1文字0.5円で追加</b></td></tr>
-  </tbody>
- </table></div>
- <p class="swh">表は横にスクロールできます ›</p>
- <p class="mini">※ほかの方法は一般的な目安です。会社・ツール・サービスやプランによって異なります。</p>
+<section class="s" aria-label="お客様の行動の変化">
+ <p class="ey">01 ・ WHY NOW</p>
+ <h2>お客様は「電話せず、<em>好きな時間に</em>」</h2>
+ <p class="lead">予約や問い合わせは、お店が開いていない時間に集まっています。</p>
+ <div class="g g2 big2">
+  <div class="dg1"><small>ネット予約のうち、営業時間外に入った予約</small>
+   <div class="donut" style="--p:51.6"><b>51.6<i>%</i></b></div>
+   <p>営業時間を10〜19時とした場合。予約がいちばん多い時間帯は<strong>20〜21時</strong>でした。</p>
+   <span class="sr">予約システム「Coubic」2018年調査</span></div>
+  <div class="dg1"><small>電話での会話に苦手意識がある20代</small>
+   <div class="donut" style="--p:58"><b>58<i>%</i></b></div>
+   <p>30代でも49%。電話でしか予約できないお店は、それだけで選ばれにくくなっています。</p>
+   <span class="sr">ソフトバンク 2024年3月調査</span></div>
+ </div>
+ <div class="sum2"><b>営業時間外</b>と<b>電話以外</b>の受け皿があるかどうかが、予約の数を左右します。</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>03</b> / 14</span>
 </section>
 
 <!-- 4 -->
-<section class="s" aria-label="見積もり例 個人サロン">
- <p class="ey">ESTIMATE 01</p>
- <h2>見積もり例：個人サロンの予約アプリ</h2>
- <p class="lead">予約の受付と、お客様ごとのカルテ。予約と同時にカードで支払える形にした場合。</p>
- <div class="es">
-  <div class="esl" style="background-image:url(../uc-salon.webp)"><span>個人サロン</span></div>
-  <div class="esr">
-   <table class="bk">
-    <tr><th>基本：かんたんWebサービス<small>ログイン・管理画面・予約とカルテ</small></th><td>19,800円</td></tr>
-    <tr><th>カード決済<small>予約と同時にお支払い</small></th><td>+7,500円</td></tr>
-    <tr><th>LINEでのリマインド通知<small>前日にお知らせ</small></th><td>+7,500円</td></tr>
-    <tr><th>データCSV出力<small>顧客データを書き出す（約5,000文字）</small></th><td>+2,500円</td></tr>
-    <tr class="tot"><th>合計</th><td><b>37,300</b>円</td></tr>
-   </table>
-   <div class="mon"><span>12回払いなら</span><b>月々 約3,109円〜</b><small>カード会社の分割手数料は別途</small></div>
-  </div>
+<section class="s" aria-label="働き手の現状">
+ <p class="ey">01 ・ WHY NOW</p>
+ <h2>一方で、お店や個人は<em>手が足りない</em></h2>
+ <p class="lead">人手不足が続くなか、ひとりで接客も事務もこなす働き方が増えています。</p>
+ <div class="g g4 dg dg4">
+  <div><small>正社員が不足している企業</small><b>53.4<i>%</i></b><span class="sr">帝国データバンク 2025年1月</span></div>
+  <div><small>非正社員が不足している飲食店</small><b>65.3<i>%</i></b><span class="sr">帝国データバンク 2025年4月（業種別で最も高い）</span></div>
+  <div><small>副業をしている人</small><b>332<i>万人</i></b><span class="sr">総務省「就業構造基本調査」2022年（10年で4割強増）</span></div>
+  <div><small>フリーランスとして働く人</small><b>462<i>万人</i></b><span class="sr">内閣官房「フリーランス実態調査」2020年</span></div>
  </div>
- <p class="mini">※例です。実際の金額は、ご相談内容をもとにした文字数のお見積もりで確定します。運用保守プラン（任意）は月額1,980円です。</p>
+ <div class="sum2"><b>お客様の期待</b>は上がり、<b>使える時間</b>は減っている。その差を埋めるのが「仕組み」です。</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>04</b> / 14</span>
 </section>
 
 <!-- 5 -->
-<section class="s" aria-label="見積もり例 整体・教室">
- <p class="ey">ESTIMATE 02</p>
- <h2>見積もり例：整体・教室の回数券アプリ</h2>
- <p class="lead">残りの回数をお客様自身がマイページで確認でき、回数券もオンラインで買える形にした場合。</p>
- <div class="es">
-  <div class="esl" style="background-image:url(../uc-seitai.webp)"><span>整体・教室</span></div>
-  <div class="esr">
-   <table class="bk">
-    <tr><th>基本：かんたんWebサービス<small>ログイン・管理画面・マイページ</small></th><td>19,800円</td></tr>
-    <tr><th>回数券のオンライン購入<small>その場でカード決済</small></th><td>+7,500円</td></tr>
-    <tr><th>有効期限の通知<small>期限の前にお知らせ</small></th><td>+7,500円</td></tr>
-    <tr><th>メール自動送信<small>購入・予約の確認メール（約10,000文字）</small></th><td>+5,000円</td></tr>
-    <tr class="tot"><th>合計</th><td><b>39,800</b>円</td></tr>
-   </table>
-   <div class="mon"><span>12回払いなら</span><b>月々 約3,317円〜</b><small>カード会社の分割手数料は別途</small></div>
-  </div>
+<section class="s" aria-label="起きている機会損失">
+ <p class="ey">02 ・ PROBLEM</p>
+ <h2>そのままだと、こんな<em>取りこぼし</em>が</h2>
+ <p class="lead">どれも、仕組みがあれば防げることばかりです。</p>
+ <div class="ls">
+  <div><span class="n">01</span><div><h3>夜の予約・注文を逃す</h3><p>お客様が予約したい20〜21時に、お店は閉まっている。DMの返信は翌日になり、その間に他のお店へ。</p></div></div>
+  <div><span class="n">02</span><div><h3>電話に出られない</h3><p>施術中・調理中は電話に出られない。かけ直しても、つながらないことも。</p></div></div>
+  <div><span class="n">03</span><div><h3>また来てもらうきっかけがない</h3><p>お客様の情報がノートやLINEに散らばり、「そろそろ来店の時期」をお知らせできない。</p></div></div>
+  <div><span class="n">04</span><div><h3>大手サービスの中で、比べられる</h3><p>予約ポータルでは、となりに他のお店が並びます。手数料や掲載料がかかることも。</p></div></div>
  </div>
- <p class="mini">※例です。実際の金額は、ご相談内容をもとにした文字数のお見積もりで確定します。</p>
+ <div class="sum2">この4つは、<b>自分専用のアプリ</b>でまとめて解決できます。</div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>05</b> / 14</span>
 </section>
 
 <!-- 6 -->
-<section class="s" aria-label="見積もり例 マッチング">
- <p class="ey">ESTIMATE 03</p>
- <h2>見積もり例：マッチングアプリ</h2>
- <p class="lead">プロフィールを見て「いいね」し、お互いにいいねでマッチ。写真つきのプロフィールにした場合。</p>
- <div class="es">
-  <div class="esl" style="background-image:url(../features/img/app10.webp);background-position:top"><span>マッチング</span></div>
-  <div class="esr">
-   <table class="bk">
-    <tr><th>基本：マッチング<small>人と人、人と仕事を引き合わせる仕組み</small></th><td>49,800円</td></tr>
-    <tr><th>マッチング成立のプッシュ通知<small>マッチしたらすぐにお知らせ</small></th><td>+7,500円</td></tr>
-    <tr><th>画像アップロード<small>プロフィール写真の登録（約8,000文字）</small></th><td>+4,000円</td></tr>
-    <tr class="tot"><th>合計</th><td><b>61,300</b>円</td></tr>
-   </table>
-   <div class="mon"><span>12回払いなら</span><b>月々 約5,109円〜</b><small>カード会社の分割手数料は別途</small></div>
-  </div>
+<section class="s" aria-label="サクアプで得られること">
+ <p class="ey">03 ・ BENEFITS</p>
+ <h2>サクアプで、<em>得られること</em></h2>
+ <p class="lead">あなた専用のアプリが、あなたの代わりに24時間働きます。</p>
+ <div class="g g4 bn">
+  <div><span class="ic"><svg><use href="#g-cal"/></svg></span><h3>24時間、受け付ける</h3><p>寝ている間も、施術中も、予約や注文が入る。</p></div>
+  <div><span class="ic"><svg><use href="#g-bell"/></svg></span><h3>自動で、知らせる</h3><p>前日のリマインドや再来店のお知らせを、自動で送る。</p></div>
+  <div><span class="ic"><svg><use href="#g-db"/></svg></span><h3>お客様の情報が、残る</h3><p>来店履歴やカルテが一か所にまとまり、次の提案に活かせる。</p></div>
+  <div><span class="ic"><svg><use href="#g-wall"/></svg></span><h3>自分のブランドで、選ばれる</h3><p>他店と並ばない、自分だけの画面。お店らしさをそのまま伝えられる。</p></div>
  </div>
- <p class="mini">※例です。実際の金額は、ご相談内容をもとにした文字数のお見積もりで確定します。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>06</b> / 14</span>
 </section>
 
 <!-- 7 -->
-<section class="s" aria-label="かかる費用の全体像">
- <p class="ey">TOTAL COST</p>
- <h2>開発費のほかに、かかる費用</h2>
- <p class="lead">何に、誰へ支払うのかを一覧にしました。お伝えしていない費用が、あとから発生することはありません。</p>
- <div class="tw"><table class="cost">
-  <thead><tr><th>費用</th><th>金額</th><th>支払い先</th><th>必要なとき</th></tr></thead>
-  <tbody>
-   <tr><th>開発費</th><td>基本料金＋追加機能の文字数×0.5円</td><td>サクアプ</td><td><span class="on">必ず</span></td></tr>
-   <tr><th>運用保守プラン</th><td>月額1,980円<small>一括払いなら最初の1ヶ月無料</small></td><td>サクアプ</td><td><span>任意</span></td></tr>
-   <tr><th>サーバー・データベース利用料</th><td>アプリの規模によって変わります<small>お見積もりの際にご説明します</small></td><td>お見積もりの際にご説明</td><td><span class="on">必要</span></td></tr>
-   <tr><th>カード決済の手数料</th><td>売上に応じた数%</td><td>Stripe（直接）</td><td><span>決済をつける場合</span></td></tr>
-   <tr><th>LINEのメッセージ料金</th><td>LINE公式アカウントのプランによる</td><td>LINE（直接）</td><td><span>LINE通知をつける場合</span></td></tr>
-   <tr><th>分割払いの手数料</th><td>カード会社による（2回払いは通常なし）</td><td>カード会社</td><td><span>分割で払う場合</span></td></tr>
-  </tbody>
- </table></div>
- <p class="mini">※飲食店向け・サロン向けの月額1,980円には、サーバー代と保守が含まれます。外部サービス（Stripe・LINEなど）の開設や設定は、ご自身で行うか、代行（別途お見積もり）となります。</p>
+<section class="s" aria-label="時間の効果">
+ <p class="ey">03 ・ BENEFITS</p>
+ <h2>手が空いた時間を、<em>お客様のために</em></h2>
+ <p class="lead">やりとりや注文取りの手間がなくなると、どれくらい時間が生まれるかを試算しました。</p>
+ <div class="g g2 tm">
+  <div><span class="tg">飲食店 ・ 卓上QR注文</span><b>約35<i>時間 / 月</i></b><p>1回の注文取りを1分、1日80回、月26日営業として試算。アルバイト1人の、およそ1週間分の勤務時間です。</p></div>
+  <div><span class="tg">個人サロン ・ Web予約</span><b>約12.5<i>時間 / 月</i></b><p>DMや電話での予約対応を1件3分、1日10件、月25日営業として試算。施術にして、およそ6〜8人分の時間です。</p></div>
+ </div>
+ <p class="mini">※試算です。注文や予約の回数、お店の状況によって変わります。効果を保証するものではありません。</p>
+ <div class="ba ba2">
+  <div><b>飲食店</b><p><s>席まで注文を聞きに行く</s> → テーブルのQRから注文、厨房にそのまま届く</p></div>
+  <div><b>個人サロン</b><p><s>営業後にDMで予約の返信</s> → 24時間Web予約、前日のお知らせも自動</p></div>
+  <div><b>整体・教室</b><p><s>紙の回数券で残りを確認</s> → お客様がマイページで残り回数を確認</p></div>
+ </div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>07</b> / 14</span>
 </section>
 
 <!-- 8 -->
-<section class="s" aria-label="制作スケジュールの例">
- <p class="ey">SCHEDULE</p>
- <h2>1ヶ月で作る場合の進め方（例）</h2>
- <p class="lead">途中で実際の画面を見ていただきながら進めるので、できあがってからの「思っていたのと違う」を防げます。</p>
- <div class="tl">
-  <div><span class="wk">はじめに</span><h3>無料相談・お見積もり</h3><p>LINEでアイデアをお聞きし、金額をお出しします。ご了承をいただいてから着手します。</p><em>あなた：アイデアを送る</em></div>
-  <div><span class="wk">1週目</span><h3>画面の構成を決める</h3><p>必要な画面と機能、使う流れを整理して、構成案をお見せします。</p><em>あなた：構成案を確認</em></div>
-  <div><span class="wk">2〜3週目</span><h3>開発・途中の確認</h3><p>実際に動く画面を作り、触っていただきながら調整します。</p><em>あなた：画面を触って確認</em></div>
-  <div><span class="wk">4週目</span><h3>最終確認・公開</h3><p>動きを確かめていただき、問題がなければ公開。その日から使いはじめられます。</p><em>あなた：最終チェック</em></div>
+<section class="s sec" aria-label="サービス紹介">
+ <p class="ey">04 ・ SERVICE</p>
+ <h2>サクアプとは</h2>
+ <p class="def">ひな形ではなく、プログラムを書いて作る<em>オーダーメイドのアプリ</em>を、<br>個人でも頼める価格と速さでお届けするサービスです。</p>
+ <div class="st">
+  <div><small>初期費用</small><b>19,800<i>円〜</i></b><p>12回払いなら月々 約1,650円〜。<br>カードの分割は最大60回まで。</p></div>
+  <div><small>開発期間</small><b>1週間<i>〜</i>1<i>ヶ月</i></b><p>AIと進める開発で、<br>アイデアを短い期間で形にします。</p></div>
+  <div><small>追加機能</small><b>1文字 0.5<i>円</i></b><p>プログラムの文字数で計算。<br>見積もりの時点で金額がわかります。</p></div>
  </div>
- <p class="mini">※進め方の一例です。アプリの内容や、ご確認・素材のご用意のタイミングによって前後します。シンプルなものは1週間ほどで公開できる場合もあります。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>08</b> / 14</span>
 </section>
 
 <!-- 9 -->
-<section class="s" aria-label="ご用意いただくもの">
- <p class="ey">PREPARATION</p>
- <h2>ご用意いただくもの</h2>
- <p class="lead">そろっていなくても相談はできます。わかる範囲で大丈夫です。</p>
- <div class="g g2 ck">
-  <div><h3>基本（どのアプリでも）</h3><ul>
-   <li><b>作りたいもののイメージ</b><small>箇条書きや、参考にしたいアプリのスクリーンショットでOK</small></li>
-   <li><b>ロゴ</b><small>なければ、文字のロゴで作れます</small></li>
-   <li><b>写真</b><small>お店・商品・メニューなど。スマホで撮ったもので大丈夫です</small></li>
-   <li><b>メニュー・料金表、営業時間などの情報</b><small>今お使いのもの（紙・画像）をそのまま送ってください</small></li>
-  </ul></div>
-  <div><h3>機能によって必要なもの</h3><ul>
-   <li><b>カード決済をつける場合：Stripeアカウント</b><small>売上の入金先になるため、ご本人の名義で開設（本人確認・口座登録）。初期設定の代行もできます</small></li>
-   <li><b>LINE通知をつける場合：LINE公式アカウント</b><small>お持ちでなければ、無料で作れます</small></li>
-   <li><b>お客様データを移す場合：今のデータ</b><small>表計算ソフトのファイルなど</small></li>
-  </ul></div>
+<section class="s" aria-label="3つのサービス">
+ <p class="ey">04 ・ SERVICE</p>
+ <h2>目的に合わせて選べる、3つのサービス</h2>
+ <p class="lead">ゼロから専用に作るか、業種別のテンプレートから始めるかを選べます。</p>
+ <div class="g g3 sv">
+  <div class="c"><span class="tg">オーダーメイド開発</span><h3>あなた専用のアプリを、ゼロから</h3><p>予約・決済・会員・SNS・マッチング・ネットショップなど、やりたいことに合わせて設計します。</p><div class="pr">初期費用 <b>19,800円〜</b></div></div>
+  <div class="c"><span class="tg">飲食店向け</span><h3>卓上QRのモバイルメニュー</h3><p>テーブルのQRからメニューを開いて注文。注文手数料は0円です。</p><div class="pr">初期0円〜 ・ 月額 <b>1,980円</b></div></div>
+  <div class="c"><span class="tg">個人サロン向け</span><h3>予約・カルテ・再来店のお知らせ</h3><p>24時間のWeb予約と顧客カルテが一体に。予約件数の上限も、予約手数料もありません。</p><div class="pr">初期0円〜 ・ 月額 <b>1,980円</b></div></div>
  </div>
+ <p class="mini">※飲食店向け・サロン向けは、30日間の無料お試しのあと月額が自動で始まります。最低契約期間はありません。</p>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>09</b> / 14</span>
 </section>
 
 <!-- 10 -->
-<section class="s" aria-label="公開後のサポート">
- <p class="ey">SUPPORT</p>
- <h2>公開したあとのサポート範囲</h2>
- <p class="lead">ご自身でできること、保守プランに含まれること、別料金になることを分けました。</p>
- <div class="g g3 sp">
-  <div class="a"><span class="sh">ご自身で、いつでも</span><h3>管理画面で変更</h3><ul><li>メニュー・料金</li><li>画像・写真</li><li>お知らせ</li><li>営業時間など</li></ul><em>無料</em></div>
-  <div class="b"><span class="sh">運用保守プランに含まれる</span><h3>月額1,980円（任意）</h3><ul><li>不具合の対応</li><li>アップデート対応</li><li>動作チェック・バックアップ</li><li>管理画面で変えられない直し（月1回まで）</li></ul><em>月額1,980円</em></div>
-  <div class="c2"><span class="sh">別料金</span><h3>そのつどお見積もり</h3><ul><li>保守プランに入っていない場合の修正</li><li>新しい機能の追加</li><li>画面や機能の大きな変更</li></ul><em>修正1回3,000円〜<small>機能の追加は1文字0.5円</small></em></div>
+<section class="s" aria-label="作れるアプリの例">
+ <p class="ey">04 ・ SERVICE</p>
+ <h2>こんなアプリが作れます</h2>
+ <p class="lead">選べる機能は110種類以上。画面も機能も、自由に組み合わせられます。</p>
+ <div class="apps grow">
+  <figure><i style="background-image:url(../features/img/app0.webp)"></i><figcaption>サロン予約</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app1.webp)"></i><figcaption>カフェの会員証</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app2.webp)"></i><figcaption>ジムの会員アプリ</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app3.webp)"></i><figcaption>ヨガのレッスン予約</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app4.webp)"></i><figcaption>整体の回数券</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app5.webp)"></i><figcaption>ネットショップ</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app6.webp)"></i><figcaption>テイクアウト注文</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app7.webp)"></i><figcaption>イベントのチケット</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app8.webp)"></i><figcaption>売上の管理画面</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app9.webp)"></i><figcaption>オンライン相談</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app10.webp)"></i><figcaption>マッチング</figcaption></figure>
+  <figure><i style="background-image:url(../features/img/app11.webp)"></i><figcaption>SNS</figcaption></figure>
  </div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>10</b> / 14</span>
 </section>
 
 <!-- 11 -->
-<section class="s" aria-label="キャンセル・返金・不具合対応">
- <p class="ey">TERMS</p>
- <h2>キャンセル・返金・不具合の対応</h2>
- <p class="lead">どのタイミングで、どうなるのかを時系列でまとめました。</p>
- <div class="tr">
-  <div><span class="dt">お見積もりの承諾前</span><b>全額返金</b><p>見てから決められます。</p></div>
-  <div><span class="dt">開発の着手前</span><b>全額返金</b><p>承諾後でも、着手前なら全額をお返しします。</p></div>
-  <div><span class="dt">開発の着手後</span><b>一部返金</b><p>済んだ作業の割合に応じた金額を差し引いて返金。金額は事前にご説明します。</p></div>
-  <div><span class="dt">納品後（90日以内）</span><b>無償で修正</b><p>こちらの原因による不具合は何度でも。ご希望の小さな直し（文言・色など）は1回まで無償。</p></div>
- </div>
- <div class="g g2 nt">
-  <div><b>追加請求について</b><p>金額は見積もりの時点で先にお出しします。内容を大きく変える場合は、変更分を改めてお見積もりし、ご了承をいただいてから進めます。</p></div>
-  <div><b>データ・権利について</b><p>完成したアプリのデータや権利の扱いは、お見積もりの際にご説明します。くわしくは利用規約をご覧ください。</p></div>
+<section class="s" aria-label="料金">
+ <p class="ey">05 ・ PRICE</p>
+ <h2>料金は「基本料金＋追加機能」だけ</h2>
+ <p class="lead">見積もりの時点で金額をお出しします。ご了承のない追加請求はありません。</p>
+ <div class="pt">
+  <div><h3>オーダーメイド開発（基本プラン）</h3>
+   <table>
+    <tr><th>かんたんWebサービス<small>ログインと管理画面のあるシンプルなWebサービス</small></th><td class="r"><b>19,800</b>円<small>12回なら月々 約1,650円〜</small></td></tr>
+    <tr><th>SNS<small>投稿・フォロー・コミュニティの仕組み</small></th><td class="r"><b>29,800</b>円<small>12回なら月々 約2,484円〜</small></td></tr>
+    <tr><th>マッチング<small>人と人、人と仕事を引き合わせる仕組み</small></th><td class="r"><b>49,800</b>円<small>12回なら月々 約4,150円〜</small></td></tr>
+    <tr><th>ネットショップ<small>商品・カート・決済までそろった販売サイト</small></th><td class="r"><b>69,800</b>円<small>12回なら月々 約5,817円〜</small></td></tr>
+   </table>
+  </div>
+  <div><h3>追加機能・保守</h3>
+   <div class="box">
+   <table>
+    <tr><th>追加機能<small>プログラム1,000文字＝500円</small></th><td class="r"><b>1文字0.5</b>円</td></tr>
+    <tr><th>運用保守プラン（任意）<small>不具合の対応・アップデート・バックアップ</small></th><td class="r"><b>1,980</b>円/月</td></tr>
+   </table>
+   </div>
+   <p class="mini">※分割払いは、カード会社の手数料が別にかかります（Visa・Mastercardは最大60回、JCBは最大24回）。一括払いなら、運用保守プランの最初の1ヶ月が無料です。</p>
+  </div>
  </div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>11</b> / 14</span>
 </section>
 
 <!-- 12 -->
-<section class="s hs" aria-label="ご相談前のヒアリングシート">
- <p class="ey">HEARING SHEET</p>
- <h2>ご相談前のヒアリングシート</h2>
- <p class="lead">印刷して書き込むか、項目をそのままLINEに送ってください。空欄があっても大丈夫です。</p>
- <div class="hsg">
-  <div><span>1</span><b>どんなお仕事ですか？</b><i></i></div>
-  <div><span>2</span><b>アプリを使うのは誰ですか？</b><p class="cb"><u>お客様</u><u>スタッフ</u><u>自分</u><u>その他</u></p></div>
-  <div><span>3</span><b>今はどうやって管理していますか？</b><p class="cb"><u>電話</u><u>LINE・DM</u><u>紙・ノート</u><u>表計算</u><u>ほかのサービス</u></p></div>
-  <div><span>4</span><b>いちばん解決したい困りごとは？</b><i></i></div>
-  <div><span>5</span><b>ほしい機能は？</b><p class="cb"><u>予約</u><u>決済</u><u>会員・マイページ</u><u>通知</u><u>投稿・SNS</u><u>注文</u><u>管理画面</u></p></div>
-  <div><span>6</span><b>参考にしたいアプリやサイトは？</b><i></i></div>
-  <div><span>7</span><b>ご予算のイメージ</b><p class="cb"><u>〜2万円</u><u>〜5万円</u><u>〜10万円</u><u>未定</u></p></div>
-  <div><span>8</span><b>いつごろ使いはじめたいですか？</b><p class="cb"><u>1ヶ月以内</u><u>3ヶ月以内</u><u>未定</u></p></div>
+<section class="s" aria-label="導入の流れ">
+ <p class="ey">06 ・ FLOW</p>
+ <h2>ご相談から運用開始まで、4ステップ</h2>
+ <p class="lead">むずかしい言葉は使いません。ざっくりしたアイデアで大丈夫です。</p>
+ <div class="fl">
+  <div><span class="n">1</span><h3>無料相談</h3><p>アイデアをお聞かせください。LINEで気軽にどうぞ。</p><small>無料</small></div>
+  <div><span class="n">2</span><h3>明朗お見積もり</h3><p>基本料金と追加機能の文字数で金額を出します。見てから決められます。</p><small>無料</small></div>
+  <div><span class="n">3</span><h3>開発</h3><p>AIと進めて、短い期間で形にします。</p><small>1週間〜1ヶ月</small></div>
+  <div><span class="n">4</span><h3>確認＆運用スタート</h3><p>動きを確かめたら、その日から使いはじめられます。</p><small>公開</small></div>
  </div>
+ <div class="after"><span class="ic" style="margin:0"><svg><use href="#g-wall"/></svg></span><div><b>あんしんの返金・修正</b><br>開発の着手前なら全額返金。納品後90日以内なら、こちらの原因による不具合は何度でも無償で修正します。</div></div>
  <span class="brandmark">SAKUAPP</span><span class="pg"><b>12</b> / 14</span>
 </section>
 
@@ -603,11 +640,11 @@ td small,th small{display:block;color:var(--sub);font-weight:400;font-size:11px;
 <section class="s ct" aria-label="お問い合わせ">
  <p class="ey">CONTACT</p>
  <h2>まずは、無料でご相談ください</h2>
- <p class="lead">相談も、最初の見積もりも無料です。ヒアリングシートの内容を送っていただくと、話が早く進みます。</p>
+ <p class="lead">「こんなの作れる？」の気軽な相談から、どうぞ。相談も、最初の見積もりも無料です。</p>
  <div class="ctg">
   <div class="qr"><img src="line-qr.svg" alt="LINE友だち追加のQRコード" width="232" height="232"><p>LINEで友だち追加</p></div>
   <div class="ctl">
-   <ul><li><b>01</b>QRコードを読み取るか、下のボタンから友だち追加</li><li><b>02</b>ヒアリングシートの内容や、作りたいもののイメージを送る</li><li><b>03</b>金額と期間の目安を、無料でお返しします</li></ul>
+   <ul><li><b>01</b>QRコードを読み取るか、下のボタンから友だち追加</li><li><b>02</b>作りたいもののイメージを、ざっくり送るだけ</li><li><b>03</b>金額と期間の目安を、無料でお返しします</li></ul>
    <a class="cbtn" href="https://lin.ee/vC2S0M9" data-entry="guide" target="_blank" rel="noopener">【無料】LINEで相談する ›</a>
    <span class="url">knotscheme.github.io/sakuapp</span>
   </div>
