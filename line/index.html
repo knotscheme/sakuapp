@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LINEミニアプリ開発｜サクアプ</title>
+<meta name="description" content="アプリのダウンロード不要。お客様がいつも使っているLINEの中で、会員証・予約・注文・クーポンが使えるLINEミニアプリを、19,800円から作ります。">
+<meta property="og:title" content="LINEミニアプリ開発｜サクアプ">
+<meta property="og:description" content="ダウンロード不要。LINEの中で動く、お店専用のミニアプリを19,800円から。">
+<meta property="og:image" content="https://knotscheme.github.io/sakuapp/ogp.jpg">
+<meta name="theme-color" content="#f4fbf7">
+<link rel="icon" href="../favicon.png"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Montserrat:ital,wght@0,700;0,800;1,600&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ln:#06c755;--ln-d:#04a548;--ink:#10241a;--sub:#5d6f66;--line:#e1ece6;--bg:#f4fbf7;--soft:#eef7f2;--brand:#0e7c8c;--acc:#f4c04e;--card:#fff}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.9 "Noto Sans JP",system-ui,sans-serif;letter-spacing:.04em}
+a{color:inherit}
+img{max-width:100%;display:block}
+.w{max-width:1120px;margin:0 auto;padding:0 22px}
+h1,h2,h3{word-break:keep-all;overflow-wrap:anywhere;text-wrap:balance}
+p{text-wrap:pretty}
+.nw{display:inline-block}
+/* header */
+.hd{position:fixed;left:0;right:0;top:0;z-index:30;transition:.3s}
+.hd .w{display:flex;align-items:center;gap:20px;height:64px}
+.hd .lg img{height:22px;width:auto}
+.hd nav{display:flex;gap:22px;margin-left:auto;font-size:13px;font-weight:700}
+.hd nav a{text-decoration:none;color:var(--sub)}
+.hd .cta{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;background:var(--ln);color:#fff;font-weight:800;font-size:13px;text-decoration:none}
+.hd.on{background:rgba(255,255,255,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+.lnic{width:18px;height:18px;flex:none}
+/* hero */
+.hero{position:relative;overflow:hidden;padding:120px 0 70px;background:radial-gradient(120% 90% at 85% 10%,#d9f6e5 0,transparent 55%),radial-gradient(90% 80% at 0% 100%,#e5f4f6 0,transparent 60%),var(--bg)}
+.hero .w{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;color:var(--ln-d);background:#fff;border:1px solid #cdeedb;border-radius:999px;padding:6px 14px}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--ln);box-shadow:0 0 0 4px #d6f5e3}
+.hero h1{font-size:clamp(34px,5.2vw,60px);line-height:1.3;font-weight:900;margin:18px 0 18px;letter-spacing:.02em}
+.hero h1 em{font-style:normal;color:var(--ln-d);position:relative}
+.hero .sub{font-size:16px;color:var(--sub);margin:0 0 26px;max-width:30em}
+.price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 24px}
+.price small{font-size:13px;font-weight:700;color:var(--sub)}
+.price b{font:800 clamp(34px,4vw,46px)/1 Inter,"Noto Sans JP",sans-serif;letter-spacing:-.01em}
+.price span{font-size:15px;font-weight:800}
+.price em{font-style:normal;font-size:12.5px;color:var(--sub);flex-basis:100%}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.b1{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 28px;border-radius:999px;background:var(--ln);color:#fff;font-weight:900;font-size:16px;text-decoration:none;letter-spacing:.04em;box-shadow:0 16px 30px -14px rgba(4,165,72,.7)}
+.b2{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:58px;padding:0 24px;border-radius:999px;background:#fff;color:var(--ink);font-weight:800;font-size:15px;text-decoration:none;box-shadow:inset 0 0 0 1.5px var(--line)}
+.chk{display:flex;gap:16px;flex-wrap:wrap;list-style:none;margin:22px 0 0;padding:0;font-size:13px;font-weight:700;color:var(--sub)}
+.chk li:before{content:"✓";color:var(--ln-d);margin-right:6px;font-weight:900}
+/* phone in LINE */
+.stage{position:relative;height:620px}
+.ph{position:absolute;width:290px;height:600px;border-radius:46px;background:#111;padding:10px;box-shadow:0 40px 70px -30px rgba(10,40,25,.55);left:50%;top:0;transform:translateX(-46%)}
+.ph .sc{width:100%;height:100%;border-radius:37px;overflow:hidden;background:#fff;position:relative;display:flex;flex-direction:column}
+.ph .isl{position:absolute;left:50%;top:9px;transform:translateX(-50%);width:90px;height:26px;border-radius:14px;background:#000;z-index:5}
+.lbar{flex:none;height:86px;padding:40px 14px 0;display:flex;align-items:center;gap:8px;background:#fff;border-bottom:1px solid #eee;font-size:12.5px;font-weight:800}
+.lbar .ic{width:24px;height:24px;border-radius:7px;background:var(--brand);color:#fff;display:grid;place-items:center;font:800 11px Inter}
+.lbar .r{margin-left:auto;display:flex;gap:6px}
+.lbar .r i{width:30px;height:24px;border-radius:12px;background:#f1f3f2;display:grid;place-items:center;font-style:normal;font-size:12px;color:#555}
+.ph .shot{flex:1;background-size:cover;background-position:top center}
+.ph .shot.sm{background-position:center 12%}
+.fl{position:absolute;background:#fff;border-radius:18px;box-shadow:0 20px 40px -20px rgba(10,40,25,.45);padding:12px 14px;display:flex;gap:10px;align-items:center;font-size:12px;line-height:1.5;z-index:3}
+.fl b{display:block;font-size:12.5px}
+.fl small{color:var(--sub);font-size:11px}
+.fl .ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;color:#fff}
+.fl.a{left:-4px;top:110px;animation:fy 6s ease-in-out infinite}
+.fl.b{right:-8px;top:300px;animation:fy 7s ease-in-out infinite .8s}
+.fl.c{left:10px;bottom:40px;animation:fy 6.5s ease-in-out infinite .4s}
+@keyframes fy{50%{transform:translateY(-8px)}}
+/* sections */
+section{padding:96px 0}
+.ey{font:800 12px Inter,sans-serif;letter-spacing:.24em;color:var(--ln-d);margin:0 0 10px}
+.h2{font-size:clamp(26px,3.4vw,40px);font-weight:900;line-height:1.4;margin:0 0 14px}
+.lead{color:var(--sub);margin:0 0 40px;max-width:40em}
+.ctr{text-align:center}.ctr .lead{margin-left:auto;margin-right:auto}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--card);border:1px solid #e3eee8;border-radius:22px;padding:26px 24px;box-shadow:0 24px 40px -36px rgba(10,40,25,.35)}
+.card h3{font-size:18px;font-weight:900;margin:14px 0 8px;line-height:1.5}
+.card p{margin:0;font-size:14px;color:var(--sub);line-height:1.9}
+.ic2{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--soft);color:var(--ln-d)}
+.ic2 svg{width:24px;height:24px}
+.white{background:#fff}
+/* what is */
+.what{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.flow3{display:flex;align-items:center;gap:10px;margin-top:8px}
+.flow3>div{flex:1;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 10px;text-align:center;font-size:12.5px;font-weight:700}
+.flow3>div b{display:block;font-size:22px;margin-bottom:4px}
+.flow3>span{color:var(--ln-d);font-weight:900}
+.stat{display:flex;gap:24px;flex-wrap:wrap;margin-top:22px}
+.stat div{border-left:3px solid var(--ln);padding-left:14px}
+.stat b{display:block;font:800 30px/1.1 Inter,"Noto Sans JP",sans-serif}
+.stat small{font-size:12px;color:var(--sub)}
+/* compare */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.cmp{width:100%;min-width:640px;border-collapse:separate;border-spacing:0;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 0 0 1px #e3eee8}
+.cmp th,.cmp td{padding:16px 12px;text-align:center;border-bottom:1px solid #eef3f0;font-size:14px}
+.cmp thead th{font-size:13px;color:var(--sub);font-weight:700}
+.cmp thead th.me{background:var(--ln);color:#fff;font-size:15px;font-weight:900}
+.cmp td.me{background:#f0fbf4;font-weight:800}
+.cmp tbody th{text-align:left;font-size:13px;color:var(--sub);white-space:nowrap}
+.cmp tr:last-child td,.cmp tr:last-child th{border-bottom:0}
+.o{color:var(--ln-d);font-weight:900}.x{color:#b9c2be}
+/* make */
+.mk{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.mk figure{margin:0;background:#fff;border:1px solid #e3eee8;border-radius:22px;overflow:hidden}
+.mk .im{aspect-ratio:3/3.4;background:linear-gradient(160deg,#e9f7ef,#f6f3ea);display:flex;justify-content:center;padding-top:18px;overflow:hidden}
+.mk .im i{width:62%;aspect-ratio:300/599;border-radius:18px 18px 0 0;border:3px solid #111;border-bottom:0;background-size:cover;background-position:top;box-shadow:0 20px 30px -18px rgba(0,0,0,.4)}
+.mk figcaption{padding:14px 16px 16px}
+.mk b{display:block;font-size:15px}
+.mk small{color:var(--sub);font-size:12px}
+/* msg */
+.msgdemo{background:#8cabd9;border-radius:26px;padding:22px 18px;max-width:380px;margin:0 auto;box-shadow:0 30px 50px -30px rgba(20,40,80,.5)}
+.msgdemo .t{font-size:11px;color:#fff;text-align:center;margin-bottom:12px;opacity:.9}
+.sm{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:12px}
+.sm .h{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid #eee;font-size:11.5px;font-weight:800}
+.sm .h i{width:20px;height:20px;border-radius:6px;background:var(--brand);color:#fff;display:grid;place-items:center;font:800 10px Inter;font-style:normal}
+.sm .bd{padding:12px 14px;font-size:13px;line-height:1.7}
+.sm .bd b{display:block;font-size:15px;margin-bottom:4px}
+.sm .kv{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);border-top:1px solid #f1f1f1;padding-top:6px;margin-top:6px}
+.sm .bt{display:block;text-align:center;padding:10px;border-top:1px solid #eee;color:#2f6fd1;font-weight:800;font-size:13px}
+/* price */
+.pr{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+.pr table{width:100%;border-collapse:collapse}
+.pr td,.pr th{padding:14px 4px;border-bottom:1px solid #eef3f0;text-align:left;font-size:14px}
+.pr td{text-align:right;white-space:nowrap}
+.pr td b{font:800 20px Inter,"Noto Sans JP",sans-serif}
+.pr small{display:block;color:var(--sub);font-weight:400;font-size:12px}
+.badge{display:inline-block;font-size:11px;font-weight:800;border-radius:6px;padding:2px 8px;background:#fff3d6;color:#8a5a00;margin-left:6px;vertical-align:2px}
+/* steps */
+.st{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;counter-reset:s}
+.st>div{background:#fff;border:1px solid #e3eee8;border-radius:20px;padding:20px 16px;position:relative}
+.st>div:before{counter-increment:s;content:counter(s,decimal-leading-zero);font:italic 600 26px/1 Montserrat,Inter,sans-serif;color:var(--ln-d);display:block;margin-bottom:10px}
+.st b{display:block;font-size:15px;margin-bottom:4px}
+.st p{margin:0;font-size:12.5px;color:var(--sub);line-height:1.8}
+.st .tag{display:inline-block;margin-top:8px;font-size:11px;font-weight:800;border-radius:999px;padding:2px 10px;background:var(--soft);color:var(--ln-d)}
+/* faq */
+.faq{max-width:780px;margin:0 auto}
+details{background:#fff;border:1px solid #e3eee8;border-radius:16px;margin-bottom:10px;padding:0 20px}
+summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:800;font-size:15px;display:flex;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary:before{content:"Q";color:var(--ln-d);font:800 16px Inter}
+summary:after{content:"+";margin-left:auto;color:var(--sub);font-size:20px;line-height:1}
+details[open] summary:after{content:"−"}
+details p{margin:0 0 18px;color:var(--sub);font-size:14px;line-height:1.9}
+/* final */
+.fin{background:linear-gradient(135deg,#05301b,#0b5a33 55%,#06c755);color:#fff;text-align:center;border-radius:32px;padding:64px 24px;margin:0 22px}
+.fin h2{font-size:clamp(26px,3.6vw,40px);font-weight:900;margin:0 0 12px;line-height:1.45}
+.fin p{opacity:.85;margin:0 0 26px}
+.fin .b1{background:#fff;color:var(--ln-d);box-shadow:none}
+.foot{text-align:center;padding:50px 22px 120px;font-size:12.5px;color:var(--sub)}
+.foot nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-bottom:14px}
+.foot nav a{text-decoration:none;font-weight:700}
+.foot img{height:20px;width:auto;margin:0 auto 8px}
+/* mobile floating */
+.fb{display:none}
+@media(max-width:860px){
+ .hd nav{display:none}.hd .cta{margin-left:auto;height:36px;padding:0 14px;font-size:12px}
+ .hero{padding:96px 0 40px}
+ .hero .w{grid-template-columns:1fr;gap:10px}
+ .hero h1{font-size:clamp(32px,9vw,42px)}
+ .hero .sub{font-size:14.5px}
+ .stage{height:540px;margin-top:10px}
+ .ph{width:250px;height:520px}
+ .fl{transform:scale(.9)}.fl.a{left:-6px}.fl.b{right:-10px}
+ section{padding:68px 0}
+ .g3,.g2,.what,.pr{grid-template-columns:1fr}
+ .mk{grid-template-columns:1fr 1fr;gap:10px}
+ .st{grid-template-columns:1fr}
+ .btns a{width:100%}
+ .fin{margin:0 14px;padding:48px 20px;border-radius:24px}
+ .fb{display:flex;position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;gap:8px;transform:translateY(160%);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+ .fb.on{transform:none}
+ .fb a{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:999px;font-weight:800;font-size:14px;text-decoration:none}
+ .fb .g{flex:0 0 auto;padding:0 18px;background:#fff;color:var(--ink);box-shadow:0 12px 28px -14px rgba(0,0,0,.4),inset 0 0 0 1px rgba(0,0,0,.06)}
+ .fb .m{background:var(--ln);color:#fff;box-shadow:0 14px 28px -12px rgba(4,165,72,.7)}
+}
+.pr th{word-break:keep-all;overflow-wrap:anywhere}
+@media(max-width:860px){.pr td small{white-space:normal}.ph .shot{background-position:0 -28px!important}
+ .tw:after{content:"表は横にスクロールできます ›";display:block;text-align:right;font-size:11px;color:var(--sub);margin-top:6px}
+ table.cmp{min-width:560px}.cmp th,.cmp td{padding:12px 8px;font-size:12.5px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="ln" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></symbol>
+ <symbol id="dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 18v2h16v-2"/><path d="M3 3l18 18"/></symbol>
+ <symbol id="key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></symbol>
+ <symbol id="bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+ <symbol id="users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
+ <symbol id="home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="3"/><path d="M10 18.5h4"/><path d="M9 9h6v5H9z"/></symbol>
+ <symbol id="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
+ <symbol id="yen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l6 8 6-8M12 12v8M8 13h8M8 17h8"/></symbol>
+ <symbol id="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+</svg>
+
+<header class="hd" id="hd"><div class="w"><a class="lg" href="../"><img src="../logo.png" alt="サクアプ" width="800" height="195"></a>
+ <nav aria-label="ページ内メニュー"><a href="#what">LINEミニアプリとは</a><a href="#make">作れるもの</a><a href="#price">料金</a><a href="#flow">流れ</a><a href="#faq">FAQ</a></nav>
+ <a class="cta" href="../contact/?from=line&amp;svc=LINE"><svg class="lnic"><use href="#ln"/></svg>無料で相談</a></div></header>
+
+<main>
+<section class="hero"><div class="w">
+ <div>
+  <span class="pill"><i></i>LINEミニアプリ開発</span>
+  <h1><span class="nw">アプリは、</span><span class="nw"><em>LINEの中</em>に</span><span class="nw">作る時代へ。</span></h1>
+  <p class="sub">ダウンロードも会員登録もいらない。お客様がいつも使っているLINEの中で、会員証・予約・注文・クーポンが使える<span class="nw">お店専用のミニアプリ</span>を作ります。</p>
+  <div class="price"><small>初期費用</small><b>19,800</b><span>円〜</span><em>12回払いなら月々 約1,650円〜（カード会社の分割手数料は別途）・ 追加機能は1文字0.5円</em></div>
+  <div class="btns"><a class="b1" href="../contact/?from=line&amp;svc=LINE"><svg class="lnic" style="width:22px;height:22px"><use href="#ln"/></svg>【無料】LINEで相談する</a><a class="b2" href="#make">作れるものを見る ›</a></div>
+  <ul class="chk"><li>ダウンロード不要</li><li>LINEログインで登録いらず</li><li>申請・審査の代行もOK</li></ul>
+ </div>
+ <div class="stage" aria-hidden="true">
+  <div class="ph"><span class="isl"></span><div class="sc"><div class="lbar"><span class="ic">L</span>Lumen 会員証<span class="r"><i>···</i><i>✕</i></span></div><div class="shot" style="background-image:url(../features/img/app1.webp);background-size:100% auto;background-position:0 -34px"></div></div></div>
+  <div class="fl a"><span class="ico" style="background:var(--ln)"><svg class="lnic" style="width:20px;height:20px"><use href="#ln"/></svg></span><span><b>LINEで開くだけ</b><small>アプリのダウンロード不要</small></span></div>
+  <div class="fl b"><span class="ico" style="background:#2f6fd1"><svg style="width:18px;height:18px"><use href="#bell"/></svg></span><span><b>ご予約の確認</b><small>明日 14:00 ・ サービスメッセージ</small></span></div>
+  <div class="fl c"><span class="ico" style="background:#f4a63a"><svg style="width:18px;height:18px"><use href="#chk"/></svg></span><span><b>スタンプ +1</b><small>あと2個でドリンク無料</small></span></div>
+ </div>
+</div></section>
+
+<section class="white" id="what"><div class="w what">
+ <div>
+  <p class="ey">WHAT IS</p>
+  <h2 class="h2"><span class="nw">LINEミニアプリとは</span></h2>
+  <p class="lead" style="margin-bottom:22px">LINEのアプリの中で動く、お店専用のアプリです。お客様はQRコードを読み取るか、トークのリンクを押すだけで使いはじめられます。</p>
+  <div class="flow3"><div><b>📱</b>QR・リンクを<br>タップ</div><span>›</span><div><b>✓</b>LINEで<br>そのまま開く</div><span>›</span><div><b>★</b>会員証・予約を<br>すぐ使える</div></div>
+ </div>
+ <div class="g2">
+  <div class="card"><span class="ic2"><svg><use href="#dl"/></svg></span><h3>ダウンロード不要</h3><p>アプリストアでの検索やインストールがいりません。使いはじめるまでの離脱が減ります。</p></div>
+  <div class="card"><span class="ic2"><svg><use href="#key"/></svg></span><h3>会員登録がかんたん</h3><p>LINEのアカウントでそのままログイン。お名前やパスワードの入力を省けます。</p></div>
+  <div class="card"><span class="ic2"><svg><use href="#bell"/></svg></span><h3>LINEにお知らせが届く</h3><p>予約の確認や受け取りのお知らせを、LINEのトークに届けられます（サービスメッセージ）。</p></div>
+  <div class="card"><span class="ic2"><svg><use href="#users"/></svg></span><h3>友だち追加につながる</h3><p>ミニアプリを開いたお客様に、お店のLINE公式アカウントの友だち追加をご案内できます。</p></div>
+ </div>
+</div></section>
+
+<section><div class="w">
+ <div class="ctr"><p class="ey">COMPARE</p><h2 class="h2"><span class="nw">ふつうのアプリより、</span><span class="nw">ずっと始めやすい。</span></h2><p class="lead">お客様の「使いはじめる手間」と、お店の「つくる・続ける負担」をくらべました。</p></div>
+ <div class="tw"><table class="cmp">
+  <thead><tr><th></th><th class="me">LINEミニアプリ</th><th>ふつうのアプリ</th><th>Webサイト</th></tr></thead>
+  <tbody>
+   <tr><th>お客様が使いはじめる</th><td class="me">QR・リンクから<span class="o">すぐ</span></td><td>ストアでダウンロード</td><td>URLを開く</td></tr>
+   <tr><th>会員登録</th><td class="me">LINEでログイン</td><td>メール・パスワード</td><td>メール・パスワード</td></tr>
+   <tr><th>お知らせ</th><td class="me">LINEのトークに届く</td><td>プッシュ通知</td><td><span class="x">基本なし</span></td></tr>
+   <tr><th>ストアの審査</th><td class="me">不要（LINEの審査のみ）</td><td>App Store・Google Play</td><td><span class="x">—</span></td></tr>
+   <tr><th>初期費用の目安</th><td class="me">19,800円〜</td><td>数十万円〜</td><td>数万円〜</td></tr>
+  </tbody>
+ </table></div>
+ <p style="font-size:12px;color:var(--sub);margin:10px 0 0">※ふつうのアプリ・Webサイトの費用は一般的な目安です。内容や会社によって異なります。</p>
+</div></section>
+
+<section class="white" id="make"><div class="w">
+ <div class="ctr"><p class="ey">EXAMPLES</p><h2 class="h2"><span class="nw">LINEミニアプリで、</span><span class="nw">こんなことができます。</span></h2><p class="lead">業種や目的に合わせて、必要な機能だけを組み合わせて作ります。</p></div>
+ <div class="mk">
+  <figure><div class="im"><i style="background-image:url(../features/img/app1.webp)"></i></div><figcaption><b>デジタル会員証・スタンプ</b><small>カフェ・パン屋・小売店</small></figcaption></figure>
+  <figure><div class="im"><i style="background-image:url(../features/img/app0.webp)"></i></div><figcaption><b>予約・リマインド</b><small>サロン・整体・教室</small></figcaption></figure>
+  <figure><div class="im"><i style="background-image:url(../features/img/app6.webp)"></i></div><figcaption><b>テイクアウト・事前注文</b><small>飲食店・お弁当</small></figcaption></figure>
+  <figure><div class="im"><i style="background-image:url(../features/img/app4.webp)"></i></div><figcaption><b>回数券・チケット</b><small>整体・スクール・イベント</small></figcaption></figure>
+ </div>
+ <p class="ctr" style="margin:26px 0 0"><a class="b2" href="../templates/" style="display:inline-flex">テンプレートを操作してみる ›</a></p>
+</div></section>
+
+<section><div class="w g2" style="align-items:center;gap:40px">
+ <div>
+  <p class="ey">MESSAGE</p>
+  <h2 class="h2"><span class="nw">大事なお知らせは、</span><span class="nw">LINEのトークに。</span></h2>
+  <p class="lead" style="margin-bottom:20px">予約の確定や前日のリマインド、注文の受け取りのお知らせを、お客様がいちばん見ているLINEに届けられます。メールのように埋もれません。</p>
+  <ul class="chk" style="flex-direction:column;gap:8px;font-size:14px"><li>予約の確定・前日のリマインド</li><li>注文の受付・できあがりのお知らせ</li><li>回数券の有効期限のお知らせ</li></ul>
+  <p style="font-size:12px;color:var(--sub);margin:16px 0 0">※サービスメッセージは、LINEの審査を通過した「認証済ミニアプリ」で使える機能です。</p>
+ </div>
+ <div class="msgdemo" aria-hidden="true">
+  <div class="t">LINEミニアプリ通知</div>
+  <div class="sm"><div class="h"><i>S</i>Salon sora</div><div class="bd"><b>ご予約が確定しました</b>11月8日（土）14:00<div class="kv"><span>メニュー</span><span>カット＋カラー</span></div><div class="kv"><span>担当</span><span>佐藤</span></div></div><span class="bt">予約内容を見る</span></div>
+  <div class="sm"><div class="h"><i style="background:#e2572b">ま</i>まんぷく亭</div><div class="bd"><b>できあがりました</b>受け取り番号 #031 ・ 店頭でお受け取りください</div><span class="bt">注文を確認する</span></div>
+ </div>
+</div></section>
+
+<section class="white" id="price"><div class="w">
+ <div class="ctr"><p class="ey">PRICE</p><h2 class="h2"><span class="nw">料金は、</span><span class="nw">オーダーメイドと同じです。</span></h2><p class="lead">基本料金＋追加機能の文字数だけ。見積もりの時点で金額をお出しします。</p></div>
+ <div class="pr">
+  <div class="card"><table>
+   <tr><th>かんたんWebサービス<small>ログイン・管理画面のある基本の形</small></th><td><b>19,800</b>円〜<small>12回なら月々 約1,650円〜</small></td></tr>
+   <tr><th>SNS<small>投稿・フォロー・コミュニティ</small></th><td><b>29,800</b>円〜</td></tr>
+   <tr><th>マッチング<small>人と人、人と仕事をつなぐ</small></th><td><b>49,800</b>円〜</td></tr>
+   <tr><th>ネットショップ<small>商品・カート・決済</small></th><td><b>69,800</b>円〜</td></tr>
+  </table></div>
+  <div style="display:grid;gap:14px">
+   <div class="card"><span class="ic2"><svg><use href="#yen"/></svg></span><h3 style="margin-top:12px">追加機能　1文字 0.5円</h3><p>会員証・予約・クーポン・サービスメッセージなど、必要な機能をプログラムの文字数で計算します。</p></div>
+   <div class="card"><span class="ic2"><svg><use href="#chk"/></svg></span><h3 style="margin-top:12px">LINEの申請・審査の代行<span class="badge">別途お見積もり</span></h3><p>LINE Developersでのチャネル作成や設定、審査への提出と修正対応をまとめて代行します。ご自身で行う場合は手順をご案内します。</p></div>
+  </div>
+ </div>
+ <p style="font-size:12px;color:var(--sub);margin:14px 0 0">※LINE公式アカウントのメッセージ配信料金や、決済サービスの手数料は、それぞれのサービスに直接お支払いいただきます。運用保守プラン（任意）は月額1,980円です。</p>
+</div></section>
+
+<section id="flow"><div class="w">
+ <div class="ctr"><p class="ey">FLOW</p><h2 class="h2"><span class="nw">ご相談から、</span><span class="nw">LINEで公開するまで。</span></h2><p class="lead">審査がある分、ふつうのWebサービスより少し期間に余裕を見てください。</p></div>
+ <div class="st">
+  <div><b>無料相談</b><p>やりたいことをざっくりお聞きします。</p><span class="tag">無料</span></div>
+  <div><b>お見積もり</b><p>基本料金と追加機能の文字数で金額を出します。</p><span class="tag">無料</span></div>
+  <div><b>開発</b><p>AIと進めて、短い期間で形にします。</p><span class="tag">1週間〜1ヶ月</span></div>
+  <div><b>LINEで公開</b><p>まず「未認証ミニアプリ」として公開し、実際に使えます。</p><span class="tag">すぐ使える</span></div>
+  <div><b>審査・認証</b><p>LINEの審査を通ると、サービスメッセージなどが使えます。</p><span class="tag">審査は目安1〜2週間</span></div>
+ </div>
+ <p style="font-size:12px;color:var(--sub);margin:12px 0 0">※審査の期間は目安です。LINEの審査状況によって変わります。</p>
+</div></section>
+
+<section class="white" id="faq"><div class="w">
+ <div class="ctr"><p class="ey">FAQ</p><h2 class="h2">よくある質問</h2></div>
+ <div class="faq">
+  <details open><summary>LINE公式アカウントがなくても作れますか？</summary><p>作れます。ミニアプリの公開には、LINEのビジネス用の手続き（LINE Developersのアカウントなど）が必要です。まだの方は、作り方からご案内します。友だち追加につなげたい場合は、LINE公式アカウントもあわせて開設するのがおすすめです。</p></details>
+  <details><summary>審査に通らないと使えませんか？</summary><p>審査の前でも「未認証ミニアプリ」として公開して使えます。サービスメッセージ（LINEへのお知らせ）やホーム画面への追加など、一部の機能は審査を通って「認証済ミニアプリ」になってから使えます。</p></details>
+  <details><summary>今のお店のLINE公式アカウントと連携できますか？</summary><p>できます。ミニアプリを開いたお客様に、お店のアカウントの友だち追加をご案内したり、リッチメニューからミニアプリを開けるようにしたりできます。</p></details>
+  <details><summary>あとから機能を追加できますか？</summary><p>できます。必要になったタイミングで、追加機能（1文字0.5円）としてお見積もりします。</p></details>
+  <details><summary>LINE以外からも使えるようにできますか？</summary><p>ご希望に応じて、ブラウザから開けるWeb版を用意することもできます。くわしくはご相談ください。</p></details>
+ </div>
+</div></section>
+
+<section style="padding-top:20px"><div class="fin">
+ <h2><span class="nw">お客様のLINEに、</span><span class="nw">あなたのお店を。</span></h2>
+ <p>相談も、最初の見積もりも無料です。ざっくりしたアイデアで大丈夫です。</p>
+ <a class="b1" href="../contact/?from=line&amp;svc=LINE"><svg class="lnic" style="width:22px;height:22px"><use href="#ln"/></svg>【無料】LINEで相談する</a>
+</div></section>
+</main>
+
+<footer class="foot">
+ <nav><a href="../">オーダーメイド開発</a><a href="../menu/">モバイルメニュー</a><a href="../salon/">サロン予約</a><a href="./">LINEミニアプリ</a><a href="../templates/">テンプレート</a><a href="../features/">機能一覧</a><a href="../guide/">サービス資料</a><a href="../terms.html">利用規約</a><a href="../privacy.html">プライバシーポリシー</a><a href="../tokushoho.html">特定商取引法に基づく表記</a></nav>
+ <img src="../logo.png" alt="サクアプ" width="800" height="195"><span>© 2026 knotscheme</span>
+ <p style="font-size:11px;margin:10px 0 0">LINEはLINEヤフー株式会社の商標または登録商標です。</p>
+</footer>
+
+<div class="fb" id="fb"><a class="g" href="../guide/">資料</a><a class="m" href="../contact/?from=line&amp;svc=LINE"><svg class="lnic" style="width:20px;height:20px"><use href="#ln"/></svg>LINEで無料相談</a></div>
+<script>
+(function(){var h=document.getElementById("hd"),fb=document.getElementById("fb");function u(){var y=scrollY;h.classList.toggle("on",y>20);fb.classList.toggle("on",y>500)}addEventListener("scroll",u,{passive:true});u()})();
+</script>
+<script src="../js/budoux.js" defer></script>
+</body>
+</html>

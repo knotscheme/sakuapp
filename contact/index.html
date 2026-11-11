@@ -78,6 +78,7 @@ textarea{min-height:120px;resize:vertical}
     <label><input type="radio" name="svc" value="テンプレートから作りたい"><span>テンプレートから作りたい</span></label>
     <label><input type="radio" name="svc" value="飲食店向け モバイルメニュー"><span>飲食店のモバイルメニュー</span></label>
     <label><input type="radio" name="svc" value="サロン向け 予約・カルテ"><span>サロンの予約・カルテ</span></label>
+    <label><input type="radio" name="svc" value="LINEミニアプリ"><span>LINEミニアプリを作りたい</span></label>
     <label><input type="radio" name="svc" value="料金・見積もりについて"><span>料金・見積もりを知りたい</span></label>
     <label><input type="radio" name="svc" value="その他"><span>その他・まだ決まっていない</span></label>
    </div>
@@ -116,7 +117,7 @@ textarea{min-height:120px;resize:vertical}
 var LINE_ID="";
 var ADD_URL="https://lin.ee/vC2S0M9";
 var q=new URLSearchParams(location.search),from=q.get("from")||"",tpl=q.get("tpl")||"",svc=q.get("svc")||"",est=(q.get("est")||"").replace(/\u200B/g,"");
-var FROM={lp:"トップページ",menu:"飲食店向けページ",salon:"サロン向けページ",features:"機能一覧",guide:"サービス資料",tpl:"テンプレート一覧",demo:"デモ"};
+var FROM={lp:"トップページ",menu:"飲食店向けページ",salon:"サロン向けページ",features:"機能一覧",guide:"サービス資料",tpl:"テンプレート一覧",demo:"デモ",line:"LINEミニアプリのページ"};
 var f=document.getElementById("f"),pv=document.getElementById("pv");
 function pick(n){var r=f.querySelector('input[name="'+n+'"]:checked');return r?r.value:""}
 if(tpl){var r=f.querySelector('input[value="テンプレートから作りたい"]');r.checked=true;var t=document.getElementById("tplInfo");t.hidden=false;t.textContent="選んだテンプレート：「"+tpl+"」"}
