@@ -249,6 +249,62 @@ img{display:block;max-width:100%}
  .deck{max-width:none;padding:0;gap:0;display:block}
  .s{width:1280px;height:720px;aspect-ratio:auto;border-radius:0;box-shadow:none;break-after:page;page-break-after:always}
 }
+
+/* ===== horizontal deck (screen) ===== */
+@media screen{
+ html{scroll-snap-type:y mandatory;overscroll-behavior-y:none}
+ body{background:var(--bg)}
+ .hs{position:relative}
+ .snap{position:absolute;left:0;width:1px;height:100svh;scroll-snap-align:start;scroll-snap-stop:always;pointer-events:none}
+ .stage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column}
+ .bar{position:relative}
+ .bar .cnt{font:700 12px var(--en);color:var(--sub);white-space:nowrap}
+ .bar .cnt b{color:var(--ink)}
+ .deck{flex:1;min-height:0;max-width:none;margin:0;padding:0;display:flex;flex-direction:row;gap:0;will-change:transform}
+ .deck>.s{flex:none}
+ .pw{flex:0 0 100vw;width:100vw;height:100%;display:flex;align-items:center;justify-content:center;padding:14px 20px}
+ .nav{display:flex;align-items:center;gap:14px;padding:8px 20px 12px;justify-content:center}
+ .nav button{width:38px;height:38px;border-radius:50%;border:0;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font:700 20px/1 var(--en);color:var(--ink);cursor:pointer}
+ .nav button:disabled{opacity:.35;cursor:default}
+ .prog{flex:0 1 420px;height:4px;border-radius:99px;background:#e2d7c9;overflow:hidden}
+ .prog i{display:block;height:100%;width:0;background:var(--ink);border-radius:99px}
+ .hint{position:absolute;left:50%;bottom:62px;transform:translateX(-50%);margin:0;font-size:12px;font-weight:700;color:#fff;background:rgba(36,30,26,.82);border-radius:999px;padding:7px 14px;pointer-events:none;transition:opacity .4s;white-space:nowrap}
+ .hint.off{opacity:0}
+ .edit{position:absolute;top:58px;left:0;right:0;z-index:30;margin:0 auto}
+}
+@media screen and (min-width:861px){
+ .s{width:min(1120px,calc(100vw - 80px),calc((100svh - 150px)*16/9));box-shadow:0 30px 60px -36px rgba(60,40,20,.55)}
+}
+@media screen and (max-width:860px){
+ .pw{padding:10px 12px;align-items:center}
+ .s{width:calc(100vw - 24px);transform-origin:center}
+ .nav{padding:6px 16px 10px}
+ .hint{bottom:56px}
+}
+.nxh{margin:0;font-size:1.05cqw;font-weight:800;color:var(--sub);letter-spacing:.1em}
+.demo{display:flex;gap:1.4cqw;align-items:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:1.4cqw;padding:1.2cqw;margin-top:.6cqw}
+.demo img{width:9cqw;height:auto;flex:none}
+.demo b{display:block;font-size:1.35cqw}
+.demo small{display:block;font-size:1cqw;color:var(--sub)}
+.demo em{display:inline-block;margin-top:.8cqw;font-style:normal;font-size:1.1cqw;font-weight:800;color:#fff;background:var(--ink);border-radius:999px;padding:.4cqw 1.3cqw}
+@media (max-width:860px){.nxh{font-size:11px}.demo{gap:12px;border-radius:12px;padding:12px}.demo img{display:none}.demo b{font-size:14px}.demo small{font-size:11.5px}.demo em{font-size:12px;padding:5px 12px;margin-top:8px}}
+
+@media (max-width:860px){
+ .gwrap{overflow:visible;margin:0;padding:0}
+ .gt{min-width:0;grid-template-columns:1fr auto;column-gap:12px;row-gap:12px}
+ .gt .h,.gt>span:not([class]){display:none}
+ .gt .br{grid-column:auto!important;justify-content:center;min-width:96px;flex-direction:column;height:auto;padding:6px 10px;line-height:1.3}
+ .gt .br:before{content:attr(data-d);font-size:10px;font-weight:700;opacity:.85}
+ .tw{display:none}
+}
+@media print{
+ html{scroll-snap-type:none}
+ .hs{height:auto!important}.stage{position:static;height:auto;overflow:visible;display:block}
+ .snap,.nav,.hint,.cnt{display:none!important}
+ .deck{transform:none!important;display:block}
+ .pw{display:block;width:auto;height:auto;padding:0}
+ .s{zoom:1!important;width:1280px!important;height:720px!important}
+}
 </style>
 </head>
 <body>
@@ -260,11 +316,12 @@ img{display:block;max-width:100%}
  <symbol id="i-paper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
 </svg>
 
+<div class="hs" id="hs"><div class="stage" id="stage">
 <header class="bar">
  <a class="lg" href="../"><img src="../../logo.png" alt="サクアプ" width="800" height="195"></a>
  <span class="tt" data-v="title">ご提案資料</span>
  <button type="button" id="pdf"><svg><use href="#i-dl"/></svg>PDFで保存</button>
- <a class="b" href="../../contact/?from=menu-proposal&amp;svc=menu">LINEで相談</a>
+ <span class="cnt"><b id="cur">1</b> / <span id="tot">12</span></span>
 </header>
 
 <div class="edit" id="edit" hidden>
@@ -282,7 +339,7 @@ img{display:block;max-width:100%}
  </details>
 </div>
 
-<main class="deck">
+<main class="deck" id="deck">
 
 <!-- 1 cover -->
 <section class="s cover dark" aria-label="表紙">
@@ -443,11 +500,11 @@ img{display:block;max-width:100%}
  <div class="body" style="align-content:center">
   <div class="gwrap"><div class="gt">
    <span class="h">内容</span><span class="h">1日目</span><span class="h">2日目</span><span class="h">3日目</span><span class="h">4日目</span><span class="h">5日目</span><span class="h">6日目</span><span class="h">7日目</span><span class="h">8日目〜</span>
-   <span class="lb">ご相談<small>業態・席数・メニューを確認</small></span><span class="br b1" style="grid-column:2/3">LINE</span><span style="grid-column:3/10"></span>
-   <span class="lb">材料をいただく<small>メニュー表と写真（スマホで撮影）</small></span><span style="grid-column:2/3"></span><span class="br b2" style="grid-column:3/4">送るだけ</span><span style="grid-column:4/10"></span>
-   <span class="lb">画面づくり<small>テンプレート・メニュー登録</small></span><span style="grid-column:2/4"></span><span class="br b3" style="grid-column:4/7">こちらで作業</span><span style="grid-column:7/10"></span>
-   <span class="lb">確認・QRお渡し<small>お店のスマホで触って確認</small></span><span style="grid-column:2/7"></span><span class="br b2" style="grid-column:7/8">確認</span><span style="grid-column:8/10"></span>
-   <span class="lb">営業で使い始め<small>30日間は無料</small></span><span style="grid-column:2/9"></span><span class="br b5" style="grid-column:9/10">スタート</span>
+   <span class="lb">ご相談<small>業態・席数・メニューを確認</small></span><span class="br b1" data-d="1日目" style="grid-column:2/3">DMで</span><span style="grid-column:3/10"></span>
+   <span class="lb">材料をいただく<small>メニュー表と写真（スマホで撮影）</small></span><span style="grid-column:2/3"></span><span class="br b2" data-d="2日目" style="grid-column:3/4">送るだけ</span><span style="grid-column:4/10"></span>
+   <span class="lb">画面づくり<small>テンプレート・メニュー登録</small></span><span style="grid-column:2/4"></span><span class="br b3" data-d="3〜5日目" style="grid-column:4/7">こちらで作業</span><span style="grid-column:7/10"></span>
+   <span class="lb">確認・QRお渡し<small>お店のスマホで触って確認</small></span><span style="grid-column:2/7"></span><span class="br b2" data-d="6日目" style="grid-column:7/8">確認</span><span style="grid-column:8/10"></span>
+   <span class="lb">営業で使い始め<small>30日間は無料</small></span><span style="grid-column:2/9"></span><span class="br b5" data-d="8日目〜" style="grid-column:9/10">スタート</span>
   </div></div>
   <div class="leg" style="justify-content:flex-end"><span><i style="background:var(--gold)"></i>お店でしていただくこと（合計30分ほど）</span><span><i style="background:var(--red)"></i>サクアプで行うこと</span></div>
  </div>
@@ -483,17 +540,17 @@ img{display:block;max-width:100%}
    <p class="src" style="margin-top:1.2cqw">先行モニターの条件：最初の6か月のご継続・導入事例の掲載（飲食店 先着5店舗）。正式受付は2027年6月ごろから。</p>
   </div>
   <div class="nx">
-   <ol><li><i>1</i>LINEで「モバイルメニューの件」と送る</li><li><i>2</i>メニュー表と写真を送る</li><li><i>3</i>画面を確認して、スタート</li></ol>
-   <div class="q">
-    <div><img src="../../guide/line-qr.svg" alt="LINE友だち追加のQRコード" width="232" height="232"><b>LINEで相談</b></div>
-    <div><img src="qr-demo.svg" alt="デモ画面のQRコード" width="264" height="264"><b>デモを触る</b></div>
-   </div>
+   <p class="nxh">次のステップ</p>
+   <ol><li><i>1</i>このメッセージに、ご返信ください</li><li><i>2</i>メニュー表と写真を送る</li><li><i>3</i>画面を確認して、スタート</li></ol>
+   <a class="demo" href="../demo/" target="_blank" rel="noopener"><img src="qr-demo.svg" alt="" width="264" height="264"><span><b>先に、実際の画面を触ってみる</b><small>お客様の画面とお店の画面を操作できます</small><em>デモを開く ›</em></span></a>
   </div>
  </div>
  <span class="pg"><b>12</b> / 12</span>
 </section>
 </main>
-<p class="foot"><a href="../">モバイルメニューのページへ ›</a></p>
+<nav class="nav" aria-label="ページ送り"><button type="button" id="prev" aria-label="前のページ">‹</button><div class="prog"><i id="progbar"></i></div><button type="button" id="next" aria-label="次のページ">›</button></nav>
+<p class="hint" id="hint">スクロールで次のページへ</p>
+</div></div>
 
 <script>
 (function(){
@@ -553,6 +610,7 @@ function render(){
  document.title=V.title+"｜サクアプ";
  var hg="",nH=Math.min(Math.round(hm),100),tot=Math.max(50,Math.ceil(nH/10)*10);for(var i=0;i<tot;i++)hg+='<i'+(i<nH?' class="on"':'')+'></i>';$("hg").innerHTML=hg;
  roiChart(ymY);
+ if(window.__fit)window.__fit();
 }
 var map={shop:"in-shop",tables:"in-tables",orders:"in-orders",min:"in-min",days:"in-days",wage:"in-wage"};
 Object.keys(map).forEach(function(k){var el=$(map[k]);el.value=k==="shop"?S.shop:S[k];el.addEventListener("input",function(){
@@ -565,6 +623,47 @@ $("cp").addEventListener("click",function(){
 });
 $("pdf").addEventListener("click",function(){window.print()});
 render();
+})();
+</script>
+
+<script>
+(function(){
+var deck=document.getElementById("deck"),hs=document.getElementById("hs"),stage=document.getElementById("stage");
+var slides=[].slice.call(deck.querySelectorAll(":scope>.s")),N=slides.length;
+slides.forEach(function(s){var w=document.createElement("div");w.className="pw";s.parentNode.insertBefore(w,s);w.appendChild(s)});
+var snaps=[];for(var i=0;i<N;i++){var d=document.createElement("div");d.className="snap";d.style.top=(i*100)+"svh";hs.appendChild(d);snaps.push(d)}
+document.getElementById("tot").textContent=N;
+if(matchMedia("(pointer:coarse)").matches)document.getElementById("hint").textContent="上にスワイプして次のページへ";
+var mq=matchMedia("(max-width:860px)"),cur=-1,hint=document.getElementById("hint");
+function step(){return snaps.length>1?snaps[1].offsetTop-snaps[0].offsetTop:innerHeight}
+function size(){hs.style.height="calc("+N+"*100svh)";fit();upd()}
+function fit(){
+ var pw=deck.querySelector(".pw"),avail=pw?pw.clientHeight-20:innerHeight;
+ var W=(pw?pw.clientWidth:innerWidth)-24;
+ slides.forEach(function(s){s.style.zoom="";s.style.width="";if(!mq.matches)return;var z=1;
+  for(var k=0;k<3;k++){s.style.zoom="";s.style.width=(W/z)+"px";var h=s.getBoundingClientRect().height;var nz=Math.min(1,avail/h);if(Math.abs(nz-z)<.01){z=nz;break}z=nz}
+  s.style.width=(W/z)+"px";s.style.zoom=z<1?z.toFixed(3):"";
+  if(z<1&&s.getBoundingClientRect().height*z>avail+2){var z2=avail/s.getBoundingClientRect().height;s.style.zoom=z2.toFixed(3);s.style.width=(W/z2)+"px"}});
+}
+function upd(){
+ var st=step(),p=Math.max(0,Math.min(N-1,(scrollY-hs.offsetTop)/st));
+ deck.style.transform="translate3d("+(-p*100)+"vw,0,0)";
+ var c=Math.round(p);if(c!==cur){cur=c;document.getElementById("cur").textContent=c+1;document.getElementById("prev").disabled=c===0;document.getElementById("next").disabled=c===N-1}
+ document.getElementById("progbar").style.width=((p/(N-1))*100)+"%";
+ if(p>.3)hint.classList.add("off");
+}
+function go(i){i=Math.max(0,Math.min(N-1,i));scrollTo({top:hs.offsetTop+i*step(),behavior:"smooth"})}
+document.getElementById("prev").onclick=function(){go(cur-1)};
+document.getElementById("next").onclick=function(){go(cur+1)};
+addEventListener("keydown",function(e){if(/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==="ArrowRight"||e.key==="PageDown"){e.preventDefault();go(cur+1)}else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();go(cur-1)}});
+addEventListener("scroll",function(){requestAnimationFrame(upd)},{passive:true});
+addEventListener("resize",size);
+window.__fit=fit;
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+setTimeout(fit,800);setTimeout(fit,2000);
+size();
+addEventListener("beforeprint",function(){slides.forEach(function(s){s.style.zoom=""})});
+addEventListener("afterprint",fit);
 })();
 </script>
 <script src="../../js/budoux.js" defer></script>
