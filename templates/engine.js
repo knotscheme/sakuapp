@@ -89,7 +89,12 @@ var Engine=(function(){
   var dark=app.dark&&app.dark[t.id];
   view.innerHTML='<div class="sbar" style="'+(dark?'color:#fff;position:absolute;left:0;right:0;top:0':'')+'"><span>9:41</span><i><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="7" rx=".8"/><rect x="10" y="2.5" width="3" height="9.5" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="18" height="8" rx="2"/><rect x="24.5" y="4" width="1.6" height="4" rx=".8" opacity=".4"/></svg></i></div>'+
    '<div class="scr" data-k="'+esc(k)+'">'+html+(noTab?'':'<div class="gap"></div>')+'</div>'+(noTab?'':tabbar());
-  var nw=view.querySelector('.scr');nw.scrollTop=y;
+  var nw=view.querySelector('.scr');
+  /* iOS Safari: sticky inside a scaled container paints in the wrong place, so dock header/CTA outside the scroll area */
+  var h0=nw.firstElementChild;if(h0&&h0.classList.contains('hd')){h0.classList.add('dock');view.insertBefore(h0,nw)}
+  var tb=view.querySelector('.tbar');
+  [].forEach.call(nw.querySelectorAll(':scope > .cta,:scope > .composer'),function(c){if(c.style.position==='static')return;c.classList.add('dock');view.insertBefore(c,tb||null);nw.style.paddingBottom=(c.offsetHeight-(tb?96:0))+'px'});
+  nw.scrollTop=y;
   if(!keep){nw.classList.add('fade')}
   if(fin){var el=view.querySelector('[data-in="'+fin+'"]');if(el){el.focus();try{el.setSelectionRange(ss,ss)}catch(e){}}}
   if(app.mount)app.mount(t.id,view,S,E);

@@ -168,6 +168,13 @@ input,textarea,select{font:inherit;color:inherit}
 .kpi small{font-size:11px;color:var(--sub);font-weight:700}
 .kpi b{display:block;font:700 22px Inter,"Noto Sans JP";margin-top:4px}
 .up{font:700 11px Inter;color:#1a9a62}.dn{font:700 11px Inter;color:#d0503a}
+
+.hd{position:relative;top:auto;background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}
+.hd.dock{flex:none;z-index:6}
+.cta.dock{position:absolute;left:0;right:0;bottom:0;z-index:15}
+.cta.tb.dock{padding-bottom:96px}
+.composer.dock{position:absolute;left:0;right:0;bottom:0;z-index:15}
+.cta:not(.dock),.composer:not(.dock){position:relative;bottom:auto}
 </style>
 </head>
 <body>
