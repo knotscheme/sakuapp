@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f7fbf8">
-<title>サクアプ LINEミニアプリ｜LINEの中で動く、お店専用のアプリ</title>
-<meta name="description" content="ダウンロードも会員登録もいらない。お客様がいつも使うLINEの中で、会員証・予約・注文・クーポンが使えるお店専用のLINEミニアプリを、19,800円から作ります。">
+<title>サクアプ LINEミニアプリ｜LINEを開けば、お店がある。</title>
+<meta name="description" content="ダウンロードも会員登録もいらない。LINEのトークのリッチメニューから、会員証・予約・注文がそのまま開く。お店専用のLINEミニアプリを19,800円から作ります。">
 <link rel="canonical" href="https://knotscheme.github.io/sakuapp/line/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="サクアプ">
-<meta property="og:title" content="サクアプ LINEミニアプリ｜LINEの中で動く、お店専用のアプリ">
-<meta property="og:description" content="ダウンロード不要。LINEの中で動く、お店専用のミニアプリを19,800円から。">
+<meta property="og:title" content="サクアプ LINEミニアプリ｜LINEを開けば、お店がある。">
+<meta property="og:description" content="LINEの中で動く、お店専用のミニアプリを19,800円から。">
 <meta property="og:url" content="https://knotscheme.github.io/sakuapp/line/">
 <meta property="og:image" content="https://knotscheme.github.io/sakuapp/ogp.jpg">
 <meta property="og:locale" content="ja_JP">
@@ -1065,91 +1065,75 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 @media(max-width:860px){.sticky{bottom:calc(14px + env(safe-area-inset-bottom,0px))!important}.sticky .p{border-radius:10px}}
 .sticky .p{line-height:1.3!important;gap:2px}.sticky .p br{display:none}.sticky .p b{display:block;line-height:1.2}
 
-/* ===== LINE mini app LP (built on the salon design system) ===== */
+/* ===== LINE mini app LP v2 ===== */
 :root{--blue:#0a8f45;--blue-d:#077337;--blue-l:#dcf2e5;--yel:#f4c04e;--yel-d:#e2ab2f;--gold:#8ab894;--ink:#13261c;--ink2:#3c5146;--muted:#6c7f74;--line:#d9ebe0;--panel:#eaf5ee;--bg:#f7fbf8;--lg:#06c755}
 body{background:var(--bg)}
-.chap .bgw{color:#e2f1e7}
-.contact .bgw{color:rgba(255,255,255,.05)}
+main>section{overflow-x:clip}
+.chap .bgw{color:#e0f0e6}
+.contact{background:#0f2a1d!important}.contact .bgw{color:rgba(255,255,255,.05)}
+.sfoot{background:#0b2016!important}
+.sfoot .tm{font-size:11px;opacity:.6;text-align:center;margin:0;padding:0 20px 24px}
 .lbl-en{font:800 15px var(--en);letter-spacing:.14em;color:var(--blue)}
 header .logo span{white-space:nowrap}
 .li{width:20px;height:20px;flex:none}
-.btn.lnb{background:var(--lg)}
-.btn.lnb:hover{background:#05b04b}
+.btn.lnb{background:var(--lg)}.btn.lnb:hover{background:#05b04b}
 /* hero */
-.lh{position:relative;padding:150px 0 90px;overflow:hidden;background:radial-gradient(120% 90% at 90% 0%,#d6f3e2 0,transparent 55%),radial-gradient(80% 70% at 0% 100%,#e8f5ef 0,transparent 60%),var(--bg)}
-.lh-g{display:grid;grid-template-columns:1.02fr .98fr;gap:30px;align-items:center}
+.lh{position:relative;padding:150px 0 100px;overflow:hidden;background:radial-gradient(120% 90% at 92% 0%,#d3f2df 0,transparent 55%),radial-gradient(80% 70% at 0% 100%,#e8f5ef 0,transparent 60%),var(--bg)}
+.lh-g{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
 .lh .eyebrow{display:inline-flex;gap:10px;align-items:center;font-size:13px;font-weight:700;color:var(--blue)}
 .lh .eyebrow span{background:var(--blue);color:#fff;border-radius:6px;padding:3px 10px;font-size:12px}
-.lh-t{font-size:clamp(38px,5.4vw,66px);line-height:1.28;font-weight:900;letter-spacing:.02em;margin:20px 0 14px}
-.lh-t>span{display:block;overflow:hidden}
+.lh-t{font-size:clamp(38px,4.6vw,62px);line-height:1.22;font-weight:900;letter-spacing:.02em;margin:20px 0 16px}
+.lh-t>span{display:block;overflow:hidden;padding-bottom:.04em}
 .lh-t i{font-style:normal;display:inline-block;animation:lup 1s cubic-bezier(.2,.8,.2,1) both}
-.lh-t>span:nth-child(2) i{animation-delay:.12s}.lh-t>span:nth-child(3) i{animation-delay:.24s}
-.lh-t em{font-style:normal;color:var(--blue);background:linear-gradient(transparent 64%,rgba(6,199,85,.22) 64%)}
+.lh-t>span:nth-child(2) i{animation-delay:.14s}
+.lh-t em{font-style:normal;color:var(--blue);background:linear-gradient(transparent 66%,rgba(6,199,85,.22) 66%)}
 @keyframes lup{from{transform:translateY(105%)}}
 .lh-s{font-size:clamp(17px,1.8vw,21px);font-weight:800;margin:0 0 12px}
 .lh .lede{color:var(--ink2);font-size:15px;line-height:2;max-width:31em;margin:0 0 28px}
 .lh .ctas{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.lh .hfacts{list-style:none;display:flex;gap:0;margin:32px 0 0;padding:0}
+.lh .hfacts{list-style:none;display:flex;margin:32px 0 0;padding:0}
 .lh .hfacts li{padding:0 22px;border-left:1px solid var(--line)}.lh .hfacts li:first-child{padding-left:0;border:0}
 .lh .hfacts small{display:block;font-size:11.5px;font-weight:700;color:var(--muted)}
 .lh .hfacts b{font:500 28px/1.2 var(--serif)}.lh .hfacts b span{font-size:12px;font-family:var(--sans);margin-left:2px}
 .lh .fine{font-size:11px;color:var(--muted);margin:14px 0 0}
-.lh-v{position:relative;height:640px}
-.lh-ph{position:absolute;right:0;top:20px;width:74%;height:560px;margin:0;border-radius:220px 220px 26px 26px;overflow:hidden;box-shadow:0 40px 70px -40px rgba(20,70,40,.45)}
-.lh-ph img{width:100%;height:100%;object-fit:cover;animation:kb 26s ease-in-out infinite alternate}
-.lh-ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,40,25,.35))}
-.lh-p{position:absolute;left:4%;top:40px;width:270px;z-index:3;animation:bob 6s ease-in-out infinite}
+.lh-v{position:relative;height:660px}
+.lh-ph{position:absolute;right:0;top:30px;width:70%;height:560px;margin:0;border-radius:220px 220px 26px 26px;overflow:hidden;box-shadow:0 40px 70px -40px rgba(20,70,40,.45)}
+.lh-ph img{width:100%;height:100%;object-fit:cover;object-position:30% 50%;animation:kb 26s ease-in-out infinite alternate}
+.lh-ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 30%,rgba(10,50,30,.35))}
+.lh-p{position:absolute;left:4%;top:0;width:300px;z-index:3}
+.lfc{position:absolute;z-index:4;display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:12px 16px 12px 12px;box-shadow:0 24px 40px -22px rgba(10,50,25,.5),0 0 0 1px rgba(0,0,0,.03);font-size:12px;line-height:1.45;animation:bob 7s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-10px)}}
-.lfc{position:absolute;z-index:4;display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:12px 16px 12px 12px;box-shadow:0 24px 40px -22px rgba(10,50,25,.5),0 0 0 1px rgba(0,0,0,.03);font-size:12px;line-height:1.45}
 .lfc b{display:block;font-size:13px}.lfc small{color:var(--muted);font-size:11px}
-.lfi{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;flex:none}
-.lfi svg{width:20px;height:20px}
-.lfi.g{background:var(--lg)}.lfi.b{background:#2f6fd1}.lfi.y{background:#f0a52e}
-.lfc.f1{right:6%;top:70px;animation:bob 7s ease-in-out infinite .4s}
-.lfc.f2{right:-2%;top:330px;animation:bob 6.5s ease-in-out infinite 1s}
-.lfc.f3{left:30%;bottom:16px;animation:bob 7.5s ease-in-out infinite .2s}
-/* LINE-framed phone */
-.lph{position:relative;border-radius:42px;background:linear-gradient(145deg,#2a2c30,#0e0f11 40%,#1d1f22);padding:8px;box-shadow:0 0 0 1px #3a3d42,0 50px 60px -30px rgba(10,40,20,.6)}
-.lph .isl{position:absolute;left:50%;top:15px;transform:translateX(-50%);width:30%;height:22px;border-radius:12px;background:#000;z-index:3}
-.lsc{position:relative;border-radius:34px;overflow:hidden;background:#fff;aspect-ratio:9/19;display:flex;flex-direction:column}
-.lbar{flex:none;display:flex;align-items:center;gap:7px;padding:42px 12px 9px;background:#fff;border-bottom:1px solid #eee;font-size:12px}
-.lbar b{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lbi{width:22px;height:22px;border-radius:7px;background:#7a4f2c;color:#fff;display:grid;place-items:center;font:800 11px var(--en);flex:none}
-.lbr{margin-left:auto;display:flex;gap:5px}
-.lbr i{font-style:normal;min-width:28px;height:22px;border-radius:11px;background:#f1f3f2;display:grid;place-items:center;font-size:11px;color:#555;padding:0 6px}
-.lshot{flex:1;background-size:100% auto;background-position:0 -9%;background-repeat:no-repeat}
-.lph.sm{border-radius:30px;padding:6px}.lph.sm .lsc{border-radius:25px}.lph.sm .lbar{padding:12px 10px 7px;font-size:10px}.lph.sm .lbi{width:18px;height:18px;font-size:9px}
-/* why */
-.why4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
-.wc{background:#fff;border-radius:22px;padding:26px 22px;box-shadow:0 24px 40px -36px rgba(10,50,25,.4)}
-.wi{width:50px;height:50px;border-radius:15px;background:var(--blue-l);color:var(--blue);display:grid;place-items:center;margin-bottom:16px}
-.wi svg{width:24px;height:24px}
-.wc b{display:block;font-size:17px;margin-bottom:6px}
-.wc p{margin:0;font-size:13.5px;color:var(--ink2);line-height:1.9}
-/* how */
-.how3{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:x}
-.how3 li{text-align:center;position:relative}
-.how3 li+li:before{content:"";position:absolute;left:-16px;top:150px;width:8px;height:8px;border-top:2px solid var(--blue);border-right:2px solid var(--blue);transform:rotate(45deg)}
-.hs{height:300px;display:flex;align-items:center;justify-content:center}
-.hs .lph{width:150px}
-.hq{display:none}
-.hqr{width:150px;height:150px;border-radius:22px;background:#fff;display:grid;place-items:center;font:800 13px var(--en);letter-spacing:.2em;color:var(--blue);box-shadow:0 24px 40px -26px rgba(10,50,25,.5);position:relative;background-image:radial-gradient(#13261c 22%,transparent 23%),radial-gradient(#13261c 22%,transparent 23%);background-size:12px 12px;background-position:0 0,6px 6px;padding:18px}
-.hqr:before{content:"";position:absolute;inset:34px;background:#fff;border-radius:10px}
-.hqr{color:transparent}
-.hqr:after{content:"QR";position:absolute;color:var(--blue)}
-.how3 em{display:block;font:italic 800 28px/1 var(--en);color:var(--blue);margin:18px 0 6px}
-.how3 b{font-size:16px}
-.how3 p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
-.lperm{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px;text-align:center;background:#f6f7f6}
-.lbi.big{width:46px;height:46px;border-radius:14px;font-size:18px}
-.lperm b{font-size:11px}.lperm small{font-size:8.5px;color:#777;line-height:1.5}
-.lok{margin-top:6px;background:var(--lg);color:#fff;border-radius:999px;padding:6px 18px;font-size:10px;font-weight:800}
+.lfi{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;flex:none}.lfi svg{width:20px;height:20px}.lfi.g{background:var(--lg)}
+.lfc.f2{right:2%;bottom:70px}
+/* story */
+.story{background:linear-gradient(180deg,#eef8f2,#f7fbf8)}
+.sh2{font-size:clamp(28px,4.4vw,48px);line-height:1.4;margin:6px 0 12px}
+.sp-l{color:var(--ink2);margin:0 auto 10px;max-width:36em}
+.st-g{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:40px;align-items:start}
+.st-ph{position:sticky;top:110px;display:flex;justify-content:center}
+.st-ph .ph2{width:330px}
+.st-l{list-style:none;margin:0;padding:18vh 0 22vh}
+.st-l li{padding:28px 30px;border-radius:22px;margin-bottom:36vh;background:#fff;opacity:.35;transition:opacity .4s,transform .4s,box-shadow .4s;transform:scale(.97);cursor:pointer}
+.st-l li:last-child{margin-bottom:0}
+.st-l li.on{opacity:1;transform:none;box-shadow:0 30px 50px -36px rgba(10,60,30,.45)}
+.st-l em{display:block;font:italic 800 34px/1 var(--en);color:var(--blue);margin-bottom:10px}
+.st-l b{display:block;font-size:21px;margin-bottom:8px}
+.st-l p{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.95}
+/* rich */
+.rm-g{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+.rtabs{display:inline-flex;flex-wrap:wrap;gap:6px;background:#fff;border-radius:999px;padding:5px;margin:22px 0 18px}
+.rtabs button{border:0;background:none;font:700 13.5px var(--sans);padding:9px 16px;border-radius:999px;color:var(--muted);cursor:pointer}
+.rtabs button.on{background:var(--ink);color:#fff}
+.rm-pt{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.rm-pt li{background:#fff;border-radius:16px;padding:14px 18px}
+.rm-pt b{display:block;font-size:14.5px}.rm-pt small{font-size:12px;color:var(--muted)}
+.rm-v{display:flex;justify-content:center}.rm-v .ph2{width:310px}
 /* make */
 .mk{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
-.mkc{display:block;background:#fff;border-radius:22px;padding:22px 18px 18px;text-decoration:none;color:var(--ink);transition:transform .25s,box-shadow .25s;box-shadow:0 24px 40px -36px rgba(10,50,25,.4)}
-.mkc:hover{transform:translateY(-4px);box-shadow:0 30px 50px -30px rgba(10,50,25,.45)}
-.mki{height:330px;overflow:hidden;margin:-4px -4px 14px;display:flex;justify-content:center;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent);mask-image:linear-gradient(180deg,#000 75%,transparent)}
-.mki .lph{width:170px;border-radius:30px;padding:6px}.mki .lsc{border-radius:25px}.mki .lbar{padding:12px 10px 7px;font-size:10.5px}.mki .lbi{width:18px;height:18px;font-size:9px}
+.mkc{background:#fff;border-radius:22px;padding:22px 16px 18px;box-shadow:0 24px 40px -36px rgba(10,50,25,.4)}
+.mki{display:flex;justify-content:center;margin-bottom:14px}
+.mki .ph2{width:100%;max-width:200px}
 .mkc b{display:block;font-size:15.5px}.mkc small{font-size:12px;color:var(--muted)}
 /* message */
 .msg-g{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
@@ -1157,29 +1141,11 @@ header .logo span{white-space:nowrap}
 .mck li{background:#fff;border-radius:16px;padding:14px 18px 14px 48px;position:relative}
 .mck li:before{content:"";position:absolute;left:18px;top:18px;width:18px;height:18px;border-radius:50%;background:var(--lg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4L18 8'/%3E%3C/svg%3E") center/12px no-repeat}
 .mck b{display:block;font-size:14.5px}.mck small{font-size:12px;color:var(--muted)}
-.talk{border-radius:30px;overflow:hidden;background:#8cabd9;box-shadow:0 40px 60px -34px rgba(20,40,90,.55);max-width:400px;margin:0 auto;width:100%}
-.tk-h{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#6f8fc0;color:#fff;font-size:13px}
-.tk-b{padding:12px 16px 20px}
-.tk-d{text-align:center;font-size:10.5px;color:#fff;margin:8px auto;background:rgba(0,0,0,.12);border-radius:999px;padding:2px 10px;width:max-content}
-.tk-m{background:#fff;border-radius:18px;overflow:hidden;margin:0 0 6px;box-shadow:0 6px 14px -10px rgba(0,0,0,.4)}
-.tk-mh{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid #eef0f2;font-size:12px}
-.tk-mh i{width:22px;height:22px;border-radius:7px;color:#fff;font:800 11px var(--en);font-style:normal;display:grid;place-items:center}
-.tk-mb{padding:12px 16px;font-size:13px;line-height:1.7}
-.tk-mb>b{display:block;font-size:16px}
-.tk-mb p{margin:2px 0 0}
-.tk-mb dl{margin:8px 0 0;font-size:12px}
-.tk-mb dl div{display:flex;justify-content:space-between;border-top:1px solid #f0f0f0;padding:5px 0}
-.tk-mb dt{color:var(--muted)}.tk-mb dd{margin:0;font-weight:700}
-.tk-bt{display:block;text-align:center;padding:11px;border-top:1px solid #eef0f2;color:#2f6fd1;font-weight:800;font-size:13px}
+.msgph{width:310px;margin:0 auto}
 /* demo */
-.ldemo{display:flex;flex-direction:column;align-items:center;gap:22px;margin:34px auto 22px}
-.dtabs{display:inline-flex;background:#fff;border-radius:999px;padding:5px;box-shadow:0 10px 24px -18px rgba(10,50,25,.5)}
-.dtabs button{border:0;background:none;font:700 13.5px var(--sans);padding:10px 18px;border-radius:999px;color:var(--muted);cursor:pointer}
-.dtabs button.on{background:var(--ink);color:#fff}
-.lph.big{width:min(380px,90vw)}
-.lph.big iframe{flex:1;width:100%;border:0;display:block;background:#fff}
-.lph.big .lsc{aspect-ratio:auto;height:min(760px,80vh)}
-/* compare */
+.ldemo{display:flex;justify-content:center;margin:34px auto 10px}
+.ldemo .ph2{width:min(390px,92vw)}
+/* compare / price / flow */
 .ctw{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .ctb{width:100%;min-width:620px;border-collapse:separate;border-spacing:0;background:#fff;border-radius:20px;overflow:hidden}
 .ctb th,.ctb td{padding:18px 14px;text-align:center;border-bottom:1px solid #eef4f0;font-size:14px}
@@ -1187,9 +1153,7 @@ header .logo span{white-space:nowrap}
 .ctb thead th.me{background:var(--lg);color:#fff;font-size:15px;font-weight:900}
 .ctb td.me{background:#f0fbf4}.ctb td.me b{color:var(--blue-d);font-size:15px}.ctb td.me small{display:block;font-size:11px;color:var(--muted)}
 .ctb tbody th{text-align:left;font-size:13px;color:var(--ink2);white-space:nowrap}
-.ctb tr:last-child>*{border-bottom:0}
-.ctb .x{color:#b7c2bc}
-/* flow */
+.ctb tr:last-child>*{border-bottom:0}.ctb .x{color:#b7c2bc}
 .fl5{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
 .fl5 li{background:#fff;border-radius:20px;padding:22px 16px}
 .fl5 em{display:block;font:italic 800 26px/1 var(--en);color:var(--blue);margin-bottom:12px}
@@ -1197,33 +1161,34 @@ header .logo span{white-space:nowrap}
 .fl5 p{margin:0 0 10px;font-size:12.5px;color:var(--ink2);line-height:1.8}
 .fl5 span{display:inline-block;font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;background:var(--blue-l);color:var(--blue-d)}
 .fl5 li.hl{background:var(--blue);color:#fff}.fl5 li.hl em{color:#c9f0d8}.fl5 li.hl p{color:#e3f6ea}.fl5 li.hl span{background:rgba(255,255,255,.2);color:#fff}
-/* plans tweak */
 .plans .plan .pn{font-size:17px}
-.pgr4{grid-template-columns:repeat(4,1fr)}
+.pgr4{grid-template-columns:1fr 1fr!important}
 .pd.p4{background:linear-gradient(160deg,#e7f6ec,#fff)}
-.sfoot .tm{font-size:11px;opacity:.6;text-align:center;margin:0;padding:0 20px 24px}
 /* floating bar (mobile) */
 .fbar{display:none}
 @media(max-width:860px){
- .lh{padding:110px 0 40px}
+ .lh{padding:110px 0 30px}
  .lh-g{grid-template-columns:1fr;gap:0}
- .lh-t{font-size:clamp(34px,9.6vw,44px)}
+ .lh-t{font-size:clamp(36px,10.4vw,46px)}
  .lh .hfacts li{padding:0 14px}.lh .hfacts b{font-size:22px}
- .lh-v{height:500px;margin:30px -6px 0}
- .lh-ph{width:76%;height:430px;top:10px;border-radius:160px 160px 20px 20px}
- .lh-p{width:200px;left:2%;top:30px}
- .lfc{transform:scale(.86);transform-origin:right center}
- .lfc.f1{right:0;top:30px}.lfc.f2{right:0;top:250px}.lfc.f3{left:auto;right:6%;bottom:0}
- .why4{grid-template-columns:1fr 1fr;gap:10px}.wc{padding:20px 16px}.wc b{font-size:15px}.wc p{font-size:12.5px}
- .how3{grid-template-columns:1fr;gap:30px}.how3 li+li:before{left:50%;top:-20px;transform:rotate(135deg)}
- .hs{height:260px}
- .mk{grid-template-columns:1fr 1fr;gap:10px}.mkc{padding:14px 10px 12px}.mki{height:250px}.mki .lph{width:136px}
- .msg-g{grid-template-columns:1fr;gap:28px}
+ .lh-v{height:560px;margin-top:30px}
+ .lh-ph{width:72%;height:420px;top:40px;border-radius:150px 150px 20px 20px}
+ .lh-p{width:236px;left:0}
+ .lfc.f2{right:0;bottom:40px;transform:scale(.9)}
+ .st-g{grid-template-columns:1fr;gap:0;margin-top:24px}
+ .st-ph{top:64px;z-index:2;padding:10px 0 16px;background:linear-gradient(180deg,#eef8f2 85%,rgba(238,248,242,0))}
+ .st-ph .ph2{width:min(46vw,190px)}
+ .st-l{padding:20px 0 30vh}
+ .st-l li{margin-bottom:24vh;padding:20px}
+ .st-l b{font-size:17px}.st-l p{font-size:13px}.st-l em{font-size:26px}
+ .rm-g,.msg-g{grid-template-columns:1fr;gap:28px}
+ .rm-v .ph2,.msgph{width:min(78vw,300px)}
+ .mk{grid-template-columns:1fr 1fr;gap:10px}.mkc{padding:14px 10px 12px}.mki .ph2{max-width:150px}
  .fl5{grid-template-columns:1fr}
- .pgr4{grid-template-columns:1fr}
+ .pgr4{grid-template-columns:1fr!important}
  .ctw:after{content:"表は横にスクロールできます ›";display:block;text-align:right;font-size:11px;color:var(--muted);margin-top:6px}
  .ctb{min-width:540px}.ctb th,.ctb td{padding:13px 8px;font-size:12.5px}
- .lph.big .lsc{height:min(680px,78vh)}
+ .chap .bgw{font-size:clamp(56px,18vw,90px)}
  .fbar{display:flex;position:fixed;left:12px;right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:45;gap:8px;transform:translateY(170%);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
  .fbar.on{transform:none}
  .fbar a{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;border-radius:999px;font-weight:800;font-size:14px;text-decoration:none}
@@ -1231,107 +1196,93 @@ header .logo span{white-space:nowrap}
  .fbar .m{flex:1;background:var(--lg);color:#fff;box-shadow:0 14px 28px -12px rgba(4,165,72,.7)}
  .fbar svg{width:20px;height:20px}
 }
-
-/* polish */
-.rep{background:linear-gradient(180deg,#eef8f2,#f7fbf8)!important}
-.contact{background:#0f2a1d!important}
-.sfoot{background:#0b2016!important}
-.sfoot .fg a{border-color:rgba(255,255,255,.08)!important}
-.lsc{container-type:inline-size}
-.lshot{background-position:0 -11cqw!important}
-.pgr4{grid-template-columns:1fr 1fr!important}
-.pgr4 .pd span small{font-size:13px}
-@media(max-width:860px){.pgr4{grid-template-columns:1fr!important}.lh-v{margin:30px 0 0}}
-main>section{overflow-x:clip}
-@media(max-width:600px){.chap .bgw{font-size:clamp(60px,19vw,90px)}}
-.hs{height:auto;min-height:300px}@media(max-width:860px){.hs{min-height:0;padding:6px 0}.hs .lph{width:140px}.hqr{width:130px;height:130px}}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
  <symbol id="lnI" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></symbol>
- <symbol id="qI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM18 14h3M14 18v3"/></symbol>
  <symbol id="bellI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
- <symbol id="usrI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
  <symbol id="ckI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
- <symbol id="dlI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M4 18v2h16v-2"/><path d="M3 3l18 18"/></symbol>
- <symbol id="homeI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="3"/><path d="M10 18.5h4M9 8h6v6H9z"/></symbol>
- <symbol id="frI" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M19 8v6M16 11h6"/></symbol>
 </svg>
 
 <header id="hd">
  <div class="wrap">
   <a class="logo" href="./"><img class="w" src="../logo-w.png" alt="サクアプ" width="800" height="195"><img class="k" src="../menu/logo-ink.png" alt="" width="800" height="195"><span>LINE MINI APP</span></a>
-  <nav aria-label="ページ内"><a href="#why">選ばれる理由</a><a href="#make">作れるもの</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a></nav>
+  <nav aria-label="ページ内"><a href="#story">しくみ</a><a href="#rich">リッチメニュー</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a></nav>
   <a class="btn" href="../contact/?from=line&amp;svc=LINE">無料で相談</a>
  </div>
 </header>
 
 <main>
+<!-- HERO -->
 <section class="lh">
  <div class="wrap lh-g">
   <div class="lh-c">
    <p class="eyebrow"><span>お店のための</span>LINEミニアプリ開発</p>
-   <h1 class="lh-t"><span><i>アプリは、</i></span><span><i><em>LINEの中</em>に</i></span><span><i>つくる時代へ。</i></span></h1>
+   <h1 class="lh-t"><span><i>LINEを開けば、</i></span><span><i><em>お店がある。</em></i></span></h1>
    <p class="lh-s">ダウンロードも、会員登録もいらない。</p>
-   <p class="lede">お客様がいつも開いているLINEの中で、会員証・予約・注文・クーポンが使える。お店専用のLINEミニアプリを、オーダー<wbr>メイドで作ります。</p>
+   <p class="lede">お客様が毎日ひらくLINEのトークに、お店の入り口をつくります。リッチメニューをタップすれば、会員証・予約・注文がLINEの中でそのまま開く。お店専用のミニアプリを、オーダー<wbr>メイドで。</p>
    <div class="ctas"><a class="btn lnb" href="../contact/?from=line&amp;svc=LINE"><svg class="li"><use href="#lnI"/></svg>LINEで無料相談する<span class="chev">›</span></a><a class="tlink" href="#demo">デモを触ってみる ›</a></div>
    <ul class="hfacts"><li><small>初期費用</small><b>19,800<span>円〜</span></b></li><li><small>12回払いなら</small><b>1,650<span>円〜/月</span></b></li><li><small>追加機能</small><b>0.5<span>円/文字</span></b></li></ul>
    <p class="fine">分割手数料はカード会社により別途 ・ LINEの申請・審査の代行は別途お見積もり</p>
   </div>
   <div class="lh-v" aria-hidden="true">
-   <figure class="lh-ph"><img src="../menu/img/in-cafe.webp" alt="" width="512" height="512"></figure>
-   <div class="lph lh-p"><span class="isl"></span><div class="lsc"><div class="lbar"><span class="lbi">L</span><b>Lumen 会員証</b><span class="lbr"><i>···</i><i>✕</i></span></div><div class="lshot" style="background-image:url(../features/img/app1.webp)"></div></div></div>
-   <div class="lfc f1"><span class="lfi g"><svg><use href="#lnI"/></svg></span><span><b>LINEで開くだけ</b><small>ダウンロード不要</small></span></div>
-   <div class="lfc f2"><span class="lfi b"><svg><use href="#bellI"/></svg></span><span><b>ご予約の確認</b><small>明日 14:00 ・ LINEに届きました</small></span></div>
-   <div class="lfc f3"><span class="lfi y"><svg><use href="#ckI"/></svg></span><span><b>スタンプ +1</b><small>あと2個でドリンク無料</small></span></div>
+   <figure class="lh-ph"><img src="../consult.webp" alt="" width="960" height="720"></figure>
+   <div class="ph2 lh-p"><div class="ph2s" id="heroPh"></div></div>
+   <div class="lfc f2"><span class="lfi g"><svg><use href="#lnI"/></svg></span><span><b>LINEミニアプリ通知</b><small>スタンプが押されました 8/10</small></span></div>
   </div>
  </div>
 </section>
 
-<section class="rep" id="why">
+<!-- STORY -->
+<section class="story" id="story">
  <div class="wrap">
-  <div class="rep-h rv"><p class="rep-e">WHY LINE</p><h2>お客様の<br class="sp">いちばん近くに、<br class="sp">お店をおく。</h2><p>お客様のスマホのホーム画面に、お店のアプリが並ぶのはむずかしい。<br class="pc">でも、LINEなら毎日開いています。その中に、お店の入り口をつくります。</p></div>
-  <div class="why4 stg">
-   <div class="wc"><span class="wi"><svg><use href="#dlI"/></svg></span><b>ダウンロード不要</b><p>ストアでの検索やインストールがいりません。QRを読むだけで、その場で使いはじめられます。</p></div>
-   <div class="wc"><span class="wi"><svg><use href="#usrI"/></svg></span><b>会員登録はLINEで</b><p>LINEのアカウントでそのままログイン。名前やパスワードの入力でやめてしまう人が減ります。</p></div>
-   <div class="wc"><span class="wi"><svg><use href="#bellI"/></svg></span><b>お知らせはトークに</b><p>予約の確認や、できあがりのお知らせを、LINEのトークに届けられます。</p></div>
-   <div class="wc"><span class="wi"><svg><use href="#frI"/></svg></span><b>友だち追加につながる</b><p>ミニアプリを開いたお客様に、お店のLINE公式アカウントの友だち追加をご案内できます。</p></div>
-  </div>
- </div>
-</section>
-
-<section id="how" style="padding-top:80px">
- <div class="wrap">
-  <div class="chap rv"><span class="bgw">EASY</span><span class="no">01</span><p>QRを読むだけで</p><h2>その場で、使いはじめられる</h2></div>
-  <div class="panel rv">
-   <h3>アプリのダウンロードを、<span class="blue">お願いしなくていい。</span></h3>
-   <p class="tx">レジ横やテーブルのQRコード、お店のトークのリンク、リッチメニュー。どこからでも、LINEの中でそのまま開きます。はじめての方も、常連さんも、同じ3ステップです。</p>
-   <ol class="how3 stg">
-    <li><div class="hs"><span class="hq"><svg><use href="#qI"/></svg></span><div class="hqr">QR</div></div><em>01</em><b>QRを読む</b><p>カメラでもLINEでも</p></li>
-    <li><div class="hs"><div class="lph sm"><div class="lsc"><div class="lbar"><span class="lbi">L</span><b>Lumen</b><span class="lbr"><i>✕</i></span></div><div class="lperm"><span class="lbi big">L</span><b>Lumen 会員証</b><small>LINEのプロフィール情報の利用を許可しますか？</small><span class="lok">許可する</span></div></div></div></div><em>02</em><b>LINEで開く</b><p>許可をタップするだけ</p></li>
-    <li><div class="hs"><div class="lph sm"><div class="lsc"><div class="lbar"><span class="lbi">L</span><b>Lumen 会員証</b><span class="lbr"><i>✕</i></span></div><div class="lshot" style="background-image:url(../features/img/app1.webp)"></div></div></div></div><em>03</em><b>すぐ使える</b><p>会員証もスタンプも</p></li>
+  <div class="center rv"><p class="lbl-en">HOW IT WORKS</p><h2 class="sh2">友だち追加から、<br class="sp">また来てくれるまで。</h2><p class="sp-l">お客様がすることは、LINEでタップするだけ。<br class="pc">お店とお客様のやりとりが、ひとつのトークの中でつながります。</p></div>
+  <div class="st-g">
+   <div class="st-ph"><div class="ph2 big"><div class="ph2s" id="storyPh"></div></div></div>
+   <ol class="st-l" id="stl">
+    <li data-s="0"><em>01</em><b>QRから、友だち追加</b><p>レジ横やテーブルのQRを読むと、お店のLINEが友だちに。あいさつと一緒に、リッチメニューが表示されます。</p></li>
+    <li data-s="1"><em>02</em><b>リッチメニューをタップ</b><p>トーク画面の下に、お店のメニューがいつも出ています。「会員証」をタップすると――</p></li>
+    <li data-s="2"><em>03</em><b>LINEの中で、ミニアプリが開く</b><p>ダウンロードも会員登録もなし。LINEのアカウントで、そのまま会員証が使えます。</p></li>
+    <li data-s="3"><em>04</em><b>レジで、スタンプ</b><p>お会計のときにQRを見せるだけ。スタンプがたまり、クーポンもここに届きます。</p></li>
+    <li data-s="4"><em>05</em><b>お知らせは、トークに</b><p>スタンプや予約のお知らせは、LINEのトークに届きます。次の来店のきっかけに。</p></li>
    </ol>
   </div>
  </div>
 </section>
 
-<section id="make" style="padding-top:20px">
+<!-- 01 RICH MENU -->
+<section id="rich" style="padding-top:80px">
  <div class="wrap">
-  <div class="chap rv"><span class="bgw">MAKE</span><span class="no">02</span><p>お店に合わせて</p><h2>こんなミニアプリが作れます</h2></div>
+  <div class="chap rv"><span class="bgw">RICH MENU</span><span class="no">01</span><p>トーク画面のいちばん下に</p><h2>お店の入り口を、いつも</h2></div>
   <div class="panel rv">
-   <h3>よく使われる形から、<span class="blue">必要な機能だけを組み合わせて。</span></h3>
-   <p class="tx">会員証・予約・注文・回数券。お店の業種や、お客様に使ってほしい場面に合わせて作ります。下の画面は、実際に操作できるテンプレートの一部です。</p>
-   <div class="mk stg">
-    <a class="mkc" href="../templates/"><div class="mki"><div class="lph"><div class="lsc"><div class="lbar"><span class="lbi">L</span><b>Lumen</b><span class="lbr"><i>✕</i></span></div><div class="lshot" style="background-image:url(../features/img/app1.webp)"></div></div></div></div><b>会員証・スタンプ</b><small>カフェ・パン屋・小売店</small></a>
-    <a class="mkc" href="../templates/"><div class="mki"><div class="lph"><div class="lsc"><div class="lbar"><span class="lbi" style="background:#2f6f73">S</span><b>sora</b><span class="lbr"><i>✕</i></span></div><div class="lshot" style="background-image:url(../features/img/app0.webp)"></div></div></div></div><b>予約・リマインド</b><small>サロン・整体・教室</small></a>
-    <a class="mkc" href="../templates/"><div class="mki"><div class="lph"><div class="lsc"><div class="lbar"><span class="lbi" style="background:#e2572b">ま</span><b>まんぷく亭</b><span class="lbr"><i>✕</i></span></div><div class="lshot" style="background-image:url(../features/img/app6.webp)"></div></div></div></div><b>テイクアウト注文</b><small>飲食店・お弁当</small></a>
-    <a class="mkc" href="../templates/"><div class="mki"><div class="lph"><div class="lsc"><div class="lbar"><span class="lbi" style="background:#2f63b0">か</span><b>からだ整骨院</b><span class="lbr"><i>✕</i></span></div><div class="lshot" style="background-image:url(../features/img/app4.webp)"></div></div></div></div><b>回数券・次回予約</b><small>整体・スクール</small></a>
+   <div class="rm-g">
+    <div>
+     <h3>リッチメニューから、<span class="blue">ミニアプリへ1タップ。</span></h3>
+     <p class="tx">LINE公式アカウントのトーク画面の下に出る「リッチメニュー」。ここに会員証・予約・注文の入り口を置けば、お客様はトークを開くたびにお店のメニューを目にします。お店の業種に合わせて、ボタンの中身もデザインも作ります。</p>
+     <div class="rtabs" id="rtabs" role="tablist" aria-label="業種を選ぶ"><button class="on" data-i="0">カフェ</button><button data-i="1">サロン</button><button data-i="2">飲食店</button><button data-i="3">整体・教室</button></div>
+     <ul class="rm-pt"><li><b>トークを開くたびに目に入る</b><small>ホーム画面にアプリを置いてもらう必要がありません</small></li><li><b>ボタンの中身は自由に</b><small>会員証・予約・注文・クーポン・お店の情報など</small></li></ul>
+    </div>
+    <div class="rm-v"><div class="ph2"><div class="ph2s" id="richPh"></div></div></div>
    </div>
   </div>
  </div>
 </section>
 
+<!-- 02 MINI APP -->
+<section id="make" style="padding-top:20px">
+ <div class="wrap">
+  <div class="chap rv"><span class="bgw">MINI APP</span><span class="no">02</span><p>LINEの中で動く</p><h2>こんなミニアプリが作れます</h2></div>
+  <div class="panel rv">
+   <h3>よく使われる形から、<span class="blue">必要な機能だけを組み合わせて。</span></h3>
+   <p class="tx">会員証・予約・注文・回数券。業種や、お客様に使ってほしい場面に合わせて作ります。LINEのアカウントでログインするので、お名前やパスワードの入力はいりません。</p>
+   <div class="mk stg" id="mkg"></div>
+   <p class="center" style="margin:26px 0 0"><a class="tlink" href="../templates/">テンプレートを操作してみる ›</a></p>
+  </div>
+ </div>
+</section>
+
+<!-- 03 MESSAGE -->
 <section id="msg" style="padding-top:20px">
  <div class="wrap">
   <div class="chap rv"><span class="bgw">MESSAGE</span><span class="no">03</span><p>メールのように埋もれない</p><h2>お知らせは、LINEのトークに</h2></div>
@@ -1339,37 +1290,29 @@ main>section{overflow-x:clip}
    <div class="msg-g">
     <div>
      <h3>見てもらえる場所に、<span class="blue">大事なお知らせを。</span></h3>
-     <p class="tx">予約の確定や前日のリマインド、注文のできあがり。お客様がいちばん開いているLINEに届くので、見落とされにくくなります。</p>
-     <ul class="mck stg"><li><b>予約の確定・前日のリマインド</b><small>無断キャンセルを減らす</small></li><li><b>注文の受付・できあがり</b><small>店頭での待ち時間を減らす</small></li><li><b>回数券・クーポンの期限</b><small>使い忘れを防いで、再来店へ</small></li></ul>
+     <p class="tx">予約の確定や前日のリマインド、注文のできあがり、スタンプやクーポン。お客様がいちばん開いているLINEに届くので、見落とされにくくなります。</p>
+     <ul class="mck stg"><li><b>予約の確定・前日のリマインド</b><small>無断キャンセルを減らす</small></li><li><b>注文の受付・できあがり</b><small>店頭での待ち時間を減らす</small></li><li><b>スタンプ・クーポン・回数券の期限</b><small>使い忘れを防いで、次の来店へ</small></li></ul>
      <p class="note">※LINEへのお知らせ（サービスメッセージ）は、LINEの審査を通った「認証済ミニアプリ」で使える機能です。</p>
     </div>
-    <div class="talk" aria-hidden="true">
-     <div class="tk-h"><span>‹</span><b>LINEミニアプリ通知</b><span></span></div>
-     <div class="tk-b">
-      <p class="tk-d">今日 10:00</p>
-      <div class="tk-m"><div class="tk-mh"><i style="background:#2f6f73">S</i><b>Salon sora</b></div><div class="tk-mb"><b>ご予約が確定しました</b><p>11月8日（土）14:00</p><dl><div><dt>メニュー</dt><dd>カット＋カラー</dd></div><div><dt>担当</dt><dd>佐藤</dd></div></dl></div><span class="tk-bt">予約内容を見る</span></div>
-      <p class="tk-d">今日 12:16</p>
-      <div class="tk-m"><div class="tk-mh"><i style="background:#e2572b">ま</i><b>まんぷく亭</b></div><div class="tk-mb"><b>できあがりました</b><p>受け取り番号 <strong>#031</strong><br>店頭でお受け取りください</p></div><span class="tk-bt">注文を確認する</span></div>
-     </div>
-    </div>
+    <div class="ph2 msgph"><div class="ph2s" id="msgPh"></div></div>
    </div>
   </div>
  </div>
 </section>
 
+<!-- DEMO -->
 <section class="demo" id="demo">
  <div class="wrap center rv">
   <p class="lbl-en">LIVE DEMO</p>
-  <h2 style="font-size:clamp(24px,6.4vw,48px)">まずは、触ってみてください。</h2>
-  <p style="color:var(--ink2);margin-top:10px">LINEの中で開いた会員証のミニアプリです。「スタンプ」で読み取りを試したり、クーポンを使ったりできます。</p>
+  <h2 style="font-size:clamp(24px,6.4vw,48px)">LINEの中で、触ってみてください。</h2>
+  <p style="color:var(--ink2);margin-top:10px">トーク画面の下のメニューをタップすると、ミニアプリが開きます。<br class="pc">右上の ✕ で閉じると、トークにお知らせが届きます。</p>
  </div>
  <div class="ldemo rv">
-  <div class="dtabs" role="tablist" aria-label="デモを選ぶ"><button type="button" class="on" data-k="1" data-n="Lumen 会員証" data-c="#7a4f2c">会員証・スタンプ</button><button type="button" data-k="0" data-n="sora 予約" data-c="#2f6f73">サロン予約</button><button type="button" data-k="6" data-n="まんぷく亭" data-c="#e2572b">テイクアウト</button></div>
-  <div class="lph big"><span class="isl"></span><div class="lsc"><div class="lbar"><span class="lbi" id="dlbi" style="background:#7a4f2c">L</span><b id="dlbn">Lumen 会員証</b><span class="lbr"><i>···</i><i>✕</i></span></div><iframe id="dfr" title="LINEミニアプリのデモ" data-src="../templates/app.html?v=20261111d&amp;bare=1&amp;k=1" loading="lazy"></iframe></div></div>
+  <div class="ph2 big"><div class="ph2s" id="demoPh"></div></div>
  </div>
- <div class="wrap center"><a class="tlink" href="../templates/">ほかのテンプレートも見る ›</a></div>
 </section>
 
+<!-- 04 COMPARE -->
 <section id="compare" style="padding-top:40px">
  <div class="wrap">
   <div class="chap rv"><span class="bgw">COMPARE</span><span class="no">04</span><p>つくる負担も、使いはじめる手間も</p><h2>ふつうのアプリと、くらべると</h2></div>
@@ -1379,6 +1322,7 @@ main>section{overflow-x:clip}
     <tbody>
      <tr><th>使いはじめる</th><td class="me"><b>QRからすぐ</b></td><td>ストアでダウンロード</td><td>URLを開く</td></tr>
      <tr><th>会員登録</th><td class="me"><b>LINEでログイン</b></td><td>メール・パスワード</td><td>メール・パスワード</td></tr>
+     <tr><th>お店の入り口</th><td class="me"><b>トークのリッチメニュー</b></td><td>ホーム画面のアイコン</td><td>ブックマーク</td></tr>
      <tr><th>お知らせ</th><td class="me"><b>LINEのトーク</b></td><td>プッシュ通知</td><td class="x">基本なし</td></tr>
      <tr><th>ストアの審査</th><td class="me"><b>不要</b><small>LINEの審査のみ</small></td><td>App Store・Google Play</td><td class="x">—</td></tr>
      <tr><th>初期費用の目安</th><td class="me"><b>19,800円〜</b></td><td>数十万円〜</td><td>数万円〜</td></tr>
@@ -1389,6 +1333,7 @@ main>section{overflow-x:clip}
  </div>
 </section>
 
+<!-- 05 PRICE -->
 <section id="price" style="padding-top:20px">
  <div class="wrap">
   <div class="chap rv"><span class="bgw">PRICE</span><span class="no">05</span><p>オーダーメイドと同じ、明朗会計</p><h2>LINEミニアプリの料金</h2></div>
@@ -1406,6 +1351,7 @@ main>section{overflow-x:clip}
  </div>
 </section>
 
+<!-- 06 FLOW -->
 <section id="flow" style="padding-top:20px">
  <div class="wrap">
   <div class="chap rv"><span class="bgw">FLOW</span><span class="no">06</span><p>ご相談から</p><h2>LINEで公開するまで</h2></div>
@@ -1422,14 +1368,15 @@ main>section{overflow-x:clip}
  </div>
 </section>
 
+<!-- FAQ -->
 <section id="faq" style="background:#fff;padding-top:40px">
  <div class="wrap">
   <div class="center rv"><p class="lbl-en">FAQ</p><h2 style="font-size:clamp(28px,4.2vw,44px)">よくある質問</h2></div>
   <div class="faq rv">
-   <details><summary>LINE公式アカウントがなくても作れますか？</summary><p>作れます。ミニアプリの公開には、LINEのビジネス用の手続き（LINE Developersのアカウントなど）が必要です。まだの方は、作り方からご案内します。友だち追加につなげたい場合は、LINE公式アカウントもあわせて開設するのがおすすめです。</p></details>
+   <details><summary>LINE公式アカウントがなくても作れますか？</summary><p>作れます。ミニアプリの公開には、LINEのビジネス用の手続き（LINE Developersのアカウントなど）が必要です。まだの方は、作り方からご案内します。リッチメニューや友だち追加につなげたい場合は、LINE公式アカウントもあわせて開設するのがおすすめです。</p></details>
    <details><summary>審査に通らないと使えませんか？</summary><p>審査の前でも「未認証ミニアプリ」として公開して使えます。LINEへのお知らせ（サービスメッセージ）やホーム画面への追加など、一部の機能は審査を通って「認証済ミニアプリ」になってから使えます。</p></details>
    <details><summary>申請や審査の手続きはお願いできますか？</summary><p>できます。LINE Developersでの設定や審査への提出、修正の対応をまとめて代行します（別途お見積もり）。ご自身で行う場合は、手順をご案内します。</p></details>
-   <details><summary>今のお店のLINE公式アカウントと連携できますか？</summary><p>できます。ミニアプリを開いたお客様に友だち追加をご案内したり、リッチメニューからミニアプリを開けるようにしたりできます。</p></details>
+   <details><summary>リッチメニューも作ってもらえますか？</summary><p>できます。お店の業種や雰囲気に合わせて、ミニアプリへの入り口になるリッチメニューのデザインと設定もご相談ください（内容に応じてお見積もりします）。</p></details>
    <details><summary>あとから機能を追加できますか？</summary><p>できます。必要になったタイミングで、追加機能（1文字0.5円）としてお見積もりします。</p></details>
    <details><summary>LINEを使っていないお客様はどうなりますか？</summary><p>ご希望に応じて、ブラウザから開けるWeb版を用意することもできます。くわしくはご相談ください。</p></details>
   </div>
@@ -1439,11 +1386,11 @@ main>section{overflow-x:clip}
 <section class="contact" id="contact">
  <span class="bgw" aria-hidden="true">CONTACT</span>
  <div class="wrap">
-  <h2 class="rv">お客様のLINEに、<br>あなたのお店を。</h2>
+  <h2 class="rv">LINEを開けば、<br>あなたのお店がある。</h2>
   <div class="cgrid stg">
    <a class="cc" href="../contact/?from=line&amp;svc=LINE"><span class="ci"><img src="../consult.webp" alt="" width="960" height="720" loading="lazy"></span><span class="ct"><b>LINEで相談</b><small>「うちのお店だと、どんなミニアプリになる？」の確認だけでも大丈夫です</small><em>相談する ›</em></span></a>
    <a class="cc" href="../templates/"><span class="ci"><img src="../menu/img/in-cafe.webp" alt="" width="512" height="512" loading="lazy"></span><span class="ct"><b>テンプレートを触る</b><small>会員証・予約・注文などを、実際に操作できます</small><em>テンプレートを見る ›</em></span></a>
-   <a class="cc" href="../guide/"><span class="ci soft"><img src="../smile.webp" alt="" width="468" height="538" loading="lazy"></span><span class="ct"><b>資料を見る</b><small>料金・進め方・事例を、まとめて確認できます</small><em>資料を開く ›</em></span></a>
+   <a class="cc" href="../guide/"><span class="ci soft"><img src="../smile.webp" alt="" width="468" height="538" loading="lazy"></span><span class="ct"><b>資料を見る</b><small>料金・進め方を、まとめて確認できます</small><em>資料を開く ›</em></span></a>
   </div>
   <p class="sub rv">売り込みはしません ・ 相談もお見積もりも無料 ・ LINEを使っていない方は <a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener">XのDM</a> でも受付中</p>
  </div>
@@ -1464,33 +1411,19 @@ main>section{overflow-x:clip}
 
 <footer class="sfoot">
  <div class="fg">
-  <a href="#why">選ばれる理由</a><a href="#make">作れるもの</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a><a href="../">オーダー<wbr>メイド開発</a><a href="../menu/">モバイルメニュー</a><a href="../salon/">サロン予約</a><a href="../templates/">テンプレート</a><a href="../guide/">サービス資料</a><a href="../contact/?from=line&amp;svc=LINE">LINEで相談</a>
+  <a href="#story">しくみ</a><a href="#rich">リッチメニュー</a><a href="#demo">デモ</a><a href="#price">料金</a><a href="#faq">よくある質問</a><a href="../">オーダー<wbr>メイド開発</a><a href="../menu/">モバイルメニュー</a><a href="../salon/">サロン予約</a><a href="../templates/">テンプレート</a><a href="../guide/">サービス資料</a><a href="../contact/?from=line&amp;svc=LINE">LINEで相談</a>
  </div>
  <div class="wrap fb">
   <span class="fl2"><a href="../terms.html">利用規約 ›</a><a href="../privacy.html">プライバシーポリシー ›</a><a href="../tokushoho.html">特定商取引法に基づく表記 ›</a><a href="../account/">お支払い・解約 ›</a></span>
   <span class="fbr"><img src="../logo-w.png" alt="サクアプ" width="800" height="195" loading="lazy"><span>© 2026 knotscheme</span><span class="fsn"><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" aria-label="LINE"><svg viewBox="0 0 24 24"><use href="#lnI"/></svg></a><a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.9Zm-1.1 16.2h1.7L7.4 4.7H5.5Z"/></svg></a></span></span>
  </div>
- <p class="tagl">LINE is where your shop lives.</p>
+ <p class="tagl">open LINE, find your shop.</p>
  <p class="tm">LINEはLINEヤフー株式会社の商標または登録商標です。</p>
 </footer>
 
 <div class="fbar" id="fbar"><a class="g" href="../guide/">資料</a><a class="m" href="../contact/?from=line&amp;svc=LINE"><svg><use href="#lnI"/></svg>LINEで無料相談</a></div>
 
-<script>
-(function(){
-var hd=document.getElementById("hd"),fb=document.getElementById("fbar"),hero=document.querySelector(".lh");
-function sc(){var y=scrollY;hd.classList.toggle("solid",y>40);fb.classList.toggle("on",y>hero.offsetHeight*.7)}
-addEventListener("scroll",sc,{passive:true});sc();
-var els=document.querySelectorAll(".rv,.stg");
-if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px",threshold:.08});els.forEach(function(el){io.observe(el)})}else els.forEach(function(el){el.classList.add("in")});
-var fr=document.getElementById("dfr");
-if("IntersectionObserver" in window){new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){fr.src=fr.dataset.src;o.disconnect()}})},{rootMargin:"300px"}).observe(fr)}else fr.src=fr.dataset.src;
-[].forEach.call(document.querySelectorAll(".dtabs button"),function(b){b.addEventListener("click",function(){
- [].forEach.call(document.querySelectorAll(".dtabs button"),function(x){x.classList.toggle("on",x===b)});
- fr.src="../templates/app.html?v=20261111d&bare=1&k="+b.dataset.k;
- var bi=document.getElementById("dlbi");bi.style.background=b.dataset.c;bi.textContent=b.dataset.n.charAt(0).toUpperCase();document.getElementById("dlbn").textContent=b.dataset.n})});
-})();
-</script>
+<script src="lineui.js?v=3"></script>
 <script src="../js/budoux.js" defer></script>
 </body>
 </html>
