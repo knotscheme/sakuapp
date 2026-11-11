@@ -508,6 +508,14 @@ img{display:block;max-width:100%}
  .nts li:before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 }
 @media screen and (max-width:380px){.vs2 b{font-size:26px}.vs2 .mo b{font-size:34px}.vs2>div{padding:14px 10px}.vs2 span{font-size:11px}.mon2{font-size:14px}.nts li{font-size:12px}}
+
+.nx li{flex-wrap:wrap}
+.nx li .ex{flex-basis:100%;padding-left:2.9cqw;font-size:1cqw;color:var(--sub);font-weight:500}
+@media screen and (max-width:860px){
+ .mstep span small{display:block;font-size:13px;font-weight:600;color:var(--sub);margin-top:4px}
+ .back{margin:-6px 0 0;text-align:center;font-size:13px;color:var(--sub)}
+}
+@media screen and (max-width:380px){.mstep span small{font-size:11.5px}.back{font-size:11.5px;margin-top:-4px}.mend .mid{gap:10px}.mstep{gap:10px}}
 @media print{.pw-m{display:none!important}}
 @media print{
  html{scroll-snap-type:none}
@@ -754,7 +762,7 @@ img{display:block;max-width:100%}
   </div>
   <div class="nx">
    <p class="nxh">次のステップ</p>
-   <ol><li><i>1</i>このメッセージに、ご返信ください</li><li><i>2</i>メニュー表と写真を送る</li><li><i>3</i>画面を確認して、スタート</li></ol>
+   <ol><li><i>1</i>この資料が届いたDMに、ご返信ください<small class="ex">「興味あります」のひとことでOKです</small></li><li><i>2</i>メニュー表と写真を送る</li><li><i>3</i>画面を確認して、スタート</li></ol>
    <a class="demo" href="../demo/" target="_blank" rel="noopener"><img src="qr-demo.svg" alt="" width="264" height="264"><span><b>先に、実際の画面を触ってみる</b><small>お客様の画面とお店の画面を操作できます</small><em>デモを開く ›</em></span></a>
   </div>
  </div>
@@ -912,8 +920,9 @@ img{display:block;max-width:100%}
  <p class="ey">NEXT</p>
  <h2>次のステップ</h2>
  <div class="mid">
-  <ol class="mstep"><li><i>1</i><span>このメッセージに<br>ご返信ください</span></li><li><i>2</i><span>メニュー表と写真を<br>送る</span></li><li><i>3</i><span>画面を確認して<br>スタート</span></li></ol>
+  <ol class="mstep"><li><i>1</i><span>この資料が届いたDMに<br>ご返信ください<small>「興味あります」だけでOK</small></span></li><li><i>2</i><span>メニュー表と写真を<br>送る</span></li><li><i>3</i><span>画面を確認して<br>スタート</span></li></ol>
   <a class="mdemo" href="../demo/" target="_blank" rel="noopener">先に、実際の画面を触ってみる ›</a>
+  <p class="back">この画面を閉じると、DMに戻れます</p>
  </div>
 </section>
 </main>
