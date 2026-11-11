@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>無料相談フォーム｜サクアプ</title>
+<meta name="description" content="サクアプへの無料相談フォーム。かんたんな質問に答えて送信すると、内容がLINEに整理されて届きます。">
+<meta name="theme-color" content="#f3fafa">
+<link rel="icon" href="../favicon.png"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#0e7c8c;--brand-d:#0a5d69;--ink:#0f2a2e;--sub:#5b6f72;--line:#dfe9e9;--bg:#f3fafa;--soft:#f4f9f9;--acc:#f4c04e;--ln:#06c755}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.7;letter-spacing:.03em}
+a{color:inherit}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:10px 18px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top img{height:22px;width:auto;display:block}
+.top .bk{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--sub);text-decoration:none}
+.w{max-width:640px;margin:0 auto;padding:30px 18px 60px}
+.ey{font:800 11.5px Inter,sans-serif;letter-spacing:.22em;color:var(--brand);margin:0 0 8px;text-align:center}
+h1{font-size:clamp(24px,5vw,32px);font-weight:900;line-height:1.4;margin:0 0 10px;text-align:center;word-break:keep-all}
+.lead{font-size:13.5px;color:var(--sub);text-align:center;margin:0 0 20px;text-wrap:pretty}
+.how{display:flex;justify-content:center;gap:0;list-style:none;margin:0 0 24px;padding:0}
+.how li{flex:1;max-width:150px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;font-weight:700;text-align:center;position:relative}
+.how li+li:before{content:"";position:absolute;right:58%;left:-42%;top:15px;height:1px;background:#b9d6d9}
+.how i{width:30px;height:30px;border-radius:50%;background:#fff;border:1.5px solid var(--brand);color:var(--brand);display:grid;place-items:center;font:800 12px Inter;font-style:normal;position:relative;z-index:1}
+.how li:last-child i{background:var(--ln);border-color:var(--ln);color:#fff}
+form{background:#fff;border:1px solid #e3ecec;border-radius:22px;padding:22px 20px;box-shadow:0 24px 40px -34px rgba(15,42,46,.35)}
+.q{margin:0 0 22px}
+.q>b{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:800;margin-bottom:10px}
+.q>b em{font-style:normal;font-size:10.5px;font-weight:800;border-radius:6px;padding:2px 7px;background:#fde8e4;color:#c8462f}
+.q>b em.o{background:var(--soft);color:var(--sub)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts label{position:relative}
+.opts input{position:absolute;opacity:0;pointer-events:none}
+.opts span{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:8px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-size:13.5px;font-weight:700;cursor:pointer;transition:.15s}
+.opts input:checked+span{border-color:var(--brand);background:#e9f6f7;color:var(--brand-d)}
+.opts input:focus-visible+span{outline:2px solid var(--brand);outline-offset:2px}
+.opts.c2{display:grid;grid-template-columns:1fr 1fr}
+.opts.c2 span{width:100%}
+input[type=text],textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;font-size:15px;outline:none;background:#fff;color:var(--ink)}
+input[type=text]:focus,textarea:focus{border-color:var(--brand)}
+textarea{min-height:120px;resize:vertical}
+.hint{font-size:11.5px;color:var(--sub);margin:6px 0 0}
+.pv{margin:6px 0 18px;border-radius:16px;background:#eef6f2;border:1px solid #d6ebdf;padding:14px 16px}
+.pv b{font-size:12px;color:#1c7a4a;letter-spacing:.06em}
+.pv pre{margin:8px 0 0;white-space:pre-wrap;word-break:break-word;font:500 12.5px/1.8 "Noto Sans JP",sans-serif;color:var(--ink);max-height:200px;overflow:auto}
+.send{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:58px;border:0;border-radius:16px;background:var(--ln);color:#fff;font:900 16px "Noto Sans JP",sans-serif;letter-spacing:.05em;cursor:pointer;box-shadow:0 14px 26px -14px rgba(6,140,70,.7)}
+.send:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.send svg{width:22px;height:22px}
+.note{font-size:11.5px;color:var(--sub);text-align:center;margin:12px 0 0;line-height:1.8}
+.err{color:#c8462f;font-size:12px;font-weight:700;margin:8px 0 0;display:none}
+.done{display:none;text-align:center;background:#fff;border:1px solid #e3ecec;border-radius:22px;padding:28px 22px}
+.done.on{display:block}
+.done h2{font-size:20px;margin:6px 0 8px}
+.done p{font-size:13.5px;color:var(--sub);margin:0 0 16px;line-height:1.9}
+.done .ok{width:64px;height:64px;border-radius:50%;margin:0 auto;display:grid;place-items:center;background:#e6f7ee;color:#1c7a4a}
+.done .ok svg{width:32px;height:32px}
+.alt{margin:22px 0 0;text-align:center;font-size:12px;color:var(--sub)}
+.alt a{color:var(--brand);font-weight:700}
+@media(max-width:520px){form{padding:18px 16px}.opts.c2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><a href="../"><img src="../logo.png" alt="サクアプ" width="800" height="195"></a><a class="bk" href="javascript:history.back()">‹ もどる</a></header>
+<main class="w">
+ <p class="ey">CONTACT</p>
+ <h1>無料相談フォーム</h1>
+ <p class="lead">いくつか答えて送信すると、内容が整理された状態でLINEのトークに入ります。あとは送信ボタンを押すだけです。</p>
+ <ol class="how"><li><i>1</i>フォームに入力</li><li><i>2</i>LINEが開く</li><li><i>3</i>そのまま送信</li></ol>
+
+ <form id="f" novalidate>
+  <div class="q"><b>ご相談の内容 <em>必須</em></b>
+   <div class="opts c2" id="svc">
+    <label><input type="radio" name="svc" value="オーダーメイド開発"><span>オーダーメイドでアプリを作りたい</span></label>
+    <label><input type="radio" name="svc" value="テンプレートから作りたい"><span>テンプレートから作りたい</span></label>
+    <label><input type="radio" name="svc" value="飲食店向け モバイルメニュー"><span>飲食店のモバイルメニュー</span></label>
+    <label><input type="radio" name="svc" value="サロン向け 予約・カルテ"><span>サロンの予約・カルテ</span></label>
+    <label><input type="radio" name="svc" value="料金・見積もりについて"><span>料金・見積もりを知りたい</span></label>
+    <label><input type="radio" name="svc" value="その他"><span>その他・まだ決まっていない</span></label>
+   </div>
+   <p class="hint" id="tplInfo" hidden></p>
+  </div>
+  <div class="q"><b>お名前 <em>必須</em></b><input type="text" id="name" autocomplete="name" placeholder="例）山田 花子（ニックネーム可）"></div>
+  <div class="q"><b>お仕事・業種 <em class="o">任意</em></b>
+   <div class="opts" id="biz">
+    <label><input type="radio" name="biz" value="飲食店"><span>飲食店</span></label><label><input type="radio" name="biz" value="美容・サロン"><span>美容・サロン</span></label><label><input type="radio" name="biz" value="整体・治療院"><span>整体・治療院</span></label><label><input type="radio" name="biz" value="教室・スクール"><span>教室・スクール</span></label><label><input type="radio" name="biz" value="物販・EC"><span>物販・EC</span></label><label><input type="radio" name="biz" value="個人・副業"><span>個人・副業</span></label><label><input type="radio" name="biz" value="その他"><span>その他</span></label>
+   </div>
+  </div>
+  <div class="q"><b>ほしい機能 <em class="o">任意・複数OK</em></b>
+   <div class="opts" id="feat">
+    <label><input type="checkbox" value="予約"><span>予約</span></label><label><input type="checkbox" value="決済"><span>決済</span></label><label><input type="checkbox" value="会員・マイページ"><span>会員・マイページ</span></label><label><input type="checkbox" value="ポイント・クーポン"><span>ポイント・クーポン</span></label><label><input type="checkbox" value="通知"><span>通知</span></label><label><input type="checkbox" value="注文・EC"><span>注文・EC</span></label><label><input type="checkbox" value="SNS・投稿"><span>SNS・投稿</span></label><label><input type="checkbox" value="マッチング"><span>マッチング</span></label><label><input type="checkbox" value="管理画面"><span>管理画面</span></label>
+   </div>
+  </div>
+  <div class="q"><b>作りたいもの・困っていること <em class="o">任意</em></b><textarea id="msg" placeholder="例）今はDMで予約を受けていて、返信が大変。24時間予約できて、前日にお知らせが届く仕組みがほしい。"></textarea><p class="hint">ざっくりで大丈夫です。参考にしたいアプリがあれば、名前も書いてください。</p></div>
+  <div class="q"><b>ご予算のイメージ <em class="o">任意</em></b>
+   <div class="opts" id="bud"><label><input type="radio" name="bud" value="〜2万円"><span>〜2万円</span></label><label><input type="radio" name="bud" value="〜5万円"><span>〜5万円</span></label><label><input type="radio" name="bud" value="〜10万円"><span>〜10万円</span></label><label><input type="radio" name="bud" value="10万円〜"><span>10万円〜</span></label><label><input type="radio" name="bud" value="未定"><span>未定</span></label></div>
+  </div>
+  <div class="q"><b>使いはじめたい時期 <em class="o">任意</em></b>
+   <div class="opts" id="when"><label><input type="radio" name="when" value="1ヶ月以内"><span>1ヶ月以内</span></label><label><input type="radio" name="when" value="3ヶ月以内"><span>3ヶ月以内</span></label><label><input type="radio" name="when" value="半年以内"><span>半年以内</span></label><label><input type="radio" name="when" value="未定"><span>未定</span></label></div>
+  </div>
+
+  <div class="pv"><b>LINEに送られる内容</b><pre id="pv"></pre></div>
+  <button class="send" id="send" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>LINEで送信する</button>
+  <p class="err" id="err">「ご相談の内容」と「お名前」を入力してください。</p>
+  <p class="note">LINEが開いたら、入力欄の内容を確認して送信してください。<br>売り込みはしません。相談だけでも大丈夫です。</p>
+ </form>
+
+ <div class="done" id="done"><div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>LINEを開いています</h2><p id="doneTx">LINEのトークに内容が入っていたら、そのまま送信してください。</p><a class="send" id="again" href="#" style="text-decoration:none">LINEをもう一度開く</a><p class="alt">LINEを使っていない方は <a href="https://x.com/sakuapp_jp" target="_blank" rel="noopener">XのDM</a> からもどうぞ</p></div>
+</main>
+<script>
+(function(){
+/* LINE公式アカウントのベーシックID（@から始まるID）。設定すると、入力内容がトークの入力欄に入った状態で開きます。 */
+var LINE_ID="";
+var ADD_URL="https://lin.ee/vC2S0M9";
+var q=new URLSearchParams(location.search),from=q.get("from")||"",tpl=q.get("tpl")||"",svc=q.get("svc")||"",est=(q.get("est")||"").replace(/\u200B/g,"");
+var FROM={lp:"トップページ",menu:"飲食店向けページ",salon:"サロン向けページ",features:"機能一覧",guide:"サービス資料",tpl:"テンプレート一覧",demo:"デモ"};
+var f=document.getElementById("f"),pv=document.getElementById("pv");
+function pick(n){var r=f.querySelector('input[name="'+n+'"]:checked');return r?r.value:""}
+if(tpl){var r=f.querySelector('input[value="テンプレートから作りたい"]');r.checked=true;var t=document.getElementById("tplInfo");t.hidden=false;t.textContent="選んだテンプレート：「"+tpl+"」"}
+else if(svc){var r2=[].filter.call(f.querySelectorAll('input[name=svc]'),function(x){return x.value.indexOf(svc)>=0})[0];if(r2)r2.checked=true}
+else if(from==="menu")f.querySelector('input[value="飲食店向け モバイルメニュー"]').checked=true;
+else if(from==="salon")f.querySelector('input[value="サロン向け 予約・カルテ"]').checked=true;
+function text(){var L=["【サクアプ 無料相談】"];
+ var s=pick("svc");L.push("■ご相談の内容："+(s||"（未選択）")+(tpl&&s==="テンプレートから作りたい"?"（"+tpl+"）":""));
+ L.push("■お名前："+(document.getElementById("name").value.trim()||"（未入力）"));
+ var b=pick("biz");if(b)L.push("■業種："+b);
+ var ft=[].map.call(f.querySelectorAll("#feat input:checked"),function(x){return x.value});if(ft.length)L.push("■ほしい機能："+ft.join("・"));
+ var u=pick("bud");if(u)L.push("■予算："+u);
+ var w=pick("when");if(w)L.push("■時期："+w);
+ if(est)L.push("■見積もりの内容："+est);
+ var m=document.getElementById("msg").value.trim();if(m){L.push("■作りたいもの・困っていること");L.push(m)}
+ if(FROM[from])L.push("（"+FROM[from]+"から）");
+ return L.join("\n")}
+function upd(){pv.textContent=text();document.getElementById("err").style.display="none"}
+f.addEventListener("input",upd);f.addEventListener("change",upd);upd();
+function lineUrl(t){return LINE_ID?"https://line.me/R/oaMessage/"+encodeURIComponent(LINE_ID)+"/?"+encodeURIComponent(t):ADD_URL}
+function copy(t){try{if(navigator.clipboard)return navigator.clipboard.writeText(t)}catch(e){}var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();return Promise.resolve()}
+f.addEventListener("submit",function(e){e.preventDefault();
+ if(!pick("svc")||!document.getElementById("name").value.trim()){document.getElementById("err").style.display="block";return}
+ var t=text(),u=lineUrl(t);
+ var done=function(){f.style.display="none";var d=document.getElementById("done");d.classList.add("on");document.getElementById("again").href=u;
+  if(!LINE_ID)document.getElementById("doneTx").innerHTML="入力内容を<b>コピーしました</b>。LINEで友だち追加したあと、トークの入力欄に<b>貼り付けて送信</b>してください。";
+  window.scrollTo(0,0);location.href=u};
+ var c=copy(t);if(c&&c.then)c.then(done,done);else done();
+});
+})();
+</script>
+<script src="../js/budoux.js" defer></script>
+</body>
+</html>
