@@ -173,6 +173,22 @@ body.mdopen{overflow:hidden}
 .mdc:fullscreen{width:100vw;height:100vh;border-radius:0}
 .gd{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:900px){.gd{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .tc{min-width:0}.tb li{white-space:normal!important}
+
+.lnb{display:flex;align-items:center;gap:14px;background:#effaf3;border:1px solid #cdeedb;border-radius:18px;padding:14px 16px;margin:6px 0 4px;text-align:left}
+.lnb[hidden]{display:none}
+.lnb-i{width:40px;height:40px;border-radius:12px;background:#06c755;color:#fff;display:grid;place-items:center;flex:none}.lnb-i svg{width:22px;height:22px}
+.lnb b{display:block;font-size:14px}.lnb small{display:block;font-size:12px;color:var(--sub);line-height:1.7}
+.lnb a{margin-left:auto;flex:none;font-size:12px;font-weight:700;color:var(--sub)}
+.lnview .ey{color:#06a046}
+.tvln{display:none}
+.lnview .tv{padding-top:0!important}
+.lnview .tvln{position:absolute;left:50%;transform:translateX(-50%);top:58px;z-index:1;display:flex;align-items:center;gap:6px;width:164px;height:24px;padding:0 8px;background:#fff;border-bottom:1px solid #eee;font-size:9.5px}
+.lnview .tvln i{width:14px;height:14px;border-radius:4px;background:#06c755;color:#fff;font:800 8px Inter;font-style:normal;display:grid;place-items:center}
+.lnview .tvln b{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lnview .tvln em{font-style:normal;color:#888;font-size:9px}
+.lnview .tv img{margin-top:26px}
+.lnview .tc.lnlow{opacity:.75}
+@media(max-width:600px){.lnview .tvln{width:113px;top:40px;height:18px;font-size:7.5px;padding:0 5px}.lnview .tvln i{width:11px;height:11px}.lnview .tv img{margin-top:16px}.lnb{flex-wrap:wrap}.lnb a{margin-left:54px}}
 </style>
 </head>
 <body>
@@ -184,6 +200,7 @@ body.mdopen{overflow:hidden}
   <p class="lead">よく使われる形を12種類ご用意しました。画面を押すと、実際に操作して試せます。近いものを選べば、ロゴ・色・写真・メニューを差し替え、足りない機能を足して、あなたのアプリに仕上げます。</p>
   <ol class="steps2"><li><em>01</em>選ぶ</li><li><em>02</em>差し替える</li><li><em>03</em>機能を足す</li></ol>
  </div>
+ <div class="lnb" id="lnb" hidden><span class="lnb-i"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg></span><div><b>LINEミニアプリ版で表示しています</b><small>どのテンプレートも、LINEの中で動くミニアプリとして作れます。LINEのアカウントでログインでき、お知らせはトークに届きます。</small></div><a href="./">ふつうの表示</a></div>
  <div class="flt" role="group" aria-label="種類で絞り込む">
   <button type="button" data-f="all" aria-pressed="true">すべて</button><button type="button" data-f="yoyaku" aria-pressed="false">予約</button><button type="button" data-f="kaiin" aria-pressed="false">会員</button><button type="button" data-f="hanbai" aria-pressed="false">販売</button><button type="button" data-f="comm" aria-pressed="false">つながる</button><button type="button" data-f="kanri" aria-pressed="false">管理</button>
  </div>
@@ -231,13 +248,25 @@ body.mdopen{overflow:hidden}
 
 <p class="ft"><a href="../">トップページ</a><a href="../features/">機能一覧</a><a href="../guide/">サービス資料</a></p>
 <script>
+var LN=new URLSearchParams(location.search).get("mode")==="line";
+(function(){if(!LN)return;document.body.classList.add("lnview");document.getElementById("lnb").hidden=false;
+ var N={0:'sora 予約',1:'Lumen 会員証',2:'MOVE GYM',3:'nami 予約',4:'からだ整骨院',5:'A.I.T STORE',6:'まんぷく亭',7:'クラフトマーケット',8:'店舗管理',9:'みらい相談室',10:'Match',11:'hibi'};
+ var ORDER=[1,0,6,4,3,7,2,9,8,5,11,10],g=document.querySelector(".gd");
+ ORDER.forEach(function(k){var c=g.querySelector('.tc[data-k="'+k+'"]');if(c)g.appendChild(c)});
+ [].forEach.call(document.querySelectorAll(".tc"),function(c){var k=+c.dataset.k;if(k===5||k===10||k===11)c.classList.add("lnlow");
+  c.querySelector(".tv").insertAdjacentHTML("beforeend",'<span class="tvln"><i>'+N[k].charAt(0).toUpperCase()+'</i><b>'+N[k]+'</b><em>··· ✕</em></span>');
+  [].forEach.call(c.querySelectorAll('a[href*="contact/"]'),function(a){a.href=a.href.replace("from=tpl","from=line")+"&svc=LINE"})});
+ var h=document.querySelector(".hd h1");if(h)h.innerHTML='LINEミニアプリの<wbr>テンプレート';
+})();
+</script>
+<script>
 (function(){var bs=document.querySelectorAll(".flt button"),cs=document.querySelectorAll(".tc");
 [].forEach.call(bs,function(b){b.addEventListener("click",function(){var f=b.dataset.f;[].forEach.call(bs,function(x){x.setAttribute("aria-pressed",x===b)});[].forEach.call(cs,function(c){c.hidden=!(f==="all"||c.dataset.cat===f)})})});})();
 </script>
 <script>
 var TRY={"0": ["メニュー・スタッフ・日時を選んで予約を確定", "マイページで予約を確認・キャンセル", "スタイル一覧から「このスタイルで予約」"], "3": ["日にちを選んでレッスンを予約（チケットが減る）", "満席のレッスンはキャンセル待ちに登録", "チケットタブで回数券を購入"], "4": ["不調の部位を選んで、おすすめの施術を予約", "回数券を使って予約（残り回数が減る）", "履歴で担当からのメモを見る"], "9": ["相談員を選んで日時を予約", "メッセージを送ると返信が届く", "「相談をはじめる」でビデオ通話・評価"], "1": ["スタンプタブで「レジで読み取る」", "10個たまると無料クーポンが届く", "クーポンを使う・会員証のQRを表示"], "2": ["クラスを予約・取り消し", "会員証タブで入館→退館（時間を記録）", "記録タブでトレーニングを追加"], "5": ["検索・並び替え・カテゴリで商品をさがす", "色・サイズ・数量を選んでカートへ", "配送方法を選んで注文を確定"], "6": ["ごはんの量やお味噌汁を選んでカートへ", "注文すると「受付→調理中→受け取り可」が進む", "履歴から「もう一度注文」"], "7": ["イベントの枚数を選んで購入", "チケットのQRを表示", "「受付で読み取る」で入場済みに"], "10": ["カードを左右にスワイプ（またはボタン）", "マッチしたらメッセージを送る", "いいねした人にいいねを返す"], "11": ["写真をダブルタップでいいね・コメント", "ストーリーを見る", "投稿タブで写真を選んでシェア"], "8": ["週・月・年で売上グラフを切り替え", "予約の状態を「来店済み」に変更", "顧客を検索してカルテにメモを追加"]};
 (function(){var md=document.getElementById("md"),f=document.getElementById("md-f"),last=null;
-function open(card){last=document.activeElement;var k=card.dataset.k;var bare=matchMedia("(max-width:760px)").matches;f.src="app.html?v=20261111d&k="+k+(bare?"&bare=1":"");document.getElementById("md-try").innerHTML=(TRY[k]||[]).map(function(t){return "<li>"+t+"</li>"}).join("");document.getElementById("md-t2").textContent=card.querySelector("h3").textContent;[].forEach.call(document.querySelectorAll(".mdcta,.mdtc"),function(a){a.href="../contact/?from=tpl&tpl="+encodeURIComponent(card.querySelector("h3").textContent)});
+function open(card){last=document.activeElement;var k=card.dataset.k;var bare=matchMedia("(max-width:760px)").matches;f.src="app.html?v=20261111e&k="+k+(bare?"&bare=1":"")+(LN?"&line=1":"");document.getElementById("md-try").innerHTML=(TRY[k]||[]).map(function(t){return "<li>"+t+"</li>"}).join("");document.getElementById("md-t2").textContent=card.querySelector("h3").textContent;[].forEach.call(document.querySelectorAll(".mdcta,.mdtc"),function(a){a.href="../contact/?from=tpl&tpl="+encodeURIComponent(card.querySelector("h3").textContent)});
  document.getElementById("md-t").textContent=card.querySelector("h3").textContent;
  document.getElementById("md-c").textContent=card.querySelector(".tcat").textContent;
  document.getElementById("md-w").textContent=card.querySelector(".who").textContent;
@@ -254,7 +283,7 @@ addEventListener("keydown",function(e){if(e.key==="Escape"&&!md.hidden)close()})
 function go(){var f=document.getElementById("md-f"),u=new URL(f.src,location.href),k=u.searchParams.get("k");
  var el=md.querySelector(".mdc"),rq=el.requestFullscreen||el.webkitRequestFullscreen;
  if(rq&&matchMedia("(max-width:760px)").matches){try{rq.call(el);return}catch(e){}}
- location.href="app.html?v=20261111d&solo=1&k="+k}
+ location.href="app.html?v=20261111e&solo=1&k="+k+(LN?"&line=1":"")}
 ["md-fs","md-fs2"].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener("click",go)});})();
 </script>
 <script src="../js/budoux.js" defer></script>

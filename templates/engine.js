@@ -61,6 +61,7 @@ function qrSvg(seed,dark){var n=25,s='',r=seed||7;function rnd(){r=(r*9301+49297
  return '<svg viewBox="-1 -1 27 27" fill="'+(dark||'#111')+'" style="display:block;width:100%;height:auto"><path d="'+s+'"/>'+fin(0,0)+fin(18,0)+fin(0,18)+'</svg>'}
 function barcode(seed){var r=seed||3,s='',x=0;function rnd(){r=(r*9301+49297)%233280;return r/233280}while(x<200){var w=1+Math.floor(rnd()*3);if(rnd()>.4)s+='<rect x="'+x+'" y="0" width="'+w+'" height="40"/>';x+=w+1}return '<svg viewBox="0 0 200 40" preserveAspectRatio="none" style="display:block;width:100%;height:46px" fill="#111">'+s+'</svg>'}
 
+var LNM={0:['sora 予約','#2f6f73'],1:['Lumen 会員証','#7a4f2c'],2:['MOVE GYM 会員証','#ff6a3d'],3:['nami レッスン予約','#4f7a5a'],4:['からだ整骨院','#2f63b0'],5:['A.I.T STORE','#151515'],6:['まんぷく亭 テイクアウト','#e2572b'],7:['クラフトマーケット','#6b4fd8'],8:['店舗管理（スタッフ用）','#0e7c8c'],9:['みらい相談室','#2b4a7a'],10:['Match','#f0566c'],11:['hibi','#111111']};
 var Engine=(function(){
  var app,S,stack,cur,sc,view,ov,sh,tst,ph,sheetName=null,sheetArg=null,tmT;
  function key(){var t=stack[stack.length-1];return t.id+'|'+JSON.stringify(t.arg==null?'':t.arg)}
@@ -89,6 +90,8 @@ var Engine=(function(){
   var dark=app.dark&&app.dark[t.id];
   view.innerHTML='<div class="sbar" style="'+(dark?'color:#fff;position:absolute;left:0;right:0;top:0':'')+'"><span>9:41</span><i><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="7" rx=".8"/><rect x="10" y="2.5" width="3" height="9.5" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="18" height="8" rx="2"/><rect x="24.5" y="4" width="1.6" height="4" rx=".8" opacity=".4"/></svg></i></div>'+
    '<div class="scr" data-k="'+esc(k)+'">'+html+(noTab?'':'<div class="gap"></div>')+'</div>'+(noTab?'':tabbar());
+  if(document.body.classList.contains('lnmode')){var nm=LNM[app.key]||['ミニアプリ','#06c755'],sb=view.querySelector('.sbar');if(sb){sb.style.position='';sb.style.color=''}
+   (sb||view.firstChild).insertAdjacentHTML(sb?'afterend':'beforebegin','<div class="lnbar"><i style="background:'+nm[1]+'">'+nm[0].charAt(0).toUpperCase()+'</i><b>'+nm[0]+'</b><span><em>···</em><em>✕</em></span></div>')}
   var nw=view.querySelector('.scr');
   /* iOS Safari: sticky inside a scaled container paints in the wrong place, so dock header/CTA outside the scroll area */
   var h0=nw.firstElementChild;if(h0&&h0.classList.contains('hd')){h0.classList.add('dock');view.insertBefore(h0,nw)}
@@ -119,7 +122,7 @@ var Engine=(function(){
   for(var v in app.theme)ph.style.setProperty('--'+v,app.theme[v]);
   sc.innerHTML='<div id="view" style="display:flex;flex-direction:column;height:100%;position:relative"></div><div class="ov" data-close></div><div class="sheet"></div><div class="toast"></div>';
   view=sc.querySelector('#view');ov=sc.querySelector('.ov');sh=sc.querySelector('.sheet');tst=sc.querySelector('.toast');
-  var _q=new URLSearchParams(location.search);if(_q.get('bare')==='1')document.body.classList.add('bare');if(_q.get('solo')==='1'){document.body.classList.add('solo-on');if(innerWidth<=760)document.body.classList.add('bare')}S=app.init();cur=app.tabs[0][0];stack=[{id:cur}];
+  var _q=new URLSearchParams(location.search);if(_q.get('bare')==='1')document.body.classList.add('bare');if(_q.get('line')==='1')document.body.classList.add('lnmode');if(_q.get('solo')==='1'){document.body.classList.add('solo-on');if(innerWidth<=760)document.body.classList.add('bare')}S=app.init();cur=app.tabs[0][0];stack=[{id:cur}];
   sc.addEventListener('click',onClick);sc.addEventListener('input',onInput);sc.addEventListener('keydown',onKey);addEventListener('keydown',function(e){if(e.key==='Escape')E.close()});
   render(false);fit();addEventListener('resize',fit);
  }};

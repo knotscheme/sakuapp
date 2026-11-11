@@ -200,14 +200,21 @@ body.solo-on .solo .c{margin-left:auto;background:#f4c04e;color:#141716;border-r
 body.solo-on.bare .phone{height:calc(100dvh - 48px - env(safe-area-inset-top,0px));margin-top:calc(48px + env(safe-area-inset-top,0px))}
 body.solo-on:not(.bare) .stage{top:48px}
 body.solo-on:not(.bare){background:linear-gradient(160deg,#eaf5f6,#f7f3ec)}
+
+.lnbar{flex:none;display:flex;align-items:center;gap:8px;height:46px;padding:0 12px;background:#fff;border-bottom:1px solid #eceeee;color:#111;z-index:7;position:relative}
+.lnbar i{width:24px;height:24px;border-radius:7px;color:#fff;font:800 12px Inter,"Noto Sans JP";font-style:normal;display:grid;place-items:center;flex:none}
+.lnbar b{flex:1;font-size:13.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lnbar span{display:flex;gap:6px}.lnbar em{font-style:normal;min-width:32px;height:26px;border-radius:13px;background:#f1f3f2;display:grid;place-items:center;font-size:12px;color:#444;padding:0 8px}
+body.lnmode .sbar{background:#fff;color:#111}
+body.lnmode.bare .lnbar{padding-top:env(safe-area-inset-top,0px);height:calc(46px + env(safe-area-inset-top,0px))}
 </style>
 </head>
 <body>
 <div class="solo"><a href="./">‹ テンプレート一覧</a><a class="c" href="../contact/?from=tpl" data-entry="tpl">相談する</a></div><div class="stage"><div class="phone" id="ph"><div class="isl"></div><div class="scrn" id="sc"></div></div></div>
-<script src="engine.js?v=20261111d"></script>
-<script src="apps1.js?v=20261111d"></script>
-<script src="apps2.js?v=20261111d"></script>
-<script src="apps3.js?v=20261111d"></script>
+<script src="engine.js?v=20261111e"></script>
+<script src="apps1.js?v=20261111e"></script>
+<script src="apps2.js?v=20261111e"></script>
+<script src="apps3.js?v=20261111e"></script>
 <script>Engine.start()</script>
 </body>
 </html>
