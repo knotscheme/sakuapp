@@ -180,14 +180,24 @@ input,textarea,select{font:inherit;color:inherit}
 .cta.dock{bottom:0;padding:18px 18px 18px;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 0%,transparent),var(--bg) 40%)}
 .cta.tb.dock{bottom:84px;padding-bottom:10px}
 .phone{transform:none!important}
+
+/* bare mode: the app fills the real phone screen (no device frame) */
+body.bare .stage{display:block}
+body.bare .phone{width:100vw;height:100vh;height:100dvh;border-radius:0;padding:0;background:var(--bg);box-shadow:none}
+body.bare .scrn{border-radius:0}
+body.bare .isl,body.bare .sbar{display:none}
+body.bare .tbar{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+body.bare .cta.tb.dock{bottom:calc(82px + env(safe-area-inset-bottom,0px))}
+body.bare .cta.dock:not(.tb),body.bare .composer.dock{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+body.bare .hd.dock{padding-top:6px}
 </style>
 </head>
 <body>
 <div class="stage"><div class="phone" id="ph"><div class="isl"></div><div class="scrn" id="sc"></div></div></div>
-<script src="engine.js?v=20261111b"></script>
-<script src="apps1.js?v=20261111b"></script>
-<script src="apps2.js?v=20261111b"></script>
-<script src="apps3.js?v=20261111b"></script>
+<script src="engine.js?v=20261111c"></script>
+<script src="apps1.js?v=20261111c"></script>
+<script src="apps2.js?v=20261111c"></script>
+<script src="apps3.js?v=20261111c"></script>
 <script>Engine.start()</script>
 </body>
 </html>
