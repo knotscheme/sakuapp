@@ -1108,6 +1108,8 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 @keyframes lnxtap{0%{box-shadow:0 0 0 0 rgba(255,255,255,.7)}100%{box-shadow:0 0 0 14px rgba(255,255,255,0)}}
 .lnx-mb{height:22px;background:#fff;text-align:center;font-size:9.5px;color:#666;line-height:20px}
 @media(max-width:860px){.lnx-p{grid-template-columns:1fr;padding:32px 20px;gap:28px;border-radius:22px}.lnx-v{order:-1}.lnx-ph{width:min(64vw,240px)}.lnx-a a.go{width:100%;justify-content:center}.lnx-a{justify-content:center}}
+.lnx-pr{display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid #bfe9cf;border-radius:16px;padding:12px 18px;margin:0 0 18px}.lnx-pr span{flex:none}.lnx-pr small{display:block;font-size:11px;font-weight:800;color:#06a046}.lnx-pr b{font:700 28px/1.1 var(--serif);white-space:nowrap}.lnx-pr b i{font:800 12px var(--sans);font-style:normal;margin-left:2px}.lnx-pr p{margin:0;font-size:12.5px;color:var(--ink2);line-height:1.7}
+@media(max-width:860px){.lnx-pr{flex-direction:column;align-items:flex-start;gap:4px}}
 </style>
 </head>
 <body>
@@ -1256,12 +1258,12 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
  <div class="wrap">
   <div class="lnx-p rv">
    <div>
-    <span class="lnx-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>LINEミニアプリにも対応<em>オプション</em></span>
+    <span class="lnx-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>LINEミニアプリにも対応<em>月額1,980円</em></span>
     <h2><b>LINEの中</b>で、<wbr>予約まで。</h2>
     <p class="lx-lead">同じ予約ページを、LINEミニアプリとしても公開できます。お店のLINEのメニューから、そのまま予約・カルテ・クーポンへ。前日のリマインドや再来店のお知らせも、LINEのトークに届きます。</p>
     <ul><li><b>LINEのメニューから予約</b><small>トーク画面の下のメニューに「予約する」を。DMでのやりとりが減ります</small></li><li><b>お知らせをトークに</b><small>予約の確定・前日のリマインド・再来店のご案内を、LINEのトークへ</small></li><li><b>会員登録はLINEで</b><small>LINEのアカウントでそのまま予約。お名前や電話番号の入力を省けます</small></li></ul>
     <div class="lnx-a"><a class="go" href="../contact/?from=salon&amp;svc=LINE"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>LINE版について相談する</a><a class="more" href="../line/">LINEミニアプリについて詳しく ›</a></div>
-    <p class="lnx-note">※LINEミニアプリ版は追加機能としてお見積もりします。LINEの申請・審査の代行も承ります（別途）。トークへのお知らせは、LINEの審査を通った「認証済ミニアプリ」で使える機能です。</p>
+    <div class="lnx-pr"><span><small>LINE版</small><b>1,980<i>円/月</i></b></span><p>Web版の月額とは別に、LINE版を月額1,980円で追加できます。LINE版だけのご利用もできます。</p></div><p class="lnx-note">※LINEの申請・審査の代行は別途お見積もりです。トークへのお知らせは、LINEの審査を通った「認証済ミニアプリ」で使える機能です。</p>
    </div>
    <div class="lnx-v" aria-hidden="true"><div class="lnx-ph"><div class="lnx-sc">
     <div class="lnx-sb">9:41</div>
@@ -1361,7 +1363,7 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 <section id="faq" style="background:#fff;padding-top:40px">
   <div class="wrap">
     <div class="center rv"><p style="font:800 15px var(--en);letter-spacing:.14em;color:var(--blue)">FAQ</p><h2 style="font-size:clamp(28px,4.2vw,44px)">よくある質問</h2></div>
-    <div class="faq rv"> <details><summary>LINEの中で使えるようにできますか？</summary><p>できます。同じサロン予約を、LINEミニアプリとしても公開できます（追加機能としてお見積もり）。LINEのアカウントでログインでき、お店のLINEの友だち追加にもつなげられます。LINEの申請・審査の代行も承ります（別途お見積もり）。<a href="../line/">LINEミニアプリについて</a></p></details> 
+    <div class="faq rv"> <details><summary>LINEの中で使えるようにできますか？</summary><p>できます。同じサロン予約を、LINEミニアプリとしても公開できます。LINE版は月額1,980円です（Web版とは別。LINE版だけのご利用もできます）。LINEのアカウントでログインでき、お店のLINEの友だち追加にもつなげられます。LINEの申請・審査の代行も承ります（別途お見積もり）。<a href="../line/">LINEミニアプリについて</a></p></details> 
       <details><summary>自分で設定できますか？</summary><p>できます。セルフプラン（初期費用0円）なら、管理画面でテンプレートを選び、メニューと写真を登録するだけで公開できます。むずかしい場合は、あとからおまかせプラン（9,800円）に切り替えることもできます。</p></details>
       <details><summary>無料テンプレートと有料テンプレートの違いは？</summary><p>無料テンプレートでも、色・ロゴ・写真を変えてお店らしくできます。有料テンプレート（3,000〜5,000円・買い切り）は、レイアウトや書体、写真の見せ方まで作り込んだデザイン性の高いものです。お店専用に一から作りたい場合はオーダー（19,800円〜）になります。</p></details>
       <details><summary>ホットペッパーなど、ほかの予約サービスと併用できますか？</summary><p>併用できます。ただし、ほかのサービスとの自動連携はしていません。ほかのサービスで入った予約は、二重予約にならないよう管理画面で枠を埋めてください（ワンタップでできます）。</p></details>
