@@ -131,6 +131,34 @@ body{margin:0;background:#e9e1d6;color:var(--ink);font-family:"Noto Sans JP",san
 .scr div{height:26mm}.scr{margin-bottom:5mm}
 .ft{margin-bottom:4mm}.ft div{padding:3mm}
 .bb{padding-top:6mm}
+
+/* v2 real screens */
+.pb{display:flex;align-items:center;gap:2mm;flex-wrap:wrap;margin:0 0 6mm;font-size:2.9mm}
+.pb b{font-size:3.2mm;margin-right:1mm}
+.pb span{background:#fdeee6;color:#9a3f17;font-weight:700;border-radius:99px;padding:1mm 3mm}
+.fp{background:#15110e;padding:.8mm;border-radius:3.6mm;box-shadow:0 6px 12px -6px rgba(30,20,10,.5)}
+.fp img{width:100%;height:auto;border-radius:2.9mm;display:block}
+.fw{border-radius:2mm;overflow:hidden;box-shadow:0 0 0 .25mm rgba(36,30,26,.12),0 8px 16px -8px rgba(30,20,10,.4);background:#fff}
+.fw img{width:100%;height:auto;display:block}
+.how{display:grid;grid-template-columns:22mm 22mm 22mm 6mm 1fr;gap:3mm;align-items:start}
+.how figure{margin:0}
+.how figcaption{margin-top:2mm;font-size:3mm;font-weight:800;display:flex;align-items:center;gap:1.4mm;line-height:1.3}
+.how figcaption b{flex:none;display:grid;place-items:center;width:4.2mm;height:4.2mm;border-radius:50%;background:var(--ink);color:var(--yel);font:800 2.3mm var(--en)}
+.how figcaption small{display:block;font-size:2.4mm;color:var(--sub);font-weight:700}
+.how .wide figcaption{align-items:flex-start}
+.how .arw{align-self:center;margin-top:-8mm;width:6mm;height:6mm;border-radius:50%;background:var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/3.6mm no-repeat}
+.how .wide .fw{margin-top:6mm}
+.tps{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm;margin-bottom:5mm}
+.tps figure{margin:0}
+.tps .fp img{height:42mm;object-fit:cover;object-position:top}
+.tps figcaption{margin-top:1.6mm;text-align:center;font-size:2.8mm;font-weight:800}
+.tps figcaption small{color:var(--gold-d);margin-left:1mm;font-size:2.3mm}
+.adm{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-bottom:6mm}
+.adm figure{margin:0}
+.adm .fw img{height:30mm;object-fit:cover;object-position:left top}
+.adm figcaption{margin-top:1.8mm;font-size:2.6mm;color:var(--sub);line-height:1.5}
+.adm figcaption b{display:block;font-size:3.2mm;color:var(--ink)}
+.hero{height:122mm}
 @page{size:A4;margin:0}
 @media print{
  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -159,20 +187,15 @@ body{margin:0;background:#e9e1d6;color:var(--ink);font-family:"Noto Sans JP",san
   <div><small>注文手数料</small><b>0<i>円</i></b></div>
  </div>
  <div class="sec" style="margin-top:-4mm">
-  <p class="ey">PROBLEM</p>
-  <h2 class="h2">ピークの時間に、こんなことは<span class="nw">ありませんか？</span></h2>
-  <div class="wr">
-   <div>「すみませーん」に、すぐ行けない</div>
-   <div>注文の聞き間違い・書き間違い</div>
-   <div>値上げのたびにメニューを刷り直し</div>
-   <div>外国のお客様に説明しきれない</div>
-  </div>
+  <div class="pb"><b>ピークの時間に…</b><span>「すみませーん」にすぐ行けない</span><span>注文の聞き間違い</span><span>値上げのたびに刷り直し</span></div>
   <p class="ey">HOW IT WORKS</p>
-  <h2 class="h2">テーブルのQRを読むだけ。<span class="nw"><em>アプリも会員登録もいりません。</em></span></h2>
-  <div class="fl">
-   <div><span>01</span><b>QRを読む</b><p>カメラをかざすと、その席のメニューが開きます。</p></div>
-   <div><span>02</span><b>選んで、送る</b><p>写真を見ながら選べます。追加の注文も同じ画面から。</p></div>
-   <div><span>03</span><b>お店に届く</b><p>お店のスマホ・タブレットに注文が届きます。専用端末は不要。</p></div>
+  <h2 class="h2">QRを読んで、選んで、送るだけ。<span class="nw"><em>お店のスマホに届きます。</em></span></h2>
+  <div class="how">
+   <figure><div class="fp"><img src="img/c-menu.webp" alt="" width="546" height="1144"></div><figcaption><b>1</b>QRで開く</figcaption></figure>
+   <figure><div class="fp"><img src="img/c-item.webp" alt="" width="546" height="1144"></div><figcaption><b>2</b>選ぶ</figcaption></figure>
+   <figure><div class="fp"><img src="img/c-done.webp" alt="" width="546" height="1144"></div><figcaption><b>3</b>送る</figcaption></figure>
+   <i class="arw" aria-hidden="true"></i>
+   <figure class="wide"><div class="fw"><img src="img/a-orders.webp" alt="" width="1492" height="704"></div><figcaption><b>4</b>お店の画面に届く<small>専用端末はいりません</small></figcaption></figure>
   </div>
  </div>
  <div class="cta">
@@ -193,24 +216,20 @@ body{margin:0;background:#e9e1d6;color:var(--ink);font-family:"Noto Sans JP",san
 <!-- BACK -->
 <section class="sheet" aria-label="裏面">
  <div class="bhd">
-  <div><p class="ey">FEATURES &amp; PRICE</p><h2 class="h2">必要なことは、最初からそろっています。</h2></div>
+  <div><p class="ey">DESIGN &amp; PRICE</p><h2 class="h2">お店らしい画面を、選ぶだけ。</h2></div>
   <img src="../../logo-w.png" alt="サクアプ" width="800" height="195">
  </div>
  <div class="bb">
-  <div class="scr">
-   <div style="background-image:url(../img/in-izakaya.webp)"><span>居酒屋</span></div>
-   <div style="background-image:url(../img/in-cafe.webp)"><span>カフェ</span></div>
-   <div style="background-image:url(../img/in-shokudo.webp)"><span>定食・食堂</span></div>
+  <div class="tps">
+   <figure><div class="fp"><img src="img/t-teishoku.webp" alt="" width="546" height="1144"></div><figcaption>和の食堂</figcaption></figure>
+   <figure><div class="fp"><img src="img/t-cafe.webp" alt="" width="546" height="1144"></div><figcaption>カフェ</figcaption></figure>
+   <figure><div class="fp"><img src="img/t-ticket.webp" alt="" width="546" height="1144"></div><figcaption>食券スタイル</figcaption></figure>
+   <figure><div class="fp"><img src="img/t-izakaya.webp" alt="" width="546" height="1144"></div><figcaption>夜の居酒屋<small>有料</small></figcaption></figure>
+   <figure><div class="fp"><img src="img/t-bistro.webp" alt="" width="546" height="1144"></div><figcaption>ビストロ<small>有料</small></figcaption></figure>
   </div>
-  <div class="ft">
-   <div><i></i><b>売り切れ・値段をすぐ反映</b><small>管理画面で触るだけ</small></div>
-   <div><i></i><b>写真つきのメニュー</b><small>注文が決まりやすく</small></div>
-   <div><i></i><b>オプション・追加注文</b><small>大盛り・おかわりも</small></div>
-   <div><i></i><b>席ごとの合計</b><small>会計後はワンタップでリセット</small></div>
-   <div><i></i><b>専用端末いらず</b><small>お店のスマホ・タブレットで</small></div>
-   <div><i></i><b>お客様用Wi‑Fi不要</b><small>お客様のスマホの通信で注文</small></div>
-   <div><i></i><b>テーブル用QRをお渡し</b><small>印刷用のデータで</small></div>
-   <div><i></i><b>会計はいつものレジで</b><small>事前決済の追加もOK</small></div>
+  <div class="adm">
+   <figure><div class="fw"><img src="img/a-menu.webp" alt="" width="1492" height="1173"></div><figcaption><b>売り切れはスイッチひとつ</b>値段も写真も、その場で反映</figcaption></figure>
+   <figure><div class="fw"><img src="img/a-tables.webp" alt="" width="1492" height="704"></div><figcaption><b>席ごとの合計がわかる</b>会計はいつものレジで</figcaption></figure>
   </div>
   <div class="two">
    <div>
