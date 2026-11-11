@@ -486,6 +486,28 @@ img{display:block;max-width:100%}
  .mdemo{font-size:14.5px;padding:13px}
  .mcover h1{font-size:23px}.mcover .lead{font-size:13.5px}
 }
+
+.est2 thead th{font-size:1.05cqw;color:var(--sub);font-weight:700;padding-top:0}
+.est2 th.c{text-align:right}
+.est2 .mo{background:#fff4dc}
+.est2 thead th.mo{color:var(--gold-d);border-radius:.8cqw .8cqw 0 0}
+.est2 tr.tot td.r{font-size:1.9cqw}
+@media (max-width:860px){.est2 thead th{font-size:11px}}
+@media screen and (max-width:860px){
+ .vs2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ .vs2>div{border-radius:18px;padding:18px 16px;background:var(--soft);text-align:center}
+ .vs2 small{display:block;font-size:14px;font-weight:800;color:var(--sub)}
+ .vs2 b{display:block;font:800 34px/1.2 var(--en);margin:8px 0;white-space:nowrap}
+ .vs2 b i{font-style:normal;font-size:13px;margin-left:2px}
+ .vs2 span{display:block;font-size:12.5px;color:var(--sub);line-height:1.6}
+ .vs2 .mo{background:var(--dk);color:#fff}.vs2 .mo small{color:var(--yel)}.vs2 .mo b{color:var(--yel);font-size:44px}.vs2 .mo span{color:rgba(255,255,255,.7)}
+ .mon2{margin:0;text-align:center;font-size:16px;font-weight:700}
+ .mon2 b{font:800 22px var(--en)}
+ .nts{list-style:none;margin:0;padding:14px 16px;background:var(--soft);border-radius:14px;display:grid;gap:8px}
+ .nts li{font-size:13px;line-height:1.6;padding-left:16px;position:relative;color:var(--ink2)}
+ .nts li:before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+}
+@media screen and (max-width:380px){.vs2 b{font-size:26px}.vs2 .mo b{font-size:34px}.vs2>div{padding:14px 10px}.vs2 span{font-size:11px}.mon2{font-size:14px}.nts li{font-size:12px}}
 @media print{.pw-m{display:none!important}}
 @media print{
  html{scroll-snap-type:none}
@@ -717,17 +739,18 @@ img{display:block;max-width:100%}
 <!-- 12 estimate -->
 <section class="s" aria-label="お見積もりと次のステップ">
  <div class="hd"><span class="no">08 ESTIMATE</span><span class="ch">お見積もりと次のステップ</span><span class="who"><span data-v="shop">飲食店</span>様</span></div>
- <h2>先行モニターなら、<em>初期費用0円</em>で始められます。</h2>
+ <h2>先行モニターなら、<em>初期費用0円</em>。</h2>
  <div class="body c2">
   <div>
-   <table class="est">
-    <tr><th>おまかせ設定<small>テンプレート選び・メニュー登録（30品まで）</small></th><td class="r"><s>9,800円</s><em>0円</em></td></tr>
-    <tr><th>テーブル用QR<small><span data-v="tables">8</span>卓分・印刷用データ</small></th><td class="r">0円</td></tr>
-    <tr><th>有料テンプレート 1つ<small>お店の雰囲気に合わせたデザイン</small></th><td class="r"><s>3,000円〜</s><em>0円</em></td></tr>
-    <tr><th>月額<small>サーバー代・保守込み／注文手数料0円</small></th><td class="r">1,980円</td></tr>
-    <tr class="tot"><th>初期費用 合計</th><td class="r"><em>0円</em></td></tr>
+   <table class="est est2">
+    <thead><tr><th></th><th class="c">通常</th><th class="c mo">先行モニター</th></tr></thead>
+    <tr><th>おまかせ設定<small>テンプレート選び・メニュー登録（30品まで）</small></th><td class="r">9,800円</td><td class="r mo"><em>0円</em></td></tr>
+    <tr><th>有料テンプレート<small>デザイン性の高いテンプレート 1つ</small></th><td class="r">3,000円〜</td><td class="r mo"><em>0円</em></td></tr>
+    <tr><th>テーブル用QR<small><span data-v="tables">8</span>卓分・印刷用データ</small></th><td class="r">0円</td><td class="r mo">0円</td></tr>
+    <tr class="tot"><th>初期費用</th><td class="r">9,800円〜</td><td class="r mo"><em>0円</em></td></tr>
+    <tr><th>月額<small>サーバー代・保守込み／注文手数料0円</small></th><td class="r">1,980円</td><td class="r mo">1,980円</td></tr>
    </table>
-   <p class="src" style="margin-top:1.2cqw">先行モニターの条件：最初の6か月のご継続・導入事例の掲載（飲食店 先着5店舗）。正式受付は2027年6月ごろから。</p>
+   <p class="src" style="margin-top:1.2cqw">通常でも、ご自分で設定する「セルフ」なら初期費用0円です。お店専用の画面・機能を作る場合は、オーダーメイド（19,800円〜・別途お見積もり）になります。<br>先行モニターの条件：最初の6か月のご継続・導入事例の掲載（飲食店 先着5店舗）。正式受付は2027年6月ごろから。</p>
   </div>
   <div class="nx">
    <p class="nxh">次のステップ</p>
@@ -876,17 +899,13 @@ img{display:block;max-width:100%}
  <p class="ey">お見積もり</p>
  <h2>先行モニターなら、<br><em>初期費用0円。</em></h2>
  <div class="mid">
-  <ul class="mest">
-   <li><span>おまかせ設定</span><b><s>9,800円</s>0円</b></li>
-   <li><span>有料テンプレート</span><b><s>3,000円〜</s>0円</b></li>
-   <li><span>テーブル用QR <small><span data-v="tables">8</span>卓分</small></span><b>0円</b></li>
-  </ul>
-  <div class="pair">
-   <div class="hl"><small>初期費用</small><b>0<i>円</i></b></div>
-   <div class="dk"><small>月額</small><b>1,980<i>円</i></b></div>
+  <div class="vs2">
+   <div><small>通常</small><b>9,800<i>円〜</i></b><span>おまかせ設定<br>の場合</span></div>
+   <div class="mo"><small>先行モニター</small><b>0<i>円</i></b><span>先着5店舗<br>6か月の継続が条件</span></div>
   </div>
+  <p class="mon2">月額はどちらも <b>1,980円</b></p>
  </div>
- <p class="src">条件：最初の6か月のご継続・導入事例の掲載（先着5店舗）</p>
+ <p class="src">自分で設定する「セルフ」なら通常も0円。<br>お店専用に作るオーダーメイドは別途お見積もり。</p>
 </section>
 
 <section class="m mend" aria-label="次のステップ">
