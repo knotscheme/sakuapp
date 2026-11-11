@@ -190,14 +190,24 @@ body.bare .tbar{bottom:calc(10px + env(safe-area-inset-bottom,0px))}
 body.bare .cta.tb.dock{bottom:calc(82px + env(safe-area-inset-bottom,0px))}
 body.bare .cta.dock:not(.tb),body.bare .composer.dock{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
 body.bare .hd.dock{padding-top:6px}
+
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* standalone full-screen page */
+.solo{display:none}
+body.solo-on .solo{display:flex;position:fixed;left:0;right:0;top:0;z-index:100;align-items:center;gap:10px;padding:calc(6px + env(safe-area-inset-top,0px)) 12px 6px;background:#0f2a2e;color:#fff;font:700 13px "Noto Sans JP",sans-serif}
+body.solo-on .solo a{color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+body.solo-on .solo .c{margin-left:auto;background:#f4c04e;color:#141716;border-radius:999px;padding:7px 14px;font-weight:800}
+body.solo-on.bare .phone{height:calc(100dvh - 48px - env(safe-area-inset-top,0px));margin-top:calc(48px + env(safe-area-inset-top,0px))}
+body.solo-on:not(.bare) .stage{top:48px}
+body.solo-on:not(.bare){background:linear-gradient(160deg,#eaf5f6,#f7f3ec)}
 </style>
 </head>
 <body>
-<div class="stage"><div class="phone" id="ph"><div class="isl"></div><div class="scrn" id="sc"></div></div></div>
-<script src="engine.js?v=20261111c"></script>
-<script src="apps1.js?v=20261111c"></script>
-<script src="apps2.js?v=20261111c"></script>
-<script src="apps3.js?v=20261111c"></script>
+<div class="solo"><a href="./">‹ テンプレート一覧</a><a class="c" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">相談する</a></div><div class="stage"><div class="phone" id="ph"><div class="isl"></div><div class="scrn" id="sc"></div></div></div>
+<script src="engine.js?v=20261111d"></script>
+<script src="apps1.js?v=20261111d"></script>
+<script src="apps2.js?v=20261111d"></script>
+<script src="apps3.js?v=20261111d"></script>
 <script>Engine.start()</script>
 </body>
 </html>

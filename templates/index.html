@@ -166,6 +166,11 @@ body.mdopen{overflow:hidden}
 .mdtry ol{margin:8px 0 0;padding-left:1.3em;font-size:13.5px;line-height:1.9}
 @media(min-width:761px){.mdf{margin-top:24px!important}.mdi{justify-content:center}}
 .mdi .mdtry li{background:none!important;border:0!important;padding:0!important;border-radius:0!important;font-weight:600;font-size:13.5px!important;display:list-item}
+
+.mdtfs{flex:none;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;cursor:pointer}
+.mdtfs svg{width:18px;height:18px}
+.mdfs2{border:0;background:none;color:var(--brand);font:inherit;font-weight:800;text-decoration:underline;cursor:pointer;padding:0}
+.mdc:fullscreen{width:100vw;height:100vh;border-radius:0}
 </style>
 </head>
 <body>
@@ -212,9 +217,9 @@ body.mdopen{overflow:hidden}
 <div class="md" id="md" hidden role="dialog" aria-modal="true" aria-labelledby="md-t">
  <div class="mdb" data-close></div>
  <div class="mdc">
-  <div class="mdtop"><button type="button" data-close class="mdtx" aria-label="閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button><span class="mdtn"><small>テンプレートを体験中</small><b id="md-t2"></b></span><a class="mdtc" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">相談する</a></div>
+  <div class="mdtop"><button type="button" data-close class="mdtx" aria-label="閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button><span class="mdtn"><small>テンプレートを体験中</small><b id="md-t2"></b></span><button type="button" class="mdtfs" id="md-fs" aria-label="全画面で見る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><a class="mdtc" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">相談する</a></div>
   <button type="button" class="mdx" data-close aria-label="閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
-  <div class="mdp"><iframe id="md-f" title="テンプレートの操作デモ" loading="lazy"></iframe><p class="mdh">画面をタップして、実際に操作できます</p></div>
+  <div class="mdp"><iframe id="md-f" title="テンプレートの操作デモ" loading="lazy"></iframe><p class="mdh">画面をタップして、実際に操作できます ・ <button type="button" class="mdfs2" id="md-fs2">全画面で見る</button></p></div>
   <div class="mdi"><span class="tcat" id="md-c"></span><h2 id="md-t"></h2><p class="who" id="md-w"></p><ul id="md-l"></ul>
    <p class="mdn">ロゴ・色・写真・メニューは、あなたのお店のものに差し替えます。足りない機能は追加できます（1文字0.5円）。</p>
    <div class="mdtry"><b>試してみてください</b><ol id="md-try"></ol></div><div class="mdf"><span class="pr" id="md-p"></span><a class="mdcta" href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener" data-entry="tpl">【無料】このテンプレートで相談する</a></div>
@@ -230,7 +235,7 @@ body.mdopen{overflow:hidden}
 <script>
 var TRY={"0": ["メニュー・スタッフ・日時を選んで予約を確定", "マイページで予約を確認・キャンセル", "スタイル一覧から「このスタイルで予約」"], "3": ["日にちを選んでレッスンを予約（チケットが減る）", "満席のレッスンはキャンセル待ちに登録", "チケットタブで回数券を購入"], "4": ["不調の部位を選んで、おすすめの施術を予約", "回数券を使って予約（残り回数が減る）", "履歴で担当からのメモを見る"], "9": ["相談員を選んで日時を予約", "メッセージを送ると返信が届く", "「相談をはじめる」でビデオ通話・評価"], "1": ["スタンプタブで「レジで読み取る」", "10個たまると無料クーポンが届く", "クーポンを使う・会員証のQRを表示"], "2": ["クラスを予約・取り消し", "会員証タブで入館→退館（時間を記録）", "記録タブでトレーニングを追加"], "5": ["検索・並び替え・カテゴリで商品をさがす", "色・サイズ・数量を選んでカートへ", "配送方法を選んで注文を確定"], "6": ["ごはんの量やお味噌汁を選んでカートへ", "注文すると「受付→調理中→受け取り可」が進む", "履歴から「もう一度注文」"], "7": ["イベントの枚数を選んで購入", "チケットのQRを表示", "「受付で読み取る」で入場済みに"], "10": ["カードを左右にスワイプ（またはボタン）", "マッチしたらメッセージを送る", "いいねした人にいいねを返す"], "11": ["写真をダブルタップでいいね・コメント", "ストーリーを見る", "投稿タブで写真を選んでシェア"], "8": ["週・月・年で売上グラフを切り替え", "予約の状態を「来店済み」に変更", "顧客を検索してカルテにメモを追加"]};
 (function(){var md=document.getElementById("md"),f=document.getElementById("md-f"),last=null;
-function open(card){last=document.activeElement;var k=card.dataset.k;var bare=matchMedia("(max-width:760px)").matches;f.src="app.html?v=20261111c&k="+k+(bare?"&bare=1":"");document.getElementById("md-try").innerHTML=(TRY[k]||[]).map(function(t){return "<li>"+t+"</li>"}).join("");document.getElementById("md-t2").textContent=card.querySelector("h3").textContent;
+function open(card){last=document.activeElement;var k=card.dataset.k;var bare=matchMedia("(max-width:760px)").matches;f.src="app.html?v=20261111d&k="+k+(bare?"&bare=1":"");document.getElementById("md-try").innerHTML=(TRY[k]||[]).map(function(t){return "<li>"+t+"</li>"}).join("");document.getElementById("md-t2").textContent=card.querySelector("h3").textContent;
  document.getElementById("md-t").textContent=card.querySelector("h3").textContent;
  document.getElementById("md-c").textContent=card.querySelector(".tcat").textContent;
  document.getElementById("md-w").textContent=card.querySelector(".who").textContent;
@@ -241,6 +246,14 @@ function close(){md.hidden=true;f.src="about:blank";document.body.classList.remo
 [].forEach.call(document.querySelectorAll(".tc"),function(c){c.querySelector(".tplay").addEventListener("click",function(){open(c)})});
 [].forEach.call(md.querySelectorAll("[data-close]"),function(b){b.addEventListener("click",close)});
 addEventListener("keydown",function(e){if(e.key==="Escape"&&!md.hidden)close()});})();
+</script>
+<script>
+(function(){var md=document.getElementById("md");
+function go(){var f=document.getElementById("md-f"),u=new URL(f.src,location.href),k=u.searchParams.get("k");
+ var el=md.querySelector(".mdc"),rq=el.requestFullscreen||el.webkitRequestFullscreen;
+ if(rq&&matchMedia("(max-width:760px)").matches){try{rq.call(el);return}catch(e){}}
+ location.href="app.html?v=20261111d&solo=1&k="+k}
+["md-fs","md-fs2"].forEach(function(id){var b=document.getElementById(id);if(b)b.addEventListener("click",go)});})();
 </script>
 <script src="../js/budoux.js" defer></script>
 </body>
