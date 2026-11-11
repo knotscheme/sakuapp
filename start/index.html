@@ -89,7 +89,7 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
       <div class="opts o3">
         <label class="opt"><input type="radio" name="c" value="web" checked><b>Web版</b><em>月額1,980円</em><small>QRやリンクから、ブラウザで開きます</small></label>
         <label class="opt"><input type="radio" name="c" value="line"><b>LINE版</b><em>月額1,980円</em><small>LINEミニアプリとして、LINEの中で開きます</small></label>
-        <label class="opt"><input type="radio" name="c" value="both"><b>両方</b><em>月額3,960円</em><small>Web版とLINE版を、同じ管理画面で</small></label>
+        <label class="opt"><input type="radio" name="c" value="both"><b>両方（セット）</b><em>月額2,980円</em><small>Web版とLINE版を、同じ管理画面で。別々より980円おトク</small></label>
       </div>
       <p class="hint">LINE版の公開には、お店のLINE公式アカウントが必要です。LINEへの申請・審査の代行は別途お見積もりです（<a href="../line/">LINEミニアプリについて</a>）。</p>
     </section>
@@ -136,13 +136,13 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 <script>
 (function(){
   var B=window.SAKUAPP_BILLING||{},$=function(i){return document.getElementById(i)},f=$("f");
-  var NAME={menu:"モバイルメニュー",salon:"サロン予約"},PLAN={self:"セルフ（初期費用0円）",omakase:"おまかせ（初期費用9,800円）"},CH={web:"Web版",line:"LINE版（LINEミニアプリ）",both:"Web版＋LINE版"};
+  var NAME={menu:"モバイルメニュー",salon:"サロン予約"},PLAN={self:"セルフ（初期費用0円）",omakase:"おまかせ（初期費用9,800円）"},CH={web:"Web版",line:"LINE版（LINEミニアプリ）",both:"Web版＋LINE版（セット）"};
   var q=new URLSearchParams(location.search),s0=q.get("s")==="menu"?"menu":"salon",p0=q.get("p")==="omakase"?"omakase":"self",c0=CH[q.get("c")]?q.get("c"):"web";
   f.s.value=s0;f.p.value=p0;f.c.value=c0;
   function yen(n){return n.toLocaleString("ja-JP")+"円"}
   function d(x){return x.getFullYear()+"年"+(x.getMonth()+1)+"月"+x.getDate()+"日"}
   function link(){var s=f.s.value,c=f.c.value,p=f.p.value,L=B.LINKS&&B.LINKS[s]&&B.LINKS[s][c];return(L&&L[p])||""}
-  function mon(){return(B.MONTHLY||1980)*(f.c.value==="both"?2:1)}
+  function mon(){return f.c.value==="both"?(B.MONTHLY_BOTH||2980):(B.MONTHLY||1980)}
   function upd(){
     var s=f.s.value,p=f.p.value,days=B.TRIAL_DAYS||30,now=new Date(),end=new Date(now),first=new Date(now);
     end.setDate(end.getDate()+days-1);first.setDate(first.getDate()+days);
@@ -151,7 +151,7 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
     $("c-s").textContent=NAME[s];$("c-c").textContent=CH[f.c.value];$("c-p").textContent=PLAN[p];
     $("c-now").textContent=p==="omakase"?yen(B.OMAKASE||9800)+"（おまかせの初期費用）":"0円";
     $("c-trial").textContent=d(now)+" 〜 "+d(end)+"（"+days+"日間）";
-    $("c-mon").textContent=yen(mon())+"（"+(f.c.value==="both"?"Web版1,980円＋LINE版1,980円。":"")+d(first)+"から、1か月ごとに自動で請求）";
+    $("c-mon").textContent=yen(mon())+"（"+(f.c.value==="both"?"Web版＋LINE版のセット料金。":"")+d(first)+"から、1か月ごとに自動で請求）";
     $("c-warn").innerHTML="<b>"+d(first)+"に、月額"+yen(mon())+"が自動で請求されます。</b>続けない場合は、"+d(end)+"までに解約してください。";
     var open=!!B.OPEN&&!!link();
     $("closed").hidden=open;if(!open)$("closed").innerHTML=(B.OPEN_NOTE||"ただいま受付前です。")+(B.LINE_URL?' <a href="'+B.LINE_URL+'" target="_blank" rel="noopener">LINEで相談する ›</a>':"");
