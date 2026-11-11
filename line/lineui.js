@@ -183,9 +183,18 @@ function story(id,auto,list){var el=document.getElementById(id);if(!el)return nu
 var hero=story('heroPh');
 if(hero){var hi=0;if(!RM)setInterval(function(){hi=(hi+1)%5;hero.set(hi)},2300)}
 var stl=document.getElementById('stl'),sto=story('storyPh',0,stl);
-if(sto&&stl){var lis=[].slice.call(stl.children);
- if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)sto.set(+e.target.dataset.s)})},{rootMargin:'-45% 0px -45% 0px'});lis.forEach(function(li){io.observe(li)})}
- lis.forEach(function(li){li.addEventListener('click',function(){sto.set(+li.dataset.s)})})}
+if(sto&&stl){var lis=[].slice.call(stl.children),MOB=matchMedia('(max-width:860px)');
+ /* PC: scroll-driven sticky story */
+ if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(MOB.matches)return;es.forEach(function(e){if(e.isIntersecting)sto.set(+e.target.dataset.s)})},{rootMargin:'-45% 0px -45% 0px'});lis.forEach(function(li){io.observe(li)})}
+ /* mobile: compact slider (phone + one step), auto-advance while visible */
+ var nav=document.createElement('div');nav.className='st-nav';nav.innerHTML='<button type="button" class="pv" aria-label="前へ">‹</button><span class="dt">'+lis.map(function(_,i){return '<i data-i="'+i+'"></i>'}).join('')+'</span><button type="button" class="nx" aria-label="次へ">›</button>';stl.parentNode.appendChild(nav);
+ var mi=0,vis=false,tm;function go(i){mi=(i+lis.length)%lis.length;sto.set(mi);[].forEach.call(nav.querySelectorAll('i'),function(d,j){d.classList.toggle('on',j===mi)})}
+ function loop(){clearInterval(tm);if(!RM&&vis&&MOB.matches)tm=setInterval(function(){go(mi+1)},3600)}
+ nav.querySelector('.pv').addEventListener('click',function(){go(mi-1);loop()});nav.querySelector('.nx').addEventListener('click',function(){go(mi+1);loop()});
+ [].forEach.call(nav.querySelectorAll('i'),function(d){d.addEventListener('click',function(){go(+d.dataset.i);loop()})});
+ lis.forEach(function(li){li.addEventListener('click',function(){if(MOB.matches){go(+li.dataset.s+1);loop()}else sto.set(+li.dataset.s)})});
+ if('IntersectionObserver' in window){new IntersectionObserver(function(es){vis=es[0].isIntersecting;loop()},{threshold:.4}).observe(document.querySelector('.st-g'))}
+ go(0)}
 
 /* ---------- RICH MENU ---------- */
 var rp=document.getElementById('richPh');

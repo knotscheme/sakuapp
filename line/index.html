@@ -1215,6 +1215,19 @@ body.dfs-on .fbar{display:none!important}
  .ldemo{margin-top:20px}
  .dfs-b{display:inline-flex}
 }
+
+.st-nav{display:none}
+@media(max-width:860px){
+ .st-g{display:flex!important;flex-direction:column;align-items:center}
+ .st-ph{position:static!important;background:none!important;padding:0!important}
+ .st-ph .ph2{width:min(50vw,200px)!important}
+ .st-l{padding:0!important;margin-top:18px;width:100%;display:grid}
+ .st-l li{grid-area:1/1;margin:0!important;opacity:0!important;transform:translateY(8px)!important;pointer-events:none;box-shadow:0 24px 40px -34px rgba(10,60,30,.45)}
+ .st-l li.on{opacity:1!important;transform:none!important;pointer-events:auto}
+ .st-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+ .st-nav button{width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:var(--ink);font-size:22px;box-shadow:0 8px 20px -12px rgba(0,0,0,.35);cursor:pointer}
+ .st-nav .dt{display:flex;gap:6px}.st-nav i{width:8px;height:8px;border-radius:4px;background:#c9ddd0;transition:.3s;cursor:pointer}.st-nav i.on{width:22px;background:var(--blue)}
+}
 </style>
 </head>
 <body>
@@ -1444,7 +1457,7 @@ body.dfs-on .fbar{display:none!important}
 <div class="dfs" id="dfs" hidden><div class="dfs-top"><button type="button" id="dfsClose" aria-label="閉じる">✕</button><span>LINEミニアプリのデモ</span><a href="../contact/?from=line&amp;svc=LINE">相談する</a></div><div class="dfs-body" id="dfsBody"></div></div>
 <div class="fbar" id="fbar"><a class="g" href="../guide/">資料</a><a class="m" href="../contact/?from=line&amp;svc=LINE"><svg><use href="#lnI"/></svg>LINEで無料相談</a></div>
 
-<script src="lineui.js?v=4"></script>
+<script src="lineui.js?v=5"></script>
 <script src="../js/budoux.js" defer></script>
 </body>
 </html>
