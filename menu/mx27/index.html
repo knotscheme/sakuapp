@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>モバイルメニュー ご案内資料｜サクアプ</title>
-<meta name="description" content="個人経営の飲食店のためのQR注文「モバイルメニュー」のご案内資料。">
-<meta property="og:title" content="モバイルメニュー ご案内資料｜サクアプ">
-<meta property="og:description" content="QRで注文。メニューは、お店らしく。月額1,980円・注文手数料0円。">
+<title>ご提案資料｜サクアプ モバイルメニュー</title>
+<meta name="description" content="飲食店のみなさまへ、QR注文「モバイルメニュー」導入のご提案資料。">
+<meta property="og:title" content="ご提案資料｜サクアプ モバイルメニュー">
+<meta property="og:description" content="ピークの注文取りを、お客様のスマホへ。お店に合わせた試算つきのご提案です。">
 <meta property="og:image" content="https://knotscheme.github.io/sakuapp/menu/hero.webp">
 <link rel="icon" href="../../favicon.png">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
@@ -15,302 +15,237 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#241e1a;--ink2:#4a3f38;--sub:#7a6d63;--line:#ece3d8;--bg:#efe7dc;--soft:#f7f1e8;--card:#fffdf9;--gold:#a8740f;--gold-d:#8a5d06;--gold-l:#fdf3d9;--yel:#f3b93a;--red:#c8551f;--dk:#1d1712;--en:"Montserrat","Noto Sans JP",sans-serif;--serif:"Noto Serif JP","Hiragino Mincho ProN",serif}
+:root{--ink:#241e1a;--ink2:#4a3f38;--sub:#7a6d63;--line:#ece3d8;--bg:#efe7dc;--soft:#f7f1e8;--card:#fffdf9;--gold:#a8740f;--gold-d:#8a5d06;--gold-l:#fdf3d9;--yel:#f3b93a;--red:#c8551f;--grn:#3d7a52;--dk:#1d1712;--mute:#d9cdbd;--en:"Montserrat","Noto Sans JP",sans-serif;--serif:"Noto Serif JP","Hiragino Mincho ProN",serif}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.7;letter-spacing:.04em}
 a{color:inherit}
 img{display:block;max-width:100%}
 .nw{display:inline-block}
+.num{font-family:var(--en);letter-spacing:-.01em}
 /* toolbar */
-.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:10px 20px;background:rgba(255,253,249,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:10px 20px;background:rgba(255,253,249,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .bar .lg img{height:22px;width:auto}
-.bar .tt{font-size:12px;font-weight:700;color:var(--sub);margin-right:auto;white-space:nowrap}
-.bar a.b,.bar button{font:700 12.5px "Noto Sans JP",sans-serif;letter-spacing:.04em;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.bar .tt{font-size:12px;font-weight:700;color:var(--sub);margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar a.b,.bar button{font:700 12.5px "Noto Sans JP",sans-serif;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .bar button{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
 .bar button svg{width:15px;height:15px}
 .bar a.b{background:var(--ink);color:#fff}
-.deck{max-width:1160px;margin:0 auto;padding:28px 20px 60px;display:flex;flex-direction:column;gap:28px}
+/* editor (screen only) */
+.edit{max-width:1160px;margin:20px auto 0;padding:0 20px}
+.edit details{background:#fff;border:1px dashed #cdbba4;border-radius:16px}
+.edit summary{cursor:pointer;list-style:none;padding:14px 18px;font-size:13.5px;font-weight:800;display:flex;align-items:center;gap:10px}
+.edit summary::-webkit-details-marker{display:none}
+.edit summary span{font-weight:500;color:var(--sub);font-size:12.5px}
+.edit summary:before{content:"✎";display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--gold-l);color:var(--gold-d)}
+.edit .f{display:grid;grid-template-columns:2fr repeat(5,1fr);gap:10px;padding:0 18px 12px}
+.edit label{display:flex;flex-direction:column;font-size:11.5px;font-weight:700;color:var(--ink2);gap:4px}
+.edit input{font:600 15px "Noto Sans JP",sans-serif;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:var(--soft);width:100%;min-width:0}
+.edit .act{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:0 18px 16px;font-size:12px;color:var(--sub)}
+.edit .act button{font:800 12.5px "Noto Sans JP";border:0;border-radius:999px;padding:9px 16px;background:var(--ink);color:#fff;cursor:pointer}
+.edit .act button.ok{background:var(--grn)}
+.deck{max-width:1160px;margin:0 auto;padding:22px 20px 60px;display:flex;flex-direction:column;gap:26px}
 /* slide */
-.s{position:relative;background:var(--card);border-radius:20px;box-shadow:0 24px 44px -30px rgba(60,40,20,.45);overflow:hidden;aspect-ratio:16/9;padding:4.6% 5.6%;display:flex;flex-direction:column;container-type:inline-size}
-.pg{position:absolute;right:3%;bottom:4%;font:700 11px var(--en);color:#b8a99a;letter-spacing:.1em;z-index:3}
+.s{position:relative;background:var(--card);border-radius:20px;box-shadow:0 24px 44px -30px rgba(60,40,20,.45);overflow:hidden;aspect-ratio:16/9;padding:4.4% 5.4% 5%;display:flex;flex-direction:column;container-type:inline-size}
+.hd{display:flex;align-items:baseline;gap:1.4cqw;border-bottom:1px solid var(--line);padding-bottom:1.4cqw;margin-bottom:2.4cqw}
+.hd .no{font:800 1.2cqw var(--en);color:var(--gold);letter-spacing:.12em}
+.hd .ch{font-size:1.15cqw;font-weight:700;color:var(--sub)}
+.hd .who{margin-left:auto;font-size:1.05cqw;color:var(--sub)}
+.s h2{font-family:var(--serif);font-size:2.9cqw;font-weight:700;line-height:1.4;letter-spacing:.03em;margin:0}
+.s h2 em{font-style:normal;color:var(--red)}
+.msg{font-size:1.35cqw;color:var(--ink2);margin:.9cqw 0 0;line-height:1.75}
+.src{margin-top:auto;padding-top:1cqw;font-size:.9cqw;color:var(--sub);line-height:1.6}
+.pg{position:absolute;right:2.6%;bottom:3.4%;font:700 .95cqw var(--en);color:#b8a99a;letter-spacing:.1em}
 .pg b{color:var(--gold)}
-.ey{font:800 clamp(10px,1cqw,12px) var(--en);letter-spacing:.26em;color:var(--gold);margin:0 0 .8cqw}
-.s h2{font-family:var(--serif);font-size:clamp(22px,3.3cqw,40px);font-weight:700;line-height:1.38;letter-spacing:.03em;margin:0}
-.s h2 em{font-style:normal;color:var(--gold)}
-.sub{font-size:clamp(12.5px,1.3cqw,15px);color:var(--ink2);margin:1.2cqw 0 0;line-height:1.8}
-.dark{background:var(--dk);color:#fff}
-.dark .ey{color:var(--yel)}.dark h2 em{color:var(--yel)}.dark .sub{color:rgba(255,255,255,.75)}
-.dark .pg{color:rgba(255,255,255,.45)}.dark .pg b{color:#fff}
-.src{position:absolute;left:5.6%;bottom:4%;font-size:10px;color:var(--sub);line-height:1.5;max-width:70%}
-/* device frames */
-.ph{position:relative;aspect-ratio:546/1144;border-radius:13%/6.2%;background:#15110e;padding:3.2%;box-shadow:0 0 0 1px #3a322b,0 30px 50px -24px rgba(30,20,10,.55)}
-.ph img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:10.5%/5%}
-.bw{border-radius:12px;background:#fff;box-shadow:0 0 0 1px rgba(36,30,26,.08),0 30px 60px -30px rgba(30,20,10,.45);overflow:hidden}
-.bw .tb{height:clamp(18px,2.2cqw,26px);display:flex;align-items:center;gap:5px;padding:0 10px;background:#f3eee7;border-bottom:1px solid var(--line)}
-.bw .tb i{width:7px;height:7px;border-radius:50%;background:#d8cfc3}
-.bw .tb span{margin-left:8px;flex:1;max-width:46%;height:60%;border-radius:5px;background:#fff;font:500 clamp(7px,.75cqw,10px)/1 Inter,sans-serif;color:#9a8f84;display:flex;align-items:center;padding:0 8px}
-.bw img{width:100%;height:auto}
-.pill{position:absolute;z-index:4;color:var(--ink);display:flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:.7cqw 1.3cqw .7cqw .8cqw;font-size:clamp(11px,1.15cqw,14px);font-weight:800;box-shadow:0 12px 26px -12px rgba(30,20,10,.45);white-space:nowrap}
-.pill b{display:grid;place-items:center;width:clamp(18px,1.9cqw,24px);height:clamp(18px,1.9cqw,24px);border-radius:50%;background:var(--red);color:#fff;font:800 clamp(10px,1cqw,12px) var(--en)}
-.pill.y b{background:var(--yel);color:var(--ink)}
-.pill.g b{background:#3d7a52}
-/* 1 cover */
-.cover{padding:0;display:block}
-.cover .tx{position:absolute;left:6%;top:11%;width:44%;z-index:3}
-.cover h1{font-family:var(--serif);font-size:5.2cqw;font-weight:700;line-height:1.32;letter-spacing:.03em;margin:0}
+.dark{background:var(--dk);color:#fff}.dark .hd{border-color:rgba(255,255,255,.14)}.dark .hd .ch,.dark .hd .who{color:rgba(255,255,255,.6)}
+.dark h2 em{color:var(--yel)}.dark .msg{color:rgba(255,255,255,.75)}.dark .pg{color:rgba(255,255,255,.4)}.dark .pg b{color:#fff}
+.body{flex:1;display:grid;gap:3cqw;min-height:0;margin-top:2.4cqw}
+.c2{grid-template-columns:1.25fr 1fr}.c2r{grid-template-columns:1fr 1.25fr}
+.box{background:var(--soft);border:1px solid var(--line);border-radius:1.4cqw;padding:2cqw}
+.kp{display:flex;flex-direction:column;justify-content:center;gap:1.6cqw}
+.kp .k{border-left:.4cqw solid var(--red);padding:.4cqw 0 .4cqw 1.6cqw}
+.kp .k small{display:block;font-size:1.15cqw;font-weight:700;color:var(--sub)}
+.kp .k b{display:block;font:800 4.4cqw/1.1 var(--en);letter-spacing:-.02em}
+.kp .k b i{font-style:normal;font-size:.36em;margin-left:.3cqw;letter-spacing:0}
+.kp .k p{margin:.3cqw 0 0;font-size:1.15cqw;color:var(--ink2);line-height:1.6}
+.kp .k.g{border-color:var(--gold)}.kp .k.k3{border-color:var(--ink)}
+/* cover */
+.cover{padding:0;display:grid;grid-template-columns:1.05fr .95fr}
+.cover .l{padding:6% 0 6% 10%;display:flex;flex-direction:column}
+.cover .to{font-size:1.6cqw;font-weight:700;border-bottom:2px solid rgba(255,255,255,.3);padding-bottom:.8cqw;align-self:flex-start;margin-bottom:3cqw}
+.cover .to b{font-size:2.4cqw;margin-right:.6cqw}
+.cover .ey{font:800 1.1cqw var(--en);letter-spacing:.24em;color:var(--yel);margin:0 0 1cqw}
+.cover h1{font-family:var(--serif);font-size:4.4cqw;line-height:1.4;margin:0;font-weight:700}
 .cover h1 em{font-style:normal;color:var(--yel)}
-.cover .lead{font-size:1.45cqw;margin:2.2cqw 0 0;opacity:.85;line-height:1.85}
-.chips{display:flex;flex-wrap:wrap;gap:.8cqw;margin-top:2.6cqw}
-.chips span{display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.22);border-radius:1.2cqw;padding:.9cqw 1.4cqw}
-.chips small{font-size:1cqw;opacity:.7;font-weight:700}
-.chips b{font:800 2.4cqw/1.15 var(--en)}.chips b i{font-style:normal;font-size:.5em;margin-left:2px}
-.chips span.y b{color:var(--yel)}
-.cover .lg2{position:absolute;left:6%;bottom:7%;display:flex;align-items:center;gap:1cqw;font-size:1.1cqw;opacity:.75}
-.cover .lg2 img{height:2cqw;width:auto}
-.cover .vis{position:absolute;right:-3%;top:9%;width:52%;height:86%}
-.cover .vis .bw{position:absolute;right:0;top:4%;width:92%;opacity:.96}
-.cover .vis .ph{position:absolute;left:0;bottom:-6%;width:30%}
-.cover .vis .pill{left:22%;top:-2%}
-.cover:after{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 80% 30%,rgba(243,185,58,.12),transparent 70%);pointer-events:none}
-/* 2 numbers */
-.nums{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw;align-items:end;margin-top:3cqw}
-.nums>div{border-top:3px solid var(--ink);padding-top:1.6cqw}
-.nums b{display:block;font:800 7.6cqw/1 var(--en);letter-spacing:-.03em}
-.nums b i{font-style:normal;font-size:.36em;margin-left:.3cqw;letter-spacing:0}
-.nums span{display:block;margin-top:1.2cqw;font-size:1.45cqw;font-weight:700;line-height:1.55}
-.nums .gauge{display:flex;gap:.45cqw;margin:0 0 1.6cqw}
-.nums .gauge i{flex:1;height:1cqw;border-radius:99px;background:#eee4d6}.nums .gauge i.on{background:var(--red)}
-.nums>div:nth-child(2) .gauge i.on{background:var(--gold)}
-.nums>div:nth-child(3) .gauge i.on{background:var(--ink)}
-/* 3 steps */
-.steps{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:2.2cqw;margin-top:2.6cqw;min-height:0}
-.steps figure{margin:0;display:flex;flex-direction:column;align-items:center;min-height:0}
-.steps .ph{height:100%;max-height:30cqw;width:auto}
-.steps figcaption{margin-top:1.3cqw;text-align:center;font-size:1.5cqw;font-weight:800;display:flex;align-items:center;gap:.7cqw;white-space:nowrap}
-.steps figcaption b{display:grid;place-items:center;width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--ink);color:var(--yel);font:800 1.1cqw var(--en)}
-.steps figcaption small{display:block}
-/* screens with window */
-.split{flex:1;display:grid;grid-template-columns:.62fr 1fr;gap:3cqw;align-items:center;min-height:0}
-.split .tx h2{font-size:3.1cqw}
-.split .pts{list-style:none;margin:2.4cqw 0 0;padding:0;display:grid;gap:1cqw}
-.split .pts li{display:flex;align-items:center;gap:1cqw;font-size:1.5cqw;font-weight:800}
-.split .pts li b{flex:none;display:grid;place-items:center;width:2.4cqw;height:2.4cqw;border-radius:50%;background:var(--red);color:#fff;font:800 1.1cqw var(--en)}
-.split .pts li:nth-child(2) b{background:#3d7a52}.split .pts li:nth-child(3) b{background:#8f877e}
-.split .vis{position:relative}
-.note2{margin-top:2cqw;display:inline-flex;align-items:center;gap:.8cqw;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:.7cqw 1.4cqw;font-size:1.2cqw;font-weight:700;color:var(--ink2)}
-.note2 svg{width:1.6cqw;height:1.6cqw;color:var(--gold)}
-/* 5 menu edit */
-.ed .vis .bw{width:100%}
-.ed .vis .bw img{height:30cqw;object-fit:cover;object-position:top}
-/* 6 templates */
-.tpls{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:1.8cqw;margin-top:2.6cqw;align-items:end;min-height:0}
-.tpls figure{margin:0;display:flex;flex-direction:column;align-items:center;min-height:0}
-.tpls figure:nth-child(odd){transform:translateY(-1.4cqw)}
-.tpls .ph{width:100%}
-.tpls figcaption{margin-top:1.2cqw;font-size:1.3cqw;font-weight:800;text-align:center;line-height:1.3}
-.tpls figcaption small{display:block;font-size:1cqw;font-weight:700;color:var(--sub);margin-top:.3cqw}
-.tpls figcaption small.p{color:var(--gold-d)}
-/* 7 options */
-.opt{flex:1;display:grid;grid-template-columns:auto 1fr;gap:4cqw;align-items:center;min-height:0}
-.opt .ph{height:34cqw;width:auto}
-.opt .pill{left:-5cqw;top:5cqw}
-.og{display:grid;grid-template-columns:repeat(2,1fr);gap:1cqw;margin-top:2.6cqw}
-.og div{display:flex;align-items:center;gap:1cqw;background:var(--soft);border:1px solid var(--line);border-radius:1.2cqw;padding:1.1cqw 1.3cqw}
-.og i{flex:none;display:grid;place-items:center;width:3cqw;height:3cqw;border-radius:.9cqw;background:#fff;color:var(--gold);box-shadow:0 0 0 1px var(--line)}
-.og i svg{width:1.7cqw;height:1.7cqw}
-.og b{flex:1;font-size:1.35cqw;line-height:1.35}
-.og em{font:800 1.45cqw var(--en);font-style:normal;color:var(--gold-d);white-space:nowrap}
-/* 8 qr+tables */
-.two{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:2.4cqw;margin-top:2.4cqw;min-height:0}
-.two figure{margin:0}
-.two figcaption{margin-top:1.2cqw;font-size:1.45cqw;font-weight:800;display:flex;align-items:center;gap:.8cqw}
-.two figcaption b{display:grid;place-items:center;width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--ink);color:var(--yel);font:800 1.05cqw var(--en)}
-.two .bw img{height:21cqw;object-fit:cover;object-position:left top}
-/* 9 effect */
-.eff{flex:1;display:grid;grid-template-columns:repeat(3,1fr);align-items:stretch;margin-top:3cqw;gap:0}
-.eff>div{position:relative;padding:2.4cqw 2.4cqw;border-radius:0;display:flex;flex-direction:column;justify-content:center;background:var(--soft)}
-.eff>div:first-child{border-radius:1.6cqw 0 0 1.6cqw}
-.eff>div:nth-child(2){background:#efe5d6}
-.eff>div:last-child{border-radius:0 1.6cqw 1.6cqw 0;background:var(--dk);color:#fff}
-.eff>div:not(:last-child):after{content:"";position:absolute;right:-1.6cqw;top:50%;margin-top:-1.6cqw;width:3.2cqw;height:3.2cqw;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a8740f' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/45% no-repeat;box-shadow:0 4px 12px -4px rgba(0,0,0,.25);z-index:1}
-.eff small{font-size:1.3cqw;font-weight:700;opacity:.75}
-.eff b{display:block;font:800 6cqw/1.05 var(--en);margin:1cqw 0 0;letter-spacing:-.02em}
-.eff b i{font-style:normal;font-size:.32em;margin-left:.4cqw;letter-spacing:0}
-.eff>div:last-child b{color:var(--yel)}
-.eff p{margin:1cqw 0 0;font-size:1.2cqw;opacity:.7;line-height:1.6}
-/* 10 price */
-.price{flex:1;display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:1.6cqw;margin-top:3cqw;align-items:stretch}
-.price>div{border-radius:1.6cqw;padding:2.2cqw;background:var(--soft);border:1px solid var(--line);display:flex;flex-direction:column}
-.price h3{margin:0;font-size:1.5cqw}
-.price .tg{align-self:flex-start;font-size:1cqw;font-weight:800;color:var(--gold-d);background:var(--gold-l);border-radius:999px;padding:.2cqw 1cqw;margin-bottom:1cqw}
-.price b{display:block;font:800 5.6cqw/1.1 var(--en);margin:1cqw 0 auto;letter-spacing:-.02em}
-.price b i{font-style:normal;font-size:.32em;margin-left:.3cqw}
-.price p{margin:1.4cqw 0 0;padding-top:1.2cqw;border-top:1px dashed var(--line);font-size:1.2cqw;color:var(--ink2);line-height:1.6}
-.price .mo{background:var(--dk);color:#fff;border-color:var(--dk)}
-.price .mo .tg{background:var(--yel);color:var(--ink)}.price .mo b{color:var(--yel)}.price .mo p{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.18)}
-.ribbon{margin-top:1.6cqw;display:flex;justify-content:center;gap:1cqw;flex-wrap:wrap}
-.ribbon span{display:inline-flex;align-items:center;gap:.6cqw;font-size:1.3cqw;font-weight:800;background:var(--gold-l);color:var(--gold-d);border-radius:999px;padding:.6cqw 1.6cqw}
-.ribbon span:before{content:"";width:1.4cqw;height:1.4cqw;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4L18 8'/%3E%3C/svg%3E") center/70% no-repeat}
-/* 11 compare bars */
-.cbar{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2.4cqw;margin-top:2cqw}
-.cbar .row{display:grid;grid-template-columns:15cqw 1fr;gap:2cqw;align-items:center}
-.cbar .lb{font-size:1.5cqw;font-weight:800;line-height:1.35}
-.cbar .lb small{display:block;font-size:1.05cqw;color:var(--sub);font-weight:700}
-.cbar .tr{position:relative;height:5cqw;border-radius:1cqw;background:#f1ebe2}
-.cbar .fill{position:absolute;left:0;top:0;bottom:0;border-radius:1cqw;display:flex;align-items:center;padding:0 1.4cqw;font:800 2.2cqw var(--en);white-space:nowrap}
-.cbar .me .fill{width:12.6%;background:var(--yel);color:var(--ink);overflow:visible}
-.cbar .me .fill span{position:absolute;left:calc(100% + 1.4cqw)}
-.cbar .ot .fill{left:33.3%;width:66.7%;background:repeating-linear-gradient(135deg,#d9cdbd 0 8px,#cfc1af 8px 16px);color:var(--ink);justify-content:center}
-.cbar .ot .fill:before{content:"";position:absolute;left:-33.3cqw}
-.cbar .axis{display:grid;grid-template-columns:15cqw 1fr;gap:2cqw}
-.cbar .axis div{display:flex;justify-content:space-between;font:700 1cqw var(--en);color:var(--sub);border-top:1px solid var(--line);padding-top:.6cqw}
-.facts{display:flex;gap:1cqw;flex-wrap:wrap;margin-top:1cqw}
-.facts span{font-size:1.25cqw;font-weight:800;border:1.5px solid var(--ink);border-radius:999px;padding:.5cqw 1.4cqw}
-.facts span em{font-style:normal;color:var(--gold-d)}
-/* 12 line */
-.ln{padding:0;display:grid;grid-template-columns:1fr 1fr}
-.ln .photo{background:url(../img/line-chat.webp) 58% center/cover;position:relative}
-.ln .photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0) 60%,rgba(255,253,249,1))}
-.ln .tx{padding:7% 8% 7% 2%;display:flex;flex-direction:column;justify-content:center}
-.ln .ey{color:#06a046}.ln h2 em{color:#06a046}
-.lp{display:grid;gap:1cqw;margin-top:2.6cqw}
-.lp div{display:flex;align-items:center;justify-content:space-between;border-radius:1.2cqw;padding:1.3cqw 1.8cqw;background:#fff;border:1px solid var(--line)}
-.lp span{font-size:1.4cqw;font-weight:800}
-.lp b{font:800 2.8cqw var(--en)}.lp b i{font-style:normal;font-size:.42em;margin-left:.3cqw}
-.lp .on{background:#06c755;border-color:#06c755;color:#fff}
-.lp .on span small{display:block;font-size:1cqw;opacity:.85}
-.lnc{display:flex;gap:.8cqw;flex-wrap:wrap;margin-top:1.8cqw}
-.lnc span{font-size:1.2cqw;font-weight:800;color:#047a35;background:#e7f7ed;border-radius:999px;padding:.5cqw 1.3cqw}
-/* 13 flow */
-.flow{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:1.6cqw;margin-top:3cqw;align-items:stretch}
-.flow>div{position:relative;background:var(--soft);border:1px solid var(--line);border-radius:1.6cqw;padding:2.2cqw 1.8cqw;display:flex;flex-direction:column;align-items:flex-start}
-.flow>div:not(:last-child):after{content:"";position:absolute;right:-1.5cqw;top:50%;margin-top:-1.4cqw;width:2.8cqw;height:2.8cqw;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3b93a' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/50% no-repeat;z-index:1}
-.flow .ic{display:grid;place-items:center;width:6cqw;height:6cqw;border-radius:1.6cqw;background:#fff;color:var(--gold);box-shadow:0 0 0 1px var(--line);margin-bottom:auto}
-.flow .ic svg{width:3.2cqw;height:3.2cqw}
-.flow small{margin-top:2.2cqw;font:800 1.1cqw var(--en);color:var(--gold);letter-spacing:.14em}
-.flow b{font-size:1.75cqw;line-height:1.4;margin-top:.3cqw}
-.flow span{margin-top:1cqw;font-size:1.05cqw;font-weight:800;color:var(--gold-d);background:var(--gold-l);border-radius:999px;padding:.25cqw 1cqw}
-.flow>div:last-child{background:var(--dk);color:#fff;border-color:var(--dk)}
-.flow>div:last-child .ic{background:rgba(255,255,255,.08);color:var(--yel);box-shadow:none}
-.flow>div:last-child small{color:var(--yel)}
-.flow>div:last-child span{background:var(--yel);color:var(--ink)}
-/* 14 cta */
-.cta{display:grid;grid-template-columns:1.1fr .9fr;gap:4cqw;align-items:center}
-.cta .gift{display:grid;gap:1cqw;margin-top:2.4cqw}
-.cta .gift div{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.07);border-radius:1.2cqw;padding:1.3cqw 1.8cqw;font-size:1.45cqw;font-weight:700}
-.cta .gift s{opacity:.5;font:700 1.3cqw var(--en);margin-right:1cqw}
-.cta .gift em{font-style:normal;font:800 2.6cqw var(--en);color:var(--yel)}
-.cta .cond{margin-top:1.4cqw;font-size:1.1cqw;opacity:.65;line-height:1.6}
-.qrs{display:grid;grid-template-columns:1fr 1fr;gap:1.6cqw}
-.qr{background:#fff;border-radius:1.6cqw;padding:1.4cqw;color:var(--ink);text-align:center}
-.qr img{width:100%;height:auto}
-.qr b{display:block;margin-top:1cqw;font-size:1.45cqw}
-.qr small{display:block;font-size:1.05cqw;color:var(--sub);font-weight:700}
-.cbtn{grid-column:1/-1;display:flex;justify-content:center;align-items:center;gap:8px;background:var(--yel);color:var(--ink);font-weight:800;font-size:1.5cqw;text-decoration:none;border-radius:999px;padding:1.3cqw}
+.cover .lead{font-size:1.4cqw;opacity:.8;margin:2cqw 0 0;line-height:1.8}
+.cover .meta{margin-top:auto;display:flex;align-items:center;gap:1.4cqw;font-size:1.15cqw;opacity:.75}
+.cover .meta img{height:2.2cqw;width:auto}
+.cover .r{position:relative;background:url(../hero.webp) 64% center/cover}
+.cover .r:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--dk) 0%,rgba(29,23,18,0) 40%)}
+.cover .pg{color:rgba(255,255,255,.7)}
+/* summary */
+.sum{grid-template-columns:repeat(3,1fr)}
+.sum>div{border-radius:1.6cqw;padding:2.4cqw;display:flex;flex-direction:column;background:var(--soft);border:1px solid var(--line)}
+.sum .t{display:flex;align-items:center;gap:.8cqw;font-size:1.25cqw;font-weight:800;color:var(--sub)}
+.sum .t i{display:grid;place-items:center;width:2.4cqw;height:2.4cqw;border-radius:50%;background:var(--ink);color:var(--yel);font:800 1.1cqw var(--en);font-style:normal}
+.sum h3{font-size:1.85cqw;line-height:1.45;margin:1.4cqw 0 0}
+.sum b.v{display:block;font:800 4.6cqw/1.1 var(--en);margin-top:auto;padding-top:1.6cqw;letter-spacing:-.02em}
+.sum b.v i{font-style:normal;font-size:.34em;margin-left:.3cqw;letter-spacing:0}
+.sum p{margin:.6cqw 0 0;font-size:1.1cqw;color:var(--sub);line-height:1.6}
+.sum>div:nth-child(1) b.v{color:var(--red)}.sum>div:nth-child(3){background:var(--dk);border-color:var(--dk);color:#fff}.sum>div:nth-child(3) .t{color:rgba(255,255,255,.65)}.sum>div:nth-child(3) .t i{background:var(--yel);color:var(--ink)}.sum>div:nth-child(3) b.v{color:var(--yel)}.sum>div:nth-child(3) p{color:rgba(255,255,255,.65)}
+/* charts */
+.chart{position:relative;display:flex;flex-direction:column}
+.chart .ct{font-size:1.15cqw;font-weight:800;color:var(--ink2);margin-bottom:1cqw;display:flex;justify-content:space-between;align-items:baseline}
+.chart .ct small{font-weight:500;color:var(--sub);font-size:.95cqw}
+.chart svg{width:100%;height:auto;overflow:visible}
+.hb{display:grid;gap:1.4cqw}
+.hb .r{display:grid;grid-template-columns:13cqw 1fr;align-items:center;gap:1.4cqw}
+.hb .r>span{font-size:1.2cqw;font-weight:700;line-height:1.3}
+.hb .r>span small{display:block;font-size:.95cqw;color:var(--sub);font-weight:500}
+.hb .tr{position:relative;height:3.6cqw;background:#f1ebe2;border-radius:.8cqw}
+.hb .fl{position:absolute;left:0;top:0;bottom:0;border-radius:.8cqw;background:var(--mute);display:flex;align-items:center;justify-content:flex-end;padding:0 1cqw;font:800 1.6cqw var(--en);color:var(--ink);white-space:nowrap}
+.hb .fl.hl{background:var(--red);color:#fff}
+.hb .fl.yl{background:var(--yel)}
+.hb .fl.out{justify-content:flex-start}
+.hb .fl.out em{position:absolute;left:calc(100% + 1cqw);font-style:normal}
+/* hours grid */
+.hg{display:grid;grid-template-columns:repeat(10,1fr);gap:.5cqw}
+.hg i{aspect-ratio:1;border-radius:.4cqw;background:#efe6da}
+.hg i.on{background:var(--red)}
+.leg{display:flex;gap:1.6cqw;font-size:1cqw;color:var(--sub);margin-top:1cqw;align-items:center}
+.leg i{display:inline-block;width:1cqw;height:1cqw;border-radius:.2cqw;background:var(--red);margin-right:.4cqw;vertical-align:-.1cqw}
+/* peak timeline */
+.tl{display:grid;gap:1.2cqw}
+.tl .row{display:grid;grid-template-columns:7cqw 1fr;gap:1.2cqw;align-items:center}
+.tl .row>span{font-size:1.15cqw;font-weight:800}
+.tl .seg{display:flex;height:3.4cqw;border-radius:.8cqw;overflow:hidden}
+.tl .seg i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:1cqw;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden}
+.tl .a{background:var(--red)}.tl .b{background:#8f877e}.tl .c{background:#b9ad9f}.tl .d{background:var(--grn)}
+/* options compare */
+.opt{width:100%;border-collapse:separate;border-spacing:0;font-size:1.15cqw}
+.opt th,.opt td{padding:1cqw 1cqw;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+.opt thead th{font-size:1.05cqw;color:var(--sub);font-weight:700}
+.opt tbody th{text-align:left;font-weight:800;white-space:nowrap}
+.opt tbody th small{display:block;font-weight:500;color:var(--sub);font-size:.95cqw}
+.opt .me{background:#fff4dc}
+.opt tbody tr.me th{color:var(--gold-d)}
+.opt .yen{font:800 1.5cqw var(--en)}
+.mk{display:inline-grid;place-items:center;width:2.2cqw;height:2.2cqw;border-radius:50%;font:800 1.1cqw var(--en)}
+.mk.o{background:#e5f1e9;color:var(--grn)}.mk.t{background:#fbf1dc;color:var(--gold-d)}.mk.x{background:#f6e6de;color:var(--red)}
+/* product */
+.pd{position:relative}
+.pd .bw{position:absolute;right:0;top:0;width:78%;border-radius:1cqw;overflow:hidden;box-shadow:0 0 0 1px rgba(36,30,26,.1),0 24px 44px -24px rgba(30,20,10,.45)}
+.pd .bw img{width:100%;height:auto}
+.pd .ph{position:absolute;left:2%;bottom:0;width:23%;aspect-ratio:546/1144;background:#15110e;border-radius:2.4cqw;padding:.55cqw;box-shadow:0 24px 40px -20px rgba(30,20,10,.55)}
+.pd .ph img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:1.9cqw}
+.pd .ar{position:absolute;left:27%;bottom:18%;width:12%;height:2px;background:repeating-linear-gradient(90deg,var(--red) 0 6px,transparent 6px 10px)}
+.pd .ar:after{content:"";position:absolute;right:-2px;top:-5px;border:6px solid transparent;border-left:9px solid var(--red)}
+.feat{display:flex;flex-direction:column;justify-content:center;gap:1.2cqw}
+.feat div{display:flex;gap:1.2cqw;align-items:flex-start}
+.feat i{flex:none;display:grid;place-items:center;width:2.6cqw;height:2.6cqw;border-radius:50%;background:var(--ink);color:var(--yel);font:800 1.15cqw var(--en);font-style:normal}
+.feat b{display:block;font-size:1.5cqw;line-height:1.4}
+.feat small{display:block;font-size:1.1cqw;color:var(--sub);line-height:1.6}
+/* roi */
+.roi .big{display:flex;align-items:baseline;gap:1cqw;flex-wrap:wrap}
+.roi .big b{font:800 6cqw/1 var(--en);color:var(--red);letter-spacing:-.02em}
+.roi .big span{font-size:1.4cqw;font-weight:800}
+/* gantt */
+.gt{display:grid;grid-template-columns:12cqw repeat(8,1fr);font-size:1.05cqw;row-gap:.9cqw;align-items:center}
+.gt .h{font:700 .95cqw var(--en);color:var(--sub);text-align:center;border-bottom:1px solid var(--line);padding-bottom:.6cqw}
+.gt .h:first-child{text-align:left}
+.gt .lb{font-weight:800;font-size:1.2cqw;line-height:1.35}
+.gt .lb small{display:block;font-weight:500;color:var(--sub);font-size:.95cqw}
+.gt .br{height:2.8cqw;border-radius:.7cqw;display:flex;align-items:center;padding:0 1cqw;font-weight:800;font-size:1.05cqw;color:#fff;white-space:nowrap;overflow:hidden}
+.gt .b1{background:var(--ink)}.gt .b2{background:var(--gold)}.gt .b3{background:var(--red)}.gt .b4{background:repeating-linear-gradient(135deg,#e4d8c8 0 8px,#d9cbb8 8px 16px);color:var(--ink)}.gt .b5{background:var(--grn)}
+.gt .you{font-size:.95cqw;color:var(--sub);margin-left:auto;padding-left:1cqw}
+/* risk */
+.rk{grid-template-columns:repeat(4,1fr)}
+.rk>div{background:var(--soft);border:1px solid var(--line);border-radius:1.6cqw;padding:2.2cqw 1.8cqw;display:flex;flex-direction:column}
+.rk .ic{display:grid;place-items:center;width:5cqw;height:5cqw;border-radius:1.4cqw;background:#fff;color:var(--gold);box-shadow:0 0 0 1px var(--line)}
+.rk .ic svg{width:2.6cqw;height:2.6cqw}
+.rk b{display:block;font-size:1.75cqw;line-height:1.4;margin-top:auto;padding-top:2cqw}
+.rk small{display:block;font-size:1.1cqw;color:var(--sub);line-height:1.6;margin-top:.6cqw}
+/* estimate */
+.est{width:100%;border-collapse:collapse;font-size:1.25cqw}
+.est th,.est td{padding:1.05cqw 1cqw;border-bottom:1px solid var(--line);text-align:left}
+.est td.r{text-align:right;font:700 1.45cqw var(--en);white-space:nowrap}
+.est td.r s{color:var(--sub);font-weight:600;margin-right:.8cqw;font-size:1.15cqw}
+.est td.r em{font-style:normal;color:var(--red)}
+.est small{display:block;font-size:.95cqw;color:var(--sub)}
+.est tr.tot th,.est tr.tot td{border-bottom:0;border-top:2px solid var(--ink)}
+.est tr.tot td.r{font-size:2.2cqw}
+.nx{display:flex;flex-direction:column;gap:1.2cqw}
+.nx .q{display:grid;grid-template-columns:1fr 1fr;gap:1.2cqw}
+.nx .q div{background:#fff;border:1px solid var(--line);border-radius:1.2cqw;padding:1.1cqw;text-align:center}
+.nx .q img{width:100%;height:auto}
+.nx .q b{display:block;font-size:1.15cqw;margin-top:.6cqw}
+.nx ol{margin:0;padding:0;list-style:none;display:grid;gap:.7cqw;font-size:1.2cqw;font-weight:700}
+.nx li{display:flex;gap:.8cqw;align-items:center}
+.nx li i{display:grid;place-items:center;width:2.1cqw;height:2.1cqw;border-radius:50%;background:var(--ink);color:var(--yel);font:800 1cqw var(--en);font-style:normal;flex:none}
+.mon{background:var(--dk);color:#fff;border-radius:1.4cqw;padding:1.4cqw 1.8cqw;font-size:1.15cqw;line-height:1.6}
+.mon b{color:var(--yel)}
 .foot{text-align:center;font-size:12px;color:var(--sub);padding:0 20px 40px}
 .foot a{color:var(--gold-d);font-weight:700}
-/* ===== phones: stacked cards ===== */
+/* ===== phones ===== */
 @media (max-width:860px){
- .bar{padding:9px 14px;gap:8px}.bar .tt{display:none}.bar .lg{margin-right:auto}
+ .bar{padding:9px 12px;gap:8px}.bar .tt{display:none}.bar .lg{margin-right:auto}
  .bar a.b,.bar button{padding:8px 12px;font-size:12px}
- .deck{padding:16px 12px 40px;gap:14px}
- .s{aspect-ratio:auto;padding:28px 20px 48px;border-radius:18px}
- .pg{bottom:16px;right:18px}
- .ey{font-size:10.5px;margin-bottom:8px}
- .s h2,.split .tx h2{font-size:24px}
- .sub{font-size:13.5px;margin-top:10px}
- .src{position:static;margin-top:16px;max-width:none}
- .pill{font-size:12px;padding:6px 12px 6px 7px}.pill b{width:20px;height:20px;font-size:11px}
- .cover{padding:0;display:flex;flex-direction:column}
- .cover .tx{position:relative;left:auto;top:auto;width:auto;padding:30px 22px 0}
- .cover h1{font-size:34px}.cover .lead{font-size:13.5px;margin-top:14px}
- .chips{gap:8px;margin-top:18px}.chips span{border-radius:12px;padding:8px 12px}.chips small{font-size:10.5px}.chips b{font-size:22px}
- .cover .vis{position:relative;right:auto;top:auto;width:auto;height:auto;margin:26px 0 0 22px;padding-bottom:70px}
- .cover .vis .bw{position:relative;width:118%;top:0}
- .cover .vis .ph{width:38%;left:0;bottom:6px}
- .cover .vis .pill{left:30%;top:-14px}
- .cover .lg2{position:relative;left:auto;bottom:auto;padding:0 22px 44px;font-size:12px}.cover .lg2 img{height:20px}
- .nums{grid-template-columns:1fr;gap:22px;margin-top:22px}
- .nums b{font-size:58px}.nums span{font-size:14px;margin-top:8px}.nums .gauge{margin-bottom:12px}.nums .gauge i{height:8px}
- .steps{grid-template-columns:1fr 1fr;gap:18px 12px;margin-top:20px}
- .steps .ph{height:auto;width:100%;max-height:none}
- .steps figcaption{font-size:13px;gap:6px;margin-top:10px;white-space:normal}.steps figcaption b{width:22px;height:22px;font-size:11px}
- .split{grid-template-columns:1fr;gap:20px;margin-top:4px}
- .split .pts{margin-top:16px;gap:10px}.split .pts li{font-size:14px;gap:10px}.split .pts li b{width:24px;height:24px;font-size:11px}
- .note2{font-size:12px;padding:6px 12px;margin-top:14px}.note2 svg{width:16px;height:16px}
- .vis .pill{display:none}
- .ed .vis .bw img{height:auto}
- .tpls{display:flex;overflow-x:auto;gap:12px;margin:20px -20px 0;padding:6px 20px 4px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
- .tpls figure{flex:0 0 42%;scroll-snap-align:start;transform:none!important}
- .tpls figcaption{font-size:13px}.tpls figcaption small{font-size:11px}
- .opt{grid-template-columns:1fr;gap:20px}
- .opt .ph{height:auto;width:62%;margin:0 auto}
- .og{grid-template-columns:1fr;gap:8px;margin-top:16px}.og div{padding:10px 12px;border-radius:12px;gap:10px}.og i{width:32px;height:32px;border-radius:9px}.og i svg{width:18px;height:18px}.og b{font-size:13.5px}.og em{font-size:14px}
- .two{grid-template-columns:1fr;gap:18px;margin-top:18px}
- .two .bw img{height:auto}.two figcaption{font-size:14px;margin-top:10px;gap:8px}.two figcaption b{width:22px;height:22px;font-size:11px}
- .eff{grid-template-columns:1fr;margin-top:20px}
- .eff>div{padding:20px}.eff>div:first-child{border-radius:16px 16px 0 0}.eff>div:last-child{border-radius:0 0 16px 16px}
- .eff>div:not(:last-child):after{right:auto;left:50%;top:auto;bottom:-15px;margin:0 0 0 -15px;width:30px;height:30px;transform:rotate(90deg)}
- .eff small{font-size:12.5px}.eff b{font-size:46px;margin-top:6px}.eff p{font-size:12px;margin-top:6px}
- .price{grid-template-columns:1fr;gap:10px;margin-top:20px}
- .price>div{padding:18px;border-radius:16px}.price h3{font-size:15px}.price .tg{font-size:11px;padding:2px 10px;margin-bottom:8px}
- .price b{font-size:42px;margin:6px 0 0}.price p{font-size:12.5px;margin-top:10px;padding-top:10px}
- .ribbon{gap:8px;margin-top:14px}.ribbon span{font-size:12px;padding:5px 12px;gap:6px}.ribbon span:before{width:14px;height:14px}
- .cbar{gap:18px;margin-top:22px}.cbar .row,.cbar .axis{grid-template-columns:1fr;gap:6px}
- .cbar .lb{font-size:14px}.cbar .lb small{font-size:11px}
- .cbar .tr{height:42px;border-radius:10px}.cbar .fill{font-size:16px;border-radius:10px;padding:0 10px}
- .cbar .me .fill span{left:calc(100% + 10px)}
- .cbar .axis>span{display:none}.cbar .axis div{font-size:10px}
- .facts{gap:6px;margin-top:6px}.facts span{font-size:12px;padding:4px 12px}
- .ln{grid-template-columns:1fr;padding:0}
- .ln .photo{aspect-ratio:16/10}.ln .photo:after{background:linear-gradient(0deg,rgba(255,253,249,1),rgba(0,0,0,0) 40%)}
- .ln .tx{padding:4px 20px 48px}
- .lp{gap:8px;margin-top:18px}.lp div{padding:12px 16px;border-radius:12px}.lp span{font-size:14px}.lp b{font-size:24px}.lp .on span small{font-size:11px}
- .lnc{gap:6px;margin-top:14px}.lnc span{font-size:12px;padding:4px 12px}
- .flow{grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
- .flow>div{padding:16px;border-radius:16px}.flow>div:after{display:none}
- .flow .ic{width:44px;height:44px;border-radius:12px}.flow .ic svg{width:24px;height:24px}
- .flow small{font-size:11px;margin-top:14px}.flow b{font-size:14.5px}.flow span{font-size:11px;margin-top:8px;padding:2px 10px}
- .cta{grid-template-columns:1fr;gap:22px}
- .cta .gift{gap:8px;margin-top:18px}.cta .gift div{font-size:13.5px;padding:12px 14px;border-radius:12px}.cta .gift s{font-size:12px}.cta .gift em{font-size:22px}
- .cta .cond{font-size:11.5px;margin-top:10px}
- .qrs{gap:12px}.qr{border-radius:14px;padding:12px}.qr b{font-size:13px;margin-top:8px}.qr small{font-size:11px}
- .cbtn{font-size:15px;padding:14px}
+ .edit{padding:0 12px;margin-top:14px}
+ .edit .f{grid-template-columns:1fr 1fr;padding:0 14px 12px}.edit .f label:first-child{grid-column:1/-1}
+ .deck{padding:14px 12px 40px;gap:14px}
+ .s{aspect-ratio:auto;padding:22px 18px 44px;border-radius:18px;font-size:14px}
+ .hd{gap:10px;padding-bottom:10px;margin-bottom:14px}.hd .no{font-size:11px}.hd .ch{font-size:11.5px}.hd .who{font-size:11px}
+ .s h2{font-size:22px}
+ .msg{font-size:13.5px;margin-top:8px}
+ .src{font-size:10.5px;margin-top:14px;padding-top:0}
+ .pg{font-size:10.5px;bottom:14px;right:16px}
+ .body{gap:18px;margin-top:18px}
+ .c2,.c2r,.sum,.rk{grid-template-columns:1fr}
+ .box{border-radius:14px;padding:16px}
+ .kp{gap:14px}.kp .k{border-left-width:4px;padding:2px 0 2px 14px}.kp .k small{font-size:12px}.kp .k b{font-size:34px}.kp .k p{font-size:12.5px}
+ .cover{grid-template-columns:1fr;padding:0}
+ .cover .r{order:-1;aspect-ratio:16/10}.cover .r:before{background:linear-gradient(0deg,var(--dk) 0%,rgba(29,23,18,0) 50%)}
+ .cover .l{padding:4px 22px 48px}
+ .cover .to{font-size:14px;margin-bottom:22px;padding-bottom:6px}.cover .to b{font-size:20px}
+ .cover .ey{font-size:10.5px;margin-bottom:8px}
+ .cover h1{font-size:28px}.cover .lead{font-size:13.5px;margin-top:14px}
+ .cover .meta{margin-top:28px;font-size:12px;gap:10px}.cover .meta img{height:20px}
+ .sum>div{padding:18px;border-radius:16px}.sum .t{font-size:12.5px;gap:8px}.sum .t i{width:24px;height:24px;font-size:11px}
+ .sum h3{font-size:17px;margin-top:10px}.sum b.v{font-size:40px;padding-top:12px}.sum p{font-size:12px;margin-top:4px}
+ .chart .ct{font-size:13px;margin-bottom:10px;flex-wrap:wrap;gap:4px 10px}.chart .ct small{font-size:11px}
+ .hb{gap:12px}.hb .r{grid-template-columns:1fr;gap:4px}.hb .r>span{font-size:13px}.hb .r>span small{font-size:11px}
+ .hb .tr{height:34px;border-radius:8px}.hb .fl{font-size:15px;border-radius:8px;padding:0 10px}.hb .fl.out em{left:calc(100% + 8px)}
+ .hg{gap:4px}.hg i{border-radius:3px}
+ .leg{font-size:11px;gap:12px;margin-top:8px}.leg i{width:10px;height:10px;margin-right:4px}
+ .tl{gap:10px}.tl .row{grid-template-columns:1fr;gap:4px}.tl .row>span{font-size:12.5px}.tl .seg{height:34px;border-radius:8px}.tl .seg i{font-size:10.5px}
+ .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -18px;padding:0 18px}
+ .opt{min-width:600px;font-size:12.5px}.opt th,.opt td{padding:9px 8px}.opt thead th{font-size:11.5px}.opt tbody th small{font-size:11px}.opt .yen{font-size:14px}
+ .mk{width:22px;height:22px;font-size:11px}
+ .pd{aspect-ratio:4/3}
+ .pd .ph{border-radius:16px;padding:4px}.pd .ph img{border-radius:12px}
+ .feat{gap:12px}.feat div{gap:10px}.feat i{width:26px;height:26px;font-size:11.5px}.feat b{font-size:15px}.feat small{font-size:12px}
+ .roi .big b{font-size:44px}.roi .big span{font-size:14px}
+ .gwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -18px;padding:0 18px}
+ .gt{min-width:640px;font-size:11px;row-gap:8px}.gt .h{font-size:10.5px}.gt .lb{font-size:12.5px}.gt .lb small{font-size:10.5px}.gt .br{height:28px;font-size:11px;border-radius:7px;padding:0 8px}
+ .rk{grid-template-columns:1fr 1fr;gap:10px}.rk>div{padding:16px;border-radius:14px}.rk .ic{width:42px;height:42px;border-radius:12px}.rk .ic svg{width:22px;height:22px}.rk b{font-size:15px;padding-top:14px}.rk small{font-size:11.5px}
+ .est{font-size:13px}.est th,.est td{padding:9px 6px}.est td.r{font-size:14px}.est td.r s{font-size:12px}.est small{font-size:11px}.est tr.tot td.r{font-size:20px}
+ .nx{gap:12px}.nx .q{gap:10px}.nx .q div{border-radius:12px;padding:10px}.nx .q b{font-size:12.5px;margin-top:6px}.nx ol{font-size:13px;gap:6px}.nx li i{width:22px;height:22px;font-size:11px}
+ .mon{font-size:12.5px;padding:12px 14px;border-radius:12px}
 }
 
-/* v2 tune */
 @media (min-width:861px){
- .cover .vis{top:12%;height:82%}
- .cover .vis .bw{top:0;width:94%}
- .cover .vis .ph{width:27%;bottom:4%;left:2%}
- .cover .vis .pill{left:30%;top:-4.5%}
- .nums{flex:none;margin:auto 0;align-items:end}
- .steps{grid-template-columns:repeat(4,auto);justify-content:space-between;align-items:start;margin-top:2.4cqw}
- .steps .ph{width:16.5cqw;height:auto;max-height:none}
- .steps figure{position:relative}
- .steps figure:not(:last-child):after{content:"";position:absolute;right:-3.6cqw;top:15cqw;width:2.6cqw;height:2.6cqw;border-radius:50%;background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3b93a' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/50% no-repeat}
- .split{grid-template-columns:.5fr 1fr;gap:3.4cqw}
- .ed .vis .bw img{height:36cqw}
- .opt .ph{height:40cqw}
- .opt .pill{left:auto;right:-6cqw;top:4cqw}
- .two .bw img{height:24cqw}
- .eff{flex:none;margin:auto 0}
- .eff>div{padding:3.4cqw 2.6cqw}
- .price{flex:none;margin-top:auto}
- .price>div{min-height:22cqw}
- .ribbon{margin-bottom:auto}
- .flow{flex:none;margin:auto 0}
- .flow>div{min-height:24cqw}
- .ed .vis .bw img{height:40cqw}
- .opt .pill{right:auto;left:6cqw;top:-2.4cqw;bottom:auto}
- .two .bw img{height:auto}.two{align-content:center}
- .nums b{font-size:8.6cqw}
+ .body.sum,.body.rk{flex:none;margin:auto 0}
+ .sum>div{min-height:24cqw}.rk>div{min-height:23cqw}
+ .chart.box{justify-content:center}
+ .opt th,.opt td{padding:.65cqw 1cqw}
+ .hb{gap:1cqw}.hb .tr{height:3cqw}.hb .fl{font-size:1.4cqw}
+ .body[style*="grid-template-rows"]{gap:2cqw;margin-top:1.8cqw}
 }
+@media (min-width:861px){.chart.box .hb .tr{height:5cqw}.chart.box .hb .fl{font-size:2cqw}.chart.box .hb .r>span{font-size:1.5cqw}}
 @page{size:1280px 720px;margin:0}
 @media print{
  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
- .bar,.foot{display:none!important}
+ .bar,.edit,.foot{display:none!important}
  .deck{max-width:none;padding:0;gap:0;display:block}
  .s{width:1280px;height:720px;aspect-ratio:auto;border-radius:0;box-shadow:none;break-after:page;page-break-after:always}
 }
@@ -319,245 +254,319 @@ img{display:block;max-width:100%}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
  <symbol id="i-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
- <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></symbol>
- <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
- <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
- <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 15-14-1 10-6 15-14 15z"/><path d="M5 19l8-8"/></symbol>
- <symbol id="i-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></symbol>
- <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
- <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6 15h4"/></symbol>
- <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2"/></symbol>
- <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8"/></symbol>
- <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
- <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
- <symbol id="i-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+ <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M9 15l2 2 4-4"/></symbol>
+ <symbol id="i-unlock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></symbol>
+ <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+ <symbol id="i-paper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
 </svg>
 
 <header class="bar">
  <a class="lg" href="../"><img src="../../logo.png" alt="サクアプ" width="800" height="195"></a>
- <span class="tt">モバイルメニュー ご案内資料</span>
+ <span class="tt" data-v="title">ご提案資料</span>
  <button type="button" id="pdf"><svg><use href="#i-dl"/></svg>PDFで保存</button>
- <a class="b" href="../../contact/?from=menu-guide&amp;svc=menu">LINEで相談</a>
+ <a class="b" href="../../contact/?from=menu-proposal&amp;svc=menu">LINEで相談</a>
 </header>
+
+<div class="edit" id="edit" hidden>
+ <details>
+  <summary>お店に合わせて書き換える<span>（この枠は印刷・PDFには出ません）</span></summary>
+  <div class="f">
+   <label>店名<input id="in-shop" placeholder="例：食堂 ともしび" maxlength="30"></label>
+   <label>テーブル数<input id="in-tables" type="number" inputmode="numeric" min="1" max="99"></label>
+   <label>1日の注文回数<input id="in-orders" type="number" inputmode="numeric" min="1" max="999"></label>
+   <label>1回の分数<input id="in-min" type="number" inputmode="decimal" step="0.5" min="0.5" max="10"></label>
+   <label>営業日／月<input id="in-days" type="number" inputmode="numeric" min="1" max="31"></label>
+   <label>時給（円）<input id="in-wage" type="number" inputmode="numeric" min="500" max="5000"></label>
+  </div>
+  <div class="act"><button type="button" id="cp">このお店用のリンクをコピー</button><span>DMでこのリンクを送ると、店名と試算が入った状態で開きます。</span></div>
+ </details>
+</div>
 
 <main class="deck">
 
 <!-- 1 cover -->
 <section class="s cover dark" aria-label="表紙">
- <div class="tx">
-  <p class="ey">MOBILE MENU</p>
-  <h1>QRで注文。<br>メニューは、<br><em>お店らしく。</em></h1>
-  <p class="lead">個人経営の飲食店のための、QR注文サービス。</p>
-  <div class="chips"><span><small>初期費用</small><b>0<i>円〜</i></b></span><span class="y"><small>月額</small><b>1,980<i>円</i></b></span><span><small>注文手数料</small><b>0<i>円</i></b></span></div>
+ <div class="l">
+  <p class="to"><b data-v="shop">飲食店</b>様</p>
+  <p class="ey">PROPOSAL</p>
+  <h1>ピークの注文取りを、<br><em>お客様のスマホへ。</em></h1>
+  <p class="lead">QR注文「モバイルメニュー」導入のご提案</p>
+  <div class="meta"><img src="../../logo-w.png" alt="サクアプ" width="800" height="195"><span data-v="date"></span></div>
  </div>
- <div class="vis">
-  <div class="bw"><img src="img/a-orders.webp" alt="お店の注文一覧の画面" width="1492" height="704"></div>
-  <div class="ph"><img src="img/c-menu.webp" alt="お客様のメニュー画面" width="546" height="1144"></div>
-  <span class="pill"><b>!</b>テーブル5から新しい注文</span>
- </div>
- <div class="lg2"><img src="../../logo-w.png" alt="サクアプ" width="800" height="195">ご案内資料</div>
- <span class="pg"><b>01</b> / 14</span>
+ <div class="r" role="img" aria-label="スマホから注文するお客様"></div>
+ <span class="pg"><b>01</b> / 12</span>
 </section>
 
-<!-- 2 numbers -->
-<section class="s" aria-label="飲食店のいま">
- <p class="ey">WHY NOW</p>
- <h2>人は足りない。<br><em>注文は、スマホに任せられる。</em></h2>
- <div class="nums">
-  <div><div class="gauge" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div><b>65.3<i>%</i></b><span>パート・アルバイトが<br>足りない飲食店</span></div>
-  <div><div class="gauge" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div><b>約7<i>割</i></b><span>モバイルオーダーで<br>お店を使う回数が増える</span></div>
-  <div><div class="gauge" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><b>80<i>分/日</i></b><span>注文取りにかかる時間<br>（1回1分×80回の試算）</span></div>
+<!-- 2 summary -->
+<section class="s" aria-label="ご提案の要点">
+ <div class="hd"><span class="no">SUMMARY</span><span class="ch">ご提案の要点</span><span class="who"><span data-v="shop">飲食店</span>様</span></div>
+ <h2>注文取りの時間を減らし、<em>その分を料理と接客へ。</em></h2>
+ <div class="body sum">
+  <div><span class="t"><i>1</i>減らせる手間</span><h3>注文取りにかかっている時間</h3><b class="v"><span data-v="hm">35</span><i>時間/月</i></b><p>1日<span data-v="orders">80</span>回 × <span data-v="min">1</span>分の試算</p></div>
+  <div><span class="t"><i>2</i>金額にすると</span><h3>時給<span data-v="wage">1,121</span>円で換算</h3><b class="v"><span data-v="ym">3.9</span><i>万円/月</i></b><p>人を増やさずに浮く手間の目安</p></div>
+  <div><span class="t"><i>3</i>かかる費用</span><h3>月額のみ・注文手数料0円</h3><b class="v">1,980<i>円/月</i></b><p>初期費用0円〜／30日間無料</p></div>
  </div>
- <p class="src">出典：帝国データバンク「人手不足に対する企業の動向調査（2025年4月）」、STORES「モバイルオーダーに関する消費者の意識調査（2025年4月公表）」</p>
- <span class="pg"><b>02</b> / 14</span>
+ <span class="pg"><b>02</b> / 12</span>
 </section>
 
-<!-- 3 steps -->
-<section class="s" aria-label="お客様の使い方">
- <p class="ey">FOR GUESTS</p>
- <h2>QRを読んで、選んで、送るだけ。</h2>
- <div class="steps">
-  <figure><div class="ph"><img src="img/c-menu.webp" alt="" width="546" height="1144"></div><figcaption><b>1</b>QRでメニューが開く</figcaption></figure>
-  <figure><div class="ph"><img src="img/c-item.webp" alt="" width="546" height="1144"></div><figcaption><b>2</b>写真を見て選ぶ</figcaption></figure>
-  <figure><div class="ph"><img src="img/c-cart.webp" alt="" width="546" height="1144"></div><figcaption><b>3</b>注文を送る</figcaption></figure>
-  <figure><div class="ph"><img src="img/c-done.webp" alt="" width="546" height="1144"></div><figcaption><b>4</b>受付完了</figcaption></figure>
- </div>
- <span class="pg"><b>03</b> / 14</span>
-</section>
-
-<!-- 4 orders -->
-<section class="s" aria-label="お店の画面">
- <div class="split">
-  <div class="tx">
-   <p class="ey">FOR SHOPS</p>
-   <h2>注文は、<br>お店のスマホに<br><em>すぐ届く。</em></h2>
-   <ul class="pts"><li><b>1</b>新しい注文</li><li><b>2</b>調理中</li><li><b>3</b>提供済み</li></ul>
-   <span class="note2"><svg><use href="#i-phone"/></svg>専用の端末はいりません</span>
+<!-- 3 labor -->
+<section class="s" aria-label="人手不足">
+ <div class="hd"><span class="no">01 MARKET</span><span class="ch">外食をとりまく環境</span></div>
+ <h2>飲食店の人手不足は、<em>全業種でいちばん深刻。</em></h2>
+ <div class="body c2">
+  <div class="chart box">
+   <div class="ct">非正社員が「不足」と答えた企業の割合<small>2025年4月</small></div>
+   <div class="hb">
+    <div class="r"><span>飲食店</span><div class="tr"><div class="fl hl" style="width:65.3%">65.3%</div></div></div>
+    <div class="r"><span>全業種の平均</span><div class="tr"><div class="fl" style="width:30%">30.0%</div></div></div>
+   </div>
+   <div class="leg" style="margin-top:2cqw"><span>飲食店は、全業種平均の<b style="color:var(--red)">約2.2倍</b></span></div>
   </div>
-  <div class="vis">
-   <div class="bw"><img src="img/a-orders.webp" alt="注文一覧の画面" width="1492" height="704"></div>
-   <span class="pill" style="left:36%;top:-5%"><b>!</b>テーブル5 ・ たった今</span>
+  <div class="kp">
+   <div class="k"><small>求人を出しても</small><b>集まらない</b><p>ピークの時間に、手が足りない状態が続きやすい</p></div>
+   <div class="k g"><small>だからこそ</small><b>手間を減らす</b><p>「人を増やす」より「仕事を減らす」ほうが早くて確実</p></div>
   </div>
  </div>
- <span class="pg"><b>04</b> / 14</span>
+ <p class="src">出典：帝国データバンク「人手不足に対する企業の動向調査（2025年4月）」</p>
+ <span class="pg"><b>03</b> / 12</span>
 </section>
 
-<!-- 5 menu edit -->
-<section class="s ed" aria-label="メニューの変更">
- <div class="split">
-  <div class="tx">
-   <p class="ey">EASY UPDATE</p>
-   <h2>売り切れは、<br><em>スイッチひとつ。</em></h2>
-   <p class="sub">値段も写真も、その場で直せます。<br>メニューの刷り直しは、もういりません。</p>
-  </div>
-  <div class="vis">
-   <div class="bw"><img src="img/a-menu.webp" alt="メニュー管理の画面" width="1492" height="1173"></div>
-   <span class="pill y" style="right:3%;top:16%"><b>✓</b>押すとすぐに反映</span>
+<!-- 4 wage -->
+<section class="s" aria-label="最低賃金の推移">
+ <div class="hd"><span class="no">01 MARKET</span><span class="ch">外食をとりまく環境</span></div>
+ <h2>人件費は、<em>10年で4割上がった。</em></h2>
+ <div class="body c2">
+  <div class="chart box"><div class="ct">最低賃金（全国加重平均・時給）<small>円</small></div><div id="wageChart"></div></div>
+  <div class="kp">
+   <div class="k"><small>2015年 → 2025年</small><b>+40<i>%</i></b><p>798円 → 1,121円。2025年は過去最大の66円の引き上げ</p></div>
+   <div class="k k3"><small>政府の目標</small><b>1,500<i>円</i></b><p>2020年代のうちに全国平均1,500円を目指す方針</p></div>
   </div>
  </div>
- <span class="pg"><b>05</b> / 14</span>
+ <p class="src">出典：厚生労働省「地域別最低賃金の全国一覧」各年度。政府目標は「新しい資本主義のグランドデザイン及び実行計画」等による。</p>
+ <span class="pg"><b>04</b> / 12</span>
 </section>
 
-<!-- 6 templates -->
-<section class="s" aria-label="デザイン">
- <p class="ey">DESIGN</p>
- <h2>お店の雰囲気に合わせて、<em>選べる画面。</em></h2>
- <div class="tpls">
-  <figure><div class="ph"><img src="img/t-teishoku.webp" alt="" width="546" height="1144"></div><figcaption>和の食堂<small>無料</small></figcaption></figure>
-  <figure><div class="ph"><img src="img/t-cafe.webp" alt="" width="546" height="1144"></div><figcaption>カフェ<small>無料</small></figcaption></figure>
-  <figure><div class="ph"><img src="img/t-ticket.webp" alt="" width="546" height="1144"></div><figcaption>食券スタイル<small>無料</small></figcaption></figure>
-  <figure><div class="ph"><img src="img/t-izakaya.webp" alt="" width="546" height="1144"></div><figcaption>夜の居酒屋<small class="p">有料テンプレート</small></figcaption></figure>
-  <figure><div class="ph"><img src="img/t-bistro.webp" alt="" width="546" height="1144"></div><figcaption>ビストロ<small class="p">有料テンプレート</small></figcaption></figure>
+<!-- 5 inbound -->
+<section class="s" aria-label="訪日外国人">
+ <div class="hd"><span class="no">01 MARKET</span><span class="ch">外食をとりまく環境</span></div>
+ <h2>外国のお客様は、<em>過去最多に。</em></h2>
+ <div class="body c2">
+  <div class="chart box"><div class="ct">訪日外国人の数<small>万人</small></div><div id="visChart"></div></div>
+  <div class="kp">
+   <div class="k"><small>2024年</small><b>3,687<i>万人</i></b><p>コロナ前（2019年）を約500万人上回り、過去最多</p></div>
+   <div class="k g"><small>メニューの説明が</small><b>伝わらない</b><p>料理の中身・アレルギー・おすすめを、言葉だけで伝えるのは大変</p></div>
+  </div>
  </div>
- <span class="pg"><b>06</b> / 14</span>
+ <p class="src">出典：日本政府観光局（JNTO）「訪日外客数」。2020〜2022年は入国制限の影響。</p>
+ <span class="pg"><b>05</b> / 12</span>
+</section>
+
+<!-- 6 shop now -->
+<section class="s" aria-label="お店の今">
+ <div class="hd"><span class="no">02 YOUR SHOP</span><span class="ch">お店の今（試算）</span><span class="who"><span data-v="shop">飲食店</span>様</span></div>
+ <h2>注文取りに、<em>月<span data-v="hm">35</span>時間</em>使っています。</h2>
+ <div class="body c2r">
+  <div class="kp">
+   <div class="k"><small>1日あたり</small><b><span data-v="dm">80</span><i>分</i></b><p><span data-v="orders">80</span>回 × <span data-v="min">1</span>分（席まで行く・聞く・書く・伝える）</p></div>
+   <div class="k g"><small>1か月あたり（<span data-v="days">26</span>日営業）</small><b><span data-v="hm">35</span><i>時間</i></b><p>アルバイト1人の約<span data-v="wk">1</span>週間分の勤務時間</p></div>
+   <div class="k k3"><small>1年あたり</small><b><span data-v="hy">416</span><i>時間</i></b><p>金額にすると約<span data-v="yy">47</span>万円</p></div>
+  </div>
+  <div class="chart box"><div class="ct">1か月の注文取りの時間<small>■＝1時間</small></div><div class="hg" id="hg"></div><div class="leg"><span><i></i>注文取りに使っている時間</span></div></div>
+ </div>
+ <p class="src">※お店の数字をもとにした試算です。注文の回数・お店の広さ・QR注文を使うお客様の割合によって変わります。</p>
+ <span class="pg"><b>06</b> / 12</span>
 </section>
 
 <!-- 7 options -->
-<section class="s" aria-label="追加機能">
- <div class="opt">
-  <div class="vis" style="position:relative"><div class="ph"><img src="img/c-lang.webp" alt="英語のメニュー画面" width="546" height="1144"></div><span class="pill y"><b>A</b>英語・中国語・韓国語</span></div>
+<section class="s" aria-label="解決の方法の比較">
+ <div class="hd"><span class="no">03 OPTIONS</span><span class="ch">解決の方法をくらべる</span></div>
+ <h2>人を増やすより、<em>注文の仕組みを変える。</em></h2>
+ <div class="body" style="grid-template-rows:auto 1fr">
+  <div class="chart"><div class="ct">毎月かかる費用の目安<small>円/月</small></div>
+   <div class="hb">
+    <div class="r"><span>アルバイトを増やす<small>週20時間・時給<span data-v="wage">1,121</span>円</small></span><div class="tr"><div class="fl" style="width:100%"><span data-v="staff">96,400</span>円</div></div></div>
+    <div class="r"><span>大手のモバイルオーダー<small>店内向けの一般的な月額</small></span><div class="tr"><div class="fl out" style="width:15.6%;background:repeating-linear-gradient(90deg,var(--mute) 0 5.2%,#e7ddcf 5.2% 100%)"><em>5,000〜15,000円</em></div></div></div>
+    <div class="r"><span>サクアプ<small>モバイルメニュー</small></span><div class="tr"><div class="fl yl out" style="width:2.1%"><em>1,980円</em></div></div></div>
+   </div>
+  </div>
+  <div class="tw"><table class="opt">
+   <thead><tr><th></th><th>初期費用</th><th>手間が減る</th><th>外国語</th><th>しばり</th><th>専用端末</th></tr></thead>
+   <tbody>
+    <tr><th>アルバイトを増やす<small>採用できるかが不確実</small></th><td>求人費</td><td><span class="mk o">○</span></td><td><span class="mk x">×</span></td><td>—</td><td>—</td></tr>
+    <tr><th>券売機<small>食券を買ってもらう</small></th><td>数十万円〜</td><td><span class="mk o">○</span></td><td><span class="mk t">△</span></td><td>購入・リース</td><td>必要</td></tr>
+    <tr><th>大手のモバイルオーダー</th><td>0円〜数十万円</td><td><span class="mk o">○</span></td><td><span class="mk o">○</span></td><td>年契約もある</td><td>必要な場合も</td></tr>
+    <tr class="me"><th>サクアプ</th><td class="me"><b>0円〜</b></td><td class="me"><span class="mk o">○</span></td><td class="me"><span class="mk o">○</span><small style="display:block;font-size:.9cqw">追加機能</small></td><td class="me"><b>なし</b></td><td class="me"><b>不要</b></td></tr>
+   </tbody>
+  </table></div>
+ </div>
+ <span class="pg"><b>07</b> / 12</span>
+</section>
+
+<!-- 8 product -->
+<section class="s" aria-label="ご提案内容">
+ <div class="hd"><span class="no">04 SOLUTION</span><span class="ch">ご提案内容</span></div>
+ <h2>お客様のスマホで注文、<em>お店の画面に届く。</em></h2>
+ <div class="body c2r">
+  <div class="feat">
+   <div><i>1</i><span><b>テーブルにQRを置くだけ</b><small>アプリのインストールも会員登録もいりません</small></span></div>
+   <div><i>2</i><span><b>注文はお店のスマホ・タブレットへ</b><small>新規・調理中・提供済みを色で区別。専用端末は不要</small></span></div>
+   <div><i>3</i><span><b>売り切れ・値段はその場で変更</b><small>メニューの刷り直しが不要に</small></span></div>
+   <div><i>4</i><span><b>会計はいつものレジで</b><small>口頭・紙のメニューでの注文とも併用できます</small></span></div>
+  </div>
+  <div class="pd">
+   <div class="bw"><img src="img/a-orders.webp" alt="お店の注文一覧の画面" width="1492" height="704"></div>
+      <div class="ph"><img src="img/c-done.webp" alt="お客様の注文完了画面" width="546" height="1144"></div>
+  </div>
+ </div>
+ <span class="pg"><b>08</b> / 12</span>
+</section>
+
+<!-- 9 roi -->
+<section class="s roi" aria-label="費用対効果">
+ <div class="hd"><span class="no">05 RETURN</span><span class="ch">費用対効果（試算）</span><span class="who"><span data-v="shop">飲食店</span>様</span></div>
+ <h2>1年で、<em>費用の約<span data-v="ratio">20</span>倍</em>の手間が浮く計算です。</h2>
+ <div class="body c2">
+  <div class="chart box"><div class="ct">導入からの累計（円）<small><span style="color:var(--red)">━</span> 浮く手間（金額換算）　<span style="color:var(--ink)">━</span> サクアプの費用</small></div><div id="roiChart"></div></div>
+  <div class="kp">
+   <div class="k"><small>1年間で浮く手間</small><b>約<span data-v="yy">47</span><i>万円</i></b><p>月<span data-v="hm">35</span>時間 × 時給<span data-v="wage">1,121</span>円 × 12か月</p></div>
+   <div class="k k3"><small>1年間の費用</small><b><span data-v="cy">21,780</span><i>円</i></b><p>月額1,980円 × 11か月（最初の30日は無料）</p></div>
+  </div>
+ </div>
+ <p class="src">※試算です。実際の効果は、QR注文を使うお客様の割合などによって変わります。効果を保証するものではありません。</p>
+ <span class="pg"><b>09</b> / 12</span>
+</section>
+
+<!-- 10 schedule -->
+<section class="s" aria-label="導入スケジュール">
+ <div class="hd"><span class="no">06 SCHEDULE</span><span class="ch">導入までのスケジュール</span></div>
+ <h2>ご相談から<em>約1週間</em>で、注文を受けられます。</h2>
+ <div class="body" style="align-content:center">
+  <div class="gwrap"><div class="gt">
+   <span class="h">内容</span><span class="h">1日目</span><span class="h">2日目</span><span class="h">3日目</span><span class="h">4日目</span><span class="h">5日目</span><span class="h">6日目</span><span class="h">7日目</span><span class="h">8日目〜</span>
+   <span class="lb">ご相談<small>業態・席数・メニューを確認</small></span><span class="br b1" style="grid-column:2/3">LINE</span><span style="grid-column:3/10"></span>
+   <span class="lb">材料をいただく<small>メニュー表と写真（スマホで撮影）</small></span><span style="grid-column:2/3"></span><span class="br b2" style="grid-column:3/4">送るだけ</span><span style="grid-column:4/10"></span>
+   <span class="lb">画面づくり<small>テンプレート・メニュー登録</small></span><span style="grid-column:2/4"></span><span class="br b3" style="grid-column:4/7">こちらで作業</span><span style="grid-column:7/10"></span>
+   <span class="lb">確認・QRお渡し<small>お店のスマホで触って確認</small></span><span style="grid-column:2/7"></span><span class="br b2" style="grid-column:7/8">確認</span><span style="grid-column:8/10"></span>
+   <span class="lb">営業で使い始め<small>30日間は無料</small></span><span style="grid-column:2/9"></span><span class="br b5" style="grid-column:9/10">スタート</span>
+  </div></div>
+  <div class="leg" style="justify-content:flex-end"><span><i style="background:var(--gold)"></i>お店でしていただくこと（合計30分ほど）</span><span><i style="background:var(--red)"></i>サクアプで行うこと</span></div>
+ </div>
+ <span class="pg"><b>10</b> / 12</span>
+</section>
+
+<!-- 11 risk -->
+<section class="s" aria-label="安心して始められる理由">
+ <div class="hd"><span class="no">07 NO RISK</span><span class="ch">安心して始められる理由</span></div>
+ <h2>合わなければ、<em>0円でやめられます。</em></h2>
+ <div class="body rk">
+  <div><span class="ic"><svg><use href="#i-cal"/></svg></span><b>30日間無料</b><small>期間中に解約すれば料金はかかりません。課金の前にメールでお知らせ</small></div>
+  <div><span class="ic"><svg><use href="#i-unlock"/></svg></span><b>契約のしばりなし</b><small>通常プランは最低契約期間なし。管理画面からいつでも解約</small></div>
+  <div><span class="ic"><svg><use href="#i-paper"/></svg></span><b>紙のメニューと併用</b><small>QRは使えるお客様だけ。口頭での注文はこれまでどおり</small></div>
+  <div><span class="ic"><svg><use href="#i-db"/></svg></span><b>データはお店のもの</b><small>やめるときは、メニューなどのデータをCSVでお渡し</small></div>
+ </div>
+ <span class="pg"><b>11</b> / 12</span>
+</section>
+
+<!-- 12 estimate -->
+<section class="s" aria-label="お見積もりと次のステップ">
+ <div class="hd"><span class="no">08 ESTIMATE</span><span class="ch">お見積もりと次のステップ</span><span class="who"><span data-v="shop">飲食店</span>様</span></div>
+ <h2>先行モニターなら、<em>初期費用0円</em>で始められます。</h2>
+ <div class="body c2">
   <div>
-   <p class="ey">OPTIONS</p>
-   <h2>必要になったら、<br><em>あとから足せる。</em></h2>
-   <p class="sub">すべて買い切り。月額は1,980円のままです。</p>
-   <div class="og">
-    <div><i><svg><use href="#i-globe"/></svg></i><b>多言語メニュー</b><em>5,000円</em></div>
-    <div><i><svg><use href="#i-bell"/></svg></i><b>呼び出しボタン</b><em>3,000円</em></div>
-    <div><i><svg><use href="#i-leaf"/></svg></i><b>アレルギー表示</b><em>3,000円</em></div>
-    <div><i><svg><use href="#i-line"/></svg></i><b>注文のLINE通知</b><em>5,000円</em></div>
-    <div><i><svg><use href="#i-chart"/></svg></i><b>売上集計</b><em>5,000円</em></div>
-    <div><i><svg><use href="#i-card"/></svg></i><b>事前決済</b><em>5,000円</em></div>
-    <div><i><svg><use href="#i-bag"/></svg></i><b>テイクアウト</b><em>9,800円</em></div>
-    <div><i><svg><use href="#i-eye"/></svg></i><b>有料テンプレート</b><em>3,000円〜</em></div>
+   <table class="est">
+    <tr><th>おまかせ設定<small>テンプレート選び・メニュー登録（30品まで）</small></th><td class="r"><s>9,800円</s><em>0円</em></td></tr>
+    <tr><th>テーブル用QR<small><span data-v="tables">8</span>卓分・印刷用データ</small></th><td class="r">0円</td></tr>
+    <tr><th>有料テンプレート 1つ<small>お店の雰囲気に合わせたデザイン</small></th><td class="r"><s>3,000円〜</s><em>0円</em></td></tr>
+    <tr><th>月額<small>サーバー代・保守込み／注文手数料0円</small></th><td class="r">1,980円</td></tr>
+    <tr class="tot"><th>初期費用 合計</th><td class="r"><em>0円</em></td></tr>
+   </table>
+   <p class="src" style="margin-top:1.2cqw">先行モニターの条件：最初の6か月のご継続・導入事例の掲載（飲食店 先着5店舗）。正式受付は2027年6月ごろから。</p>
+  </div>
+  <div class="nx">
+   <ol><li><i>1</i>LINEで「モバイルメニューの件」と送る</li><li><i>2</i>メニュー表と写真を送る</li><li><i>3</i>画面を確認して、スタート</li></ol>
+   <div class="q">
+    <div><img src="../../guide/line-qr.svg" alt="LINE友だち追加のQRコード" width="232" height="232"><b>LINEで相談</b></div>
+    <div><img src="qr-demo.svg" alt="デモ画面のQRコード" width="264" height="264"><b>デモを触る</b></div>
    </div>
   </div>
  </div>
- <span class="pg"><b>07</b> / 14</span>
-</section>
-
-<!-- 8 qr + tables -->
-<section class="s" aria-label="QRと会計">
- <p class="ey">QR &amp; TABLES</p>
- <h2>QRは、置くだけ。<em>会計後は、ワンタップ。</em></h2>
- <div class="two">
-  <figure><div class="bw"><img src="img/a-qr.webp" alt="テーブルごとのQRコードの画面" width="1492" height="727"></div><figcaption><b>1</b>席ごとのQRを、印刷用データでお渡し</figcaption></figure>
-  <figure><div class="bw"><img src="img/a-tables.webp" alt="テーブルごとの合計の画面" width="1492" height="704"></div><figcaption><b>2</b>席ごとの合計がわかる。会計はいつものレジで</figcaption></figure>
- </div>
- <span class="pg"><b>08</b> / 14</span>
-</section>
-
-<!-- 9 effect -->
-<section class="s" aria-label="浮く時間">
- <p class="ey">EFFECT</p>
- <h2>注文取りがなくなると、<em>これだけ手が空く。</em></h2>
- <div class="eff">
-  <div><small>1日80回の注文取り</small><b>80<i>分/日</i></b><p>ピークに、料理と接客へ</p></div>
-  <div><small>月26日営業で</small><b>35<i>時間/月</i></b><p>アルバイト約1週間分</p></div>
-  <div><small>時給1,100円で換算</small><b>3.8<i>万円/月</i></b><p>月額1,980円に対して</p></div>
- </div>
- <p class="src">※1回の注文取り（席まで行って、聞いて、伝票に書いて、厨房に伝える）を1分とした試算です。効果を保証するものではありません。</p>
- <span class="pg"><b>09</b> / 14</span>
-</section>
-
-<!-- 10 price -->
-<section class="s" aria-label="料金">
- <p class="ey">PRICE</p>
- <h2>街のお店のための料金。</h2>
- <div class="price">
-  <div><span class="tg">自分で設定</span><h3>セルフ</h3><b>0<i>円</i></b><p>テンプレートを選んで、メニューを登録</p></div>
-  <div><span class="tg">いちばん人気</span><h3>おまかせ</h3><b>9,800<i>円</i></b><p>メニュー表と写真を送るだけ。QRまで発行</p></div>
-  <div class="mo"><span class="tg">毎月</span><h3>月額</h3><b>1,980<i>円</i></b><p>サーバー代・保守・アップデート込み</p></div>
- </div>
- <div class="ribbon"><span>30日間 無料</span><span>注文手数料 0円</span><span>しばりなし</span><span>専用端末 不要</span></div>
- <span class="pg"><b>10</b> / 14</span>
-</section>
-
-<!-- 11 compare -->
-<section class="s" aria-label="2年間の総額">
- <p class="ey">COMPARE</p>
- <h2>2年間の総額で、<em>10万円以上の差。</em></h2>
- <div class="cbar">
-  <div class="row me"><div class="lb">サクアプ<small>セルフ・月額1,980円</small></div><div class="tr"><div class="fill"><span>45,540円〜</span></div></div></div>
-  <div class="row ot"><div class="lb">一般的な月額制<small>月額5,000〜15,000円</small></div><div class="tr"><div class="fill">約12万〜36万円</div></div></div>
-  <div class="axis"><span></span><div><span>0</span><span>12万</span><span>24万</span><span>36万円</span></div></div>
-  <div class="facts"><span>注文手数料 <em>0円</em></span><span>契約 <em>しばりなし</em></span><span>専用端末 <em>不要</em></span><span>画面 <em>お店ごと</em></span></div>
- </div>
- <p class="src">※一般的な月額制は、店内向けモバイルオーダーの公開料金をもとにした目安。サクアプは30日間の無料お試しのあと23か月の場合。</p>
- <span class="pg"><b>11</b> / 14</span>
-</section>
-
-<!-- 12 line -->
-<section class="s ln" aria-label="LINE版">
- <div class="photo" role="img" aria-label="LINEでお店からのお知らせを見る人"></div>
- <div class="tx">
-  <p class="ey">LINE MINI APP</p>
-  <h2>LINEの中でも、<br><em>注文できる。</em></h2>
-  <div class="lnc"><span>友だちが増える</span><span>できあがりをトークで</span><span>クーポンで再来店</span></div>
-  <div class="lp">
-   <div><span>Web版</span><b>1,980<i>円/月</i></b></div>
-   <div><span>LINE版</span><b>1,980<i>円/月</i></b></div>
-   <div class="on"><span>セット<small>Web版＋LINE版</small></span><b>2,980<i>円/月</i></b></div>
-  </div>
- </div>
- <span class="pg"><b>12</b> / 14</span>
-</section>
-
-<!-- 13 flow -->
-<section class="s" aria-label="導入の流れ">
- <p class="ey">FLOW</p>
- <h2>メニュー表と写真を、<em>送るだけ。</em></h2>
- <div class="flow">
-  <div><span class="ic"><svg><use href="#i-chat"/></svg></span><small>STEP 1</small><b>LINEで相談</b><span>無料</span></div>
-  <div><span class="ic"><svg><use href="#i-camera"/></svg></span><small>STEP 2</small><b>メニュー表と<br>写真を送る</b><span>スマホで撮るだけ</span></div>
-  <div><span class="ic"><svg><use href="#i-eye"/></svg></span><small>STEP 3</small><b>画面を確認</b><span>直しは何度でも</span></div>
-  <div><span class="ic"><svg><use href="#i-qr"/></svg></span><small>STEP 4</small><b>QRを置いて<br>スタート</b><span>30日間 無料</span></div>
- </div>
- <span class="pg"><b>13</b> / 14</span>
-</section>
-
-<!-- 14 cta -->
-<section class="s dark" aria-label="先行モニター募集">
- <div class="cta" style="flex:1">
-  <div>
-   <p class="ey">EARLY ACCESS</p>
-   <h2>飲食店の先行モニター、<br><em>先着5店舗。</em></h2>
-   <div class="gift">
-    <div><span>おまかせ設定</span><span><s>9,800円</s><em>0円</em></span></div>
-    <div><span>有料テンプレート 1つ</span><span><em>無料</em></span></div>
-   </div>
-   <p class="cond">条件：最初の6か月のご継続・導入事例の掲載。正式受付は2027年6月ごろから。</p>
-  </div>
-  <div class="qrs">
-   <div class="qr"><img src="../../guide/line-qr.svg" alt="LINE友だち追加のQRコード" width="232" height="232"><b>LINEで相談</b><small>友だち追加してひとこと</small></div>
-   <div class="qr"><img src="qr-demo.svg" alt="デモ画面のQRコード" width="264" height="264"><b>デモを触る</b><small>実際の画面を操作</small></div>
-   <a class="cbtn" href="../../contact/?from=menu-guide&amp;svc=menu">【無料】LINEで相談する ›</a>
-  </div>
- </div>
- <span class="pg"><b>14</b> / 14</span>
+ <span class="pg"><b>12</b> / 12</span>
 </section>
 </main>
 <p class="foot"><a href="../">モバイルメニューのページへ ›</a></p>
-<script>document.getElementById("pdf").addEventListener("click",function(){window.print()});</script>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var q=new URLSearchParams(location.search);
+var D={shop:"",tables:8,orders:80,min:1,days:26,wage:1121};
+function num(v,d,lo,hi){v=parseFloat(v);return isFinite(v)&&v>=lo&&v<=hi?v:d}
+var S={shop:(q.get("shop")||"").slice(0,30),tables:num(q.get("t"),D.tables,1,99),orders:num(q.get("o"),D.orders,1,999),min:num(q.get("m"),D.min,.5,10),days:num(q.get("d"),D.days,1,31),wage:num(q.get("w"),D.wage,500,5000)};
+// editor shows only when ?edit=1 or no shop given? -> show when ?edit=1
+if(q.get("edit")==="1")$("edit").hidden=false;
+function fmt(n){return Math.round(n).toLocaleString("ja-JP")}
+function f1(n){return (Math.round(n*10)/10).toLocaleString("ja-JP")}
+function svg(w,h,inner){return '<svg viewBox="0 0 '+w+' '+h+'" role="img">'+inner+'</svg>'}
+function lineChart(el,labels,vals,opt){
+ var W=560,H=280,L=46,R=16,T=18,B=34,mn=opt.min,mx=opt.max,n=vals.length;
+ var x=function(i){return L+(W-L-R)*i/(n-1)},y=function(v){return T+(H-T-B)*(1-(v-mn)/(mx-mn))};
+ var g="";opt.ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+t.toLocaleString()+'</text>'});
+ labels.forEach(function(l,i){if(opt.every&&i%opt.every&&i!==n-1)return;g+='<text x="'+x(i)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="#7a6d63" font-family="Montserrat">'+l+'</text>'});
+ var pts=vals.map(function(v,i){return x(i)+","+y(v)}).join(" ");
+ g+='<polygon points="'+L+','+y(mn)+' '+pts+' '+x(n-1)+','+y(mn)+'" fill="rgba(200,85,31,.10)"/>';
+ g+='<polyline points="'+pts+'" fill="none" stroke="#c8551f" stroke-width="3" stroke-linejoin="round"/>';
+ [0,n-1].forEach(function(i){g+='<circle cx="'+x(i)+'" cy="'+y(vals[i])+'" r="5" fill="#fff" stroke="#c8551f" stroke-width="3"/><text x="'+x(i)+'" y="'+(y(vals[i])-12)+'" text-anchor="'+(i?"end":"start")+'" font-size="14" font-weight="800" fill="#241e1a" font-family="Montserrat">'+vals[i].toLocaleString()+'円</text>'});
+ el.innerHTML=svg(W,H,g);
+}
+function barChart(el,labels,vals,opt){
+ var W=560,H=280,L=46,R=10,T=26,B=34,mx=opt.max,n=vals.length,bw=(W-L-R)/n;
+ var y=function(v){return T+(H-T-B)*(1-v/mx)};
+ var g="";opt.ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+t.toLocaleString()+'</text>'});
+ vals.forEach(function(v,i){var hl=i===n-1,cx=L+bw*i+bw*.18,w=bw*.64;g+='<rect x="'+cx+'" y="'+y(v)+'" width="'+w+'" height="'+(y(0)-y(v))+'" rx="4" fill="'+(hl?"#c8551f":(opt.dim&&opt.dim.indexOf(i)>=0?"#e8ddcf":"#d9cdbd"))+'"/>';
+  g+='<text x="'+(cx+w/2)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="#7a6d63" font-family="Montserrat">'+labels[i]+'</text>';
+  if(hl||i===opt.mark)g+='<text x="'+(cx+w/2)+'" y="'+(y(v)-8)+'" text-anchor="middle" font-size="13" font-weight="800" fill="'+(hl?"#c8551f":"#4a3f38")+'" font-family="Montserrat">'+v.toLocaleString()+'</text>'});
+ el.innerHTML=svg(W,H,g);
+}
+lineChart($("wageChart"),["2015","16","17","18","19","20","21","22","23","24","2025"],[798,823,848,874,901,902,930,961,1004,1055,1121],{min:700,max:1200,ticks:[700,800,900,1000,1100,1200]});
+barChart($("visChart"),["2015","16","17","18","19","20","21","22","23","2024"],[1974,2404,2869,3119,3188,412,25,383,2507,3687],{max:4000,ticks:[0,1000,2000,3000,4000],dim:[5,6,7],mark:4});
+function roiChart(ym){
+ var W=560,H=280,L=60,R=16,T=18,B=34,n=13,cost=[],save=[];
+ for(var m=0;m<n;m++){save.push(ym*m);cost.push(1980*Math.max(0,m-1))}
+ var mx=Math.max(save[n-1],cost[n-1])*1.08,step=mx>400000?100000:mx>200000?50000:mx>80000?20000:10000,ticks=[];for(var t=0;t<=mx;t+=step)ticks.push(t);
+ var x=function(i){return L+(W-L-R)*i/(n-1)},y=function(v){return T+(H-T-B)*(1-v/mx)};
+ var g="";ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+(t/10000)+'万</text>'});
+ for(var i=0;i<n;i+=2)g+='<text x="'+x(i)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="#7a6d63" font-family="Montserrat">'+i+'か月</text>';
+ var ps=save.map(function(v,i){return x(i)+","+y(v)}).join(" "),pc=cost.map(function(v,i){return x(i)+","+y(v)}).join(" ");
+ g+='<polygon points="'+x(0)+','+y(0)+' '+ps+' '+x(n-1)+','+y(cost[n-1])+' '+pc.split(" ").reverse().join(" ")+'" fill="rgba(200,85,31,.10)"/>';
+ g+='<polyline points="'+ps+'" fill="none" stroke="#c8551f" stroke-width="3"/><polyline points="'+pc+'" fill="none" stroke="#241e1a" stroke-width="3"/>';
+ g+='<text x="'+(x(n-1)-4)+'" y="'+(y(save[n-1])-10)+'" text-anchor="end" font-size="14" font-weight="800" fill="#c8551f" font-family="Montserrat">約'+fmt(save[n-1]/10000)+'万円</text>';
+ g+='<text x="'+(x(n-1)-4)+'" y="'+(y(cost[n-1])-10)+'" text-anchor="end" font-size="13" font-weight="800" fill="#241e1a" font-family="Montserrat">'+fmt(cost[n-1])+'円</text>';
+ $("roiChart").innerHTML=svg(W,H,g);
+}
+function render(){
+ var dm=S.orders*S.min,hm=dm*S.days/60,ymY=hm*S.wage,yy=ymY*12,cy=1980*11;
+ var V={shop:S.shop||"飲食店",title:(S.shop?S.shop+"様 ":"")+"ご提案資料",orders:fmt(S.orders),min:f1(S.min),days:fmt(S.days),wage:fmt(S.wage),tables:fmt(S.tables),
+  dm:fmt(dm),hm:fmt(hm),ym:f1(ymY/10000),hy:fmt(hm*12),yy:fmt(yy/10000),cy:fmt(cy),ratio:fmt(yy/cy),staff:fmt(Math.round(20*4.3*S.wage/100)*100)};
+ V.wk=f1(hm/20); // 週20時間勤務を1週とする
+ var d=new Date();V.date=d.getFullYear()+"年"+(d.getMonth()+1)+"月";
+ document.querySelectorAll("[data-v]").forEach(function(el){var k=el.dataset.v;if(V[k]!=null)el.textContent=V[k]});
+ document.title=V.title+"｜サクアプ";
+ var hg="",nH=Math.min(Math.round(hm),100),tot=Math.max(50,Math.ceil(nH/10)*10);for(var i=0;i<tot;i++)hg+='<i'+(i<nH?' class="on"':'')+'></i>';$("hg").innerHTML=hg;
+ roiChart(ymY);
+}
+var map={shop:"in-shop",tables:"in-tables",orders:"in-orders",min:"in-min",days:"in-days",wage:"in-wage"};
+Object.keys(map).forEach(function(k){var el=$(map[k]);el.value=k==="shop"?S.shop:S[k];el.addEventListener("input",function(){
+ if(k==="shop")S.shop=el.value.slice(0,30);else{var lim={tables:[1,99],orders:[1,999],min:[.5,10],days:[1,31],wage:[500,5000]}[k];S[k]=num(el.value,S[k],lim[0],lim[1])}render()})});
+$("cp").addEventListener("click",function(){
+ var u=new URL(location.href.split("?")[0]);if(S.shop)u.searchParams.set("shop",S.shop);
+ [["t","tables"],["o","orders"],["m","min"],["d","days"],["w","wage"]].forEach(function(p){if(S[p[1]]!==D[p[1]])u.searchParams.set(p[0],S[p[1]])});
+ var t=u.toString(),b=this;function ok(){b.textContent="コピーしました";b.classList.add("ok");setTimeout(function(){b.textContent="このお店用のリンクをコピー";b.classList.remove("ok")},1800)}
+ if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){prompt("このリンクをコピーしてください",t)});else prompt("このリンクをコピーしてください",t);
+});
+$("pdf").addEventListener("click",function(){window.print()});
+render();
+})();
+</script>
 <script src="../../js/budoux.js" defer></script>
 </body>
 </html>

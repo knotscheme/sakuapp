@@ -83,7 +83,7 @@ th{white-space:nowrap;color:var(--ink2);width:7.5em}
  <h2><small>MATERIALS</small>お店に見せる資料</h2>
  <p class="lead">DMでは画像かリンク、対面ではスマホで資料を見せて、チラシを置いて帰る流れです。</p>
  <div class="mats">
-  <a href="./" target="_blank" rel="noopener"><b>ご案内資料（13ページ）</b><span>スマホでそのまま見せられます。PDFで保存も可。DMで送るならこのリンク。</span><em>開く ›</em></a>
+  <a href="./?edit=1" target="_blank" rel="noopener"><b>ご提案資料（12ページ）</b><span>お店ごとの試算つき。開いて上の枠に店名・注文回数などを入れ、「このお店用のリンクをコピー」で送る。</span><em>開いて書き換える ›</em></a>
   <a href="flyer.pdf" target="_blank" rel="noopener"><b>チラシ（A4 表・裏）</b><span>印刷して置いていく用。コンビニのネットプリントでも印刷できます。</span><em>PDF ›</em></a>
   <a href="flyer-front.png" target="_blank" rel="noopener"><b>チラシ画像（表）</b><span>InstagramのDMやLINEで、1枚目に送る画像。<a href="flyer-back.png" target="_blank" rel="noopener">裏面の画像</a>も。</span><em>画像 ›</em></a>
  </div>
@@ -100,6 +100,7 @@ th{white-space:nowrap;color:var(--ink2);width:7.5em}
  <p class="lead">いきなり売らず、「お店に合わせた画面の案を無料で作る」を入り口にします。案を見せた時点で、ほぼ決まります。</p>
  <ol class="steps">
   <li><b>お店を選ぶ<span class="tg">10分</span></b><small>下の「狙うお店」の条件に合うお店を、Instagram・Googleマップで探す。</small></li>
+  <li><b>そのお店用の提案資料を作る<span class="tg">3分</span></b><small>ご提案資料を開いて、店名・テーブル数・1日の注文回数（席数×回転数くらい）を入れてリンクをコピー。</small></li>
   <li><b>最初の連絡<span class="tg">DM・紹介・訪問</span></b><small>売り込みではなく「画面の案を無料で作らせてほしい」とお願いする。</small></li>
   <li><b>画面の案を作る<span class="tg">1〜2日</span></b><small>お店のInstagramの写真とメニューを使って、そのお店の画面を作る（3〜5品で十分）。</small></li>
   <li><b>見せる<span class="tg">10分</span></b><small>お店のスマホでQRを読んでもらい、注文が届くところまで触ってもらう。</small></li>
@@ -129,8 +130,8 @@ th{white-space:nowrap;color:var(--ink2);width:7.5em}
 もしよければ、<mark>〇〇（店名）</mark>さんの写真とメニューで「こんな画面になります」という案を、無料でお作りしてもいいでしょうか？
 見ていただいて、合わなければそれで終わりで大丈夫です。
 
-参考の資料です（1分で見られます）
-https://knotscheme.github.io/sakuapp/menu/mx27/</pre></div>
+<mark>〇〇</mark>さん向けに、ざっくり試算した資料も作りました（1分で見られます）
+<mark>（このお店用のリンク）</mark></pre></div>
 
  <div class="msg"><div class="hd"><span>② 返信が来たら<small>「いいですよ」「どんなの？」への返し。</small></span><button type="button">コピー</button></div><pre>お返事ありがとうございます！
 
@@ -229,7 +230,7 @@ https://knotscheme.github.io/sakuapp/menu/mx27/</pre></div>
  <p class="lead" style="margin:0">「ありがとうございました。また何かあればLINEでいつでもどうぞ」で終わり。作った画面の案は、<b>次のお店に見せる見本</b>として使えます（お店の名前と写真は外して）。</p>
 </section>
 
-<p class="foot"><a href="./">ご案内資料へ</a> ・ <a href="flyer.html">チラシ</a> ・ <a href="../">モバイルメニューのページ</a></p>
+<p class="foot"><a href="./?edit=1">ご提案資料へ</a> ・ <a href="flyer.html">チラシ</a> ・ <a href="../">モバイルメニューのページ</a></p>
 </main>
 <script>
 document.querySelectorAll(".msg button").forEach(function(b){b.addEventListener("click",function(){var t=b.closest(".msg").querySelector("pre").innerText.replace(/[\u200b\u2060]/g,"");function done(){b.textContent="コピーしました";b.classList.add("ok");setTimeout(function(){b.textContent="コピー";b.classList.remove("ok")},1600)}
