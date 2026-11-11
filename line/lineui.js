@@ -186,15 +186,14 @@ var stl=document.getElementById('stl'),sto=story('storyPh',0,stl);
 if(sto&&stl){var lis=[].slice.call(stl.children),MOB=matchMedia('(max-width:860px)');
  /* PC: scroll-driven sticky story */
  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(MOB.matches)return;es.forEach(function(e){if(e.isIntersecting)sto.set(+e.target.dataset.s)})},{rootMargin:'-45% 0px -45% 0px'});lis.forEach(function(li){io.observe(li)})}
- /* mobile: compact slider (phone + one step), auto-advance while visible */
- var nav=document.createElement('div');nav.className='st-nav';nav.innerHTML='<button type="button" class="pv" aria-label="前へ">‹</button><span class="dt">'+lis.map(function(_,i){return '<i data-i="'+i+'"></i>'}).join('')+'</span><button type="button" class="nx" aria-label="次へ">›</button>';stl.parentNode.appendChild(nav);
- var mi=0,vis=false,tm;function go(i){mi=(i+lis.length)%lis.length;sto.set(mi);[].forEach.call(nav.querySelectorAll('i'),function(d,j){d.classList.toggle('on',j===mi)})}
- function loop(){clearInterval(tm);if(!RM&&vis&&MOB.matches)tm=setInterval(function(){go(mi+1)},3600)}
- nav.querySelector('.pv').addEventListener('click',function(){go(mi-1);loop()});nav.querySelector('.nx').addEventListener('click',function(){go(mi+1);loop()});
- [].forEach.call(nav.querySelectorAll('i'),function(d){d.addEventListener('click',function(){go(+d.dataset.i);loop()})});
- lis.forEach(function(li){li.addEventListener('click',function(){if(MOB.matches){go(+li.dataset.s+1);loop()}else sto.set(+li.dataset.s)})});
- if('IntersectionObserver' in window){new IntersectionObserver(function(es){vis=es[0].isIntersecting;loop()},{threshold:.4}).observe(document.querySelector('.st-g'))}
- go(0)}
+ /* mobile: every step side by side (no screen swapping) */
+ var cs=document.createElement('div');cs.className='st-cs';
+ cs.innerHTML=lis.map(function(li,i){return '<div class="st-c"><div class="ph2"><div class="ph2s" id="stc'+i+'"></div></div><em>'+li.querySelector('em').textContent+'</em><b>'+li.querySelector('b').textContent+'</b><p>'+li.querySelector('p').textContent+'</p></div>'}).join('');
+ stl.parentNode.parentNode.appendChild(cs);
+ var built=false;function build(){if(built||!MOB.matches)return;built=true;lis.forEach(function(_,i){var x=story('stc'+i);if(x){x.set(i===3?2:i);if(i===3)setTimeout(function(){x.set(3)},50)}});
+  [].forEach.call(cs.querySelectorAll('.u-sh'),function(el){el.style.transition='none'})}
+ build();MOB.addEventListener&&MOB.addEventListener('change',build);
+ lis.forEach(function(li){li.addEventListener('click',function(){sto.set(+li.dataset.s)})})}
 
 /* ---------- RICH MENU ---------- */
 var rp=document.getElementById('richPh');

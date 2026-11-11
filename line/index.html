@@ -1216,17 +1216,17 @@ body.dfs-on .fbar{display:none!important}
  .dfs-b{display:inline-flex}
 }
 
-.st-nav{display:none}
+.st-cs{display:none}
 @media(max-width:860px){
- .st-g{display:flex!important;flex-direction:column;align-items:center}
- .st-ph{position:static!important;background:none!important;padding:0!important}
- .st-ph .ph2{width:min(50vw,200px)!important}
- .st-l{padding:0!important;margin-top:18px;width:100%;display:grid}
- .st-l li{grid-area:1/1;margin:0!important;opacity:0!important;transform:translateY(8px)!important;pointer-events:none;box-shadow:0 24px 40px -34px rgba(10,60,30,.45)}
- .st-l li.on{opacity:1!important;transform:none!important;pointer-events:auto}
- .st-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
- .st-nav button{width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:var(--ink);font-size:22px;box-shadow:0 8px 20px -12px rgba(0,0,0,.35);cursor:pointer}
- .st-nav .dt{display:flex;gap:6px}.st-nav i{width:8px;height:8px;border-radius:4px;background:#c9ddd0;transition:.3s;cursor:pointer}.st-nav i.on{width:22px;background:var(--blue)}
+ .st-g{display:none!important}
+ .st-cs{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;margin:22px -20px 0;padding:6px 20px 18px;scrollbar-width:none}
+ .st-cs::-webkit-scrollbar{display:none}
+ .st-c{flex:0 0 68%;scroll-snap-align:center;background:#fff;border-radius:22px;padding:16px 16px 18px;box-shadow:0 24px 40px -34px rgba(10,60,30,.45)}
+ .st-c .ph2{width:78%;margin:0 auto 14px}
+ .st-c em{display:block;font:italic 800 24px/1 var(--en);color:var(--blue);margin-bottom:6px}
+ .st-c b{display:block;font-size:15.5px;margin-bottom:4px}
+ .st-c p{margin:0;font-size:12.5px;color:var(--ink2);line-height:1.8}
+ .st-cs:after{content:"";flex:0 0 1px}
 }
 </style>
 </head>
@@ -1457,7 +1457,7 @@ body.dfs-on .fbar{display:none!important}
 <div class="dfs" id="dfs" hidden><div class="dfs-top"><button type="button" id="dfsClose" aria-label="閉じる">✕</button><span>LINEミニアプリのデモ</span><a href="../contact/?from=line&amp;svc=LINE">相談する</a></div><div class="dfs-body" id="dfsBody"></div></div>
 <div class="fbar" id="fbar"><a class="g" href="../guide/">資料</a><a class="m" href="../contact/?from=line&amp;svc=LINE"><svg><use href="#lnI"/></svg>LINEで無料相談</a></div>
 
-<script src="lineui.js?v=5"></script>
+<script src="lineui.js?v=6"></script>
 <script src="../js/budoux.js" defer></script>
 </body>
 </html>
