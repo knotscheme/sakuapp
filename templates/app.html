@@ -14,7 +14,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 input,textarea,select{font:inherit;color:inherit}
 .stage{position:fixed;inset:0;display:grid;place-items:center}
 .phone{--b:#0e7c8c;--b2:#0a5d69;--bg:#f7f7f5;--card:#fff;--ink:#1d2224;--sub:#7a8486;--line:#ebeeee;--soft:#f1f3f3;--acc:#f4c04e;--r:16px;
- position:absolute;left:50%;top:50%;width:390px;height:800px;border-radius:56px;background:#14181a;padding:12px;box-shadow:0 40px 80px -30px rgba(10,30,35,.55),inset 0 0 0 2px #2b3134;transform-origin:center center;flex:none}
+ position:relative;width:390px;height:800px;border-radius:56px;background:#14181a;padding:12px;box-shadow:0 40px 80px -30px rgba(10,30,35,.55),inset 0 0 0 2px #2b3134;transform-origin:center center;flex:none}
 .scrn{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;isolation:isolate}
 .isl{position:absolute;left:50%;top:11px;transform:translateX(-50%);width:118px;height:34px;border-radius:20px;background:#0b0d0e;z-index:60}
 .sbar{flex:none;height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 6px 34px;font:600 15px Inter,sans-serif;z-index:5;position:relative}
@@ -175,14 +175,19 @@ input,textarea,select{font:inherit;color:inherit}
 .cta.tb.dock{padding-bottom:96px}
 .composer.dock{position:absolute;left:0;right:0;bottom:0;z-index:15}
 .cta:not(.dock),.composer:not(.dock){position:relative;bottom:auto}
+
+/* robust bottom CTA: sits just above the tab bar, no tall opaque padding */
+.cta.dock{bottom:0;padding:18px 18px 18px;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 0%,transparent),var(--bg) 40%)}
+.cta.tb.dock{bottom:84px;padding-bottom:10px}
+.phone{transform:none!important}
 </style>
 </head>
 <body>
 <div class="stage"><div class="phone" id="ph"><div class="isl"></div><div class="scrn" id="sc"></div></div></div>
-<script src="engine.js"></script>
-<script src="apps1.js"></script>
-<script src="apps2.js"></script>
-<script src="apps3.js"></script>
+<script src="engine.js?v=20261111b"></script>
+<script src="apps1.js?v=20261111b"></script>
+<script src="apps2.js?v=20261111b"></script>
+<script src="apps3.js?v=20261111b"></script>
 <script>Engine.start()</script>
 </body>
 </html>

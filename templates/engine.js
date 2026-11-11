@@ -93,13 +93,13 @@ var Engine=(function(){
   /* iOS Safari: sticky inside a scaled container paints in the wrong place, so dock header/CTA outside the scroll area */
   var h0=nw.firstElementChild;if(h0&&h0.classList.contains('hd')){h0.classList.add('dock');view.insertBefore(h0,nw)}
   var tb=view.querySelector('.tbar');
-  [].forEach.call(nw.querySelectorAll(':scope > .cta,:scope > .composer'),function(c){if(c.style.position==='static')return;c.classList.add('dock');view.insertBefore(c,tb||null);nw.style.paddingBottom=(c.offsetHeight-(tb?96:0))+'px'});
+  [].forEach.call(nw.querySelectorAll(':scope > .cta,:scope > .composer'),function(c){if(c.style.position==='static')return;c.classList.add('dock');view.insertBefore(c,tb||null);nw.style.paddingBottom=(c.offsetHeight+(tb?0:0))+'px'});
   nw.scrollTop=y;
   if(!keep){nw.classList.add('fade')}
   if(fin){var el=view.querySelector('[data-in="'+fin+'"]');if(el){el.focus();try{el.setSelectionRange(ss,ss)}catch(e){}}}
   if(app.mount)app.mount(t.id,view,S,E);
  }
- function fit(){var w=innerWidth-16,h=innerHeight-16,s=Math.min(w/390,h/800);ph.style.transform='translate(-50%,-50%) scale('+s.toFixed(4)+')'}
+ function fit(){var w=innerWidth-16,h=innerHeight-16,s=Math.min(w/390,h/800);ph.style.zoom=s.toFixed(4);ph.dataset.s=s}
  function onClick(e){
   var el=e.target.closest('[data-go],[data-back],[data-tab],[data-act],[data-sheet],[data-close]');if(!el||!sc.contains(el))return;
   var a=el.getAttribute('data-a');if(a!=null&&/^-?\d+(\.\d+)?$/.test(a))a=+a;
