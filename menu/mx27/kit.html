@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>営業キット｜モバイルメニュー</title>
+<link rel="icon" href="../../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#241e1a;--ink2:#4a3f38;--sub:#7a6d63;--line:#ece3d8;--soft:#fbf7f1;--card:#fffdf9;--gold:#a8740f;--gold-d:#8a5d06;--gold-l:#fdf3d9;--yel:#f3b93a;--bg:#f4ede3;--en:"Montserrat","Noto Sans JP",sans-serif;--serif:"Noto Serif JP",serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",sans-serif;line-height:1.8;letter-spacing:.03em}
+a{color:var(--gold-d)}
+.nw{display:inline-block}
+header{background:#1d1712;color:#fff;padding:28px 20px 30px}
+header .in,main{max-width:860px;margin:0 auto}
+header .ey{font:800 11px var(--en);letter-spacing:.24em;color:var(--yel);margin:0 0 6px}
+header h1{font-family:var(--serif);font-size:clamp(24px,4vw,32px);line-height:1.4;margin:0}
+header p{margin:10px 0 0;font-size:13.5px;opacity:.85}
+nav{position:sticky;top:0;z-index:5;background:rgba(255,253,249,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+nav .in{max-width:860px;margin:0 auto;padding:0 12px;display:flex;gap:2px}
+nav a{display:inline-block;padding:12px 10px;font-size:13px;font-weight:700;color:var(--ink2);text-decoration:none}
+main{padding:24px 16px 60px}
+section{background:var(--card);border-radius:18px;padding:26px 24px;margin-bottom:18px;box-shadow:0 14px 30px -26px rgba(60,40,20,.5);scroll-margin-top:56px}
+h2{font-family:var(--serif);font-size:21px;line-height:1.5;margin:0 0 6px}
+h2 small{display:block;font:800 10.5px var(--en);letter-spacing:.22em;color:var(--gold);margin-bottom:2px}
+.lead{font-size:13.5px;color:var(--ink2);margin:0 0 16px}
+h3{font-size:15px;margin:18px 0 8px}
+.mats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.mats a{display:block;text-decoration:none;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:16px}
+.mats b{display:block;font-size:14.5px}
+.mats span{display:block;font-size:12px;color:var(--sub);line-height:1.6;margin-top:4px}
+.mats em{display:inline-block;margin-top:8px;font-style:normal;font-size:12px;font-weight:800;color:var(--gold-d)}
+.steps{counter-reset:s;list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.steps li{position:relative;padding:12px 14px 12px 54px;background:var(--soft);border:1px solid var(--line);border-radius:14px;font-size:13.5px}
+.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--yel);font:800 13px/28px var(--en);text-align:center}
+.steps b{display:block;font-size:14.5px}
+.steps small{display:block;color:var(--sub);font-size:12.5px;line-height:1.7}
+.tg{display:inline-block;font-size:11px;font-weight:800;color:var(--gold-d);background:var(--gold-l);border-radius:99px;padding:1px 9px;margin-left:6px;vertical-align:1px}
+.msg{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;margin:0 0 12px}
+.msg .hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;font-weight:800}
+.msg .hd span small{display:block;font-weight:500;color:var(--sub);font-size:11.5px}
+.msg button{flex:none;font:800 12px "Noto Sans JP";border:0;border-radius:99px;padding:7px 14px;background:var(--ink);color:#fff;cursor:pointer}
+.msg button.ok{background:#2f8a4a}
+.msg pre{margin:0;padding:14px;white-space:pre-wrap;word-break:break-word;font:400 13.5px/1.85 "Noto Sans JP",sans-serif;color:var(--ink)}
+.msg pre mark{background:#fff1c9;color:inherit;border-radius:3px;padding:0 2px}
+.tip{background:var(--gold-l);border-radius:12px;padding:12px 14px;font-size:13px;margin:12px 0 0}
+.tip b{display:block;font-size:13.5px}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}td{overflow-wrap:anywhere}
+th,td{text-align:left;vertical-align:top;padding:10px 8px;border-bottom:1px solid var(--line)}
+th{white-space:nowrap;color:var(--ink2);width:7.5em}
+.qa{display:grid;gap:10px}
+.qa details{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:0 14px}
+.qa summary{cursor:pointer;padding:12px 0;font-weight:800;font-size:14px;list-style:none;display:flex;gap:8px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:before{content:"「";color:var(--gold)}
+.qa summary:after{content:"」";color:var(--gold);margin-left:-6px}
+.qa p{margin:0 0 12px;font-size:13.5px;color:var(--ink2)}
+.qa p b{color:var(--ink)}
+.ng{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ng div{border-radius:14px;padding:14px;font-size:13px}
+.ng .o{background:#eef8f0;border:1px solid #cfe9d6}.ng .x{background:#fbefea;border:1px solid #f1d6ca}
+.ng b{display:block;font-size:13.5px;margin-bottom:4px}
+.ng ul{margin:0;padding-left:1.1em}
+.foot{text-align:center;font-size:12px;color:var(--sub)}
+@media(max-width:720px){.mats,.ng{grid-template-columns:1fr}section{padding:22px 18px}th{width:6em}}
+</style>
+</head>
+<body>
+<header><div class="in">
+ <p class="ey">SALES KIT ・ 社内用</p>
+ <h1>モバイルメニュー<span class="nw">営業キット</span></h1>
+ <p>先行モニター（飲食店・先着5店舗）を集めるための資料と文面です。このページは検索に出ません。お店には送らないでください。</p>
+</div></header>
+<nav><div class="in"><a href="#mat">資料</a><a href="#flow">進め方</a><a href="#target">狙うお店</a><a href="#dm">DM文面</a><a href="#ref">紹介</a><a href="#visit">訪問トーク</a><a href="#qa">断り文句</a><a href="#after">その後</a></div></nav>
+<main>
+
+<section id="mat">
+ <h2><small>MATERIALS</small>お店に見せる資料</h2>
+ <p class="lead">DMでは画像かリンク、対面ではスマホで資料を見せて、チラシを置いて帰る流れです。</p>
+ <div class="mats">
+  <a href="./" target="_blank" rel="noopener"><b>ご案内資料（13ページ）</b><span>スマホでそのまま見せられます。PDFで保存も可。DMで送るならこのリンク。</span><em>開く ›</em></a>
+  <a href="flyer.pdf" target="_blank" rel="noopener"><b>チラシ（A4 表・裏）</b><span>印刷して置いていく用。コンビニのネットプリントでも印刷できます。</span><em>PDF ›</em></a>
+  <a href="flyer-front.png" target="_blank" rel="noopener"><b>チラシ画像（表）</b><span>InstagramのDMやLINEで、1枚目に送る画像。<a href="flyer-back.png" target="_blank" rel="noopener">裏面の画像</a>も。</span><em>画像 ›</em></a>
+ </div>
+ <h3>そのほかのリンク</h3>
+ <table>
+  <tr><th>デモ</th><td><a href="../demo/" target="_blank" rel="noopener">knotscheme.github.io/sakuapp/menu/demo/</a><br><small>お客様の画面とお店の画面を、その場で触ってもらえます。</small></td></tr>
+  <tr><th>サービスのページ</th><td><a href="../" target="_blank" rel="noopener">knotscheme.github.io/sakuapp/menu/</a></td></tr>
+  <tr><th>LINE</th><td><a href="https://lin.ee/vC2S0M9" target="_blank" rel="noopener">lin.ee/vC2S0M9</a></td></tr>
+ </table>
+</section>
+
+<section id="flow">
+ <h2><small>FLOW</small>進め方（1店舗あたり）</h2>
+ <p class="lead">いきなり売らず、「お店に合わせた画面の案を無料で作る」を入り口にします。案を見せた時点で、ほぼ決まります。</p>
+ <ol class="steps">
+  <li><b>お店を選ぶ<span class="tg">10分</span></b><small>下の「狙うお店」の条件に合うお店を、Instagram・Googleマップで探す。</small></li>
+  <li><b>最初の連絡<span class="tg">DM・紹介・訪問</span></b><small>売り込みではなく「画面の案を無料で作らせてほしい」とお願いする。</small></li>
+  <li><b>画面の案を作る<span class="tg">1〜2日</span></b><small>お店のInstagramの写真とメニューを使って、そのお店の画面を作る（3〜5品で十分）。</small></li>
+  <li><b>見せる<span class="tg">10分</span></b><small>お店のスマホでQRを読んでもらい、注文が届くところまで触ってもらう。</small></li>
+  <li><b>先行モニターのご案内</b><small>条件（6か月の継続・事例の掲載）を説明して、LINEで申し込みを受ける。</small></li>
+ </ol>
+ <div class="tip"><b>目標の目安</b>連絡30店 → 返信10店 → 案を見る5店 → モニター2〜3店。最初の5店舗が埋まるまで、週10店ずつ連絡するペースで。</div>
+</section>
+
+<section id="target">
+ <h2><small>TARGET</small>狙うお店</h2>
+ <div class="ng">
+  <div class="o"><b>◎ 向いているお店</b><ul><li>店主＋1〜2人で回している個人店</li><li>席数10〜30席くらい</li><li>ランチやピークに注文が集中する（定食・ラーメン・カフェ・居酒屋）</li><li>Instagramを更新している（写真がある・DMが届く）</li><li>メニュー数が多い、または日替わり・季節メニューがある</li><li>外国のお客様が来る場所</li></ul></div>
+  <div class="x"><b>× 後回しにするお店</b><ul><li>すでに券売機や他社のモバイルオーダーを使っている</li><li>カウンター数席だけで、店主がすぐ注文を取れる</li><li>チェーン店・フランチャイズ（決める人が本部）</li><li>レジ連携が必須と言っているお店</li></ul></div>
+ </div>
+</section>
+
+<section id="dm">
+ <h2><small>DM</small>DM・SNSの文面</h2>
+ <p class="lead"><mark style="background:#fff1c9">黄色の部分</mark>は、お店ごとに必ず書き換えてください。同じ文面の一斉送信は、アカウントの制限やスパム扱いの原因になります。1日10件くらいまでに。</p>
+
+ <div class="msg"><div class="hd"><span>① 最初のDM（Instagram）<small>いちばん使う文面。短く、断りやすく。</small></span><button type="button">コピー</button></div><pre>突然のご連絡失礼します。<mark>〇〇（地域）</mark>で、個人のお店向けにアプリを作っている<mark>〇〇</mark>と申します。
+
+<mark>〇〇の写真（例：生姜焼き定食）</mark>がとても美味しそうで、ご連絡しました。
+
+いま、テーブルのQRからお客様のスマホで注文できる「モバイルメニュー」を、先行でお使いいただけるお店を募集しています。
+
+もしよければ、<mark>〇〇（店名）</mark>さんの写真とメニューで「こんな画面になります」という案を、無料でお作りしてもいいでしょうか？
+見ていただいて、合わなければそれで終わりで大丈夫です。
+
+参考の資料です（1分で見られます）
+https://knotscheme.github.io/sakuapp/menu/mx27/</pre></div>
+
+ <div class="msg"><div class="hd"><span>② 返信が来たら<small>「いいですよ」「どんなの？」への返し。</small></span><button type="button">コピー</button></div><pre>お返事ありがとうございます！
+
+それでは、Instagramに載っている写真とメニューを使って、<mark>〇〇</mark>さん用の画面の案を作ってみます。<mark>〇日（2日後くらい）</mark>までにお送りしますね。
+
+もし、今のメニュー表の写真をいただければ、より実際に近い形でお作りできます（なくても大丈夫です）。
+
+先に触ってみたい場合は、こちらでお客様の画面とお店の画面を試せます。
+https://knotscheme.github.io/sakuapp/menu/demo/</pre></div>
+
+ <div class="msg"><div class="hd"><span>③ 画面の案を送るとき<small>スクショ2〜3枚＋リンク。</small></span><button type="button">コピー</button></div><pre>お待たせしました。<mark>〇〇</mark>さん用の画面の案です。
+
+・テーブルのQRを読むと、この画面が開きます
+・注文すると、お店のスマホやタブレットに届きます
+・売り切れや値段の変更は、管理画面からその場で直せます
+
+<mark>（実際に触れるリンク）</mark>
+
+いま先行モニターとして、先着5店舗まで、
+・初期設定（メニュー登録・QR発行）9,800円 → 0円
+・有料のデザインテンプレート1つ 無料
+でお使いいただけます（月額1,980円、はじめの30日は無料）。
+
+ご興味があれば、5〜10分ほどお店に伺って、実際のスマホでお見せすることもできます。</pre></div>
+
+ <div class="msg"><div class="hd"><span>④ 返信がないとき（1週間後・1回だけ）<small>2回目以降は送らない。</small></span><button type="button">コピー</button></div><pre>先日はDM失礼しました。<mark>〇〇</mark>です。
+お忙しいところすみません、念のためもう一度だけご連絡しました。
+
+<mark>〇〇</mark>さんの写真で作った画面の案、もしよければ見るだけでも見てみてください。
+ご不要でしたら、このまま返信なしで大丈夫です。今後こちらからご連絡はしません。</pre></div>
+
+ <div class="msg"><div class="hd"><span>⑤ X（旧Twitter）・短い版<small>文字数が少ないとき。</small></span><button type="button">コピー</button></div><pre>突然すみません。個人のお店向けにアプリを作っている<mark>〇〇</mark>です。テーブルのQRから注文できる「モバイルメニュー」の先行モニターを募集していて、<mark>〇〇</mark>さんの写真で画面の案を無料で作らせてもらえないかと思いご連絡しました。合わなければ断っていただいて大丈夫です。
+https://knotscheme.github.io/sakuapp/menu/mx27/</pre></div>
+ <div class="tip"><b>送る前のチェック</b>お店の名前・料理の名前を入れたか ／ 営業時間中（ランチ・ディナーのピーク）に送っていないか（おすすめは14〜17時）／ プロフィールに「DMでの営業お断り」と書かれていないか</div>
+</section>
+
+<section id="ref">
+ <h2><small>REFERRAL</small>知り合いに紹介をお願いする</h2>
+ <p class="lead">紹介は、いちばん決まりやすい入り口です。頼むときは「何をしてほしいか」をはっきり、転送しやすい文章を一緒に渡します。</p>
+ <div class="msg"><div class="hd"><span>① 知り合いへのお願い<small>友人・家族・前職の同僚など。</small></span><button type="button">コピー</button></div><pre>ちょっとお願いがあって連絡しました！
+
+いま、個人の飲食店向けに、テーブルのQRから注文できるサービスを作っていて、先行で使ってくれるお店を5店舗だけ探しています（初期設定は無料）。
+
+もし、よく行くお店や知り合いのお店で「人手が足りなそう」「注文が大変そう」なところがあれば、下の文章をそのまま送ってもらえないかな？
+興味がありそうなら、こちらから直接連絡します。無理に勧めなくて大丈夫です！</pre></div>
+ <div class="msg"><div class="hd"><span>② 紹介者がお店に転送する文章<small>①と一緒に渡す。</small></span><button type="button">コピー</button></div><pre>知り合いが、個人の飲食店向けに「テーブルのQRから注文できるサービス」を作っていて、先行で使ってくれるお店を探しているそうです。
+
+・初期費用0円（先行モニターは設定代行も無料）
+・月額1,980円、注文手数料0円、はじめの30日は無料
+・専用の端末はいらず、お店のスマホで注文を受けられます
+
+お店の写真とメニューで「こんな画面になる」という案を無料で作ってくれるそうなので、気になったら教えてください。
+資料：https://knotscheme.github.io/sakuapp/menu/mx27/</pre></div>
+ <div class="tip"><b>紹介してくれた人へ</b>決まっても決まらなくても、結果をお礼と一緒に必ず伝えます。モニターが決まったら、ささやかなお礼（食事に招待など）を。</div>
+</section>
+
+<section id="visit">
+ <h2><small>VISIT</small>訪問・対面のトーク（5分）</h2>
+ <p class="lead">アイドルタイム（14〜17時）に。ピーク中は絶対に行かない。チラシを渡して、長居しないのが大事です。</p>
+ <table>
+  <tr><th>0:00 あいさつ</th><td>「お忙しいところすみません。近くで個人のお店向けにアプリを作っている〇〇です。5分だけお時間いいですか？ だめなら、チラシだけ置いて帰ります。」</td></tr>
+  <tr><th>0:30 悩みを聞く</th><td>「ランチの時間って、注文を取りに行くのが大変だったりしませんか？」<br>→ 返事を聞く。ここで話してもらえるほど決まりやすい。<br>例：「人が足りなくて」「聞き間違いがあって」「値上げでメニュー作り直したばかり」</td></tr>
+  <tr><th>1:30 見せる</th><td>「テーブルにQRを置いておくと、お客様が自分のスマホで注文して、お店のスマホに届くんです。」<br>→ <b>店主のスマホでデモのQRを読んでもらう</b>。自分のスマホで注文して、届くところを見せる。</td></tr>
+  <tr><th>3:00 料金</th><td>「月1,980円で、注文の手数料はかかりません。専用の機械もいりません。はじめの30日は無料です。」</td></tr>
+  <tr><th>3:30 モニター</th><td>「いま先行で使ってくれるお店を5店舗だけ募集していて、設定は全部こちらでやります（通常9,800円）。代わりに、半年使っていただいて、感想を載せさせてもらえたらと思っています。」</td></tr>
+  <tr><th>4:00 次の約束</th><td>「まずは、こちらのお店のメニューで画面の案を作ってお見せしてもいいですか？ LINEで送ります。」<br>→ <b>その場でLINEの友だち追加をしてもらう</b>のがゴール。決めてもらおうとしない。</td></tr>
+ </table>
+ <div class="tip"><b>持っていくもの</b>チラシ（3〜5部）・自分のスマホ（デモを開いておく）・テーブル用QRの見本（あれば。カードに印刷した物があると一気に伝わります）</div>
+</section>
+
+<section id="qa">
+ <h2><small>OBJECTIONS</small>よくある断り文句と返し方</h2>
+ <p class="lead">押し返さず、「そうですよね」で受けてから一言だけ返す。2回断られたら引きます。</p>
+ <div class="qa">
+  <details><summary>うちのお客さんは年配だから、スマホは使わないよ</summary><p>「そうですよね。なので、口頭や紙のメニューでの注文はそのままで、<b>QRは『使える人だけ使う』</b>形にできます。若いお客様の分だけでも注文取りが減れば、その分を年配のお客様の接客に回せます。」</p></details>
+  <details><summary>今は忙しいから、また今度</summary><p>「すみません、お時間いただかなくて大丈夫です。<b>こちらで画面の案だけ作って、LINEで送っておきます</b>ね。手が空いたときに見ていただければ。」→ 友だち追加だけしてもらう。</p></details>
+  <details><summary>機械が苦手で、使いこなせる気がしない</summary><p>「設定は全部こちらでやります。お店でやることは、<b>届いた注文を見ることと、売り切れを押すことだけ</b>です。最初は一緒に触って確認します。」</p></details>
+  <details><summary>お金がかかるでしょ</summary><p>「月1,980円で、注文の手数料はかかりません。はじめの30日は無料なので、<b>合わなければ0円でやめられます</b>。注文取りが1日数十分減れば、十分元が取れる計算です。」</p></details>
+  <details><summary>他の会社のも見たことあるけど、高かった</summary><p>「大手のものは月5,000〜15,000円くらいのことが多いです。こちらは個人のお店向けに、<b>月1,980円・専用端末なし</b>にしています。画面もお店の雰囲気に合わせて作ります。」</p></details>
+  <details><summary>レジと連携できないと困る</summary><p>「標準では連携していないので、正直にお伝えすると、レジ連携が必須なら今は合わないかもしれません。会計はいつものレジで、という形で問題なければお使いいただけます。」→ 無理に進めない。</p></details>
+  <details><summary>6か月も続けられるかわからない</summary><p>「モニターの条件が合わなければ、<b>通常プラン（しばりなし・30日無料）</b>で始めることもできます。設定代行だけ有料（9,800円）になります。」</p></details>
+  <details><summary>正式なサービスはいつから？ 大丈夫なの？</summary><p>「正式な受付は2027年6月ごろからで、いまは先行で使っていただけるお店を少しずつ増やしている段階です。<b>だからこそ、要望をすぐ反映できます</b>。不具合があれば私が直接すぐ対応します。」</p></details>
+ </div>
+</section>
+
+<section id="after">
+ <h2><small>AFTER</small>決まったあと・決まらなかったあと</h2>
+ <h3>モニターが決まったら</h3>
+ <ol class="steps">
+  <li><b>条件をLINEで文字にして送る</b><small>おまかせ設定0円・有料テンプレート1つ無料・月額1,980円・6か月の継続・事例の掲載。利用規約のリンクも。</small></li>
+  <li><b>メニュー表と写真を受け取る</b><small>写真がなければ、お店に伺って撮影するのも喜ばれます。</small></li>
+  <li><b>テーブル用QRを印刷して届ける</b><small>手渡しで、最初の1日だけ一緒に注文の受け方を確認。</small></li>
+  <li><b>1週間後・1か月後に連絡</b><small>困っていることを聞く。ここでの声が、そのまま導入事例と次の営業材料になります。</small></li>
+ </ol>
+ <h3>決まらなかったら</h3>
+ <p class="lead" style="margin:0">「ありがとうございました。また何かあればLINEでいつでもどうぞ」で終わり。作った画面の案は、<b>次のお店に見せる見本</b>として使えます（お店の名前と写真は外して）。</p>
+</section>
+
+<p class="foot"><a href="./">ご案内資料へ</a> ・ <a href="flyer.html">チラシ</a> ・ <a href="../">モバイルメニューのページ</a></p>
+</main>
+<script>
+document.querySelectorAll(".msg button").forEach(function(b){b.addEventListener("click",function(){var t=b.closest(".msg").querySelector("pre").innerText.replace(/[\u200b\u2060]/g,"");function done(){b.textContent="コピーしました";b.classList.add("ok");setTimeout(function(){b.textContent="コピー";b.classList.remove("ok")},1600)}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fb)}else fb();
+function fb(){var a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy");done()}catch(e){}a.remove()}})});
+</script>
+<script src="../../js/budoux.js" defer></script>
+</body>
+</html>

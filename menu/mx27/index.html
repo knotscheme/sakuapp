@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>モバイルメニュー ご案内資料｜サクアプ</title>
+<meta name="description" content="個人経営の飲食店のためのQR注文「モバイルメニュー」のご案内資料。">
+<meta property="og:title" content="モバイルメニュー ご案内資料｜サクアプ">
+<meta property="og:description" content="QRで注文。メニューは、お店らしく。月額1,980円・注文手数料0円。">
+<meta property="og:image" content="https://knotscheme.github.io/sakuapp/menu/hero.webp">
+<link rel="icon" href="../../favicon.png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#241e1a;--ink2:#4a3f38;--sub:#7a6d63;--line:#ece3d8;--bg:#f4ede3;--soft:#fbf7f1;--card:#fffdf9;--gold:#a8740f;--gold-d:#8a5d06;--gold-l:#fdf3d9;--yel:#f3b93a;--red:#c8551f;--en:"Montserrat","Noto Sans JP",sans-serif;--serif:"Noto Serif JP","Hiragino Mincho ProN",serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;line-height:1.7;letter-spacing:.04em}
+a{color:inherit}
+.nw{display:inline-block}
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px 20px;background:rgba(255,253,249,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .lg img{height:22px;width:auto;display:block}
+.bar .tt{font-size:12px;font-weight:700;color:var(--sub);margin-right:auto;white-space:nowrap}
+.bar a.b,.bar button{font:700 12.5px "Noto Sans JP",sans-serif;letter-spacing:.04em;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.bar button{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.bar a.b{background:var(--ink);color:#fff}
+.deck{max-width:1120px;margin:0 auto;padding:28px 20px 60px;display:flex;flex-direction:column;gap:28px}
+.intro{font-size:13px;color:var(--sub);text-align:center;margin:0}
+.s{position:relative;background:var(--card);border-radius:18px;box-shadow:0 20px 40px -28px rgba(60,40,20,.4);overflow:hidden;aspect-ratio:16/9;padding:5.2% 6% 5%;display:flex;flex-direction:column}
+.pg{position:absolute;right:3.2%;bottom:4.4%;font:700 11px var(--en);color:#b8a99a;letter-spacing:.1em}
+.pg b{color:var(--gold)}
+.bm{position:absolute;left:6%;bottom:4.4%;font:800 10.5px var(--en);letter-spacing:.2em;color:#cdbfae}
+.ey{font:800 11.5px var(--en);letter-spacing:.24em;color:var(--gold);margin:0 0 10px}
+.s h2{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:700;line-height:1.4;letter-spacing:.04em;margin:0 0 8px}
+.s h2 em{font-style:normal;background:linear-gradient(transparent 64%,rgba(243,185,58,.5) 64%)}
+.lead{font-size:14px;color:var(--ink2);margin:0 0 24px}
+.src{margin-top:auto;padding-top:14px;font-size:10.5px;color:var(--sub);line-height:1.6}
+/* cover */
+.cover{padding:0;display:grid;grid-template-columns:1fr 1fr;background:#1d1712;color:#fff}
+.cover .tx{padding:9% 0 9% 11%;display:flex;flex-direction:column;position:relative;z-index:1}
+.cover .ey{color:var(--yel)}
+.cover h1{font-family:var(--serif);font-size:clamp(30px,4.4vw,54px);font-weight:700;line-height:1.35;letter-spacing:.04em;margin:0}
+.cover h1 em{font-style:normal;color:var(--yel)}
+.cover p.cs{font-size:15px;font-weight:500;opacity:.9;margin:22px 0 0;line-height:1.9}
+.cover .tg{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.cover .tg span{font-size:12px;font-weight:700;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 12px}
+.cover .meta{margin-top:auto;display:flex;gap:14px;align-items:center;font-size:12px;opacity:.85}
+.cover .meta img{height:24px;width:auto}
+.cover .im{position:relative;background:url(../hero.webp) 62% center/cover}
+.cover .im:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#1d1712 0%,rgba(29,23,18,.55) 22%,rgba(29,23,18,0) 50%)}
+.cover .pg,.cover .bm{color:rgba(255,255,255,.6)}.cover .pg b{color:#fff}
+/* stats */
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.st>div{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;flex-direction:column}
+.st small{font-size:12.5px;font-weight:700;color:var(--ink2)}
+.st b{display:block;font:800 clamp(34px,4.2vw,54px)/1.1 var(--en);color:var(--ink);margin:10px 0 8px;letter-spacing:-.01em}
+.st b i{font-style:normal;font-size:.4em;font-weight:800;margin-left:3px}
+.st p{font-size:12px;color:var(--sub);margin:0;line-height:1.7}
+.st .bar2{height:8px;border-radius:99px;background:#efe6da;margin:2px 0 12px;overflow:hidden}
+.st .bar2 span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--yel),var(--red))}
+.st .dots{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:2px 0 12px}
+.st .dots i{aspect-ratio:1;border-radius:50%;background:#efe6da}.st .dots i.on{background:var(--gold)}
+.st .clk{display:flex;gap:6px;margin:2px 0 12px}.st .clk i{flex:1;height:22px;border-radius:6px;background:#efe6da;position:relative;overflow:hidden}
+.st .clk i:after{content:"";position:absolute;inset:0;width:var(--w,100%);background:var(--ink)}
+/* worries */
+.wr{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.wr>div{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.wr .ic{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#fdeee6;color:var(--red)}
+.wr .ic svg{width:22px;height:22px}
+.wr h3{font-size:15.5px;font-weight:800;margin:0 0 4px;line-height:1.5}
+.wr p{font-size:12.5px;color:var(--sub);margin:0;line-height:1.75}
+.note{margin-top:auto;padding-top:18px;font-family:var(--serif);font-size:20px;font-weight:700;text-align:center}
+.note em{font-style:normal;color:var(--gold)}
+/* flow */
+.fl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fl>div{background:var(--soft);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.fl .ph{aspect-ratio:4/3;display:grid;place-items:center;background:#f6efe5;position:relative}
+.fl .n{position:absolute;left:12px;top:10px;font:800 13px var(--en);color:var(--gold)}
+.fl .who{position:absolute;right:10px;top:10px;font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 9px;background:#fff;color:var(--ink2)}
+.fl .who.shop{background:var(--ink);color:#fff}
+.fl .in{padding:14px 16px 16px}
+.fl h3{font-size:15px;font-weight:800;margin:0 0 4px}
+.fl p{font-size:12px;color:var(--sub);margin:0;line-height:1.7}
+.mk{width:58%;aspect-ratio:9/16;border-radius:14px;background:#fff;box-shadow:0 0 0 2px var(--ink),0 14px 22px -14px rgba(0,0,0,.5);display:flex;flex-direction:column;padding:8% 7%;gap:6%;font-size:8px}
+.mk .q{flex:1;display:grid;place-items:center}
+.mk .q i{width:70%;aspect-ratio:1;background:repeating-conic-gradient(var(--ink) 0 25%,#fff 0 50%) 0 0/24% 24%;border:3px solid var(--ink);border-radius:4px}
+.mk .r{display:flex;align-items:center;gap:5px;background:var(--soft);border-radius:6px;padding:4px}
+.mk .r i{width:16px;height:16px;border-radius:4px;background:var(--yel);flex:none}
+.mk .r u{flex:1;height:4px;border-radius:2px;background:#e3d8ca;text-decoration:none}
+.mk .bt{margin-top:auto;height:14px;border-radius:99px;background:var(--ink)}
+.kt{width:76%;border-radius:10px;background:#fff;box-shadow:0 0 0 2px var(--ink),0 14px 22px -14px rgba(0,0,0,.5);padding:8px;display:grid;gap:5px;font-size:9px;font-weight:700}
+.kt div{display:flex;justify-content:space-between;align-items:center;border-radius:6px;padding:5px 7px;background:var(--soft)}
+.kt div.nw2{background:#fff4d6;box-shadow:inset 3px 0 0 var(--yel)}
+.kt span{font:800 8px var(--en);color:var(--sub)}
+.rg{display:grid;place-items:center;gap:6px;text-align:center;font-size:11px;font-weight:800;color:var(--ink2)}
+.rg i{width:64px;height:44px;border-radius:8px;background:var(--ink);position:relative}
+.rg i:after{content:"";position:absolute;left:10px;right:10px;top:9px;height:12px;border-radius:3px;background:#7bd389}
+/* screens */
+.sc{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;flex:1;min-height:0}
+.sc figure{margin:0;display:flex;flex-direction:column;min-height:0}
+.sc .im{flex:1;min-height:150px;border-radius:16px;background-size:cover;background-position:center;position:relative;overflow:hidden}
+.sc .im b{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.94);border-radius:999px;padding:4px 13px;font-size:12px}
+.sc figcaption{font-size:12.5px;color:var(--sub);margin-top:10px;line-height:1.7}
+/* features */
+.ft{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ft>div{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:16px}
+.ft .ic{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#fff;color:var(--gold);box-shadow:0 0 0 1px var(--line);margin-bottom:10px}
+.ft .ic svg{width:19px;height:19px}
+.ft b{display:block;font-size:14px;line-height:1.45}
+.ft small{display:block;font-size:11.5px;color:var(--sub);line-height:1.6;margin-top:4px}
+.ad{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px}
+.ad>b{font-size:12.5px;margin-right:4px}
+.ad span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.ad span i{font-style:normal;font-family:var(--en);font-weight:700;color:var(--gold);margin-left:6px}
+/* time */
+.tm{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-items:stretch;margin-bottom:6px}
+.tm>div{position:relative;padding:22px 24px;border:1px solid var(--line);background:var(--soft)}
+.tm>div:first-child{border-radius:16px 0 0 16px}.tm>div:last-child{border-radius:0 16px 16px 0;background:var(--ink);color:#fff;border-color:var(--ink)}
+.tm>div+div{border-left:0}
+.tm>div:not(:last-child):after{content:"";position:absolute;right:-13px;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a8740f' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/14px no-repeat;box-shadow:0 0 0 1px var(--line);z-index:1}
+.tm small{font-size:12.5px;font-weight:700;opacity:.8}
+.tm b{display:block;font:800 clamp(34px,4.4vw,56px)/1.1 var(--en);margin:8px 0 4px}
+.tm b i{font-style:normal;font-size:.36em;margin-left:4px}
+.tm p{font-size:12px;margin:0;opacity:.75;line-height:1.7}
+.tm>div:last-child b{color:var(--yel)}
+.vs{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:18px;font-size:14px;font-weight:700}
+.vs b{font:800 26px var(--en)}
+.vs em{font-style:normal;font:800 26px var(--en);color:var(--gold)}
+/* price */
+.pr{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:14px}
+.pr>div{border:1px solid var(--line);border-radius:16px;padding:20px;background:#fff;display:flex;flex-direction:column}
+.pr .tg{align-self:flex-start;font-size:11px;font-weight:800;color:var(--gold-d);background:var(--gold-l);border-radius:999px;padding:3px 11px;margin-bottom:10px}
+.pr h3{font-size:16px;font-weight:800;margin:0}
+.pr .yen{font:800 40px/1.2 var(--en);margin:8px 0}
+.pr .yen i{font-style:normal;font-size:.36em;margin-left:3px}
+.pr ul{margin:0;padding:0;list-style:none;font-size:12.5px;color:var(--ink2)}
+.pr li{padding:5px 0 5px 18px;position:relative;border-top:1px dashed var(--line)}
+.pr li:before{content:"";position:absolute;left:2px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.pr .mo{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pr .mo .tg{background:var(--yel);color:var(--ink)}
+.pr .mo .yen{color:var(--yel)}
+.pr .mo ul{color:rgba(255,255,255,.85)}.pr .mo li{border-color:rgba(255,255,255,.18)}.pr .mo li:before{background:var(--yel)}
+.tri{margin-top:14px;display:flex;align-items:center;gap:14px;background:var(--gold-l);border-radius:14px;padding:12px 18px;font-size:13px}
+.tri b{font:800 15px "Noto Sans JP";white-space:nowrap}
+/* compare */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cmp{width:100%;border-collapse:collapse;min-width:620px;font-size:13.5px}
+.cmp th,.cmp td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:center}
+.cmp thead th{font-size:12.5px;color:var(--sub);border-bottom:2px solid var(--line)}
+.cmp tbody th{text-align:left;color:var(--ink2);font-weight:700;white-space:nowrap}
+.cmp .me{background:#fff8e6}
+.cmp thead .me{background:var(--ink);color:#fff;border-radius:12px 12px 0 0;font-size:14px}
+.cmp td.me b{font-family:var(--en);color:var(--gold-d)}
+.cmp tr.tot td,.cmp tr.tot th{border-bottom:0;font-weight:800}
+.cmp tr.tot td.me b{font-size:20px}
+/* line */
+.ln{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;flex:1}
+.ln ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:10px}
+.ln li{background:#f2fbf5;border:1px solid #cfeedc;border-radius:14px;padding:12px 16px 12px 46px;position:relative;font-size:12.5px;color:var(--sub)}
+.ln li b{display:block;font-size:14.5px;color:var(--ink)}
+.ln li:before{content:"";position:absolute;left:16px;top:16px;width:18px;height:18px;border-radius:50%;background:#06c755 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4L18 8'/%3E%3C/svg%3E") center/11px no-repeat}
+.lnp{display:grid;gap:10px}
+.lnp div{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:14px;padding:14px 18px;background:#fff}
+.lnp span{font-size:13px;font-weight:700}
+.lnp b{font:800 26px var(--en)}.lnp b i{font-style:normal;font-size:12px;margin-left:2px}
+.lnp div.on{background:#06c755;border-color:#06c755;color:#fff}
+.lnp small{display:block;font-size:11px;color:var(--sub);line-height:1.6}
+/* steps */
+.sp{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:8px}
+.sp>div{position:relative;padding:0 16px 0 0}
+.sp>div:not(:last-child):after{content:"";position:absolute;top:23px;left:54px;right:8px;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 6px,transparent 6px 11px)}
+.sp .n{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--yel);font:800 17px var(--en);margin-bottom:14px;position:relative;z-index:1}
+.sp h3{font-size:16px;font-weight:800;margin:0 0 6px}
+.sp p{font-size:12.5px;color:var(--sub);margin:0;line-height:1.75}
+.sp small{display:inline-block;margin-top:10px;font-size:11px;font-weight:800;color:var(--gold-d);background:var(--gold-l);border-radius:999px;padding:2px 10px}
+.need{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 18px;font-size:13px}
+.need b{margin-right:4px}
+.need span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700}
+/* faq */
+.fq{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 26px}
+.fq div{border-bottom:1px solid var(--line);padding:2px 0 12px}
+.fq h3{font-size:14.5px;font-weight:800;margin:0 0 4px;display:flex;gap:8px}
+.fq h3:before{content:"Q";font:800 14px var(--en);color:var(--gold)}
+.fq p{font-size:12.5px;color:var(--sub);margin:0 0 0 20px;line-height:1.75}
+/* monitor */
+.mon{display:grid;grid-template-columns:1fr 1fr;gap:18px;flex:1}
+.mon>div{border-radius:18px;padding:24px;display:flex;flex-direction:column}
+.mon .a{background:var(--ink);color:#fff}
+.mon .a .ey{color:var(--yel)}
+.mon .a h3{font-family:var(--serif);font-size:24px;margin:0 0 14px;line-height:1.5}
+.mon .a h3 b{color:var(--yel);font-family:var(--en);font-size:1.4em}
+.mon .gift{display:grid;gap:10px}
+.mon .gift div{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(255,255,255,.08);border-radius:12px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.mon .gift s{opacity:.55;font-family:var(--en);font-size:13px;margin-right:8px}
+.mon .gift em{font-style:normal;font:800 22px var(--en);color:var(--yel)}
+.mon .b{background:var(--soft);border:1px solid var(--line)}
+.mon .b h3{font-size:15px;margin:0 0 10px}
+.mon .b ul{margin:0;padding:0;list-style:none;font-size:13px}
+.mon .b li{padding:9px 0 9px 26px;border-bottom:1px dashed var(--line);position:relative;line-height:1.6}
+.mon .b li:before{content:"";position:absolute;left:2px;top:12px;width:14px;height:14px;border:2px solid var(--gold);border-radius:4px}
+.mon .b li small{display:block;color:var(--sub);font-size:11.5px}
+/* contact */
+.ct{background:#1d1712;color:#fff}
+.ct .ey{color:var(--yel)}.ct .lead{color:rgba(255,255,255,.8)}
+.qrs{display:grid;grid-template-columns:repeat(2,auto) 1fr;gap:26px;align-items:center;margin-top:6px}
+.qr{background:#fff;border-radius:16px;padding:12px;width:clamp(140px,16vw,180px);color:var(--ink);text-align:center}
+.qr img{display:block;width:100%;height:auto}
+.qr p{margin:8px 0 0;font-size:11.5px;font-weight:800;line-height:1.4}
+.qr p small{display:block;font-weight:500;color:var(--sub);font-size:10.5px}
+.ctl ul{list-style:none;margin:0 0 18px;padding:0;font-size:14px}
+.ctl li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);display:flex;gap:10px}
+.ctl li b{color:var(--yel);font-family:var(--en)}
+.cbtn{display:inline-flex;align-items:center;gap:8px;background:var(--yel);color:var(--ink);font-weight:800;font-size:15px;text-decoration:none;border-radius:999px;padding:14px 26px}
+.ct .pg,.ct .bm{color:rgba(255,255,255,.5)}.ct .pg b{color:#fff}
+.foot{text-align:center;font-size:12px;color:var(--sub);padding:0 20px 40px}
+.foot a{color:var(--gold-d);font-weight:700}
+@media (min-width:861px){.s .lead{font-size:15px}}
+@media (max-width:860px){
+ .bar{padding:9px 14px;gap:8px}.bar .tt{display:none}.bar .lg{margin-right:auto}
+ .bar a.b,.bar button{padding:8px 12px;font-size:12px}
+ .deck{padding:18px 14px 40px;gap:16px}
+ .s{aspect-ratio:auto;padding:30px 20px 62px;border-radius:16px}
+ .pg{bottom:20px}.bm{bottom:20px;left:20px}
+ .s h2{font-size:23px}
+ .lead{font-size:13.5px;margin-bottom:18px}
+ .cover{grid-template-columns:1fr;padding:0}
+ .cover .im{order:-1;aspect-ratio:16/10}
+ .cover .im:before{background:linear-gradient(0deg,#1d1712 0%,rgba(29,23,18,0) 45%)}
+ .cover .tx{padding:6px 22px 64px}
+ .cover h1{font-size:30px}.cover p.cs{font-size:13.5px}
+ .cover .meta{margin-top:26px}
+ .st,.wr,.fl,.sc,.pr,.fq,.mon,.ln,.sp{grid-template-columns:1fr}
+ .fl .ph{padding-top:24px}.kt{width:92%;font-size:7.5px;padding:6px;gap:4px}.kt div{white-space:nowrap;overflow:hidden;padding:4px 5px;gap:4px}.kt span{font-size:6.5px}
+ .fl{grid-template-columns:1fr 1fr;gap:10px}.fl .in{padding:10px 12px 12px}.fl h3{font-size:13.5px}.fl p{font-size:11.5px}
+ .sc .im{aspect-ratio:16/10;flex:none}
+ .ft{grid-template-columns:1fr 1fr;gap:8px}.ft>div{padding:12px}.ft b{font-size:13px}
+ .tm{grid-template-columns:1fr}
+ .tm>div:first-child{border-radius:16px 16px 0 0}.tm>div:last-child{border-radius:0 0 16px 16px}
+ .tm>div+div{border-left:1px solid var(--line);border-top:0}
+ .tm>div:not(:last-child):after{right:auto;left:50%;top:auto;bottom:-13px;margin:0 0 0 -12px;transform:rotate(90deg)}
+ .vs{flex-wrap:wrap;gap:6px 12px}
+ .sp{gap:20px}.sp>div{padding:0 0 0 62px;min-height:46px}.sp .n{position:absolute;left:0;top:0;margin:0}
+ .sp>div:not(:last-child):after{left:22px;top:52px;bottom:-18px;right:auto;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--gold) 0 6px,transparent 6px 11px)}
+ .need{margin-top:20px}
+ .qrs{grid-template-columns:1fr 1fr;gap:14px;justify-items:center}
+ .qr{width:100%;max-width:170px}
+ .ctl{grid-column:1/-1}
+ .note{font-size:17px}
+ .tri{flex-direction:column;align-items:flex-start;gap:4px}
+}
+
+/* fit 16:9 */
+@media (min-width:861px){
+ .fl .ph{aspect-ratio:16/10}
+ .mk{width:auto;height:86%;padding:6% 5%}
+ .ft>div{padding:12px 14px}.ft .ic{width:32px;height:32px;margin-bottom:6px}.ft .ic svg{width:17px;height:17px}
+ .ad{margin-top:12px}
+ .cmp th,.cmp td{padding:8px 12px}
+ .s .lead{margin-bottom:18px}
+ .tw{flex:none}.fl .ph{padding-top:26px}.cmp td,.cmp th{padding:7px 12px}
+}
+@page{size:1280px 720px;margin:0}
+@media print{
+ body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .bar,.intro,.foot{display:none!important}
+ .deck{max-width:none;padding:0;gap:0;display:block}
+ .s{width:1280px;height:720px;aspect-ratio:auto;border-radius:0;box-shadow:none;break-after:page;page-break-after:always;padding:60px 76px 56px}
+ .cover{padding:0}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+ <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M10 11l5 5M15 11l-5 5"/></symbol>
+ <symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3"/><rect x="7" y="14" width="10" height="7"/></symbol>
+ <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+ <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></symbol>
+ <symbol id="i-photo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></symbol>
+ <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+ <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18M5 8v12M19 8v12M8 4h8"/></symbol>
+ <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/></symbol>
+ <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1" fill="currentColor"/></symbol>
+ <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></symbol>
+ <symbol id="i-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+</svg>
+
+<header class="bar">
+ <a class="lg" href="../"><img src="../../logo.png" alt="サクアプ" width="800" height="195"></a>
+ <span class="tt">モバイルメニュー ご案内資料（全13ページ）</span>
+ <button type="button" id="pdf"><svg width="15" height="15" style="vertical-align:-3px;margin-right:5px"><use href="#i-dl"/></svg>PDFで保存</button>
+ <a class="b" href="../../contact/?from=menu-guide&amp;svc=menu">LINEで相談</a>
+</header>
+
+<main class="deck">
+<p class="intro">モバイルメニューのご案内資料です。右上の「PDFで保存」から、保存や印刷もできます。</p>
+
+<!-- 1 -->
+<section class="s cover" aria-label="表紙">
+ <div class="tx">
+  <p class="ey">MOBILE MENU</p>
+  <h1><span class="nw">QRで注文。</span><br><span class="nw">メニューは、</span><span class="nw"><em>お店らしく</em>。</span></h1>
+  <p class="cs">個人経営の飲食店のための、QR注文サービス。<br>注文取りの手間を減らして、料理と接客に時間を。</p>
+  <div class="tg"><span>初期費用 0円〜</span><span>月額 1,980円</span><span>注文手数料 0円</span></div>
+  <div class="meta"><img src="../../logo-w.png" alt="サクアプ" width="800" height="195"><span>ご案内資料</span></div>
+ </div>
+ <div class="im" role="img" aria-label="カフェでスマホから注文するお客様"></div>
+ <span class="pg"><b>01</b> / 13</span>
+</section>
+
+<!-- 2 -->
+<section class="s" aria-label="飲食店のいま">
+ <p class="ey">WHY NOW</p>
+ <h2><span class="nw">人は足りない。</span><span class="nw">でも、<em>お客様はスマホで注文</em>に慣れてきた。</span></h2>
+ <p class="lead">飲食店の人手不足は、どの業種よりも深刻です。一方で、スマホから注文するスタイルは、お客様にとって当たり前になりつつあります。</p>
+ <div class="st">
+  <div><small>パート・アルバイトが足りない飲食店</small><b>65.3<i>%</i></b><div class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div><p>非正社員の人手不足を感じている割合。全業種のなかで最も高い水準です（全体は30.0%）。</p></div>
+  <div><small>モバイルオーダーで、お店の利用が増えた</small><b>約7<i>割</i></b><div class="bar2" aria-hidden="true"><span style="width:70%"></span></div><p>モバイルオーダーの利用者のうち、「お店を使う回数が増える」と答えた人の割合。</p></div>
+  <div><small>1日の注文取りにかかる時間（試算）</small><b>80<i>分</i></b><div class="clk" aria-hidden="true"><i></i><i style="--w:33%"></i><i style="--w:0"></i></div><p>1回1分 × 1日80回。席まで行って、聞いて、書いて、厨房に伝える時間です。</p></div>
+ </div>
+ <p class="src">出典：帝国データバンク「人手不足に対する企業の動向調査（2025年4月）」、STORES「モバイルオーダーに関する消費者の意識調査（2025年4月公表）」。注文取りの時間はサクアプによる試算です。</p>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>02</b> / 13</span>
+</section>
+
+<!-- 3 -->
+<section class="s" aria-label="ピークの時間に起きていること">
+ <p class="ey">PROBLEM</p>
+ <h2>ピークの時間に、こんなことは<span class="nw">ありませんか？</span></h2>
+ <p class="lead">少ない人数で回しているお店ほど、「注文を取る」に時間を取られています。</p>
+ <div class="wr">
+  <div><span class="ic"><svg><use href="#i-clock"/></svg></span><div><h3>「すみませーん」に、すぐ行けない</h3><p>料理や会計の手が離せず、お客様を待たせてしまう。</p></div></div>
+  <div><span class="ic"><svg><use href="#i-x"/></svg></span><div><h3>聞き間違い・書き間違い</h3><p>伝票の読み違いや、大盛り・抜きの伝え漏れで作り直しに。</p></div></div>
+  <div><span class="ic"><svg><use href="#i-print"/></svg></span><div><h3>変更のたびに、メニューを作り直し</h3><p>値上げ・売り切れ・季節メニューのたびに、印刷や手書きの手間。</p></div></div>
+  <div><span class="ic"><svg><use href="#i-globe"/></svg></span><div><h3>外国のお客様への説明</h3><p>料理の中身やアレルギーを、言葉で伝えきれない。</p></div></div>
+ </div>
+ <p class="note">注文は、お客様のスマホに<em>おまかせ</em>しませんか。</p>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>03</b> / 13</span>
+</section>
+
+<!-- 4 -->
+<section class="s" aria-label="しくみ">
+ <p class="ey">HOW IT WORKS</p>
+ <h2>テーブルのQRを読むだけ。<span class="nw">アプリも会員登録もいりません。</span></h2>
+ <p class="lead">お客様のスマホで注文を受けて、お店のスマホやタブレットに届きます。専用の端末はいりません。</p>
+ <div class="fl">
+  <div><div class="ph"><span class="n">01</span><span class="who">お客様</span><div class="mk"><div class="q"><i></i></div></div></div><div class="in"><h3>QRを読む</h3><p>カメラをかざすと、その席のメニューが開きます。</p></div></div>
+  <div><div class="ph"><span class="n">02</span><span class="who">お客様</span><div class="mk"><div class="r"><i></i><u></u></div><div class="r"><i style="background:#e9a628"></i><u></u></div><div class="r"><i style="background:#c8551f"></i><u></u></div><div class="bt"></div></div></div><div class="in"><h3>選んで、送る</h3><p>写真を見ながら選べます。追加の注文も同じ画面から。</p></div></div>
+  <div><div class="ph"><span class="n">03</span><span class="who shop">お店</span><div class="kt"><div class="nw2">テーブル5 生姜焼き定食<span>NEW</span></div><div>テーブル2 だし巻き玉子<span>調理中</span></div><div>テーブル8 生ビール ×2<span>済</span></div></div></div><div class="in"><h3>注文一覧に届く</h3><p>どの席から何が入ったか、すぐにわかります。</p></div></div>
+  <div><div class="ph"><span class="n">04</span><span class="who shop">お店</span><div class="rg"><i></i>お会計はレジで</div></div><div class="in"><h3>会計は、いつもどおり</h3><p>レジはそのまま。事前決済を足すこともできます。</p></div></div>
+ </div>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>04</b> / 13</span>
+</section>
+
+<!-- 5 -->
+<section class="s" aria-label="お店らしいデザイン">
+ <p class="ey">DESIGN</p>
+ <h2><span class="nw">お店の数だけ、</span><span class="nw"><em>メニューの形</em>を。</span></h2>
+ <p class="lead">業態に合わせたテンプレートから選んで、色・ロゴ・写真を入れるだけ。お店の雰囲気をそのまま届けます。</p>
+ <div class="sc">
+  <figure><div class="im" style="background-image:url(../img/in-izakaya.webp)"><b>居酒屋</b></div><figcaption>写真を大きく、おすすめが目に入る並び。飲み物の追加もワンタップで。</figcaption></figure>
+  <figure><div class="im" style="background-image:url(../img/in-cafe.webp)"><b>カフェ</b></div><figcaption>余白を生かした落ち着いた画面。季節のメニューを先頭に。</figcaption></figure>
+  <figure><div class="im" style="background-image:url(../img/in-shokudo.webp)"><b>定食・食堂</b></div><figcaption>大盛り・少なめなどの選択を、迷わず選べる形に。</figcaption></figure>
+ </div>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>05</b> / 13</span>
+</section>
+
+<!-- 6 -->
+<section class="s" aria-label="できること">
+ <p class="ey">FEATURES</p>
+ <h2><span class="nw">必要なことは、</span><span class="nw">最初からそろっています。</span></h2>
+ <p class="lead">お店の作業が増えないように。触るのは「注文を見る」と「メニューを直す」だけです。</p>
+ <div class="ft">
+  <div><span class="ic"><svg><use href="#i-tag"/></svg></span><b>売り切れ・値段をすぐ反映</b><small>管理画面で触れば、お客様のスマホにすぐ反映</small></div>
+  <div><span class="ic"><svg><use href="#i-photo"/></svg></span><b>写真つきのメニュー</b><small>料理の写真で、注文が決まりやすく</small></div>
+  <div><span class="ic"><svg><use href="#i-plus"/></svg></span><b>オプション・追加注文</b><small>大盛り・トッピング・おかわりも同じ画面で</small></div>
+  <div><span class="ic"><svg><use href="#i-table"/></svg></span><b>席ごとの合計</b><small>会計が済んだら、ワンタップでリセット</small></div>
+  <div><span class="ic"><svg><use href="#i-phone"/></svg></span><b>専用の端末はいらない</b><small>お店のスマホ・タブレット・PCで受け取り</small></div>
+  <div><span class="ic"><svg><use href="#i-wifi"/></svg></span><b>お客様用Wi‑Fiは不要</b><small>お客様は自分のスマホの通信で注文</small></div>
+  <div><span class="ic"><svg><use href="#i-print"/></svg></span><b>テーブル用QRをお渡し</b><small>印刷用のデータで。席ごとに発行</small></div>
+  <div><span class="ic"><svg><use href="#i-pen"/></svg></span><b>メニューの印刷代がかからない</b><small>変更のたびの刷り直しは不要に</small></div>
+ </div>
+ <div class="ad"><b>あとから追加（買い切り）</b><span>呼び出しボタン<i>3,000円</i></span><span>アレルギー表示<i>3,000円</i></span><span>多言語メニュー<i>5,000円</i></span><span>注文のLINE通知<i>5,000円</i></span><span>売上集計<i>5,000円</i></span><span>事前決済<i>5,000円</i></span><span>テイクアウト<i>9,800円</i></span></div>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>06</b> / 13</span>
+</section>
+
+<!-- 7 -->
+<section class="s" aria-label="浮く時間">
+ <p class="ey">EFFECT</p>
+ <h2>注文取りがなくなると、<span class="nw"><em>これだけ手が空く</em>。</span></h2>
+ <p class="lead">1回の注文取り（席まで行って、聞いて、伝票に書いて、厨房に伝える）を1分として試算しました。</p>
+ <div class="tm">
+  <div><small>1日の注文取り 80回なら</small><b>80<i>分 / 日</i></b><p>ピークの時間に、料理と接客へ回せる時間</p></div>
+  <div><small>月26日営業なら</small><b>約35<i>時間 / 月</i></b><p>アルバイト1人の、およそ1週間分の勤務時間</p></div>
+  <div><small>時給1,100円で換算すると</small><b>約3.8<i>万円 / 月</i></b><p>人を増やさずに、これだけの手間が浮く計算</p></div>
+ </div>
+ <div class="vs"><span>月額</span><b>1,980円</b><span>で、</span><em>約3.8万円分</em><span>の手間を減らす</span></div>
+ <p class="src">※試算です。注文の回数・お店の広さ・QR注文を使うお客様の割合によって変わります。効果を保証するものではありません。</p>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>07</b> / 13</span>
+</section>
+
+<!-- 8 -->
+<section class="s" aria-label="料金">
+ <p class="ey">PRICE</p>
+ <h2>街のお店のための料金です。</h2>
+ <p class="lead">初期費用は始め方で選べます。月額は1,980円だけ。注文が増えても変わりません。</p>
+ <div class="pr">
+  <div><span class="tg">自分で設定</span><h3>セルフ</h3><div class="yen">0<i>円</i></div><ul><li>テンプレートを選ぶ</li><li>メニューと写真を自分で登録</li><li>使い方ガイドつき</li></ul></div>
+  <div><span class="tg">いちばん人気</span><h3>おまかせ</h3><div class="yen">9,800<i>円</i></div><ul><li>メニュー表と写真を送るだけ</li><li>メニュー登録（30品まで）を代行</li><li>QRの発行まで済ませてお渡し</li></ul></div>
+  <div class="mo"><span class="tg">毎月</span><h3>月額</h3><div class="yen">1,980<i>円</i></div><ul><li>注文手数料 0円</li><li>サーバー代・保守・アップデート込み</li><li>最低契約期間なし・いつでも解約</li></ul></div>
+ </div>
+ <div class="tri"><b>はじめの30日間は無料</b><span>期間中に解約すれば、料金はかかりません（課金の7日前と前日にメールでお知らせします）。</span></div>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>08</b> / 13</span>
+</section>
+
+<!-- 9 -->
+<section class="s" aria-label="ほかのサービスとの比較">
+ <p class="ey">COMPARE</p>
+ <h2><span class="nw">2年間で、</span><span class="nw"><em>10万円以上</em>の差に。</span></h2>
+ <p class="lead">店内向けモバイルオーダーの、一般的な月額制サービスとくらべました。</p>
+ <div class="tw"><table class="cmp">
+  <thead><tr><th></th><th class="me">サクアプ</th><th>一般的な月額制</th></tr></thead>
+  <tbody>
+   <tr><th>初期費用</th><td class="me"><b>0円〜</b></td><td>0円〜数十万円</td></tr>
+   <tr><th>月額</th><td class="me"><b>1,980円</b></td><td>5,000〜15,000円程度</td></tr>
+   <tr><th>注文手数料</th><td class="me"><b>0円</b></td><td>サービスによりかかる</td></tr>
+   <tr><th>契約期間</th><td class="me"><b>しばりなし</b></td><td>年契約のプランもある</td></tr>
+   <tr><th>専用端末</th><td class="me"><b>不要</b></td><td>必要な場合がある</td></tr>
+   <tr><th>画面のデザイン</th><td class="me"><b>お店ごとに</b></td><td>共通のひな形</td></tr>
+   <tr class="tot"><th>2年間の総額</th><td class="me"><b>45,540円〜</b></td><td>約12万〜36万円</td></tr>
+  </tbody>
+ </table></div>
+ <p class="src">※一般的な月額制サービスの条件は、店内向けモバイルオーダーの公開料金をもとにした目安です。サービスやプランによって異なります。サクアプの総額は、セルフで始めて30日間の無料お試しのあと23か月ご利用の場合。</p>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>09</b> / 13</span>
+</section>
+
+<!-- 10 -->
+<section class="s" aria-label="LINE版">
+ <p class="ey">LINE MINI APP</p>
+ <h2><span class="nw">LINEの中で、</span><span class="nw">注文まで。</span></h2>
+ <div class="ln">
+  <div>
+   <p class="lead">同じメニューを、LINEミニアプリとしても公開できます。注文をきっかけに、お店のLINEの友だちが増えていきます。</p>
+   <ul>
+    <li><b>友だちが、自然に増える</b>注文の画面から、お店のLINE公式アカウントの友だち追加をご案内</li>
+    <li><b>「できあがり」をトークに</b>注文の受付やできあがりのお知らせを、LINEのトークへ</li>
+    <li><b>次の来店につなげる</b>友だちに、クーポンや新メニューのお知らせ</li>
+   </ul>
+  </div>
+  <div class="lnp">
+   <div><span>Web版</span><b>1,980<i>円/月</i></b></div>
+   <div><span>LINE版</span><b>1,980<i>円/月</i></b></div>
+   <div class="on"><span>Web版＋LINE版</span><b>2,980<i>円/月</i></b></div>
+   <small>※LINEの申請・審査の代行は別途お見積もり。トークへのお知らせは、LINEの審査を通った「認証済ミニアプリ」で使える機能です。</small>
+  </div>
+ </div>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>10</b> / 13</span>
+</section>
+
+<!-- 11 -->
+<section class="s" aria-label="導入の流れ">
+ <p class="ey">FLOW</p>
+ <h2>メニュー表と写真を<span class="nw">送るだけ。</span></h2>
+ <p class="lead">おまかせなら、むずかしい設定はこちらで済ませます。</p>
+ <div class="sp">
+  <div><span class="n">01</span><h3>LINEで相談</h3><p>業態・席数・今のメニューの形をお聞きします。</p><small>無料</small></div>
+  <div><span class="n">02</span><h3>材料を送る</h3><p>今のメニュー表と、料理の写真をスマホで撮って送るだけ。</p><small>写真がなくても大丈夫</small></div>
+  <div><span class="n">03</span><h3>画面を確認</h3><p>できあがった画面を、お店のスマホで触って確かめます。</p><small>直しは何度でも</small></div>
+  <div><span class="n">04</span><h3>QRを置いて、開始</h3><p>テーブルにQRを置けば、その日から注文を受けられます。</p><small>30日間 無料</small></div>
+ </div>
+ <div class="need"><b>お店で用意するもの</b><span>注文を見るスマホかタブレット 1台</span><span>インターネット回線</span><span>メニュー表と写真</span></div>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>11</b> / 13</span>
+</section>
+
+<!-- 12 -->
+<section class="s" aria-label="よくある質問">
+ <p class="ey">FAQ</p>
+ <h2>よくある質問</h2>
+ <p class="lead">導入の前に、よくいただく質問です。</p>
+ <div class="fq">
+  <div><h3>スマホが苦手なお客様は？</h3><p>これまでどおり、口頭や紙のメニューでの注文と一緒に使えます。QRはお客様が選べる注文の方法のひとつです。</p></div>
+  <div><h3>専用の端末を買う必要は？</h3><p>ありません。お店にあるスマホ・タブレット・PCのブラウザで注文を受け取れます。</p></div>
+  <div><h3>会計はどうなりますか？</h3><p>これまでどおりお店のレジで。事前決済を足すと、注文と同時にカードで払ってもらえます。</p></div>
+  <div><h3>注文が増えると料金は上がる？</h3><p>上がりません。注文手数料は0円で、注文数や売上に関係なく月額1,980円です。</p></div>
+  <div><h3>今のレジと連携できますか？</h3><p>標準では連携は含まれていません。お使いのレジによって変わるため、ご相談ください。</p></div>
+  <div><h3>やめたくなったら？</h3><p>最低契約期間はなく、管理画面からいつでも解約できます。30日間の無料期間中なら料金はかかりません。</p></div>
+ </div>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>12</b> / 13</span>
+</section>
+
+<!-- 13 -->
+<section class="s ct" aria-label="先行モニター募集とお問い合わせ">
+ <p class="ey">EARLY ACCESS</p>
+ <h2>飲食店の<span class="nw">先行モニター、</span><span class="nw">先着5店舗。</span></h2>
+ <p class="lead">正式受付（2027年6月ごろ）の前に、先行してお使いいただけるお店を募集しています。<br>おまかせ設定 9,800円 → 0円、有料テンプレート1つ無料。条件：最初の6か月のご継続・導入事例の掲載。</p>
+ <div class="qrs">
+  <div class="qr"><img src="../../guide/line-qr.svg" alt="LINE友だち追加のQRコード" width="232" height="232"><p>LINEで相談<small>友だち追加して、ひとこと</small></p></div>
+  <div class="qr"><img src="qr-demo.svg" alt="デモ画面のQRコード" width="264" height="264"><p>デモを触る<small>お客様とお店の画面</small></p></div>
+  <div class="ctl">
+   <ul><li><b>01</b>LINEで友だち追加</li><li><b>02</b><span>「モバイルメニューの件」と送る</span></li><li><b>03</b><span>お店に合わせた画面の案をお送りします（無料）</span></li></ul>
+   <a class="cbtn" href="../../contact/?from=menu-guide&amp;svc=menu">【無料】LINEで相談する ›</a>
+  </div>
+ </div>
+ <span class="bm">SAKUAPP</span><span class="pg"><b>13</b> / 13</span>
+</section>
+</main>
+<p class="foot"><a href="../">モバイルメニューのページへ ›</a></p>
+<script>document.getElementById("pdf").addEventListener("click",function(){window.print()});</script>
+<script src="../../js/budoux.js" defer></script>
+</body>
+</html>
