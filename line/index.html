@@ -1196,6 +1196,25 @@ header .logo span{white-space:nowrap}
  .fbar .m{flex:1;background:var(--lg);color:#fff;box-shadow:0 14px 28px -12px rgba(4,165,72,.7)}
  .fbar svg{width:20px;height:20px}
 }
+
+.dfs-w{margin-top:6px}
+.dfs-b{display:none;align-items:center;gap:8px;border:0;background:var(--ink);color:#fff;font:800 14px var(--sans);border-radius:999px;padding:13px 22px;cursor:pointer}
+.dfs-b svg{width:18px;height:18px}
+.dfs{position:fixed;inset:0;z-index:200;background:#0f2a1d;display:flex;flex-direction:column}
+.dfs[hidden]{display:none}
+.dfs-top{flex:none;display:flex;align-items:center;gap:10px;padding:calc(8px + env(safe-area-inset-top,0px)) 12px 8px;color:#fff;font-weight:700;font-size:13px}
+.dfs-top button{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:16px;cursor:pointer}
+.dfs-top span{flex:1}
+.dfs-top a{background:var(--lg);color:#fff;text-decoration:none;border-radius:999px;padding:8px 16px;font-weight:800}
+.dfs-body{flex:1;min-height:0;container-type:size;display:flex;justify-content:center}
+.dfs-body .ph2s{margin:0!important;border-radius:0!important;aspect-ratio:auto!important;width:100%;height:100%;font-size:min(4.06cqw,15px)!important}
+body.dfs-on{overflow:hidden}
+body.dfs-on .fbar{display:none!important}
+@media(max-width:860px){
+ .ldemo .ph2{width:min(84vw,calc((100svh - 190px)*.466))!important}
+ .ldemo{margin-top:20px}
+ .dfs-b{display:inline-flex}
+}
 </style>
 </head>
 <body>
@@ -1310,6 +1329,7 @@ header .logo span{white-space:nowrap}
  <div class="ldemo rv">
   <div class="ph2 big"><div class="ph2s" id="demoPh"></div></div>
  </div>
+ <div class="wrap center dfs-w"><button type="button" class="dfs-b" id="dfsOpen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>全画面で操作する</button></div>
 </section>
 
 <!-- 04 COMPARE -->
@@ -1421,9 +1441,10 @@ header .logo span{white-space:nowrap}
  <p class="tm">LINEはLINEヤフー株式会社の商標または登録商標です。</p>
 </footer>
 
+<div class="dfs" id="dfs" hidden><div class="dfs-top"><button type="button" id="dfsClose" aria-label="閉じる">✕</button><span>LINEミニアプリのデモ</span><a href="../contact/?from=line&amp;svc=LINE">相談する</a></div><div class="dfs-body" id="dfsBody"></div></div>
 <div class="fbar" id="fbar"><a class="g" href="../guide/">資料</a><a class="m" href="../contact/?from=line&amp;svc=LINE"><svg><use href="#lnI"/></svg>LINEで無料相談</a></div>
 
-<script src="lineui.js?v=3"></script>
+<script src="lineui.js?v=4"></script>
 <script src="../js/budoux.js" defer></script>
 </body>
 </html>
