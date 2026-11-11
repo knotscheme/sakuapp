@@ -1228,6 +1228,63 @@ body.dfs-on .fbar{display:none!important}
  .st-c p{margin:0;font-size:12.5px;color:var(--ink2);line-height:1.8}
  .st-cs:after{content:"";flex:0 0 1px}
 }
+
+/* ===== hero (matched to mobile menu LP) ===== */
+.lx{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 85% 10%,#d9f5e4 0%,#f1fbf5 45%,var(--bg) 70%);padding:150px 0 110px}
+.lx:before{content:"";position:absolute;right:-160px;top:-120px;width:620px;height:620px;border-radius:50%;background:radial-gradient(closest-side,rgba(6,199,85,.22),transparent);pointer-events:none}
+.lx .wrap{position:relative;max-width:1240px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.lx-eb{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--ink2);margin:0 0 26px}
+.lx-eb span{background:var(--ink);color:#7ff0ab;border-radius:6px;padding:3px 10px;font-size:12px}
+.lx-h{font-size:clamp(40px,4vw,56px);line-height:1.22;letter-spacing:.02em;margin:0 0 26px;font-weight:900}
+.lx-h span{display:block;overflow:hidden;padding-bottom:.04em}
+.lx-h i{display:inline-block;font-style:normal;animation:lup 1.1s cubic-bezier(.2,.8,.2,1) both}
+.lx-h span:nth-child(2) i{animation-delay:.1s}
+.lx-h em{font-style:normal;background:linear-gradient(transparent 62%,rgba(6,199,85,.35) 62%)}
+@keyframes lup{from{transform:translateY(105%)}}
+.lx-l{max-width:500px;font-size:16px;line-height:2;color:var(--ink2);margin:0 0 34px}
+.lx-ct{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.lx-ct .btn{min-width:280px;box-shadow:0 18px 30px -16px rgba(4,165,72,.7)}
+.lx-f{display:flex;margin:40px 0 0;padding:0;list-style:none}
+.lx-f li{padding:0 26px;border-left:1px solid var(--line)}.lx-f li:first-child{padding-left:0;border:0}
+.lx-f small{display:block;font-size:12px;font-weight:700;color:var(--muted)}
+.lx-f b{font:700 30px/1.2 var(--serif);white-space:nowrap}.lx-f b span{font:900 13px var(--sans);margin-left:2px}
+.lx-f li:last-child b{color:var(--blue)}
+.lx-fine{margin:16px 0 0;font-size:11.5px;color:var(--muted)}
+.lx-v{position:relative;height:640px}
+.lx-blk{position:absolute;right:-40px;top:30px;width:92%;height:560px;border-radius:48px;background:var(--lg);overflow:hidden}
+.lx-blk:before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 20% 0%,rgba(255,255,255,.3),transparent 60%)}
+.lx-ring{position:absolute;right:-90px;bottom:-90px;width:420px;height:420px;border-radius:50%;border:60px solid rgba(255,255,255,.16)}
+.lx-pl{position:absolute;right:-70px;top:-60px;width:330px;height:330px;border-radius:50%;object-fit:cover;object-position:30% 50%;box-shadow:0 30px 50px -20px rgba(10,60,30,.55)}
+.lx-p{position:absolute;width:240px;transform-origin:50% 100%}
+.lx-lb{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);white-space:nowrap;font-size:12.5px;font-weight:900;color:var(--ink);letter-spacing:.1em}
+.lx-pc{left:calc(50% - 120px);top:40px;z-index:3;animation:bob 6s ease-in-out infinite}
+.lx-pl1{left:calc(50% - 300px);top:110px;transform:rotate(-9deg) scale(.86);z-index:2}
+.lx-pr1{left:calc(50% + 60px);top:110px;transform:rotate(9deg) scale(.86);z-index:2}
+.lx-pl1 .lx-lb{transform:translateX(-50%) rotate(9deg)}.lx-pr1 .lx-lb{transform:translateX(-50%) rotate(-9deg)}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.lx-n{position:absolute;left:-10px;bottom:70px;z-index:4;display:flex;gap:12px;align-items:center;background:#fff;border-radius:16px;padding:12px 18px 12px 12px;box-shadow:0 24px 40px -20px rgba(10,50,25,.5)}
+.lx-n b{display:block;font-size:13.5px}.lx-n small{font-size:11.5px;color:var(--muted)}
+.lx-n .lfi{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;background:var(--lg);flex:none}.lx-n .lfi svg{width:20px;height:20px}
+.lx-bd{position:absolute;right:10px;bottom:40px;z-index:4;display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:16px;padding:12px 16px;font-size:11.5px;line-height:1.5}
+.lx-bd b{font:700 34px/1 var(--serif);color:#7ff0ab}
+@media(max-width:960px){.lx{padding:104px 0 64px}.lx .wrap{grid-template-columns:1fr;gap:28px}.lx-v{height:560px;max-width:520px;width:100%;margin:0 auto}.lx-blk{right:0;left:0;width:auto;height:460px;top:40px;border-radius:36px}.lx-pl{width:240px;height:240px;right:-50px;top:-50px}.lx-n{left:0;bottom:20px}.lx-bd{right:0;bottom:-10px}}
+@media(max-width:600px){
+ .lx{padding:96px 0 48px}.lx .wrap{gap:0;text-align:center}.lx-c{display:contents}
+ .lx-eb{order:1;margin:0 auto 14px;justify-content:center;font-size:11.5px;gap:8px}.lx-eb span{font-size:11px;padding:3px 8px;white-space:nowrap}
+ .lx-h{order:2;font-size:min(9.6vw,40px);line-height:1.32;margin:0;white-space:nowrap}
+ .lx-v{order:3;height:300px;margin:26px -20px 0;width:auto;max-width:none}
+ .lx-blk{height:210px;top:90px;border-radius:0;left:0;right:0}
+ .lx-pl{width:150px;height:150px;right:-36px;top:-36px}
+ .lx-pc{left:50%;top:0;margin-left:-120px;transform:scale(.6);transform-origin:50% 0;animation:none}
+ .lx-pl1{left:50%;top:44px;margin-left:-228px;transform:rotate(-8deg) scale(.48);transform-origin:50% 0}
+ .lx-pr1{left:50%;top:44px;margin-left:-12px;transform:rotate(8deg) scale(.48);transform-origin:50% 0}
+ .lx-lb,.lx-n,.lx-bd{display:none}
+ .lx-l{order:4;margin:28px auto 24px;text-align:left;font-size:14.5px}
+ .lx-ct{order:5;justify-content:center;gap:16px}.lx-ct .btn{width:100%;min-width:0}
+ .lx-f{order:6;margin-top:26px;justify-content:space-between;text-align:left}.lx-f li{padding:0 12px}.lx-f li:first-child{padding-left:0}.lx-f b{font-size:22px}.lx-f small{white-space:nowrap}
+ .lx-fine{order:7;text-align:left}
+}
+header .logo .w{display:none!important}header .logo .k{display:block!important}header .logo span{color:var(--ink)!important;border-color:var(--ink)!important}header nav{color:var(--ink)!important}
 </style>
 </head>
 <body>
@@ -1247,21 +1304,23 @@ body.dfs-on .fbar{display:none!important}
 
 <main>
 <!-- HERO -->
-<section class="lh">
- <div class="wrap lh-g">
-  <div class="lh-c">
-   <p class="eyebrow"><span>お店のための</span>LINEミニアプリ開発</p>
-   <h1 class="lh-t"><span><i>LINEを開けば、</i></span><span><i><em>お店がある。</em></i></span></h1>
-   <p class="lh-s">ダウンロードも、会員登録もいらない。</p>
-   <p class="lede">お客様が毎日ひらくLINEのトークに、お店の入り口をつくります。リッチメニューをタップすれば、会員証・予約・注文がLINEの中でそのまま開く。お店専用のミニアプリを、オーダー<wbr>メイドで。</p>
-   <div class="ctas"><a class="btn lnb" href="../contact/?from=line&amp;svc=LINE"><svg class="li"><use href="#lnI"/></svg>LINEで無料相談する<span class="chev">›</span></a><a class="tlink" href="#demo">デモを触ってみる ›</a></div>
-   <ul class="hfacts"><li><small>初期費用</small><b>19,800<span>円〜</span></b></li><li><small>12回払いなら</small><b>1,650<span>円〜/月</span></b></li><li><small>追加機能</small><b>0.5<span>円/文字</span></b></li></ul>
-   <p class="fine">分割手数料はカード会社により別途 ・ LINEの申請・審査の代行は別途お見積もり</p>
+<section class="lx">
+ <div class="wrap">
+  <div class="lx-c">
+   <p class="lx-eb"><span>お店のための</span>LINEミニアプリ開発</p>
+   <h1 class="lx-h"><span><i>LINEを開けば、</i></span><span><i><em>お店がある</em>。</i></span></h1>
+   <p class="lx-l">ダウンロードも、会員登録もいらない。お客様が毎日ひらくLINEのトークから、会員証・予約・注文がそのまま開く。お店専用のミニアプリを、オーダー<wbr>メイドで作ります。</p>
+   <div class="lx-ct"><a class="btn lnb" href="../contact/?from=line&amp;svc=LINE"><svg class="li"><use href="#lnI"/></svg>LINEで無料相談する<span class="chev">›</span></a><a class="tlink" href="#demo">デモを触ってみる ›</a></div>
+   <ul class="lx-f"><li><small>初期費用</small><b>19,800<span>円〜</span></b></li><li><small>12回払いなら</small><b>1,650<span>円〜/月</span></b></li><li><small>追加機能</small><b>0.5<span>円/文字</span></b></li></ul>
+   <p class="lx-fine">分割手数料はカード会社により別途 ・ LINEの申請・審査の代行は別途お見積もり</p>
   </div>
-  <div class="lh-v" aria-hidden="true">
-   <figure class="lh-ph"><img src="../consult.webp" alt="" width="960" height="720"></figure>
-   <div class="ph2 lh-p"><div class="ph2s" id="heroPh"></div></div>
-   <div class="lfc f2"><span class="lfi g"><svg><use href="#lnI"/></svg></span><span><b>LINEミニアプリ通知</b><small>スタンプが押されました 8/10</small></span></div>
+  <div class="lx-v" aria-hidden="true">
+   <div class="lx-blk"><span class="lx-ring"></span><img class="lx-pl" src="../consult.webp" alt="" width="960" height="720"></div>
+   <div class="lx-p lx-pl1"><div class="ph2"><div class="ph2s" id="hpL"></div></div><span class="lx-lb">サロン ・ 予約</span></div>
+   <div class="lx-p lx-pr1"><div class="ph2"><div class="ph2s" id="hpR"></div></div><span class="lx-lb">飲食店 ・ 注文</span></div>
+   <div class="lx-p lx-pc"><div class="ph2"><div class="ph2s" id="heroPh"></div></div><span class="lx-lb">カフェ ・ 会員証</span></div>
+   <div class="lx-n"><span class="lfi g"><svg><use href="#lnI"/></svg></span><div><b>LINEミニアプリ通知</b><small>スタンプが押されました 8/10</small></div></div>
+   <div class="lx-bd"><b>3</b><span>業種のミニアプリ例<br>お店ごとに設計</span></div>
   </div>
  </div>
 </section>
@@ -1457,7 +1516,7 @@ body.dfs-on .fbar{display:none!important}
 <div class="dfs" id="dfs" hidden><div class="dfs-top"><button type="button" id="dfsClose" aria-label="閉じる">✕</button><span>LINEミニアプリのデモ</span><a href="../contact/?from=line&amp;svc=LINE">相談する</a></div><div class="dfs-body" id="dfsBody"></div></div>
 <div class="fbar" id="fbar"><a class="g" href="../guide/">資料</a><a class="m" href="../contact/?from=line&amp;svc=LINE"><svg><use href="#lnI"/></svg>LINEで無料相談</a></div>
 
-<script src="lineui.js?v=6"></script>
+<script src="lineui.js?v=7"></script>
 <script src="../js/budoux.js" defer></script>
 </body>
 </html>

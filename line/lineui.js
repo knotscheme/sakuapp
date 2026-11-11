@@ -181,6 +181,9 @@ function story(id,auto,list){var el=document.getElementById(id);if(!el)return nu
  set(0);
  return {set:set}}
 var hero=story('heroPh');
+(function(){var L=document.getElementById('hpL'),R=document.getElementById('hpR');
+ if(L){var sl=new Screen(L,SHOPS[1]);sl.setChat(greet(SHOPS[1]));sl.sheet.style.transition='none';sl.open(mini(SHOPS[1],'book'))}
+ if(R){var sr=new Screen(R,SHOPS[2]);sr.setChat(greet(SHOPS[2]));sr.sheet.style.transition='none';sr.open(mini(SHOPS[2],'order'))}})();
 if(hero){var hi=0;if(!RM)setInterval(function(){hi=(hi+1)%5;hero.set(hi)},2300)}
 var stl=document.getElementById('stl'),sto=story('storyPh',0,stl);
 if(sto&&stl){var lis=[].slice.call(stl.children),MOB=matchMedia('(max-width:860px)');
@@ -236,7 +239,7 @@ if(fo)fo.addEventListener('click',fsOpen);var fc=document.getElementById('dfsClo
 var demoSec=document.getElementById('demo'),demoIn=false;
 if(demoSec&&'IntersectionObserver' in window){new IntersectionObserver(function(es){demoIn=es[0].isIntersecting;sc()},{threshold:.15}).observe(demoSec)}
 /* header / floating / reveal */
-var hd=document.getElementById('hd'),fb=document.getElementById('fbar'),he=document.querySelector('.lh');
+var hd=document.getElementById('hd'),fb=document.getElementById('fbar'),he=document.querySelector('.lx');
 function sc(){var y=scrollY;if(hd)hd.classList.toggle('solid',y>40);if(fb&&he)fb.classList.toggle('on',y>he.offsetHeight*.7&&!demoIn)}
 addEventListener('scroll',sc,{passive:true});sc();
 var els=document.querySelectorAll('.rv,.stg');
