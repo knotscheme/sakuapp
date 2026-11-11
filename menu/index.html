@@ -837,6 +837,48 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 .sticky .p{line-height:1.3!important;gap:2px}.sticky .p br{display:none}.sticky .p b{display:block;line-height:1.2}
 .pd.p4{background:linear-gradient(120deg,#fff 30%,#dff3e6)}.pd.p4 b{color:#0a8f45}
 @media(min-width:961px){.pgr4x{grid-template-columns:repeat(2,1fr)!important}.pgr4x .pd{flex-direction:row!important;align-items:center!important}.pgr4x .pd img{width:40%!important;height:150px!important;margin:0!important}.pgr4x .pd .pdph{margin:0!important}}
+
+/* ===== LINE mini app option ===== */
+.lnx{padding-top:40px!important}
+.lnx-p{position:relative;background:linear-gradient(135deg,#f2fbf5,#e6f6ec);border:1px solid #cfeedc;border-radius:var(--r,28px);padding:56px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;overflow:hidden}
+.lnx-p:before{content:"";position:absolute;right:-120px;top:-120px;width:380px;height:380px;border-radius:50%;background:radial-gradient(closest-side,rgba(6,199,85,.18),transparent)}
+.lnx-tag{display:inline-flex;align-items:center;gap:8px;background:#06c755;color:#fff;font-weight:800;font-size:12.5px;border-radius:999px;padding:5px 14px 5px 10px}
+.lnx-tag svg{width:18px;height:18px}
+.lnx-tag em{font-style:normal;background:rgba(255,255,255,.22);border-radius:999px;padding:1px 8px;font-size:11px;margin-left:2px}
+.lnx h2{font-size:clamp(26px,3.6vw,40px);line-height:1.4;margin:16px 0 14px}
+.lnx h2 b{color:#06a046}
+.lnx .lx-lead{color:var(--ink2);font-size:15px;line-height:2;margin:0 0 22px}
+.lnx ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px}
+.lnx li{background:#fff;border-radius:16px;padding:14px 18px 14px 50px;position:relative}
+.lnx li:before{content:"";position:absolute;left:18px;top:17px;width:20px;height:20px;border-radius:50%;background:#06c755 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4L18 8'/%3E%3C/svg%3E") center/12px no-repeat}
+.lnx li b{display:block;font-size:15px}.lnx li small{font-size:12.5px;color:var(--muted)}
+.lnx-a{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px}
+.lnx-a a.go{display:inline-flex;align-items:center;gap:8px;background:#06c755;color:#fff;text-decoration:none;font-weight:800;border-radius:999px;padding:13px 22px;font-size:14px}
+.lnx-a a.go svg{width:18px;height:18px}
+.lnx-a a.more{font-weight:700;color:var(--ink);font-size:14px}
+.lnx-note{font-size:11.5px;color:var(--muted);margin:14px 0 0}
+.lnx-v{display:flex;justify-content:center;position:relative;z-index:1}
+.lnx-ph{width:290px;border-radius:44px;background:linear-gradient(145deg,#2a2c30,#0e0f11 40%,#1d1f22);padding:9px;box-shadow:0 0 0 1px #3a3d42,0 50px 60px -30px rgba(10,60,30,.5)}
+.lnx-sc{border-radius:36px;overflow:hidden;background:#8fa9cf;aspect-ratio:9/19;display:flex;flex-direction:column;font-size:12px}
+.lnx-sb{height:40px;background:#fff;display:flex;align-items:flex-end;padding:0 22px 4px;font:600 12px Inter,sans-serif;color:#111}
+.lnx-th{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#fff;border-bottom:1px solid #e5e7ea;font-weight:800;font-size:12.5px;color:#111}
+.lnx-th i{width:14px;height:14px;border-radius:50%;background:#00b900;color:#fff;font-size:8px;display:grid;place-items:center;font-style:normal}
+.lnx-ch{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;padding:10px}
+.lnx-bu{display:flex;gap:6px;align-items:flex-start}
+.lnx-av{width:26px;height:26px;border-radius:50%;color:#fff;font:800 11px Inter,"Noto Sans JP";display:grid;place-items:center;flex:none}
+.lnx-bb{background:#fff;border-radius:14px;padding:8px 10px;line-height:1.5;color:#111;max-width:78%}
+.lnx-cd{background:#fff;border-radius:14px;overflow:hidden;width:82%;color:#111;animation:lnxin 4s ease-in-out infinite}
+@keyframes lnxin{0%,15%{opacity:0;transform:translateY(8px)}25%,90%{opacity:1;transform:none}100%{opacity:0}}
+.lnx-cd .h{display:flex;align-items:center;gap:5px;padding:6px 9px;border-bottom:1px solid #eef0f2;font-size:10px;font-weight:800;color:#444}
+.lnx-cd .h span{width:13px;height:13px;border-radius:4px;color:#fff;font-size:8px;display:grid;place-items:center}
+.lnx-cd .b{padding:8px 10px;font-size:11px}.lnx-cd .b b{display:block;font-size:13px}
+.lnx-cd .bt{display:block;text-align:center;padding:7px;border-top:1px solid #eef0f2;color:#2f6fd1;font-weight:800;font-size:11px}
+.lnx-rm{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e9e9e9}
+.lnx-rm span{height:52px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:11px;position:relative}
+.lnx-rm span:first-child:after{content:"";position:absolute;width:36px;height:36px;border-radius:50%;border:2.5px solid rgba(255,255,255,.95);animation:lnxtap 1.6s ease-out infinite}
+@keyframes lnxtap{0%{box-shadow:0 0 0 0 rgba(255,255,255,.7)}100%{box-shadow:0 0 0 14px rgba(255,255,255,0)}}
+.lnx-mb{height:22px;background:#fff;text-align:center;font-size:9.5px;color:#666;line-height:20px}
+@media(max-width:860px){.lnx-p{grid-template-columns:1fr;padding:32px 20px;gap:28px;border-radius:22px}.lnx-v{order:-1}.lnx-ph{width:min(64vw,240px)}.lnx-a a.go{width:100%;justify-content:center}.lnx-a{justify-content:center}}
 </style>
 </head>
 <body>
@@ -974,6 +1016,30 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
   <div class="wrap demo-m"><a class="btn" href="demo/">デモを開く <span class="chev">›</span></a></div>
 </section>
 
+<section class="lnx" id="line">
+ <div class="wrap">
+  <div class="lnx-p rv">
+   <div>
+    <span class="lnx-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>LINEミニアプリにも対応<em>オプション</em></span>
+    <h2><b>LINEの中</b>で、<wbr>注文まで。</h2>
+    <p class="lx-lead">同じモバイルメニューを、LINEミニアプリとしても公開できます。テーブルのQRを読むと、LINEの中でメニューが開き、そのまま注文。注文をきっかけに、お店のLINEの友だちが増えていきます。</p>
+    <ul><li><b>友だちが、自然に増える</b><small>注文の画面から、お店のLINE公式アカウントの友だち追加をご案内</small></li><li><b>「できあがり」をトークに</b><small>注文の受付やできあがりのお知らせを、LINEのトークに届けられます</small></li><li><b>次の来店につなげる</b><small>友だちになったお客様に、クーポンや新メニューのお知らせ</small></li></ul>
+    <div class="lnx-a"><a class="go" href="../contact/?from=menu&amp;svc=LINE"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 3.9 3.5 7.2 8.3 7.9.3.1.8.2.9.5.1.3.1.7 0 1l-.1.9c0 .3-.2 1 .9.5s6-3.5 8.2-6C21.4 14.3 22 12.7 22 11c0-4.4-4.5-8-10-8z"/></svg>LINE版について相談する</a><a class="more" href="../line/">LINEミニアプリについて詳しく ›</a></div>
+    <p class="lnx-note">※LINEミニアプリ版は追加機能としてお見積もりします。LINEの申請・審査の代行も承ります（別途）。トークへのお知らせは、LINEの審査を通った「認証済ミニアプリ」で使える機能です。</p>
+   </div>
+   <div class="lnx-v" aria-hidden="true"><div class="lnx-ph"><div class="lnx-sc">
+    <div class="lnx-sb">9:41</div>
+    <div class="lnx-th">‹ 食堂 ともしび<i>✓</i></div>
+    <div class="lnx-ch">
+     <div class="lnx-bu"><span class="lnx-av" style="background:#b4452a">と</span><div class="lnx-bb">友だち追加ありがとうございます！下のメニューからどうぞ。</div></div>
+     <div class="lnx-bu"><span class="lnx-av" style="background:#06c755">L</span><div class="lnx-cd"><div class="h"><span style="background:#b4452a">と</span>食堂 ともしび</div><div class="b"><b>ご注文を受け付けました</b>テーブル5 ・ 生姜焼き定食 ほか1点</div><span class="bt">内容を見る</span></div></div>
+    </div>
+    <div class="lnx-rm"><span style="background:#b4452a">注文する</span><span style="background:#c45a35">メニュー</span><span style="background:#d2703f">クーポン</span><span style="background:#a33c23">会員証</span><span style="background:#b84d2c">お店の情報</span><span style="background:#c9603a">予約</span></div>
+    <div class="lnx-mb">メニュー ▾</div>
+   </div></div></div>
+  </div>
+ </div>
+</section>
 <section id="price">
   <div class="wrap">
     <div class="chap rv"><span class="bgw">PRICE</span><span class="no">03</span><p>大手チェーン向けの価格ではなく</p><h2>街のお店のための料金</h2></div>
@@ -1045,7 +1111,7 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 <section id="faq" style="background:#fff;padding-top:40px">
   <div class="wrap">
     <div class="center rv"><p style="font:800 15px var(--en);letter-spacing:.14em;color:var(--blue)">FAQ</p><h2 style="font-size:clamp(28px,4.2vw,44px)">よくある質問</h2></div>
-    <div class="faq rv">
+    <div class="faq rv"> <details><summary>LINEの中で使えるようにできますか？</summary><p>できます。同じモバイルメニューを、LINEミニアプリとしても公開できます（追加機能としてお見積もり）。LINEのアカウントでログインでき、お店のLINEの友だち追加にもつなげられます。LINEの申請・審査の代行も承ります（別途お見積もり）。<a href="../line/">LINEミニアプリについて</a></p></details> 
       <details><summary>自分で設定できますか？</summary><p>できます。セルフプラン（初期費用0円）なら、管理画面でテンプレートを選び、メニューと写真を登録するだけで公開できます。むずかしい場合は、あとからおまかせプラン（9,800円）に切り替えることもできます。</p></details>
       <details><summary>無料テンプレートと有料テンプレートの違いは？</summary><p>無料テンプレートでも、色・ロゴ・写真を変えてお店らしくできます。有料テンプレート（3,000〜5,000円・買い切り）は、レイアウトや書体、写真の見せ方まで作り込んだデザイン性の高いものです。お店専用に一から作りたい場合はオーダー（19,800円〜）になります。</p></details>
       <details><summary>専用の端末やタブレットを買う必要はありますか？</summary><p>ありません。注文の確認は、お店にあるスマホ・タブレット・PCのブラウザでできます。厨房に1台置いておくと便利です。</p></details>
