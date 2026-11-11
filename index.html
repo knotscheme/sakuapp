@@ -2079,6 +2079,18 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 #option .chap2+.tag{margin-bottom:10px}
 @media(max-width:860px){.tplx .chap2{margin-top:26px}}
 .tplmore{text-align:center;margin:26px 0 0}.tplmore a{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--brand);color:var(--brand);font-weight:800;font-size:15px;text-decoration:none;border-radius:999px;padding:13px 26px;box-shadow:0 12px 26px -18px rgba(14,124,140,.6)}
+
+/* ===== floating CTA v3 (refined pills) ===== */
+@media(max-width:860px){
+ header#hd .hbar{gap:8px!important}
+ header#hd .hdoc{height:50px!important;padding:0 18px!important;border-radius:999px!important;border:0!important;background:rgba(255,255,255,.96)!important;color:#0f2a2e!important;font-size:13px!important;font-weight:700!important;letter-spacing:.02em!important;box-shadow:0 12px 28px -14px rgba(5,40,50,.45),inset 0 0 0 1px rgba(15,42,46,.08)!important}
+ header#hd .hdoc svg{width:16px!important;height:16px!important;color:#0e7c8c}
+ header#hd .btn{height:50px!important;min-height:50px!important;border-radius:999px!important;background:linear-gradient(135deg,#123a40,#0a2328)!important;border:0!important;color:#fff!important;font-size:14.5px!important;font-weight:800!important;letter-spacing:.04em!important;padding:0 8px 0 18px!important;justify-content:space-between!important;box-shadow:0 14px 30px -12px rgba(5,40,50,.6)!important}
+ header#hd .btn .sp-only{display:inline-flex!important;align-items:center;gap:9px;width:100%}
+ header#hd .lnic{width:22px!important;height:22px!important;color:#06c755!important;flex:none}
+ header#hd .btn .sp-only:after{content:"";margin-left:auto;width:34px;height:34px;border-radius:50%;flex:none;background:#f4c04e url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23141716' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/15px no-repeat}
+}
+@media(max-width:350px){header#hd .hdoc{padding:0 13px!important}header#hd .btn{font-size:13px!important;padding-left:14px!important}}
 </style>
 </head>
 <body>
