@@ -179,7 +179,7 @@ img{display:block;max-width:100%}
 .nx .q div{background:#fff;border:1px solid var(--line);border-radius:1.2cqw;padding:1.1cqw;text-align:center}
 .nx .q img{width:100%;height:auto}
 .nx .q b{display:block;font-size:1.15cqw;margin-top:.6cqw}
-.nx ol{margin:0;padding:0;list-style:none;display:grid;gap:.7cqw;font-size:1.2cqw;font-weight:700}
+.nx ol{margin:0;padding:0;list-style:none;display:grid;gap:.9cqw;font-size:1.2cqw;font-weight:700}
 .nx li{display:flex;gap:.8cqw;align-items:center}
 .nx li i{display:grid;place-items:center;width:2.1cqw;height:2.1cqw;border-radius:50%;background:var(--ink);color:var(--yel);font:800 1cqw var(--en);font-style:normal;flex:none}
 .mon{background:var(--dk);color:#fff;border-radius:1.4cqw;padding:1.4cqw 1.8cqw;font-size:1.15cqw;line-height:1.6}
@@ -516,6 +516,16 @@ img{display:block;max-width:100%}
  .back{margin:-6px 0 0;text-align:center;font-size:13px;color:var(--sub)}
 }
 @media screen and (max-width:380px){.mstep span small{font-size:11.5px}.back{font-size:11.5px;margin-top:-4px}.mend .mid{gap:10px}.mstep{gap:10px}}
+@media screen and (max-width:860px){
+ .mend .mid{gap:14px;justify-content:safe center}
+ .mstep{gap:10px}
+ .mstep li{padding:14px 16px;gap:14px}
+ .mstep i{width:34px;height:34px;font-size:15px}
+ .mstep span{font-size:16px;line-height:1.4}
+ .back{line-height:1.6}
+}
+@media screen and (max-width:380px){.mstep li{padding:10px 12px}.mstep span{font-size:14px}.mstep i{width:30px;height:30px;font-size:13px}.mend .mid{gap:9px}}
+@media screen and (max-width:380px){.mend2 h2 br{display:none}.mend2 .mid{justify-content:safe center}}
 @media print{.pw-m{display:none!important}}
 @media print{
  html{scroll-snap-type:none}
@@ -762,8 +772,8 @@ img{display:block;max-width:100%}
   </div>
   <div class="nx">
    <p class="nxh">次のステップ</p>
-   <ol><li><i>1</i>この資料が届いたDMに、ご返信ください<small class="ex">「興味あります」のひとことでOKです</small></li><li><i>2</i>メニュー表と写真を送る</li><li><i>3</i>画面を確認して、スタート</li></ol>
-   <a class="demo" href="../demo/" target="_blank" rel="noopener"><img src="qr-demo.svg" alt="" width="264" height="264"><span><b>先に、実際の画面を触ってみる</b><small>お客様の画面とお店の画面を操作できます</small><em>デモを開く ›</em></span></a>
+   <ol><li><i>1</i>この資料が届いたDMに、ご返信ください<small class="ex">「興味あります」だけでOK</small></li><li><i>2</i>メニュー表と料理の写真を、DMで送る<small class="ex">スマホで撮った写真でOK</small></li><li><i>3</i>お店の画面をこちらで作成<small class="ex">約1週間。設定はすべておまかせ</small></li><li><i>4</i>できた画面を確認して、お店で使い始める<small class="ex">QRをテーブルに置くだけ</small></li></ol>
+   <a class="demo" href="../demo/" target="_blank" rel="noopener"><img src="qr-demo.svg" alt="" width="264" height="264"><span><b>見本のデモを触ってみる</b><small>架空のお店「食堂 ともしび」の見本です。お店の画面は、ご返信のあとにお作りします</small><em>デモを開く ›</em></span></a>
   </div>
  </div>
  <span class="pg"><b>12</b> / 12</span>
@@ -920,10 +930,19 @@ img{display:block;max-width:100%}
  <p class="ey">NEXT</p>
  <h2>次のステップ</h2>
  <div class="mid">
-  <ol class="mstep"><li><i>1</i><span>この資料が届いたDMに<br>ご返信ください<small>「興味あります」だけでOK</small></span></li><li><i>2</i><span>メニュー表と写真を<br>送る</span></li><li><i>3</i><span>画面を確認して<br>スタート</span></li></ol>
-  <a class="mdemo" href="../demo/" target="_blank" rel="noopener">先に、実際の画面を触ってみる ›</a>
-  <p class="back">この画面を閉じると、DMに戻れます</p>
+  <ol class="mstep"><li><i>1</i><span>この資料が届いたDMに、ご返信<small>「興味あります」だけでOK</small></span></li><li><i>2</i><span>メニュー表と写真をDMで送る<small>スマホで撮った写真でOK</small></span></li><li><i>3</i><span>お店の画面をこちらで作成<small>約1週間・設定はおまかせ</small></span></li><li><i>4</i><span>確認して、お店で使い始める<small>QRをテーブルに置くだけ</small></span></li></ol>
+
  </div>
+</section>
+
+<section class="m mend2" aria-label="見本のデモ">
+ <p class="ey">DEMO</p>
+ <h2>先に、<br><em>見本の画面</em>を触ってみる。</h2>
+ <div class="mid">
+  <div class="mshot"><img class="w" src="img/a-orders.webp" alt="" width="1492" height="704"><div class="p"><img src="img/c-menu.webp" alt="" width="546" height="1144"></div></div>
+  <a class="mdemo" href="../demo/" target="_blank" rel="noopener">見本のデモを開く ›</a>
+ </div>
+ <p class="src">架空のお店「食堂 ともしび」の見本です。お店の画面は、ご返信のあとにお作りします。この画面を閉じると、DMに戻れます。</p>
 </section>
 </main>
 <nav class="nav" aria-label="ページ送り"><button type="button" id="prev" aria-label="前のページ">‹</button><div class="prog"><i id="progbar"></i></div><button type="button" id="next" aria-label="次のページ">›</button></nav>
