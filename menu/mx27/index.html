@@ -256,13 +256,13 @@ img{display:block;max-width:100%}
  body{background:var(--bg)}
  .hs{position:relative}
  .snap{position:absolute;left:0;width:1px;height:100svh;scroll-snap-align:start;scroll-snap-stop:always;pointer-events:none}
- .stage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column}
+ .stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column}
  .bar{position:relative}
  .bar .cnt{font:700 12px var(--en);color:var(--sub);white-space:nowrap}
  .bar .cnt b{color:var(--ink)}
  .deck{flex:1;min-height:0;max-width:none;margin:0;padding:0;display:flex;flex-direction:row;gap:0;will-change:transform}
  .deck>.s{flex:none}
- .pw{flex:0 0 100vw;width:100vw;height:100%;display:flex;align-items:center;justify-content:center;padding:14px 20px}
+ .pw{flex:0 0 100%;width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:14px 20px}
  .nav{display:flex;align-items:center;gap:14px;padding:8px 20px 12px;justify-content:center}
  .nav button{width:38px;height:38px;border-radius:50%;border:0;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font:700 20px/1 var(--en);color:var(--ink);cursor:pointer}
  .nav button:disabled{opacity:.35;cursor:default}
@@ -369,6 +369,124 @@ img{display:block;max-width:100%}
  .feat small{display:none}
  .pd{aspect-ratio:16/10}
 }
+
+/* ===== phone-only pages ===== */
+.m{display:none}
+@media screen and (min-width:861px){.pw-m{display:none!important}}
+@media screen and (max-width:860px){
+ .pw-s{display:none!important}
+ .pw-m{padding:10px 14px 4px}
+ .m{display:flex;flex-direction:column;width:100%;height:100%;background:var(--card);border-radius:24px;padding:30px 24px 26px;box-shadow:0 20px 40px -28px rgba(60,40,20,.5);overflow:hidden;position:relative}
+ .m .ey{font:800 12px var(--en);letter-spacing:.16em;color:var(--gold);margin:0 0 12px}
+ .m h2{font-family:var(--serif);font-size:26px;line-height:1.5;font-weight:700;margin:0;letter-spacing:.03em}
+ .m h2 em{font-style:normal;color:var(--red)}
+ .m .mid{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:22px}
+ .m .src{margin:12px 0 0;padding:0;font-size:11.5px;color:var(--sub);line-height:1.6}
+ .hero-n{text-align:center}
+ .hero-n small{display:block;font-size:15px;font-weight:700;color:var(--ink2)}
+ .hero-n b{display:block;font:800 76px/1.05 var(--en);color:var(--red);letter-spacing:-.03em;margin:8px 0}
+ .hero-n b i{font-style:normal;font-size:20px;margin-left:4px;letter-spacing:0}
+ .hero-n.sm b{font-size:58px;margin:4px 0}
+ .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ .pair>div{background:var(--soft);border-radius:16px;padding:16px}
+ .pair small{display:block;font-size:13px;font-weight:700;color:var(--sub)}
+ .pair b{display:block;font:800 30px/1.2 var(--en);margin-top:6px;letter-spacing:-.01em;white-space:nowrap}
+ .pair b i{font-style:normal;font-size:13px;margin-left:2px;letter-spacing:0}
+ .pair .dk{background:var(--dk);color:#fff}.pair .dk small{color:rgba(255,255,255,.65)}.pair .dk b{color:var(--yel)}
+ .pair .hl b{color:var(--red)}
+ .mbars{display:grid;gap:22px}
+ .mbars>div{display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center}
+ .mbars span{grid-column:1/-1;font-size:15px;font-weight:700}
+ .mbars .tr{height:22px;border-radius:99px;background:#f1ebe2;overflow:hidden}
+ .mbars .tr i{display:block;height:100%;border-radius:99px;background:var(--mute)}
+ .mbars .tr i.hl{background:var(--red)}
+ .mbars b{font:800 26px var(--en)}.mbars b.hl{color:var(--red)}
+ .call{margin:0;text-align:center;font-size:18px;font-weight:800}
+ .call b{color:var(--red);font-size:26px}
+ .mchart svg{width:100%;height:auto;display:block;overflow:visible}
+ .mchart .yt{display:none}
+ .mchart text{font-size:20px!important}
+ .mhg{gap:5px}
+ .leg2{margin:-12px 0 0;font-size:12.5px;color:var(--sub);display:flex;align-items:center;gap:6px}
+ .leg2 i{width:12px;height:12px;border-radius:3px;background:var(--red)}
+ .cap{margin:0;font-size:14px;font-weight:800;color:var(--sub)}
+ .mcost{display:grid;gap:22px}
+ .mcost>div{display:grid;grid-template-columns:1fr;gap:6px}
+ .mcost span{font-size:15px;font-weight:800}
+ .mcost span small{font-size:12px;color:var(--sub);font-weight:500;margin-left:6px}
+ .mcost .tr{height:14px;border-radius:99px;background:#f1ebe2;overflow:hidden}
+ .mcost .tr i{display:block;height:100%;background:var(--mute);border-radius:99px;min-width:10px}
+ .mcost b{font:800 22px var(--en)}
+ .mcost .me{background:var(--gold-l);margin:0 -12px;padding:12px;border-radius:14px}
+ .mcost .me .tr i{background:var(--yel)}.mcost .me b{color:var(--gold-d);font-size:28px}
+ .mshot{position:relative;padding:0 0 18% 14%}
+ .mshot .w{width:100%;height:auto;border-radius:10px;box-shadow:0 0 0 1px rgba(36,30,26,.1),0 18px 30px -18px rgba(30,20,10,.5)}
+ .mshot .p{position:absolute;left:0;bottom:0;width:30%;aspect-ratio:546/1144;background:#15110e;border-radius:16px;padding:4px;box-shadow:0 16px 28px -14px rgba(30,20,10,.6)}
+ .mshot .p img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:12px}
+ .chk{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+ .chk li{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:800}
+ .chk li:before{content:"";flex:none;width:26px;height:26px;border-radius:50%;background:var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4L18 8'/%3E%3C/svg%3E") center/16px no-repeat}
+ .mtl{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:18px}
+ .mtl:before{content:"";position:absolute;left:47px;top:14px;bottom:14px;width:2px;background:repeating-linear-gradient(180deg,var(--mute) 0 5px,transparent 5px 9px)}
+ .mtl li{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:14px;font-size:16px;font-weight:700}
+ .mtl b{position:relative;z-index:1;display:grid;place-items:center;height:32px;border-radius:99px;background:var(--ink);color:#fff;font-size:13px;font-weight:800}
+ .mtl .us b{background:var(--red)}.mtl .go b{background:var(--grn)}
+ .mrk{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+ .mrk li{display:flex;align-items:center;gap:16px;background:var(--soft);border-radius:16px;padding:16px 18px}
+ .mrk .ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:#fff;color:var(--gold);box-shadow:0 0 0 1px var(--line)}
+ .mrk .ic svg{width:22px;height:22px}
+ .mrk b{font-size:18px}
+ .mest{list-style:none;margin:0;padding:0}
+ .mest li{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid var(--line);font-size:16px;font-weight:700}
+ .mest li small{font-size:12px;color:var(--sub);font-weight:500}
+ .mest b{font:800 18px var(--en);color:var(--red)}
+ .mest s{color:var(--sub);font-size:13px;font-weight:600;margin-right:8px}
+ .mest li:nth-child(3) b{color:var(--ink)}
+ .mstep{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+ .mstep li{display:flex;align-items:center;gap:16px;background:var(--soft);border-radius:18px;padding:18px}
+ .mstep i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--yel);font:800 18px var(--en);font-style:normal}
+ .mstep span{font-size:18px;font-weight:800;line-height:1.45}
+ .mdemo{display:block;text-align:center;text-decoration:none;font-size:16px;font-weight:800;color:#fff;background:var(--ink);border-radius:999px;padding:16px}
+ /* cover */
+ .mcover{padding:0;background:var(--dk);color:#fff}
+ .mcover .img{flex:1;min-height:0;background:url(../hero.webp) 62% 30%/cover;position:relative}
+ .mcover .img:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--dk) 0%,rgba(29,23,18,0) 55%)}
+ .mcover .tx{padding:4px 24px 28px}
+ .mcover .to{margin:0 0 18px;font-size:16px;font-weight:700;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.3);display:inline-block}
+ .mcover .to b{font-size:22px}
+ .mcover h1{font-family:var(--serif);font-size:29px;line-height:1.45;margin:0}
+ .mcover h1 em{font-style:normal;color:var(--yel)}
+ .mcover .lead{margin:14px 0 0;font-size:15px;opacity:.8;line-height:1.7}
+ .mcover .meta{margin-top:22px;display:flex;align-items:center;gap:10px;font-size:12.5px;opacity:.75}
+ .mcover .meta img{height:20px;width:auto}
+ .nav{padding:6px 16px 10px}
+}
+@media screen and (max-width:860px) and (max-height:700px){
+ .m{padding:24px 20px 20px}
+ .m h2{font-size:23px}
+ .m .mid{gap:16px}
+ .hero-n b{font-size:62px}.hero-n.sm b{font-size:48px}
+ .pair b{font-size:26px}.pair>div{padding:13px}
+ .mbars{gap:16px}.mcost{gap:14px}.mtl{gap:12px}.mrk li{padding:12px 16px}.mstep li{padding:14px}
+ .mest li{padding:11px 2px}.chk{gap:10px}.chk li{font-size:16px}
+ .mcover h1{font-size:26px}
+}
+@media screen and (max-width:380px){
+ .m{padding:22px 18px 18px}
+ .m h2{font-size:21px}
+ .m .mid{justify-content:safe center;gap:14px}
+ .hero-n b{font-size:56px}.hero-n.sm b{font-size:44px}.hero-n small{font-size:13.5px}
+ .pair{gap:8px}.pair>div{padding:12px}.pair b{font-size:21px}.pair b i{font-size:11px}.pair small{font-size:11.5px}
+ .mcost{gap:12px}.mcost span{font-size:13.5px}.mcost b{font-size:17px}.mcost .me b{font-size:21px}.mcost .me{padding:10px 12px}
+ .mbars b{font-size:21px}.call{font-size:15px}.call b{font-size:21px}
+ .chk li{font-size:14.5px}.mtl li{font-size:14px;grid-template-columns:84px 1fr}.mtl:before{left:41px}
+ .mrk b{font-size:15.5px}.mrk li{padding:11px 14px}.mrk .ic{width:38px;height:38px}
+ .mest li{font-size:14px;padding:10px 2px}.mest b{font-size:16px}
+ .mstep span{font-size:15.5px}.mstep li{padding:12px}.mstep i{width:34px;height:34px;font-size:15px}
+ .mdemo{font-size:14.5px;padding:13px}
+ .mcover h1{font-size:23px}.mcover .lead{font-size:13.5px}
+}
+@media print{.pw-m{display:none!important}}
 @media print{
  html{scroll-snap-type:none}
  .hs{height:auto!important}.stage{position:static;height:auto;overflow:visible;display:block}
@@ -619,6 +737,166 @@ img{display:block;max-width:100%}
  </div>
  <span class="pg"><b>12</b> / 12</span>
 </section>
+
+<!-- ===== phone pages ===== -->
+<section class="m mcover" aria-label="表紙">
+ <div class="img" role="img" aria-label="スマホから注文するお客様"></div>
+ <div class="tx">
+  <p class="to"><b data-v="shop">飲食店</b> 様</p>
+  <h1>ピークの注文取りを、<br><em>お客様のスマホへ。</em></h1>
+  <p class="lead">QR注文「モバイルメニュー」<br>導入のご提案</p>
+  <div class="meta"><img src="../../logo-w.png" alt="サクアプ" width="800" height="195"><span data-v="date"></span></div>
+ </div>
+</section>
+
+<section class="m" aria-label="結論">
+ <p class="ey">SUMMARY</p>
+ <h2>結論から。</h2>
+ <div class="mid">
+  <div class="hero-n"><small>注文取りの時間を</small><b><span data-v="hm">35</span><i>時間/月</i></b><small>へらせます</small></div>
+  <div class="pair">
+   <div><small>金額にすると</small><b>約<span data-v="ym">3.9</span><i>万円/月</i></b></div>
+   <div class="dk"><small>かかる費用</small><b>1,980<i>円/月</i></b></div>
+  </div>
+ </div>
+ <p class="src">1日<span data-v="orders">80</span>回×<span data-v="min">1</span>分、時給<span data-v="wage">1,121</span>円で試算</p>
+</section>
+
+<section class="m" aria-label="人手不足">
+ <p class="ey">外食の今 1/3</p>
+ <h2>飲食店の人手不足は、<br><em>全業種でいちばん深刻。</em></h2>
+ <div class="mid">
+  <div class="mbars">
+   <div><span>飲食店</span><div class="tr"><i class="hl" style="width:65.3%"></i></div><b class="hl">65.3%</b></div>
+   <div><span>全業種の平均</span><div class="tr"><i style="width:30%"></i></div><b>30.0%</b></div>
+  </div>
+  <p class="call">全業種の<b>約2.2倍</b></p>
+ </div>
+ <p class="src">非正社員が「不足」と答えた企業の割合<br>帝国データバンク（2025年4月）</p>
+</section>
+
+<section class="m" aria-label="人件費">
+ <p class="ey">外食の今 2/3</p>
+ <h2>人件費は、<br><em>10年で4割上がった。</em></h2>
+ <div class="mid">
+  <div class="hero-n sm"><small>最低賃金（全国平均）</small><b>+40<i>%</i></b><small>798円 → 1,121円</small></div>
+  <div class="mchart" id="wageChartM"></div>
+ </div>
+ <p class="src">厚生労働省「地域別最低賃金」2015〜2025年度</p>
+</section>
+
+<section class="m" aria-label="訪日外国人">
+ <p class="ey">外食の今 3/3</p>
+ <h2>外国のお客様は、<br><em>過去最多に。</em></h2>
+ <div class="mid">
+  <div class="hero-n sm"><small>2024年の訪日外国人</small><b>3,687<i>万人</i></b><small>メニューを言葉で伝えるのは大変</small></div>
+  <div class="mchart" id="visChartM"></div>
+ </div>
+ <p class="src">日本政府観光局（JNTO）「訪日外客数」</p>
+</section>
+
+<section class="m" aria-label="お店の今">
+ <p class="ey">お店の今</p>
+ <h2>注文取りに、<br>毎月<em><span data-v="hm">35</span>時間</em>。</h2>
+ <div class="mid">
+  <div class="hg mhg" id="hgM"></div>
+  <p class="leg2"><i></i>1マス＝1時間</p>
+  <div class="pair">
+   <div><small>1日あたり</small><b><span data-v="dm">80</span><i>分</i></b></div>
+   <div><small>1年あたり</small><b><span data-v="hy">416</span><i>時間</i></b></div>
+  </div>
+ </div>
+ <p class="src">1日<span data-v="orders">80</span>回×<span data-v="min">1</span>分、月<span data-v="days">26</span>日営業で試算</p>
+</section>
+
+<section class="m" aria-label="方法の比較">
+ <p class="ey">解決の方法</p>
+ <h2>人を増やすより、<br><em>仕組みを変える。</em></h2>
+ <div class="mid">
+  <p class="cap">毎月かかる費用</p>
+  <div class="mcost">
+   <div><span>アルバイトを増やす<small>週20時間</small></span><div class="tr"><i style="width:100%"></i></div><b><span data-v="staff">96,400</span>円</b></div>
+   <div><span>大手のモバイルオーダー</span><div class="tr"><i style="width:15.6%"></i></div><b>5,000〜15,000円</b></div>
+   <div class="me"><span>サクアプ</span><div class="tr"><i style="width:3%"></i></div><b>1,980円</b></div>
+  </div>
+ </div>
+</section>
+
+<section class="m" aria-label="ご提案内容">
+ <p class="ey">ご提案</p>
+ <h2>お客様のスマホで注文、<br><em>お店の画面に届く。</em></h2>
+ <div class="mid">
+  <div class="mshot"><img class="w" src="img/a-orders.webp" alt="お店の注文一覧" width="1492" height="704"><div class="p"><img src="img/c-done.webp" alt="お客様の注文完了画面" width="546" height="1144"></div></div>
+  <ul class="chk"><li>テーブルにQRを置くだけ</li><li>お店のスマホで注文を受ける</li><li>会計はいつものレジで</li></ul>
+ </div>
+</section>
+
+<section class="m" aria-label="費用対効果">
+ <p class="ey">費用対効果</p>
+ <h2>1年で、費用の<br><em>約<span data-v="ratio">21</span>倍</em>の手間が浮く。</h2>
+ <div class="mid">
+  <div class="mchart" id="roiChartM"></div>
+  <div class="pair">
+   <div><small>1年で浮く手間</small><b>約<span data-v="yy">47</span><i>万円</i></b></div>
+   <div class="dk"><small>1年の費用</small><b><span data-v="cy">21,780</span><i>円</i></b></div>
+  </div>
+ </div>
+ <p class="src">試算です。効果を保証するものではありません。</p>
+</section>
+
+<section class="m" aria-label="スケジュール">
+ <p class="ey">スケジュール</p>
+ <h2>ご相談から<br><em>約1週間</em>でスタート。</h2>
+ <div class="mid">
+  <ol class="mtl">
+   <li><b>1日目</b><span>DMでご相談</span></li>
+   <li><b>2日目</b><span>メニュー表と写真を送る</span></li>
+   <li class="us"><b>3〜5日目</b><span>画面づくり（こちらで作業）</span></li>
+   <li><b>6日目</b><span>お店のスマホで確認</span></li>
+   <li class="go"><b>8日目〜</b><span>QRを置いてスタート</span></li>
+  </ol>
+ </div>
+ <p class="src">お店でしていただくことは、合計30分ほどです。</p>
+</section>
+
+<section class="m" aria-label="安心して始められる理由">
+ <p class="ey">安心して始められる</p>
+ <h2>合わなければ、<br><em>0円でやめられます。</em></h2>
+ <div class="mid">
+  <ul class="mrk">
+   <li><span class="ic"><svg><use href="#i-cal"/></svg></span><b>30日間無料</b></li>
+   <li><span class="ic"><svg><use href="#i-unlock"/></svg></span><b>契約のしばりなし</b></li>
+   <li><span class="ic"><svg><use href="#i-paper"/></svg></span><b>紙のメニューと併用OK</b></li>
+   <li><span class="ic"><svg><use href="#i-db"/></svg></span><b>データはお店のもの</b></li>
+  </ul>
+ </div>
+</section>
+
+<section class="m" aria-label="お見積もり">
+ <p class="ey">お見積もり</p>
+ <h2>先行モニターなら、<br><em>初期費用0円。</em></h2>
+ <div class="mid">
+  <ul class="mest">
+   <li><span>おまかせ設定</span><b><s>9,800円</s>0円</b></li>
+   <li><span>有料テンプレート</span><b><s>3,000円〜</s>0円</b></li>
+   <li><span>テーブル用QR <small><span data-v="tables">8</span>卓分</small></span><b>0円</b></li>
+  </ul>
+  <div class="pair">
+   <div class="hl"><small>初期費用</small><b>0<i>円</i></b></div>
+   <div class="dk"><small>月額</small><b>1,980<i>円</i></b></div>
+  </div>
+ </div>
+ <p class="src">条件：最初の6か月のご継続・導入事例の掲載（先着5店舗）</p>
+</section>
+
+<section class="m mend" aria-label="次のステップ">
+ <p class="ey">NEXT</p>
+ <h2>次のステップ</h2>
+ <div class="mid">
+  <ol class="mstep"><li><i>1</i><span>このメッセージに<br>ご返信ください</span></li><li><i>2</i><span>メニュー表と写真を<br>送る</span></li><li><i>3</i><span>画面を確認して<br>スタート</span></li></ol>
+  <a class="mdemo" href="../demo/" target="_blank" rel="noopener">先に、実際の画面を触ってみる ›</a>
+ </div>
+</section>
 </main>
 <nav class="nav" aria-label="ページ送り"><button type="button" id="prev" aria-label="前のページ">‹</button><div class="prog"><i id="progbar"></i></div><button type="button" id="next" aria-label="次のページ">›</button></nav>
 <p class="hint" id="hint">スクロールで次のページへ</p>
@@ -635,11 +913,11 @@ var S={shop:(q.get("shop")||"").slice(0,30),tables:num(q.get("t"),D.tables,1,99)
 if(q.get("edit")==="1")$("edit").hidden=false;
 function fmt(n){return Math.round(n).toLocaleString("ja-JP")}
 function f1(n){return (Math.round(n*10)/10).toLocaleString("ja-JP")}
-function svg(w,h,inner){return '<svg viewBox="0 0 '+w+' '+h+'" role="img">'+inner+'</svg>'}
+function svg(w,h,inner){return '<svg viewBox="0 0 '+w+' '+h+'" role="img" preserveAspectRatio="xMidYMid meet">'+inner+'</svg>'}
 function lineChart(el,labels,vals,opt){
  var W=560,H=280,L=46,R=16,T=18,B=34,mn=opt.min,mx=opt.max,n=vals.length;
  var x=function(i){return L+(W-L-R)*i/(n-1)},y=function(v){return T+(H-T-B)*(1-(v-mn)/(mx-mn))};
- var g="";opt.ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+t.toLocaleString()+'</text>'});
+ var g="";opt.ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text class="yt" x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+t.toLocaleString()+'</text>'});
  labels.forEach(function(l,i){if(opt.every&&i%opt.every&&i!==n-1)return;g+='<text x="'+x(i)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="#7a6d63" font-family="Montserrat">'+l+'</text>'});
  var pts=vals.map(function(v,i){return x(i)+","+y(v)}).join(" ");
  g+='<polygon points="'+L+','+y(mn)+' '+pts+' '+x(n-1)+','+y(mn)+'" fill="rgba(200,85,31,.10)"/>';
@@ -650,7 +928,7 @@ function lineChart(el,labels,vals,opt){
 function barChart(el,labels,vals,opt){
  var W=560,H=280,L=46,R=10,T=26,B=34,mx=opt.max,n=vals.length,bw=(W-L-R)/n;
  var y=function(v){return T+(H-T-B)*(1-v/mx)};
- var g="";opt.ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+t.toLocaleString()+'</text>'});
+ var g="";opt.ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text class="yt" x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+t.toLocaleString()+'</text>'});
  vals.forEach(function(v,i){var hl=i===n-1,cx=L+bw*i+bw*.18,w=bw*.64;g+='<rect x="'+cx+'" y="'+y(v)+'" width="'+w+'" height="'+(y(0)-y(v))+'" rx="4" fill="'+(hl?"#c8551f":(opt.dim&&opt.dim.indexOf(i)>=0?"#e8ddcf":"#d9cdbd"))+'"/>';
   g+='<text x="'+(cx+w/2)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="#7a6d63" font-family="Montserrat">'+labels[i]+'</text>';
   if(hl||i===opt.mark)g+='<text x="'+(cx+w/2)+'" y="'+(y(v)-8)+'" text-anchor="middle" font-size="13" font-weight="800" fill="'+(hl?"#c8551f":"#4a3f38")+'" font-family="Montserrat">'+v.toLocaleString()+'</text>'});
@@ -658,19 +936,21 @@ function barChart(el,labels,vals,opt){
 }
 lineChart($("wageChart"),["2015","16","17","18","19","20","21","22","23","24","2025"],[798,823,848,874,901,902,930,961,1004,1055,1121],{min:700,max:1200,ticks:[700,800,900,1000,1100,1200]});
 barChart($("visChart"),["2015","16","17","18","19","20","21","22","23","2024"],[1974,2404,2869,3119,3188,412,25,383,2507,3687],{max:4000,ticks:[0,1000,2000,3000,4000],dim:[5,6,7],mark:4});
+if($("wageChartM"))lineChart($("wageChartM"),["2015","16","17","18","19","20","21","22","23","24","2025"],[798,823,848,874,901,902,930,961,1004,1055,1121],{min:700,max:1200,ticks:[800,1000,1200],every:2,big:1});
+if($("visChartM"))barChart($("visChartM"),["15","16","17","18","19","20","21","22","23","24"],[1974,2404,2869,3119,3188,412,25,383,2507,3687],{max:4000,ticks:[0,2000,4000],dim:[5,6,7],big:1});
 function roiChart(ym){
  var W=560,H=280,L=60,R=16,T=18,B=34,n=13,cost=[],save=[];
  for(var m=0;m<n;m++){save.push(ym*m);cost.push(1980*Math.max(0,m-1))}
  var mx=Math.max(save[n-1],cost[n-1])*1.08,step=mx>400000?100000:mx>200000?50000:mx>80000?20000:10000,ticks=[];for(var t=0;t<=mx;t+=step)ticks.push(t);
  var x=function(i){return L+(W-L-R)*i/(n-1)},y=function(v){return T+(H-T-B)*(1-v/mx)};
- var g="";ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+(t/10000)+'万</text>'});
- for(var i=0;i<n;i+=2)g+='<text x="'+x(i)+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="#7a6d63" font-family="Montserrat">'+i+'か月</text>';
+ var g="";ticks.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(t)+'" y2="'+y(t)+'" stroke="#ece3d8"/><text class="yt" x="'+(L-8)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" fill="#7a6d63" font-family="Montserrat">'+(t/10000)+'万</text>'});
+ for(var i=0;i<n;i+=(i>=10?2:2))g+='<text x="'+(i===n-1?x(i)-14:x(i))+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="#7a6d63" font-family="Montserrat">'+i+'か月</text>';
  var ps=save.map(function(v,i){return x(i)+","+y(v)}).join(" "),pc=cost.map(function(v,i){return x(i)+","+y(v)}).join(" ");
  g+='<polygon points="'+x(0)+','+y(0)+' '+ps+' '+x(n-1)+','+y(cost[n-1])+' '+pc.split(" ").reverse().join(" ")+'" fill="rgba(200,85,31,.10)"/>';
  g+='<polyline points="'+ps+'" fill="none" stroke="#c8551f" stroke-width="3"/><polyline points="'+pc+'" fill="none" stroke="#241e1a" stroke-width="3"/>';
  g+='<text x="'+(x(n-1)-4)+'" y="'+(y(save[n-1])-10)+'" text-anchor="end" font-size="14" font-weight="800" fill="#c8551f" font-family="Montserrat">約'+fmt(save[n-1]/10000)+'万円</text>';
  g+='<text x="'+(x(n-1)-4)+'" y="'+(y(cost[n-1])-10)+'" text-anchor="end" font-size="13" font-weight="800" fill="#241e1a" font-family="Montserrat">'+fmt(cost[n-1])+'円</text>';
- $("roiChart").innerHTML=svg(W,H,g);
+ $("roiChart").innerHTML=svg(W,H,g);if($("roiChartM"))$("roiChartM").innerHTML=svg(W,H,g);
 }
 function render(){
  var dm=S.orders*S.min,hm=dm*S.days/60,ymY=hm*S.wage,yy=ymY*12,cy=1980*11;
@@ -680,7 +960,7 @@ function render(){
  var d=new Date();V.date=d.getFullYear()+"年"+(d.getMonth()+1)+"月";
  document.querySelectorAll("[data-v]").forEach(function(el){var k=el.dataset.v;if(V[k]!=null)el.textContent=V[k]});
  document.title=V.title+"｜サクアプ";
- var hg="",nH=Math.min(Math.round(hm),100),tot=Math.max(50,Math.ceil(nH/10)*10);for(var i=0;i<tot;i++)hg+='<i'+(i<nH?' class="on"':'')+'></i>';$("hg").innerHTML=hg;
+ var hg="",nH=Math.min(Math.round(hm),100),tot=Math.max(50,Math.ceil(nH/10)*10);for(var i=0;i<tot;i++)hg+='<i'+(i<nH?' class="on"':'')+'></i>';$("hg").innerHTML=hg;if($("hgM"))$("hgM").innerHTML=hg;
  roiChart(ymY);
  if(window.__fit)window.__fit();
 }
@@ -701,27 +981,23 @@ render();
 <script>
 (function(){
 var deck=document.getElementById("deck"),hs=document.getElementById("hs"),stage=document.getElementById("stage");
-var slides=[].slice.call(deck.querySelectorAll(":scope>.s")),N=slides.length;
-slides.forEach(function(s){var w=document.createElement("div");w.className="pw";s.parentNode.insertBefore(w,s);w.appendChild(s)});
-var snaps=[];for(var i=0;i<N;i++){var d=document.createElement("div");d.className="snap";d.style.top=(i*100)+"svh";hs.appendChild(d);snaps.push(d)}
-document.getElementById("tot").textContent=N;
-if(matchMedia("(pointer:coarse)").matches)document.getElementById("hint").textContent="上にスワイプして次のページへ";
-var mq=matchMedia("(max-width:860px)"),cur=-1,hint=document.getElementById("hint");
-function step(){return snaps.length>1?snaps[1].offsetTop-snaps[0].offsetTop:innerHeight}
-function size(){hs.style.height="calc("+N+"*100svh)";fit();upd()}
-function fit(){
- var pw=deck.querySelector(".pw"),avail=pw?pw.clientHeight-20:innerHeight;
- var W=(pw?pw.clientWidth:innerWidth)-24,AH=(pw?pw.clientHeight:innerHeight)-14;
- slides.forEach(function(s){s.style.zoom="";s.style.width="";s.style.height="";if(!mq.matches)return;
-  s.style.width=W+"px";s.style.height=AH+"px";var need=s.scrollHeight;if(need<=AH+1)return;
-  var z=AH/need;for(var k=0;k<4;k++){s.style.width=(W/z)+"px";s.style.height=(AH/z)+"px";need=s.scrollHeight;if(need<=AH/z+1)break;z=z*(AH/z)/need}
-  s.style.zoom=z.toFixed(3)});
+[].slice.call(deck.querySelectorAll(":scope>.s,:scope>.m")).forEach(function(s){var w=document.createElement("div");w.className="pw "+(s.classList.contains("m")?"pw-m":"pw-s");s.parentNode.insertBefore(w,s);w.appendChild(s)});
+var mq=matchMedia("(max-width:860px)"),cur=-1,N=0,snaps=[],hint=document.getElementById("hint");
+if(matchMedia("(pointer:coarse)").matches)hint.textContent="上にスワイプして次のページへ";
+function build(){
+ snaps.forEach(function(d){d.remove()});snaps=[];
+ N=deck.querySelectorAll(mq.matches?".pw-m":".pw-s").length;
+ for(var i=0;i<N;i++){var d=document.createElement("div");d.className="snap";d.style.top=(i*100)+"svh";hs.appendChild(d);snaps.push(d)}
+ hs.style.height="calc("+(N-1)+"*100svh + 100lvh)";
+ document.getElementById("tot").textContent=N;cur=-1;upd();
 }
+function step(){return snaps.length>1?snaps[1].offsetTop-snaps[0].offsetTop:innerHeight}
 function upd(){
  var st=step(),p=Math.max(0,Math.min(N-1,(scrollY-hs.offsetTop)/st));
- deck.style.transform="translate3d("+(-p*100)+"vw,0,0)";
+ if(N-1-p<.04)p=N-1;
+ deck.style.transform="translate3d("+(-p*stage.clientWidth)+"px,0,0)";
  var c=Math.round(p);if(c!==cur){cur=c;document.getElementById("cur").textContent=c+1;document.getElementById("prev").disabled=c===0;document.getElementById("next").disabled=c===N-1}
- document.getElementById("progbar").style.width=((p/(N-1))*100)+"%";
+ document.getElementById("progbar").style.width=(N>1?(p/(N-1))*100:0)+"%";
  if(p>.3)hint.classList.add("off");
 }
 function go(i){i=Math.max(0,Math.min(N-1,i));scrollTo({top:hs.offsetTop+i*step(),behavior:"smooth"})}
@@ -729,13 +1005,10 @@ document.getElementById("prev").onclick=function(){go(cur-1)};
 document.getElementById("next").onclick=function(){go(cur+1)};
 addEventListener("keydown",function(e){if(/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==="ArrowRight"||e.key==="PageDown"){e.preventDefault();go(cur+1)}else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();go(cur-1)}});
 addEventListener("scroll",function(){requestAnimationFrame(upd)},{passive:true});
-addEventListener("resize",size);
-window.__fit=fit;
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
-setTimeout(fit,800);setTimeout(fit,2000);
-size();
-addEventListener("beforeprint",function(){slides.forEach(function(s){s.style.zoom=""})});
-addEventListener("afterprint",fit);
+addEventListener("resize",upd);
+(mq.addEventListener?mq.addEventListener("change",build):mq.addListener(build));
+window.__fit=function(){};
+build();
 })();
 </script>
 <script src="../../js/budoux.js" defer></script>
