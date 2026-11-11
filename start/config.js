@@ -12,10 +12,19 @@ window.SAKUAPP_BILLING = {
   MONTHLY: 1980,
   OMAKASE: 9800,
   LINE_URL: "https://lin.ee/vC2S0M9",
-  // Stripe の Payment Link（月額1,980円・30日無料お試し）
+  // Stripe の Payment Link（30日無料お試し）
+  // web＝Web版 1,980円／line＝LINE版 1,980円／both＝両方 3,960円
   LINKS: {
-    menu:  { self: "", omakase: "" },
-    salon: { self: "", omakase: "" }
+    menu: {
+      web:  { self: "", omakase: "" },
+      line: { self: "", omakase: "" },
+      both: { self: "", omakase: "" }
+    },
+    salon: {
+      web:  { self: "", omakase: "" },
+      line: { self: "", omakase: "" },
+      both: { self: "", omakase: "" }
+    }
   },
   // Stripe カスタマーポータルのログインURL（解約・カード変更・領収書）
   PORTAL_URL: ""

@@ -31,7 +31,8 @@ h1{font:700 clamp(24px,5.6vw,32px)/1.45 "Noto Serif JP",serif;margin:0 0 8px;wor
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 22px;margin-bottom:16px}
 .card h2{font-size:17px;margin:0 0 14px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:520px){.opts{grid-template-columns:1fr}}
+.opts.o3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:520px){.opts,.opts.o3{grid-template-columns:1fr}}
 .opt{position:relative;display:block;border:2px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;background:#fff}
 .opt input{position:absolute;opacity:0;pointer-events:none}
 .opt:has(input:checked){border-color:var(--c);background:var(--cl)}
@@ -84,7 +85,16 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
       </div>
     </section>
     <section class="card">
-      <h2>2. 始め方</h2>
+      <h2>2. 使う場所</h2>
+      <div class="opts o3">
+        <label class="opt"><input type="radio" name="c" value="web" checked><b>Web版</b><em>月額1,980円</em><small>QRやリンクから、ブラウザで開きます</small></label>
+        <label class="opt"><input type="radio" name="c" value="line"><b>LINE版</b><em>月額1,980円</em><small>LINEミニアプリとして、LINEの中で開きます</small></label>
+        <label class="opt"><input type="radio" name="c" value="both"><b>両方</b><em>月額3,960円</em><small>Web版とLINE版を、同じ管理画面で</small></label>
+      </div>
+      <p class="hint">LINE版の公開には、お店のLINE公式アカウントが必要です。LINEへの申請・審査の代行は別途お見積もりです（<a href="../line/">LINEミニアプリについて</a>）。</p>
+    </section>
+    <section class="card">
+      <h2>3. 始め方</h2>
       <div class="opts">
         <label class="opt"><input type="radio" name="p" value="self" checked><b>セルフ</b><em>0円</em><small>テンプレートを選んで、自分で設定します</small></label>
         <label class="opt"><input type="radio" name="p" value="omakase"><b>おまかせ</b><em>9,800円</em><small>メニュー表と写真を送るだけ。初期設定を済ませてお渡しします</small></label>
@@ -92,16 +102,17 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
       <p class="hint">お店専用の画面や機能を作りたい場合は、<a href="../">オーダーメイド開発</a>をご覧ください。</p>
     </section>
     <section class="card">
-      <h2>3. メールアドレス</h2>
+      <h2>4. メールアドレス</h2>
       <label class="f">ご連絡先のメールアドレス<input type="email" id="em" autocomplete="email" inputmode="email" placeholder="example@mail.com" required></label>
       <p class="err" id="emerr">メールアドレスを正しく入力してください。</p>
       <p class="hint">管理画面のご案内と、課金前のお知らせをお送りします。店名は次のカード登録の画面で入力します。</p>
     </section>
 
     <section class="card" aria-labelledby="ct">
-      <h2 id="ct">4. 最終確認</h2>
+      <h2 id="ct">5. 最終確認</h2>
       <table class="conf">
         <tr><th>サービス</th><td><b id="c-s"></b></td></tr>
+        <tr><th>使う場所</th><td id="c-c"></td></tr>
         <tr><th>始め方</th><td id="c-p"></td></tr>
         <tr class="big"><th>本日のお支払い</th><td id="c-now"></td></tr>
         <tr><th>無料お試し期間</th><td id="c-trial"></td></tr>
@@ -110,7 +121,7 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
         <tr><th>お支払い方法</th><td>クレジットカード（決済はStripeを利用します）</td></tr>
         <tr><th>解約</th><td>お支払い・解約のページからいつでも解約できます。解約時点の請求期間の末日で終了し、日割りの返金はありません。<b>無料お試し期間中に解約すれば、月額料金はかかりません。</b></td></tr>
         <tr><th>お知らせ</th><td>初回の請求の7日前と前日に、メールでお知らせします。</td></tr>
-        <tr><th>対象外</th><td>有料テンプレート（3,000〜5,000円）と追加機能は、ご購入時に別途お支払いいただきます。無料お試しは1店舗につき1回まで、先行モニター特典との併用はできません。</td></tr>
+        <tr><th>対象外</th><td>有料テンプレート（3,000〜5,000円）と追加機能は、ご購入時に別途お支払いいただきます。LINEの申請・審査の代行は別途お見積もり、LINE公式アカウントの利用料はLINEに直接お支払いいただきます。無料お試しは1店舗につき1回まで、先行モニター特典との併用はできません。</td></tr>
       </table>
       <p class="warn" id="c-warn"></p>
       <label class="agree"><input type="checkbox" id="ag"><span>上記の内容と、<a href="../terms.html" target="_blank" rel="noopener">利用規約</a>・<a href="../privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します。</span></label>
@@ -125,22 +136,23 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
 <script>
 (function(){
   var B=window.SAKUAPP_BILLING||{},$=function(i){return document.getElementById(i)},f=$("f");
-  var NAME={menu:"モバイルメニュー",salon:"サロン予約"},PLAN={self:"セルフ（初期費用0円）",omakase:"おまかせ（初期費用9,800円）"};
-  var q=new URLSearchParams(location.search),s0=q.get("s")==="menu"?"menu":"salon",p0=q.get("p")==="omakase"?"omakase":"self";
-  f.s.value=s0;f.p.value=p0;
+  var NAME={menu:"モバイルメニュー",salon:"サロン予約"},PLAN={self:"セルフ（初期費用0円）",omakase:"おまかせ（初期費用9,800円）"},CH={web:"Web版",line:"LINE版（LINEミニアプリ）",both:"Web版＋LINE版"};
+  var q=new URLSearchParams(location.search),s0=q.get("s")==="menu"?"menu":"salon",p0=q.get("p")==="omakase"?"omakase":"self",c0=CH[q.get("c")]?q.get("c"):"web";
+  f.s.value=s0;f.p.value=p0;f.c.value=c0;
   function yen(n){return n.toLocaleString("ja-JP")+"円"}
   function d(x){return x.getFullYear()+"年"+(x.getMonth()+1)+"月"+x.getDate()+"日"}
-  function link(){var s=f.s.value,p=f.p.value;return(B.LINKS&&B.LINKS[s]&&B.LINKS[s][p])||""}
+  function link(){var s=f.s.value,c=f.c.value,p=f.p.value,L=B.LINKS&&B.LINKS[s]&&B.LINKS[s][c];return(L&&L[p])||""}
+  function mon(){return(B.MONTHLY||1980)*(f.c.value==="both"?2:1)}
   function upd(){
     var s=f.s.value,p=f.p.value,days=B.TRIAL_DAYS||30,now=new Date(),end=new Date(now),first=new Date(now);
     end.setDate(end.getDate()+days-1);first.setDate(first.getDate()+days);
     document.body.dataset.s=s;$("tag").textContent=s==="menu"?"MOBILE MENU":"SALON";$("back").href="../"+s+"/";
     $("ttl").textContent=NAME[s]+"のお申し込み";
-    $("c-s").textContent=NAME[s];$("c-p").textContent=PLAN[p];
+    $("c-s").textContent=NAME[s];$("c-c").textContent=CH[f.c.value];$("c-p").textContent=PLAN[p];
     $("c-now").textContent=p==="omakase"?yen(B.OMAKASE||9800)+"（おまかせの初期費用）":"0円";
     $("c-trial").textContent=d(now)+" 〜 "+d(end)+"（"+days+"日間）";
-    $("c-mon").textContent=yen(B.MONTHLY||1980)+"（"+d(first)+"から、1か月ごとに自動で請求）";
-    $("c-warn").innerHTML="<b>"+d(first)+"に、月額"+yen(B.MONTHLY||1980)+"が自動で請求されます。</b>続けない場合は、"+d(end)+"までに解約してください。";
+    $("c-mon").textContent=yen(mon())+"（"+(f.c.value==="both"?"Web版1,980円＋LINE版1,980円。":"")+d(first)+"から、1か月ごとに自動で請求）";
+    $("c-warn").innerHTML="<b>"+d(first)+"に、月額"+yen(mon())+"が自動で請求されます。</b>続けない場合は、"+d(end)+"までに解約してください。";
     var open=!!B.OPEN&&!!link();
     $("closed").hidden=open;if(!open)$("closed").innerHTML=(B.OPEN_NOTE||"ただいま受付前です。")+(B.LINE_URL?' <a href="'+B.LINE_URL+'" target="_blank" rel="noopener">LINEで相談する ›</a>':"");
     $("go").disabled=!open||!$("ag").checked;
@@ -150,7 +162,7 @@ p,li,dd,td,small,blockquote,figcaption{text-wrap:pretty}
     e.preventDefault();var em=$("em").value.trim(),ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
     $("emerr").classList.toggle("on",!ok);if(!ok){$("em").focus();return}
     var u=link();if(!B.OPEN||!u)return;
-    var url=new URL(u);url.searchParams.set("prefilled_email",em);url.searchParams.set("client_reference_id",f.s.value+"_"+f.p.value);
+    var url=new URL(u);url.searchParams.set("prefilled_email",em);url.searchParams.set("client_reference_id",f.s.value+"_"+f.c.value+"_"+f.p.value);
     location.href=url.toString();
   });
 })();

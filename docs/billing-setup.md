@@ -26,24 +26,33 @@
 ### 商品と価格
 - 商品「モバイルメニュー」：月額 1,980円（継続・毎月）
 - 商品「サロン予約」：月額 1,980円（継続・毎月）
+- 商品「モバイルメニュー LINE版」：月額 1,980円（継続・毎月）
+- 商品「サロン予約 LINE版」：月額 1,980円（継続・毎月）
 - 商品「おまかせ設定」：9,800円（1回限り）
 - 税込・税別の扱いを決め、LP・特商法・Stripe の表示をそろえます。
 
-### Payment Link（4本）
-| サービス | 始め方 | 中身 |
+### Payment Link（12本）
+サービス（モバイルメニュー／サロン予約）× 使う場所（Web版／LINE版／両方）× 始め方（セルフ／おまかせ）。
+
+| 使う場所 | 始め方 | 中身 |
 |---|---|---|
-| モバイルメニュー | セルフ | 月額1,980円 |
-| モバイルメニュー | おまかせ | 月額1,980円 ＋ おまかせ設定9,800円 |
-| サロン予約 | セルフ | 月額1,980円 |
-| サロン予約 | おまかせ | 月額1,980円 ＋ おまかせ設定9,800円 |
+| Web版 | セルフ | Web版 月額1,980円 |
+| Web版 | おまかせ | Web版 月額1,980円 ＋ おまかせ設定9,800円 |
+| LINE版 | セルフ | LINE版 月額1,980円 |
+| LINE版 | おまかせ | LINE版 月額1,980円 ＋ おまかせ設定9,800円 |
+| 両方 | セルフ | Web版 月額1,980円 ＋ LINE版 月額1,980円 |
+| 両方 | おまかせ | Web版 ＋ LINE版 ＋ おまかせ設定9,800円 |
+
+「両方」は、1本の Payment Link に月額の商品を2つ入れます（請求は1つのサブスクリプションにまとまり、ポータルから片方だけ外せます）。
+LINEの申請・審査の代行は Payment Link ではなく、お見積もりのうえ個別に請求します。
 
 各リンクの設定：
 - 「無料トライアルを追加」→ **30日**
 - 支払い方法の収集 → **常に収集する**（カード登録を必須にする）
 - カスタムフィールド → 「店名」（テキスト・必須）
 - 支払い後の動作 → 「確認ページを表示しない」で、次のURLへリダイレクト
-  - `https://knotscheme.github.io/sakuapp/start/thanks.html?s=menu&p=self`
-  - （`s` は menu / salon、`p` は self / omakase をリンクごとに変える）
+  - `https://knotscheme.github.io/sakuapp/start/thanks.html?s=menu&c=web&p=self`
+  - （`s` は menu / salon、`c` は web / line / both、`p` は self / omakase をリンクごとに変える）
 - 利用規約への同意 → オン（利用規約のURLを登録）
 - 1回限りの商品（おまかせ設定）がお試し中も申し込み時に請求されることを、テストモードで確認します。
 
@@ -63,8 +72,12 @@
 ```js
 OPEN: true,
 LINKS: {
-  menu:  { self: "https://buy.stripe.com/...", omakase: "https://buy.stripe.com/..." },
-  salon: { self: "https://buy.stripe.com/...", omakase: "https://buy.stripe.com/..." }
+  menu: {
+    web:  { self: "https://buy.stripe.com/...", omakase: "https://buy.stripe.com/..." },
+    line: { self: "https://buy.stripe.com/...", omakase: "https://buy.stripe.com/..." },
+    both: { self: "https://buy.stripe.com/...", omakase: "https://buy.stripe.com/..." }
+  },
+  salon: { /* menu と同じ形 */ }
 },
 PORTAL_URL: "https://billing.stripe.com/p/login/..."
 ```
