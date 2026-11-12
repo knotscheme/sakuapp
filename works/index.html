@@ -233,6 +233,29 @@ body.lbo header{visibility:hidden}
 .pvw.ok .ld{display:none}
 @media (max-width:700px){.pvw .dv,.pvw .bar .nt{display:none}.pvw .st{padding:0}.pvw iframe{border:0;border-radius:0}}
 .oc .xt,h3 .xt,.go .xt{font:400 .8em var(--mono);color:var(--sub);margin-left:6px}
+
+.hero{min-height:0;justify-content:flex-start;padding:150px 0 72px}
+.hero h1{font-size:clamp(34px,6vw,84px)}
+.hero h1 .nw{white-space:nowrap}
+.hero h1 br.sp{display:none}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0;padding:0}
+.tags span{font:400 11.5px var(--mono);color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:rgba(8,13,11,.6)}
+.tags span:last-child{color:var(--acc);border-color:rgba(61,255,139,.35)}
+.show{margin:56px 0 8px;display:grid;gap:14px;transform:rotate(-3deg) scale(1.06);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.srow{overflow:hidden}
+.srow>div{display:flex;gap:14px;width:max-content;animation:sl 60s linear infinite}
+.srow.r2>div{animation-direction:reverse;animation-duration:70s}
+.show:hover .srow>div{animation-play-state:paused}
+@keyframes sl{to{transform:translateX(-50%)}}
+.sct{position:relative;flex:none;width:clamp(220px,24vw,340px);aspect-ratio:16/10;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#0c1210;display:block}
+.sct img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .8s,filter .4s;filter:saturate(.9) brightness(.9)}
+.sct span{position:absolute;left:8px;bottom:8px;font:500 11px var(--mono);color:#e6f2ea;background:rgba(2,6,4,.78);border:1px solid rgba(61,255,139,.25);border-radius:999px;padding:4px 10px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.sct span i{font-style:normal;color:var(--acc);margin-right:6px}
+.sct:hover{border-color:var(--acc);box-shadow:0 0 30px rgba(61,255,139,.2)}
+.sct:hover img{transform:scale(1.04);filter:none}
+.wterm{margin:0 0 72px}
+@media (max-width:960px){.hero{padding:118px 0 48px}.hero h1{font-size:clamp(30px,8.6vw,48px)}.hero h1 br.sp{display:inline}.show{margin-top:40px;gap:10px}.srow>div{gap:10px}.sct{width:200px}.wterm{margin-bottom:56px}}
+@media (prefers-reduced-motion:reduce){.srow>div{animation:none}.srow{overflow-x:auto}}
 .lbx{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(2,4,3,.97);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:56px 16px}
 .lbx.on{display:flex}
 .lbx img{max-width:min(92vw,1100px);max-height:calc(100dvh - 140px);width:auto;height:auto;object-fit:contain;border:1px solid var(--line);box-shadow:0 0 60px rgba(61,255,139,.15);background:#fff}
@@ -279,9 +302,11 @@ body.lbo .fm{opacity:0;pointer-events:none}
 <main id="top">
 <section class="hero"><div class="w">
  <p class="lbl rv">E-commerce × AI</p>
- <h1 class="rv"><span class="ja">エンジニアじゃなくても、<br><span class="g">AIで、売る仕組みまで。</span></span><span class="en">Not an engineer.<br><span class="g">I build with AI.</span></span></h1>
- <p class="jp rv"><span class="ja">EC運営の現場出身の非エンジニアです。コードは書けなくても、何を作れば売れるかは分かる。その考えをAI（Claude Code）に伝えて、Webサービス・業務自動化・LP・画像までを一人で形にしています。</span><span class="en">A non-engineer from e-commerce operations. I may not write code by hand, but I know what sells. I turn that into web services, automation, landing pages and visuals — on my own, by directing AI (Claude Code).</span></p>
- <div class="term rv" aria-hidden="true"><div class="tb"><i></i><i></i><i></i><span>~/kazuya — claude</span></div><pre id="tm"></pre></div>
+ <h1 class="rv"><span class="ja"><span class="nw">AIで、</span><br><span class="g nw">売れる仕組みを</span><br class="sp"><span class="g nw">つくる。</span></span><span class="en"><span class="nw">I build what sells,</span><br><span class="g nw">with AI.</span></span></h1>
+ <p class="tags rv"><span><span class="ja">非エンジニア</span><span class="en">Non-engineer</span></span><span><span class="ja">EC運営出身</span><span class="en">From e-commerce ops</span></span><span>built with Claude Code</span></p>
+</div>
+ <div class="show rv" aria-label="Works"><div class="srow r1"><div><a class="sct" href="#saas" tabindex="-1"><img src="img/spider-pc.webp" alt="" loading="eager" decoding="async"><span><i>SaaS</i>Spider</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/lp-lotion.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>SORAE</span></a><a class="sct" href="#saas" tabindex="-1"><img src="img/t-mailer.webp" alt="" loading="eager" decoding="async"><span><i>SaaS</i>Mailer AI</span></a><a class="sct" href="#photo" tabindex="-1"><img src="img/pi-03.webp" alt="" loading="eager" decoding="async"><span><i>Visual</i>Product</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/lp-motion.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>ORBE</span></a><a class="sct" href="#saas" tabindex="-1"><img src="img/zubapp-pc.webp" alt="" loading="eager" decoding="async"><span><i>SaaS</i>ZUBAPP</span></a><a class="sct" href="#photo" tabindex="-1"><img src="img/da-01.webp" alt="" loading="eager" decoding="async"><span><i>Visual</i>Daysart</span></a><a class="sct" href="#tools" tabindex="-1"><img src="img/t-sns.webp" alt="" loading="eager" decoding="async"><span><i>Tools</i>SNS Auto Posting</span></a><a class="sct" href="#saas" tabindex="-1"><img src="img/spider-pc.webp" alt="" loading="eager" decoding="async"><span><i>SaaS</i>Spider</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/lp-lotion.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>SORAE</span></a><a class="sct" href="#saas" tabindex="-1"><img src="img/t-mailer.webp" alt="" loading="eager" decoding="async"><span><i>SaaS</i>Mailer AI</span></a><a class="sct" href="#photo" tabindex="-1"><img src="img/pi-03.webp" alt="" loading="eager" decoding="async"><span><i>Visual</i>Product</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/lp-motion.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>ORBE</span></a><a class="sct" href="#saas" tabindex="-1"><img src="img/zubapp-pc.webp" alt="" loading="eager" decoding="async"><span><i>SaaS</i>ZUBAPP</span></a><a class="sct" href="#photo" tabindex="-1"><img src="img/da-01.webp" alt="" loading="eager" decoding="async"><span><i>Visual</i>Daysart</span></a><a class="sct" href="#tools" tabindex="-1"><img src="img/t-sns.webp" alt="" loading="eager" decoding="async"><span><i>Tools</i>SNS Auto Posting</span></a></div></div><div class="srow r2"><div><a class="sct" href="#lp" tabindex="-1"><img src="img/daysart-pc.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>Daysart Classic</span></a><a class="sct" href="#tools" tabindex="-1"><img src="img/t-note.webp" alt="" loading="eager" decoding="async"><span><i>Tools</i>note Auto Publisher</span></a><a class="sct" href="#photo" tabindex="-1"><img src="img/pi-08.webp" alt="" loading="eager" decoding="async"><span><i>Visual</i>Product</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/top-pc.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>Sakuapp</span></a><a class="sct" href="#tools" tabindex="-1"><img src="img/t-board.webp" alt="" loading="eager" decoding="async"><span><i>Tools</i>Task Board</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/lp-juice.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>TOO JUICE</span></a><a class="sct" href="#saas" tabindex="-1"><img src="img/musou-pc.webp" alt="" loading="eager" decoding="async"><span><i>SaaS</i>MUSOU-EC</span></a><a class="sct" href="#photo" tabindex="-1"><img src="img/da-13.webp" alt="" loading="eager" decoding="async"><span><i>Visual</i>Daysart</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/daysart-pc.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>Daysart Classic</span></a><a class="sct" href="#tools" tabindex="-1"><img src="img/t-note.webp" alt="" loading="eager" decoding="async"><span><i>Tools</i>note Auto Publisher</span></a><a class="sct" href="#photo" tabindex="-1"><img src="img/pi-08.webp" alt="" loading="eager" decoding="async"><span><i>Visual</i>Product</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/top-pc.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>Sakuapp</span></a><a class="sct" href="#tools" tabindex="-1"><img src="img/t-board.webp" alt="" loading="eager" decoding="async"><span><i>Tools</i>Task Board</span></a><a class="sct" href="#lp" tabindex="-1"><img src="img/lp-juice.webp" alt="" loading="eager" decoding="async"><span><i>LP</i>TOO JUICE</span></a><a class="sct" href="#saas" tabindex="-1"><img src="img/musou-pc.webp" alt="" loading="eager" decoding="async"><span><i>SaaS</i>MUSOU-EC</span></a><a class="sct" href="#photo" tabindex="-1"><img src="img/da-13.webp" alt="" loading="eager" decoding="async"><span><i>Visual</i>Daysart</span></a></div></div></div>
+ <div class="w">
  <div class="av rv"><span><i></i><span class="ja">業務委託のご依頼 可</span><span class="en">Available for contract work</span></span><span><span class="ja">愛知県 名古屋</span><span class="en">Nagoya, Japan</span></span></div>
  <div class="stats rv">
   <div><b>¥20M+</b><small><span class="ja">EC運営で担当した累計売上</span><span class="en">Cumulative e-commerce sales managed</span></small></div>
@@ -292,6 +317,7 @@ body.lbo .fm{opacity:0;pointer-events:none}
 </div></section>
 
 <section id="work"><div class="w">
+ <div class="term rv wterm" aria-hidden="true"><div class="tb"><i></i><i></i><i></i><span>~/kazuya — claude</span></div><pre id="tm"></pre></div>
  <div class="sh rv"><h2><span class="ja">AIでつくれるもの</span><span class="en">What I build with AI</span></h2><p><span class="ja">4つの分野で、AIを使ってつくってきたものをご紹介します。</span><span class="en">Four areas where I build with AI.</span></p></div>
  <div class="ov">
    <a class="cc rv" href="#saas"><span class="cn">01</span><b><span class="ja">SaaS型アプリ開発</span><span class="en">SaaS application development</span></b><p><span class="ja">AIで設計〜実装を一気に進め、AIの機能そのものもプロダクトに組み込みます。</span><span class="en">I use AI to move from design to implementation fast, and build AI features into the products themselves.</span></p><span class="ct2">10 projects →</span></a>
