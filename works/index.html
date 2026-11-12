@@ -69,6 +69,17 @@ section{padding:140px 0}
 .td{font-size:13.5px;color:var(--ink2);font-weight:300}
 .tt{font:400 12px var(--en);color:var(--sub)}
 .ty{font:400 12px var(--en);color:var(--sub);text-align:right}
+/* tools grid */
+.tg2{display:grid;grid-template-columns:repeat(3,1fr);gap:64px 32px}
+.tk .im{display:block;overflow:hidden;background:#ecebe6;aspect-ratio:16/10}
+.tk .im img{height:100%;object-fit:cover;object-position:top;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.tk:hover .im img{transform:scale(1.03)}
+.tm{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px}
+.tm b{font:500 17px var(--en)}.tm span{font:400 12px var(--en);color:var(--sub)}
+.tk small{display:block;font-size:12.5px;color:var(--sub);margin-top:2px}
+.tk p{margin:12px 0 0;font-size:13.5px;color:var(--ink2);font-weight:300;line-height:1.9}
+.tk i{display:block;margin-top:12px;font:400 11.5px var(--en);font-style:normal;color:var(--sub);letter-spacing:.04em}
+.note{margin:64px 0 0;font-size:12px;color:var(--sub)}
 /* about */
 .ab{display:grid;grid-template-columns:1fr 1.4fr;gap:96px;align-items:start}
 .ph{aspect-ratio:4/5;background:#e7e5df;display:grid;place-items:center;color:var(--sub);font:400 12px var(--en);letter-spacing:.14em}
@@ -99,10 +110,11 @@ footer .w{display:flex;justify-content:space-between}
  .og{grid-template-columns:1fr 1fr;gap:40px 16px}
  .tls li{grid-template-columns:1fr auto;gap:6px 16px;padding:22px 0}
  .td{grid-column:1/-1}.tt{grid-column:1/-1}.ty{grid-row:1;grid-column:2}
+ .tg2{grid-template-columns:1fr 1fr;gap:48px 16px}
  .ab{grid-template-columns:1fr;gap:48px}.ph{max-width:320px}
  .ct{padding:120px 0 80px}
 }
-@media (max-width:560px){header nav a:nth-child(2),header nav a:nth-child(3){display:none}.oc small{flex-direction:column;gap:0}}
+@media (max-width:560px){.tg2{grid-template-columns:1fr}header nav a:nth-child(2),header nav a:nth-child(3){display:none}.oc small{flex-direction:column;gap:0}}
 </style>
 </head>
 <body>
@@ -191,19 +203,20 @@ footer .w{display:flex;justify-content:space-between}
 
 <section id="tools"><div class="w">
  <div class="sh rv"><h2>Tools &amp; Services</h2><span class="cnt">11</span></div>
- <ul class="tls">
-   <li class="rv"><span class="tn">Yuitto<small>PR案件マッチング</small></span><span class="td">お店とクリエイターをつなぐマッチングサービス</span><span class="tt">Next.js · Cloudflare · Supabase</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">MUSOU-EC<small>EC運営の支援</small></span><span class="td">楽天・Yahoo!・Amazon・Shopifyの運営をまとめて支える無料ツール</span><span class="tt">Next.js · IndexedDB · Gemini</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">Splicer<small>Shopify構築テンプレート</small></span><span class="td">ストアづくりを速くするテンプレートツール</span><span class="tt">JavaScript · Liquid</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">Mailer AI<small>問い合わせのAI対応</small></span><span class="td">複数モールの問い合わせを集約し、分類と返信の下書きまで</span><span class="tt">Next.js · Supabase · AI</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">サヤトリAI<small>トレンド通知</small></span><span class="td">伸びている商品ジャンルを見つけてLINEで通知</span><span class="tt">X API · Google Trends · LINE</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">EC CSV Sync<small>商品CSVのAI変換</small></span><span class="td">モールごとに違う商品CSVを自動変換するデスクトップアプリ</span><span class="tt">Electron · Gemini</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">Sales Pipeline<small>営業の自動化</small></span><span class="td">AIエージェントが調査・提案サンプル・営業メールを分業</span><span class="tt">Node.js · Claude Code · Gemini</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">Instant Concierge<small>ShopifyのAI相談</small></span><span class="td">ストア運営の相談に答えるShopifyアプリ</span><span class="tt">Shopify App · AI</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">Wishlist<small>Shopifyのお気に入り</small></span><span class="td">ストアにお気に入り機能を追加するアプリ</span><span class="tt">Shopify App</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">ToDo Optimizer<small>スケジュールAI</small></span><span class="td">タスクから優先順位と予定を組む秘書エージェント</span><span class="tt">Node.js · Gemini</span><span class="ty">2026</span></li>
-   <li class="rv"><span class="tn">B2B Ordering<small>受発注システム（受託）</small></span><span class="td">注文・見積もり・請求書PDF・入金確認をまとめて管理</span><span class="tt">Next.js · Supabase · PDF</span><span class="ty">2026</span></li>
- </ul>
+ <div class="tg2">
+   <article class="tk rv"><span class="im"><img src="img/t-yuitto.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Yuitto</b><span>2026</span></div><small>PR案件マッチング</small><p>お店とクリエイターをつなぐマッチングサービス</p><i>Next.js · Cloudflare · Supabase</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-musou.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>MUSOU-EC</b><span>2026</span></div><small>EC運営の支援</small><p>楽天・Yahoo!・Amazon・Shopifyの運営をまとめて支える無料ツール</p><i>Next.js · IndexedDB · Gemini</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-splicer.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Splicer</b><span>2026</span></div><small>Shopify構築テンプレート</small><p>ストアづくりを速くするテンプレートツール</p><i>JavaScript · Liquid</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-mailer.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Mailer AI</b><span>2026</span></div><small>問い合わせのAI対応</small><p>複数モールの問い合わせを集約し、分類と返信の下書きまで</p><i>Next.js · Supabase · AI</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-sayatori.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>サヤトリAI</b><span>2026</span></div><small>トレンド通知</small><p>伸びている商品ジャンルを見つけてLINEで通知</p><i>X API · Google Trends · LINE</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-csvsync.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>EC CSV Sync</b><span>2026</span></div><small>商品CSVのAI変換</small><p>モールごとに違う商品CSVを自動変換するデスクトップアプリ</p><i>Electron · Gemini</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-pipeline.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Sales Pipeline</b><span>2026</span></div><small>営業の自動化</small><p>AIエージェントが調査・提案サンプル・営業メールを分業</p><i>Node.js · Claude Code · Gemini</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-concierge.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Instant Concierge</b><span>2026</span></div><small>ShopifyのAI相談</small><p>ストア運営の相談に答えるShopifyアプリ</p><i>Shopify App · AI</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-wishlist.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Wishlist</b><span>2026</span></div><small>Shopifyのお気に入り</small><p>ストアにお気に入り機能を追加するアプリ</p><i>Shopify App</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-todo.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>ToDo Optimizer</b><span>2026</span></div><small>スケジュールAI</small><p>タスクから優先順位と予定を組む秘書エージェント</p><i>Node.js · Gemini</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-b2b.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>B2B Ordering</b><span>2026</span></div><small>受発注システム（受託）</small><p>注文・見積もり・請求書PDF・入金確認をまとめて管理</p><i>Next.js · Supabase · PDF</i></article>
+ </div>
+ <p class="note rv">※ 非公開・社内向けのツールは、画面の一部をイメージとして再現しています。</p>
 </div></section>
 
 <section id="about"><div class="w ab">
