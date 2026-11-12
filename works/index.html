@@ -257,7 +257,17 @@ body.lbo header{visibility:hidden}
 .htx>*{width:fit-content;max-width:100%}
 .fld{position:absolute;left:0;right:0;top:0;height:100svh;z-index:1;overflow:hidden}
 .fl{position:absolute;left:0;top:0;width:var(--w,200px);border:1px solid rgba(61,255,139,.18);border-radius:8px;overflow:hidden;background:#0c1210;box-shadow:0 18px 40px -18px rgba(0,0,0,.8);will-change:transform;opacity:0;transition:opacity 1.2s,border-color .3s,box-shadow .3s;touch-action:pan-y;-webkit-user-select:none;user-select:none}
-.fld.on .fl{opacity:1}
+.fl.bn{opacity:1;animation:born .9s cubic-bezier(.2,1.4,.4,1) both}
+.fl.far.bn{opacity:.42;animation-name:bornf}
+@keyframes born{0%{scale:.05;opacity:0;filter:brightness(4) saturate(0)}35%{opacity:1}55%{scale:1.12;filter:brightness(1.6) hue-rotate(60deg)}100%{scale:1;opacity:1;filter:none}}
+@keyframes bornf{0%{scale:.05;opacity:0}60%{scale:1.1;opacity:.6}100%{scale:1;opacity:.42}}
+.fl:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:repeating-linear-gradient(0deg,rgba(61,255,139,.55) 0 1px,transparent 1px 4px),linear-gradient(rgba(61,255,139,.35),rgba(61,255,139,.1));mix-blend-mode:screen}
+.fl.bn:after{animation:scan .9s steps(6) both}
+@keyframes scan{0%{opacity:1;clip-path:inset(0 0 0 0)}70%{opacity:.9;clip-path:inset(60% 0 0 0)}100%{opacity:0;clip-path:inset(100% 0 0 0)}}
+.fl.bn img{animation:rez .9s steps(5) both}
+@keyframes rez{0%{clip-path:inset(0 0 100% 0);filter:blur(6px) contrast(2)}60%{clip-path:inset(0 0 20% 0);filter:blur(2px)}100%{clip-path:inset(0);filter:none}}
+.fld .ping{position:absolute;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc);pointer-events:none;animation:ping .45s ease-out forwards}
+@keyframes ping{0%{transform:scale(.5);opacity:1}100%{transform:scale(6);opacity:0}}
 .fl img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
 .fl span{position:absolute;left:7px;bottom:7px;font:500 10.5px var(--mono);color:#e6f2ea;background:rgba(2,6,4,.8);border:1px solid rgba(61,255,139,.25);border-radius:999px;padding:3px 9px;white-space:nowrap;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
 .fl span i{font-style:normal;color:var(--acc);margin-right:5px}
@@ -613,8 +623,9 @@ function ori(e){if(e.gamma==null)return;if(!b0)b0={g:e.gamma,b:e.beta};b0.g+=(e.
 var gyOn=false;function gyro(){if(gyOn||red)return;var D=window.DeviceOrientationEvent;if(!D)return;if(typeof D.requestPermission==="function"){D.requestPermission().then(function(st){if(st==="granted"){gyOn=true;addEventListener("deviceorientation",ori)}}).catch(function(){})}else{gyOn=true;addEventListener("deviceorientation",ori)}}
 if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission!=="function")gyro();else H.addEventListener("touchend",gyro,{passive:true});
 new IntersectionObserver(function(es){run=es[0].isIntersecting}).observe(F);
-var rt,lw=innerWidth;addEventListener("resize",function(){if(innerWidth===lw)return;lw=innerWidth;clearTimeout(rt);rt=setTimeout(sizes,200)});
-function go(){sizes();F.classList.add("on");if(!red)requestAnimationFrame(step)}
+var rt,lw=innerWidth;addEventListener("resize",function(){if(innerWidth===lw)return;lw=innerWidth;clearTimeout(rt);rt=setTimeout(function(){sizes();P.forEach(function(p){p.e.classList.add("bn")})},200)});
+function birth(){var ord=P.slice().sort(function(){return Math.random()-.5});ord.forEach(function(p,i){var d=red?0:250+i*95+Math.random()*260;setTimeout(function(){if(!red){var g=document.createElement("i");g.className="ping";g.style.left=(p.x+p.w/2)+"px";g.style.top=(p.y+p.h/2)+"px";F.appendChild(g);setTimeout(function(){g.remove()},500)}p.e.classList.add("bn")},d)})}
+function go(){sizes();F.classList.add("on");birth();if(!red)requestAnimationFrame(step)}
 if(document.readyState==="complete")go();else addEventListener("load",go);
 })();
 </script>
