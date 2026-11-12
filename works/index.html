@@ -589,7 +589,7 @@ addEventListener("scroll",function(){requestAnimationFrame(pick)},{passive:true}
 function R01(i,k){var x=Math.sin(i*12.9898+k*78.233)*43758.5453;return x-Math.floor(x)}
 function sizes(){W=F.clientWidth;Hh=F.clientHeight;mob=W<700;P=[];F.querySelectorAll(".far").forEach(function(e){e.remove()});
  var near=src.filter(function(e){return getComputedStyle(e).display!=="none"});
- near.forEach(function(e,i){var r=parseFloat(e.dataset.r),base=mob?(r>1.2?96:(r>.85?74:62)):(r>1.2?Math.min(190,W*.13):Math.min(116,W*.08));base*=0.78+R01(i,1)*.4;e.style.setProperty("--w",base+"px");P.push({e:e,w:base,h:base/r,far:0,ph:R01(i,2)*6.28,sp:.5+R01(i,3)*.5,rot:R01(i,4)*12-6})});
+ near.forEach(function(e,i){var r=parseFloat(e.dataset.r),base=mob?(r>1.2?86:(r>.85?68:58)):(r>1.2?Math.min(190,W*.13):Math.min(116,W*.08));base*=0.78+R01(i,1)*.4;e.style.setProperty("--w",base+"px");P.push({e:e,w:base,h:base/r,far:0,ph:R01(i,2)*6.28,sp:.5+R01(i,3)*.5,rot:R01(i,4)*12-6})});
  var pool=near.filter(function(e){return !/pw-|da-|daysart|lp-lotion|t-mailer|musou|t-concierge/.test(e.innerHTML)});var nf=mob?10:14;for(var k=0;k<nf;k++){var o=pool[(k*5+3)%pool.length],c=o.cloneNode(true),r=parseFloat(o.dataset.r);c.classList.add("far");c.classList.remove("m","m2");c.setAttribute("tabindex","-1");c.setAttribute("aria-hidden","true");c.removeAttribute("href");var base=(mob?(r>1.2?44:30):(r>1.2?84:56))*(0.75+R01(k,5)*.6);c.style.setProperty("--w",base+"px");F.insertBefore(c,F.firstChild);P.push({e:c,w:base,h:base/r,far:1,ph:R01(k,6)*6.28,sp:.35+R01(k,7)*.4,rot:R01(k,8)*16-8})}
  place()}
 function txtRect(){var b=F.getBoundingClientRect(),out=[],pd=mob?8:16;function add(r){if(r.width>0)out.push({l:r.left-b.left-pd,t:r.top-b.top-pd,r:r.right-b.left+pd,b:r.bottom-b.top+pd})}
@@ -598,9 +598,9 @@ function txtRect(){var b=F.getBoundingClientRect(),out=[],pd=mob?8:16;function a
 function hit(R,x,y,w,h){for(var i=0;i<R.length;i++){var r=R[i];if(x+w>r.l&&x<r.r&&y+h>r.t&&y<r.b)return r}return null}
 function place(){var R=txtRect(),nr=P.filter(function(p){return !p.far}),fr=P.filter(function(p){return p.far});
  var g={d:[],l:[],m:[]};nr.forEach(function(p){g[p.e.dataset.t||"m"].push(p)});var ord=[],ks=["l","d","m"];while(g.d.length+g.l.length+g.m.length){ks.forEach(function(k){if(g[k].length)ord.push(g[k].shift())})}
- var cols=mob?4:7,top=TOP,cw=W/cols,rows=Math.max(1,Math.round((Hh-top)/(mob?96:150))),ch=(Hh-top)/rows,cells=[];
+ var cols=mob?4:7,top=TOP,cw=W/cols,rows=Math.max(1,Math.round((Hh-top)/(mob?104:150))),ch=(Hh-top)/rows,cells=[];
  for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){var cc=r%2?cols-1-c:c,x=cc*cw,y=top+r*ch;if(hit(R,x+cw*.25,y+ch*.25,cw*.5,ch*.5))continue;cells.push({x:x,y:y})}
- ord.forEach(function(p,i){var c=cells[i%cells.length];p.x=c.x+(cw-p.w)*(.2+Math.random()*.6);p.y=c.y+(ch-p.h)*(.2+Math.random()*.6)+(i>=cells.length?ch*.5:0);p.vx=(Math.random()-.5)*.3;p.vy=(Math.random()-.5)*.3});
+ var used=[];ord.forEach(function(p,i){var ok=false;for(var tr=0;tr<cells.length*3&&!ok;tr++){var c=cells[(i+tr)%cells.length];if(tr<cells.length&&used.indexOf(c)>=0)continue;for(var a=0;a<4&&!ok;a++){var x=c.x+(cw-p.w)*(.15+Math.random()*.7),y=c.y+(ch-p.h)*(.15+Math.random()*.7);if(y>=TOP&&!hit(R,x,y,p.w,p.h)){p.x=x;p.y=y;ok=true;used.push(c)}}}if(!ok){p.x=Math.random()*(W-p.w);p.y=Hh-p.h-Math.random()*Hh*.3}p.hx=p.x;p.hy=p.y;p.vx=(Math.random()-.5)*.3;p.vy=(Math.random()-.5)*.3});
  fr.forEach(function(p){p.x=Math.random()*(W-p.w*.6)-p.w*.2;p.y=TOP+Math.random()*(Hh-p.h-TOP);p.vx=(Math.random()-.5)*.3;p.vy=(Math.random()-.5)*.3});draw(0)}
 function draw(t){P.forEach(function(p){var by=Math.sin(t*.9*p.sp+p.ph)*(p.far?9:6),bx=Math.cos(t*.6*p.sp+p.ph)*(p.far?6:3),br=Math.sin(t*.5*p.sp+p.ph)*2.2;var dz=p.far?-12:22;p.e.style.transform="translate3d("+(p.x+bx+sx0*dz).toFixed(1)+"px,"+(p.y+by+sy0*dz).toFixed(1)+"px,0) rotate("+(p.rot+br).toFixed(2)+"deg)"})}
 function step(now){if(!run){requestAnimationFrame(step);return}var t=(now-t0)/1000,R=txtRect();gx+=(tgx-gx)*.08;gy+=(tgy-gy)*.08;sx0+=(gx-sx0)*.1;sy0+=(gy-sy0)*.1;
@@ -609,9 +609,9 @@ P.forEach(function(p,i){
  var cx=p.x+p.w/2,cy=p.y+p.h/2,dx=cx-px,dy=cy-py,d=Math.sqrt(dx*dx+dy*dy),rr=Math.max(p.w,p.h)*.5+(p.far?70:100);
  if(d<rr&&d>0){var f=(rr-d)/rr*(p.far?.35:.6);p.vx+=dx/d*f;p.vy+=dy/d*f;if(!p.far)p.e.classList.add("near")}else if(!p.far)p.e.classList.remove("near");
  if(!p.far){
-  var o=hit(R,p.x,p.y,p.w,p.h);if(o){var pl=p.x+p.w-o.l,pr=o.r-p.x,pt=p.y+p.h-o.t,pb=o.b-p.y,m=Math.min(pl,pr,pt,pb),k=.22;if(m===pl)p.vx-=k;else if(m===pr)p.vx+=k;else if(m===pt&&p.y>TOP+20)p.vy-=k;else p.vy+=k}
-  for(var j=i+1;j<P.length;j++){var q=P[j];if(q.far)continue;var ox=(p.w+q.w)/2-Math.abs(cx-(q.x+q.w/2)),oy=(p.h+q.h)/2-Math.abs(cy-(q.y+q.h/2));if(ox>0&&oy>0){var sx=cx<q.x+q.w/2?-1:1,sy=cy<q.y+q.h/2?-1:1;if(ox<oy){p.vx+=sx*.03;q.vx-=sx*.03}else{p.vy+=sy*.03;q.vy-=sy*.03}}}}
- if(p.x<-p.w*.3)p.vx+=.03;if(p.x>W-p.w*.7)p.vx-=.03;if(p.y<TOP)p.vy+=.05+(TOP-p.y)*.01;if(p.y>Hh-p.h*.9)p.vy-=.03;
+  var o=hit(R,p.x,p.y,p.w,p.h);if(o){var pl=p.x+p.w-o.l,pr=o.r-p.x,pt=p.y+p.h-o.t,pb=o.b-p.y,cand=[[pl,-1,0],[pr,1,0],[pt,0,-1],[pb,0,1]].filter(function(c){return !(c[2]<0&&p.y-c[0]<TOP)}).sort(function(a,b){return a[0]-b[0]})[0],mv=Math.min(cand[0],1.5);p.x+=cand[1]*mv;p.y+=cand[2]*mv;p.hx+=cand[1]*mv;p.hy+=cand[2]*mv;if(cand[1]&&p.vx*cand[1]<0)p.vx*=.3;if(cand[2]&&p.vy*cand[2]<0)p.vy*=.3}
+  for(var j=i+1;j<P.length;j++){var q=P[j];if(q.far)continue;var ox=(p.w+q.w)/2-Math.abs(cx-(q.x+q.w/2)),oy=(p.h+q.h)/2-Math.abs(cy-(q.y+q.h/2));if(ox>0&&oy>0){var sx=cx<q.x+q.w/2?-1:1,sy=cy<q.y+q.h/2?-1:1;if(ox<oy){var m2=Math.min(ox,1.4)*.5;p.x+=sx*m2;q.x-=sx*m2;p.hx+=sx*m2*.5;q.hx-=sx*m2*.5}else{var m3=Math.min(oy,1.4)*.5;p.y+=sy*m3;q.y-=sy*m3;p.hy+=sy*m3*.5;q.hy-=sy*m3*.5}}}}
+ if(p.x<-p.w*.3)p.vx+=.03;if(p.x>W-p.w*.7)p.vx-=.03;if(p.y<TOP){p.y+=Math.min(TOP-p.y,1.5);if(p.vy<0)p.vy*=.3;if(!p.far&&p.hy<TOP)p.hy=TOP}if(p.y>Hh-p.h*.9)p.vy-=.03;
  p.vx*=.985;p.vy*=.985;var sp=Math.sqrt(p.vx*p.vx+p.vy*p.vy),mx=p.far?1.6:2.6;if(sp>mx){p.vx*=mx/sp;p.vy*=mx/sp}
  p.x+=p.vx;p.y+=p.vy;p.rot+=p.vx*.03;p.rot*=.998});
 draw(t);requestAnimationFrame(step)}
