@@ -50,8 +50,8 @@ header nav{display:flex;gap:30px;font-size:11.5px;color:var(--ink2)}
 .hero .cta{margin-top:44px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;opacity:0;transition:opacity 1.4s .9s}
 .hero .cta small{font-size:11.5px;color:var(--sub)}
 .bwrap{position:relative;display:flex;justify-content:center}
-.bwrap svg{filter:drop-shadow(0 50px 40px rgba(80,100,160,.22));animation:fl 7s ease-in-out infinite;opacity:0;transform:translateY(40px);transition:opacity 1.6s .3s,transform 1.6s .3s}
-.on .bwrap svg{opacity:1;transform:none}
+.bwrap .btl{height:min(66vh,520px);width:auto;filter:drop-shadow(0 50px 40px rgba(80,100,160,.22));animation:fl 7s ease-in-out infinite;opacity:0;transform:translateY(40px);transition:opacity 1.6s .3s,transform 1.6s .3s}
+.on .bwrap .btl{opacity:1;transform:none}
 @keyframes fl{50%{translate:0 -14px}}
 .tags{position:absolute;inset:0}
 .tags span{position:absolute;font-size:11px;letter-spacing:.14em;color:var(--ink2);background:rgba(255,255,255,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.9);border-radius:99px;padding:7px 16px;box-shadow:0 10px 30px -18px rgba(60,80,140,.4)}
@@ -142,14 +142,14 @@ footer .logo{font-size:16px;color:var(--ink);margin-bottom:6px}
 .fb{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);transition:transform .6s cubic-bezier(.19,1,.22,1);z-index:40}
 .fb.on{transform:translate(-50%,0)}
 .fb .btn{white-space:nowrap;box-shadow:0 18px 40px -16px rgba(42,50,67,.6)}
-@media (prefers-reduced-motion:reduce){*{animation:none!important}.rv,.hero h1 span b,.hero p.lead,.hero .cta,.bwrap svg{opacity:1!important;transform:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.rv,.hero h1 span b,.hero p.lead,.hero .cta,.bwrap .btl{opacity:1!important;transform:none!important;transition:none!important}}
 @media (max-width:860px){
  .sample{left:auto;right:14px;top:22px;bottom:auto;padding:4px 10px}.sample span{display:none}
  .hero h1{font-size:clamp(24px,7.4vw,32px);letter-spacing:.1em}.hero h1 span b{white-space:nowrap}
  .w{padding:0 24px}header{top:28px}header .w{padding:0 24px}header nav{display:none}
  .hero .w{grid-template-columns:1fr;text-align:center;padding-top:100px;padding-bottom:70px}
  .hero p.lead{margin-left:auto;margin-right:auto}.hero .cta{justify-content:center}
- .bwrap{order:-1;margin-bottom:10px}.bwrap svg{width:150px;height:auto}
+ .bwrap{order:-1;margin-bottom:10px}.bwrap .btl{height:300px;width:auto}
  .tags span{font-size:10px;padding:5px 11px}.tags span:nth-child(1){left:2%}.tags span:nth-child(2){right:2%}
  .ripple{right:50%;top:30%;width:340px;height:340px;margin:-170px -170px 0 0}
  section{padding:110px 0}.sh{margin-bottom:50px}
@@ -232,22 +232,7 @@ footer .logo{font-size:16px;color:var(--ink);margin-bottom:6px}
   </div>
   <div class="bwrap par" id="bw" aria-hidden="true">
    <div class="tags par" id="tg"><span>CERAMIDE</span><span>CICA</span><span>8 FREE</span></div>
-   <svg width="190" height="470" viewBox="0 0 190 470">
-    <defs>
-     <linearGradient id="bt" x1="0" x2="1"><stop offset="0" stop-color="#dfe6f2"/><stop offset=".3" stop-color="#fff"/><stop offset=".6" stop-color="#f6f8fc"/><stop offset="1" stop-color="#cfd8ea"/></linearGradient>
-     <linearGradient id="cp" x1="0" x2="1"><stop offset="0" stop-color="#c9d2e4"/><stop offset=".45" stop-color="#fff"/><stop offset="1" stop-color="#b8c3da"/></linearGradient>
-     <linearGradient id="lq" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#cfe3f5" stop-opacity=".0"/><stop offset="1" stop-color="#b9c4ef" stop-opacity=".45"/></linearGradient>
-    </defs>
-    <rect x="62" y="0" width="66" height="96" rx="8" fill="url(#cp)"/>
-    <rect x="70" y="92" width="50" height="16" fill="#e6ebf4"/>
-    <path d="M40 108h110c10 0 18 8 18 18v322c0 12-10 22-22 22H44c-12 0-22-10-22-22V126c0-10 8-18 18-18z" fill="url(#bt)"/>
-    <path d="M24 260h142v186c0 12-10 22-22 22H46c-12 0-22-10-22-22z" fill="url(#lq)"/>
-    <rect x="38" y="130" width="8" height="310" rx="4" fill="#fff" opacity=".9"/>
-    <text x="95" y="236" text-anchor="middle" font-family="Jost,sans-serif" font-weight="300" font-size="19" letter-spacing="8" fill="#2a3243">SORAE</text>
-    <line x1="72" y1="252" x2="118" y2="252" stroke="#2a3243" stroke-width=".6"/>
-    <text x="95" y="274" text-anchor="middle" font-family="Jost,sans-serif" font-weight="300" font-size="9.5" letter-spacing="3" fill="#6b7488">CERAMIDE LOTION</text>
-    <text x="95" y="420" text-anchor="middle" font-family="Jost,sans-serif" font-weight="300" font-size="9" letter-spacing="2" fill="#6b7488">150 mL</text>
-   </svg>
+   <img class="btl" src="bottle.webp" width="363" height="1205" alt="SORAE セラミドローション 150mL">
   </div>
  </div>
 </section>
