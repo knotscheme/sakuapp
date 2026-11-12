@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex"><!-- プロフィールを入れたら外す -->
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Portfolio</title>
+<title>Kazuya Shirakawa — Portfolio</title>
 <meta name="description" content="Claude Codeを使って作ってきた、Webサービス・アプリ・ツールのポートフォリオ。">
-<meta property="og:title" content="Portfolio">
+<meta property="og:title" content="Kazuya Shirakawa — Portfolio">
 <meta property="og:image" content="https://knotscheme.github.io/sakuapp/works/img/spider-pc.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,11 +20,14 @@ a{color:inherit;text-decoration:none}
 img{display:block;width:100%;height:auto}
 .w{max-width:1240px;margin:0 auto;padding:0 56px}
 .lbl{font:500 12px var(--en);letter-spacing:.18em;text-transform:uppercase;color:var(--sub);margin:0}
+html.en .ja{display:none}html:not(.en) .en{display:none}
+.lg{border:0;background:none;color:inherit;font:400 12px var(--en);letter-spacing:.08em;cursor:pointer;padding:4px 0;opacity:.9}
+.lg b{font-weight:400;opacity:.45}html:not(.en) .lg b[data-l=ja],html.en .lg b[data-l=en]{opacity:1;font-weight:600}
 /* header */
 header{position:fixed;inset:0 0 auto;z-index:20;mix-blend-mode:difference;color:#fff}
 header .w{display:flex;align-items:center;height:84px}
 header .nm{font:500 15px var(--en);letter-spacing:.06em}
-header nav{margin-left:auto;display:flex;gap:36px;font:400 13px var(--en);letter-spacing:.08em}
+header nav{margin-left:auto;display:flex;align-items:center;gap:36px;font:400 13px var(--en);letter-spacing:.08em}
 /* hero */
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:140px 0 72px}
 .hero h1{font:300 clamp(40px,7.2vw,104px)/1.12 var(--en);letter-spacing:-.02em;margin:28px 0 0}
@@ -114,73 +117,73 @@ footer .w{display:flex;justify-content:space-between}
  .ab{grid-template-columns:1fr;gap:48px}.ph{max-width:320px}
  .ct{padding:120px 0 80px}
 }
-@media (max-width:560px){.tg2{grid-template-columns:1fr}header nav a:nth-child(2),header nav a:nth-child(3){display:none}.oc small{flex-direction:column;gap:0}}
+@media (max-width:560px){header nav{gap:16px}.tg2{grid-template-columns:1fr}header nav a:nth-child(2),header nav a:nth-child(3){display:none}.oc small{flex-direction:column;gap:0}}
 </style>
 </head>
 <body>
-<header><div class="w"><a class="nm" href="#top" data-p="name">Portfolio</a><nav><a href="#works">Works</a><a href="#tools">Tools</a><a href="#about">About</a><a href="#contact">Contact</a></nav></div></header>
+<header><div class="w"><a class="nm" href="#top" >Kazuya Shirakawa</a><nav><a href="#works">Works</a><a href="#tools">Tools</a><a href="#about">About</a><a href="#contact">Contact</a><button type="button" class="lg" id="lg" aria-label="Switch language"><b data-l="ja">JA</b> / <b data-l="en">EN</b></button></nav></div></header>
 
 <main id="top">
 <section class="hero"><div class="w">
  <p class="lbl rv">Portfolio — 2026</p>
  <h1 class="rv">Ideas into<br>working products,<br><span>with Claude Code.</span></h1>
- <p class="jp rv">Claude Codeを相棒に、Webサービス・アプリ・仕事を自動化するツールを作っています。アイデアを、触れるかたちにするまでが早いのが強みです。</p>
+ <p class="jp rv"><span class="ja">Claude Codeを相棒に、Webサービス・アプリ・仕事を自動化するツールを作っています。アイデアを、触れるかたちにするまでが早いのが強みです。</span><span class="en">I build web services, apps and automation tools with Claude Code as my partner. My strength is how quickly I turn an idea into something you can actually use.</span></p>
  <div class="bt rv"><span><b>24</b> Projects</span><span>Scroll ↓</span></div>
 </div></section>
 
 <section id="works"><div class="w">
  <div class="sh rv"><h2>Selected Works</h2><span class="cnt">05</span></div>
   <article class="sw rv">
-   <a class="pic" href="https://spider-ec.com/" target="_blank" rel="noopener" aria-label="Spiderを開く"><img src="img/spider-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
+   <a class="pic" href="https://spider-ec.com/" target="_blank" rel="noopener" aria-label="Open Spider"><img src="img/spider-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
    <div class="tx">
     <p class="no">01</p>
     <h3>Spider</h3>
-    <p class="sub">オンラインストアプラットフォーム</p>
-    <p class="d">作品を並べるだけで、そのままオンラインストアに。初心者でもその日のうちにネットショップを開けるサービス。決済、お店ごとの管理画面、あとから機能を足せる拡張の仕組みまで設計しました。</p>
+    <p class="sub"><span class="ja">オンラインストアプラットフォーム</span><span class="en">Online store platform</span></p>
+    <p class="d"><span class="ja">作品を並べるだけで、そのままオンラインストアに。初心者でもその日のうちにネットショップを開けるサービス。決済、お店ごとの管理画面、あとから機能を足せる拡張の仕組みまで設計しました。</span><span class="en">Just line up your products and it becomes an online store. A service that lets beginners open a shop on day one — I designed everything from payments and per-shop dashboards to an extension system for adding features later.</span></p>
     <dl><dt>Category</dt><dd>Web Service / EC</dd><dt>Year</dt><dd>2026</dd><dt>Stack</dt><dd>Next.js · PostgreSQL · Stripe Connect</dd></dl>
     <a class="go" href="https://spider-ec.com/" target="_blank" rel="noopener">Visit site <span>→</span></a>
    </div>
   </article>
   <article class="sw rv">
-   <a class="pic" href="https://zubapp.kazuyascheme.workers.dev/" target="_blank" rel="noopener" aria-label="ZUBAPPを開く"><img src="img/zubapp-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
+   <a class="pic" href="https://zubapp.kazuyascheme.workers.dev/" target="_blank" rel="noopener" aria-label="Open ZUBAPP"><img src="img/zubapp-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
    <div class="tx">
     <p class="no">02</p>
     <h3>ZUBAPP</h3>
-    <p class="sub">話すだけで、アプリができる</p>
-    <p class="d">作りたいものをひとこと伝えると、AIが数十秒でゲームやミニアプリにして公開できるサービス。作ったアプリを遊べるストアつき。固定費0円で動く構成です。</p>
+    <p class="sub"><span class="ja">話すだけで、アプリができる</span><span class="en">Just say it, and it becomes an app</span></p>
+    <p class="d"><span class="ja">作りたいものをひとこと伝えると、AIが数十秒でゲームやミニアプリにして公開できるサービス。作ったアプリを遊べるストアつき。固定費0円で動く構成です。</span><span class="en">Describe what you want in a sentence, and AI turns it into a game or mini app within seconds, ready to publish. Includes a store to play apps others made, built to run at zero fixed cost.</span></p>
     <dl><dt>Category</dt><dd>Web Service / AI</dd><dt>Year</dt><dd>2026</dd><dt>Stack</dt><dd>React · Hono · Cloudflare Workers · Supabase</dd></dl>
     <a class="go" href="https://zubapp.kazuyascheme.workers.dev/" target="_blank" rel="noopener">Visit site <span>→</span></a>
    </div>
   </article>
   <article class="sw rv">
-   <a class="pic" href="../menu/demo/" target="_blank" rel="noopener" aria-label="Mobile Menuを開く"><img src="img/demo-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
+   <a class="pic" href="../menu/demo/" target="_blank" rel="noopener" aria-label="Open Mobile Menu"><img src="img/demo-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
    <div class="tx">
     <p class="no">03</p>
     <h3>Mobile Menu</h3>
-    <p class="sub">個人の飲食店のためのQR注文</p>
-    <p class="d">テーブルのQRから、お客様のスマホで注文。お客様の画面とお店の管理画面を、実際に操作できるデモまで作りました。</p>
+    <p class="sub"><span class="ja">個人の飲食店のためのQR注文</span><span class="en">QR ordering for independent restaurants</span></p>
+    <p class="d"><span class="ja">テーブルのQRから、お客様のスマホで注文。お客様の画面とお店の管理画面を、実際に操作できるデモまで作りました。</span><span class="en">Guests scan a table QR code and order from their own phone. I built a working demo of both the guest screen and the restaurant dashboard.</span></p>
     <dl><dt>Category</dt><dd>Web App / Restaurant</dd><dt>Year</dt><dd>2026</dd><dt>Stack</dt><dd>HTML · CSS · JavaScript</dd></dl>
     <a class="go" href="../menu/demo/" target="_blank" rel="noopener">View <span>→</span></a>
    </div>
   </article>
   <article class="sw rv">
-   <a class="pic" href="../templates/" target="_blank" rel="noopener" aria-label="App Templatesを開く"><img src="img/tpl-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
+   <a class="pic" href="../templates/" target="_blank" rel="noopener" aria-label="Open App Templates"><img src="img/tpl-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
    <div class="tx">
     <p class="no">04</p>
     <h3>App Templates</h3>
-    <p class="sub">触れるアプリの見本 12種</p>
-    <p class="d">予約・レッスン・回数券・ネットショップ・マッチング・SNS。アニメーションではなく、本物のアプリと同じように操作できる見本です。</p>
+    <p class="sub"><span class="ja">触れるアプリの見本 12種</span><span class="en">12 interactive app templates</span></p>
+    <p class="d"><span class="ja">予約・レッスン・回数券・ネットショップ・マッチング・SNS。アニメーションではなく、本物のアプリと同じように操作できる見本です。</span><span class="en">Booking, lessons, ticket books, online shops, matching, social. Not animations — templates you can actually operate like a real app.</span></p>
     <dl><dt>Category</dt><dd>Web App / Prototype</dd><dt>Year</dt><dd>2026</dd><dt>Stack</dt><dd>JavaScript · Interaction</dd></dl>
     <a class="go" href="../templates/" target="_blank" rel="noopener">View <span>→</span></a>
    </div>
   </article>
   <article class="sw rv">
-   <a class="pic" href="../menu/mx27/?shop=%E9%A3%9F%E5%A0%82%20%E3%81%A8%E3%82%82%E3%81%97%E3%81%B3" target="_blank" rel="noopener" aria-label="Proposal Deckを開く"><img src="img/deck-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
+   <a class="pic" href="../menu/mx27/?shop=%E9%A3%9F%E5%A0%82%20%E3%81%A8%E3%82%82%E3%81%97%E3%81%B3" target="_blank" rel="noopener" aria-label="Open Proposal Deck"><img src="img/deck-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
    <div class="tx">
     <p class="no">05</p>
     <h3>Proposal Deck</h3>
-    <p class="sub">お店ごとに変わる提案資料</p>
-    <p class="d">店名や注文回数を入れると、試算・グラフ・見積もりが自動で変わる提案書。スマホでは縦スワイプで横にページが送られます。</p>
+    <p class="sub"><span class="ja">お店ごとに変わる提案資料</span><span class="en">A proposal deck that adapts to each shop</span></p>
+    <p class="d"><span class="ja">店名や注文回数を入れると、試算・グラフ・見積もりが自動で変わる提案書。スマホでは縦スワイプで横にページが送られます。</span><span class="en">Enter a shop name and order volume, and the estimates, charts and quote update automatically. On phones, a vertical swipe turns pages sideways.</span></p>
     <dl><dt>Category</dt><dd>Tool / Sales</dd><dt>Year</dt><dd>2026</dd><dt>Stack</dt><dd>JavaScript · SVG Chart · Print</dd></dl>
     <a class="go" href="../menu/mx27/?shop=%E9%A3%9F%E5%A0%82%20%E3%81%A8%E3%82%82%E3%81%97%E3%81%B3" target="_blank" rel="noopener">View <span>→</span></a>
    </div>
@@ -190,41 +193,41 @@ footer .w{display:flex;justify-content:space-between}
 <section style="padding-top:0"><div class="w">
  <div class="sh rv"><h2>More Works</h2><span class="cnt">08</span></div>
  <div class="og">
-   <a class="oc rv" href="../" target="_blank" rel="noopener"><span class="im"><img src="img/top-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>サクアプ</b><small>オーダーメイド開発のLP<i>LP</i></small></a>
-   <a class="oc rv" href="../salon/" target="_blank" rel="noopener"><span class="im"><img src="img/salon-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Salon Booking</b><small>サロン予約のLP<i>LP</i></small></a>
-   <a class="oc rv" href="../line/" target="_blank" rel="noopener"><span class="im"><img src="img/line-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>LINE Mini App</b><small>LINEミニアプリのLP<i>LP</i></small></a>
-   <a class="oc rv" href="../start/?s=menu" target="_blank" rel="noopener"><span class="im"><img src="img/start-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Billing Flow</b><small>申し込みと月額課金<i>Stripe · Automation</i></small></a>
-   <a class="oc rv" href="../contact/?from=works" target="_blank" rel="noopener"><span class="im"><img src="img/contact-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Contact to LINE</b><small>LINEに届く相談フォーム<i>Form</i></small></a>
-   <a class="oc rv" href="../guide/" target="_blank" rel="noopener"><span class="im"><img src="img/guide-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Service Guide</b><small>サービス資料<i>Document</i></small></a>
-   <a class="oc rv" href="../menu/mx27/flyer.html" target="_blank" rel="noopener"><span class="im"><img src="img/flyer-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Flyer</b><small>A4チラシ<i>Print</i></small></a>
-   <a class="oc rv" href="../roadmap/" target="_blank" rel="noopener"><span class="im"><img src="img/roadmap-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Roadmap</b><small>アプリ副業ロードマップ<i>Article</i></small></a>
+   <a class="oc rv" href="../" target="_blank" rel="noopener"><span class="im"><img src="img/top-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Sakuapp</b><small><span><span class="ja">オーダーメイド開発のLP</span><span class="en">Landing page for custom app development</span></span><i>LP</i></small></a>
+   <a class="oc rv" href="../salon/" target="_blank" rel="noopener"><span class="im"><img src="img/salon-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Salon Booking</b><small><span><span class="ja">サロン予約のLP</span><span class="en">Landing page for salon booking</span></span><i>LP</i></small></a>
+   <a class="oc rv" href="../line/" target="_blank" rel="noopener"><span class="im"><img src="img/line-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>LINE Mini App</b><small><span><span class="ja">LINEミニアプリのLP</span><span class="en">Landing page for LINE mini apps</span></span><i>LP</i></small></a>
+   <a class="oc rv" href="../start/?s=menu" target="_blank" rel="noopener"><span class="im"><img src="img/start-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Billing Flow</b><small><span><span class="ja">申し込みと月額課金</span><span class="en">Sign-up and subscription billing</span></span><i>Stripe · Automation</i></small></a>
+   <a class="oc rv" href="../contact/?from=works" target="_blank" rel="noopener"><span class="im"><img src="img/contact-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Contact to LINE</b><small><span><span class="ja">LINEに届く相談フォーム</span><span class="en">Contact form that sends to LINE</span></span><i>Form</i></small></a>
+   <a class="oc rv" href="../guide/" target="_blank" rel="noopener"><span class="im"><img src="img/guide-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Service Guide</b><small><span><span class="ja">サービス資料</span><span class="en">Service guide</span></span><i>Document</i></small></a>
+   <a class="oc rv" href="../menu/mx27/flyer.html" target="_blank" rel="noopener"><span class="im"><img src="img/flyer-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Flyer</b><small><span><span class="ja">A4チラシ</span><span class="en">A4 flyer</span></span><i>Print</i></small></a>
+   <a class="oc rv" href="../roadmap/" target="_blank" rel="noopener"><span class="im"><img src="img/roadmap-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Roadmap</b><small><span><span class="ja">アプリ副業ロードマップ</span><span class="en">Roadmap for an app side business</span></span><i>Article</i></small></a>
  </div>
 </div></section>
 
 <section id="tools"><div class="w">
  <div class="sh rv"><h2>Tools &amp; Services</h2><span class="cnt">11</span></div>
  <div class="tg2">
-   <article class="tk rv"><span class="im"><img src="img/t-yuitto.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Yuitto</b><span>2026</span></div><small>PR案件マッチング</small><p>お店とクリエイターをつなぐマッチングサービス</p><i>Next.js · Cloudflare · Supabase</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-musou.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>MUSOU-EC</b><span>2026</span></div><small>EC運営の支援</small><p>楽天・Yahoo!・Amazon・Shopifyの運営をまとめて支える無料ツール</p><i>Next.js · IndexedDB · Gemini</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-splicer.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Splicer</b><span>2026</span></div><small>Shopify構築テンプレート</small><p>ストアづくりを速くするテンプレートツール</p><i>JavaScript · Liquid</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-mailer.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Mailer AI</b><span>2026</span></div><small>問い合わせのAI対応</small><p>複数モールの問い合わせを集約し、分類と返信の下書きまで</p><i>Next.js · Supabase · AI</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-sayatori.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>サヤトリAI</b><span>2026</span></div><small>トレンド通知</small><p>伸びている商品ジャンルを見つけてLINEで通知</p><i>X API · Google Trends · LINE</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-csvsync.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>EC CSV Sync</b><span>2026</span></div><small>商品CSVのAI変換</small><p>モールごとに違う商品CSVを自動変換するデスクトップアプリ</p><i>Electron · Gemini</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-pipeline.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Sales Pipeline</b><span>2026</span></div><small>営業の自動化</small><p>AIエージェントが調査・提案サンプル・営業メールを分業</p><i>Node.js · Claude Code · Gemini</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-concierge.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Instant Concierge</b><span>2026</span></div><small>ShopifyのAI相談</small><p>ストア運営の相談に答えるShopifyアプリ</p><i>Shopify App · AI</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-wishlist.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Wishlist</b><span>2026</span></div><small>Shopifyのお気に入り</small><p>ストアにお気に入り機能を追加するアプリ</p><i>Shopify App</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-todo.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>ToDo Optimizer</b><span>2026</span></div><small>スケジュールAI</small><p>タスクから優先順位と予定を組む秘書エージェント</p><i>Node.js · Gemini</i></article>
-   <article class="tk rv"><span class="im"><img src="img/t-b2b.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>B2B Ordering</b><span>2026</span></div><small>受発注システム（受託）</small><p>注文・見積もり・請求書PDF・入金確認をまとめて管理</p><i>Next.js · Supabase · PDF</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-yuitto.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Yuitto</b><span>2026</span></div><small><span class="ja">PR案件マッチング</span><span class="en">PR campaign matching</span></small><p><span class="ja">お店とクリエイターをつなぐマッチングサービス</span><span class="en">A matching service connecting shops with creators</span></p><i>Next.js · Cloudflare · Supabase</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-musou.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>MUSOU-EC</b><span>2026</span></div><small><span class="ja">EC運営の支援</span><span class="en">E-commerce operations</span></small><p><span class="ja">楽天・Yahoo!・Amazon・Shopifyの運営をまとめて支える無料ツール</span><span class="en">A free tool that supports selling on Rakuten, Yahoo!, Amazon and Shopify in one place</span></p><i>Next.js · IndexedDB · Gemini</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-splicer.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Splicer</b><span>2026</span></div><small><span class="ja">Shopify構築テンプレート</span><span class="en">Shopify templates</span></small><p><span class="ja">ストアづくりを速くするテンプレートツール</span><span class="en">A template tool that speeds up building Shopify stores</span></p><i>JavaScript · Liquid</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-mailer.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Mailer AI</b><span>2026</span></div><small><span class="ja">問い合わせのAI対応</span><span class="en">AI customer support</span></small><p><span class="ja">複数モールの問い合わせを集約し、分類と返信の下書きまで</span><span class="en">Collects inquiries from multiple marketplaces, sorts them and drafts replies</span></p><i>Next.js · Supabase · AI</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-sayatori.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Sayatori AI</b><span>2026</span></div><small><span class="ja">トレンド通知</span><span class="en">Trend alerts</span></small><p><span class="ja">伸びている商品ジャンルを見つけてLINEで通知</span><span class="en">Finds rising product categories and notifies you on LINE</span></p><i>X API · Google Trends · LINE</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-csvsync.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>EC CSV Sync</b><span>2026</span></div><small><span class="ja">商品CSVのAI変換</span><span class="en">AI product CSV conversion</span></small><p><span class="ja">モールごとに違う商品CSVを自動変換するデスクトップアプリ</span><span class="en">A desktop app that converts product CSVs between marketplace formats</span></p><i>Electron · Gemini</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-pipeline.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Sales Pipeline</b><span>2026</span></div><small><span class="ja">営業の自動化</span><span class="en">Sales automation</span></small><p><span class="ja">AIエージェントが調査・提案サンプル・営業メールを分業</span><span class="en">AI agents split the work: research, proposal samples and sales emails</span></p><i>Node.js · Claude Code · Gemini</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-concierge.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Instant Concierge</b><span>2026</span></div><small><span class="ja">ShopifyのAI相談</span><span class="en">AI advisor for Shopify</span></small><p><span class="ja">ストア運営の相談に答えるShopifyアプリ</span><span class="en">A Shopify app that answers questions about running a store</span></p><i>Shopify App · AI</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-wishlist.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>Wishlist</b><span>2026</span></div><small><span class="ja">Shopifyのお気に入り</span><span class="en">Shopify wishlist</span></small><p><span class="ja">ストアにお気に入り機能を追加するアプリ</span><span class="en">An app that adds a wishlist to Shopify stores</span></p><i>Shopify App</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-todo.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>ToDo Optimizer</b><span>2026</span></div><small><span class="ja">スケジュールAI</span><span class="en">Scheduling AI</span></small><p><span class="ja">タスクから優先順位と予定を組む秘書エージェント</span><span class="en">An assistant agent that turns tasks into a prioritized schedule</span></p><i>Node.js · Gemini</i></article>
+   <article class="tk rv"><span class="im"><img src="img/t-b2b.webp" alt="" width="1200" height="750" loading="lazy"></span><div class="tm"><b>B2B Ordering</b><span>2026</span></div><small><span class="ja">受発注システム（受託）</span><span class="en">Ordering system (client work)</span></small><p><span class="ja">注文・見積もり・請求書PDF・入金確認をまとめて管理</span><span class="en">Manages orders, quotes, invoice PDFs and payment checks in one place</span></p><i>Next.js · Supabase · PDF</i></article>
  </div>
- <p class="note rv">※ 非公開・社内向けのツールは、画面の一部をイメージとして再現しています。</p>
+ <p class="note rv"><span class="ja">※ 非公開・社内向けのツールは、画面の一部をイメージとして再現しています。</span><span class="en">* For private or internal tools, parts of the screens are recreated as illustrations.</span></p>
 </div></section>
 
 <section id="about"><div class="w ab">
  <div class="ph rv" data-p="photo">PHOTO</div>
  <div class="rv">
   <p class="lbl">About</p>
-  <h3 style="margin-top:28px"><span data-p="name">（お名前）</span><small data-p="role">Web Developer / Claude Code</small></h3>
-  <p class="bio" data-p="bio">（自己紹介文：これまでの経歴、作ってきたもの、得意なこと、大切にしていることを2〜3行で）</p>
+  <h3 style="margin-top:28px">Kazuya Shirakawa<small>Web Developer / Claude Code</small></h3>
+  <p class="bio" data-p="bio"><span class="ja">（自己紹介文：これまでの経歴、作ってきたもの、得意なこと、大切にしていることを2〜3行で）</span><span class="en">(Bio: background, what I have built, strengths and values, in 2–3 lines)</span></p>
   <dl class="sk">
    <dt>Front</dt><dd>HTML · CSS · JavaScript · TypeScript · React · Next.js · Tailwind CSS</dd>
    <dt>Back</dt><dd>Supabase · PostgreSQL · Drizzle · Cloudflare Workers · Hono · Electron</dd>
@@ -237,10 +240,17 @@ footer .w{display:flex;justify-content:space-between}
 <section class="ct" id="contact"><div class="w">
  <p class="lbl rv">Contact</p>
  <h2 class="rv"><a href="../contact/?from=works">Let’s talk <span>→</span></a></h2>
- <p class="rv">お仕事のご相談、お気軽にどうぞ。</p>
+ <p class="rv"><span class="ja">お仕事のご相談、お気軽にどうぞ。</span><span class="en">Have a project in mind? Feel free to reach out.</span></p>
 </div></section>
 </main>
-<footer><div class="w"><span>© 2026</span><a href="#top">Back to top ↑</a></div></footer>
+<footer><div class="w"><span>© 2026 Kazuya Shirakawa</span><a href="#top">Back to top ↑</a></div></footer>
+<script>
+(function(){var h=document.documentElement,q=new URLSearchParams(location.search).get("lang"),v=q;
+try{if(!v)v=localStorage.getItem("pf-lang")}catch(e){}
+if(!v)v=(navigator.language||"ja").slice(0,2)==="ja"?"ja":"en";
+function set(l){h.classList.toggle("en",l==="en");h.lang=l;try{localStorage.setItem("pf-lang",l)}catch(e){}}
+set(v);document.getElementById("lg").addEventListener("click",function(){set(h.classList.contains("en")?"ja":"en")});})();
+</script>
 <script>
 (function(){var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{rootMargin:"0px 0px -6% 0px"}):null;
 document.querySelectorAll(".rv").forEach(function(el){io?io.observe(el):el.classList.add("on")});})();
