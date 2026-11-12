@@ -65,7 +65,7 @@ section{padding:180px 0}
 .lbl:before{content:"";width:28px;height:1px;background:var(--mut)}
 /* statement */
 .stm p{margin:40px 0 0;font-size:clamp(28px,4.2vw,62px);line-height:1.32;font-weight:300;letter-spacing:-.02em;max-width:18em}
-.stm .wd{color:#2e2d2a;transition:color .4s}
+.stm .wd{display:inline-block;white-space:nowrap;color:#2e2d2a;transition:color .4s}
 .stm .wd.on{color:var(--fg)}
 .stm .wd.ac.on{color:var(--ac)}
 /* services */
@@ -136,7 +136,7 @@ footer .w{display:flex;justify-content:space-between;font-size:12px;color:var(--
 <body>
 <div class="ld" id="ld"><span>ORBE — DESIGN STUDIO</span><b id="ldn">0</b></div>
 <div class="cur" id="cur"></div>
-<div class="sample">架空のスタジオのサンプルLP <a href="../">← ポートフォリオ</a></div>
+<a class="sample" href="../">← Sample</a>
 <header><div class="w"><span class="logo">ORBE</span><nav><a href="#about">About</a><a href="#services">Services</a><a href="#works">Works</a><a href="#contact">Contact</a></nav></div></header>
 
 <main>
@@ -149,7 +149,7 @@ footer .w{display:flex;justify-content:space-between;font-size:12px;color:var(--
 
 <section class="stm" id="about"><div class="w">
  <p class="lbl">About</p>
- <p id="stm">私たちは、足し算ではなく引き算でデザインします。 本当に伝えたい ひとつのこと だけを残し、 余白に 意味 をもたせる。 そのほうが、ずっと遠くまで届くから。</p>
+ <p id="stm">私たちは、 足し算ではなく 引き算で デザインします。 本当に 伝えたい ひとつのこと だけを 残し、 余白に 意味を もたせる。 そのほうが、 ずっと 遠くまで 届くから。</p>
 </div></section>
 
 <section id="services" style="padding-top:0"><div class="w">
@@ -157,7 +157,7 @@ footer .w{display:flex;justify-content:space-between;font-size:12px;color:var(--
  <div class="sv">
   <div class="si rv"><span class="n">01</span><h3>Brand Identity</h3><p>ロゴ、トーン、ガイドライン。ブランドの芯をつくります。</p><span class="ar">→</span></div>
   <div class="si rv"><span class="n">02</span><h3>Web Experience</h3><p>動きと余白で語る、記憶に残るWebサイト。</p><span class="ar">→</span></div>
-  <div class="si rv"><span class="n">03</span><h3>Product Design</h3><p>使う人の時間に寄り添う、プロダクトとUI。</p><span class="ar">→</span></div>
+  <div class="si rv"><span class="n">03</span><h3>Product Design</h3><p>使う人の時間に寄り添う、<span style="white-space:nowrap">プロダクトとUI。</span></p><span class="ar">→</span></div>
   <div class="si rv"><span class="n">04</span><h3>Art Direction</h3><p>撮影から映像まで、世界観を一貫させます。</p><span class="ar">→</span></div>
  </div>
 </div></section>
@@ -213,12 +213,10 @@ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
 function count(el){var to=+el.dataset.n,s=null;function f(ts){if(!s)s=ts;var p=Math.min(1,(ts-s)/1600);el.innerHTML=Math.round(to*(1-Math.pow(1-p,3)))+(p===1?"<sup>+</sup>":"");if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
 // statement words
-var st=document.getElementById("stm"),acc=["ひとつのこと","意味"];
-st.innerHTML=st.textContent.trim().split(/\s+/).map(function(w){return w.split("").length>0?'<span class="wd'+(acc.indexOf(w)>=0?" ac":"")+'">'+w+'</span> ':""}).join("");
+var st=document.getElementById("stm"),acc=["ひとつのこと","意味を"];
+st.innerHTML=st.textContent.trim().split(/\s+/).map(function(w){return '<span class="wd'+(acc.indexOf(w)>=0?" ac":"")+'">'+w+'</span>'}).join("");
 var wds=[].slice.call(st.querySelectorAll(".wd"));
-// split japanese into chars for finer reveal
-wds.forEach(function(w){if(!w.classList.contains("ac")&&w.textContent.length>3){var cls=w.className;w.outerHTML=w.textContent.split("").map(function(c){return'<span class="'+cls+'">'+c+'</span>'}).join("")}});
-wds=[].slice.call(st.querySelectorAll(".wd"));
+
 // horizontal
 var hz=document.getElementById("works"),tr=document.getElementById("track"),hc=document.getElementById("hzc"),mq=matchMedia("(max-width:860px)");
 var orb=document.getElementById("orb");
@@ -239,5 +237,6 @@ mag.addEventListener("mousemove",function(e){var b=mag.getBoundingClientRect();m
 mag.addEventListener("mouseleave",function(){mag.style.transform=""});
 })();
 </script>
+<script src="../../js/budoux.js" defer></script>
 </body>
 </html>
