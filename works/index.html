@@ -589,8 +589,9 @@ L.querySelector(".pv").onclick=function(e){e.stopPropagation();i=(i-1+list.lengt
 L.querySelector(".nx").onclick=function(e){e.stopPropagation();i=(i+1)%list.length;show()};
 L.addEventListener("click",function(e){if(e.target===L)close()});
 addEventListener("keydown",function(e){if(!L.classList.contains("on"))return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")L.querySelector(".pv").click();if(e.key==="ArrowRight")L.querySelector(".nx").click()});
-var tx=0;L.addEventListener("touchstart",function(e){tx=e.touches[0].clientX},{passive:true});
-L.addEventListener("touchend",function(e){var d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)(d<0?L.querySelector(".nx"):L.querySelector(".pv")).click()});
+var tx=0,pz=false;L.addEventListener("touchstart",function(e){if(e.touches.length>1){pz=true;return}if(!pz)tx=e.touches[0].clientX},{passive:true});
+L.addEventListener("touchmove",function(e){if(e.touches.length>1)pz=true},{passive:true});
+L.addEventListener("touchend",function(e){if(e.touches.length)return;var zoomed=window.visualViewport&&visualViewport.scale>1.02;if(pz||zoomed){pz=false;return}var d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)(d<0?L.querySelector(".nx"):L.querySelector(".pv")).click()});
 })();
 </script>
 <script src="../js/budoux.js" defer></script>
