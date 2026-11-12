@@ -199,6 +199,17 @@ header .nm:before{content:"> ";color:var(--acc)}
 .gal figure:hover{border-color:var(--acc);box-shadow:0 0 30px rgba(61,255,139,.15)}
 @media (max-width:960px){.ov{grid-template-columns:1fr 1fr}.cc{min-height:0;padding:24px 20px}.cat-h{grid-template-columns:1fr;gap:12px;margin-bottom:48px}.cat-h .cn{font-size:44px}.cat-s .og{grid-template-columns:1fr 1fr;gap:28px 12px}.gal{columns:2;column-gap:10px}.gal figure{margin-bottom:10px}}
 @media (max-width:560px){.ov{grid-template-columns:1fr}}
+
+.sub-h{margin:20px 0 28px}
+.sub-h h3{font:400 22px var(--en);margin:0}
+.sub-h p{margin:8px 0 0;font-size:13.5px;color:var(--ink2);font-weight:300}
+.pgrid.wh{grid-template-columns:repeat(5,1fr)}.pgrid.wh img{object-fit:contain;padding:8%}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:90px}
+.pgrid figure{margin:0;aspect-ratio:1;overflow:hidden;border:1px solid var(--line);background:#fff}
+.pgrid img{width:100%;height:100%;object-fit:cover;transition:transform 1s}
+.pgrid figure:hover{border-color:var(--acc);box-shadow:0 0 30px rgba(61,255,139,.15)}
+.pgrid figure:hover img{transform:scale(1.04)}
+@media (max-width:960px){.pgrid{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:64px}}
 </style>
 </head>
 <body>
@@ -210,7 +221,7 @@ header .nm:before{content:"> ";color:var(--acc)}
  <h1 class="rv"><span class="ja">売る仕組みまで、<br><span class="g">つくれるエンジニア。</span></span><span class="en">I build products<br><span class="g">that actually sell.</span></span></h1>
  <p class="jp rv"><span class="ja">EC運営で売上を伸ばしてきた経験と、Webサービス・業務自動化の開発。企画から設計・実装・運用までを一人で担い、事業の数字につながるものを作ります。</span><span class="en">Hands-on experience growing e-commerce sales, combined with building web services and business automation. I take products from planning and design through implementation and operation, focused on real business results.</span></p>
  <div class="term rv" aria-hidden="true"><div class="tb"><i></i><i></i><i></i><span>~/kazuya — claude</span></div><pre id="tm"></pre></div>
- <div class="av rv"><span><i></i><span class="ja">正社員のご相談 可</span><span class="en">Open to full-time roles</span></span><span><i></i><span class="ja">業務委託のご依頼 可</span><span class="en">Available for contract work</span></span><span><span class="ja">愛知県 名古屋</span><span class="en">Nagoya, Japan</span></span></div>
+ <div class="av rv"><span><i></i><span class="ja">業務委託のご依頼 可</span><span class="en">Available for contract work</span></span><span><span class="ja">愛知県 名古屋</span><span class="en">Nagoya, Japan</span></span></div>
  <div class="stats rv">
   <div><b>¥20M+</b><small><span class="ja">EC運営で担当した累計売上</span><span class="en">Cumulative e-commerce sales managed</span></small></div>
   <div><b>¥8M</b><small><span class="ja">入社1年目の店舗売上（楽天市場）</span><span class="en">Store sales in my first year (Rakuten)</span></small></div>
@@ -284,7 +295,7 @@ header .nm:before{content:"> ";color:var(--acc)}
    <div class="oc rv"><span class="im"><img src="img/t-sayatori.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Sayatori AI</b><small><span class="ja">トレンド通知（LINE）</span><span class="en">Trend alerts on LINE</span></small></div>
    <div class="oc rv"><span class="im"><img src="img/t-concierge.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Instant Concierge</b><small><span class="ja">ShopifyのAIコンサルタント</span><span class="en">AI advisor for Shopify</span></small></div>
    <div class="oc rv"><span class="im"><img src="img/t-wishlist.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Wishlist</b><small><span class="ja">Shopifyアプリ</span><span class="en">Shopify app</span></small></div>
-   <div class="oc rv"><span class="im"><img src="img/t-b2b.webp" alt="" width="1200" height="750" loading="lazy"></span><b>B2B Ordering</b><small><span class="ja">受発注システム（受託）</span><span class="en">Ordering system (client work)</span></small></div>
+   <div class="oc rv"><span class="im"><img src="img/t-b2b.webp" alt="" width="1200" height="750" loading="lazy"></span><b>B2B Ordering</b><small><span class="ja">受発注システム（社内向け）</span><span class="en">Internal ordering system</span></small></div>
    <a href="../line/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/line-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>LINE Mini App</b><small><span class="ja">LINEの中で動くお店のアプリ</span><span class="en">Shop apps that run inside LINE</span></small></a>
   </div>
 </div></section>
@@ -327,7 +338,7 @@ header .nm:before{content:"> ";color:var(--acc)}
   </div>
 </div></section>
 <section id="photo" class="cat-s"><div class="w">
- <div class="cat-h rv"><span class="cn">04</span><div><h2><span class="ja">撮影とAI画像</span><span class="en">Photography & AI imagery</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">自分で撮影した商品写真を、生成AIでモデル着用・利用シーン・広告用のビジュアルに仕上げます。</span><span class="en">I shoot the products myself, then use generative AI to turn them into model, lifestyle and ad visuals.</span></p><ul class="caps"><li><span class="ja">商品撮影（物撮り）</span><span class="en">Product photography</span></li><li><span class="ja">AIでモデル着用・シーンを生成</span><span class="en">AI-generated model and lifestyle scenes</span></li><li><span class="ja">サイト・広告用のビジュアル</span><span class="en">Visuals for sites and ads</span></li></ul></div></div>
+ <div class="cat-h rv"><span class="cn">04</span><div><h2><span class="ja">撮影とAI画像</span><span class="en">Photography & AI imagery</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">自分で撮影した商品写真を、生成AIでモデル着用・利用シーン・広告用のビジュアルに仕上げます。</span><span class="en">I shoot the products myself, then use generative AI to turn them into model, lifestyle and ad visuals.</span></p><ul class="caps"><li><span class="ja">商品撮影（白抜き・物撮り）</span><span class="en">Product photography (white background)</span></li><li><span class="ja">EC・Amazon用の商品画像制作</span><span class="en">Product images for Amazon and online stores</span></li><li><span class="ja">AIでモデル着用・シーンを生成</span><span class="en">AI-generated model and lifestyle scenes</span></li><li><span class="ja">サイト・広告用のビジュアル</span><span class="en">Visuals for sites and ads</span></li></ul></div></div>
   <article class="cs rv">
    <div class="ch"><p class="no">04.1</p><h3>Daysart Classic</h3><p class="cat"><span class="ja">革製品ブランドのEC（Shopify）</span><span class="en">Leather goods brand e-commerce (Shopify)</span></p></div>
    <a class="pic" href="https://daysart-classic.com/" target="_blank" rel="noopener"><img src="img/daysart-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
@@ -344,6 +355,13 @@ header .nm:before{content:"> ";color:var(--acc)}
     </div>
    </div>
   </article>
+  <div class="sub-h rv"><h3><span class="ja">EC・Amazon用の商品画像</span><span class="en">Product images for Amazon & online stores</span></h3><p><span class="ja">撮影・合成・コピーまで、商品ページのメイン画像とサブ画像を制作。</span><span class="en">Main and sub images for product pages — photography, compositing and copy.</span></p></div>
+  <div class="pgrid"><figure class="rv"><img src="img/pi-00.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-01.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-02.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-03.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-04.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-05.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-06.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-07.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-08.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-09.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-10.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-11.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-12.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-13.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-14.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pi-15.webp" alt="" loading="lazy"></figure>
+  </div>
+  <div class="sub-h rv"><h3><span class="ja">白抜きの商品撮影</span><span class="en">Product photography on white</span></h3><p><span class="ja">ECモールの規定に合わせた、白背景の物撮り。</span><span class="en">White-background product shots that meet marketplace guidelines.</span></p></div>
+  <div class="pgrid wh"><figure class="rv"><img src="img/pw-00.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-01.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-02.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-03.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-04.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-05.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-06.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-07.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-08.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/pw-09.webp" alt="" loading="lazy"></figure>
+  </div>
+  <div class="sub-h rv"><h3><span class="ja">Daysart Classic のビジュアル</span><span class="en">Daysart Classic visuals</span></h3></div>
   <div class="gal"><figure class="rv"><img src="img/da-01.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-13.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-19.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-04.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-15.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-02.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-16.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-10.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-05.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-21.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-12.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-17.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-06.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-11.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-03.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-18.webp" alt="" loading="lazy"></figure><figure class="rv"><img src="img/da-00.webp" alt="" loading="lazy"></figure>
   </div>
 </div></section>
@@ -367,10 +385,10 @@ header .nm:before{content:"> ";color:var(--acc)}
 <section id="offer" style="padding-top:0"><div class="w">
  <div class="sh rv"><h2><span class="ja">できること</span><span class="en">How I can help</span></h2></div>
  <div class="of rv">
-  <div><p class="lbl"><span class="ja">採用ご担当の方へ</span><span class="en">For hiring teams</span></p><h3><span class="ja">事業がわかる開発者として</span><span class="en">A developer who understands the business</span></h3><ul>
+  <div><p class="lbl"><span class="ja">企業のご担当者さまへ</span><span class="en">For companies</span></p><h3><span class="ja">事業がわかる開発パートナーとして</span><span class="en">A development partner who understands the business</span></h3><ul>
    <li><span class="ja">EC・D2Cのプロダクト開発（フロント〜DB・決済まで）</span><span class="en">E-commerce / D2C product development, from frontend to database and payments</span></li>
    <li><span class="ja">売上・運用の現場を踏まえた機能の企画と優先順位づけ</span><span class="en">Feature planning and prioritization grounded in sales and operations</span></li>
-   <li><span class="ja">AIを使った開発の進め方を、チームに広げる役割</span><span class="en">Bringing AI-assisted development practices to a team</span></li>
+   <li><span class="ja">AIを使った開発・業務自動化の導入支援</span><span class="en">Helping teams adopt AI-assisted development and automation</span></li>
    <li><span class="ja">セキュリティ・個人情報まで考えた設計</span><span class="en">Design that accounts for security and personal data</span></li></ul></div>
   <div><p class="lbl"><span class="ja">ご依頼の方へ</span><span class="en">For clients</span></p><h3><span class="ja">事業の課題を、動く仕組みに</span><span class="en">Turning business problems into working software</span></h3><ul>
    <li><span class="ja">ECサイト・Shopifyの構築とカスタマイズ</span><span class="en">E-commerce sites and Shopify builds and customization</span></li>
@@ -401,7 +419,7 @@ header .nm:before{content:"> ";color:var(--acc)}
 <section class="ct" id="contact"><div class="w">
  <p class="lbl rv">Contact</p>
  <h2 class="rv"><a href="https://www.linkedin.com/in/%E5%92%8C%E4%B9%9F-%E7%99%BD%E5%B7%9D-78706044b/" target="_blank" rel="noopener">Let’s talk <span>→</span></a></h2>
- <p class="rv"><span class="ja">採用・お仕事のご相談は、LinkedInでお気軽にメッセージください。</span><span class="en">For roles or projects, send me a message on LinkedIn.</span></p>
+ <p class="rv"><span class="ja">お仕事のご相談は、LinkedInでお気軽にメッセージください。</span><span class="en">For projects, send me a message on LinkedIn.</span></p>
 </div></section>
 </main>
 <footer><div class="w"><span>© 2026 Kazuya Shirakawa · <a href="https://www.linkedin.com/in/%E5%92%8C%E4%B9%9F-%E7%99%BD%E5%B7%9D-78706044b/" target="_blank" rel="noopener">LinkedIn</a></span><a href="#top">Back to top ↑</a></div></footer>
