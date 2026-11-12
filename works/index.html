@@ -147,6 +147,7 @@ footer a{color:var(--ink2);text-decoration:none;margin:0 8px}
 .td{margin-top:auto;padding:14px 20px 18px;font-size:12px;color:var(--sub)}
 @media (max-width:900px){.tl{grid-template-columns:1fr 1fr;gap:12px}}
 @media (max-width:560px){.tl{grid-template-columns:1fr}}
+.wk h3 .sub2{display:block;font-size:14px;color:var(--sub);font-weight:700;margin-top:2px}
 .rv{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}
 .rv.on{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.wk{transition:none}}
@@ -212,6 +213,17 @@ footer a{color:var(--ink2);text-decoration:none;margin:0 8px}
   <div class="flt" role="group" aria-label="種類で絞り込む"><button type="button" data-f="all" aria-pressed="true">すべて</button><button type="button" data-f="app" aria-pressed="false">アプリ・ツール</button><button type="button" data-f="web" aria-pressed="false">Webサイト・LP</button><button type="button" data-f="auto" aria-pressed="false">自動化</button><button type="button" data-f="doc" aria-pressed="false">資料・販促</button></div>
  </div>
  <div class="grid">
+
+  <article class="wk big rv" data-c="app web">
+   <div class="shot"><div class="pc"><img src="img/spider-pc.webp" alt="Spiderのトップページ" width="1200" height="750" loading="lazy"></div><div class="sp"><img src="img/spider-sp.webp" alt="" width="390" height="844" loading="lazy"></div></div>
+   <div class="bd">
+    <div class="tg"><span>Webサービス</span><span>EC</span><span>公開中</span></div>
+    <h3>Spider<small class="sub2">オンラインストアプラットフォーム</small></h3>
+    <p>作品を並べるだけで、そのままオンラインストアに。初心者でもその日のうちにネットショップを開けるサービスを、Claude Codeで作りました。</p>
+    <ul class="pts"><li>お店ごとのストアと管理画面（マルチテナント）</li><li>Stripeでの決済と、お店ごとの売上の受け取り</li><li>必要な機能をあとから足せる「拡張アプリ」の設計</li></ul>
+    <div class="meta"><span>2026年</span><span class="lk"><a class="p" href="https://spider-ec.com/" target="_blank" rel="noopener">サイトを見る ›</a></span></div>
+   </div>
+  </article>
 
   <article class="wk big rv" data-c="app web">
    <div class="shot"><div class="pc"><img src="img/demo-pc.webp" alt="モバイルメニューのデモ画面" width="1200" height="750" loading="lazy"></div><div class="sp"><img src="img/menu-sp.webp" alt="" width="390" height="844" loading="lazy"></div></div>
@@ -331,8 +343,7 @@ footer a{color:var(--ink2);text-decoration:none;margin:0 8px}
  <div class="sh rv"><div><p class="ey">TOOLS &amp; SERVICES</p><h2>作ってきたサービス・ツール</h2><p>サクアプ以外にも、Claude Codeを使ってこれだけ作ってきました。開発中のものも含みます。</p></div></div>
  <h3 class="gh rv">自分のサービス<small>プラットフォームとして作っているサービス</small></h3>
  <div class="tl">
-  <article class="tc rv"><div class="th" style="--c:#5d51ce"><span class="mk">S</span><span><small>ネットショップ作成サービス</small><b>Spider</b></span></div><p>初心者でもその日のうちにネットショップを開けるサービス。必要な機能をあとから足せる「拡張アプリ」の仕組みまで設計しました。</p><div class="tt"><span>Next.js</span><span>PostgreSQL</span><span>Stripe Connect</span><span>Inngest</span><span>AI API</span></div><div class="td">2026年10月</div></article>
-  <article class="tc rv"><div class="th" style="--c:#7b6cf0"><span class="mk">Y</span><span><small>PR案件マッチング</small><b>Yuitto</b></span></div><p>お店・企業と、インフルエンサー・クリエイターをつなぐマッチングサービス。Spiderの姉妹サービスです。</p><div class="tt"><span>Next.js</span><span>Cloudflare Workers</span><span>Supabase</span><span>日本語全文検索</span></div><div class="td">2026年10月</div></article>
+  <article class="tc rv"><div class="th" style="--c:#7b6cf0"><span class="mk">Y</span><span><small>PR案件マッチング</small><b>Yuitto</b></span></div><p>お店・企業と、インフルエンサー・クリエイターをつなぐマッチングサービス。上のSpiderの姉妹サービスです。</p><div class="tt"><span>Next.js</span><span>Cloudflare Workers</span><span>Supabase</span><span>日本語全文検索</span></div><div class="td">2026年10月</div></article>
   <article class="tc rv"><div class="th" style="--c:#e2572b"><span class="mk">Z</span><span><small>AIミニアプリの作成・販売</small><b>ZUBAPP</b></span></div><p>「言えば、ズバッとアプリ。」話すようにAIミニアプリを作って、使って、売れる場所。固定費0円で動く構成です。</p><div class="tt"><span>React</span><span>Hono</span><span>Cloudflare Workers</span><span>Supabase</span><span>Gemini</span></div><div class="td">2026年10月</div></article>
   <article class="tc rv"><div class="th" style="--c:#1f8a5b"><span class="mk">M</span><span><small>EC運営の支援ツール</small><b>MUSOU-EC</b></span></div><p>楽天・Yahoo!・Amazon・Shopifyの運営をまとめて支える無料ツール。処理をブラウザ側で行い、運営コストをほぼ0円に。</p><div class="tt"><span>Next.js</span><span>IndexedDB</span><span>Gemini</span></div><div class="td">2026年11月</div></article>
   <article class="tc rv"><div class="th" style="--c:#0e7c8c"><span class="mk">Sp</span><span><small>Shopify構築テンプレート</small><b>Splicer</b></span></div><p>Shopifyのストアづくりを速くする、無料のテンプレートツール。組み合わせて、そのままプレビューできます。</p><div class="tt"><span>HTML・JavaScript</span><span>Shopify Liquid</span><span>Cloudflare</span></div><div class="td">2026年9月〜</div></article>
