@@ -259,16 +259,16 @@ body.lbo .fm{opacity:0;pointer-events:none}
 <nav class="fm" id="fm" aria-label="セクション移動"><a href="#saas">SaaS</a><a href="#tools">Tools</a><a href="#lp">LP</a><a href="#photo">Visual</a><a href="#experience">About</a><a href="#contact" class="ct">Contact</a></nav>
 <main id="top">
 <section class="hero"><div class="w">
- <p class="lbl rv">E-commerce × Engineering</p>
- <h1 class="rv"><span class="ja">売る仕組みまで、<br><span class="g">つくれるエンジニア。</span></span><span class="en">I build products<br><span class="g">that actually sell.</span></span></h1>
- <p class="jp rv"><span class="ja">EC運営で売上を伸ばしてきた経験と、Webサービス・業務自動化の開発。企画から設計・実装・運用までを一人で担い、事業の数字につながるものを作ります。</span><span class="en">Hands-on experience growing e-commerce sales, combined with building web services and business automation. I take products from planning and design through implementation and operation, focused on real business results.</span></p>
+ <p class="lbl rv">E-commerce × AI</p>
+ <h1 class="rv"><span class="ja">エンジニアじゃなくても、<br><span class="g">AIで、売る仕組みまで。</span></span><span class="en">Not an engineer.<br><span class="g">I build with AI.</span></span></h1>
+ <p class="jp rv"><span class="ja">EC運営の現場出身の非エンジニアです。コードは書けなくても、何を作れば売れるかは分かる。その考えをAI（Claude Code）に伝えて、Webサービス・業務自動化・LP・画像までを一人で形にしています。</span><span class="en">A non-engineer from e-commerce operations. I may not write code by hand, but I know what sells. I turn that into web services, automation, landing pages and visuals — on my own, by directing AI (Claude Code).</span></p>
  <div class="term rv" aria-hidden="true"><div class="tb"><i></i><i></i><i></i><span>~/kazuya — claude</span></div><pre id="tm"></pre></div>
  <div class="av rv"><span><i></i><span class="ja">業務委託のご依頼 可</span><span class="en">Available for contract work</span></span><span><span class="ja">愛知県 名古屋</span><span class="en">Nagoya, Japan</span></span></div>
  <div class="stats rv">
   <div><b>¥20M+</b><small><span class="ja">EC運営で担当した累計売上</span><span class="en">Cumulative e-commerce sales managed</span></small></div>
   <div><b>¥8M</b><small><span class="ja">入社1年目の店舗売上（楽天市場）</span><span class="en">Store sales in my first year (Rakuten)</span></small></div>
-  <div><b>25</b><small><span class="ja">開発したサービス・ツール</span><span class="en">Products and tools built</span></small></div>
-  <div><b>Solo</b><small><span class="ja">企画〜運用まで一人で</span><span class="en">From planning to operations</span></small></div>
+  <div><b>25</b><small><span class="ja">AIで作ったサービス・ツール</span><span class="en">Products and tools built with AI</span></small></div>
+  <div><b>0</b><small><span class="ja">エンジニア経験（すべてAIで）</span><span class="en">Years as an engineer — all built with AI</span></small></div>
  </div>
 </div></section>
 
@@ -289,11 +289,11 @@ body.lbo .fm{opacity:0;pointer-events:none}
    <div class="cb">
     <div class="cl">
      <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">個人や小さなお店は、手数料・月額費用・集客の知識が壁になり、良い商品があっても売れない。EC運営の現場で見てきたこの課題を、仕組みで解決するために作りました。</span><span class="en">Independent makers and small shops often can't sell good products because of fees, monthly costs and a lack of marketing know-how. I built Spider to solve the problem I saw first-hand in e-commerce operations.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・設計・開発・運用（一人）</span><span class="en">Product, design, engineering and operations (solo)</span></p>
+     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発・運用（一人）</span><span class="en">Planning, AI-driven build and operations (solo)</span></p>
      <p class="h">Stack</p><p class="tx st">Next.js · React · TypeScript · PostgreSQL · Drizzle · Supabase · Stripe Connect · Inngest · Vercel</p>
     </div>
     <div class="cr">
-     <p class="h"><span class="ja">設計と実装のポイント</span><span class="en">Key decisions</span></p><ul><li><span class="ja">複数のお店のデータを、データベースのレベルで分離（マルチテナント・行レベルの権限制御）</span><span class="en">Multi-tenant architecture with tenant isolation enforced at the database level (row-level security)</span></li><li><span class="ja">Stripe Connectで店舗ごとの決済と売上の受け取り。お店同士で商品を販売し合う「Spider Cross」も設計</span><span class="en">Per-store payments and payouts with Stripe Connect, plus “Spider Cross”, a network where stores sell each other’s products</span></li><li><span class="ja">顧客の電話番号・住所の暗号化、セキュリティ監査と修正、脆弱性と秘密情報の自動チェックをCIに組み込み</span><span class="en">Encryption of customer phone numbers and addresses, a security audit with fixes, and automated vulnerability and secret scanning in CI</span></li><li><span class="ja">AIがお問い合わせの下書きと内容チェックを行うバックオフィス機能（Claude・GPT・Geminiに対応）</span><span class="en">An AI back-office that drafts and reviews replies to customer inquiries (Claude, GPT and Gemini)</span></li></ul>
+     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">複数のお店のデータを、データベースのレベルで分離（マルチテナント・行レベルの権限制御）</span><span class="en">Multi-tenant architecture with tenant isolation enforced at the database level (row-level security)</span></li><li><span class="ja">Stripe Connectで店舗ごとの決済と売上の受け取り。お店同士で商品を販売し合う「Spider Cross」も設計</span><span class="en">Per-store payments and payouts with Stripe Connect, plus “Spider Cross”, a network where stores sell each other’s products</span></li><li><span class="ja">顧客の電話番号・住所の暗号化、セキュリティ監査と修正、脆弱性と秘密情報の自動チェックをCIに組み込み</span><span class="en">Encryption of customer phone numbers and addresses, a security audit with fixes, and automated vulnerability and secret scanning in CI</span></li><li><span class="ja">AIがお問い合わせの下書きと内容チェックを行うバックオフィス機能（Claude・GPT・Geminiに対応）</span><span class="en">An AI back-office that drafts and reviews replies to customer inquiries (Claude, GPT and Gemini)</span></li></ul>
      <div class="kpi"><div><b>153</b><small><span class="ja">DBマイグレーション</span><span class="en">DB migrations</span></small></div><div><b>176</b><small><span class="ja">ブログ記事</span><span class="en">blog articles</span></small></div><div><b>9</b><small><span class="ja">拡張アプリ</span><span class="en">add-on apps</span></small></div></div>
      <a class="go" href="https://spider-ec.com/" target="_blank" rel="noopener">Visit site <span>→</span></a>
     </div>
@@ -305,11 +305,11 @@ body.lbo .fm{opacity:0;pointer-events:none}
    <div class="cb">
     <div class="cl">
      <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">自社サイト・楽天・Yahoo!ショッピングに届く問い合わせを、担当者が別々の画面で確認していた。迷惑メールの仕分けや定型の返信に時間を取られていました。</span><span class="en">Support staff checked inquiries from the company site, Rakuten and Yahoo! Shopping on separate screens, losing time to spam and repetitive replies.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">設計・開発（一人）</span><span class="en">Design and engineering (solo)</span></p>
+     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
      <p class="h">Stack</p><p class="tx st">Next.js · Supabase · PostgreSQL (pgvector) · AWS Lambda · SES · OpenAI</p>
     </div>
     <div class="cr">
-     <p class="h"><span class="ja">設計と実装のポイント</span><span class="en">Key decisions</span></p><ul><li><span class="ja">各チャネルの問い合わせを1つの受信箱に集約（メールの取り込み・APIの定期取得）</span><span class="en">Unified inbox for every channel (email ingestion and scheduled API polling)</span></li><li><span class="ja">AIが迷惑メールの除外・分類・返信の下書きまでを自動で行い、人が確認して送信</span><span class="en">AI filters spam, categorizes and drafts replies; a person reviews and sends</span></li><li><span class="ja">過去の対応事例を検索して下書きに使う仕組みと、承認の流れ・要注意メールの通知</span><span class="en">Retrieval of past cases for drafts, an approval queue and alerts for risky messages</span></li><li><span class="ja">スタッフ向けの使い方ガイドを画面の中に用意し、エンジニアでなくても使える形に</span><span class="en">An in-app guide so non-technical staff can use it on their own</span></li></ul>
+     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">各チャネルの問い合わせを1つの受信箱に集約（メールの取り込み・APIの定期取得）</span><span class="en">Unified inbox for every channel (email ingestion and scheduled API polling)</span></li><li><span class="ja">AIが迷惑メールの除外・分類・返信の下書きまでを自動で行い、人が確認して送信</span><span class="en">AI filters spam, categorizes and drafts replies; a person reviews and sends</span></li><li><span class="ja">過去の対応事例を検索して下書きに使う仕組みと、承認の流れ・要注意メールの通知</span><span class="en">Retrieval of past cases for drafts, an approval queue and alerts for risky messages</span></li><li><span class="ja">スタッフ向けの使い方ガイドを画面の中に用意し、エンジニアでなくても使える形に</span><span class="en">An in-app guide so non-technical staff can use it on their own</span></li></ul>
      
      
     </div>
@@ -321,11 +321,11 @@ body.lbo .fm{opacity:0;pointer-events:none}
    <div class="cb">
     <div class="cl">
      <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">アイデアはあっても、アプリを作る手段がない人が多い。話すだけで形になり、そのまま公開・共有できる場所を作りました。</span><span class="en">Many people have ideas but no way to build apps. ZUBAPP turns a sentence into an app you can publish and share.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・設計・開発（一人）</span><span class="en">Product, design and engineering (solo)</span></p>
+     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
      <p class="h">Stack</p><p class="tx st">React · Hono · Cloudflare Workers · Supabase · Gemini</p>
     </div>
     <div class="cr">
-     <p class="h"><span class="ja">設計と実装のポイント</span><span class="en">Key decisions</span></p><ul><li><span class="ja">アプリの画面を「設計図（JSON）」として持ち、画面と処理側で同じ定義を共有</span><span class="en">Apps are defined as a JSON schema shared by the frontend and the worker</span></li><li><span class="ja">利用者自身のAIキーを使う形にし、運営側のAI費用と月額の固定費を0円に</span><span class="en">Users bring their own AI key, keeping AI costs and fixed monthly costs at zero</span></li><li><span class="ja">ログインとデータの権限をデータベース側で制御（Supabaseの行レベルの権限）</span><span class="en">Authentication and data permissions enforced in the database (Supabase RLS)</span></li></ul>
+     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">アプリの画面を「設計図（JSON）」として持ち、画面と処理側で同じ定義を共有</span><span class="en">Apps are defined as a JSON schema shared by the frontend and the worker</span></li><li><span class="ja">利用者自身のAIキーを使う形にし、運営側のAI費用と月額の固定費を0円に</span><span class="en">Users bring their own AI key, keeping AI costs and fixed monthly costs at zero</span></li><li><span class="ja">ログインとデータの権限をデータベース側で制御（Supabaseの行レベルの権限）</span><span class="en">Authentication and data permissions enforced in the database (Supabase RLS)</span></li></ul>
      <div class="kpi"><div><b>¥0</b><small><span class="ja">月額の固定費</span><span class="en">fixed monthly cost</span></small></div></div>
      <a class="go" href="https://zubapp.kazuyascheme.workers.dev/" target="_blank" rel="noopener">Visit site <span>→</span></a>
     </div>
@@ -349,11 +349,11 @@ body.lbo .fm{opacity:0;pointer-events:none}
    <div class="cb">
     <div class="cl">
      <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">自社サービスのXの投稿を毎日続けるのは手間がかかる。一方で、AIが動く環境からは外部の投稿サービスに直接つなげない制約がありました。</span><span class="en">Posting to X every day for my products took time, and the environment where the AI runs could not reach the posting service directly.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">設計・開発・運用（一人）</span><span class="en">Design, engineering and operations (solo)</span></p>
+     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発・運用（一人）</span><span class="en">Planning, AI-driven build and operations (solo)</span></p>
      <p class="h">Stack</p><p class="tx st">Claude Code · GitHub Actions · Buffer API (GraphQL) · Node.js · sharp</p>
     </div>
     <div class="cr">
-     <p class="h"><span class="ja">設計と実装のポイント</span><span class="en">Key decisions</span></p><ul><li><span class="ja">Claude Codeの定期ルーティンが投稿文を書き、キューにファイルとして保存</span><span class="en">A scheduled Claude Code routine writes posts and saves them to a queue as files</span></li><li><span class="ja">タイトルから1080×1080のサムネイル画像を自動で生成</span><span class="en">Auto-generates 1080×1080 thumbnails from each title</span></li><li><span class="ja">GitHub Actionsがキューを検知し、BufferのAPIで画像つき・スレッド形式で予約投稿</span><span class="en">GitHub Actions picks up the queue and schedules image and thread posts via the Buffer API</span></li><li><span class="ja">AIの環境の通信制限を、GitHub側で外部APIを呼ぶ設計で回避</span><span class="en">Worked around the AI environment’s network limits by calling external APIs from GitHub</span></li></ul>
+     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">Claude Codeの定期ルーティンが投稿文を書き、キューにファイルとして保存</span><span class="en">A scheduled Claude Code routine writes posts and saves them to a queue as files</span></li><li><span class="ja">タイトルから1080×1080のサムネイル画像を自動で生成</span><span class="en">Auto-generates 1080×1080 thumbnails from each title</span></li><li><span class="ja">GitHub Actionsがキューを検知し、BufferのAPIで画像つき・スレッド形式で予約投稿</span><span class="en">GitHub Actions picks up the queue and schedules image and thread posts via the Buffer API</span></li><li><span class="ja">AIの環境の通信制限を、GitHub側で外部APIを呼ぶ設計で回避</span><span class="en">Worked around the AI environment’s network limits by calling external APIs from GitHub</span></li></ul>
      
      
     </div>
@@ -382,7 +382,7 @@ body.lbo .fm{opacity:0;pointer-events:none}
      <p class="h">Stack</p><p class="tx st">Shopify · Liquid · 撮影 · 生成AIでの画像編集</p>
     </div>
     <div class="cr">
-     <p class="h"><span class="ja">設計と実装のポイント</span><span class="en">Key decisions</span></p><ul><li><span class="ja">商品の規格（サイズ・素材・仕様）と商品ラインの企画</span><span class="en">Product specs (size, materials, details) and line planning</span></li><li><span class="ja">Shopifyでのサイト構築。ブランドの世界観に合わせたデザインと商品ページ</span><span class="en">Shopify site build with design and product pages matched to the brand</span></li><li><span class="ja">商品撮影と、生成AIでのモデル着用・利用シーンの画像づくり</span><span class="en">Product photography, plus AI-generated model and lifestyle imagery</span></li><li><span class="ja">撮影・画像・コピーまで一人で揃え、サイト全体のトーンを統一</span><span class="en">Photos, imagery and copy produced solo for a consistent tone across the site</span></li></ul>
+     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">商品の規格（サイズ・素材・仕様）と商品ラインの企画</span><span class="en">Product specs (size, materials, details) and line planning</span></li><li><span class="ja">Shopifyでのサイト構築。ブランドの世界観に合わせたデザインと商品ページ</span><span class="en">Shopify site build with design and product pages matched to the brand</span></li><li><span class="ja">商品撮影と、生成AIでのモデル着用・利用シーンの画像づくり</span><span class="en">Product photography, plus AI-generated model and lifestyle imagery</span></li><li><span class="ja">撮影・画像・コピーまで一人で揃え、サイト全体のトーンを統一</span><span class="en">Photos, imagery and copy produced solo for a consistent tone across the site</span></li></ul>
      
      <a class="go" href="https://daysart-classic.com/" target="_blank" rel="noopener">Visit site <span>→</span></a>
     </div>
@@ -428,8 +428,8 @@ body.lbo .fm{opacity:0;pointer-events:none}
 <section id="offer" style="padding-top:0"><div class="w">
  <div class="sh rv"><h2><span class="ja">できること</span><span class="en">How I can help</span></h2></div>
  <div class="of rv">
-  <div><p class="lbl"><span class="ja">企業のご担当者さまへ</span><span class="en">For companies</span></p><h3><span class="ja">事業がわかる開発パートナーとして</span><span class="en">A development partner who understands the business</span></h3><ul>
-   <li><span class="ja">EC・D2Cのプロダクト開発（フロント〜DB・決済まで）</span><span class="en">E-commerce / D2C product development, from frontend to database and payments</span></li>
+  <div><p class="lbl"><span class="ja">企業のご担当者さまへ</span><span class="en">For companies</span></p><h3><span class="ja">事業がわかる、AIの使い手として</span><span class="en">An AI-powered maker who understands the business</span></h3><ul>
+   <li><span class="ja">EC・D2Cのサービスや社内ツールを、AIで形にする</span><span class="en">Building e-commerce / D2C services and internal tools with AI</span></li>
    <li><span class="ja">売上・運用の現場を踏まえた機能の企画と優先順位づけ</span><span class="en">Feature planning and prioritization grounded in sales and operations</span></li>
    <li><span class="ja">AIを使った開発・業務自動化の導入支援</span><span class="en">Helping teams adopt AI-assisted development and automation</span></li>
    <li><span class="ja">セキュリティ・個人情報まで考えた設計</span><span class="en">Design that accounts for security and personal data</span></li></ul></div>
@@ -442,13 +442,13 @@ body.lbo .fm{opacity:0;pointer-events:none}
  <div class="hw">
   <div class="rv"><b>01</b><h4><span class="ja">課題を整理する</span><span class="en">Clarify the problem</span></h4><p><span class="ja">数字と現場の流れから、何を作るべきかを決めます。</span><span class="en">Decide what to build from the numbers and the real workflow.</span></p></div>
   <div class="rv"><b>02</b><h4><span class="ja">動く試作</span><span class="en">Working prototype</span></h4><p><span class="ja">Claude Codeで素早く形にし、触って確かめます。</span><span class="en">Build fast with Claude Code and test it hands-on.</span></p></div>
-  <div class="rv"><b>03</b><h4><span class="ja">設計と確認は自分で</span><span class="en">I own design and review</span></h4><p><span class="ja">権限・データ・決済の設計と、実機での検証は自分で行います。</span><span class="en">I own the design of permissions, data and payments, and verify on real devices.</span></p></div>
+  <div class="rv"><b>03</b><h4><span class="ja">最後は人の目で</span><span class="en">A human makes the final call</span></h4><p><span class="ja">AIが作ったものを、実際の画面で一つずつ確かめてから公開します。</span><span class="en">I check everything AI builds on real screens before it ships.</span></p></div>
   <div class="rv"><b>04</b><h4><span class="ja">公開して改善</span><span class="en">Ship and improve</span></h4><p><span class="ja">公開後も使われ方を見ながら改善を続けます。</span><span class="en">Keep improving based on how it is actually used.</span></p></div>
  </div>
 </div></section>
 
 <section id="skills" style="padding-top:0"><div class="w">
- <div class="sh rv"><h2>Skills</h2></div>
+ <div class="sh rv"><h2><span class="ja">AIで扱ってきた技術</span><span class="en">Tech I build with, via AI</span></h2><p><span class="ja">自分で書くのではなく、AIに指示して使いこなしてきた技術です。</span><span class="en">Not hand-written — technologies I put to work by directing AI.</span></p></div>
  <div class="sk rv">
   <div><h4>Frontend</h4><p>TypeScript<br>React · Next.js<br>HTML · CSS · Tailwind<br>Responsive / iOS Safari</p></div>
   <div><h4>Backend & Data</h4><p>PostgreSQL · Drizzle<br>Supabase (Auth · RLS)<br>Cloudflare Workers · Hono<br>AWS Lambda · Inngest</p></div>
@@ -477,7 +477,7 @@ document.querySelectorAll(".rv").forEach(function(el){io?io.observe(el):el.class
 </script>
 <script>
 (function(){var el=document.getElementById("tm");if(!el)return;
-var L=[["p","$ claude 「EC店舗の問い合わせ対応を自動化して」"],["dim","› 楽天・Yahoo!・自社メールの受信を1つに集約"],["dim","› AIで迷惑メール判定 → 分類 → 返信の下書き"],["ok","✓ 承認フローと要注意アラートを追加"],["ok","✓ 権限はDB側で制御（RLS）"],["p","$ deploy --prod"],["ok","✓ shipped. 設計とレビューは自分で。"]];
+var L=[["p","$ claude 「EC店舗の問い合わせ対応を自動化して」"],["dim","› 楽天・Yahoo!・自社メールの受信を1つに集約"],["dim","› AIで迷惑メール判定 → 分類 → 返信の下書き"],["ok","✓ 承認フローと要注意アラートを追加"],["ok","✓ 権限はDB側で制御（RLS）"],["p","$ deploy --prod"],["ok","✓ shipped. コードはAI、判断は自分で。"]];
 var red=matchMedia("(prefers-reduced-motion:reduce)").matches,html="",i=0,j=0;
 function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
 function line(k){return '<span class="'+L[k][0]+'">'+esc(L[k][1])+'</span>'+String.fromCharCode(10)}
