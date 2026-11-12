@@ -95,6 +95,12 @@ h2 em{font:italic 300 1.1em var(--serif);color:var(--c1);letter-spacing:.04em}
 /* night */
 .night{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
 .night .ph{aspect-ratio:16/10}
+.nimg{position:relative;padding-bottom:18%}
+.night .ph.ck{position:absolute;right:-6%;bottom:0;width:44%;aspect-ratio:1;box-shadow:0 30px 60px -20px rgba(0,0,0,.9),0 0 0 1px rgba(140,180,255,.15);z-index:2;overflow:visible}
+.ph.ck img{border-radius:4px}
+.ph.ck figcaption{position:absolute;left:10px;bottom:10px;z-index:2;font:300 10px var(--sans);letter-spacing:.16em;color:var(--ink2);white-space:nowrap;background:rgba(2,4,10,.55);padding:4px 10px;border-radius:99px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.ph.ck figcaption i{font:italic 300 13px var(--serif);color:var(--c3);letter-spacing:.04em}
+.ph.ck:after{border-radius:4px}
 .pair{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:70px;align-items:center}
 main,section{overflow-x:clip}
 .time{margin-top:34px;display:grid;gap:0;border-top:1px solid var(--ln)}
@@ -140,6 +146,7 @@ footer{position:relative;z-index:2;padding:40px 32px 90px;text-align:center;font
  section{padding:110px 0}
  .zone,.zone.rev,.night,.access,.pair{grid-template-columns:1fr;gap:44px}
  .pair .ph{max-width:300px}
+ .night .ph.ck{right:0;width:46%}
  .full .cap .lbl{letter-spacing:.3em}
  .zone.rev .ph{order:0}
  .zn{font-size:80px;top:-50px;right:0}
@@ -197,7 +204,7 @@ footer{position:relative;z-index:2;padding:40px 32px 90px;text-align:center;font
 <section id="night"><div class="w night">
  <div class="tx rv"><p class="lbl"><b>AFTER DARK</b>NIGHT AQUARIUM</p><h2>水槽の灯りで、<br><span class="nw"><em>一杯</em>だけ。</span></h2><p class="lead">夜八時を過ぎると、館内はバーに変わる。深海をモチーフにしたカクテルと、ゆっくり流れる音楽を。</p>
   <div class="time"><div><span>Night Aquarium</span><b>20:00 — 23:00</b></div><div><span>Abyss Bar</span><b>20:30 — 23:00 L.O.</b></div><div><span>対象</span><b>20歳以上</b></div></div></div>
- <figure class="ph rv" style="margin:0"><img src="bar.webp" alt="大水槽の前のバーカウンター" width="512" height="286" loading="lazy"></figure>
+ <div class="nimg"><figure class="ph rv" style="margin:0"><img src="bar.webp" alt="大水槽の前のバーカウンター" width="512" height="286" loading="lazy"></figure><figure class="ph ck rv" style="margin:0"><img src="cocktail.webp" alt="青紫に光るカクテル" width="512" height="512" loading="lazy"><figcaption>Signature — <i>Abyss Blue</i></figcaption></figure></div>
 </div></section>
 
 <section style="padding-top:40px"><div class="w pair">
