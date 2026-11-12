@@ -210,6 +210,13 @@ footer .logo{font-size:16px;color:var(--ink);margin-bottom:6px}
 }
 @media (max-width:860px){.hzs .prog{display:none}}
 .mag{transition:transform .25s ease-out}
+.hu{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:72px;align-items:center}
+.hu .hw{grid-template-columns:1fr;gap:38px}
+.hph{position:relative;margin:0;border-radius:200px 200px 24px 24px;overflow:hidden;aspect-ratio:3/4;box-shadow:0 40px 80px -40px rgba(80,100,160,.4)}
+.hph img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;transform:scale(1.12);transition:transform 2.4s cubic-bezier(.19,1,.22,1)}
+.hph.on img{transform:scale(1)}
+.hph figcaption{position:absolute;left:18px;bottom:16px;font-size:10.5px;letter-spacing:.2em;color:#fff;background:rgba(42,50,67,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:99px;padding:5px 12px}
+@media (max-width:860px){.hu{grid-template-columns:1fr;gap:40px}.hph{max-width:340px;width:100%;margin:0 auto}}
 </style>
 </head>
 <body>
@@ -281,10 +288,13 @@ footer .logo{font-size:16px;color:var(--ink);margin-bottom:6px}
 
 <section><div class="w">
  <div class="sh rv"><span class="en">HOW TO USE</span><h2>洗顔のあと、すぐに。</h2></div>
+ <div class="hu">
+ <figure class="hph rv"><img src="use.webp" width="704" height="1521" alt="手のひらにSORAEのローションを出しているところ" loading="lazy"><figcaption class="en">500円玉大が目安</figcaption></figure>
  <div class="hw">
   <div class="rv"><span class="en">STEP 01</span><b>手のひらに、500円玉大</b><p>適量を手のひらに取ります</p></div>
   <div class="rv"><span class="en">STEP 02</span><b>顔全体になじませる</b><p>内側から外側へ、やさしく</p></div>
   <div class="rv"><span class="en">STEP 03</span><b>ハンドプレスで、ふたを</b><p>手のひらで包みこむように</p></div>
+ </div>
  </div>
 </div></section>
 
