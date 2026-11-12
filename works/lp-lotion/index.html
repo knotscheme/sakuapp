@@ -226,6 +226,15 @@ footer .logo{font-size:16px;color:var(--ink);margin-bottom:6px}
 .stx p{margin:26px 0 0;color:var(--ink2);font-size:13.5px;line-height:2.1}
 @media (max-width:860px){.scw{grid-template-columns:1fr;gap:36px}.sph{aspect-ratio:3/5;max-width:340px;width:100%;margin:0 auto}.stx{text-align:center}}
 .nw{white-space:nowrap}
+.stm{position:relative;overflow:hidden;isolation:isolate}
+.stm .w{position:relative;z-index:1}
+.sbg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.sbg img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:saturate(.9) blur(1.5px);transform:scale(1.18);will-change:transform}
+.sbg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,rgba(251,252,254,.62) 18%,rgba(251,252,254,.55) 50%,rgba(251,252,254,.62) 82%,var(--bg) 100%)}
+.stm .wd{color:rgba(42,50,67,.22)!important;text-shadow:0 0 18px rgba(255,255,255,.9)}
+.stm .wd.on{color:var(--ink)!important}
+.stm .wd.ac.on{color:#5b70c4!important}
+@media (min-width:861px){.sbg img{object-position:50% 25%}}
 </style>
 </head>
 <body>
@@ -255,12 +264,7 @@ footer .logo{font-size:16px;color:var(--ink);margin-bottom:6px}
 
 <div class="mq" aria-hidden="true"><div><span>CERAMIDE</span><span>✦</span><span>CICA</span><span>✦</span><span>HUMAN STEM CELL</span><span>✦</span><span>8 FREE</span><span>✦</span><span>MADE IN JAPAN</span><span>✦</span><span>CERAMIDE</span><span>✦</span><span>CICA</span><span>✦</span><span>HUMAN STEM CELL</span><span>✦</span><span>8 FREE</span><span>✦</span><span>MADE IN JAPAN</span><span>✦</span></div></div>
 
-<section class="stm"><div class="w"><p id="stm">毎日の 化粧水を、 もっと 澄んだ ものに。 肌が よろこぶ うるおいを、 あたりまえの 習慣へ。</p></div></section>
-
-<section class="scn"><div class="w scw">
- <figure class="sph rv"><img src="face.webp" width="237" height="512" alt="SORAEをなじませ、両手で頬を包みこむ女性" loading="lazy"></figure>
- <div class="stx rv"><span class="en">MOMENT</span><h2>手のひらで包むたび、<br><span class="nw">ふっくらと。</span></h2><p>みずみずしいのに、べたつかない。<br>なじませたあとの肌は、<span class="nw">しっとりやわらか。</span></p></div>
-</div></section>
+<section class="stm"><div class="sbg" aria-hidden="true"><img src="face.webp" alt="" width="237" height="512"></div><div class="w"><p id="stm">毎日の 化粧水を、 もっと 澄んだ ものに。 肌が よろこぶ うるおいを、 あたりまえの 習慣へ。</p></div></section>
 
 <section style="padding-top:40px"><div class="w">
  <div class="sh rv"><span class="en">FOR YOU</span><h2>こんな方に、おすすめです。</h2></div>
@@ -384,6 +388,7 @@ document.querySelectorAll(".btn").forEach(function(m){m.classList.add("mag");m.a
 })();
 </script>
 <script>(function(){var im=document.querySelector(".sph img");if(!im||matchMedia("(prefers-reduced-motion:reduce)").matches)return;function f(){var r=im.parentNode.getBoundingClientRect(),p=(r.top+r.height/2-innerHeight/2)/innerHeight;im.style.transform="translateY("+(-3+p*-3)+"%)"}addEventListener("scroll",function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
+<script>(function(){var b=document.querySelector(".sbg img");if(!b||matchMedia("(prefers-reduced-motion:reduce)").matches)return;function f(){var r=b.parentNode.parentNode.getBoundingClientRect(),p=(r.top+r.height/2-innerHeight/2)/innerHeight;b.style.transform="scale(1.18) translateY("+(p*-5)+"%)"}addEventListener("scroll",function(){requestAnimationFrame(f)},{passive:true});f()})();</script>
 <script src="../../js/budoux.js" defer></script>
 </body>
 </html>
