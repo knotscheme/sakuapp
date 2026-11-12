@@ -243,7 +243,13 @@ body.lbo header{visibility:hidden}
 .hero h1 br.sp{display:none}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0;padding:0}
 .tags>span{font:400 11.5px var(--mono);color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:rgba(8,13,11,.6)}
-.tags>span:last-child{color:var(--acc);border-color:rgba(61,255,139,.35)}
+.stk{margin:22px 0 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.stk .sl{margin:0;font:500 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--sub)}
+.stk .sg{display:flex;flex-wrap:wrap;gap:6px}
+.stk .sg span{font:400 11px var(--mono);color:var(--ink2);border:1px solid rgba(61,255,139,.16);border-radius:999px;padding:4px 11px;background:rgba(8,13,11,.55);text-align:center;white-space:nowrap}
+.stk .sg span:first-child{color:var(--acc);border-color:rgba(61,255,139,.4)}
+.stk .sg span i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--acc);margin-right:6px;vertical-align:1px;box-shadow:0 0 8px var(--acc)}
+@media (max-width:700px){.stk{display:block;width:100%!important}.stk .sl{margin-bottom:8px}.stk .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.stk .sg span{padding:5px 4px;font-size:10.5px}.tags>span{flex:1;text-align:center}.tags{width:100%!important}}
 .hero{position:relative;overflow:hidden}
 .hero>.w{position:relative;z-index:2;pointer-events:none}
 .hero>.w a,.hero>.w button,.hero>.w .av,.hero>.w .stats{pointer-events:auto}
@@ -310,7 +316,8 @@ body.lbo .fm{opacity:0;pointer-events:none}
  <div class="htx" id="htx">
  <p class="lbl rv">E-commerce × AI</p>
  <h1 class="rv"><span class="ja"><span class="nw">AIで、</span><br><span class="g nw">売れる仕組みを</span><br class="sp"><span class="g nw">つくる。</span></span><span class="en"><span class="nw">I build what sells,</span><br><span class="g nw">with AI.</span></span></h1>
- <p class="tags rv"><span><span class="ja">非エンジニア</span><span class="en">Non-engineer</span></span><span><span class="ja">EC運営出身</span><span class="en">From e-commerce ops</span></span><span>built with Claude Code</span></p>
+ <p class="tags rv"><span><span class="ja">非エンジニア</span><span class="en">Non-engineer</span></span><span><span class="ja">EC運営出身</span><span class="en">From e-commerce ops</span></span></p>
+ <div class="stk rv"><p class="sl">Built with</p><div class="sg"><span><i></i>Claude Code</span><span>Gemini API</span><span>Next.js</span><span>Supabase</span><span>Stripe</span><span>Shopify</span></div></div>
  </div>
 </div>
  <div class="w">
@@ -574,7 +581,7 @@ function sizes(){W=F.clientWidth;Hh=F.clientHeight;mob=W<700;P=[];F.querySelecto
  place()}
 function txtRect(){var b=F.getBoundingClientRect(),out=[],pd=mob?8:16;function add(r){if(r.width>0)out.push({l:r.left-b.left-pd,t:r.top-b.top-pd,r:r.right-b.left+pd,b:r.bottom-b.top+pd})}
  add(T.querySelector(".lbl").getBoundingClientRect());var h=T.querySelector("h1"),rg=document.createRange();rg.selectNodeContents(h);var L={};[].forEach.call(rg.getClientRects(),function(r){var k=Math.round(r.top/8);if(!L[k])L[k]={left:r.left,top:r.top,right:r.right,bottom:r.bottom};else{L[k].left=Math.min(L[k].left,r.left);L[k].right=Math.max(L[k].right,r.right);L[k].top=Math.min(L[k].top,r.top);L[k].bottom=Math.max(L[k].bottom,r.bottom)}});
- for(var k in L){var q=L[k];q.width=q.right-q.left;add(q)}T.querySelectorAll(".tags>span").forEach(function(e){add(e.getBoundingClientRect())});return out}
+ for(var k in L){var q=L[k];q.width=q.right-q.left;add(q)}T.querySelectorAll(".tags>span,.stk .sl,.stk .sg span").forEach(function(e){add(e.getBoundingClientRect())});return out}
 function hit(R,x,y,w,h){for(var i=0;i<R.length;i++){var r=R[i];if(x+w>r.l&&x<r.r&&y+h>r.t&&y<r.b)return r}return null}
 function place(){var R=txtRect(),nr=P.filter(function(p){return !p.far}),fr=P.filter(function(p){return p.far});
  var g={d:[],l:[],m:[]};nr.forEach(function(p){g[p.e.dataset.t||"m"].push(p)});var ord=[],ks=["l","d","m"];while(g.d.length+g.l.length+g.m.length){ks.forEach(function(k){if(g[k].length)ord.push(g[k].shift())})}
