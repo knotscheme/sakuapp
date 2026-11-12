@@ -88,7 +88,13 @@ section{padding:140px 0}
 .ph{aspect-ratio:4/5;background:#e7e5df;display:grid;place-items:center;color:var(--sub);font:400 12px var(--en);letter-spacing:.14em}
 .ab h3{font:300 34px/1.3 var(--en);margin:0}
 .ab h3 small{display:block;font:400 13px "Noto Sans JP";color:var(--sub);margin-top:10px;letter-spacing:.06em}
-.ab .bio{margin:40px 0 0;font-size:15px;color:var(--ink2);font-weight:300;line-height:2.1}
+.ab .quote{margin:40px 0 0;font:300 24px/1.6 var(--en);letter-spacing:.02em;color:var(--ink)}
+.ab .bio{margin:28px 0 0;font-size:14.5px;color:var(--ink2);font-weight:300;line-height:2.1}
+.ab .bio+.bio{margin-top:14px}
+.tlx{list-style:none;margin:44px 0 0;padding:0;border-top:1px solid var(--line)}
+.tlx li{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:16px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.tlx b{font:500 12px var(--en);letter-spacing:.08em;color:var(--sub);padding-top:2px}
+.tlx span{color:var(--ink2);font-weight:300}
 .sk{margin:56px 0 0;display:grid;grid-template-columns:auto 1fr;gap:16px 40px;font:400 13px var(--en);border-top:1px solid var(--line);padding-top:28px}
 .sk dt{color:var(--sub);letter-spacing:.12em;font-size:11.5px;text-transform:uppercase;padding-top:2px}
 .sk dd{margin:0;color:var(--ink2);line-height:1.9}
@@ -114,7 +120,7 @@ footer .w{display:flex;justify-content:space-between}
  .tls li{grid-template-columns:1fr auto;gap:6px 16px;padding:22px 0}
  .td{grid-column:1/-1}.tt{grid-column:1/-1}.ty{grid-row:1;grid-column:2}
  .tg2{grid-template-columns:1fr 1fr;gap:48px 16px}
- .ab{grid-template-columns:1fr;gap:48px}.ph{max-width:320px}
+ .ab{grid-template-columns:1fr;gap:48px}.ab .quote{font-size:20px}.tlx li{grid-template-columns:1fr;gap:2px}.ph{max-width:320px}
  .ct{padding:120px 0 80px}
 }
 @media (max-width:560px){header nav{gap:16px}.tg2{grid-template-columns:1fr}header nav a:nth-child(2),header nav a:nth-child(3){display:none}.oc small{flex-direction:column;gap:0}}
@@ -247,8 +253,16 @@ footer .w{display:flex;justify-content:space-between}
  <div class="ph rv" data-p="photo">PHOTO</div>
  <div class="rv">
   <p class="lbl">About</p>
-  <h3 style="margin-top:28px">Kazuya Shirakawa<small>Web Developer / Claude Code</small></h3>
-  <p class="bio" data-p="bio"><span class="ja">（自己紹介文：これまでの経歴、作ってきたもの、得意なこと、大切にしていることを2〜3行で）</span><span class="en">(Bio: background, what I have built, strengths and values, in 2–3 lines)</span></p>
+  <h3 style="margin-top:28px">Kazuya Shirakawa<small><span class="ja">ECマーケター / Webデベロッパー</span><span class="en">E-commerce Marketer / Web Developer</span></small></h3>
+  <p class="quote"><span class="ja">いいものを作る人が、<br>ちゃんと届けられる仕組みを。</span><span class="en">Helping people who make good things actually reach the people who want them.</span></p>
+  <p class="bio"><span class="ja">デザインの専門学校で、友人とシルバーアクセサリーのネットショップを開きました。作品には自信があったのに、アクセスはゼロ。「いいものを作れば売れる」は思い込みでした。</span><span class="en">At design school, a friend and I opened an online shop for our silver jewelry. We believed in what we made, yet the shop got zero visits. “Make something good and it will sell” turned out to be a myth.</span></p>
+  <p class="bio"><span class="ja">その答えを知るためにEC業界へ。いまは会社員を続けながら、届ける仕組みを持たない人のためのサービスを、Claude Codeで一人で作っています。</span><span class="en">I joined the e-commerce industry to learn why. Today, alongside my day job, I build services on my own with Claude Code for people who have great products but no way to reach customers.</span></p>
+  <ol class="tlx">
+   <li><b><span class="ja">専門学校</span><span class="en">Design school</span></b><span><span class="ja">グラフィック・3Dを学ぶ。初めてのネットショップは集客の壁で閉店</span><span class="en">Studied graphics and 3D. My first online shop closed — no way to attract visitors</span></span></li>
+   <li><b><span class="ja">EC業界</span><span class="en">E-commerce</span></b><span><span class="ja">入社1年で店舗の運営責任者に。楽天市場で年間800万円</span><span class="en">Became a store manager within a year — ¥8M in annual sales on Rakuten</span></span></li>
+   <li><b><span class="ja">企画〜販売</span><span class="en">Planning to sales</span></b><span><span class="ja">商品企画・撮影・LP・クラウドファンディングまで担当し、累計2,000万円超</span><span class="en">Product planning, photography, landing pages and crowdfunding — over ¥20M in total sales</span></span></li>
+   <li><b><span class="ja">いま</span><span class="en">Now</span></b><span><span class="ja">手数料無料のEC「Spider」をはじめ、Webサービスと仕事を自動化するツールを開発</span><span class="en">Building Spider, a fee-free e-commerce platform, plus web services and automation tools</span></span></li>
+  </ol>
   <dl class="sk">
    <dt>Front</dt><dd>HTML · CSS · JavaScript · TypeScript · React · Next.js · Tailwind CSS</dd>
    <dt>Back</dt><dd>Supabase · PostgreSQL · Drizzle · Cloudflare Workers · Hono · Electron</dd>
