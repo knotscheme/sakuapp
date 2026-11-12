@@ -131,10 +131,11 @@ section{padding:160px 0}
 .fq summary:after{content:"";margin-left:auto;width:12px;height:12px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);transform:rotate(45deg) translate(-3px,-3px);transition:transform .4s}
 .fq details[open] summary:after{transform:rotate(-135deg)}
 .fq p{margin:14px 0 0;font-size:13px;color:var(--ink2)}
+.end .w{position:relative;z-index:1}
 .end{position:relative;overflow:hidden;text-align:center;padding:180px 0}
 .end h2{position:relative;margin:20px 0 0;font-weight:200;font-size:clamp(28px,3.8vw,46px);line-height:1.7;letter-spacing:.2em}
 .end p{position:relative;color:var(--ink2);font-size:13px;margin:22px 0 44px}
-footer{padding:44px 0;text-align:center;font-size:11px;color:var(--sub)}
+footer{padding:44px 16px calc(44px + env(safe-area-inset-bottom,0px));text-align:center;font-size:11px;color:var(--sub)}
 footer .logo{font-size:16px;color:var(--ink);margin-bottom:6px}
 .rv{opacity:0;transform:translateY(34px);transition:opacity 1.3s cubic-bezier(.19,1,.22,1),transform 1.3s cubic-bezier(.19,1,.22,1)}
 .rv.on{opacity:1;transform:none}
@@ -335,7 +336,7 @@ var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es
  if(e.target.classList.contains("ring")&&!done){done=true;arc.style.strokeDashoffset=553*(1-.8);var s=null;(function f(t){if(!s)s=t;var p=Math.min(1,(t-s)/2000);cnt.innerHTML=Math.round(80*(1-Math.pow(1-p,3)))+"<small>%</small>";if(p<1)requestAnimationFrame(f)})(performance.now())}})},{rootMargin:"0px 0px -10% 0px"}):null;
 document.querySelectorAll(".rv").forEach(function(el){io?io.observe(el):el.classList.add("on")});
 var fb=document.getElementById("fb"),pr=document.getElementById("price");
-addEventListener("scroll",function(){var r=pr.getBoundingClientRect();fb.classList.toggle("on",scrollY>innerHeight*.8&&!(r.top<innerHeight&&r.bottom>0))},{passive:true});})();
+var en=document.querySelector(".end");addEventListener("scroll",function(){var r=pr.getBoundingClientRect(),q=en.getBoundingClientRect();fb.classList.toggle("on",scrollY>innerHeight*.8&&!(r.top<innerHeight&&r.bottom>0)&&!(q.top<innerHeight))},{passive:true});})();
 </script>
 <script>
 (function(){
