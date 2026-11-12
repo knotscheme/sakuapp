@@ -19,7 +19,7 @@
 :root{--bg:#050807;--ink:#e6f2ea;--ink2:#9fb2a7;--sub:#5d7368;--line:#16211c;--acc:#3dff8b;--acc2:#1fd1a5;--mono:"JetBrains Mono",ui-monospace,monospace;--en:Inter,"Noto Sans JP",sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg) radial-gradient(1200px 600px at 80% -10%,rgba(61,255,139,.10),transparent 60%),var(--bg);background-attachment:fixed;color:var(--ink);font-family:"Noto Sans JP",sans-serif;line-height:1.9;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg) radial-gradient(1200px 600px at 80% -10%,rgba(61,255,139,.10),transparent 60%),var(--bg);color:var(--ink);font-family:"Noto Sans JP",sans-serif;line-height:1.9;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{display:block;width:100%;height:auto}
 html.en .ja{display:none}html:not(.en) .en{display:none}
@@ -223,11 +223,25 @@ body.lbo header{visibility:hidden}
 .lbx .nx{right:14px;top:50%;margin-top:-23px}
 .lbx .ct{position:absolute;bottom:18px;left:0;right:0;text-align:center;font:400 12px var(--mono);color:var(--sub);padding:0;border:0}
 @media (max-width:560px){.lbx .pv,.lbx .nx{top:auto;bottom:10px;margin:0}.lbx .pv{left:calc(50% - 70px)}.lbx .nx{right:calc(50% - 70px)}.lbx .ct{bottom:62px}}
+
+/* ambient background that shifts per section */
+.amb{position:fixed;inset:-20%;z-index:0;pointer-events:none;overflow:hidden}
+.amb i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(90px);opacity:.55;transition:background 1.6s ease,transform 2.4s cubic-bezier(.2,.7,.2,1),opacity 1.6s ease;will-change:transform}
+.amb i:nth-child(1){left:45%;top:-5%;background:var(--b1,#0f6b3a);animation:fl1 22s ease-in-out infinite alternate}
+.amb i:nth-child(2){left:-10%;top:45%;background:var(--b2,#0b4f4a);animation:fl2 26s ease-in-out infinite alternate}
+.amb i:nth-child(3){left:55%;top:60%;width:45vmax;height:45vmax;background:var(--b3,#1a2f12);animation:fl3 30s ease-in-out infinite alternate}
+@keyframes fl1{to{transform:translate(-12vmax,10vmax) scale(1.15)}}
+@keyframes fl2{to{transform:translate(14vmax,-8vmax) scale(.9)}}
+@keyframes fl3{to{transform:translate(-10vmax,-12vmax) scale(1.2)}}
+body:before{z-index:1}
+main,footer{z-index:2}
+@media (prefers-reduced-motion:reduce){.amb i{animation:none;transition:background 0s}}
 </style>
 </head>
 <body>
 <header><div class="w"><a class="nm" href="#top">Kazuya Shirakawa</a><nav><a href="#work">Work</a><a href="#experience">Experience</a><a href="#offer">Services</a><a href="#contact">Contact</a><button type="button" class="lg" id="lg" aria-label="Switch language"><b data-l="ja">JA</b> / <b data-l="en">EN</b></button></nav></div></header>
 
+<div class="amb" aria-hidden="true"><i></i><i></i><i></i></div>
 <main id="top">
 <section class="hero"><div class="w">
  <p class="lbl rv">E-commerce × Engineering</p>
@@ -440,6 +454,25 @@ function tick(){if(i>=L.length){el.innerHTML=html+'<span class="cur"></span>';se
  var t=L[i][1];if(L[i][0]==="p"){j++;el.innerHTML=html+'<span class="p">'+esc(t.slice(0,j))+'</span><span class="cur"></span>';if(j<t.length){setTimeout(tick,38);return}}
  html+=line(i);i++;j=0;el.innerHTML=html+'<span class="cur"></span>';setTimeout(tick,L[i-1][0]==="p"?420:260)}
 setTimeout(tick,600)})();
+</script>
+<script>
+(function(){var P={
+top:["#0f6b3a","#0b4f4a","#1a2f12"],
+work:["#0b5a52","#123d2a","#0d2f3a"],
+saas:["#0f6b3a","#06404f","#16351c"],
+tools:["#0a4d6b","#0b5a47","#1b2a4a"],
+lp:["#4a3a0d","#0f5a3a","#3a2410"],
+photo:["#4f1d3a","#2a1f5a","#0f4a3a"],
+experience:["#1f3a5a","#0f5a4a","#1a1a3a"],
+offer:["#0f6b3a","#2a4a0d","#0b3f4f"],
+skills:["#123a5a","#0b5a3a","#2a1a4a"],
+contact:["#0f7a40","#0a5a5a","#164a1a"]};
+var r=document.documentElement,cur="";
+function set(k){if(k===cur||!P[k])return;cur=k;var c=P[k];r.style.setProperty("--b1",c[0]);r.style.setProperty("--b2",c[1]);r.style.setProperty("--b3",c[2])}
+var secs=[].slice.call(document.querySelectorAll("section[id],section.hero"));
+function pick(){var y=innerHeight*.45,best=null;secs.forEach(function(el){var b=el.getBoundingClientRect();if(b.top<=y&&b.bottom>y)best=el});set(best?(best.id||"top"):"top")}
+addEventListener("scroll",function(){requestAnimationFrame(pick)},{passive:true});pick();
+})();
 </script>
 <div class="lbx" id="lbx" role="dialog" aria-modal="true" aria-label="画像の拡大"><button type="button" class="x" aria-label="閉じる">×</button><button type="button" class="pv" aria-label="前へ">‹</button><img alt=""><button type="button" class="nx" aria-label="次へ">›</button><p class="ct"></p></div>
 <script>
