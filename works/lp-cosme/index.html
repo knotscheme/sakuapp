@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>HANANE — Glow Serum（サンプルLP）</title>
+<meta name="description" content="ポートフォリオ用に制作した、架空のスキンケアブランドのサンプルLPです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8f2ec;--bg2:#f1e6dc;--ink:#3b2c27;--ink2:#7a6660;--sub:#a8948c;--line:#e6d8cc;--rose:#d9a5a0;--rose2:#c48079;--gold:#b89466;--serif:"Cormorant Garamond",serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",sans-serif;font-weight:300;line-height:2;letter-spacing:.08em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+.w{max-width:1120px;margin:0 auto;padding:0 32px}
+.en{font-family:var(--serif);letter-spacing:.06em}
+.sample{position:fixed;top:0;left:0;right:0;z-index:50;background:#3b2c27;color:#f8f2ec;font-size:11.5px;text-align:center;padding:6px 12px;letter-spacing:.06em}
+.sample a{text-decoration:underline}
+header{position:absolute;top:30px;left:0;right:0;z-index:10}
+header .w{display:flex;align-items:center;justify-content:space-between}
+.logo{font:400 26px var(--serif);letter-spacing:.32em}
+header nav{display:flex;gap:30px;font-size:12px;color:var(--ink2)}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:#fff;border-radius:999px;padding:16px 34px;font-size:14px;font-weight:400;letter-spacing:.12em;transition:background .3s,transform .3s}
+.btn:hover{background:var(--rose2);transform:translateY(-2px)}
+.btn.lt{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:radial-gradient(900px 700px at 78% 45%,#f6d9d3 0%,rgba(246,217,211,0) 60%),radial-gradient(700px 600px at 10% 90%,#efe2d3,transparent 60%),var(--bg);padding:120px 0 80px}
+.hero .w{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;width:100%}
+.hero .kick{font:italic 300 18px var(--serif);color:var(--rose2);letter-spacing:.12em}
+.hero h1{font-weight:300;font-size:clamp(34px,4.4vw,56px);line-height:1.55;letter-spacing:.12em;margin:18px 0 0}
+.hero h1 span{display:block}
+.hero p.lead{margin:28px 0 0;font-size:14.5px;color:var(--ink2);max-width:26em}
+.hero .cta{display:flex;gap:16px;align-items:center;margin-top:40px;flex-wrap:wrap}
+.hero .cta small{font-size:12px;color:var(--sub)}
+.stage{position:relative;height:620px}
+.circle{position:absolute;left:50%;top:50%;width:440px;height:440px;margin:-220px 0 0 -220px;border-radius:50%;background:linear-gradient(160deg,#fbe9e4,#efd3cb);box-shadow:inset 0 -30px 60px rgba(196,128,121,.15)}
+.ring{position:absolute;left:50%;top:50%;width:540px;height:540px;margin:-270px 0 0 -270px;border-radius:50%;border:1px solid rgba(184,148,102,.35)}
+.ring:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);top:50%;left:-5px;animation:orb 18s linear infinite;transform-origin:275px 0}
+@keyframes orb{to{transform:rotate(360deg)}}
+.bottle{position:absolute;left:50%;top:50%;transform:translate(-50%,-48%);filter:drop-shadow(0 40px 40px rgba(110,70,60,.25));animation:flt 6s ease-in-out infinite}
+@keyframes flt{50%{transform:translate(-50%,-52%)}}
+.petal{position:absolute;width:26px;height:26px;border-radius:70% 0 70% 0;background:linear-gradient(135deg,#f4c6c0,#e3a39b);opacity:.8;animation:fall 14s linear infinite}
+@keyframes fall{0%{transform:translate(0,-40px) rotate(0)}100%{transform:translate(60px,640px) rotate(320deg);opacity:0}}
+.badge{position:absolute;right:4%;bottom:12%;width:130px;height:130px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;box-shadow:0 20px 40px -20px rgba(110,70,60,.4);font-size:11px;line-height:1.6;color:var(--ink2)}
+.badge b{display:block;font:400 30px var(--serif);color:var(--rose2);line-height:1}
+/* sections */
+section{padding:140px 0}
+.sh{text-align:center;margin-bottom:70px}
+.sh .en{display:block;font-size:15px;font-style:italic;color:var(--rose2);letter-spacing:.2em}
+.sh h2{font-weight:300;font-size:clamp(24px,3vw,34px);line-height:1.7;letter-spacing:.14em;margin:12px 0 0}
+.sh p{margin:22px auto 0;max-width:34em;font-size:14px;color:var(--ink2)}
+/* worry */
+.wr{background:var(--bg2)}
+.wg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.wg div{background:#fff;border-radius:200px 200px 24px 24px;padding:56px 28px 36px;text-align:center}
+.wg .ic{width:72px;height:72px;margin:0 auto 22px;border-radius:50%;background:var(--bg);display:grid;place-items:center}
+.wg b{display:block;font-weight:400;font-size:16px;letter-spacing:.1em}
+.wg p{margin:12px 0 0;font-size:13px;color:var(--ink2);line-height:1.9}
+.answer{margin-top:70px;text-align:center;font-size:clamp(20px,2.4vw,26px);letter-spacing:.14em}
+.answer em{font-style:normal;background:linear-gradient(transparent 62%,rgba(217,165,160,.45) 62%)}
+/* concept */
+.cp .w{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.cpv{position:relative;aspect-ratio:4/5;border-radius:240px 240px 0 0;overflow:hidden;background:linear-gradient(180deg,#f3d7cf 0%,#ead0c1 55%,#d9b9a5 100%)}
+.cpv .sun{position:absolute;left:50%;top:22%;width:180px;height:180px;margin-left:-90px;border-radius:50%;background:radial-gradient(circle,#fff6ee,#f8dccd 60%,transparent 70%)}
+.cpv .hill{position:absolute;left:-10%;right:-10%;bottom:-6%;height:46%;border-radius:50% 50% 0 0;background:#c9a089}
+.cpv .hill2{position:absolute;left:-30%;right:20%;bottom:-14%;height:42%;border-radius:50% 50% 0 0;background:#b78a73}
+.cpv svg{position:absolute;left:50%;bottom:9%;transform:translateX(-50%)}
+.cp h2{font-weight:300;font-size:clamp(24px,2.8vw,32px);line-height:1.8;letter-spacing:.14em;margin:16px 0 0}
+.cp p{font-size:14px;color:var(--ink2)}
+.num{display:flex;gap:44px;margin-top:40px;padding-top:30px;border-top:1px solid var(--line)}
+.num b{display:block;font:300 44px/1 var(--serif);color:var(--rose2)}
+.num small{font-size:12px;color:var(--ink2)}
+/* ingredients */
+.ig{background:linear-gradient(180deg,var(--bg),var(--bg2))}
+.igg{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.igg div{text-align:center}
+.igg .orb{width:150px;height:150px;margin:0 auto;border-radius:50%;display:grid;place-items:center;position:relative;background:var(--c);box-shadow:inset -14px -18px 30px rgba(0,0,0,.06),inset 10px 12px 20px rgba(255,255,255,.6)}
+.igg .orb span{font:italic 300 15px var(--serif);color:#fff;letter-spacing:.1em}
+.igg b{display:block;margin-top:24px;font-weight:400;font-size:15px}
+.igg p{margin:8px 0 0;font-size:12.5px;color:var(--ink2);line-height:1.9}
+/* how */
+.hw{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hw div{padding:44px 34px;text-align:center}
+.hw div+div{border-left:1px solid var(--line)}
+.hw .n{font:300 54px/1 var(--serif);color:var(--gold)}
+.hw b{display:block;margin-top:18px;font-weight:400;font-size:16px}
+.hw p{margin:10px 0 0;font-size:13px;color:var(--ink2)}
+/* voice */
+.vo{background:var(--ink);color:#f8f2ec}
+.vo .sh .en{color:var(--rose)}
+.vo .sh p{color:#cdb9b1}
+.vg{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.vg div{border:1px solid rgba(248,242,236,.18);border-radius:20px;padding:30px 28px}
+.vg .st{color:var(--gold);letter-spacing:.2em;font-size:13px}
+.vg p{margin:14px 0 18px;font-size:13.5px;line-height:2;color:#eadfd8}
+.vg small{color:#bfa9a0;font-size:12px}
+.vnote{margin-top:30px;text-align:center;font-size:11.5px;color:#bfa9a0}
+/* price */
+.pr{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:860px;margin:0 auto}
+.pc{border-radius:28px;padding:44px 40px;background:#fff;border:1px solid var(--line);position:relative}
+.pc.on{background:linear-gradient(160deg,#fff,#fbeeea);border-color:var(--rose)}
+.pc .tg{position:absolute;top:-14px;left:40px;background:var(--rose2);color:#fff;font-size:12px;border-radius:999px;padding:4px 16px}
+.pc h3{margin:0;font-weight:400;font-size:17px;letter-spacing:.12em}
+.pc .yen{margin:18px 0 6px;font:300 52px/1 var(--serif)}
+.pc .yen small{font:300 14px "Noto Sans JP";margin-left:6px}
+.pc .yen s{font-size:20px;color:var(--sub);margin-right:12px}
+.pc ul{list-style:none;margin:22px 0 30px;padding:0;font-size:13px;color:var(--ink2)}
+.pc li{padding:9px 0 9px 24px;border-top:1px solid var(--line);position:relative}
+.pc li:before{content:"";position:absolute;left:4px;top:19px;width:8px;height:8px;border-radius:50%;background:var(--rose)}
+.pc .btn{width:100%;justify-content:center}
+/* faq */
+.fq{max-width:780px;margin:0 auto}
+.fq details{border-bottom:1px solid var(--line);padding:22px 4px}
+.fq summary{cursor:pointer;list-style:none;font-size:15px;font-weight:400;display:flex;gap:16px;align-items:baseline}
+.fq summary::-webkit-details-marker{display:none}
+.fq summary:before{content:"Q";font:italic 400 20px var(--serif);color:var(--rose2)}
+.fq summary:after{content:"+";margin-left:auto;font-size:20px;color:var(--sub);transition:transform .3s}
+.fq details[open] summary:after{transform:rotate(45deg)}
+.fq p{margin:14px 0 0 32px;font-size:13.5px;color:var(--ink2)}
+/* cta */
+.end{text-align:center;background:radial-gradient(800px 500px at 50% 100%,#f3d2cb,transparent 70%),var(--bg)}
+.end h2{font-weight:300;font-size:clamp(26px,3.4vw,40px);line-height:1.7;letter-spacing:.14em;margin:0}
+.end p{color:var(--ink2);font-size:14px;margin:22px 0 40px}
+footer{padding:44px 0;text-align:center;font-size:11.5px;color:var(--sub)}
+footer .logo{font-size:20px;color:var(--ink);margin-bottom:8px}
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.fb{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);transition:transform .5s cubic-bezier(.2,.7,.2,1);z-index:40}
+.fb.on{transform:translate(-50%,0)}
+.fb .btn{box-shadow:0 18px 40px -16px rgba(59,44,39,.55);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.bottle,.ring:after,.petal{animation:none}}
+@media (max-width:860px){
+ .w{padding:0 22px}
+ header{top:46px}header nav{display:none}.sample{font-size:10.5px}
+ .hero{padding:110px 0 60px}
+ .hero .w{grid-template-columns:1fr;gap:10px;text-align:center}
+ .hero p.lead{margin-left:auto;margin-right:auto}
+ .hero .cta{justify-content:center}
+ .stage{height:420px;order:-1}
+ .circle{width:300px;height:300px;margin:-150px 0 0 -150px}
+ .ring{width:370px;height:370px;margin:-185px 0 0 -185px}.ring:after{transform-origin:190px 0}
+ .bottle svg{width:150px;height:auto}
+ .badge{width:100px;height:100px;right:2%;bottom:4%}.badge b{font-size:24px}
+ section{padding:96px 0}.sh{margin-bottom:46px}
+ .wg,.vg{grid-template-columns:1fr;gap:16px}
+ .wg div{border-radius:24px;padding:30px 24px;display:grid;grid-template-columns:64px 1fr;gap:4px 18px;text-align:left;align-items:center}
+ .wg .ic{width:64px;height:64px;margin:0;grid-row:span 2}
+ .wg p{margin:0}
+ .cp .w{grid-template-columns:1fr;gap:44px}
+ .cpv{max-width:340px;margin:0 auto;width:100%}
+ .num{gap:26px;justify-content:center}
+ .igg{grid-template-columns:1fr 1fr;gap:34px 14px}.igg .orb{width:120px;height:120px}
+ .hw{grid-template-columns:1fr}.hw div+div{border-left:0;border-top:1px solid var(--line)}.hw div{padding:32px 10px}
+ .pr{grid-template-columns:1fr}.pc{padding:38px 26px}
+}
+</style>
+</head>
+<body>
+<div class="sample">ポートフォリオ用の<b>架空のブランド</b>のサンプルLPです（販売はしていません）　<a href="../">← 戻る</a></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#e9b9ae"/><stop offset=".45" stop-color="#f7dcd4"/><stop offset=".55" stop-color="#fbe9e4"/><stop offset="1" stop-color="#d89a8f"/></linearGradient>
+  <linearGradient id="liq" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f3c3b6" stop-opacity=".2"/><stop offset="1" stop-color="#e09a8b" stop-opacity=".55"/></linearGradient>
+  <linearGradient id="cap" x1="0" x2="1"><stop offset="0" stop-color="#9f7a52"/><stop offset=".5" stop-color="#e3c79d"/><stop offset="1" stop-color="#8a6845"/></linearGradient>
+  <linearGradient id="bulb" x1="0" x2="1"><stop offset="0" stop-color="#3b2c27"/><stop offset=".5" stop-color="#6b5550"/><stop offset="1" stop-color="#2c201c"/></linearGradient>
+  <symbol id="drop" viewBox="0 0 160 360">
+   <path d="M62 0h36c8 0 12 6 12 14v50c0 8-6 12-12 12H62c-6 0-12-4-12-12V14C50 6 54 0 62 0z" fill="url(#bulb)"/>
+   <rect x="48" y="74" width="64" height="40" rx="4" fill="url(#cap)"/>
+   <rect x="58" y="104" width="44" height="18" fill="url(#cap)" opacity=".85"/>
+   <path d="M44 122h72c18 0 30 12 30 30v178c0 16-12 28-28 28H42c-16 0-28-12-28-28V152c0-18 12-30 30-30z" fill="url(#glass)"/>
+   <path d="M20 200h120v130c0 14-10 24-24 24H44c-14 0-24-10-24-24z" fill="url(#liq)"/>
+   <rect x="36" y="140" width="10" height="190" rx="5" fill="#fff" opacity=".45"/>
+   <text x="80" y="236" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" letter-spacing="5" fill="#5a4038">HANANE</text>
+   <line x1="56" y1="248" x2="104" y2="248" stroke="#5a4038" stroke-width=".6"/>
+   <text x="80" y="266" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-size="11" letter-spacing="2" fill="#5a4038">glow serum</text>
+   <text x="80" y="300" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="9" letter-spacing="2" fill="#5a4038">30 mL</text>
+  </symbol>
+ </defs>
+</svg>
+
+<header><div class="w"><span class="logo">HANANE</span><nav><a href="#concept">Concept</a><a href="#ingredients">Ingredients</a><a href="#howto">How to use</a><a href="#price">Price</a></nav></div></header>
+
+<main>
+<section class="hero"><div class="w">
+ <div class="rv">
+  <p class="kick">Glow Serum</p>
+  <h1><span>ひとしずくで、</span><span>花ひらく素肌へ。</span></h1>
+  <p class="lead">5種の植物エキスとナイアシンアミドを、軽やかな美容液に。毎朝のスキンケアに、うるおいとツヤをひと手間で。</p>
+  <div class="cta"><a class="btn" href="#price">初回限定で試してみる <span>→</span></a><small>送料無料・いつでも解約OK</small></div>
+ </div>
+ <div class="stage" aria-hidden="true">
+  <div class="ring"></div><div class="circle"></div>
+  <span class="petal" style="left:20%;top:0;animation-delay:-2s"></span><span class="petal" style="left:62%;top:0;animation-delay:-7s;width:18px;height:18px"></span><span class="petal" style="left:80%;top:0;animation-delay:-11s"></span>
+  <div class="bottle"><svg width="200" height="450"><use href="#drop"/></svg></div>
+  <div class="badge"><div>初回限定<b>60%</b>OFF</div></div>
+ </div>
+</div></section>
+
+<section class="wr"><div class="w">
+ <div class="sh rv"><span class="en">Your skin</span><h2>こんなお悩み、ありませんか？</h2></div>
+ <div class="wg">
+  <div class="rv"><span class="ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c48079" stroke-width="1.3"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg></span><b>夕方になると乾燥する</b><p>朝のうるおいが続かず、メイクの上からつっぱる。</p></div>
+  <div class="rv"><span class="ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c48079" stroke-width="1.3"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></span><b>ツヤがなく、くすんで見える</b><p>疲れて見える、と言われることが増えた。</p></div>
+  <div class="rv"><span class="ic"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c48079" stroke-width="1.3"><rect x="4" y="6" width="16" height="13" rx="2"/><path d="M8 3v4M16 3v4M4 11h16"/></svg></span><b>スキンケアに時間をかけられない</b><p>何本も重ねるのは、正直めんどう。</p></div>
+ </div>
+ <p class="answer rv">朝の<em>ひと手間</em>を、いちばん効く一本に。</p>
+</div></section>
+
+<section class="cp" id="concept"><div class="w">
+ <div class="cpv rv" aria-hidden="true"><span class="sun"></span><span class="hill2"></span><span class="hill"></span><svg width="140" height="315"><use href="#drop"/></svg></div>
+ <div class="rv">
+  <span class="en" style="font-style:italic;color:var(--rose2);letter-spacing:.2em">Concept</span>
+  <h2>花が朝日にひらくように、<br>肌も、目覚める。</h2>
+  <p>HANANE（ハナネ）は、「花の音」から名付けたスキンケアブランド。植物のちからと、肌にうれしい成分をシンプルに組み合わせ、毎日続けられる心地よさを大切にしています。</p>
+  <div class="num"><div><b>5</b><small>種の植物エキス</small></div><div><b>7</b><small>つの無添加</small></div><div><b>1</b><small>本で美容液ケア</small></div></div>
+ </div>
+</div></section>
+
+<section class="ig" id="ingredients"><div class="w">
+ <div class="sh rv"><span class="en">Ingredients</span><h2>肌のことを考えた、こだわりの成分</h2></div>
+ <div class="igg">
+  <div class="rv"><span class="orb" style="--c:linear-gradient(140deg,#f6c8c0,#e59f95)"><span>Rose</span></span><b>ダマスクローズ水</b><p>華やかな香りと、みずみずしいうるおい</p></div>
+  <div class="rv"><span class="orb" style="--c:linear-gradient(140deg,#f5ddb0,#d9b26e)"><span>Niacin</span></span><b>ナイアシンアミド</b><p>ハリとツヤのある肌へ導く</p></div>
+  <div class="rv"><span class="orb" style="--c:linear-gradient(140deg,#cfe1c8,#94b48a)"><span>Cica</span></span><b>ツボクサエキス</b><p>ゆらぎがちな肌をすこやかに整える</p></div>
+  <div class="rv"><span class="orb" style="--c:linear-gradient(140deg,#e2d4ee,#b49ccc)"><span>Ceramide</span></span><b>セラミド</b><p>肌のうるおいを守り、乾燥を防ぐ</p></div>
+ </div>
+</div></section>
+
+<section id="howto"><div class="w">
+ <div class="sh rv"><span class="en">How to use</span><h2>朝と夜、3ステップで。</h2></div>
+ <div class="hw rv">
+  <div><span class="n">01</span><b>洗顔のあとに</b><p>化粧水で肌を整えます</p></div>
+  <div><span class="n">02</span><b>2〜3滴を手のひらへ</b><p>手のひらで軽く温めます</p></div>
+  <div><span class="n">03</span><b>顔全体にハンドプレス</b><p>包みこむようになじませます</p></div>
+ </div>
+</div></section>
+
+<section class="vo"><div class="w">
+ <div class="sh rv"><span class="en">Voice</span><h2>ご愛用者さまの声</h2><p>※サンプルLPのため、掲載している声は架空のものです。</p></div>
+ <div class="vg">
+  <div class="rv"><span class="st">★★★★★</span><p>朝つけると、夕方まで乾燥が気にならなくなりました。香りも上品で、毎朝の楽しみになっています。</p><small>30代・乾燥肌</small></div>
+  <div class="rv"><span class="st">★★★★★</span><p>重ねづけが苦手でしたが、これ一本でしっとり。メイクのノリも良くなった気がします。</p><small>40代・混合肌</small></div>
+  <div class="rv"><span class="st">★★★★☆</span><p>ベタつかないのにツヤが出るのが嬉しい。ボトルがかわいくて洗面台に置いておきたくなります。</p><small>20代・普通肌</small></div>
+ </div>
+</div></section>
+
+<section id="price"><div class="w">
+ <div class="sh rv"><span class="en">Price</span><h2>まずは、気軽にお試しを。</h2></div>
+ <div class="pr">
+  <div class="pc rv"><h3>通常購入</h3><div class="yen">4,950<small>円（税込）</small></div><ul><li>30mL（約1か月分）</li><li>送料 550円</li><li>いつでもご購入いただけます</li></ul><a class="btn lt" href="#price">通常購入する</a></div>
+  <div class="pc on rv"><span class="tg">いちばん人気</span><h3>定期便（初回限定）</h3><div class="yen"><s>4,950</s>1,980<small>円（税込）</small></div><ul><li>2回目以降も 15%OFF</li><li>送料無料</li><li>回数のしばりなし・いつでも解約OK</li></ul><a class="btn" href="#price">初回限定で試してみる</a></div>
+ </div>
+</div></section>
+
+<section style="padding-top:0"><div class="w">
+ <div class="sh rv"><span class="en">FAQ</span><h2>よくあるご質問</h2></div>
+ <div class="fq rv">
+  <details><summary>敏感肌でも使えますか？</summary><p>7つの無添加処方で、肌へのやさしさを大切にしています。気になる方は、腕の内側などで試してからお使いください。</p></details>
+  <details><summary>1本でどのくらい使えますか？</summary><p>朝晩2〜3滴ずつのご使用で、約1か月分です。</p></details>
+  <details><summary>定期便はいつでも解約できますか？</summary><p>回数のしばりはありません。次回お届け日の7日前までにご連絡いただければ、いつでも解約できます。</p></details>
+  <details><summary>ほかのスキンケアと一緒に使えますか？</summary><p>化粧水のあと、乳液やクリームの前にお使いください。</p></details>
+ </div>
+</div></section>
+
+<section class="end"><div class="w rv">
+ <span class="en" style="font-style:italic;color:var(--rose2);letter-spacing:.2em">Start your glow</span>
+ <h2 style="margin-top:14px">明日の朝、<br>素肌がちがう。</h2>
+ <p>初回限定 1,980円（税込）・送料無料</p>
+ <a class="btn" href="#price">初回限定で試してみる <span>→</span></a>
+</div></section>
+</main>
+<footer><div class="logo">HANANE</div>© HANANE（架空のブランド・ポートフォリオ用サンプル）</footer>
+<div class="fb" id="fb"><a class="btn" href="#price">初回限定 1,980円で試す →</a></div>
+<script>
+(function(){var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px"}):null;
+document.querySelectorAll(".rv").forEach(function(el){io?io.observe(el):el.classList.add("on")});
+var fb=document.getElementById("fb"),pr=document.getElementById("price");
+addEventListener("scroll",function(){var r=pr.getBoundingClientRect();fb.classList.toggle("on",scrollY>innerHeight*.8&&!(r.top<innerHeight&&r.bottom>0))},{passive:true});})();
+</script>
+</body>
+</html>

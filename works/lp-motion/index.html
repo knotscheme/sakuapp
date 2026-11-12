@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ORBE — Design Studio（サンプルLP）</title>
+<meta name="description" content="ポートフォリオ用に制作した、架空のデザインスタジオのアニメーションLPです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0c;--fg:#ecebe6;--mut:#7d7b74;--ln:#262523;--ac:#d8ff5c;--f:"Inter Tight","Noto Sans JP",sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f);font-weight:300;letter-spacing:.01em;line-height:1.7;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--ac);color:#000}
+.w{max-width:1320px;margin:0 auto;padding:0 48px}
+.sample{position:fixed;left:16px;bottom:16px;z-index:90;font-size:11px;color:var(--mut);background:rgba(13,13,12,.8);border:1px solid var(--ln);border-radius:99px;padding:6px 14px;backdrop-filter:blur(8px)}
+.sample a{color:var(--fg)}
+/* loader */
+.ld{position:fixed;inset:0;z-index:100;background:var(--fg);color:var(--bg);display:flex;align-items:flex-end;justify-content:space-between;padding:40px 48px;transition:transform 1.1s cubic-bezier(.77,0,.18,1)}
+.ld.out{transform:translateY(-100%)}
+.ld b{font-weight:200;font-size:clamp(80px,16vw,220px);line-height:.8;letter-spacing:-.04em}
+.ld span{font-size:13px;letter-spacing:.2em}
+/* cursor */
+.cur{position:fixed;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--fg);mix-blend-mode:difference;pointer-events:none;z-index:95;transition:width .3s,height .3s,margin .3s}
+.cur.big{width:70px;height:70px;margin:-35px 0 0 -35px}
+@media (hover:none){.cur{display:none}}
+/* header */
+header{position:fixed;inset:0 0 auto;z-index:50;mix-blend-mode:difference}
+header .w{display:flex;align-items:center;height:84px;max-width:none}
+.logo{font-weight:500;letter-spacing:.3em;font-size:14px}
+header nav{margin-left:auto;display:flex;gap:34px;font-size:13px}
+header nav a{position:relative}
+header nav a:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.77,0,.18,1)}
+header nav a:hover:after{transform:scaleX(1);transform-origin:left}
+/* hero */
+.hero{position:relative;height:100svh;min-height:640px;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:60px;overflow:hidden}
+.orb{position:absolute;right:8%;top:16%;width:min(46vw,620px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 28%,#f5f4ee 0%,#bdbcb4 18%,#4d4c47 46%,#151513 72%);box-shadow:inset -40px -60px 120px rgba(0,0,0,.6),0 0 160px rgba(216,255,92,.08);will-change:transform}
+.orb:after{content:"";position:absolute;inset:-8%;border-radius:50%;border:1px solid rgba(236,235,230,.12);animation:spin 40s linear infinite}
+.orb:before{content:"";position:absolute;left:-22%;top:46%;width:144%;height:1px;background:linear-gradient(90deg,transparent,rgba(216,255,92,.7),transparent);transform:rotate(-18deg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero h1{position:relative;margin:0;font-weight:200;font-size:clamp(54px,10.5vw,176px);line-height:.92;letter-spacing:-.045em}
+.ln{display:block;overflow:hidden;padding-bottom:.06em}
+.ln>span{display:inline-block;transform:translateY(110%);transition:transform 1.3s cubic-bezier(.19,1,.22,1)}
+.go .ln>span{transform:none}
+.ln:nth-child(2)>span{transition-delay:.12s}.ln:nth-child(3)>span{transition-delay:.24s}
+.hero h1 i{font-style:italic;font-weight:200;color:var(--mut)}
+.hb{position:relative;display:flex;justify-content:space-between;align-items:flex-end;margin-top:48px;gap:30px;opacity:0;transform:translateY(20px);transition:opacity 1s .7s,transform 1s .7s}
+.go .hb{opacity:1;transform:none}
+.hb p{margin:0;max-width:26em;font-size:14px;color:var(--mut)}
+.scroll{font-size:12px;letter-spacing:.2em;display:flex;align-items:center;gap:14px}
+.scroll i{display:block;width:1px;height:52px;background:var(--ln);position:relative;overflow:hidden}
+.scroll i:after{content:"";position:absolute;left:0;top:-50%;width:1px;height:50%;background:var(--fg);animation:dr 2s cubic-bezier(.77,0,.18,1) infinite}
+@keyframes dr{to{top:100%}}
+/* marquee */
+.mq{border-top:1px solid var(--ln);border-bottom:1px solid var(--ln);overflow:hidden;padding:26px 0}
+.mq div{display:flex;gap:60px;width:max-content;animation:mq 28s linear infinite;font-size:clamp(28px,4vw,56px);font-weight:200;letter-spacing:-.02em}
+.mq span:nth-child(even){color:var(--ac)}
+@keyframes mq{to{transform:translateX(-50%)}}
+section{padding:180px 0}
+.lbl{font-size:12px;letter-spacing:.24em;color:var(--mut);text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.lbl:before{content:"";width:28px;height:1px;background:var(--mut)}
+/* statement */
+.stm p{margin:40px 0 0;font-size:clamp(28px,4.2vw,62px);line-height:1.32;font-weight:300;letter-spacing:-.02em;max-width:18em}
+.stm .wd{color:#2e2d2a;transition:color .4s}
+.stm .wd.on{color:var(--fg)}
+.stm .wd.ac.on{color:var(--ac)}
+/* services */
+.sv{border-top:1px solid var(--ln);margin-top:60px}
+.si{position:relative;display:grid;grid-template-columns:80px 1fr 1.1fr 40px;gap:30px;align-items:center;padding:38px 0;border-bottom:1px solid var(--ln);overflow:hidden;cursor:pointer}
+.si:before{content:"";position:absolute;inset:0;background:var(--fg);transform:scaleY(0);transform-origin:bottom;transition:transform .6s cubic-bezier(.77,0,.18,1);z-index:0}
+.si:hover:before{transform:scaleY(1)}
+.si>*{position:relative;z-index:1;transition:color .4s}
+.si:hover>*{color:var(--bg)}
+.si .n{font-size:13px;color:var(--mut)}
+.si h3{margin:0;font-weight:300;font-size:clamp(26px,3.2vw,44px);letter-spacing:-.02em}
+.si p{margin:0;font-size:13.5px;color:var(--mut)}
+.si .ar{font-size:22px;transition:transform .5s cubic-bezier(.77,0,.18,1)}
+.si:hover .ar{transform:rotate(-45deg)}
+/* horizontal works */
+.hz{position:relative;height:340vh;padding:0}
+.hz .pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.hz .head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px}
+.hz h2{margin:16px 0 0;font-weight:200;font-size:clamp(40px,6vw,92px);letter-spacing:-.04em;line-height:1}
+.hz .ct{font-size:13px;color:var(--mut)}
+.track{display:flex;gap:28px;padding-left:48px;will-change:transform}
+.card{flex:none;width:min(46vw,620px)}
+.card .im{aspect-ratio:4/3;border-radius:6px;overflow:hidden;position:relative;background:var(--g)}
+.card .im i{position:absolute;border-radius:50%;filter:blur(2px)}
+.card .im b{position:absolute;left:24px;bottom:20px;font-weight:300;font-size:13px;letter-spacing:.2em;mix-blend-mode:difference}
+.card .meta{display:flex;justify-content:space-between;margin-top:16px;font-size:14px}
+.card .meta span{color:var(--mut)}
+/* numbers */
+.nb{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ln)}
+.nb div{padding:44px 30px 0 0}
+.nb b{display:block;font-weight:200;font-size:clamp(60px,8vw,120px);letter-spacing:-.05em;line-height:1}
+.nb b sup{font-size:.35em;color:var(--ac);margin-left:4px}
+.nb span{display:block;margin-top:14px;font-size:13px;color:var(--mut)}
+/* process */
+.pc{display:grid;grid-template-columns:1fr 1.3fr;gap:80px}
+.pc .stk{position:sticky;top:140px;align-self:start}
+.pc h2{margin:16px 0 0;font-weight:200;font-size:clamp(40px,5vw,76px);letter-spacing:-.04em;line-height:1.05}
+.st{padding:42px 0;border-top:1px solid var(--ln);display:grid;grid-template-columns:60px 1fr;gap:20px}
+.st .n{font-size:13px;color:var(--ac)}
+.st h4{margin:0;font-weight:300;font-size:26px;letter-spacing:-.01em}
+.st p{margin:10px 0 0;color:var(--mut);font-size:14px}
+/* contact */
+.cta{text-align:center;padding:200px 0 160px}
+.cta h2{margin:30px 0 0;font-weight:200;font-size:clamp(56px,11vw,190px);letter-spacing:-.05em;line-height:.9}
+.mag{display:inline-grid;place-items:center;width:180px;height:180px;border-radius:50%;background:var(--ac);color:#000;font-size:15px;font-weight:400;margin-top:60px;transition:transform .25s ease-out}
+footer{border-top:1px solid var(--ln);padding:30px 0}
+footer .w{display:flex;justify-content:space-between;font-size:12px;color:var(--mut)}
+.rv{opacity:0;transform:translateY(50px);transition:opacity 1.2s cubic-bezier(.19,1,.22,1),transform 1.2s cubic-bezier(.19,1,.22,1)}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.ln>span,.hb{opacity:1!important;transform:none!important}.ld{display:none}}
+@media (max-width:860px){
+ .w{padding:0 22px}header .w{height:64px}header nav{gap:18px;font-size:12px}
+ .ld{padding:24px 22px}
+ .orb{right:-18%;top:12%;width:88vw}
+ .hb{flex-direction:column;align-items:flex-start;margin-top:30px}
+ section{padding:120px 0}
+ .si{grid-template-columns:44px 1fr 28px;gap:14px;padding:28px 0}.si p{grid-column:2/3}.si .ar{grid-row:1;grid-column:3}
+ .hz{height:auto}.hz .pin{position:relative;height:auto;padding:120px 0}
+ .track{overflow-x:auto;scroll-snap-type:x mandatory;padding:0 22px 10px;transform:none!important;scrollbar-width:none}.track::-webkit-scrollbar{display:none}
+ .card{width:80vw;scroll-snap-align:start}
+ .nb{grid-template-columns:1fr}.nb div{padding:34px 0 0}
+ .pc{grid-template-columns:1fr;gap:30px}.pc .stk{position:static}
+ .mag{width:140px;height:140px}
+ footer .w{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+<div class="ld" id="ld"><span>ORBE — DESIGN STUDIO</span><b id="ldn">0</b></div>
+<div class="cur" id="cur"></div>
+<div class="sample">架空のスタジオのサンプルLP <a href="../">← ポートフォリオ</a></div>
+<header><div class="w"><span class="logo">ORBE</span><nav><a href="#about">About</a><a href="#services">Services</a><a href="#works">Works</a><a href="#contact">Contact</a></nav></div></header>
+
+<main>
+<section class="hero" id="hero" style="padding-top:0"><div class="orb" id="orb" aria-hidden="true"></div><div class="w">
+ <h1><span class="ln"><span>We shape</span></span><span class="ln"><span><i>quiet</i> things</span></span><span class="ln"><span>for loud worlds.</span></span></h1>
+ <div class="hb"><p>ORBE は、ブランドとプロダクトのためのデザインスタジオ。静かで、長く愛されるかたちを、デジタルとリアルの両方でつくります。</p><span class="scroll"><i></i>SCROLL</span></div>
+</div></section>
+
+<div class="mq" aria-hidden="true"><div><span>Brand Identity</span><span>✦</span><span>Web Experience</span><span>✦</span><span>Product Design</span><span>✦</span><span>Art Direction</span><span>✦</span><span>Brand Identity</span><span>✦</span><span>Web Experience</span><span>✦</span><span>Product Design</span><span>✦</span><span>Art Direction</span><span>✦</span></div></div>
+
+<section class="stm" id="about"><div class="w">
+ <p class="lbl">About</p>
+ <p id="stm">私たちは、足し算ではなく引き算でデザインします。 本当に伝えたい ひとつのこと だけを残し、 余白に 意味 をもたせる。 そのほうが、ずっと遠くまで届くから。</p>
+</div></section>
+
+<section id="services" style="padding-top:0"><div class="w">
+ <p class="lbl rv">Services</p>
+ <div class="sv">
+  <div class="si rv"><span class="n">01</span><h3>Brand Identity</h3><p>ロゴ、トーン、ガイドライン。ブランドの芯をつくります。</p><span class="ar">→</span></div>
+  <div class="si rv"><span class="n">02</span><h3>Web Experience</h3><p>動きと余白で語る、記憶に残るWebサイト。</p><span class="ar">→</span></div>
+  <div class="si rv"><span class="n">03</span><h3>Product Design</h3><p>使う人の時間に寄り添う、プロダクトとUI。</p><span class="ar">→</span></div>
+  <div class="si rv"><span class="n">04</span><h3>Art Direction</h3><p>撮影から映像まで、世界観を一貫させます。</p><span class="ar">→</span></div>
+ </div>
+</div></section>
+
+<section class="hz" id="works"><div class="pin">
+ <div class="w head"><div><p class="lbl">Selected Works</p><h2>Works</h2></div><span class="ct" id="hzc">01 / 05</span></div>
+ <div class="track" id="track">
+  <div class="card"><div class="im" style="--g:linear-gradient(135deg,#1c1c1a,#3a3a35)"><i style="width:60%;aspect-ratio:1;left:20%;top:12%;background:radial-gradient(circle at 30% 30%,#f2f1ea,#77766f 50%,#1c1c1a 75%)"></i><b>LUMEN</b></div><div class="meta"><span>Brand Identity</span>2026</div></div>
+  <div class="card"><div class="im" style="--g:#d8ff5c"><i style="width:120%;height:46%;left:-10%;bottom:-8%;border-radius:50% 50% 0 0;background:#0d0d0c"></i><b style="color:#d8ff5c">FIELD</b></div><div class="meta"><span>Web Experience</span>2026</div></div>
+  <div class="card"><div class="im" style="--g:linear-gradient(180deg,#e9e7df,#c9c6bb)"><i style="width:34%;aspect-ratio:1;left:14%;top:22%;background:#0d0d0c"></i><i style="width:34%;aspect-ratio:1;right:14%;top:34%;background:#d8ff5c;mix-blend-mode:multiply"></i><b>KAI</b></div><div class="meta"><span>Product Design</span>2025</div></div>
+  <div class="card"><div class="im" style="--g:radial-gradient(circle at 70% 30%,#5a5a52,#0d0d0c 70%)"><i style="width:2px;height:80%;left:50%;top:10%;border-radius:0;background:#d8ff5c;filter:none"></i><b>SILENT</b></div><div class="meta"><span>Art Direction</span>2025</div></div>
+  <div class="card"><div class="im" style="--g:linear-gradient(135deg,#2a2a27,#0d0d0c)"><i style="width:70%;aspect-ratio:1;left:15%;top:-10%;border:1px solid #ecebe6;background:none;filter:none"></i><i style="width:40%;aspect-ratio:1;left:30%;top:40%;border:1px solid #d8ff5c;background:none;filter:none"></i><b>ORBIT</b></div><div class="meta"><span>Brand Identity</span>2025</div></div>
+ </div>
+</div></section>
+
+<section style="padding-top:60px"><div class="w">
+ <p class="lbl rv">In numbers</p>
+ <div class="nb rv" style="margin-top:40px">
+  <div><b data-n="120">0</b><span>Projects</span></div>
+  <div><b data-n="12">0</b><span>Years of practice</span></div>
+  <div><b data-n="18">0</b><span>Awards</span></div>
+ </div>
+ <p style="margin:30px 0 0;font-size:11.5px;color:var(--mut)">※ 架空のスタジオのため、数字はすべてサンプルです。</p>
+</div></section>
+
+<section><div class="w pc">
+ <div class="stk rv"><p class="lbl">Process</p><h2>Less,<br>but better.</h2></div>
+ <div>
+  <div class="st rv"><span class="n">01</span><div><h4>Listen</h4><p>まずは聞くことから。事業、ユーザー、まだ言葉になっていない想いまで。</p></div></div>
+  <div class="st rv"><span class="n">02</span><div><h4>Reduce</h4><p>伝えたいことを、ひとつに絞る。いちばん難しく、いちばん大切な工程。</p></div></div>
+  <div class="st rv"><span class="n">03</span><div><h4>Shape</h4><p>かたち・色・動きに落とし込み、触れて確かめながら磨いていく。</p></div></div>
+  <div class="st rv"><span class="n">04</span><div><h4>Launch</h4><p>公開はスタート。使われ方を見ながら、育て続けます。</p></div></div>
+ </div>
+</div></section>
+
+<section class="cta" id="contact"><div class="w">
+ <p class="lbl rv" style="justify-content:center">Contact</p>
+ <h2 class="rv">Let’s make<br>something quiet.</h2>
+ <a class="mag" id="mag" href="#hero">Start a project</a>
+</div></section>
+</main>
+<footer><div class="w"><span>© ORBE Design Studio（架空・ポートフォリオ用サンプル）</span><span>Tokyo — Remote</span></div></footer>
+
+<script>
+(function(){
+var red=matchMedia("(prefers-reduced-motion:reduce)").matches,doc=document.documentElement;
+// loader
+var ld=document.getElementById("ld"),ln=document.getElementById("ldn"),n=0;
+function done(){ld.classList.add("out");setTimeout(function(){doc.classList.add("go")},350)}
+if(red){ld.remove();doc.classList.add("go")}else{var t=setInterval(function(){n+=Math.ceil((100-n)/9);ln.textContent=n;if(n>=100){clearInterval(t);setTimeout(done,250)}},45)}
+// reveal
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target);var b=e.target.querySelectorAll("[data-n]");b.forEach(count)}})},{rootMargin:"0px 0px -10% 0px"});
+document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
+function count(el){var to=+el.dataset.n,s=null;function f(ts){if(!s)s=ts;var p=Math.min(1,(ts-s)/1600);el.innerHTML=Math.round(to*(1-Math.pow(1-p,3)))+(p===1?"<sup>+</sup>":"");if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+// statement words
+var st=document.getElementById("stm"),acc=["ひとつのこと","意味"];
+st.innerHTML=st.textContent.trim().split(/\s+/).map(function(w){return w.split("").length>0?'<span class="wd'+(acc.indexOf(w)>=0?" ac":"")+'">'+w+'</span> ':""}).join("");
+var wds=[].slice.call(st.querySelectorAll(".wd"));
+// split japanese into chars for finer reveal
+wds.forEach(function(w){if(!w.classList.contains("ac")&&w.textContent.length>3){var cls=w.className;w.outerHTML=w.textContent.split("").map(function(c){return'<span class="'+cls+'">'+c+'</span>'}).join("")}});
+wds=[].slice.call(st.querySelectorAll(".wd"));
+// horizontal
+var hz=document.getElementById("works"),tr=document.getElementById("track"),hc=document.getElementById("hzc"),mq=matchMedia("(max-width:860px)");
+var orb=document.getElementById("orb");
+function onScroll(){
+ var vh=innerHeight;
+ var r=st.getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh*.85-r.top)/(r.height+vh*.35)));var k=Math.floor(p*wds.length);wds.forEach(function(w,i){w.classList.toggle("on",i<k)});
+ if(!mq.matches){var hr=hz.getBoundingClientRect(),tot=hz.offsetHeight-vh,q=Math.min(1,Math.max(0,-hr.top/tot)),max=tr.scrollWidth-innerWidth+96;tr.style.transform="translate3d("+(-q*max)+"px,0,0)";hc.textContent="0"+Math.min(5,1+Math.floor(q*5))+" / 05"}
+ orb.style.transform="translate3d(0,"+(scrollY*.25)+"px,0) rotate("+(scrollY*.04)+"deg)";
+}
+addEventListener("scroll",function(){requestAnimationFrame(onScroll)},{passive:true});addEventListener("resize",onScroll);onScroll();
+// cursor & magnetic
+var cur=document.getElementById("cur"),mx=0,my=0,cx=0,cy=0;
+addEventListener("mousemove",function(e){mx=e.clientX;my=e.clientY;if(!red){var ox=(e.clientX/innerWidth-.5)*30,oy=(e.clientY/innerHeight-.5)*30;orb.style.marginLeft=ox+"px";orb.style.marginTop=oy+"px"}});
+(function loop(){cx+=(mx-cx)*.18;cy+=(my-cy)*.18;cur.style.transform="translate("+cx+"px,"+cy+"px)";requestAnimationFrame(loop)})();
+document.querySelectorAll("a,.si,.card").forEach(function(el){el.addEventListener("mouseenter",function(){cur.classList.add("big")});el.addEventListener("mouseleave",function(){cur.classList.remove("big")})});
+var mag=document.getElementById("mag");
+mag.addEventListener("mousemove",function(e){var b=mag.getBoundingClientRect();mag.style.transform="translate("+((e.clientX-b.left-b.width/2)*.35)+"px,"+((e.clientY-b.top-b.height/2)*.35)+"px)"});
+mag.addEventListener("mouseleave",function(){mag.style.transform=""});
+})();
+</script>
+</body>
+</html>
