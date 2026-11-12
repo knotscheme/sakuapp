@@ -231,9 +231,11 @@ footer .logo{font-size:16px;color:var(--ink);margin-bottom:6px}
 .sbg{position:absolute;inset:0;z-index:0;overflow:hidden}
 .sbg img{position:absolute;top:-4%;left:50%;height:108%;width:auto;max-width:none;transform:translateX(-50%);filter:saturate(.95);will-change:transform;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 97%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 97%,transparent)}
 .sbg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,rgba(251,252,254,.5) 16%,rgba(251,252,254,.42) 50%,rgba(251,252,254,.5) 84%,var(--bg) 100%)}
-.stm .wd{color:rgba(42,50,67,.22)!important;text-shadow:0 0 18px rgba(255,255,255,.9)}
+.stm .wd{color:rgba(42,50,67,.38)!important;text-shadow:0 0 14px #fff,0 0 4px #fff}
+.stm .w:before{content:"";position:absolute;left:50%;top:50%;width:min(860px,120%);height:150%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(251,252,254,.82),rgba(251,252,254,.55) 60%,transparent);z-index:-1;pointer-events:none}
+.stm p{font-weight:300!important}
 .stm .wd.on{color:var(--ink)!important}
-.stm .wd.ac.on{color:#5b70c4!important}
+.stm .wd.ac.on{color:#4a5fb8!important}
 @media (min-width:861px){.sbg img{left:auto;right:4%;transform:none}.stm p{position:relative}}
 @media (max-width:860px){.sbg img{left:0;top:-4%;width:100%;height:108%;object-fit:cover;object-position:50% 58%;transform:none;-webkit-mask-image:none;mask-image:none}}
 .qc{margin:80px auto 0;max-width:1000px;display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:center}
