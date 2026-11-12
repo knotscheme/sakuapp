@@ -283,6 +283,23 @@ h3:has(.xt){white-space:nowrap}
 span.nw{white-space:nowrap}
 #work{padding-top:40px}
 @media (max-width:960px){#work{padding-top:16px}.hero{padding-bottom:20px!important}.stats{margin-top:32px!important}}
+.cs{padding-bottom:110px}
+.cb2{margin-top:28px;max-width:860px}
+.cb2 .sum{margin:0;font-size:clamp(16px,1.6vw,19px);line-height:1.85;color:var(--ink);font-weight:300}
+.cb2 .row{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:22px}
+.cb2 .kpi{margin:0}
+.cb2 .go{margin:0}
+.more{margin-top:22px;border-top:1px solid var(--line)}
+.more summary{list-style:none;cursor:pointer;padding:14px 0;font:500 12px var(--mono);letter-spacing:.08em;color:var(--sub);display:flex;align-items:center;gap:8px}
+.more summary::-webkit-details-marker{display:none}
+.more summary:before{content:"+";color:var(--acc);font-size:14px;width:12px}
+.more[open] summary:before{content:"−"}
+.more summary:hover{color:var(--ink)}
+.more .mb{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;padding:8px 0 10px}
+.more .h{font:500 11.5px var(--en);letter-spacing:.16em;text-transform:uppercase;color:var(--sub);margin:0 0 10px}
+.more .tx{margin:0 0 24px;font-size:14px;color:var(--ink2);font-weight:300;line-height:2}
+.more .st{font:400 13px/1.9 var(--en)}
+@media (max-width:960px){.cs{padding-bottom:72px}.cb2{margin-top:20px}.more .mb{grid-template-columns:1fr;gap:4px}.cb2 .row{gap:16px}}
 .wterm{margin:0 0 72px}
 @media (max-width:960px){.hero{padding:118px 0 48px}.hero h1{font-size:clamp(30px,8.6vw,48px)}.hero h1 br.sp{display:inline}.wterm{margin-bottom:56px}.htx{min-height:calc(100svh - 150px)}.fl{width:var(--w,120px)}.fl.m{display:none}.fl span{font-size:9.5px;padding:3px 7px;left:5px;bottom:5px}}
 .lbx{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(2,4,3,.97);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:56px 16px}
@@ -358,53 +375,53 @@ body.lbo .fm{opacity:0;pointer-events:none}
  </div>
 </div></section>
 <section id="saas" class="cat-s"><div class="w">
- <div class="cat-h rv"><span class="cn">01</span><div><h2><span class="ja">SaaS型アプリ開発</span><span class="en">SaaS application development</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">AIで設計〜実装を一気に進め、AIの機能そのものもプロダクトに組み込みます。</span><span class="en">I use AI to move from design to implementation fast, and build AI features into the products themselves.</span></p><ul class="caps"><li><span class="ja">AIによる問い合わせの下書き・分類</span><span class="en">AI drafting and triage of inquiries</span></li><li><span class="ja">LINEミニアプリにも対応</span><span class="en">LINE mini apps</span></li><li><span class="ja">ユーザー自身のAIキーで動く設計（BYOK）</span><span class="en">Bring-your-own-key AI design</span></li><li><span class="ja">決済・権限・データ分離まで一人で</span><span class="en">Payments, permissions and data isolation, solo</span></li></ul></div></div>
+ <div class="cat-h rv"><span class="cn">01</span><div><h2><span class="ja">SaaS型アプリ開発</span><span class="en">SaaS application development</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">AIで設計〜実装を一気に進め、AIの機能そのものもプロダクトに組み込みます。</span><span class="en">I use AI to move from design to implementation fast, and build AI features into the products themselves.</span></p></div></div>
   <article class="cs rv">
    <div class="ch"><p class="no">01.1</p><h3>Spider</h3><p class="cat"><span class="ja">ECプラットフォーム（SaaS）</span><span class="en">E-commerce platform (SaaS)</span></p></div>
    <a class="pic" href="https://spider-ec.com/" target="_blank" rel="noopener"><img src="img/spider-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
-   <div class="cb">
-    <div class="cl">
-     <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">個人や小さなお店は、手数料・月額費用・集客の知識が壁になり、良い商品があっても売れない。EC運営の現場で見てきたこの課題を、仕組みで解決するために作りました。</span><span class="en">Independent makers and small shops often can't sell good products because of fees, monthly costs and a lack of marketing know-how. I built Spider to solve the problem I saw first-hand in e-commerce operations.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発・運用（一人）</span><span class="en">Planning, AI-driven build and operations (solo)</span></p>
-     <p class="h">Stack</p><p class="tx st">Next.js · React · TypeScript · PostgreSQL · Drizzle · Supabase · Stripe Connect · Inngest · Vercel</p>
-    </div>
-    <div class="cr">
-     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">複数のお店のデータを、データベースのレベルで分離（マルチテナント・行レベルの権限制御）</span><span class="en">Multi-tenant architecture with tenant isolation enforced at the database level (row-level security)</span></li><li><span class="ja">Stripe Connectで店舗ごとの決済と売上の受け取り。お店同士で商品を販売し合う「Spider Cross」も設計</span><span class="en">Per-store payments and payouts with Stripe Connect, plus “Spider Cross”, a network where stores sell each other’s products</span></li><li><span class="ja">顧客の電話番号・住所の暗号化、セキュリティ監査と修正、脆弱性と秘密情報の自動チェックをCIに組み込み</span><span class="en">Encryption of customer phone numbers and addresses, a security audit with fixes, and automated vulnerability and secret scanning in CI</span></li><li><span class="ja">AIがお問い合わせの下書きと内容チェックを行うバックオフィス機能（Claude・GPT・Geminiに対応）</span><span class="en">An AI back-office that drafts and reviews replies to customer inquiries (Claude, GPT and Gemini)</span></li></ul>
-     <div class="kpi"><div><b>153</b><small><span class="ja">DBマイグレーション</span><span class="en">DB migrations</span></small></div><div><b>176</b><small><span class="ja">ブログ記事</span><span class="en">blog articles</span></small></div><div><b>9</b><small><span class="ja">拡張アプリ</span><span class="en">add-on apps</span></small></div></div>
-     <a class="go" href="https://spider-ec.com/" target="_blank" rel="noopener">Visit site <span>→</span></a>
-    </div>
+   <div class="cb2">
+    <p class="sum"><span class="ja">個人や小さなお店が、低い手数料で本格的なネットショップを開けるECプラットフォーム。</span><span class="en">An e-commerce platform that lets makers and small shops open a real online store with low fees.</span></p>
+    <div class="row"><div class="kpi"><div><b>153</b><small><span class="ja">DBマイグレーション</span><span class="en">DB migrations</span></small></div><div><b>176</b><small><span class="ja">ブログ記事</span><span class="en">blog articles</span></small></div><div><b>9</b><small><span class="ja">拡張アプリ</span><span class="en">add-on apps</span></small></div></div><a class="go" href="https://spider-ec.com/" target="_blank" rel="noopener">Visit site <span>→</span></a></div>
+    <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
+     <div class="mb">
+      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">個人や小さなお店は、手数料・月額費用・集客の知識が壁になり、良い商品があっても売れない。EC運営の現場で見てきたこの課題を、仕組みで解決するために作りました。</span><span class="en">Independent makers and small shops often can't sell good products because of fees, monthly costs and a lack of marketing know-how. I built Spider to solve the problem I saw first-hand in e-commerce operations.</span></p>
+      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発・運用（一人）</span><span class="en">Planning, AI-driven build and operations (solo)</span></p>
+      <p class="h">Stack</p><p class="tx st">Next.js · React · TypeScript · PostgreSQL · Drizzle · Supabase · Stripe Connect · Inngest · Vercel</p></div>
+      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">複数のお店のデータを、データベースのレベルで分離（マルチテナント・行レベルの権限制御）</span><span class="en">Multi-tenant architecture with tenant isolation enforced at the database level (row-level security)</span></li><li><span class="ja">Stripe Connectで店舗ごとの決済と売上の受け取り。お店同士で商品を販売し合う「Spider Cross」も設計</span><span class="en">Per-store payments and payouts with Stripe Connect, plus “Spider Cross”, a network where stores sell each other’s products</span></li><li><span class="ja">顧客の電話番号・住所の暗号化、セキュリティ監査と修正、脆弱性と秘密情報の自動チェックをCIに組み込み</span><span class="en">Encryption of customer phone numbers and addresses, a security audit with fixes, and automated vulnerability and secret scanning in CI</span></li></ul></div>
+     </div>
+    </details>
    </div>
   </article>
   <article class="cs rv">
    <div class="ch"><p class="no">01.2</p><h3>Mailer AI</h3><p class="cat"><span class="ja">問い合わせ対応の業務自動化</span><span class="en">Customer-support automation</span></p></div>
    <div class="pic zm"><img src="img/t-mailer.webp" alt="" width="1200" height="750" loading="lazy"><span class="mk"><span class="ja">画面はイメージ</span><span class="en">Illustrative screen</span></span></div>
-   <div class="cb">
-    <div class="cl">
-     <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">自社サイト・楽天・Yahoo!ショッピングに届く問い合わせを、担当者が別々の画面で確認していた。迷惑メールの仕分けや定型の返信に時間を取られていました。</span><span class="en">Support staff checked inquiries from the company site, Rakuten and Yahoo! Shopping on separate screens, losing time to spam and repetitive replies.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
-     <p class="h">Stack</p><p class="tx st">Next.js · Supabase · PostgreSQL (pgvector) · AWS Lambda · SES · OpenAI</p>
-    </div>
-    <div class="cr">
-     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">各チャネルの問い合わせを1つの受信箱に集約（メールの取り込み・APIの定期取得）</span><span class="en">Unified inbox for every channel (email ingestion and scheduled API polling)</span></li><li><span class="ja">AIが迷惑メールの除外・分類・返信の下書きまでを自動で行い、人が確認して送信</span><span class="en">AI filters spam, categorizes and drafts replies; a person reviews and sends</span></li><li><span class="ja">過去の対応事例を検索して下書きに使う仕組みと、承認の流れ・要注意メールの通知</span><span class="en">Retrieval of past cases for drafts, an approval queue and alerts for risky messages</span></li><li><span class="ja">スタッフ向けの使い方ガイドを画面の中に用意し、エンジニアでなくても使える形に</span><span class="en">An in-app guide so non-technical staff can use it on their own</span></li></ul>
-     
-     
-    </div>
+   <div class="cb2">
+    <p class="sum"><span class="ja">楽天・Yahoo!・自社サイトの問い合わせを1つにまとめ、AIが仕分けと返信の下書きまで。</span><span class="en">One inbox for Rakuten, Yahoo! and site inquiries — AI sorts them and drafts the replies.</span></p>
+    <div class="row"><div></div></div>
+    <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
+     <div class="mb">
+      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">自社サイト・楽天・Yahoo!ショッピングに届く問い合わせを、担当者が別々の画面で確認していた。迷惑メールの仕分けや定型の返信に時間を取られていました。</span><span class="en">Support staff checked inquiries from the company site, Rakuten and Yahoo! Shopping on separate screens, losing time to spam and repetitive replies.</span></p>
+      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
+      <p class="h">Stack</p><p class="tx st">Next.js · Supabase · PostgreSQL (pgvector) · AWS Lambda · SES · OpenAI</p></div>
+      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">各チャネルの問い合わせを1つの受信箱に集約（メールの取り込み・APIの定期取得）</span><span class="en">Unified inbox for every channel (email ingestion and scheduled API polling)</span></li><li><span class="ja">AIが迷惑メールの除外・分類・返信の下書きまでを自動で行い、人が確認して送信</span><span class="en">AI filters spam, categorizes and drafts replies; a person reviews and sends</span></li><li><span class="ja">過去の対応事例を検索して下書きに使う仕組みと、承認の流れ・要注意メールの通知</span><span class="en">Retrieval of past cases for drafts, an approval queue and alerts for risky messages</span></li></ul></div>
+     </div>
+    </details>
    </div>
   </article>
   <article class="cs rv">
    <div class="ch"><p class="no">01.3</p><h3>ZUBAPP</h3><p class="cat"><span class="ja">AIアプリ生成プラットフォーム</span><span class="en">AI app-generation platform</span></p></div>
    <a class="pic" href="https://zubapp.kazuyascheme.workers.dev/" target="_blank" rel="noopener"><img src="img/zubapp-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
-   <div class="cb">
-    <div class="cl">
-     <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">アイデアはあっても、アプリを作る手段がない人が多い。話すだけで形になり、そのまま公開・共有できる場所を作りました。</span><span class="en">Many people have ideas but no way to build apps. ZUBAPP turns a sentence into an app you can publish and share.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
-     <p class="h">Stack</p><p class="tx st">React · Hono · Cloudflare Workers · Supabase · Gemini</p>
-    </div>
-    <div class="cr">
-     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">アプリの画面を「設計図（JSON）」として持ち、画面と処理側で同じ定義を共有</span><span class="en">Apps are defined as a JSON schema shared by the frontend and the worker</span></li><li><span class="ja">利用者自身のAIキーを使う形にし、運営側のAI費用と月額の固定費を0円に</span><span class="en">Users bring their own AI key, keeping AI costs and fixed monthly costs at zero</span></li><li><span class="ja">ログインとデータの権限をデータベース側で制御（Supabaseの行レベルの権限）</span><span class="en">Authentication and data permissions enforced in the database (Supabase RLS)</span></li></ul>
-     <div class="kpi"><div><b>¥0</b><small><span class="ja">月額の固定費</span><span class="en">fixed monthly cost</span></small></div></div>
-     <a class="go" href="https://zubapp.kazuyascheme.workers.dev/" target="_blank" rel="noopener">Visit site <span>→</span></a>
-    </div>
+   <div class="cb2">
+    <p class="sum"><span class="ja">話しかけるだけで、AIがアプリを作って公開までできるプラットフォーム。</span><span class="en">Describe an app in a sentence and AI builds it, ready to publish and share.</span></p>
+    <div class="row"><div class="kpi"><div><b>¥0</b><small><span class="ja">月額の固定費</span><span class="en">fixed monthly cost</span></small></div></div><a class="go" href="https://zubapp.kazuyascheme.workers.dev/" target="_blank" rel="noopener">Visit site <span>→</span></a></div>
+    <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
+     <div class="mb">
+      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">アイデアはあっても、アプリを作る手段がない人が多い。話すだけで形になり、そのまま公開・共有できる場所を作りました。</span><span class="en">Many people have ideas but no way to build apps. ZUBAPP turns a sentence into an app you can publish and share.</span></p>
+      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
+      <p class="h">Stack</p><p class="tx st">React · Hono · Cloudflare Workers · Supabase · Gemini</p></div>
+      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">アプリの画面を「設計図（JSON）」として持ち、画面と処理側で同じ定義を共有</span><span class="en">Apps are defined as a JSON schema shared by the frontend and the worker</span></li><li><span class="ja">利用者自身のAIキーを使う形にし、運営側のAI費用と月額の固定費を0円に</span><span class="en">Users bring their own AI key, keeping AI costs and fixed monthly costs at zero</span></li><li><span class="ja">ログインとデータの権限をデータベース側で制御（Supabaseの行レベルの権限）</span><span class="en">Authentication and data permissions enforced in the database (Supabase RLS)</span></li></ul></div>
+     </div>
+    </details>
    </div>
   </article>
   <div class="og">
@@ -418,37 +435,37 @@ body.lbo .fm{opacity:0;pointer-events:none}
   </div>
 </div></section>
 <section id="tools" class="cat-s"><div class="w">
- <div class="cat-h rv"><span class="cn">02</span><div><h2><span class="ja">業務自動化ツール</span><span class="en">Automation tools</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">受注処理・SNS投稿・記事・営業など、毎日の手作業をAIとコードで自動化します。</span><span class="en">I automate everyday work — order processing, social posts, articles and sales prep — with AI and code.</span></p><ul class="caps"><li><span class="ja">EC受注〜発送準備を自動化</span><span class="en">Order-to-shipping automation for online shops</span></li><li><span class="ja">SNS・noteへの投稿を自動化</span><span class="en">Automated posting to X and note</span></li><li><span class="ja">AIエージェントの分業で営業を自動化</span><span class="en">Sales automation with cooperating AI agents</span></li><li><span class="ja">CSV変換・スケジュール作成をAIで</span><span class="en">AI-powered CSV conversion and scheduling</span></li></ul></div></div>
+ <div class="cat-h rv"><span class="cn">02</span><div><h2><span class="ja">業務自動化ツール</span><span class="en">Automation tools</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">受注処理・SNS投稿・記事・営業など、毎日の手作業をAIとコードで自動化します。</span><span class="en">I automate everyday work — order processing, social posts, articles and sales prep — with AI and code.</span></p></div></div>
   <article class="cs rv">
    <div class="ch"><p class="no">02.1</p><h3>EC Auto Flow</h3><p class="cat"><span class="ja">EC受注業務の自動化（デモ）</span><span class="en">E-commerce order-processing automation (demo)</span></p></div>
    <a class="pic" href="ec-flow/" target="_blank" rel="noopener"><img src="img/t-ecflow.webp" alt="" width="1200" height="750" loading="lazy"></a>
-   <div class="cb">
-    <div class="cl">
-     <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">楽天・Shopify・Amazonと売り場が増えるほど、管理画面を行き来して転記・在庫修正・メール作成をくり返す手作業が増えていく。EC運営の現場で毎日見てきたこの手間を、ひとつの流れにまとめました。</span><span class="en">The more marketplaces a shop sells on, the more time goes into copying orders, fixing stock and writing emails by hand. I turned the routine I did every day in e-commerce operations into one automated flow.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">業務設計・AIでの開発（一人）</span><span class="en">Workflow design and AI-driven build (solo)</span></p>
-     <p class="h">Stack</p><p class="tx st">JavaScript · Spreadsheet / CSV · AI drafting · Marketplace APIs (design)</p>
-    </div>
-    <div class="cr">
-     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">複数モールの注文をひとつの一覧に集約し、受注を自動で記録</span><span class="en">Orders from several marketplaces collected into one list and logged automatically</span></li><li><span class="ja">在庫を自動で引き当て、少なくなったら仕入れの目安を通知</span><span class="en">Stock reserved automatically, with a restock alert when it runs low</span></li><li><span class="ja">AIが注文内容に合わせてお礼メールを下書き。人は確認して送るだけ</span><span class="en">AI drafts a thank-you email for each order — people only review and send</span></li><li><span class="ja">配送会社に取り込める送り状CSVを、<span class="nw">その場で出力</span></span><span class="en">Shipping-label CSV generated on the spot for the carrier</span></li></ul>
-     <div class="kpi"><div><b>6分→数秒</b><small><span class="ja">1件あたりの処理（目安）</span><span class="en">per order (est.)</span></small></div><div><b>5</b><small><span class="ja">自動化したステップ</span><span class="en">automated steps</span></small></div></div>
-     <a class="go" href="ec-flow/" target="_blank" rel="noopener">Try the demo <span>→</span></a>
-    </div>
+   <div class="cb2">
+    <p class="sum"><span class="ja">注文が入ると、記録・在庫・お礼メール・送り状までが自動で流れる、<span class="nw">受注自動化のデモ。</span></span><span class="en">A demo where each order flows automatically through logging, stock, thank-you email and shipping labels.</span></p>
+    <div class="row"><div class="kpi"><div><b>6分→数秒</b><small><span class="ja">1件あたりの処理（目安）</span><span class="en">per order (est.)</span></small></div><div><b>5</b><small><span class="ja">自動化したステップ</span><span class="en">automated steps</span></small></div></div><a class="go" href="ec-flow/" target="_blank" rel="noopener">Try the demo <span>→</span></a></div>
+    <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
+     <div class="mb">
+      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">楽天・Shopify・Amazonと売り場が増えるほど、管理画面を行き来して転記・在庫修正・メール作成をくり返す手作業が増えていく。EC運営の現場で毎日見てきたこの手間を、ひとつの流れにまとめました。</span><span class="en">The more marketplaces a shop sells on, the more time goes into copying orders, fixing stock and writing emails by hand. I turned the routine I did every day in e-commerce operations into one automated flow.</span></p>
+      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">業務設計・AIでの開発（一人）</span><span class="en">Workflow design and AI-driven build (solo)</span></p>
+      <p class="h">Stack</p><p class="tx st">JavaScript · Spreadsheet / CSV · AI drafting · Marketplace APIs (design)</p></div>
+      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">複数モールの注文をひとつの一覧に集約し、受注を自動で記録</span><span class="en">Orders from several marketplaces collected into one list and logged automatically</span></li><li><span class="ja">在庫を自動で引き当て、少なくなったら仕入れの目安を通知</span><span class="en">Stock reserved automatically, with a restock alert when it runs low</span></li><li><span class="ja">AIが注文内容に合わせてお礼メールを下書き。人は確認して送るだけ</span><span class="en">AI drafts a thank-you email for each order — people only review and send</span></li></ul></div>
+     </div>
+    </details>
    </div>
   </article>
   <article class="cs rv">
    <div class="ch"><p class="no">02.2</p><h3>SNS Auto Posting</h3><p class="cat"><span class="ja">SNSの自動投稿パイプライン</span><span class="en">Automated social posting pipeline</span></p></div>
    <div class="pic zm"><img src="img/t-sns.webp" alt="" width="1200" height="750" loading="lazy"><span class="mk"><span class="ja">画面はイメージ</span><span class="en">Illustrative screen</span></span></div>
-   <div class="cb">
-    <div class="cl">
-     <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">自社サービスのXの投稿を毎日続けるのは手間がかかる。一方で、AIが動く環境からは外部の投稿サービスに直接つなげない制約がありました。</span><span class="en">Posting to X every day for my products took time, and the environment where the AI runs could not reach the posting service directly.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発・運用（一人）</span><span class="en">Planning, AI-driven build and operations (solo)</span></p>
-     <p class="h">Stack</p><p class="tx st">Claude Code · GitHub Actions · Buffer API (GraphQL) · Node.js · sharp</p>
-    </div>
-    <div class="cr">
-     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">Claude Codeの定期ルーティンが投稿文を書き、キューにファイルとして保存</span><span class="en">A scheduled Claude Code routine writes posts and saves them to a queue as files</span></li><li><span class="ja">タイトルから1080×1080のサムネイル画像を自動で生成</span><span class="en">Auto-generates 1080×1080 thumbnails from each title</span></li><li><span class="ja">GitHub Actionsがキューを検知し、BufferのAPIで画像つき・スレッド形式で予約投稿</span><span class="en">GitHub Actions picks up the queue and schedules image and thread posts via the Buffer API</span></li><li><span class="ja">AIの環境の通信制限を、GitHub側で外部APIを呼ぶ設計で回避</span><span class="en">Worked around the AI environment’s network limits by calling external APIs from GitHub</span></li></ul>
-     
-     
-    </div>
+   <div class="cb2">
+    <p class="sum"><span class="ja">投稿文の作成からサムネイル、Xへの予約投稿までを自動で回す仕組み。</span><span class="en">A pipeline that writes posts, makes thumbnails and schedules them on X automatically.</span></p>
+    <div class="row"><div></div></div>
+    <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
+     <div class="mb">
+      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">自社サービスのXの投稿を毎日続けるのは手間がかかる。一方で、AIが動く環境からは外部の投稿サービスに直接つなげない制約がありました。</span><span class="en">Posting to X every day for my products took time, and the environment where the AI runs could not reach the posting service directly.</span></p>
+      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発・運用（一人）</span><span class="en">Planning, AI-driven build and operations (solo)</span></p>
+      <p class="h">Stack</p><p class="tx st">Claude Code · GitHub Actions · Buffer API (GraphQL) · Node.js · sharp</p></div>
+      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">Claude Codeの定期ルーティンが投稿文を書き、キューにファイルとして保存</span><span class="en">A scheduled Claude Code routine writes posts and saves them to a queue as files</span></li><li><span class="ja">タイトルから1080×1080のサムネイル画像を自動で生成</span><span class="en">Auto-generates 1080×1080 thumbnails from each title</span></li><li><span class="ja">GitHub Actionsがキューを検知し、BufferのAPIで画像つき・スレッド形式で予約投稿</span><span class="en">GitHub Actions picks up the queue and schedules image and thread posts via the Buffer API</span></li></ul></div>
+     </div>
+    </details>
    </div>
   </article>
   <div class="og">
@@ -463,21 +480,21 @@ body.lbo .fm{opacity:0;pointer-events:none}
   </div>
 </div></section>
 <section id="lp" class="cat-s"><div class="w">
- <div class="cat-h rv"><span class="cn">03</span><div><h2><span class="ja">Web・LP制作</span><span class="en">Web & landing pages</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">構成・コピー・画像・動きまで、AIと一緒に作り込み、スマホの実機で仕上げます。</span><span class="en">Structure, copy, images and motion built with AI, then finished on real phones.</span></p><ul class="caps"><li><span class="ja">売れる構成とコピー（EC運営の経験から）</span><span class="en">Conversion-focused structure and copy</span></li><li><span class="ja">スクロール連動のアニメーション</span><span class="en">Scroll-driven motion</span></li><li><span class="ja">Shopifyでのサイト構築</span><span class="en">Shopify site builds</span></li><li><span class="ja">iPhone Safariまで表示を検証</span><span class="en">Verified down to iPhone Safari</span></li></ul></div></div>
+ <div class="cat-h rv"><span class="cn">03</span><div><h2><span class="ja">Web・LP制作</span><span class="en">Web & landing pages</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">構成・コピー・画像・動きまで、AIと一緒に作り込み、スマホの実機で仕上げます。</span><span class="en">Structure, copy, images and motion built with AI, then finished on real phones.</span></p></div></div>
   <article class="cs rv">
    <div class="ch"><p class="no">03.1</p><h3>Sakuapp</h3><p class="cat"><span class="ja">受託開発サービス・LP群</span><span class="en">Custom development service and landing pages</span></p></div>
    <a class="pic" href="../" target="_blank" rel="noopener"><img src="img/top-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
-   <div class="cb">
-    <div class="cl">
-     <p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">個人のお店がアプリを頼みたくても、何ができて、いくらかかるのかが分からない。説明ではなく「触れる見本」で伝えることにしました。</span><span class="en">Small shops want apps but can’t tell what is possible or what it costs. Instead of explaining, I let them try working examples.</span></p>
-     <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">事業企画・LP・デモ・課金の仕組みまで一人で</span><span class="en">Business planning, landing pages, demos and billing (solo)</span></p>
-     <p class="h">Stack</p><p class="tx st">HTML · CSS · JavaScript · Stripe · GitHub Actions · Playwright</p>
-    </div>
-    <div class="cr">
-     <p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">実際に操作できるアプリの見本12種と、お客様の画面とお店の管理画面が連動するQR注文のデモ</span><span class="en">12 interactive app templates and a QR-ordering demo where the guest and staff screens work together</span></li><li><span class="ja">店名や注文数を入れると試算・グラフ・見積もりが変わる提案書</span><span class="en">A proposal deck that recalculates estimates, charts and quotes from each shop’s numbers</span></li><li><span class="ja">Stripeでの30日無料→月額課金と、GitHub Actionsでの毎日の通知の自動化</span><span class="en">A 30-day trial to subscription flow on Stripe and daily notification jobs on GitHub Actions</span></li><li><span class="ja">iPhoneのSafariまで実機の表示を確認し、自動の画面テストで崩れを検査</span><span class="en">Checked layouts down to iPhone Safari and used automated screenshot tests to catch regressions</span></li></ul>
-     <div class="kpi"><div><b>165</b><small><span class="ja">11日間の更新</span><span class="en">updates in 11 days</span></small></div><div><b>12</b><small><span class="ja">触れる見本</span><span class="en">interactive demos</span></small></div><div><b>4</b><small><span class="ja">LP</span><span class="en">landing pages</span></small></div></div>
-     <a class="go" href="../" target="_blank" rel="noopener">View <span>→</span></a>
-    </div>
+   <div class="cb2">
+    <p class="sum"><span class="ja">お店向けのアプリ制作サービス。触れる見本と、店ごとに変わる提案書で注文につなげます。</span><span class="en">An app-building service for small shops, with hands-on demos and proposals tailored to each shop.</span></p>
+    <div class="row"><div class="kpi"><div><b>165</b><small><span class="ja">11日間の更新</span><span class="en">updates in 11 days</span></small></div><div><b>12</b><small><span class="ja">触れる見本</span><span class="en">interactive demos</span></small></div><div><b>4</b><small><span class="ja">LP</span><span class="en">landing pages</span></small></div></div><a class="go" href="../" target="_blank" rel="noopener">View <span>→</span></a></div>
+    <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
+     <div class="mb">
+      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">個人のお店がアプリを頼みたくても、何ができて、いくらかかるのかが分からない。説明ではなく「触れる見本」で伝えることにしました。</span><span class="en">Small shops want apps but can’t tell what is possible or what it costs. Instead of explaining, I let them try working examples.</span></p>
+      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">事業企画・LP・デモ・課金の仕組みまで一人で</span><span class="en">Business planning, landing pages, demos and billing (solo)</span></p>
+      <p class="h">Stack</p><p class="tx st">HTML · CSS · JavaScript · Stripe · GitHub Actions · Playwright</p></div>
+      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">実際に操作できるアプリの見本12種と、お客様の画面とお店の管理画面が連動するQR注文のデモ</span><span class="en">12 interactive app templates and a QR-ordering demo where the guest and staff screens work together</span></li><li><span class="ja">店名や注文数を入れると試算・グラフ・見積もりが変わる提案書</span><span class="en">A proposal deck that recalculates estimates, charts and quotes from each shop’s numbers</span></li><li><span class="ja">Stripeでの30日無料→月額課金と、GitHub Actionsでの毎日の通知の自動化</span><span class="en">A 30-day trial to subscription flow on Stripe and daily notification jobs on GitHub Actions</span></li></ul></div>
+     </div>
+    </details>
    </div>
   </article>
   <div class="og">
@@ -492,7 +509,7 @@ body.lbo .fm{opacity:0;pointer-events:none}
   </div>
 </div></section>
 <section id="photo" class="cat-s"><div class="w">
- <div class="cat-h rv"><span class="cn">04</span><div><h2><span class="ja">ビジュアル制作</span><span class="en">Visual Production</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">自分で撮影した商品写真を、生成AIでモデル着用・利用シーン・広告用のビジュアルに仕上げます。</span><span class="en">I shoot the products myself, then use generative AI to turn them into model, lifestyle and ad visuals.</span></p><ul class="caps"><li><span class="ja">商品撮影（白抜き・物撮り）</span><span class="en">Product photography (white background)</span></li><li><span class="ja">EC・Amazon用の商品画像制作</span><span class="en">Product images for Amazon and online stores</span></li><li><span class="ja">AIでモデル着用・シーンを生成</span><span class="en">AI-generated model and lifestyle scenes</span></li><li><span class="ja">サイト・広告用のビジュアル</span><span class="en">Visuals for sites and ads</span></li></ul></div></div>
+ <div class="cat-h rv"><span class="cn">04</span><div><h2><span class="ja">ビジュアル制作</span><span class="en">Visual Production</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">自分で撮影した商品写真を、生成AIでモデル着用・利用シーン・広告用のビジュアルに仕上げます。</span><span class="en">I shoot the products myself, then use generative AI to turn them into model, lifestyle and ad visuals.</span></p></div></div>
   <div class="sub-h rv"><h3><span class="ja">EC・Amazon用の商品画像</span><span class="en">Product images for Amazon & online stores</span></h3><p><span class="ja">撮影・合成・コピーまで、商品ページのメイン画像とサブ画像を制作。</span><span class="en">Main and sub images for product pages — photography, compositing and copy.</span></p></div>
   <div class="pgrid"><figure class="rv"><img src="img/pi-00.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-01.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-02.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-03.webp" alt="" width="800" height="800" loading="lazy"></figure><figure class="rv"><img src="img/pi-04.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-05.webp" alt="" width="600" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-07.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-08.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-09.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-10.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-11.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-12.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-13.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-14.webp" alt="" width="900" height="900" loading="lazy"></figure><figure class="rv"><img src="img/pi-15.webp" alt="" width="900" height="900" loading="lazy"></figure>
   </div>
