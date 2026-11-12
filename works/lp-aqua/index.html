@@ -92,6 +92,8 @@ h2 em{font:italic 300 1.1em var(--serif);color:var(--c1);letter-spacing:.04em}
 .full .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--bg),transparent 25%,transparent 70%,var(--bg))}
 .full .cap{position:absolute;left:0;right:0;bottom:22vh;text-align:center;z-index:2}
 .full .cap p{margin:0;font:200 clamp(22px,3vw,38px)/1.8 var(--sans);letter-spacing:.3em;text-shadow:0 0 30px rgba(0,0,0,.8)}
+.solf{max-width:820px;box-shadow:0 0 120px -20px rgba(94,231,255,.35)}
+.sol{padding-top:60px}
 /* marquee */
 .mq{overflow:hidden;padding:30px 0;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
 .mq div{display:flex;gap:70px;width:max-content;animation:mq 50s linear infinite;font:italic 300 clamp(28px,4vw,52px) var(--serif);letter-spacing:.1em;color:rgba(232,241,255,.35)}
@@ -205,7 +207,10 @@ footer{position:relative;z-index:2;padding:40px 32px 90px;text-align:center;font
  </div>
 </div></section>
 
-<section class="full" aria-label="ZONE 04 SEA OF LIGHT"><div class="bg"><img src="art.webp" alt="床と壁に光の海が映し出される空間" width="512" height="286" loading="lazy"></div><div class="cap rv"><p class="lbl" style="margin-bottom:18px"><b>ZONE 04</b>SEA OF LIGHT</p><p>あなたの足もとから、<br><span class="nw">海が広がっていく。</span></p></div></section>
+<section class="sol"><div class="w">
+ <div class="rv" style="text-align:center"><p class="lbl"><b>ZONE 04</b><span class="nw">SEA OF LIGHT</span></p><h2>あなたの足もとから、<br><span class="nw">海が<em>広がっていく。</em></span></h2></div>
+ <figure class="ph wide rv solf" style="margin:64px auto 0"><img src="art.webp" alt="床と壁に光の海が映し出される空間" width="512" height="286" loading="lazy"></figure>
+</div></section>
 
 <section id="night"><div class="w night">
  <div class="tx rv"><p class="lbl"><b>AFTER DARK</b>NIGHT AQUARIUM</p><h2>水槽の灯りで、<br><span class="nw"><em>一杯</em>だけ。</span></h2><p class="lead">夜八時を過ぎると、館内はバーに変わる。深海をモチーフにしたカクテルと、ゆっくり流れる音楽を。</p>
@@ -257,7 +262,7 @@ var io3=new IntersectionObserver(function(es){if(es[0].isIntersecting){st.closes
 // ticket glow
 document.querySelectorAll(".tk").forEach(function(t){t.addEventListener("pointermove",function(e){var r=t.getBoundingClientRect();t.style.setProperty("--x",(e.clientX-r.left)+"px");t.style.setProperty("--y",(e.clientY-r.top)+"px")})});
 // scroll: depth, sea color, parallax
-var dp=document.getElementById("dp"),dpi=document.getElementById("dpi"),sea=document.getElementById("sea"),fulls=[].slice.call(document.querySelectorAll(".full .bg img")),phs=[].slice.call(document.querySelectorAll(".ph img"));
+var dp=document.getElementById("dp"),dpi=document.getElementById("dpi"),sea=document.getElementById("sea"),fulls=[],phs=[].slice.call(document.querySelectorAll(".ph img"));
 function sc(){var y=scrollY,H=document.documentElement.scrollHeight-innerHeight,p=Math.min(1,Math.max(0,y/H));
  var dep=p<.9?Math.round(p/.9*1000):Math.round(1000-(p-.9)/.1*1000);dp.textContent=dep;dpi.style.top=(Math.min(p/.9,1)*96)+"%";
  var k=Math.min(1,p/.85),a=[7,26,51],b=[2,4,10];var c=a.map(function(v,i){return Math.round(v+(b[i]-v)*k)});sea.style.background="linear-gradient(180deg,rgb("+c+") 0%,#02040a 100%)";
