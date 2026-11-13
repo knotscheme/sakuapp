@@ -28,10 +28,10 @@ html.en .ja{display:none}html:not(.en) .en{display:none}
 .lbl{font:500 12px var(--en);letter-spacing:.18em;text-transform:uppercase;color:var(--sub);margin:0}
 header{position:fixed;inset:0 0 auto;z-index:20;color:var(--ink);text-shadow:0 1px 12px rgba(0,0,0,.65)}
 header .w{display:flex;align-items:center;height:84px}
-header .nm{display:flex;align-items:center;gap:0;font:500 13px var(--mono);letter-spacing:.04em}
-header .nm .mk{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(61,255,139,.55);border-radius:9px;color:var(--acc);font:700 13px var(--mono);letter-spacing:.02em;box-shadow:0 0 18px rgba(61,255,139,.18) inset}
-header .nm .fn{max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .5s cubic-bezier(.2,.8,.2,1),opacity .3s,margin .5s;color:var(--ink2)}
-header .nm:hover .fn{max-width:200px;opacity:1;margin-left:12px}
+header .nm{display:inline-flex;align-items:center;gap:10px;font:400 12px var(--mono);letter-spacing:.06em;color:var(--ink2);transition:color .3s}
+header .nm:hover{color:var(--ink)}
+header .nm i{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(61,255,139,.6);animation:pl 2.4s ease-out infinite}
+@keyframes pl{70%{box-shadow:0 0 0 8px rgba(61,255,139,0)}100%{box-shadow:0 0 0 0 rgba(61,255,139,0)}}
 header nav{margin-left:auto;display:flex;align-items:center;gap:32px;font:400 13px var(--en);letter-spacing:.08em}
 .lg{border:0;background:none;color:inherit;font:400 12px var(--en);letter-spacing:.08em;cursor:pointer;padding:4px 0}
 .lg b{font-weight:400;opacity:.45}html:not(.en) .lg b[data-l=ja],html.en .lg b[data-l=en]{opacity:1;font-weight:600}
@@ -359,7 +359,7 @@ body.lbo .fm{opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
-<header><div class="w"><a class="nm" href="#top" aria-label="Kazuya Shirakawa"><span class="mk">KS</span><span class="fn">Kazuya Shirakawa</span></a><nav><a href="#work">Work</a><a href="#experience">Experience</a><a href="#offer">Services</a><a href="#contact">Contact</a><button type="button" class="lg" id="lg" aria-label="Switch language"><b data-l="ja">JA</b> / <b data-l="en">EN</b></button></nav></div></header>
+<header><div class="w"><a class="nm" href="#top" aria-label="Kazuya Shirakawa"><i></i><span class="ja">お仕事のご相談 受付中</span><span class="en">Open for projects</span></a><nav><a href="#work">Work</a><a href="#experience">Experience</a><a href="#offer">Services</a><a href="#contact">Contact</a><button type="button" class="lg" id="lg" aria-label="Switch language"><b data-l="ja">JA</b> / <b data-l="en">EN</b></button></nav></div></header>
 
 <div class="amb" aria-hidden="true"><i></i><i></i><i></i></div>
 <nav class="fm" id="fm" aria-label="セクション移動"><a href="#saas">SaaS</a><a href="#tools">Tools</a><a href="#lp">LP</a><a href="#photo">Visual</a><a href="#experience">About</a><a href="#contact" class="ct">Contact</a></nav>
