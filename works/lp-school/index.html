@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff8ec">
+<title>れんらくん — 小学校と家庭をつなぐ連絡アプリ</title>
+<meta name="description" content="プリント・欠席連絡・アンケートをひとつのアプリに。小学校向け連絡アプリ「れんらくん」（架空のサービス・ポートフォリオ用サンプル）">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff8ec;--cream:#fffdf7;--ink:#2d2a26;--ink2:#6b645b;--sub:#a39a8e;--green:#2f6b55;--board:#2c5b4a;--red:#e8584a;--yellow:#ffc93c;--sky:#7cc6e8;--pink:#ff9fb2;--ln:#eadfcb;--r:22px;--en:"Fredoka",sans-serif;--ja:"Zen Maru Gothic",sans-serif}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:500 15px/1.9 var(--ja);background:var(--bg);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:radial-gradient(#e9dcc4 1px,transparent 1px);background-size:22px 22px}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.nw{white-space:nowrap}
+main,header,footer{position:relative;z-index:1}
+.w{max-width:1120px;margin:0 auto;padding:0 28px}
+/* header */
+header{position:sticky;top:0;z-index:30;background:rgba(255,248,236,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid var(--ln)}
+header .w{display:flex;align-items:center;gap:18px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font:900 21px var(--ja);letter-spacing:.04em}
+.logo i{width:38px;height:38px;border-radius:12px;background:var(--red);display:grid;place-items:center;box-shadow:0 4px 0 #c4433a;transform:rotate(-6deg)}
+.logo i svg{width:20px;height:20px}
+header nav{margin-left:auto;display:flex;gap:24px;font-size:14px;font-weight:700;color:var(--ink2)}
+header nav a:hover{color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:13px 26px;font:700 15px var(--ja);border:0;cursor:pointer;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.btn.p{background:var(--red);color:#fff;box-shadow:0 5px 0 #c4433a}
+.btn.p:hover{transform:translateY(2px);box-shadow:0 3px 0 #c4433a}
+.btn.s{background:#fff;color:var(--ink);box-shadow:0 5px 0 var(--ln),inset 0 0 0 2px var(--ln)}
+.btn.s:hover{transform:translateY(2px);box-shadow:0 3px 0 var(--ln),inset 0 0 0 2px var(--ln)}
+header .btn{padding:9px 18px;font-size:13px}
+/* common */
+section{position:relative;padding:110px 0}
+.tag{display:inline-block;font:700 12.5px var(--ja);letter-spacing:.08em;color:var(--green);background:#dff0e6;border-radius:999px;padding:5px 14px}
+h2{margin:16px 0 0;font:900 clamp(26px,3.4vw,40px)/1.5 var(--ja);letter-spacing:.02em}
+h2 .mk{background:linear-gradient(transparent 62%,var(--yellow) 62%,var(--yellow) 92%,transparent 92%);padding:0 4px}
+.lead{margin:18px 0 0;color:var(--ink2);font-size:15.5px;max-width:34em}
+.center{text-align:center}.center .lead{margin-left:auto;margin-right:auto}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.2,1.3,.4,1)}
+.rv.on{opacity:1;transform:none}
+.pop{opacity:0;transform:scale(.6) rotate(-6deg);transition:opacity .5s,transform .7s cubic-bezier(.3,1.7,.5,1)}
+.pop.on{opacity:1;transform:none}
+.photo{position:relative;border-radius:var(--r);overflow:hidden;border:5px solid #fff;box-shadow:0 18px 40px -18px rgba(80,60,30,.35)}
+.photo img{width:100%;height:100%;object-fit:cover}
+.tape{position:absolute;width:90px;height:26px;background:rgba(255,201,60,.75);top:-12px;left:50%;transform:translateX(-50%) rotate(-4deg);z-index:2;border-radius:3px;box-shadow:0 2px 4px rgba(0,0,0,.08)}
+.stk{position:absolute;pointer-events:none;z-index:2;animation:wig 3s ease-in-out infinite}
+@keyframes wig{50%{transform:rotate(10deg) translateY(-6px)}}
+/* hero */
+.hero{padding:56px 0 90px}
+.hero .w{display:grid;grid-template-columns:1fr 1.05fr;gap:50px;align-items:center}
+.hero .tag{background:#ffe3df;color:var(--red)}
+.hero h1{margin:18px 0 0;font:900 clamp(34px,4.4vw,58px)/1.35 var(--ja);letter-spacing:.02em}
+.hero h1 .l>span{white-space:nowrap}
+.hero h1 .r{color:var(--red)}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l span{display:inline-block;transform:translateY(110%);transition:transform 1s cubic-bezier(.2,1.2,.3,1)}
+.go .hero h1 .l span{transform:none}
+.go .hero h1 .l:nth-child(2) span{transition-delay:.12s}
+.hero p.lead{font-size:16px}
+.hero .cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.hero .mini{display:flex;gap:18px;margin-top:22px;font-size:13px;color:var(--ink2);flex-wrap:wrap}
+.hero .mini b{color:var(--green)}
+.hv{position:relative}
+.hv .photo{aspect-ratio:16/10.5;transform:rotate(2deg)}
+.ph{position:absolute;left:-30px;bottom:-60px;width:200px;z-index:3}
+.dev{background:#2d2a26;border-radius:34px;padding:10px;box-shadow:0 30px 50px -20px rgba(45,42,38,.5)}
+.scr{color:var(--ink);background:var(--cream);border-radius:26px;overflow:hidden;min-height:330px;position:relative}
+.scr .top{display:flex;align-items:center;gap:8px;padding:14px 14px 10px;font-weight:900;font-size:13px}
+.scr .top i{width:22px;height:22px;border-radius:7px;background:var(--red);display:grid;place-items:center}
+.scr .top i svg{width:12px;height:12px}
+.nl{display:grid;gap:8px;padding:0 10px 12px}
+.nt{background:#fff;border-radius:14px;padding:9px 11px;font-size:11px;line-height:1.5;box-shadow:0 2px 0 var(--ln);border-left:4px solid var(--c,var(--sky));animation:nin .6s cubic-bezier(.3,1.6,.5,1) both}
+.nt b{display:block;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt small{color:var(--sub);font-size:10px}
+@keyframes nin{from{opacity:0;transform:translateY(-14px) scale(.9)}}
+/* paper to app */
+.p2a{background:var(--board);color:#fff;border-radius:40px;margin:0 16px;overflow:hidden}
+.p2a:before{content:"";position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:18px 18px}
+.p2a .tag{background:rgba(255,255,255,.15);color:#fff}
+.p2a .lead{color:#d6e6dc}
+.p2a h2 .mk{background:linear-gradient(transparent 62%,rgba(255,201,60,.55) 62%,rgba(255,201,60,.55) 92%,transparent 92%)}
+.stage{position:relative;height:340px;margin-top:40px}
+.pp{position:absolute;width:120px;height:150px;background:#fff;border-radius:6px;box-shadow:0 8px 16px rgba(0,0,0,.25);padding:14px 12px;color:var(--ink);font-size:10px;line-height:1.4;transition:transform 1.1s cubic-bezier(.6,-.3,.4,1),opacity .4s;transition-delay:var(--d)}
+.pp b{display:block;font-size:12px;margin-bottom:8px;white-space:nowrap;letter-spacing:-.02em}
+.pp i{display:block;height:5px;border-radius:3px;background:#e9e2d4;margin-top:6px}
+.pp i:nth-child(odd){width:70%}
+.stage .dev{position:absolute;left:50%;top:50%;width:150px;transform:translate(-50%,-50%);transition:transform .4s;z-index:2}
+.stage .scr{min-height:250px}
+.stage.on .pp{transform:translate(var(--tx),var(--ty)) rotate(540deg) scale(.05);opacity:0;transition:transform 1.1s cubic-bezier(.6,-.3,.4,1),opacity .3s calc(var(--d) + .85s)}
+.stage.on .dev{animation:gulp .5s ease 1.7s}
+@keyframes gulp{40%{transform:translate(-50%,-50%) scale(1.08)}}
+.stage .nt{opacity:0;animation:none}
+.stage.on .nt{opacity:1;animation:nin .6s cubic-bezier(.3,1.6,.5,1) both}
+.cnt{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.cnt div{background:rgba(255,255,255,.08);border:2px dashed rgba(255,255,255,.25);border-radius:20px;padding:20px;text-align:center}
+.cnt b{display:block;font:600 40px/1.1 var(--en);color:var(--yellow)}
+.cnt small{font-size:13px;color:#d6e6dc}
+/* before after */
+.ba{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;margin-top:50px}
+.sw{display:inline-flex;background:#fff;border-radius:999px;padding:5px;box-shadow:inset 0 0 0 2px var(--ln);position:relative}
+.sw button{position:relative;z-index:1;border:0;background:none;font:700 14px var(--ja);padding:10px 22px;border-radius:999px;cursor:pointer;color:var(--ink2);transition:color .3s}
+.sw button.on{color:#fff}
+.sw .kn{position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);border-radius:999px;background:var(--ink);transition:transform .45s cubic-bezier(.3,1.5,.5,1),background .3s}
+.sw.af .kn{transform:translateX(100%);background:var(--green)}
+.bv{position:relative;aspect-ratio:16/10}
+.bv .photo{position:absolute;inset:0;transition:opacity .6s,transform .7s cubic-bezier(.3,1.4,.5,1)}
+.bv .photo.a{opacity:0;transform:rotate(4deg) scale(.9)}
+.bv.af .photo.b{opacity:0;transform:rotate(-4deg) scale(.9)}
+.bv.af .photo.a{opacity:1;transform:rotate(-1.5deg)}
+.bv .badge{white-space:nowrap;position:absolute;z-index:3;top:-14px;right:-10px;background:var(--ink);color:#fff;font:600 13px var(--en);letter-spacing:.06em;border-radius:999px;padding:6px 14px;transform:rotate(6deg);transition:background .3s}
+.bv.af .badge{background:var(--green)}
+.bl{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:10px}
+.bl li{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:12px 16px;box-shadow:0 3px 0 var(--ln);font-size:14.5px;transition:transform .4s}
+.bl li .v{margin-left:auto;font:600 18px var(--en);color:var(--ink);transition:color .3s}
+.bl li .ic{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#f4ede0;flex:none;font-size:15px}
+.af .bl li .v{color:var(--green)}
+.bnote{font-size:12px;color:var(--sub);margin-top:10px}
+/* day */
+.day{position:relative;margin-top:56px}
+.day:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:4px;margin-left:-2px;background:repeating-linear-gradient(var(--ln) 0 10px,transparent 10px 18px);border-radius:2px}
+.day .fill{position:absolute;left:50%;top:0;width:4px;margin-left:-2px;background:var(--red);border-radius:2px;height:0}
+.dr{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;margin-bottom:70px;position:relative}
+.dr:last-child{margin-bottom:0}
+.dr .dot{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:#fff;border:4px solid var(--ln);transition:border-color .4s,transform .4s cubic-bezier(.3,1.8,.5,1)}
+.dr.on .dot{border-color:var(--red);transform:scale(1.25)}
+.dr .photo{aspect-ratio:16/10}
+.dr.t .photo{aspect-ratio:3/4;max-width:300px;justify-self:end}
+.dr:nth-child(even) .photo{order:2;justify-self:start}
+.dr .time{font:600 44px/1 var(--en);color:var(--red)}
+.dr h3{margin:8px 0 0;font:900 22px/1.5 var(--ja)}
+.dr p{margin:8px 0 0;color:var(--ink2);font-size:14.5px}
+.chip{display:inline-flex;align-items:center;gap:8px;margin-top:14px;background:#fff;border-radius:14px;padding:8px 14px;font-size:13px;box-shadow:0 3px 0 var(--ln);border-left:4px solid var(--c)}
+/* features */
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+.fc{background:#fff;border-radius:24px;padding:26px 24px;box-shadow:0 5px 0 var(--ln);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.fc:hover{transform:translateY(-6px) rotate(-1deg)}
+.fc .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--c);margin-bottom:14px}
+.fc .ic svg{width:26px;height:26px}
+.fc h3{margin:0;font:900 17px var(--ja)}
+.fc p{margin:6px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.8}
+/* demo */
+.demo{display:grid;grid-template-columns:1fr auto 1fr;gap:30px;align-items:center;margin-top:50px}
+.demo .side{text-align:center}
+.demo .side>small{display:block;font-weight:700;color:var(--ink2);margin-bottom:12px}
+.demo .dev{width:240px;margin:0 auto}
+.demo .scr{min-height:400px}
+.acts{display:grid;gap:10px;margin-top:18px}
+.acts .btn{justify-content:center;font-size:13.5px;padding:11px 16px}
+.arrow{font:600 34px var(--en);color:var(--red)}
+.arrow span{display:inline-block;animation:ar 1.4s ease-in-out infinite}
+@keyframes ar{50%{transform:translateX(8px)}}
+.ans{margin:4px 10px 0;background:#fff;border-radius:14px;padding:12px;box-shadow:0 2px 0 var(--ln);font-size:11.5px}
+.ans .bar{height:10px;border-radius:5px;background:#f0e8da;overflow:hidden;margin-top:6px}
+.ans .bar i{display:block;height:100%;background:var(--green);width:var(--w,40%);transition:width .6s cubic-bezier(.3,1.4,.5,1)}
+.pnl .nt{animation:nin .6s cubic-bezier(.3,1.6,.5,1) both}
+.demo .lead{font-size:13px}
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px;counter-reset:f}
+.flow div{position:relative;background:#fff;border-radius:24px;padding:30px 24px 24px;box-shadow:0 5px 0 var(--ln)}
+.flow div:before{counter-increment:f;content:counter(f);position:absolute;top:-18px;left:22px;width:40px;height:40px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;font:600 20px var(--en);box-shadow:0 3px 0 #e0a91e}
+.flow b{display:block;font:900 17px var(--ja)}
+.flow p{margin:6px 0 0;font-size:13.5px;color:var(--ink2)}
+/* price */
+.price{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:50px;max-width:820px;margin-left:auto;margin-right:auto}
+.pc{background:#fff;border-radius:28px;padding:34px 30px;box-shadow:0 6px 0 var(--ln);position:relative}
+.pc.rec{box-shadow:0 6px 0 #c4433a,inset 0 0 0 3px var(--red)}
+.pc .rb{position:absolute;top:-14px;right:22px;background:var(--red);color:#fff;font-weight:700;font-size:12px;border-radius:999px;padding:4px 14px;transform:rotate(4deg)}
+.pc h3{margin:0;font:900 19px var(--ja)}
+.pc .yen{margin-top:14px;font:600 44px/1 var(--en)}
+.pc .yen small{font:700 13px var(--ja);color:var(--ink2);margin-left:6px}
+.pc ul{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:8px;font-size:14px}
+.pc li:before{content:"✓";color:var(--green);font-weight:900;margin-right:8px}
+/* faq */
+.faq{max-width:760px;margin:46px auto 0;display:grid;gap:12px}
+.faq details{background:#fff;border-radius:20px;box-shadow:0 4px 0 var(--ln);padding:0 22px}
+.faq summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:700;display:flex;gap:12px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:before{content:"Q";font:600 18px var(--en);color:var(--red)}
+.faq summary:after{content:"+";margin-left:auto;font:600 22px var(--en);color:var(--sub);transition:transform .3s}
+.faq details[open] summary:after{transform:rotate(45deg)}
+.faq p{margin:0;padding:0 0 18px 26px;color:var(--ink2);font-size:14px}
+/* end */
+.end{margin:0 16px 16px;border-radius:40px;overflow:hidden;text-align:center;color:#fff;padding:130px 0}
+.end .bg{position:absolute;inset:0}
+.end .bg img{width:100%;height:100%;object-fit:cover;filter:blur(3px);transform:scale(1.08)}
+.end .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(214,102,52,.55),rgba(60,30,20,.55))}
+.end .w{position:relative}
+.end h2{color:#fff;font-size:clamp(28px,4vw,46px)}
+.end p{margin:16px 0 0;color:#ffe9d6}
+.end .btn{margin-top:34px;font-size:16px;padding:16px 34px}
+footer{text-align:center;font-size:12px;color:var(--sub);padding:20px 16px 90px}
+.sample{position:fixed;left:16px;bottom:16px;z-index:90;font:700 11.5px var(--ja);color:var(--ink2);background:#fff;border-radius:99px;padding:6px 14px;box-shadow:0 3px 0 var(--ln),inset 0 0 0 2px var(--ln)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,120px);opacity:0;background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-size:13px;z-index:95;transition:transform .4s cubic-bezier(.3,1.5,.5,1),opacity .3s;white-space:nowrap}
+.toast.on{transform:translate(-50%,0);opacity:1}
+@media (max-width:900px){
+ .w{padding:0 20px}
+ header nav{display:none}
+ section{padding:80px 0}
+ .hero .w,.ba,.dr,.demo{grid-template-columns:1fr}
+ .hero{padding-top:30px}
+ .hv{margin-top:10px;margin-bottom:80px}
+ .hero .mini{gap:6px 14px}
+ .ph{left:auto;right:-6px;bottom:-70px;width:150px}
+ .stage{height:300px}
+ .pp{width:92px;height:115px;padding:10px 7px;font-size:8.5px}.pp b{font-size:9px}
+ .cnt{grid-template-columns:1fr;gap:10px}.cnt div{display:flex;align-items:center;gap:14px;text-align:left;padding:14px 18px}.cnt b{font-size:30px}
+ .day:before,.day .fill{left:14px}
+ .dr{gap:16px;padding-left:44px;margin-bottom:50px}
+ .dr .dot{left:14px;top:22px}
+ .dr .photo,.dr.t .photo,.dr:nth-child(even) .photo{order:2;justify-self:stretch;max-width:none}
+ .dr.t .photo{aspect-ratio:4/3}
+ .dr .time{font-size:34px}
+ .fg{grid-template-columns:1fr 1fr;gap:12px}.fc{padding:20px 16px}.fc .ic{width:44px;height:44px}
+ .demo{gap:20px}.arrow{transform:rotate(90deg);text-align:center}
+ .flow,.price{grid-template-columns:1fr;gap:28px}
+ .p2a,.end{margin-left:10px;margin-right:10px;border-radius:30px}
+ .sample{left:auto;right:12px;bottom:14px}
+ .stk{display:none}
+}
+@media (max-width:600px){.fg{grid-template-columns:1fr}.fc{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center}.fc .ic{grid-row:span 2;margin:0}.fc p{margin:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.pop{opacity:1!important;transform:none!important}.hero h1 .l span{transform:none!important}}
+</style>
+</head>
+<body>
+<a class="sample" href="../" target="_top">← Sample</a>
+<header><div class="w">
+ <a class="logo" href="#top"><i><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6v4l-2 3v1h16v-1l-2-3V8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></i>れんらくん</a>
+ <nav><a href="#how">しくみ</a><a href="#day">1日のながれ</a><a href="#demo">デモ</a><a href="#price">料金</a></nav>
+ <a class="btn p" href="#contact">資料をもらう</a>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="w">
+ <div>
+  <span class="tag">小学校むけ 連絡アプリ</span>
+  <h1><span class="l"><span>プリント、</span></span><span class="l"><span><span class="r">ぜんぶ</span>アプリへ。</span></span></h1>
+  <p class="lead">おしらせ・欠席連絡・アンケートを、ひとつのアプリに。先生の手間も、おうちの「見てない！」も、まとめて減らします。</p>
+  <div class="cta"><a class="btn p" href="#contact">資料をもらう →</a><a class="btn s" href="#demo">さわってみる</a></div>
+  <div class="mini"><span><b>✓</b> 初期費用 0円</span><span><b>✓</b> 最短2週間で導入</span><span><b>✓</b> 保護者は無料</span></div>
+ </div>
+ <div class="hv">
+  <div class="photo rv"><span class="tape"></span><img src="entry.webp" width="512" height="286" alt="朝の玄関で、子どもが靴をはき、保護者がスマホで連絡を確認している"></div>
+  <div class="ph pop"><div class="dev"><div class="scr"><div class="top"><i><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6v4l-2 3v1h16v-1l-2-3V8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></i>おしらせ</div><div class="nl" id="hn"></div></div></div></div>
+  <svg class="stk" style="top:-34px;right:10px;width:54px" viewBox="0 0 50 50"><path d="M25 3l6 14 15 1-12 10 4 15-13-8-13 8 4-15L4 18l15-1z" fill="#ffc93c" stroke="#e0a91e" stroke-width="2" stroke-linejoin="round"/></svg>
+ </div>
+</div></section>
+
+<section class="p2a" id="how"><div class="w">
+ <div class="center rv"><span class="tag">しくみ</span><h2>くしゃっと丸めて、<br><span class="mk">スマホにぽん。</span></h2><p class="lead">毎週のプリントは、配って、集めて、なくして…。れんらくんなら、送ったその瞬間に、全員のスマホへ届きます。</p></div>
+ <div class="stage" id="stage">
+  <div class="pp" style="left:6%;top:6%;--tx:250%;--ty:90%;--d:0s;transform:rotate(-8deg)"><b>遠足のおしらせ</b><i></i><i></i><i></i><i></i></div>
+  <div class="pp" style="left:20%;top:52%;--tx:150%;--ty:-40%;--d:.15s;transform:rotate(6deg)"><b>給食だより</b><i></i><i></i><i></i></div>
+  <div class="pp" style="right:20%;top:4%;--tx:-150%;--ty:100%;--d:.3s;transform:rotate(7deg)"><b>学年だより</b><i></i><i></i><i></i><i></i></div>
+  <div class="pp" style="right:5%;top:50%;--tx:-260%;--ty:-40%;--d:.45s;transform:rotate(-5deg)"><b>アンケート</b><i></i><i></i><i></i></div>
+  <div class="dev"><div class="scr"><div class="top"><i><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6v4l-2 3v1h16v-1l-2-3V8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></i>おしらせ</div><div class="nl">
+   <div class="nt" style="--c:var(--red);animation-delay:1.8s"><b>遠足のおしらせ</b><small>3年生・本日</small></div>
+   <div class="nt" style="--c:var(--yellow);animation-delay:1.95s"><b>給食だより</b><small>全学年・本日</small></div>
+   <div class="nt" style="--c:var(--sky);animation-delay:2.1s"><b>学年だより</b><small>3年生・本日</small></div>
+   <div class="nt" style="--c:var(--green);animation-delay:2.25s"><b>アンケート</b><small>回答期限 11/20</small></div>
+  </div></div></div>
+ </div>
+ <div class="cnt">
+  <div class="rv"><b data-n="0">0</b><small>印刷するプリントの枚数</small></div>
+  <div class="rv"><b data-n="0">0</b><small>回収のための確認作業</small></div>
+  <div class="rv"><b data-n="3" data-s="秒">0</b><small>全員のスマホに届くまで</small></div>
+ </div>
+</div></section>
+
+<section><div class="w">
+ <div class="center rv"><span class="tag">先生の毎日</span><h2>職員室の<span class="mk">紙の山</span>、<br class="spb"><span class="nw">へらしませんか。</span></h2></div>
+ <div class="ba">
+  <div class="bv" id="bv"><span class="badge" id="bb">BEFORE</span><div class="photo b"><img src="papers.webp" width="512" height="286" alt="プリントの山を仕分ける先生の手元" loading="lazy"></div><div class="photo a"><img src="tablet.webp" width="512" height="286" alt="すっきりした机でタブレットから連絡を送る先生" loading="lazy"></div></div>
+  <div class="rv" id="bt">
+   <div class="sw" id="sw"><span class="kn"></span><button type="button" class="on" data-v="b">これまで</button><button type="button" data-v="a">れんらくん</button></div>
+   <ul class="bl">
+    <li><span class="ic">🖨</span>印刷・配布<span class="v" data-b="週3時間" data-a="5分">週3時間</span></li>
+    <li><span class="ic">📋</span>提出物の回収と確認<span class="v" data-b="週2時間" data-a="自動集計">週2時間</span></li>
+    <li><span class="ic">📞</span>欠席連絡の電話対応<span class="v" data-b="毎朝30分" data-a="0分">毎朝30分</span></li>
+    <li><span class="ic">✉️</span>「届いてない」への対応<span class="v" data-b="ときどき" data-a="既読で確認">ときどき</span></li>
+   </ul>
+   <p class="bnote">※ 時間はサンプルの目安です。</p>
+  </div>
+ </div>
+</div></section>
+
+<section id="day" style="padding-top:40px"><div class="w">
+ <div class="center rv"><span class="tag">1日のながれ</span><h2>朝から夜まで、<br><span class="mk">ちょうどいい</span>距離で。</h2></div>
+ <div class="day" id="dayw"><span class="fill" id="dfill"></span>
+  <div class="dr t"><span class="dot"></span><div class="photo rv"><img src="phone.webp" width="343" height="512" alt="朝食のテーブルでスマホのおしらせを確認する保護者" loading="lazy"></div><div class="rv"><span class="time">7:30</span><h3>欠席連絡は、<span class="nw">アプリから1分。</span></h3><p>朝の忙しい時間に、電話がつながるのを待たなくていい。</p><span class="chip" style="--c:var(--red)">📩 欠席連絡が届きました</span></div></div>
+  <div class="dr"><span class="dot"></span><div class="photo rv"><img src="class.webp" width="512" height="286" alt="手をあげる子どもたちの教室（後ろ姿）" loading="lazy"></div><div class="rv"><span class="time">10:00</span><h3>授業に、<span class="nw">集中できる朝。</span></h3><p>朝の連絡は一覧で確認ずみ。先生は子どもたちに向き合う時間に。</p><span class="chip" style="--c:var(--green)">✓ 今日の欠席 2名（確認ずみ）</span></div></div>
+  <div class="dr"><span class="dot"></span><div class="photo rv"><img src="walk.webp" width="512" height="286" alt="黄色い帽子で手をつないで下校する子どもたち" loading="lazy"></div><div class="rv"><span class="time">15:00</span><h3>下校のおしらせも、<span class="nw">すぐ届く。</span></h3><p>天気や行事で時間が変わっても、全員にいっせいに。</p><span class="chip" style="--c:var(--yellow)">🔔 本日は14:30に一斉下校です</span></div></div>
+  <div class="dr t"><span class="dot"></span><div class="photo rv"><img src="randoseru.webp" width="512" height="512" alt="机の上のランドセルとノート、色えんぴつ" loading="lazy"></div><div class="rv"><span class="time">19:00</span><h3>持ちもの確認は、<span class="nw">ソファで。</span></h3><p>ランドセルの底でくしゃくしゃのプリント、もう探さなくていい。</p><span class="chip" style="--c:var(--sky)">📌 明日：図工で空き箱を持ってくる</span></div></div>
+ </div>
+</div></section>
+
+<section><div class="w">
+ <div class="center rv"><span class="tag">できること</span><h2>学校の連絡、<span class="mk">これひとつ。</span></h2></div>
+ <div class="fg">
+  <div class="fc pop"><div class="ic" style="--c:#ffe3df"><svg viewBox="0 0 24 24" fill="none" stroke="#e8584a" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg></div><h3>おしらせ配信</h3><p>学年・クラスごとに、写真やPDFも添えて。</p></div>
+  <div class="fc pop"><div class="ic" style="--c:#dff0e6"><svg viewBox="0 0 24 24" fill="none" stroke="#2f6b55" stroke-width="2" stroke-linecap="round"><path d="M8 7V3m8 4V3M4 9h16M5 5h14v15H5z"/><path d="M9 15l2 2 4-4"/></svg></div><h3>欠席・遅刻連絡</h3><p>保護者はアプリから。先生は一覧でまとめて確認。</p></div>
+  <div class="fc pop"><div class="ic" style="--c:#fff2cc"><svg viewBox="0 0 24 24" fill="none" stroke="#c99410" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7H4V5h11"/></svg></div><h3>アンケート</h3><p>回答は自動で集計。未回答の人だけにリマインド。</p></div>
+  <div class="fc pop"><div class="ic" style="--c:#e1f2fa"><svg viewBox="0 0 24 24" fill="none" stroke="#3a93bd" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div><h3>既読の確認</h3><p>だれが読んだか、ひと目で。「届いてない」をなくす。</p></div>
+  <div class="fc pop"><div class="ic" style="--c:#ffe6ec"><svg viewBox="0 0 24 24" fill="none" stroke="#e0607a" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></div><h3>やさしい日本語・翻訳</h3><p>外国にルーツのある家庭にも、伝わることばで。</p></div>
+  <div class="fc pop"><div class="ic" style="--c:#ece6f8"><svg viewBox="0 0 24 24" fill="none" stroke="#7a62c2" stroke-width="2" stroke-linecap="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h3>安心のセキュリティ</h3><p>個人情報は暗号化して保管。先生ごとに権限を分けられます。</p></div>
+ </div>
+</div></section>
+
+<section id="demo" style="background:#fff3dd;border-radius:40px;margin:0 16px"><div class="w">
+ <div class="center rv"><span class="tag">さわってみる</span><h2>おうちのボタンを、<br><span class="mk">押してみてください。</span></h2><p class="lead">左の保護者の画面で操作すると、右の先生の画面にすぐ届きます。</p></div>
+ <div class="demo">
+  <div class="side rv"><small>👪 保護者のスマホ</small><div class="dev"><div class="scr"><div class="top"><i><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6v4l-2 3v1h16v-1l-2-3V8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></i>3年2組・さくら</div>
+   <div class="nl"><div class="nt" style="--c:var(--red)"><b>遠足のおしらせ</b><small>持ちもの：お弁当・水筒・しきもの</small></div><div class="nt" style="--c:var(--green)"><b>保護者会アンケート</b><small>出欠を教えてください</small></div></div>
+   <div class="acts" style="padding:0 12px 14px"><button type="button" class="btn p" id="d1">欠席を連絡する</button><button type="button" class="btn s" id="d2">アンケートに「出席」</button><button type="button" class="btn s" id="d3">おしらせを読む</button></div>
+  </div></div></div>
+  <div class="arrow" aria-hidden="true"><span>→</span></div>
+  <div class="side rv"><small>🧑‍🏫 先生のタブレット</small><div class="dev"><div class="scr pnl"><div class="top"><i><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6v4l-2 3v1h16v-1l-2-3V8a6 6 0 0 0-6-6zm0 20a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></i>3年2組・連絡一覧</div>
+   <div class="ans">保護者会アンケート <b id="ac" style="float:right">18 / 30</b><div class="bar"><i id="ab" style="--w:60%"></i></div></div>
+   <div class="ans">遠足のおしらせ 既読 <b id="rc" style="float:right">24 / 30</b><div class="bar"><i id="rb" style="--w:80%;background:var(--sky)"></i></div></div>
+   <div class="nl" id="tl" style="margin-top:10px"><div class="nt" style="--c:var(--sub)"><b>今日の欠席：1名</b><small>8:02 ひなた（発熱）</small></div></div>
+  </div></div></div>
+ </div>
+</div></section>
+
+<section><div class="w">
+ <div class="center rv"><span class="tag">導入のながれ</span><h2>はじめるのは、<span class="mk">かんたん。</span></h2></div>
+ <div class="flow">
+  <div class="rv"><b>オンラインで相談</b><p>学校の規模や、今の連絡方法をうかがいます。</p></div>
+  <div class="rv"><b>名簿をアップロード</b><p>今お使いの名簿のファイルをそのまま。設定はこちらでお手伝い。</p></div>
+  <div class="rv"><b>保護者へ案内</b><p>QRコード付きのお知らせを配るだけ。最短2週間で開始。</p></div>
+ </div>
+</div></section>
+
+<section id="price" style="padding-top:20px"><div class="w">
+ <div class="center rv"><span class="tag">料金</span><h2>保護者の負担は、<span class="mk">0円。</span></h2></div>
+ <div class="price">
+  <div class="pc rv"><h3>ライト</h3><p class="yen">¥9,800<small>/ 1校・月</small></p><ul><li>おしらせ配信</li><li>欠席・遅刻連絡</li><li>既読の確認</li></ul></div>
+  <div class="pc rec rv"><span class="rb">いちばん人気</span><h3>スタンダード</h3><p class="yen">¥19,800<small>/ 1校・月</small></p><ul><li>ライトのすべて</li><li>アンケート・自動集計</li><li>翻訳・やさしい日本語</li><li>導入サポート</li></ul></div>
+ </div>
+ <p class="center bnote rv">※ 架空のサービスのため、料金はすべてサンプルです。</p>
+</div></section>
+
+<section style="padding-top:20px"><div class="w">
+ <div class="center rv"><span class="tag">よくある質問</span><h2>きになること</h2></div>
+ <div class="faq">
+  <details class="rv"><summary>スマホを持っていない家庭はどうなりますか？</summary><p>これまで通り紙でのお知らせも併用できます。紙で受け取る家庭だけを選んで、印刷用のファイルを出せます。</p></details>
+  <details class="rv"><summary>先生の操作はむずかしくないですか？</summary><p>文章を書いて送るだけの、メールより簡単な画面です。導入時に職員向けの説明会も行います。</p></details>
+  <details class="rv"><summary>個人情報の管理は大丈夫ですか？</summary><p>データは暗号化して保管し、先生ごとに見られる範囲を分けられます。</p></details>
+ </div>
+</div></section>
+
+<section class="end" id="contact"><div class="bg"><img src="evening.webp" width="512" height="286" alt="" loading="lazy"></div><div class="w rv">
+ <h2>放課後の職員室に、<br><span class="nw">ちょっとの余白を。</span></h2>
+ <p>資料のダウンロードは無料です。</p>
+ <a class="btn p" href="#top" id="dl">資料をもらう →</a>
+</div></section>
+</main>
+<footer>© れんらくん — 架空の学校向けサービス（ポートフォリオ用サンプル）</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},red=matchMedia("(prefers-reduced-motion:reduce)").matches,d=document.documentElement;
+requestAnimationFrame(function(){setTimeout(function(){d.classList.add("go")},80)});
+function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(e._t);e._t=setTimeout(function(){e.classList.remove("on")},2200)}
+// reveal
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px"});
+document.querySelectorAll(".rv,.pop").forEach(function(el,i){io.observe(el)});
+document.querySelectorAll(".fg .pop").forEach(function(el,i){el.style.transitionDelay=(i%3*.1)+"s"});
+// hero notifications loop
+var HN=[["遠足のおしらせ","3年生・持ちもの","var(--red)"],["欠席連絡を受けつけました","8:02 送信ずみ","var(--green)"],["給食だより 11月号","全学年","var(--yellow)"],["保護者会アンケート","回答 28 / 30","var(--sky)"],["下校時刻の変更","14:30 一斉下校","var(--pink)"]],hi=0,hn=$("hn");
+function hpush(){var n=HN[hi++%HN.length],el=document.createElement("div");el.className="nt";el.style.setProperty("--c",n[2]);el.innerHTML="<b>"+n[0]+"</b><small>"+n[1]+"</small>";hn.prepend(el);while(hn.children.length>4)hn.lastChild.remove()}
+hpush();hpush();hpush();if(!red)setInterval(hpush,2600);
+// paper stage + counters
+var so=new IntersectionObserver(function(es){if(es[0].isIntersecting){$("stage").classList.add("on");so.disconnect();
+ document.querySelectorAll(".cnt b").forEach(function(b){var n=+b.dataset.n,s=b.dataset.s||"";if(!n){b.textContent="0"+s;return}var k=0,t=setInterval(function(){k++;b.textContent=k+s;if(k>=n)clearInterval(t)},350)})}},{threshold:.4});so.observe($("stage"));
+// before/after
+var sw=$("sw"),bv=$("bv");
+function setBA(a){sw.classList.toggle("af",a);bv.classList.toggle("af",a);$("bt").classList.toggle("af",a);$("bb").textContent=a?"AFTER":"BEFORE";sw.querySelectorAll("button").forEach(function(b){b.classList.toggle("on",(b.dataset.v==="a")===a)});
+ document.querySelectorAll(".bl .v").forEach(function(v,i){setTimeout(function(){v.textContent=a?v.dataset.a:v.dataset.b},i*90)})}
+sw.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){setBA(b.dataset.v==="a");auto=false})});
+var auto=true,bo=new IntersectionObserver(function(es){if(es[0].isIntersecting&&auto){setTimeout(function(){if(auto)setBA(true)},1600);bo.disconnect()}},{threshold:.5});bo.observe(bv);
+// day line fill
+var dw=$("dayw"),df=$("dfill"),drs=[].slice.call(document.querySelectorAll(".dr"));
+function day(){var r=dw.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.6-r.top)/r.height));df.style.height=(p*100)+"%";drs.forEach(function(x){var q=x.getBoundingClientRect();x.classList.toggle("on",q.top+q.height/2<innerHeight*.6)})}
+var tk=0;addEventListener("scroll",function(){if(!tk){tk=1;requestAnimationFrame(function(){tk=0;day()})}},{passive:true});day();
+// demo
+var tl=$("tl"),ac=18,rc=24,names=["さくら"];
+function tpush(t,s,c){var el=document.createElement("div");el.className="nt";el.style.setProperty("--c",c);el.innerHTML="<b>"+t+"</b><small>"+s+"</small>";tl.prepend(el);while(tl.children.length>3)tl.lastChild.remove()}
+function now(){var d=new Date();return d.getHours()+":"+String(d.getMinutes()).padStart(2,"0")}
+$("d1").addEventListener("click",function(){tpush("欠席連絡：さくら","理由：かぜ ・ "+now(),"var(--red)");toast("先生のタブレットに届きました")});
+$("d2").addEventListener("click",function(){if(ac<30){ac++;$("ac").textContent=ac+" / 30";$("ab").style.setProperty("--w",(ac/30*100)+"%")}tpush("アンケート回答：さくら","保護者会に出席 ・ "+now(),"var(--green)");toast("回答が集計されました")});
+$("d3").addEventListener("click",function(){if(rc<30){rc++;$("rc").textContent=rc+" / 30";$("rb").style.setProperty("--w",(rc/30*100)+"%")}toast("既読がつきました")});
+$("dl").addEventListener("click",function(e){e.preventDefault();toast("サンプルのため、資料はありません")});
+})();
+</script>
+<script src="../../js/budoux.js" defer></script>
+</body>
+</html>
