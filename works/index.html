@@ -26,7 +26,7 @@ img{display:block;width:100%;height:auto}
 html.en .ja{display:none}html:not(.en) .en{display:none}
 .w{max-width:1240px;margin:0 auto;padding:0 56px}
 .lbl{font:500 12px var(--en);letter-spacing:.18em;text-transform:uppercase;color:var(--sub);margin:0}
-header{position:fixed;inset:0 0 auto;z-index:40;color:var(--ink);text-shadow:0 1px 12px rgba(0,0,0,.65)}
+header{position:fixed;inset:0 0 auto;z-index:40;transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent;color:var(--ink);text-shadow:0 1px 12px rgba(0,0,0,.65)}
 header .w{display:flex;align-items:center;height:84px}
 header .nm{display:inline-flex;align-items:center;gap:10px;font:400 12px var(--mono);letter-spacing:.06em;color:var(--ink2);transition:color .3s}
 header .nm:hover{color:var(--ink)}
@@ -320,6 +320,8 @@ span.nw{white-space:nowrap}
 .pr{margin-top:40px;display:flex;align-items:center;justify-content:space-between;gap:20px 30px;flex-wrap:wrap;padding:26px 28px;border:1px solid var(--line);border-radius:14px;background:rgba(8,13,11,.6)}
 .pr p{margin:0}.pr p+p{margin-top:8px;color:var(--ink2);font-size:14.5px}
 .pr .go{margin:0}
+header.sc{background:rgba(5,8,7,.78);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom-color:rgba(61,255,139,.08)}
+.pr{max-width:100%}.pr>div{min-width:0}
 .wterm{margin:0 0 72px}
 @media (max-width:960px){.hero{padding:118px 0 48px}.hero h1{font-size:clamp(30px,8.6vw,48px)}.hero h1 br.sp{display:inline}.wterm{margin-bottom:56px}.htx{min-height:calc(100svh - 150px)}.fl{width:var(--w,120px)}.fl.m{display:none}.fl span{font-size:9.5px;padding:3px 7px;left:5px;bottom:5px}}
 .lbx{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(2,4,3,.97);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:56px 16px}
@@ -579,7 +581,7 @@ body.lbo .fm{opacity:0;pointer-events:none}
   <div class="rv"><b>03</b><h4><span class="ja">試作・制作</span><span class="en">Prototype &amp; build</span></h4><p><span class="ja">AIで素早く試作し、実際に触っていただきながら仕上げます。</span><span class="en">A quick AI-built prototype, refined as you try it out.</span></p></div>
   <div class="rv"><b>04</b><h4><span class="ja">納品・改善</span><span class="en">Launch &amp; improve</span></h4><p><span class="ja">実際の画面で一つずつ確かめてから公開。公開後の改善もご相談ください。</span><span class="en">I check every screen before launch, and can keep improving it after.</span></p></div>
  </div>
- <div class="pr rv"><div><p class="lbl"><span class="ja">料金</span><span class="en">Pricing</span></p><p><span class="ja">内容や規模に合わせて、<span class="nw">個別にお見積もりします。</span><span class="nw">ご相談・お見積もりは無料です。</span></span><span class="en">Every project is quoted individually. Consultation and estimates are free.</span></p></div><a class="go" href="#contact"><span class="ja">相談してみる</span><span class="en">Get in touch</span> <span>→</span></a></div>
+ <div class="pr rv"><div><p class="lbl"><span class="ja">料金</span><span class="en">Pricing</span></p><p><span class="ja">内容や規模に合わせて、<span class="nw">個別にお見積もりします。</span><br><span class="nw">ご相談・お見積もりは</span><span class="nw">無料です。</span></span><span class="en">Every project is quoted individually. Consultation and estimates are free.</span></p></div><a class="go" href="#contact"><span class="ja">相談してみる</span><span class="en">Get in touch</span> <span>→</span></a></div>
 </div></section>
 
 <section id="skills" style="padding-top:0"><div class="w">
@@ -682,7 +684,7 @@ H.addEventListener("pointerleave",function(){px=py=-9999});
 H.addEventListener("touchstart",function(e){ptr(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
 H.addEventListener("touchmove",function(e){ptr(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
 H.addEventListener("touchend",function(){setTimeout(function(){px=py=-9999},300)},{passive:true});
-function fade(){var hb=H.getBoundingClientRect().bottom,vh=innerHeight,o=Math.max(0,Math.min(1,1-scrollY/(vh*.55)));F.style.opacity=o.toFixed(3);F.classList.toggle("gone",o<=0.01||hb<0);run=o>0.01}
+function fade(){var hd=document.querySelector("header");if(hd)hd.classList.toggle("sc",scrollY>40);var hb=H.getBoundingClientRect().bottom,vh=innerHeight,o=Math.max(0,Math.min(1,1-scrollY/(vh*.55)));F.style.opacity=o.toFixed(3);F.classList.toggle("gone",o<=0.01||hb<0);run=o>0.01}
 addEventListener("scroll",function(){fade();var dy=Math.max(-25,Math.min(25,scrollY-lastY));lastY=scrollY;P.forEach(function(p){p.vy-=dy*(p.far?.006:.012)*p.sp})},{passive:true});
 function ori(e){if(e.gamma==null)return;if(!b0)b0={g:e.gamma,b:e.beta};b0.g+=(e.gamma-b0.g)*.006;b0.b+=(e.beta-b0.b)*.006;var o=(screen.orientation&&screen.orientation.angle)||window.orientation||0,dg=e.gamma-b0.g,db=e.beta-b0.b,x=dg,y=db;if(o==90){x=db;y=-dg}else if(o==-90||o==270){x=-db;y=dg}tgx=Math.max(-1,Math.min(1,x/25));tgy=Math.max(-1,Math.min(1,y/25))}
 var gyOn=false;function gyro(){if(gyOn||red)return;var D=window.DeviceOrientationEvent;if(!D)return;if(typeof D.requestPermission==="function")return;gyOn=true;addEventListener("deviceorientation",ori)}
