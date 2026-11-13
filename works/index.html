@@ -86,7 +86,7 @@ a.pic:hover img{transform:scale(1.02)}
 .of ul{list-style:none;margin:0;padding:0}
 .of li{font-size:14px;color:var(--ink2);font-weight:300;padding:10px 0;border-bottom:1px solid var(--line)}
 .of li:last-child{border:0}
-.hw{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:80px}
+.hw{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:24px}
 .hw b{display:block;font:400 13px var(--en);color:var(--sub);letter-spacing:.1em}
 .hw h4{font-size:16px;font-weight:500;margin:12px 0 8px}
 .hw p{margin:0;font-size:13.5px;color:var(--ink2);font-weight:300;line-height:1.9}
@@ -310,6 +310,11 @@ span.nw{white-space:nowrap}
 .cl a{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border:1px solid var(--line);border-radius:12px;font:400 14px var(--mono);color:var(--ink);background:rgba(8,13,11,.6);transition:border-color .3s,box-shadow .3s;word-break:break-all}
 .cl a:hover{border-color:var(--acc);box-shadow:0 0 24px rgba(61,255,139,.2)}
 .cl a span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.flw{margin-top:80px}
+.hw h4 .fr{display:inline-block;margin-left:8px;font:500 10.5px var(--mono);color:#04120a;background:var(--acc);border-radius:4px;padding:1px 6px;vertical-align:3px;letter-spacing:.04em}
+.pr{margin-top:40px;display:flex;align-items:center;justify-content:space-between;gap:20px 30px;flex-wrap:wrap;padding:26px 28px;border:1px solid var(--line);border-radius:14px;background:rgba(8,13,11,.6)}
+.pr p{margin:0}.pr p+p{margin-top:8px;color:var(--ink2);font-size:14.5px}
+.pr .go{margin:0}
 .wterm{margin:0 0 72px}
 @media (max-width:960px){.hero{padding:118px 0 48px}.hero h1{font-size:clamp(30px,8.6vw,48px)}.hero h1 br.sp{display:inline}.wterm{margin-bottom:56px}.htx{min-height:calc(100svh - 150px)}.fl{width:var(--w,120px)}.fl.m{display:none}.fl span{font-size:9.5px;padding:3px 7px;left:5px;bottom:5px}}
 .lbx{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(2,4,3,.97);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:56px 16px}
@@ -562,12 +567,14 @@ body.lbo .fm{opacity:0;pointer-events:none}
    <li><span class="ja">予約・注文・会員などのWebアプリ、LINEミニアプリ、LP制作</span><span class="en">Web apps and LINE mini apps for booking, ordering and memberships; landing pages</span></li><li><span class="ja">商品撮影と、生成AIでのモデル・シーン画像づくり</span><span class="en">Product photography and AI-generated model and lifestyle imagery</span></li>
    <li><span class="ja">試作を数日で用意し、触りながら仕様を固める進め方</span><span class="en">A working prototype within days, then refine the spec together</span></li></ul></div>
  </div>
+ <div class="flw rv"><p class="lbl"><span class="ja">ご依頼の流れ</span><span class="en">How to work with me</span></p></div>
  <div class="hw">
-  <div class="rv"><b>01</b><h4><span class="ja">課題を整理する</span><span class="en">Clarify the problem</span></h4><p><span class="ja">数字と現場の流れから、何を作るべきかを決めます。</span><span class="en">Decide what to build from the numbers and the real workflow.</span></p></div>
-  <div class="rv"><b>02</b><h4><span class="ja">動く試作</span><span class="en">Working prototype</span></h4><p><span class="ja">Claude Codeで素早く形にし、触って確かめます。</span><span class="en">Build fast with Claude Code and test it hands-on.</span></p></div>
-  <div class="rv"><b>03</b><h4><span class="ja">最後は人の目で</span><span class="en">A human makes the final call</span></h4><p><span class="ja">AIが作ったものを、実際の画面で一つずつ確かめてから公開します。</span><span class="en">I check everything AI builds on real screens before it ships.</span></p></div>
-  <div class="rv"><b>04</b><h4><span class="ja">公開して改善</span><span class="en">Ship and improve</span></h4><p><span class="ja">公開後も使われ方を見ながら改善を続けます。</span><span class="en">Keep improving based on how it is actually used.</span></p></div>
+  <div class="rv"><b>01</b><h4><span class="ja">ご相談<span class="fr">無料</span></span><span class="en">Consultation<span class="fr">Free</span></span></h4><p><span class="ja">メールかLinkedInで、困っていることを気軽にお送りください。オンラインでお話を伺います。</span><span class="en">Send me what you are struggling with by email or LinkedIn. We talk online.</span></p></div>
+  <div class="rv"><b>02</b><h4><span class="ja">お見積もり<span class="fr">無料</span></span><span class="en">Estimate<span class="fr">Free</span></span></h4><p><span class="ja">作るものと進め方を整理し、費用と期間をご提示します。</span><span class="en">I outline what to build and how, with cost and timeline.</span></p></div>
+  <div class="rv"><b>03</b><h4><span class="ja">試作・制作</span><span class="en">Prototype &amp; build</span></h4><p><span class="ja">AIで素早く試作し、実際に触っていただきながら仕上げます。</span><span class="en">I prototype quickly with AI and refine it while you try it.</span></p></div>
+  <div class="rv"><b>04</b><h4><span class="ja">納品・改善</span><span class="en">Launch &amp; improve</span></h4><p><span class="ja">実際の画面で一つずつ確かめてから公開。公開後の改善もご相談ください。</span><span class="en">I check every screen before launch, and can keep improving it after.</span></p></div>
  </div>
+ <div class="pr rv"><div><p class="lbl"><span class="ja">料金</span><span class="en">Pricing</span></p><p><span class="ja">内容や規模に合わせて、<span class="nw">個別にお見積もりします。</span><span class="nw">ご相談・お見積もりは無料です。</span></span><span class="en">Every project is quoted individually. Consultation and estimates are free.</span></p></div><a class="go" href="#contact"><span class="ja">相談してみる</span><span class="en">Get in touch</span> <span>→</span></a></div>
 </div></section>
 
 <section id="skills" style="padding-top:0"><div class="w">
