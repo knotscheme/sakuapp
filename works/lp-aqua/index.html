@@ -248,7 +248,7 @@ footer{position:relative;z-index:2;padding:40px 32px 90px;text-align:center;font
 (function(){
 var d=document.documentElement,red=matchMedia("(prefers-reduced-motion:reduce)").matches,mob=matchMedia("(max-width:860px)").matches;
 // loader
-var ld=document.getElementById("ld");setTimeout(function(){ld.classList.add("out");d.classList.add("on")},red?0:1300);
+var ld=document.getElementById("ld");setTimeout(function(){ld.classList.add("out");d.classList.add("on")},red?0:(window.self!==window.top?350:1300));
 // hero letters stagger
 document.querySelectorAll(".hero h1 span").forEach(function(s,i){s.style.transitionDelay=(1.4+i*.18)+"s"});
 // reveal

@@ -208,7 +208,7 @@ var red=matchMedia("(prefers-reduced-motion:reduce)").matches,doc=document.docum
 // loader
 var ld=document.getElementById("ld"),ln=document.getElementById("ldn"),n=0;
 function done(){ld.classList.add("out");setTimeout(function(){doc.classList.add("go")},350)}
-if(red){ld.remove();doc.classList.add("go")}else{var t=setInterval(function(){n+=Math.ceil((100-n)/9);ln.textContent=n;if(n>=100){clearInterval(t);setTimeout(done,250)}},45)}
+if(red||window.self!==window.top){ld.remove();doc.classList.add("go")}else{var t=setInterval(function(){n+=Math.ceil((100-n)/9);ln.textContent=n;if(n>=100){clearInterval(t);setTimeout(done,250)}},45)}
 // reveal
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target);var b=e.target.querySelectorAll("[data-n]");b.forEach(count)}})},{rootMargin:"0px 0px -10% 0px"});
 document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});

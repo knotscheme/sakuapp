@@ -225,12 +225,17 @@ body.lbo header{visibility:hidden}
 .pvw iframe{width:100%;height:100%;border:0;background:#fff;transition:width .45s cubic-bezier(.19,1,.22,1)}
 .pvw.mob .st{padding:20px 0;background:#0b0f0d}
 .pvw.mob iframe{width:390px;max-width:100%;border-radius:28px;border:6px solid #1b2420}
-.pvw .ld{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font:400 12px var(--mono);color:var(--acc);pointer-events:none}
+.pvw .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;filter:blur(6px) brightness(.8);transform:scale(1.03);transition:opacity .4s}
+.pvw.ok .ph{opacity:0}
+.pvw iframe{opacity:0;transition:opacity .35s}
+.pvw.ok iframe{opacity:1}
+.pvw .ld{z-index:1;font-size:13px;padding:8px 14px;border-radius:99px;background:rgba(0,0,0,.55);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font:400 12px var(--mono);color:var(--acc);pointer-events:none}
 .pvw.ok .ld{display:none}
 .pvc{position:absolute;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:2;display:flex;gap:6px;align-items:center;opacity:.55;transition:opacity .3s}
 .pvc:hover,.pvc:focus-within{opacity:1}
 .pvc button,.pvc a{display:inline-grid;place-items:center;height:36px;min-width:36px;padding:0 10px;border-radius:18px;border:1px solid rgba(255,255,255,.25);background:rgba(10,12,11,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:500 12px var(--mono);cursor:pointer;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 .pvc .x{font-size:17px;padding:0}
+.pvc [hidden]{display:none!important}
 .pvc .dv button.on{background:rgba(61,255,139,.85);color:#04120a;border-color:transparent}
 .pvc .dv{display:flex;gap:4px}
 @media (max-width:700px){.pvc .dv{display:none}}
@@ -482,7 +487,7 @@ body.lbo .fm{opacity:0;pointer-events:none}
 <section id="lp" class="cat-s"><div class="w">
  <div class="cat-h rv"><span class="cn">03</span><div><h2><span class="ja">Web・LP制作</span><span class="en">Web & landing pages</span></h2><p class="ai"><span class="tag">AI</span><span class="ja">構成・コピー・画像・動きまで、AIと一緒に作り込み、スマホの実機で仕上げます。</span><span class="en">Structure, copy, images and motion built with AI, then finished on real phones.</span></p></div></div>
   <article class="cs rv">
-   <div class="ch"><p class="no">03.1</p><h3>Sakuapp</h3><p class="cat"><span class="ja">受託開発サービス・LP群</span><span class="en">Custom development service and landing pages</span></p></div>
+   <div class="ch"><p class="no">03.1</p><h3><span class="ja">サクアプ</span><span class="en">Sakuapp</span></h3><p class="cat"><span class="ja">受託開発サービス・LP群</span><span class="en">Custom development service and landing pages</span></p></div>
    <a class="pic" href="../" target="_blank" rel="noopener"><img src="img/top-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
    <div class="cb2">
     <p class="sum"><span class="ja">お店向けのアプリ制作サービス。触れる見本と、店ごとに変わる提案書で注文につなげます。</span><span class="en">An app-building service for small shops, with hands-on demos and proposals tailored to each shop.</span></p>
@@ -501,7 +506,7 @@ body.lbo .fm{opacity:0;pointer-events:none}
    <a href="lp-lotion/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lp-lotion.webp" alt="" width="1200" height="750" loading="lazy"></span><b>SORAE</b><small><span class="ja">化粧水のミニマルLP（制作サンプル）</span><span class="en">Minimal skincare LP (sample)</span></small></a>
    <a href="lp-motion/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lp-motion.webp" alt="" width="1200" height="750" loading="lazy"></span><b>ORBE</b><small><span class="ja">アニメーションLP（制作サンプル）</span><span class="en">Motion-driven LP (sample)</span></small></a>
    <a href="lp-aqua/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lp-aqua.webp" alt="" width="1200" height="750" loading="lazy"></span><b>ABYSSIA</b><small><span class="ja">デジタル水族館のLP（制作サンプル）</span><span class="en">Digital aquarium LP (sample)</span></small></a>
-   <a href="lp-school/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lp-school.webp" alt="" width="1200" height="750" loading="lazy"></span><b>れんらくん</b><small><span class="ja">小学校向け連絡アプリのLP（制作サンプル）</span><span class="en">School messaging app LP (sample)</span></small></a>
+   <a href="lp-school/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lp-school.webp" alt="" width="1200" height="750" loading="lazy"></span><b><span class="ja">れんらくん</span><span class="en">Renrakun</span></b><small><span class="ja">小学校向け連絡アプリのLP（制作サンプル）</span><span class="en">School messaging app LP (sample)</span></small></a>
    <a href="https://daysart-classic.com/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/daysart-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Daysart Classic</b><small><span class="ja">革製品ECの構築・撮影</span><span class="en">Leather brand store: build, photos, product planning</span></small></a>
    <a href="../salon/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/salon-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Salon Booking</b><small><span class="ja">サロン予約のLP</span><span class="en">Salon booking LP</span></small></a>
    <a href="https://web-template-studio.knotscheme.workers.dev/themes/aroma-de-cafe.html" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lp-cafe.webp" alt="" width="1200" height="750" loading="lazy"></span><b>AROMA DE CAFE</b><small><span class="ja">コーヒー豆のECサイト（制作サンプル）</span><span class="en">Coffee bean store (sample)</span></small></a>
@@ -670,15 +675,18 @@ function go(){sizes();F.classList.add("on");birth();if(!red)requestAnimationFram
 if(document.readyState==="complete")go();else addEventListener("load",go);
 })();
 </script>
-<div class="pvw" id="pvw" role="dialog" aria-modal="true" aria-label="Preview"><span id="pvt" hidden></span><div class="st"><span class="ld">loading...</span><iframe id="pvf" title="Preview" loading="lazy"></iframe></div><div class="pvc"><button type="button" class="x" aria-label="Close">×</button><a id="pvo" href="#" hidden></a><span class="dv"><button type="button" data-d="pc" class="on">PC</button><button type="button" data-d="mob">SP</button></span></div></div>
+<div class="pvw" id="pvw" role="dialog" aria-modal="true" aria-label="Preview"><span id="pvt" hidden></span><div class="st"><span class="ld">loading...</span><img class="ph" id="pvph" alt=""><iframe id="pvf" title="Preview"></iframe></div><div class="pvc"><button type="button" class="x" aria-label="Close">×</button><a id="pvo" href="#" hidden></a><span class="dv"><button type="button" data-d="pc" class="on">PC</button><button type="button" data-d="mob">SP</button></span></div></div>
 <script>
 (function(){var W=document.getElementById("pvw"),F=document.getElementById("pvf"),T=document.getElementById("pvt"),O=document.getElementById("pvo"),NF=["daysart-classic.com","zubapp.kazuyascheme.workers.dev"],sy=0;
 function title(a){var h=a.closest("article");var t=a.classList.contains("oc")?a.querySelector("b"):(h&&h.querySelector("h3"));return t?t.textContent.replace("↗","").trim():""}
-function open(a){T.textContent=title(a);O.href=a.href;W.classList.remove("ok");F.src=a.href;W.classList.add("on");document.body.style.overflow="hidden";document.body.classList.add("lbo")}
+function open(a){var im=a.querySelector("img");var ph=document.getElementById("pvph");if(im){ph.src=im.currentSrc||im.src;ph.style.display=""}else ph.style.display="none";T.textContent=title(a);O.href=a.href;W.classList.remove("ok");F.src=a.href;clearInterval(W._t);var t0=Date.now();W._t=setInterval(function(){try{var d=F.contentDocument;if(d&&d.URL!=="about:blank"&&d.readyState!=="loading"&&d.body&&d.body.children.length){clearInterval(W._t);setTimeout(function(){W.classList.add("ok")},120)}}catch(x){clearInterval(W._t)}if(Date.now()-t0>15000)clearInterval(W._t)},60);W.classList.add("on");document.body.style.overflow="hidden";document.body.classList.add("lbo")}
 function close(){W.classList.remove("on");F.src="about:blank";document.body.style.overflow="";document.body.classList.remove("lbo")}
-F.addEventListener("load",function(){W.classList.add("ok")});
+F.addEventListener("load",function(){if(F.src&&F.src!=="about:blank")W.classList.add("ok")});
+var pf={};function pre(u){if(pf[u])return;pf[u]=1;var l=document.createElement("link");l.rel="prefetch";l.href=u;document.head.appendChild(l)}
+addEventListener("load",function(){setTimeout(function(){document.querySelectorAll("a.oc,a.pic,a.go").forEach(function(a){if(a.host===location.host)pre(a.href)})},2500)});
 document.querySelectorAll("a.oc,a.pic,a.go").forEach(function(a){var h=new URL(a.href).hostname;
  if(NF.indexOf(h)>=0||NF.indexOf(h.replace("www.",""))>=0){var ar=a.closest("article"),t=a.classList.contains("oc")?a.querySelector("b"):(ar&&ar.querySelector("h3"));if(a.classList.contains("go")&&!a.querySelector(".xt"))a.insertAdjacentHTML("beforeend",'<span class="xt">↗</span>');if(t&&!t.querySelector(".xt"))t.insertAdjacentHTML("beforeend",'<span class="xt"> ↗</span>');return}
+ a.addEventListener("pointerdown",function(){if(a.host===location.host)pre(a.href)},{passive:true});
  a.addEventListener("click",function(e){if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();open(a)})});
 W.querySelector(".x").onclick=close;
 W.querySelectorAll(".dv button").forEach(function(b){b.onclick=function(){W.querySelectorAll(".dv button").forEach(function(x){x.classList.toggle("on",x===b)});W.classList.toggle("mob",b.dataset.d==="mob")}});

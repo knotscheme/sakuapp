@@ -378,7 +378,7 @@ document.querySelectorAll(".hero h1 b").forEach(function(b,bi){var t=b.textConte
 var ld=document.getElementById("ld"),lv=document.getElementById("lv"),ln=document.getElementById("ln"),n=0;
 d.classList.remove("on");
 function start(){ld.classList.add("out");setTimeout(function(){d.classList.add("on")},300);setTimeout(function(){ld.remove()},1400)}
-if(red){ld.remove();d.classList.add("on")}else{var t=setInterval(function(){n+=Math.ceil((100-n)/8);ln.textContent=n;lv.parentNode.firstChild.style.setProperty("--lv",(100-n)+"%");if(n>=100){clearInterval(t);setTimeout(start,300)}},50)}
+if(red||window.self!==window.top){ld.remove();d.classList.add("on")}else{var t=setInterval(function(){n+=Math.ceil((100-n)/8);ln.textContent=n;lv.parentNode.firstChild.style.setProperty("--lv",(100-n)+"%");if(n>=100){clearInterval(t);setTimeout(start,300)}},50)}
 // bubbles
 var bb=document.getElementById("bubs");if(!red)for(var i=0;i<14;i++){var e=document.createElement("i");e.className="bub";var sz=6+Math.random()*26;e.style.cssText="width:"+sz+"px;height:"+sz+"px;left:"+(Math.random()*100)+"%;animation-duration:"+(10+Math.random()*14)+"s;animation-delay:-"+(Math.random()*20)+"s;--x:"+(Math.random()*80-40)+"px;filter:none;opacity:.8";bb.appendChild(e)}
 // statement words
