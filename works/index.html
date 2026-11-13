@@ -26,7 +26,7 @@ img{display:block;width:100%;height:auto}
 html.en .ja{display:none}html:not(.en) .en{display:none}
 .w{max-width:1240px;margin:0 auto;padding:0 56px}
 .lbl{font:500 12px var(--en);letter-spacing:.18em;text-transform:uppercase;color:var(--sub);margin:0}
-header{position:fixed;inset:0 0 auto;z-index:20;color:var(--ink);text-shadow:0 1px 12px rgba(0,0,0,.65)}
+header{position:fixed;inset:0 0 auto;z-index:40;color:var(--ink);text-shadow:0 1px 12px rgba(0,0,0,.65)}
 header .w{display:flex;align-items:center;height:84px}
 header .nm{display:inline-flex;align-items:center;gap:10px;font:400 12px var(--mono);letter-spacing:.06em;color:var(--ink2);transition:color .3s}
 header .nm:hover{color:var(--ink)}
@@ -254,7 +254,9 @@ body.lbo header{visibility:hidden}
 .hero>.w a,.hero>.w button,.hero>.w .av,.hero>.w .stats{pointer-events:auto}
 .htx{min-height:calc(100svh - 230px);display:flex;flex-direction:column;justify-content:flex-start}
 .htx>*{width:fit-content;max-width:100%}
-.fld{position:absolute;left:0;right:0;top:0;height:100svh;z-index:1;overflow:hidden}
+.fld{position:fixed;left:0;right:0;top:0;height:100lvh;z-index:1;overflow:hidden;pointer-events:none;transition:opacity .25s linear}
+.fld .fl{pointer-events:auto}
+.fld.gone{visibility:hidden}
 .fl{position:absolute;left:0;top:0;width:var(--w,200px);border:1px solid rgba(61,255,139,.18);border-radius:8px;overflow:hidden;background:#0c1210;box-shadow:0 18px 40px -18px rgba(0,0,0,.8);will-change:transform;opacity:0;transition:opacity 1.2s,border-color .3s,box-shadow .3s;touch-action:pan-y;-webkit-user-select:none;user-select:none}
 .fl.bn{opacity:1;animation:born 1.4s cubic-bezier(.22,1,.36,1) both}
 .fl.far.bn{opacity:.42;animation-name:bornf}
@@ -680,14 +682,15 @@ H.addEventListener("pointerleave",function(){px=py=-9999});
 H.addEventListener("touchstart",function(e){ptr(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
 H.addEventListener("touchmove",function(e){ptr(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
 H.addEventListener("touchend",function(){setTimeout(function(){px=py=-9999},300)},{passive:true});
-addEventListener("scroll",function(){var dy=Math.max(-25,Math.min(25,scrollY-lastY));lastY=scrollY;P.forEach(function(p){p.vy-=dy*(p.far?.006:.012)*p.sp})},{passive:true});
+function fade(){var hb=H.getBoundingClientRect().bottom,vh=innerHeight,o=Math.max(0,Math.min(1,1-scrollY/(vh*.55)));F.style.opacity=o.toFixed(3);F.classList.toggle("gone",o<=0.01||hb<0);run=o>0.01}
+addEventListener("scroll",function(){fade();var dy=Math.max(-25,Math.min(25,scrollY-lastY));lastY=scrollY;P.forEach(function(p){p.vy-=dy*(p.far?.006:.012)*p.sp})},{passive:true});
 function ori(e){if(e.gamma==null)return;if(!b0)b0={g:e.gamma,b:e.beta};b0.g+=(e.gamma-b0.g)*.006;b0.b+=(e.beta-b0.b)*.006;var o=(screen.orientation&&screen.orientation.angle)||window.orientation||0,dg=e.gamma-b0.g,db=e.beta-b0.b,x=dg,y=db;if(o==90){x=db;y=-dg}else if(o==-90||o==270){x=-db;y=dg}tgx=Math.max(-1,Math.min(1,x/25));tgy=Math.max(-1,Math.min(1,y/25))}
 var gyOn=false;function gyro(){if(gyOn||red)return;var D=window.DeviceOrientationEvent;if(!D)return;if(typeof D.requestPermission==="function")return;gyOn=true;addEventListener("deviceorientation",ori)}
 if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission!=="function")gyro();
-new IntersectionObserver(function(es){run=es[0].isIntersecting}).observe(F);
+
 var rt,lw=innerWidth;addEventListener("resize",function(){if(innerWidth===lw)return;lw=innerWidth;clearTimeout(rt);rt=setTimeout(function(){sizes();P.forEach(function(p){p.e.classList.add("bn")})},200)});
 function birth(){var ord=P.slice().sort(function(){return Math.random()-.5});ord.forEach(function(p,i){var d=red?0:300+i*110+Math.random()*300;setTimeout(function(){if(!red){var g=document.createElement("i");g.className="ping";g.style.left=(p.x+p.w/2)+"px";g.style.top=(p.y+p.h/2)+"px";F.appendChild(g);setTimeout(function(){g.remove()},500)}p.e.classList.add("bn")},d)})}
-function go(){sizes();F.classList.add("on");birth();if(!red)requestAnimationFrame(step)}
+function go(){sizes();fade();F.classList.add("on");birth();if(!red)requestAnimationFrame(step)}
 if(document.readyState==="complete")go();else addEventListener("load",go);
 })();
 </script>
