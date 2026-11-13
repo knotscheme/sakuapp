@@ -688,7 +688,7 @@ addEventListener("load",function(){setTimeout(function(){document.querySelectorA
 document.querySelectorAll("a.oc,a.pic,a.go").forEach(function(a){var h=new URL(a.href).hostname;
  if(NF.indexOf(h)>=0||NF.indexOf(h.replace("www.",""))>=0){var ar=a.closest("article"),t=a.classList.contains("oc")?a.querySelector("b"):(ar&&ar.querySelector("h3"));if(a.classList.contains("go")&&!a.querySelector(".xt"))a.insertAdjacentHTML("beforeend",'<span class="xt">↗</span>');if(t&&!t.querySelector(".xt"))t.insertAdjacentHTML("beforeend",'<span class="xt"> ↗</span>');return}
  a.addEventListener("pointerdown",function(){if(a.host===location.host)pre(a.href)},{passive:true});
- a.addEventListener("click",function(e){if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();open(a)})});
+ a.addEventListener("click",function(e){if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();if(matchMedia("(hover:none) and (pointer:coarse)").matches&&a.host===location.host){location.href=a.href+(a.href.indexOf("?")<0?"?pf=1":"&pf=1");return}open(a)})});
 W.querySelector(".x").onclick=close;
 W.querySelectorAll(".dv button").forEach(function(b){b.onclick=function(){W.querySelectorAll(".dv button").forEach(function(x){x.classList.toggle("on",x===b)});W.classList.toggle("mob",b.dataset.d==="mob")}});
 addEventListener("keydown",function(e){if(e.key==="Escape"&&W.classList.contains("on"))close()});
