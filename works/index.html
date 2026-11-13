@@ -306,6 +306,10 @@ span.nw{white-space:nowrap}
 .more .tx{margin:0 0 24px;font-size:14px;color:var(--ink2);font-weight:300;line-height:2}
 .more .st{font:400 13px/1.9 var(--en)}
 @media (max-width:960px){.cs{padding-bottom:72px}.cb2{margin-top:20px}.more .mb{grid-template-columns:1fr;gap:4px}.cb2 .row{gap:16px}}
+.cl{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.cl a{display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border:1px solid var(--line);border-radius:12px;font:400 14px var(--mono);color:var(--ink);background:rgba(8,13,11,.6);transition:border-color .3s,box-shadow .3s;word-break:break-all}
+.cl a:hover{border-color:var(--acc);box-shadow:0 0 24px rgba(61,255,139,.2)}
+.cl a span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
 .wterm{margin:0 0 72px}
 @media (max-width:960px){.hero{padding:118px 0 48px}.hero h1{font-size:clamp(30px,8.6vw,48px)}.hero h1 br.sp{display:inline}.wterm{margin-bottom:56px}.htx{min-height:calc(100svh - 150px)}.fl{width:var(--w,120px)}.fl.m{display:none}.fl span{font-size:9.5px;padding:3px 7px;left:5px;bottom:5px}}
 .lbx{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(2,4,3,.97);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:56px 16px}
@@ -581,10 +585,11 @@ body.lbo .fm{opacity:0;pointer-events:none}
 <section class="ct" id="contact"><div class="w">
  <p class="lbl rv">Contact</p>
  <h2 class="rv"><a href="https://www.linkedin.com/in/%E5%92%8C%E4%B9%9F-%E7%99%BD%E5%B7%9D-78706044b/" target="_blank" rel="noopener">Let’s talk <span>→</span></a></h2>
- <p class="rv"><span class="ja">お仕事のご相談は、LinkedInでお気軽にメッセージください。</span><span class="en">For projects, send me a message on LinkedIn.</span></p>
+ <p class="rv"><span class="ja">お仕事のご相談は、メールかLinkedInでお気軽にどうぞ。</span><span class="en">For projects, reach me by email or on LinkedIn.</span></p>
+ <div class="cl rv"><a href="mailto:kazuyascheme@gmail.com"><span>Email</span>kazuyascheme@gmail.com</a><a href="https://www.linkedin.com/in/%E5%92%8C%E4%B9%9F-%E7%99%BD%E5%B7%9D-78706044b/" target="_blank" rel="noopener"><span>LinkedIn</span>Kazuya Shirakawa ↗</a></div>
 </div></section>
 </main>
-<footer><div class="w"><span>© 2026 Kazuya Shirakawa · <a href="https://www.linkedin.com/in/%E5%92%8C%E4%B9%9F-%E7%99%BD%E5%B7%9D-78706044b/" target="_blank" rel="noopener">LinkedIn</a></span><a href="#top">Back to top ↑</a></div></footer>
+<footer><div class="w"><span>© 2026 Kazuya Shirakawa · <a href="mailto:kazuyascheme@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/%E5%92%8C%E4%B9%9F-%E7%99%BD%E5%B7%9D-78706044b/" target="_blank" rel="noopener">LinkedIn</a></span><a href="#top">Back to top ↑</a></div></footer>
 <script>
 (function(){var h=document.documentElement,q=new URLSearchParams(location.search).get("lang"),v=q;
 try{if(!v)v=localStorage.getItem("pf-lang")}catch(e){}
