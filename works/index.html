@@ -219,22 +219,21 @@ body.lbo header{visibility:hidden}
 .pgrid figure,.gal figure,.zm{cursor:zoom-in}
 .lbx.one .pv,.lbx.one .nx,.lbx.one .ct{display:none}
 
-.pvw{position:fixed;inset:0;z-index:210;display:none;flex-direction:column;background:rgba(2,4,3,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.pvw.on{display:flex}
-.pvw .bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);font:400 12px var(--mono);color:var(--sub)}
-.pvw .bar b{color:var(--acc);font-weight:500;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.pvw .sp{flex:1}
-.pvw .bar button,.pvw .bar a{flex:none;border:1px solid var(--line);background:rgba(8,13,11,.85);color:var(--fg,#e6f2ea);font:400 12px var(--mono);height:34px;padding:0 12px;border-radius:17px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
-.pvw .bar .x{width:34px;padding:0;justify-content:center;color:var(--acc);font-size:18px}
-.pvw .dv{display:inline-flex;border:1px solid var(--line);border-radius:17px;overflow:hidden}
-.pvw .dv button{border:0;border-radius:0;height:32px}
-.pvw .dv button.on{background:var(--acc);color:#04120a}
-.pvw .st{flex:1;display:flex;justify-content:center;align-items:stretch;padding:16px;min-height:0;position:relative}
-.pvw iframe{width:100%;height:100%;border:1px solid var(--line);border-radius:10px;background:#fff;transition:width .45s cubic-bezier(.19,1,.22,1)}
+.pvw{position:fixed;inset:0;z-index:210;display:none;background:#000}
+.pvw.on{display:block}
+.pvw .st{position:absolute;inset:0;display:flex;justify-content:center;align-items:stretch}
+.pvw iframe{width:100%;height:100%;border:0;background:#fff;transition:width .45s cubic-bezier(.19,1,.22,1)}
+.pvw.mob .st{padding:20px 0;background:#0b0f0d}
 .pvw.mob iframe{width:390px;max-width:100%;border-radius:28px;border:6px solid #1b2420}
 .pvw .ld{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font:400 12px var(--mono);color:var(--acc);pointer-events:none}
 .pvw.ok .ld{display:none}
-@media (max-width:700px){.pvw .dv,.pvw .bar .nt{display:none}.pvw .st{padding:0}.pvw iframe{border:0;border-radius:0}}
+.pvc{position:absolute;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:2;display:flex;gap:6px;align-items:center;opacity:.55;transition:opacity .3s}
+.pvc:hover,.pvc:focus-within{opacity:1}
+.pvc button,.pvc a{display:inline-grid;place-items:center;height:36px;min-width:36px;padding:0 10px;border-radius:18px;border:1px solid rgba(255,255,255,.25);background:rgba(10,12,11,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:500 12px var(--mono);cursor:pointer;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.pvc .x{font-size:17px;padding:0}
+.pvc .dv button.on{background:rgba(61,255,139,.85);color:#04120a;border-color:transparent}
+.pvc .dv{display:flex;gap:4px}
+@media (max-width:700px){.pvc .dv{display:none}}
 .oc .xt,h3 .xt,.go .xt{font:400 .8em var(--mono);color:var(--sub);margin-left:6px}
 
 .hero{min-height:0;justify-content:flex-start;padding:150px 0 72px}
@@ -671,7 +670,7 @@ function go(){sizes();F.classList.add("on");birth();if(!red)requestAnimationFram
 if(document.readyState==="complete")go();else addEventListener("load",go);
 })();
 </script>
-<div class="pvw" id="pvw" role="dialog" aria-modal="true" aria-label="Preview"><div class="bar"><b id="pvt"></b><span class="sp"></span><span class="dv"><button type="button" data-d="pc" class="on">PC</button><button type="button" data-d="mob">SP</button></span><a id="pvo" href="#" target="_blank" rel="noopener">↗<span class="nt"><span class="ja"> 別タブで開く</span><span class="en"> New tab</span></span></a><button type="button" class="x" aria-label="Close">×</button></div><div class="st"><span class="ld">loading...</span><iframe id="pvf" title="Preview" loading="lazy"></iframe></div></div>
+<div class="pvw" id="pvw" role="dialog" aria-modal="true" aria-label="Preview"><span id="pvt" hidden></span><div class="st"><span class="ld">loading...</span><iframe id="pvf" title="Preview" loading="lazy"></iframe></div><div class="pvc"><button type="button" class="x" aria-label="Close">×</button><a id="pvo" href="#" target="_blank" rel="noopener" aria-label="Open in new tab">↗</a><span class="dv"><button type="button" data-d="pc" class="on">PC</button><button type="button" data-d="mob">SP</button></span></div></div>
 <script>
 (function(){var W=document.getElementById("pvw"),F=document.getElementById("pvf"),T=document.getElementById("pvt"),O=document.getElementById("pvo"),NF=["daysart-classic.com","zubapp.kazuyascheme.workers.dev"],sy=0;
 function title(a){var h=a.closest("article");var t=a.classList.contains("oc")?a.querySelector("b"):(h&&h.querySelector("h3"));return t?t.textContent.replace("↗","").trim():""}
