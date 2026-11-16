@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-// 右下に小さく浮かぶ相談ボタン：ファーストビューを過ぎたら出て、問い合わせフォームが見えたら隠れる
+// 右下に小さく浮かぶ相談ボタン：ファーストビューを過ぎたら出て、問い合わせフォームやフッターが見えたら隠れる
 export default function FloatingCta({ href = "#contact" }: { href?: string }) {
   const [show, setShow] = useState(false);
 
@@ -14,8 +14,10 @@ export default function FloatingCta({ href = "#contact" }: { href?: string }) {
       raf = requestAnimationFrame(() => {
         const contact = document.getElementById("contact");
         const nearContact = contact ? contact.getBoundingClientRect().top < innerHeight * 0.9 : false;
+        const footer = document.querySelector("footer");
+        const nearFooter = footer ? footer.getBoundingClientRect().top < innerHeight - 20 : false;
         const menuOpen = getComputedStyle(document.documentElement).overflow === "hidden";
-        setShow((href !== "#contact" ? scrollY > 200 : scrollY > innerHeight * 0.8) && !nearContact && !menuOpen);
+        setShow((href !== "#contact" ? scrollY > 200 : scrollY > innerHeight * 0.8) && !nearContact && !nearFooter && !menuOpen);
       });
     };
     on();

@@ -13,19 +13,21 @@ const NAV = [
   { href: "#contact", label: "無料見積もり・相談", en: "Contact" },
 ];
 
-// ミニマルなヘッダー：背景なし。ロゴとメニューボタンだけ（どんな背景でも読めるよう、色は自動で反転）
+// ミニマルなヘッダー：ページの一番上では背景なし（途中まで下げたら、すりガラスの背景）。ロゴとメニューボタンだけ（どんな背景でも読めるよう、色は自動で反転）
 export default function Header() {
   const [open, setOpen] = useState(false);
   const home = "/sakuapp/works/lp-oem/";
   const onHome = usePathname() === "/";
   const link = (h: string) => (h.startsWith("#") ? (onHome ? h : home + h) : home + h);
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false); // ページの途中では、すりガラスの背景を付けて文字と重ならないようにする
 
   // 下へスクロールしている間は隠し、上へ戻したときだけ出す
   useEffect(() => {
     let last = window.scrollY;
     const on = () => {
       const y = window.scrollY;
+      setScrolled(y > 40);
       if (Math.abs(y - last) > 6) { setHidden(y > last && y > 120); last = y; }
     };
     window.addEventListener("scroll", on, { passive: true });
@@ -42,7 +44,7 @@ export default function Header() {
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-[60] text-white mix-blend-difference transition-transform duration-500 ease-out ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}>
+      <header className={`fixed inset-x-0 top-0 z-[60] transition-[transform,background-color,color] duration-500 ease-out ${scrolled && !open ? "border-b border-line/70 bg-white/80 text-ink backdrop-blur-xl backdrop-saturate-150" : "text-white mix-blend-difference"} ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}>
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20 md:px-8">
           <a href={onHome ? "#top" : home} onClick={() => setOpen(false)} className="font-display text-[15px] tracking-[0.45em]" aria-label="CRAFT OEM トップへ">CRAFT</a>
           <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="menu" aria-label={open ? "メニューを閉じる" : "メニューを開く"} className="group flex items-center p-2 -mr-2">
