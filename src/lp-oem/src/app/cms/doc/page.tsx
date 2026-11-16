@@ -45,7 +45,7 @@ export default function DocPage() {
           </div>
         </header>
 
-        <section className="mt-6 flex justify-between gap-6">
+        <section className="mt-6 flex flex-col justify-between gap-4 sm:flex-row sm:gap-6">
           <div>
             {isWork ? (
               <>
@@ -59,7 +59,7 @@ export default function DocPage() {
               </>
             )}
           </div>
-          <div className="text-right text-[11.5px]">
+          <div className="text-[11.5px] sm:text-right">
             <p className="font-display text-[15px] tracking-[0.3em]">CRAFT OEM</p>
             <p className="text-mute">（架空の会社・デモ用）</p>
           </div>
@@ -80,7 +80,7 @@ export default function DocPage() {
                     ["サイズ / Size / ขนาด", m.size],
                     ["工場出荷期限 / Ship by / ส่งภายใน", d.due],
                   ].map(([k, v]) => (
-                    <tr key={k}><th className="w-[46%] bg-paper px-3 py-2 text-left font-normal text-mute">{k}</th><td className="px-3 py-2">{v}</td></tr>
+                    <tr key={k}><th className="w-[46%] bg-paper px-3 py-2 text-left align-top font-normal text-mute">{k}</th><td className="px-3 py-2">{v}</td></tr>
                   ))}
                 </tbody>
               </table>
@@ -89,8 +89,8 @@ export default function DocPage() {
             </section>
             <section className="mt-6">
               <p className="font-medium">工程 / Process / ขั้นตอน</p>
-              <ol className="mt-2 grid grid-cols-4 border border-line">
-                {PROD_STEPS.map((p, i) => <li key={p.ja} className="border-r border-line px-3 py-2 last:border-r-0">{i + 1}. {p.ja}<br /><span className="text-[11px] text-mute">{p.en} / {p.th}</span></li>)}
+              <ol className="mt-2 grid grid-cols-2 border border-line sm:grid-cols-4">
+                {PROD_STEPS.map((p, i) => <li key={p.ja} className="border-r border-b border-line px-3 py-2 even:border-r-0 sm:border-b-0 sm:even:border-r sm:last:border-r-0">{i + 1}. {p.ja}<br /><span className="text-[11px] text-mute">{p.en} / {p.th}</span></li>)}
               </ol>
             </section>
             <section className="mt-6 border border-line p-4">
@@ -115,17 +115,26 @@ export default function DocPage() {
           </section>
         ) : (
           <>
-            <section className="mt-8 flex items-end justify-between border-b border-line pb-4">
+            <section className="mt-8 flex flex-col gap-3 border-b border-line pb-4 sm:flex-row sm:items-end sm:justify-between">
               <p>{type === "quote" ? "下記のとおりお見積り申し上げます。" : type === "po" ? "下記のとおりご注文を承りました。" : type === "deposit" ? "製造開始にあたり、前金（50%）をご請求いたします。" : "下記のとおり納品・ご請求いたします。"}</p>
-              <p className="text-right"><span className="text-mute">{type === "deposit" ? "ご請求金額" : "合計金額（税込）"}</span><br /><span className="text-[22px] font-medium">{yenOf(type === "deposit" ? a.deposit : a.total)}</span></p>
+              <p className="sm:text-right"><span className="text-mute">{type === "deposit" ? "ご請求金額" : "合計金額（税込）"}</span><br /><span className="text-[22px] font-medium">{yenOf(type === "deposit" ? a.deposit : a.total)}</span></p>
             </section>
-            <table className="mt-5 w-full">
-              <thead className="border-y border-ink text-left text-[11.5px]"><tr><th className="py-2 font-normal">品名</th><th className="py-2 text-right font-normal">数量</th><th className="py-2 text-right font-normal">単価</th><th className="py-2 text-right font-normal">金額</th></tr></thead>
+            {/* スマホ：品目を縦に並べる */}
+            <ul className="mt-5 divide-y divide-line border-y border-ink sm:hidden">
+              {rows.map((r) => (
+                <li key={r.name} className="py-3">
+                  <p>{r.name}</p>
+                  <p className="mt-1 flex justify-between text-ink/80"><span className="whitespace-nowrap">{yenOf(r.unit)} × {r.qty}</span><span className="font-medium whitespace-nowrap text-ink">{yenOf(r.sum)}</span></p>
+                </li>
+              ))}
+            </ul>
+            <table className="mt-5 hidden w-full sm:table">
+              <thead className="border-y border-ink text-left text-[11.5px]"><tr><th className="py-2 font-normal">品名</th><th className="py-2 pl-3 text-right font-normal whitespace-nowrap">数量</th><th className="py-2 pl-3 text-right font-normal whitespace-nowrap">単価</th><th className="py-2 pl-3 text-right font-normal whitespace-nowrap">金額</th></tr></thead>
               <tbody className="divide-y divide-line">
-                {rows.map((r) => <tr key={r.name}><td className="py-2.5">{r.name}</td><td className="py-2.5 text-right">{r.qty}</td><td className="py-2.5 text-right">{yenOf(r.unit)}</td><td className="py-2.5 text-right">{yenOf(r.sum)}</td></tr>)}
+                {rows.map((r) => <tr key={r.name}><td className="py-2.5">{r.name}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{r.qty}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{yenOf(r.unit)}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{yenOf(r.sum)}</td></tr>)}
               </tbody>
             </table>
-            <div className="mt-4 ml-auto w-64 text-[12.5px]">
+            <div className="mt-4 ml-auto w-full text-[12.5px] sm:w-64">
               <div className="flex justify-between py-1"><span className="text-mute">小計</span><span>{yenOf(a.sub)}</span></div>
               <div className="flex justify-between py-1"><span className="text-mute">消費税（10%）</span><span>{yenOf(a.tax)}</span></div>
               <div className="flex justify-between border-t border-ink py-1.5 font-medium"><span>合計</span><span>{yenOf(a.total)}</span></div>
