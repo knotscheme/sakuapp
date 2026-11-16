@@ -1,6 +1,6 @@
 // ベースモデルと価格の計算ロジック（制作サンプル用の架空の数値）
 
-export type ModelId = "long" | "bifold" | "trifold" | "fragment";
+export type ModelId = "long" | "bifold" | "trifold" | "fragment" | "tote" | "phone";
 
 export type BaseModel = {
   id: ModelId;
@@ -12,14 +12,21 @@ export type BaseModel = {
   unitPrice: number; // 30個時点の参考仕入れ単価（ロゴ加工込み）
   leather: string;
   img: string; // カード用の写真
+  soon?: boolean; // 写真が届くまで表示しない
 };
 
-export const MODELS: BaseModel[] = [
+// モデルを増やすときは、ここに1件足すだけ（カード・シミュレーター・フォームに自動で出ます）
+export const ALL_MODELS: BaseModel[] = [
   { id: "long", name: "本革ラウンドファスナー長財布", short: "ラウンド長財布", feature: "カード12枚・小銭入れ・札入れ2層。ギフト需要が最も高い定番型。", size: "W19.5 × H10 × D2.5 cm", logo: "表面右下 / 内装中央", unitPrice: 3500, leather: "#2b1d16", img: "/images/model-long.webp" },
   { id: "bifold", name: "キャッシュレス二つ折り財布", short: "二つ折り財布", feature: "カード6枚と札入れに絞った薄型設計。メンズ・ユニセックスに人気。", size: "W11 × H9.5 × D1.5 cm", logo: "表面左下 / 札入れ内側", unitPrice: 2800, leather: "#1c2230", img: "/images/model-bifold.webp" },
   { id: "trifold", name: "コンパクト三つ折りミニ財布", short: "三つ折りミニ財布", feature: "手のひらサイズに必要十分を収納。小さいバッグ派の女性に支持。", size: "W10 × H7.5 × D2.8 cm", logo: "フラップ中央", unitPrice: 2400, leather: "#8a5a36", img: "/images/model-trifold.webp" },
   { id: "fragment", name: "スリムフラグメントケース", short: "フラグメントケース", feature: "カード・紙幣・鍵まで入る極薄ケース。名入れノベルティにも最適。", size: "W10.5 × H7.5 × D0.8 cm", logo: "表面中央", unitPrice: 1800, leather: "#3d3f2e", img: "/images/model-fragment.webp" },
+  { id: "tote", name: "本革トートバッグ", short: "トートバッグ", feature: "A4が入る、仕事にも休日にも使える定番トート。大きめのロゴも映えます。", size: "W38 × H30 × D12 cm", logo: "前面中央 / 内ポケット", unitPrice: 6800, leather: "#2b1d16", img: "/images/model-tote.webp", soon: true },
+  { id: "phone", name: "本革スマホショルダー", short: "スマホショルダー", feature: "スマホとカードを入れて斜めがけできる、小さなバッグ。若い世代に人気の型。", size: "W11 × H18 × D3 cm", logo: "前面下部", unitPrice: 3200, leather: "#1c2230", img: "/images/model-phone.webp", soon: true },
 ];
+
+// 表示するモデル（写真がそろったものだけ）
+export const MODELS: BaseModel[] = ALL_MODELS.filter((m) => !m.soon);
 
 export const LOTS = [30, 50, 100, 300] as const;
 export type Lot = (typeof LOTS)[number];
@@ -34,7 +41,7 @@ export const PRICE_DEFAULT = 18000;
 export const NORMAL_DIE_COST = 300000; // 通常のフルオーダー時の型代（目安）
 
 export function getModel(id: ModelId): BaseModel {
-  return MODELS.find((m) => m.id === id) ?? MODELS[0];
+  return ALL_MODELS.find((m) => m.id === id) ?? MODELS[0];
 }
 
 export function calcProfit(id: ModelId, lot: Lot, sellPrice: number) {

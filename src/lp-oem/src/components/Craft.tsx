@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { asset } from "@/lib/asset";
+import NoOrphan from "./NoOrphan";
 
 // 職人の工程：画面いっぱいの写真が、スクロールで場面ごとに切り替わる（スマホも同じ）
 const STEPS = [
@@ -61,7 +62,7 @@ export default function Craft() {
             <h2 className="mt-5 text-[30px] leading-[1.6] font-normal tracking-[0.14em] md:text-[46px]">
               <span className="inline-block">ロゴひとつにも、</span><span className="inline-block">職人の手を。</span>
             </h2>
-            <p className="mt-6 max-w-md text-[13.5px] leading-loose text-white/70">型は定番でも、仕上がりは妥協しません。革選びから検品まで、職人が一貫して手がけます。</p>
+            <p className="mt-6 max-w-md text-[13.5px] leading-loose text-white/70"><span className="inline-block">型は定番でも、</span><span className="inline-block">仕上がりは妥協しません。</span><span className="inline-block">革選びから検品まで、</span><span className="inline-block">職人が一貫して手がけます。</span></p>
             <span className="scroll-cue mt-10 block h-12 w-px bg-white/50" />
           </div>
 
@@ -72,7 +73,7 @@ export default function Craft() {
                 <p className="font-display text-[clamp(56px,10vw,120px)] leading-none text-white/90">{String(i + 1).padStart(2, "0")}</p>
                 <p className="mt-3 font-display text-[12px] tracking-[0.45em] text-white/60 uppercase">{s.en}</p>
                 <h3 className="mt-2 text-[24px] font-medium tracking-[0.1em] md:text-[30px]">{s.title}</h3>
-                <p className="mt-3 max-w-md text-[13.5px] leading-loose text-white/75 md:text-[14.5px]">{s.body}</p>
+                <p className="mt-3 max-w-md text-[13.5px] leading-loose text-white/75 md:text-[14.5px]"><NoOrphan text={s.body} /></p>
               </div>
             ))}
           </div>

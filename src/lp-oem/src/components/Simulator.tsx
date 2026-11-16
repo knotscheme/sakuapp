@@ -96,9 +96,9 @@ export default function Simulator() {
               </div>
 
               <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 text-[13px]">
-                <div><dt className="text-mute">1個あたりの仕入れ単価</dt><dd className="mt-1 text-xl font-bold tabular-nums">{yen(cUnit)}</dd></div>
+                <div><dt className="whitespace-nowrap text-mute">仕入れ単価（1個）</dt><dd className="mt-1 text-xl font-bold tabular-nums">{yen(cUnit)}</dd></div>
                 <div><dt className="text-mute">仕入れ総額</dt><dd className="mt-1 text-xl font-bold tabular-nums">{yen(cTotal)}</dd></div>
-                <div><dt className="text-mute">1個あたりの粗利</dt><dd className={`mt-1 text-xl font-bold tabular-nums ${loss ? "text-red-600" : ""}`}>{yen(cGross)}</dd></div>
+                <div><dt className="whitespace-nowrap text-mute">粗利（1個）</dt><dd className={`mt-1 text-xl font-bold tabular-nums ${loss ? "text-red-600" : ""}`}>{yen(cGross)}</dd></div>
                 <div><dt className="text-mute">利益率</dt><dd className={`mt-1 text-xl font-bold tabular-nums ${loss ? "text-red-600" : ""}`}>{cMargin.toFixed(1)}%</dd></div>
               </dl>
 
@@ -118,7 +118,7 @@ export default function Simulator() {
                 onClick={sendToContact}
                 className="group mt-8 inline-flex w-full items-center justify-center gap-2 bg-ink px-6 py-4 text-[15px] font-medium tracking-[0.1em] text-white transition hover:bg-gold"
               >
-                この条件で見積もり・相談する
+                この条件で相談する
                 <ArrowRight size={18} className="transition group-hover:translate-x-1" />
               </button>
             </div>

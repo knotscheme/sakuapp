@@ -14,7 +14,7 @@
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+body { line-break: strict; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--color-gold-3); }
 
 /* ===== ファーストビュー（巨大な文字・窓の光・きらめき） ===== */
@@ -193,3 +193,7 @@ html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top
   background: radial-gradient(closest-side, rgba(255,226,150,.55), transparent); opacity: 0; animation: glowPop 1.4s ease-out .5s forwards; }
 @keyframes glowPop { 0% { opacity: 0; transform: translate(-50%,-50%) scale(.6); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%,-50%) scale(1.3); } }
 @media (prefers-reduced-motion: reduce) { .stamp-die, .stamp-glow { display: none; } .stamp-mark { opacity: 1; animation: none !important; } }
+
+/* 改行の調整：最後の行が1〜2文字だけにならないように */
+p, dd, li, legend, h3 { text-wrap: pretty; }
+h1, h2 { text-wrap: balance; }

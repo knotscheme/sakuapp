@@ -5,13 +5,14 @@ import { MODELS, yen } from "@/lib/models";
 import { asset } from "@/lib/asset";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
+import NoOrphan from "./NoOrphan";
 
 export default function Models() {
   const { chooseModelAndScroll } = useLp();
   return (
     <section id="models" className="bg-white py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
-        <SectionTitle en="Base Models" ja="ベースモデル" sub="販売実績のある|4つの定番型から|選べます。" />
+        <SectionTitle en="Base Models" ja="ベースモデル" sub="販売実績のある|定番型から|選べます。" />
         <div className="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
           {MODELS.map((m, i) => (
             <article key={m.id} className="reveal group" style={{ transitionDelay: `${i * 0.08}s` }}>
@@ -21,9 +22,9 @@ export default function Models() {
               </button>
               <p className="mt-5 font-display text-[12px] tracking-[0.3em] text-mute">MODEL {String(i + 1).padStart(2, "0")}</p>
               <h3 className="mt-1.5 text-[18px] font-medium">{m.short}</h3>
-              <p className="mt-2 text-[13.5px] leading-relaxed text-mute">{m.feature}</p>
+              <p className="mt-2 text-[13.5px] leading-relaxed text-mute"><NoOrphan text={m.feature} /></p>
               <dl className="mt-4 space-y-1 text-[12.5px] text-mute">
-                <div className="flex gap-2"><dt className="w-16 shrink-0">サイズ</dt><dd>{m.size}</dd></div>
+                <div className="flex gap-2"><dt className="w-16 shrink-0">サイズ</dt><dd className="whitespace-nowrap">{m.size}</dd></div>
                 <div className="flex gap-2"><dt className="w-16 shrink-0">ロゴ位置</dt><dd>{m.logo}</dd></div>
               </dl>
               <div className="mt-5 flex items-end justify-between border-t border-line pt-4">
@@ -35,7 +36,7 @@ export default function Models() {
             </article>
           ))}
         </div>
-        <p className="mt-12 text-center text-[12px] text-mute">※参考単価はロゴ加工（素押し）込み・30個発注時の目安です。</p>
+        <p className="mt-12 text-center text-[12px] text-mute"><span className="inline-block">※参考単価はロゴ加工（素押し）込み・</span><span className="inline-block">30個発注時の目安です。</span></p>
       </div>
     </section>
   );

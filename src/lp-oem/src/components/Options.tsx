@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { asset } from "@/lib/asset";
 import SectionTitle from "./SectionTitle";
+import NoOrphan from "./NoOrphan";
 
 type Finish = "plain" | "gold" | "silver";
 const FINISHES: { id: Finish; img: string; name: string; en: string; body: string }[] = [
@@ -39,7 +40,7 @@ export default function Options() {
               ))}
             </div>
             <p className="mt-8 font-display text-[13px] tracking-[0.3em] text-gold uppercase">{cur.en}</p>
-            <p key={cur.id} className="fade-up mt-3 min-h-[4em] text-[15px] leading-loose text-ink">{cur.body}</p>
+            <p key={cur.id} className="fade-up mt-3 min-h-[4em] text-[15px] leading-loose text-ink"><NoOrphan text={cur.body} /></p>
 
             <div className="mt-12 flex items-center gap-5 border-t border-line pt-8">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -47,7 +48,7 @@ export default function Options() {
               <div>
                 <p className="text-[12px] tracking-widest text-mute">OPTION</p>
                 <p className="mt-1 text-[15px] font-medium">オリジナル化粧箱</p>
-                <p className="mt-1 text-[13px] leading-relaxed text-mute">ロゴ入りの箱で、開けた瞬間からブランドの世界観を。</p>
+                <p className="mt-1 text-[13px] leading-relaxed text-mute"><span className="inline-block">ロゴ入りの箱で、</span><span className="inline-block">開けた瞬間から</span><span className="inline-block">ブランドの</span><span className="inline-block">世界観を。</span></p>
               </div>
             </div>
           </div>
@@ -55,7 +56,7 @@ export default function Options() {
 
         <div className="reveal mx-auto mt-24 max-w-2xl border-t border-line pt-10 text-center">
           <p className="text-[12px] tracking-widest text-mute">SPECIAL ORDER</p>
-          <p className="mt-3 text-[17px] font-medium">完全オリジナル設計（ODM）も対応</p>
+          <p className="mt-3 text-[17px] font-medium"><span className="inline-block">完全オリジナル設計</span><span className="inline-block">（ODM）も対応</span></p>
           <p className="mt-3 text-[13.5px] leading-loose text-mute">
             ポケット配置の変更や、オリジナルの型作成も可能です（別途、型代・設計費がかかります）。<br className="hidden md:block" />
             まずは手軽なロゴ入れOEMから始められるお客様が9割です。

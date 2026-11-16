@@ -60,7 +60,7 @@ export default function StampExperience() {
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <div className="reveal mx-auto mb-12 max-w-2xl text-center md:mb-16">
           <p className="font-display text-[12px] tracking-[0.4em] text-mute">EXPERIENCE</p>
-          <h2 className="mt-4 text-[26px] leading-snug font-medium tracking-[0.06em] md:text-[36px]">
+          <h2 className="mt-4 text-[23px] leading-snug font-medium tracking-[0.06em] sm:text-[26px] md:text-[36px]">
             <span className="inline-block">あなたのブランドを、</span><span className="inline-block">刻んでみる。</span>
           </h2>
           <p className="mt-5 text-[14px] leading-loose text-mute"><span className="inline-block">ブランド名を入れると、</span><span className="inline-block">実際の財布に押した</span><span className="inline-block">イメージが見られます。</span></p>

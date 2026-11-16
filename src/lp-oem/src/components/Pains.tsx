@@ -1,9 +1,9 @@
 import SectionTitle from "./SectionTitle";
 
 const PAINS = [
-  "型紙から作ると、型代やサンプル代だけで数十万円かかる",
-  "仕様書の作り方が分からず、何から始めればいいか迷う",
-  "まずは小ロットで、テスト販売から始めたい",
+  "型紙から作ると、|型代やサンプル代だけで|数十万円かかる",
+  "仕様書の作り方が分からず、|何から始めればいいか|迷う",
+  "まずは小ロットで、|テスト販売から|始めたい",
 ];
 
 export default function Pains() {
@@ -15,7 +15,7 @@ export default function Pains() {
           {PAINS.map((t, i) => (
             <li key={i} className="reveal flex items-baseline gap-6 border-b border-line py-7 md:gap-10" style={{ transitionDelay: `${i * 0.1}s` }}>
               <span className="font-display text-sm text-gold">{String(i + 1).padStart(2, "0")}</span>
-              <p className="text-[16px] leading-relaxed text-ink md:text-[18px]">{t}</p>
+              <p className="text-[16px] leading-relaxed text-ink md:text-[18px]">{t.split("|").map((x) => <span key={x} className="inline-block">{x}</span>)}</p>
             </li>
           ))}
         </ol>

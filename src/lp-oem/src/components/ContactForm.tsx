@@ -105,20 +105,26 @@ export default function ContactForm() {
             {/* 希望ベースモデル：写真つきで選べるように（ベースモデルの見出しと同じ名前） */}
             <fieldset className="text-sm font-bold md:col-span-2" aria-invalid={!!errors.model} aria-describedby="err-model">
               <legend>希望ベースモデル<span className="ml-1 text-xs text-gold">必須</span></legend>
-              <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-5">
-                {MODELS.map((m) => (
-                  <label key={m.id} className={`cursor-pointer border p-1.5 text-center transition ${model === m.id ? "border-ink" : errors.model ? "border-red-300" : "border-line hover:border-mute"}`}>
-                    <input type="radio" name="cf-model" value={m.id} checked={model === m.id} onChange={() => setModel(m.id)} className="sr-only" />
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={asset(m.img)} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
-                    <span className="mt-1.5 block text-[12px] leading-snug font-medium">{m.short.replace("ケース", "\u200bケース").split("\u200b").map((t) => <span key={t} className="inline-block">{t}</span>)}</span>
-                    <span className="block text-[11px] font-normal text-mute">{yen(m.unitPrice)}〜</span>
+              {/* 写真つきの小さな一覧（モデルが増えても選びやすいように、多いときは枠の中でスクロール） */}
+              <div className="mt-3 max-h-[352px] divide-y divide-line overflow-y-auto border border-line">
+                {[...MODELS.map((m) => ({ id: m.id as ModelId | "undecided", img: m.img as string | null, name: m.short, sub: `${yen(m.unitPrice)}〜` })), { id: "undecided" as const, img: null, name: "まだ決めていない", sub: "ご相談しながら決められます" }].map((o) => (
+                  <label key={o.id} className={`flex cursor-pointer items-center gap-4 px-3 py-2.5 transition ${model === o.id ? "bg-paper" : "hover:bg-paper/60"}`}>
+                    <input type="radio" name="cf-model" value={o.id} checked={model === o.id} onChange={() => setModel(o.id)} className="sr-only" />
+                    {o.img ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={asset(o.img)} alt="" loading="lazy" className="aspect-[4/3] w-16 shrink-0 object-cover" />
+                    ) : (
+                      <span className="flex aspect-[4/3] w-16 shrink-0 items-center justify-center bg-paper text-[18px] text-mute">?</span>
+                    )}
+                    <span className="flex-1">
+                      <span className="block text-[14px] font-medium">{o.name}</span>
+                      <span className="block text-[11.5px] font-normal text-mute">{o.sub}</span>
+                    </span>
+                    <span className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border ${model === o.id ? "border-ink" : errors.model ? "border-red-300" : "border-line"}`}>
+                      {model === o.id && <span className="h-2 w-2 rounded-full bg-ink" />}
+                    </span>
                   </label>
                 ))}
-                <label className={`col-span-2 flex cursor-pointer items-center justify-center border p-3 text-center text-[12px] font-medium transition sm:col-span-1 ${model === "undecided" ? "border-ink" : errors.model ? "border-red-300" : "border-line hover:border-mute"}`}>
-                  <input type="radio" name="cf-model" value="undecided" checked={model === "undecided"} onChange={() => setModel("undecided")} className="sr-only" />
-                  <span><span className="inline-block">まだ</span><span className="inline-block">決めていない</span></span>
-                </label>
               </div>
               <Err k="model" />
             </fieldset>

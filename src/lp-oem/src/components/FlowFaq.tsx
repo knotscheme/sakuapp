@@ -3,18 +3,19 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import SectionTitle from "./SectionTitle";
+import NoOrphan from "./NoOrphan";
 
 const STEPS = [
-  { title: "モデルとロゴを送る", body: "ご希望のベースモデルを選び、ロゴデータをフォームからお送りください。" },
-  { title: "配置イメージとお見積もり", body: "実寸の配置イメージと正式なお見積もりを、最短2営業日でご提出します。" },
-  { title: "生産・検品・納品", body: "ご発注後に生産を開始。国内で1点ずつ検品してからお届けします。" },
+  { title: "モデルと|ロゴを送る", body: "ご希望のベースモデルを選び、ロゴデータをフォームからお送りください。" },
+  { title: "配置イメージと|お見積もり", body: "実寸の配置イメージと正式なお見積もりを、最短2営業日でご提出します。" },
+  { title: "生産・検品・|納品", body: "ご発注後に生産を開始。国内で1点ずつ検品してからお届けします。" },
 ];
 
 const FAQ = [
-  { q: "最低ロット数は何個からですか？", a: "1モデルあたり30個から承ります。色違いを組み合わせる場合は、1色15個からご相談いただけます。" },
-  { q: "ロゴデータはどの形式で送ればいいですか？", a: "Illustrator（.ai）またはPDF・SVGのベクターデータが最適です。画像（PNG・JPG）しかない場合も、トレースしてデータ化いたします。" },
-  { q: "革の色を変えることはできますか？", a: "ブラック・ダークブラウン・キャメル・ネイビーなどの定番色からお選びいただけます。特別色はロット条件によりご相談となります。" },
-  { q: "納期はどのくらいですか？", a: "ロゴ配置のご確認後、最短30日で納品いたします。300個以上のご注文や繁忙期は、40〜50日ほどいただく場合があります。" },
+  { q: "最低ロット数は|何個からですか？", a: "1モデルあたり30個から承ります。色違いを組み合わせる場合は、1色15個からご相談いただけます。" },
+  { q: "ロゴデータは|どの形式で|送ればいいですか？", a: "Illustrator（.ai）またはPDF・SVGのベクターデータが最適です。画像（PNG・JPG）しかない場合も、トレースしてデータ化いたします。" },
+  { q: "革の色を|変えることは|できますか？", a: "ブラック・ダークブラウン・キャメル・ネイビーなどの定番色からお選びいただけます。特別色はロット条件によりご相談となります。" },
+  { q: "納期は|どのくらいですか？", a: "ロゴ配置のご確認後、最短30日で納品いたします。300個以上のご注文や繁忙期は、40〜50日ほどいただく場合があります。" },
 ];
 
 export default function FlowFaq() {
@@ -30,8 +31,8 @@ export default function FlowFaq() {
                 <span className="font-display text-[40px] leading-none text-ink">{i + 1}</span>
                 <span className="h-px flex-1 bg-line" />
               </div>
-              <h3 className="mt-5 text-[17px] font-medium">{s.title}</h3>
-              <p className="mt-3 text-[14px] leading-loose text-mute">{s.body}</p>
+              <h3 className="mt-5 text-[17px] font-medium">{s.title.split("|").map((t) => <span key={t} className="inline-block">{t}</span>)}</h3>
+              <p className="mt-3 text-[14px] leading-loose text-mute"><NoOrphan text={s.body} /></p>
             </li>
           ))}
         </ol>
@@ -44,12 +45,12 @@ export default function FlowFaq() {
               return (
                 <div key={f.q} className="reveal border-b border-line">
                   <button type="button" className="flex w-full items-center gap-6 py-7 text-left" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : i)}>
-                    <span className="flex-1 text-[15.5px]">{f.q}</span>
+                    <span className="flex-1 text-[15.5px]">{f.q.split("|").map((t) => <span key={t} className="inline-block">{t}</span>)}</span>
                     <Plus size={18} strokeWidth={1.4} className={`shrink-0 text-mute transition duration-500 ${isOpen ? "rotate-45 text-ink" : ""}`} />
                   </button>
                   <div className={`grid transition-[grid-template-rows] duration-500 ease-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
                     <div className="overflow-hidden">
-                      <p className="pb-7 text-[14px] leading-loose text-mute">{f.a}</p>
+                      <p className="pb-7 text-[14px] leading-loose text-mute"><NoOrphan text={f.a} /></p>
                     </div>
                   </div>
                 </div>
