@@ -22,7 +22,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${solid || open ? "border-b border-line bg-white/90 backdrop-blur-md" : "border-b border-transparent bg-transparent"}`}>
+    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${solid || open ? "border-b border-line bg-white/90 backdrop-blur-md" : "border-b border-transparent bg-white/70 backdrop-blur-md"}`}>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:h-20 md:px-8">
         <a href="#top" className="font-display text-[22px] tracking-[0.28em] text-ink" aria-label="CRAFT OEM トップへ">
           CRAFT <span className="text-gold">OEM</span>
