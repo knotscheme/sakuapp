@@ -5,6 +5,7 @@ import { CheckCircle2, Paperclip, Send, X } from "lucide-react";
 import { LOTS, MODELS, getModel, yen, type ModelId } from "@/lib/models";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
+import { asset } from "@/lib/asset";
 
 type Errors = Partial<Record<"name" | "email" | "model" | "lot" | "message" | "file", string>>;
 const MAX_FILE = 10 * 1024 * 1024;
@@ -14,7 +15,7 @@ export default function ContactForm() {
   const { prefill } = useLp();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [model, setModel] = useState<ModelId | "">("");
+  const [model, setModel] = useState<ModelId | "" | "undecided">("");
   const [lot, setLot] = useState("");
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -101,24 +102,38 @@ export default function ContactForm() {
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={254} autoComplete="email" className={`${field} ${bd("email")}`} aria-invalid={!!errors.email} aria-describedby="err-email" placeholder="example@mail.com" />
               <Err k="email" />
             </label>
-            <label className="block text-sm font-bold">
-              希望ベースモデル<span className="ml-1 text-xs text-gold">必須</span>
-              <select value={model} onChange={(e) => setModel(e.target.value as ModelId)} className={`${field} ${bd("model")}`} aria-invalid={!!errors.model} aria-describedby="err-model">
-                <option value="">選択してください</option>
-                {MODELS.map((m) => <option key={m.id} value={m.id}>{m.name}</option>)}
-                <option value="undecided">まだ決めていない</option>
-              </select>
+            {/* 希望ベースモデル：写真つきで選べるように（ベースモデルの見出しと同じ名前） */}
+            <fieldset className="text-sm font-bold md:col-span-2" aria-invalid={!!errors.model} aria-describedby="err-model">
+              <legend>希望ベースモデル<span className="ml-1 text-xs text-gold">必須</span></legend>
+              <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-5">
+                {MODELS.map((m) => (
+                  <label key={m.id} className={`cursor-pointer border p-1.5 text-center transition ${model === m.id ? "border-ink" : errors.model ? "border-red-300" : "border-line hover:border-mute"}`}>
+                    <input type="radio" name="cf-model" value={m.id} checked={model === m.id} onChange={() => setModel(m.id)} className="sr-only" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={asset(m.img)} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+                    <span className="mt-1.5 block text-[12px] leading-snug font-medium">{m.short.replace("ケース", "\u200bケース").split("\u200b").map((t) => <span key={t} className="inline-block">{t}</span>)}</span>
+                    <span className="block text-[11px] font-normal text-mute">{yen(m.unitPrice)}〜</span>
+                  </label>
+                ))}
+                <label className={`col-span-2 flex cursor-pointer items-center justify-center border p-3 text-center text-[12px] font-medium transition sm:col-span-1 ${model === "undecided" ? "border-ink" : errors.model ? "border-red-300" : "border-line hover:border-mute"}`}>
+                  <input type="radio" name="cf-model" value="undecided" checked={model === "undecided"} onChange={() => setModel("undecided")} className="sr-only" />
+                  <span><span className="inline-block">まだ</span><span className="inline-block">決めていない</span></span>
+                </label>
+              </div>
               <Err k="model" />
-            </label>
-            <label className="block text-sm font-bold">
-              希望ロット数<span className="ml-1 text-xs text-gold">必須</span>
-              <select value={lot} onChange={(e) => setLot(e.target.value)} className={`${field} ${bd("lot")}`} aria-invalid={!!errors.lot} aria-describedby="err-lot">
-                <option value="">選択してください</option>
-                {LOTS.map((l) => <option key={l} value={l}>{l}個</option>)}
-                <option value="more">300個以上・未定</option>
-              </select>
+            </fieldset>
+            <fieldset className="text-sm font-bold md:col-span-2" aria-invalid={!!errors.lot} aria-describedby="err-lot">
+              <legend>希望ロット数<span className="ml-1 text-xs text-gold">必須</span></legend>
+              <div className="mt-3 grid grid-cols-5 gap-2">
+                {[...LOTS.map((l) => [String(l), `${l}個`]), ["more", "未定"]].map(([v, t]) => (
+                  <label key={v} className={`cursor-pointer border py-3 text-center text-[13px] font-medium transition ${lot === v ? "border-ink bg-ink text-white" : errors.lot ? "border-red-300" : "border-line hover:border-mute"}`}>
+                    <input type="radio" name="cf-lot" value={v} checked={lot === v} onChange={() => setLot(v)} className="sr-only" />
+                    {t}
+                  </label>
+                ))}
+              </div>
               <Err k="lot" />
-            </label>
+            </fieldset>
 
             <div className="text-sm font-bold md:col-span-2">
               ロゴデータ添付<span className="ml-1 text-xs font-normal text-mute">任意（ai / pdf / svg / eps / png / jpg・10MBまで）</span>
