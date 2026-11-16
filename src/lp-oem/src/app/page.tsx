@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Pains from "@/components/Pains";
 import Features from "@/components/Features";
+import Craft from "@/components/Craft";
 import Models from "@/components/Models";
 import Simulator from "@/components/Simulator";
 import Options from "@/components/Options";
@@ -23,6 +24,7 @@ export default function Page() {
         <Marquee />
         <Pains />
         <Features />
+        <Craft />
         <Models />
         <Simulator />
         <Options />

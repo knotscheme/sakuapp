@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Gift, Layers, PenTool } from "lucide-react";
 import SectionTitle from "./SectionTitle";
-import WalletArt from "./WalletArt";
+import { asset } from "@/lib/asset";
 
 type Finish = "plain" | "gold" | "silver";
 const FINISHES: { id: Finish; name: string; en: string; body: string; swatch: string }[] = [
@@ -21,11 +21,16 @@ export default function Options() {
         <SectionTitle en="Logo Finish" ja="ロゴ加工の種類" sub="加工ひとつで、|印象は大きく|変わります。" />
 
         <div className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="reveal-l relative mx-auto w-full max-w-md">
+          <div className="reveal-l relative mx-auto w-full">
             <div className="absolute inset-[10%] rounded-full bg-gold-2/15 blur-3xl" />
-            <div key={f} className="stamp-in relative">
-              <WalletArt id="bifold" color={f === "silver" ? "#1c2230" : "#2b1d16"} logo={f} className="w-full" />
-              {f !== "plain" && <span className="foil-sweep" aria-hidden />}
+            <div className="relative aspect-[1408/768] overflow-hidden rounded-3xl shadow-[0_30px_60px_-40px_rgba(0,0,0,.5)]">
+              {FINISHES.map((x) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={x.id} src={asset(`/images/finish-${x.id === "plain" ? "blind" : x.id}.webp`)} alt={`${x.name}のロゴ`} loading="lazy"
+                  className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ${f === x.id ? "scale-100 opacity-100" : "scale-[1.06] opacity-0"}`} />
+              ))}
+              {f !== "plain" && <span key={f} className="foil-sweep" aria-hidden />}
+              <span className="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1.5 font-display text-[11px] tracking-[0.25em] text-ink">{cur.en}</span>
             </div>
           </div>
 
@@ -47,10 +52,12 @@ export default function Options() {
             </div>
             <p key={cur.id} className="fade-up mt-6 min-h-[3.5em] text-[15px] leading-loose text-ink-2">{cur.body}</p>
 
-            <div className="mt-6 flex items-start gap-4 rounded-2xl border border-line bg-white p-5">
-              <Gift className="mt-0.5 shrink-0 text-gold" size={26} strokeWidth={1.4} />
+            <div className="mt-6 flex items-center gap-4 overflow-hidden rounded-2xl border border-line bg-white p-3 pr-5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={asset("/images/giftbox.webp")} alt="ロゴ入りの白い化粧箱に入った革財布" loading="lazy" className="h-24 w-36 shrink-0 rounded-xl object-cover" />
               <div>
-                <p className="font-bold">オプション：オリジナル化粧箱</p>
+                <p className="flex items-center gap-1.5 text-[11px] font-bold tracking-widest text-gold"><Gift size={13} />OPTION</p>
+                <p className="font-bold">オリジナル化粧箱</p>
                 <p className="mt-1 text-[13.5px] leading-relaxed text-mute">ロゴ入りの貼り箱・スリーブで、開けた瞬間からブランドの世界観を。ギフト販売にもおすすめです。</p>
               </div>
             </div>
