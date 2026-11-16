@@ -6,7 +6,8 @@ import { Camera, Check, FileText, Truck } from "lucide-react";
 import { FACTORY, PROD_STEPS, modelOf, stageIndex } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
-import { Card, Shell, TechNote } from "@/components/cms/ui";
+import { Card, NoAccess, Shell, TechNote } from "@/components/cms/ui";
+import { useAuth } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
 
 // 工場の画面：担当の注文だけ。お客様の名前・連絡先・販売価格は見せない。英語・タイ語に切り替えられる
@@ -20,6 +21,7 @@ export default function FactoryPage() {
   const deals = useDeals();
   const [lang, setLang] = useState<"en" | "th" | "ja">("en");
   const t = T[lang];
+  const { can } = useAuth();
   const list = deals.filter((d) => d.stage === "production" || d.stage === "transit");
   const stepName = (i: number) => (lang === "ja" ? PROD_STEPS[i].ja : lang === "th" ? PROD_STEPS[i].th : PROD_STEPS[i].en);
   const finishStep = async (id: string, i: number) => {
@@ -32,6 +34,7 @@ export default function FactoryPage() {
     if (await askConfirm({ title: t.qShip, body: t.qShipB, ok: t.ok, cancel: t.cancel })) advance(id, "工場");
   };
 
+  if (!can("factory.use")) return <Shell title="工場の画面"><NoAccess /></Shell>;
   const langs = (
     <div className="flex overflow-hidden rounded-lg border border-line bg-white text-[12px]">
       {(["en", "th", "ja"] as const).map((l) => (

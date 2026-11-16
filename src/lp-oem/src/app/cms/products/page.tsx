@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
 import { MAX_SUB, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
-import { Card, CardHead, Shell, TechNote } from "@/components/cms/ui";
+import { Card, CardHead, NoAccess, Shell, TechNote } from "@/components/cms/ui";
+import { useAuth } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
 
 const yen = (n: number) => `${n.toLocaleString("ja-JP")}円`;
@@ -14,7 +15,9 @@ export default function ProductsAdmin() {
   const [cat, setCat] = useState("all");
   const [edit, setEdit] = useState<Product | null>(null);
   const [newCat, setNewCat] = useState("");
+  const { can } = useAuth();
   const list = products.filter((p) => cat === "all" || p.cat === cat);
+  if (!can("products.edit")) return <Shell title="商品管理"><NoAccess /></Shell>;
   const catName = (id: string) => cats.find((c) => c.id === id)?.name ?? "未分類";
 
   const actions = (

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package } from "lucide-react";
+import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock } from "lucide-react";
+import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo } from "./store";
 import { resetCatalog } from "./catalog";
@@ -19,23 +20,52 @@ export function useQuery(name: string) {
   return v;
 }
 
-const NAV = [
-  { href: "/cms/", label: "ダッシュボード", icon: LayoutGrid },
-  { href: "/cms/deals/", label: "案件ボード", icon: KanbanSquare },
-  { href: "/cms/products/", label: "商品管理", icon: Package },
-  { href: "/cms/factory/", label: "工場の画面", icon: Factory, sub: "Factory" },
-  { href: "/cms/inspect/", label: "国内検品", icon: ClipboardCheck },
-  { href: "/cms/portal/?id=C-1027", label: "お客様の画面（例）", icon: UserRound },
+const NAV: { href: string; label: string; icon: typeof LayoutGrid; perm: Perm }[] = [
+  { href: "/cms/", label: "ダッシュボード", icon: LayoutGrid, perm: "deals.view" },
+  { href: "/cms/deals/", label: "案件ボード", icon: KanbanSquare, perm: "deals.view" },
+  { href: "/cms/products/", label: "商品管理", icon: Package, perm: "products.edit" },
+  { href: "/cms/analytics/", label: "アナリティクス", icon: BarChart3, perm: "analytics.view" },
+  { href: "/cms/factory/", label: "工場の画面", icon: Factory, perm: "factory.use" },
+  { href: "/cms/inspect/", label: "国内検品", icon: ClipboardCheck, perm: "inspect.use" },
+  { href: "/cms/members/", label: "メンバーと権限", icon: ShieldCheck, perm: "members.manage" },
+  { href: "/cms/portal/?id=C-1027", label: "お客様の画面（例）", icon: UserRound, perm: "deals.view" },
 ];
+
+// 権限が無いときの表示
+export function NoAccess() {
+  return (
+    <div className="cms-card flex flex-col items-center px-6 py-14 text-center">
+      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f1f1f0]"><Lock size={18} /></span>
+      <p className="mt-4 text-[15px] font-semibold">この画面を見る権限がありません</p>
+      <p className="mt-1.5 text-[13px] text-mute">必要な場合は、オーナーに権限の追加を頼んでください。</p>
+    </div>
+  );
+}
+
+// デモ用：誰として見るかを切り替える
+function UserSwitch() {
+  const { members, roles, me } = usePermState();
+  const cur = members.find((m) => m.id === me);
+  if (!cur) return null;
+  return (
+    <label className="mx-3 mb-2 block rounded-lg bg-white/70 px-3 py-2.5">
+      <span className="block text-[10.5px] text-mute">表示中（デモ：人を切り替え）</span>
+      <select value={me} onChange={(e) => switchUser(e.target.value)} className="mt-1 w-full bg-transparent text-[13px] font-medium outline-none">
+        {members.map((m) => <option key={m.id} value={m.id}>{m.name}（{roles.find((r) => r.id === m.role)?.name}）</option>)}
+      </select>
+    </label>
+  );
+}
 
 export function Shell({ title, children, actions, note, bottomPad }: { title: string; children: ReactNode; actions?: ReactNode; note?: ReactNode; bottomPad?: boolean }) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
+  const { can } = useAuth();
   const nav = (
-    <nav className="flex h-full flex-col">
+    <nav className="flex h-full flex-col overflow-y-auto">
       <Link href="/cms/" className="px-6 pt-7 pb-7 font-display text-[15px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></Link>
       <ul className="flex-1 space-y-1 px-3">
-        {NAV.map(({ href, label, icon: Icon }) => {
+        {NAV.filter((n) => can(n.perm)).map(({ href, label, icon: Icon }) => {
           const on = href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, ""));
           return (
             <li key={href}>
@@ -47,8 +77,9 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
         })}
       </ul>
       <div className="space-y-1 px-3 py-4 text-[12px]">
+        <UserSwitch />
         <TechNote className="mx-3 mb-3">ログインは Supabase Auth（スタッフ・工場・検品で権限を分ける）</TechNote>
-        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "案件と商品の変更がすべて消えます。", ok: "戻す", danger: true })) { resetDemo(); resetCatalog(); } }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
+        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "案件・商品・メンバーと権限の変更がすべて消えます。", ok: "戻す", danger: true })) { resetDemo(); resetCatalog(); resetPerm(); } }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
         <a href="/sakuapp/works/lp-oem/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><ArrowLeft size={14} /> LPに戻る</a>
       </div>
     </nav>

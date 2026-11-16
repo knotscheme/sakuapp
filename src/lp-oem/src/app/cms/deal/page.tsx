@@ -7,7 +7,8 @@ import { DOCS, FACTORY, PROD_STEPS, RATE, STAGES, amounts, modelOf, stageIndex, 
 import { asset } from "@/lib/asset";
 import { addLog, advance, revert, updateDeal, useDeals } from "@/components/cms/store";
 import { askConfirm } from "@/components/cms/Confirm";
-import { Card, CardHead, DueBadge, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
+import { Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
+import { useAuth } from "@/components/cms/perm";
 
 const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity } as const;
 
@@ -16,7 +17,9 @@ export default function DealPage() {
   const deals = useDeals();
   const d = deals.find((x) => x.id === id);
   const [memo, setMemo] = useState("");
+  const { can } = useAuth();
 
+  if (!can("deals.view")) return <Shell title="案件"><NoAccess /></Shell>;
   if (!d) return <Shell title="案件"><p className="text-[13px] text-mute">{id ? "案件が見つかりません。" : "読み込み中…"}</p></Shell>;
 
   const m = modelOf(d.model);
@@ -35,7 +38,7 @@ export default function DealPage() {
 
   return (
     <Shell
-      bottomPad={d.stage !== "done"}
+      bottomPad={d.stage !== "done" && can("deals.advance")}
       title={`${d.id}　${d.brand}`}
       actions={<Link href={`/cms/portal/?id=${d.id}`} className="hidden items-center gap-1.5 text-[12px] text-mute hover:text-ink sm:flex">お客様の画面 <ExternalLink size={13} /></Link>}
     >
@@ -55,7 +58,7 @@ export default function DealPage() {
         </ol>
       </Card>
 
-      {d.stage === "done" && (
+      {d.stage === "done" && can("deals.advance") && (
         <div className="mt-4 text-right"><button type="button" onClick={doRevert} className="text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button></div>
       )}
       {d.stage !== "done" && (
@@ -66,16 +69,16 @@ export default function DealPage() {
             <TechNote className="mt-1.5">「実行する」で Supabase Edge Function が動き、書類PDFの作成と Resend でのメール送信を自動で行う</TechNote>
           </div>
           <div className="flex items-center gap-4">
-            {si > 0 && <button type="button" onClick={doRevert} className="text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button>}
+            {si > 0 && can("deals.advance") && <button type="button" onClick={doRevert} className="text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button>}
             <DueBadge due={d.due} stage={d.stage} />
-            <button type="button" onClick={doAdvance} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
+            {can("deals.advance") && <button type="button" onClick={doAdvance} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
               実行する <ChevronRight size={15} />
-            </button>
+            </button>}
           </div>
         </div>
       )}
 
-      {d.stage !== "done" && (
+      {d.stage !== "done" && can("deals.advance") && (
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur md:hidden">
           <button type="button" onClick={doAdvance} className="cms-btn flex w-full items-center justify-center gap-2 bg-ink py-3.5 text-[14px] text-white">
             {STAGES[si].next} <ChevronRight size={16} />
@@ -98,6 +101,7 @@ export default function DealPage() {
                 <dt className="text-mute">ロゴ位置</dt><dd>{m.logo}</dd>
               </dl>
             </div>
+            {can("money.view") ? (<>
             <table className="w-full border-t border-line text-[13px]">
               <tbody className="divide-y divide-line">
                 <tr><td className="px-5 py-2.5 text-mute">製品（{yenOf(a.unit)}×{d.lot}個）</td><td className="px-5 py-2.5 text-right tabular-nums">{yenOf(a.items)}</td></tr>
@@ -111,6 +115,7 @@ export default function DealPage() {
               <div className="border-l border-line px-5 py-3"><p className="text-mute">粗利（製品分）</p><p className="mt-0.5 tabular-nums">{yenOf(profit)}</p></div>
               <div className="border-l border-line px-5 py-3"><p className="text-mute">粗利率</p><p className="mt-0.5 tabular-nums">{((profit / a.items) * 100).toFixed(1)}%</p></div>
             </div>
+            </>) : <p className="border-t border-line px-5 py-4 text-[12.5px] text-mute">金額・原価を見る権限がありません。</p>}
           </Card>
 
           {/* 工場の進み具合 */}
@@ -159,8 +164,8 @@ export default function DealPage() {
             <CardHead note="個人情報は暗号化して保存。工場の画面には出さない（RLS）">お客様</CardHead>
             <dl className="grid grid-cols-[5em_1fr] gap-y-2.5 px-5 pt-2 pb-5 text-[13px]">
               <dt className="text-mute">ブランド</dt><dd>{d.brand}</dd>
-              <dt className="text-mute">担当者</dt><dd>{d.person}</dd>
-              <dt className="text-mute">メール</dt><dd className="break-all">{d.email}</dd>
+              <dt className="text-mute">担当者</dt><dd>{can("customer.view") ? d.person : "●●●●（権限なし）"}</dd>
+              <dt className="text-mute">メール</dt><dd className="break-all">{can("customer.view") ? d.email : "●●●●（権限なし）"}</dd>
               <dt className="text-mute">受付日</dt><dd>{d.createdAt}</dd>
               <dt className="text-mute">段階</dt><dd><StageBadge stage={d.stage} /></dd>
               <dt className="text-mute">担当</dt>

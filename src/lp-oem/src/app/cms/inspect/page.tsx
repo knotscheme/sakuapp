@@ -5,12 +5,15 @@ import { Camera, Check, Minus, Plus } from "lucide-react";
 import { CHECKS, modelOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
-import { Card, Shell, TechNote } from "@/components/cms/ui";
+import { Card, NoAccess, Shell, TechNote } from "@/components/cms/ui";
+import { useAuth } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
 
 // 国内検品：スマホで、チェック・不良数・写真を登録する
 export default function InspectPage() {
   const list = useDeals().filter((d) => d.stage === "inspection" || d.stage === "transit");
+  const { can } = useAuth();
+  if (!can("inspect.use")) return <Shell title="国内検品"><NoAccess /></Shell>;
 
   return (
     <Shell title="国内検品" note="検品結果は inspections テーブルに保存し、検品報告書PDFを自動作成">

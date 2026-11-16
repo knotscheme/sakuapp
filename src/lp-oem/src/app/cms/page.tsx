@@ -4,12 +4,14 @@ import Link from "next/link";
 import { AlertTriangle, Mail, FileText, Factory as FactoryIcon, Activity } from "lucide-react";
 import { STAGES, amounts, daysLeft, modelOf, stageIndex, yenOf } from "@/lib/cms";
 import { useDeals } from "@/components/cms/store";
-import { Card, CardHead, DueBadge, Shell, StageBadge, TechNote } from "@/components/cms/ui";
+import { Card, CardHead, DueBadge, Shell, StageBadge, TechNote, NoAccess } from "@/components/cms/ui";
+import { useAuth } from "@/components/cms/perm";
 
 const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity } as const;
 
 export default function Dashboard() {
   const deals = useDeals();
+  const { can } = useAuth();
   const active = deals.filter((d) => d.stage !== "done");
   const late = active.filter((d) => daysLeft(d.due) < 0);
   const soon = active.filter((d) => daysLeft(d.due) >= 0 && daysLeft(d.due) <= 2);
@@ -18,10 +20,11 @@ export default function Dashboard() {
   const pieces = active.filter((d) => stageIndex(d.stage) >= 2).reduce((s, d) => s + d.lot, 0);
   const logs = deals.flatMap((d) => d.logs.map((l) => ({ ...l, deal: d }))).sort((a, b) => (a.at < b.at ? 1 : -1)).slice(0, 10);
 
+  if (!can("deals.view")) return <Shell title="ダッシュボード"><NoAccess /></Shell>;
   const kpis = [
     { k: "進行中の案件", v: `${active.length}件` },
     { k: "新しい問い合わせ", v: `${deals.filter((d) => d.stage === "inquiry").length}件` },
-    { k: "受注金額（税込）", v: yenOf(sales) },
+    { k: "受注金額（税込）", v: can("money.view") ? yenOf(sales) : "—" },
     { k: "製造・輸送中の数量", v: `${pieces.toLocaleString()}個` },
   ];
 

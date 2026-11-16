@@ -5,14 +5,17 @@ import { useState } from "react";
 import { STAGES, amounts, modelOf, yenOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { useDeals } from "@/components/cms/store";
-import { DueBadge, Shell, StageBadge } from "@/components/cms/ui";
+import { DueBadge, NoAccess, Shell, StageBadge } from "@/components/cms/ui";
+import { useAuth } from "@/components/cms/perm";
 
 export default function Deals() {
   const deals = useDeals();
   const [view, setView] = useState<"board" | "list">("board");
   const [q, setQ] = useState("");
+  const { can } = useAuth();
   const list = deals.filter((d) => !q || `${d.brand}${d.person}${d.id}${modelOf(d.model).short}`.toLowerCase().includes(q.toLowerCase()));
 
+  if (!can("deals.view")) return <Shell title="案件ボード"><NoAccess /></Shell>;
   const toggle = (
     <div className="flex items-center gap-3">
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="検索" className="hidden w-40 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink sm:block" />
@@ -70,11 +73,11 @@ export default function Deals() {
             <tbody className="divide-y divide-line">
               {list.map((d) => (
                 <tr key={d.id} className="hover:bg-[#fafafa]">
-                  <td className="px-4 py-3 text-mute"><Link href={`/cms/deal/?id=${d.id}`}>{d.id}</Link></td>
+                  <td className="px-4 py-3 whitespace-nowrap text-mute"><Link href={`/cms/deal/?id=${d.id}`}>{d.id}</Link></td>
                   <td className="px-4 py-3 font-medium"><Link href={`/cms/deal/?id=${d.id}`}>{d.brand}</Link></td>
                   <td className="px-4 py-3">{modelOf(d.model).short}×{d.lot}</td>
                   <td className="px-4 py-3"><StageBadge stage={d.stage} /></td>
-                  <td className="px-4 py-3 tabular-nums">{yenOf(amounts(d).total)}</td>
+                  <td className="px-4 py-3 tabular-nums">{can("money.view") ? yenOf(amounts(d).total) : "—"}</td>
                   <td className="px-4 py-3">{d.owner}</td>
                   <td className="px-4 py-3"><DueBadge due={d.due} stage={d.stage} /></td>
                 </tr>
