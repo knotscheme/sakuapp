@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { ALL_MODELS, PRICE_DEFAULT, type Lot, type ModelId } from "@/lib/models";
+import { loadCatalog } from "./cms/catalog";
 
 // ベースモデル一覧・シミュレーター・問い合わせフォームの間で選択内容を受け渡す
 type Prefill = { model: ModelId; lot: Lot; price: number; stamp: number; note?: string; keepModel?: boolean } | null;
@@ -33,7 +34,16 @@ export function LpProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const id = new URLSearchParams(location.search).get("model");
     const m = ALL_MODELS.find((x) => x.id === id);
-    if (!m) return;
+    if (!m) {
+      // 管理画面で追加した商品：名前だけ相談内容に入れる
+      const extra = id ? loadCatalog().products.find((x) => x.id === id) : undefined;
+      if (extra && location.hash === "#contact") {
+        /* eslint-disable-next-line react-hooks/set-state-in-effect -- URLの指定を最初に反映するため */
+        setPrefill({ model: "long", lot: 50, price: PRICE_DEFAULT, stamp: Date.now(), note: `【ご希望モデル】${extra.name}` });
+        setTimeout(() => scrollToId("contact"), 500);
+      }
+      return;
+    }
     /* eslint-disable react-hooks/set-state-in-effect -- URLの指定を最初に反映するため */
     setModel(m.id);
     if (location.hash === "#contact") setPrefill({ model: m.id, lot: 50, price: PRICE_DEFAULT, stamp: Date.now(), note: `【ご希望モデル】${m.name}`, keepModel: true });

@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu } from "lucide-react";
+import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package } from "lucide-react";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo } from "./store";
+import { resetCatalog } from "./catalog";
 
 // URLの ?id= などを読む（静的に書き出すため、表示後に読む）
 export function useQuery(name: string) {
@@ -20,6 +21,7 @@ export function useQuery(name: string) {
 const NAV = [
   { href: "/cms/", label: "ダッシュボード", icon: LayoutGrid },
   { href: "/cms/deals/", label: "案件ボード", icon: KanbanSquare },
+  { href: "/cms/products/", label: "商品管理", icon: Package },
   { href: "/cms/factory/", label: "工場の画面", icon: Factory, sub: "Factory" },
   { href: "/cms/inspect/", label: "国内検品", icon: ClipboardCheck },
   { href: "/cms/portal/?id=C-1027", label: "お客様の画面（例）", icon: UserRound },
@@ -45,7 +47,7 @@ export function Shell({ title, children, actions, note }: { title: string; child
       </ul>
       <div className="space-y-1 px-3 py-4 text-[12px]">
         <TechNote className="mx-3 mb-3">ログインは Supabase Auth（スタッフ・工場・検品で権限を分ける）</TechNote>
-        <button type="button" onClick={() => { if (confirm("デモのデータを最初の状態に戻しますか？")) resetDemo(); }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
+        <button type="button" onClick={() => { if (confirm("デモのデータ（案件・商品）を最初の状態に戻しますか？")) { resetDemo(); resetCatalog(); } }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
         <a href="/sakuapp/works/lp-oem/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><ArrowLeft size={14} /> LPに戻る</a>
       </div>
     </nav>
