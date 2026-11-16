@@ -7,7 +7,7 @@ import { asset } from "@/lib/asset";
 // ファーストビュー
 // ・巨大な「CRAFT」の文字が、写真の財布の“後ろ”を通る（財布だけ切り抜いた画像を手前に重ねる）
 // ・窓の光がゆっくり流れ、マウスの位置に光が当たる
-// ・スクロールすると、金のロゴに吸い込まれるようにズームして、次の場面へ
+// ・スクロールで画面から抜けるとき、写真が少し寄り、大きな文字がゆっくり上へ
 type Shot = { src: string; cut: string; w: number; h: number; logo: [number, number]; pos: [number, number] };
 const PC: Shot = { src: "/images/hero-pc.webp", cut: "/images/hero-pc-cut.webp", w: 1376, h: 768, logo: [1040, 228], pos: [0.6, 0.5] };
 const SP: Shot = { src: "/images/hero-sp.webp", cut: "/images/hero-sp-cut.webp", w: 768, h: 1376, logo: [472, 588], pos: [0.5, 0.25] };
@@ -25,7 +25,6 @@ export default function Hero() {
   const stage = useRef<HTMLDivElement>(null);
   const copy = useRef<HTMLDivElement>(null);
   const word = useRef<HTMLDivElement>(null);
-  const veil = useRef<HTMLDivElement>(null);
   const light = useRef<HTMLDivElement>(null);
   const [glint, setGlint] = useState<{ x: number; y: number } | null>(null);
 
@@ -45,13 +44,11 @@ export default function Hero() {
     };
 
     const frame = () => {
-      const total = el.offsetHeight - innerHeight;
-      const p = reduce ? 0 : Math.min(1, Math.max(0, scrollY / Math.max(1, total)));
-      const z = Math.pow(p, 2.1);
-      st.style.transform = `scale(${1 + z * 9})`;
-      if (copy.current) { copy.current.style.opacity = String(Math.max(0, 1 - p * 3.2)); copy.current.style.transform = `translateY(${p * -40}px)`; }
-      if (word.current) { word.current.style.opacity = String(Math.max(0, 1 - p * 2.2)); word.current.style.translate = `0 ${p * -90}px`; }
-      if (veil.current) veil.current.style.opacity = String(Math.min(1, Math.max(0, (p - 0.5) / 0.4)));
+      // 画面から抜けていく間だけ、写真を少し寄せ、大きな文字をゆっくり上へ（固定や白飛びはしない）
+      const p = reduce ? 0 : Math.min(1, Math.max(0, scrollY / Math.max(1, el.offsetHeight)));
+      st.style.transform = `scale(${1 + p * 0.18})`;
+      if (word.current) word.current.style.translate = `0 ${p * -120}px`;
+      if (copy.current) copy.current.style.transform = `translateY(${p * 60}px)`;
     };
     const on = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); };
 
@@ -75,8 +72,8 @@ export default function Hero() {
   const posPc = "lg:object-[60%_50%]";
 
   return (
-    <section ref={sec} id="top" className="relative h-[175svh] bg-white">
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
+    <section ref={sec} id="top" className="relative h-[100svh] min-h-[600px] bg-white">
+      <div className="relative h-full overflow-hidden">
         {/* 写真のエリア（スマホは上 62%、パソコンは全面） */}
         <div className="absolute inset-x-0 top-0 h-[62svh] overflow-hidden lg:h-full">
           <div ref={stage} className="absolute inset-0 will-change-transform">
@@ -131,8 +128,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ロゴに吸い込まれたあとの白い光 */}
-        <div ref={veil} className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,#fffaf0,#ffffff_60%)] opacity-0" aria-hidden />
       </div>
     </section>
   );
