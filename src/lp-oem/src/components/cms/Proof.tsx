@@ -11,16 +11,16 @@ import { asset } from "@/lib/asset";
 // 写真ごとの最初のロゴ位置（中心・%）と大きさ（写真の幅に対する%）。objW は写真の幅のうち製品が占める割合（実寸の目安用）
 // cm は最初のロゴの幅（cm）
 export const PHOTOS: Record<ModelId, { img: string; ar: string; x: number; y: number; cm: number; objW: number }> = {
-  long: { img: "blank-long", ar: "1408/768", x: 72, y: 72.5, cm: 4.5, objW: 0.81 },
-  bifold: { img: "blank-bifold", ar: "1408/768", x: 41, y: 71.5, cm: 3.5, objW: 0.4 },
-  trifold: { img: "blank-trifold", ar: "1408/768", x: 49.9, y: 50.6, cm: 3.5, objW: 0.39 },
+  long: { img: "blank-long", ar: "1408/768", x: 72, y: 72.5, cm: 4.5, objW: 0.683 },
+  bifold: { img: "blank-bifold", ar: "1408/768", x: 41, y: 71.5, cm: 3.5, objW: 0.406 },
+  trifold: { img: "blank-trifold", ar: "1408/768", x: 49.9, y: 50.6, cm: 3.5, objW: 0.43 },
   fragment: { img: "blank-fragment", ar: "1408/768", x: 49.9, y: 70.3, cm: 4, objW: 0.48 },
-  tote: { img: "blank-tote", ar: "960/720", x: 50, y: 47.8, cm: 6, objW: 0.49 },
+  tote: { img: "blank-tote", ar: "960/720", x: 50, y: 47.8, cm: 6, objW: 0.484 },
   phone: { img: "blank-phone", ar: "960/720", x: 39.4, y: 77.4, cm: 4, objW: 0.32 },
 };
 
-// 刻印できる大きさ：版は 縦1cm×横3cm 〜 縦5cm×横7cm（ロゴは版の中に入れる）
-export const STAMP = { minW: 3, maxW: 7, minH: 1, maxH: 5 };
+// 刻印できる大きさ：縦1〜5cm × 横3.5〜7cm（横の最小は、見え方を確認して3.5cmに）
+export const STAMP = { minW: 3.5, maxW: 7, minH: 1, maxH: 5 };
 type LogoSrc = Pick<Deal, "model" | "place" | "logo" | "logoAspect" | "brand">;
 const productW = (model: ModelId) => Number(ALL_MODELS.find((x) => x.id === model)?.size.match(/W([\d.]+)/)?.[1] ?? 10);
 const cmToPct = (model: ModelId, cm: number) => (cm / productW(model)) * PHOTOS[model].objW * 100;
