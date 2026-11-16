@@ -103,7 +103,7 @@ export function ProofPair({ d, label = true }: { d: Parameters<typeof ProofView>
   return (
     <div className="grid gap-2 sm:grid-cols-[1.6fr_1fr]">
       <ProofView d={d} label={label} />
-      <ProofView d={d} label={label} zoom className="max-sm:aspect-[16/9]!" />
+      <ProofView d={d} label={label} zoom />
     </div>
   );
 }

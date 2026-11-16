@@ -95,7 +95,7 @@ export default function DealPage() {
             <CardHead note="価格・ロット割引・版代は製品マスタ（products / price_rules テーブル）から自動計算">注文内容</CardHead>
             <div className="flex gap-5 px-5 pt-2 pb-5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset(m.img)} alt="" className="aspect-[4/3] w-28 shrink-0 object-cover sm:w-36" />
+              <img src={asset(m.img)} alt="" className="aspect-[4/3] w-28 shrink-0 self-start object-cover sm:w-36" />
               <dl className="grid flex-1 grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
                 <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
                 <dt className="text-mute">数量</dt><dd>{d.lot}個</dd>
