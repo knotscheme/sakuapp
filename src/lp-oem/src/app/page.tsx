@@ -16,12 +16,14 @@ import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingCta from "@/components/FloatingCta";
+import ThemeColor from "@/components/ThemeColor";
 import { LpProvider } from "@/components/LpContext";
 
 // 前半は「ブランドの物語」、後半は「はじめ方のご案内」の2幕構成
 export default function Page() {
   return (
     <LpProvider>
+      <ThemeColor />
       <Opening />
       <ScrollProgress />
       <Header />

@@ -13,6 +13,7 @@
   --font-display: var(--font-cormorant), var(--font-noto), serif;
 }
 
+html, body { overflow-x: clip; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 body { line-break: strict; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--color-gold-3); }
