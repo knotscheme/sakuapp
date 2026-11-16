@@ -8,7 +8,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
-import { resetDemo } from "./store";
+import { resetDemo, unreadOf, useDeals } from "./store";
 import { resetCatalog } from "./catalog";
 import { ConfirmHost, askConfirm } from "./Confirm";
 import { LANGS, setViewLang, trTitle, useLang, useUI, UI } from "./i18n";
@@ -92,6 +92,12 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
   const { lang } = useLang();
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   const items = NAV.filter((n) => !n.perm || can(n.perm));
+  // 工場からの未読の連絡（日本側の人だけ）、工場の人には日本からの未読の返信
+  const allDeals = useDeals();
+  const badge: Partial<Record<NavKey, number>> = can("deals.view")
+    ? { dash: allDeals.reduce((s, d) => s + unreadOf(d, "factory"), 0) }
+    : { factory: allDeals.reduce((s, d) => s + unreadOf(d, "japan"), 0) };
+  const Badge = ({ k, dot }: { k: NavKey; dot?: boolean }) => (badge[k] ?? 0) > 0 ? <span className={dot ? "absolute -top-1 left-1/2 ml-1.5 min-w-4 rounded-full bg-red-600 px-1 text-[9.5px] leading-4 text-white" : "ml-auto rounded-full bg-red-600 px-1.5 text-[10.5px] leading-5 text-white"}>{badge[k]}</span> : null;
   const isOn = (href: string) => (href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, "")));
   // スマホ下のタブ：よく使う画面を4つまで（残りは「その他」からメニューで）
   const TAB_ORDER: NavKey[] = ["dash", "deals", "products", "analytics", "factory", "inspect", "members", "manual"];
@@ -106,7 +112,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
           return (
             <li key={href}>
               <Link href={href} onClick={() => setOpen(false)} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] transition lg:py-2 lg:text-[13.5px] ${on ? "bg-white font-medium text-ink shadow-[0_1px_2px_rgba(0,0,0,.08)]" : "text-ink/65 hover:bg-white/60 hover:text-ink"}`}>
-                <Icon size={16} strokeWidth={1.7} /> {label}
+                <Icon size={16} strokeWidth={1.7} /> {label}<Badge k={key} />
               </Link>
             </li>
           );
@@ -151,7 +157,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
               return (
                 <li key={href} className="flex-1">
                   <Link href={href} aria-current={on ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-0.5 text-[10.5px] leading-tight ${on ? "font-medium text-ink" : "text-mute"}`}>
-                    <Icon size={20} strokeWidth={on ? 2 : 1.6} /><span className="max-w-full truncate px-1">{t.nav[label]}</span>
+                    <span className="relative"><Icon size={20} strokeWidth={on ? 2 : 1.6} /><Badge k={label} dot /></span><span className="max-w-full truncate px-1">{t.nav[label]}</span>
                   </Link>
                 </li>
               );

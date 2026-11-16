@@ -44,7 +44,7 @@ export function Ph({ children, tail = 0 }: { children: string; tail?: number }) 
   if (!ready) return <>{children}</>;
   const list = chunks(children);
   while (tail && list.length > 1 && list[list.length - 1].length < tail) list.splice(-2, 2, list[list.length - 2] + list[list.length - 1]);
-  if (list.length === 1) return <>{children}</>;
+  if (list.length === 1) return children.length <= 10 && /[\u3040-\u30ff\u4e00-\u9fff]/.test(children) ? <span className="whitespace-nowrap">{children}</span> : <>{children}</>;
   return (
     <>
       {list.map((p, i) => (

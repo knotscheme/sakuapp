@@ -4,7 +4,8 @@ import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
 import { useState } from "react";
-import { MessageSquare, Send } from "lucide-react";
+import { MessageSquare } from "lucide-react";
+import { MsgThread, unreadOf } from "@/components/cms/Messages";
 import { Camera, Check, FileText, Truck } from "lucide-react";
 import { FACTORY, PROD_STEPS, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
 import { ProofView } from "@/components/cms/Proof";
@@ -21,27 +22,12 @@ const T = {
   ja: { q: (s: string) => `「${s}」を完了にしますか？`, qb: "間違えたときは、その工程をもう一度押すと取り消せます。", undo: (s: string) => `「${s}」の完了を取り消しますか？`, qShip: "この注文を日本へ出荷しますか？", qShipB: "段階が「輸送中」に進み、日本側に通知されます。", ok: "はい", cancel: "キャンセル", title: "製造中の注文", ship: "出荷期限", qty: "数量", done: "完了にする", shipBtn: "日本へ出荷", photo: "写真を登録", order: "製造指示書", empty: "製造中の注文はありません。", shipped: "出荷済み", intro: "工場の人が見る画面です。お客様の名前・連絡先・販売価格は表示されません。", note: "工場用アカウントは行レベルの権限（RLS）で、担当の注文だけ見える。更新時に LINE 通知も可能", photoNote: "写真は Supabase Storage に保存", undoAria: "取り消す", msg: "日本への連絡", msgPh: "メッセージを入力（タイ語でも可）", send: "送る", sent: "日本側に送りました", msgNote: "自由に書いた文は、日本語に自動翻訳して届ける（Google 翻訳 API など）", quick: "よく使う連絡" },
 };
 
-// よく使う連絡：工場の人は自分の言葉で選び、日本側には日本語で届く
-const QUICK = [
-  { ja: "予定どおり進んでいます", en: "On schedule", th: "เป็นไปตามกำหนด" },
-  { ja: "革の入荷が遅れています（2日ほど）", en: "Leather delivery is delayed (about 2 days)", th: "หนังมาส่งล่าช้า (ประมาณ 2 วัน)" },
-  { ja: "確認したいことがあります。連絡をください", en: "I have a question. Please contact me", th: "มีเรื่องต้องการสอบถาม กรุณาติดต่อกลับ" },
-  { ja: "ロゴの位置を確認してください（写真あり）", en: "Please check the logo position (photo attached)", th: "กรุณาตรวจสอบตำแหน่งโลโก้ (มีรูปแนบ)" },
-];
-
 export default function FactoryPage() {
   const deals = useDeals();
   const { lang, home } = useLang();
   const t = T[lang];
   const { can, me } = useAuth();
   const [open, setOpen] = useState<string | null>(null);
-  const [text, setText] = useState("");
-  const [sent, setSent] = useState<string | null>(null);
-  // 日本側の履歴には日本語で残す（自由に書いた文は、本番では自動翻訳）
-  const send = (id: string, msg: string, free = false) => {
-    updateDeal(id, (x) => addLog(x, "工場", free ? `工場からの連絡「${msg}」（本番では日本語に自動翻訳）` : `工場からの連絡：${msg}`, "factory"));
-    setSent(id); setText(""); setTimeout(() => setSent(null), 2500);
-  };
   const list = deals.filter((d) => d.stage === "production" || d.stage === "transit");
   const stepName = (i: number) => (lang === "ja" ? PROD_STEPS[i].ja : lang === "th" ? PROD_STEPS[i].th : PROD_STEPS[i].en);
   const finishStep = async (id: string, i: number) => {
@@ -112,21 +98,11 @@ export default function FactoryPage() {
                 )}
               </div>
               <div className="border-t border-line px-5 py-3">
-                <button type="button" onClick={() => setOpen(open === d.id ? null : d.id)} aria-expanded={open === d.id} className="tap flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><MessageSquare size={14} />{t.msg}</button>
-                {sent === d.id && <p className="mt-2 text-[12px] text-[#2f7a46]">✓ {t.sent}</p>}
-                {open === d.id && (
-                  <div className="mt-3 space-y-2.5">
-                    <p className="text-[11px] text-mute">{t.quick}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {QUICK.map((q) => <button key={q.ja} type="button" onClick={() => send(d.id, q.ja)} className="rounded-full border border-line px-3.5 py-2.5 text-left text-[12.5px] hover:border-ink">{q[lang]}</button>)}
-                    </div>
-                    <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); if (text.trim()) send(d.id, text.trim(), true); }}>
-                      <input value={text} onChange={(e) => setText(e.target.value)} placeholder={t.msgPh} className="min-w-0 flex-1 rounded-lg border border-line px-3 py-2 text-[13px] outline-none focus:border-ink" />
-                      <button type="submit" className="cms-btn flex shrink-0 items-center gap-1.5 bg-ink px-3.5 py-2 text-[12.5px] text-white"><Send size={13} />{t.send}</button>
-                    </form>
-                    <TechNote>{t.msgNote}</TechNote>
-                  </div>
-                )}
+                <button type="button" onClick={() => setOpen(open === d.id ? null : d.id)} aria-expanded={open === d.id} className="tap flex items-center gap-1.5 text-[12px] text-mute hover:text-ink">
+                  <MessageSquare size={14} />{t.msg}{(d.msgs?.length ?? 0) > 0 && <span className="text-mute">（{d.msgs!.length}）</span>}
+                  {unreadOf(d, "japan") > 0 && <span className="ml-1 rounded-full bg-red-600 px-1.5 py-px text-[10.5px] text-white">{unreadOf(d, "japan")}</span>}
+                </button>
+                {open === d.id && <div className="mt-3"><MsgThread d={d} side="factory" lang={lang} who={me?.name ?? "工場"} /></div>}
               </div>
             </Card>
           );

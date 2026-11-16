@@ -4,7 +4,7 @@ import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
 import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIcon, Activity } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DOCS, FACTORY, PROD_STEPS, RATE, STAGES, amounts, modelOf, stageIndex, yenOf, OWNERS } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, revert, updateDeal, useDeals } from "@/components/cms/store";
@@ -12,6 +12,7 @@ import { askConfirm } from "@/components/cms/Confirm";
 import { Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { ProofCard } from "./proof-card";
+import { MsgThread } from "@/components/cms/Messages";
 
 const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity } as const;
 
@@ -20,7 +21,10 @@ export default function DealPage() {
   const deals = useDeals();
   const d = deals.find((x) => x.id === id);
   const [memo, setMemo] = useState("");
-  const { can } = useAuth();
+  const { can, me } = useAuth();
+  // ダッシュボードの「工場からの連絡」から来たときは、連絡の欄まで移動する
+  const loaded = !!d;
+  useEffect(() => { if (loaded && location.hash === "#msgs") setTimeout(() => document.getElementById("msgs")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50); }, [loaded]);
 
   if (!can("deals.view")) return <Shell title="案件"><NoAccess /></Shell>;
   if (!d) return <Shell title="案件"><p className="text-[13px] text-mute">{id ? "案件が見つかりません。" : "読み込み中…"}</p></Shell>;
@@ -120,6 +124,19 @@ export default function DealPage() {
             </div>
             </>) : <p className="border-t border-line px-5 py-4 text-[12.5px] text-mute">金額・原価を見る権限がありません。</p>}
           </Card>
+
+          {/* 工場との連絡 */}
+          {(si >= 4 || (d.msgs?.length ?? 0) > 0) && (
+            <div id="msgs" className="scroll-mt-20">
+              <Card>
+                <CardHead right={<span className="text-[11.5px] text-mute">{FACTORY.replace("（仮）", "")}</span>}>工場との連絡</CardHead>
+                <div className="px-5 pb-5">
+                  <MsgThread d={d} side="japan" lang="ja" who={me?.name ?? d.owner} />
+                  <p className="mt-2 text-[11.5px] text-mute">工場の人には、タイ語で表示されます。</p>
+                </div>
+              </Card>
+            </div>
+          )}
 
           {/* ロゴ配置イメージ */}
           <ProofCard d={d} canEdit={can("deals.advance")} who={d.owner} />

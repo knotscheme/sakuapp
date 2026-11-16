@@ -3,7 +3,7 @@
 import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
-import { AlertTriangle, Mail, FileText, Factory as FactoryIcon, Activity } from "lucide-react";
+import { AlertTriangle, MessageSquare, Mail, FileText, Factory as FactoryIcon, Activity } from "lucide-react";
 import { STAGES, amounts, daysLeft, modelOf, stageIndex, yenOf } from "@/lib/cms";
 import { useDeals } from "@/components/cms/store";
 import { Card, CardHead, DueBadge, Shell, StageBadge, TechNote, NoAccess } from "@/components/cms/ui";
@@ -13,6 +13,8 @@ const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity
 
 export default function Dashboard() {
   const deals = useDeals();
+  const factoryMsgs = deals.flatMap((d) => (d.msgs ?? []).filter((m) => m.from === "factory").map((m) => ({ d, m }))).sort((a, b) => (a.m.read === b.m.read ? b.m.at.localeCompare(a.m.at) : a.m.read ? 1 : -1));
+  const unread = factoryMsgs.filter((x) => !x.m.read).length;
   const { can } = useAuth();
   const active = deals.filter((d) => d.stage !== "done");
   const late = active.filter((d) => daysLeft(d.due) < 0);
@@ -61,6 +63,26 @@ export default function Dashboard() {
           </ul>
         </Card>
 
+        <div className="space-y-5">
+        {/* 工場からの連絡（新しいものを上に） */}
+        <Card>
+          <CardHead note="工場が連絡すると、担当に LINE・メールでも通知" right={unread > 0 ? <span className="rounded-full bg-red-600 px-2 py-0.5 text-[11px] text-white">未読 {unread}</span> : undefined}>工場からの連絡</CardHead>
+          {!factoryMsgs.length && <p className="border-t border-line px-5 py-6 text-[13px] text-mute">工場からの連絡はありません。</p>}
+          <ul className="divide-y divide-line border-t border-line">
+            {factoryMsgs.slice(0, 3).map(({ d, m }) => (
+              <li key={m.id}>
+                <Link href={`/cms/deal/?id=${d.id}#msgs`} className="flex items-start gap-3 px-5 py-3.5 hover:bg-[#fafafa]">
+                  <MessageSquare size={15} className={`mt-0.5 shrink-0 ${m.read ? "text-mute" : "text-red-600"}`} />
+                  <span className="min-w-0 flex-1 text-[13px]">
+                    <span className="block truncate"><span className={m.read ? "" : "font-semibold"}>{d.brand}</span><span className="ml-2 text-[11.5px] text-mute">{d.id}</span></span>
+                    <span className="block truncate text-ink/75">{m.t ? m.t.ja : m.raw}</span>{!m.t && <span className="block text-[11px] text-mute">原文のまま（本番では日本語に自動翻訳）</span>}
+                  </span>
+                  {!m.read && <span className="shrink-0 rounded bg-[#fbe4e4] px-1.5 py-px text-[10.5px] text-red-700">新着</span>}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Card>
         <Card>
           <CardHead note="毎朝、Supabase の定期実行（Cron）で期日をチェックし、担当にメール通知">期日のお知らせ</CardHead>
           {late.length + soon.length === 0 && <p className="px-5 py-6 text-[13px] text-mute">期日が近い案件はありません。</p>}
@@ -77,6 +99,7 @@ export default function Dashboard() {
             ))}
           </ul>
         </Card>
+        </div>
       </div>
 
       <Card className="mt-5">

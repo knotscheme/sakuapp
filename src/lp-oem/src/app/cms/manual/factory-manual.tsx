@@ -14,7 +14,7 @@ const C = {
     s: [
       { h: "หน้าจอนี้คืออะไร", p: ["หน้าจอนี้แสดงเฉพาะงานที่โรงงานของคุณต้องผลิต", "ไม่แสดงชื่อลูกค้า ข้อมูลติดต่อ และราคาขาย", "ข้อมูลที่คุณกดบันทึก จะแจ้งไปที่ทีมญี่ปุ่นทันที"] },
       { h: "ขั้นตอนการทำงาน", steps: ["เปิด “ใบสั่งผลิต” เพื่อตรวจรุ่น จำนวน สีหนัง และตำแหน่งโลโก้", "เมื่อเสร็จแต่ละขั้นตอน ให้กด “เสร็จแล้ว” แล้วกด “ยืนยัน”", "อัปโหลดรูปของแต่ละขั้นตอน", "เมื่อเสร็จครบ 4 ขั้นตอน ให้กด “ส่งไปญี่ปุ่น”"], tip: "หากกด “เสร็จแล้ว” ผิด ให้แตะเครื่องหมาย ✓ ของขั้นตอนล่าสุดเพื่อยกเลิก (ทำได้ก่อนส่งของเท่านั้น)" },
-      { h: "ส่งข้อความถึงญี่ปุ่น", steps: ["กด “ส่งข้อความถึงญี่ปุ่น” ที่ด้านล่างของแต่ละงาน", "เลือก “ข้อความด่วน” หรือพิมพ์ข้อความเป็นภาษาไทย", "ทีมญี่ปุ่นจะได้รับเป็นภาษาญี่ปุ่น"], tip: "ข้อความด่วนจะถูกส่งเป็นภาษาญี่ปุ่นที่ถูกต้องเสมอ ใช้เมื่อต้องการแจ้งเรื่องสำคัญ เช่น งานล่าช้า" },
+      { h: "ส่งข้อความถึงญี่ปุ่น", steps: ["กด “ส่งข้อความถึงญี่ปุ่น” ที่ด้านล่างของแต่ละงาน", "เลือก “ข้อความด่วน” หรือพิมพ์ข้อความเป็นภาษาไทย", "ทีมญี่ปุ่นจะได้รับเป็นภาษาญี่ปุ่น", "คำตอบจากญี่ปุ่นจะแสดงเป็นภาษาไทยในที่เดียวกัน (มีตัวเลขสีแดงเมื่อมีข้อความใหม่)"], tip: "ข้อความด่วนจะถูกส่งเป็นภาษาญี่ปุ่นที่ถูกต้องเสมอ ใช้เมื่อต้องการแจ้งเรื่องสำคัญ เช่น งานล่าช้า" },
       { h: "ภาษา", p: ["หน้าจอจะแสดงเป็นภาษาไทยโดยอัตโนมัติ", "หากต้องการดูภาษาอื่นชั่วคราว ให้เลือกที่ “ภาษา” ในเมนู"] },
     ],
     faq: "คำถามที่พบบ่อย",
@@ -34,7 +34,7 @@ const C = {
     s: [
       { h: "What is this screen?", p: ["It shows only the orders your factory needs to make.", "Customer names, contacts and selling prices are not shown.", "Everything you record is sent to the Japan team right away."] },
       { h: "How to work", steps: ["Open the “Production order” to check the model, quantity, leather color and logo position.", "When a step is finished, tap “Mark as done”, then “Yes”.", "Upload a photo of each step.", "When all 4 steps are done, tap “Ship to Japan”."], tip: "If you marked a step by mistake, tap the ✓ of the latest step to undo it (before shipping only)." },
-      { h: "Message to Japan", steps: ["Tap “Message to Japan” at the bottom of an order.", "Choose a quick message, or write your own.", "The Japan team receives it in Japanese."], tip: "Quick messages always arrive in correct Japanese. Use them for important news such as delays." },
+      { h: "Message to Japan", steps: ["Tap “Message to Japan” at the bottom of an order.", "Choose a quick message, or write your own.", "The Japan team receives it in Japanese.", "Replies from Japan appear in the same place, in your language (a red number shows new replies)."], tip: "Quick messages always arrive in correct Japanese. Use them for important news such as delays." },
       { h: "Language", p: ["The screen is shown in your language automatically.", "To view another language for a moment, choose it under “Language” in the menu."] },
     ],
     faq: "FAQ",

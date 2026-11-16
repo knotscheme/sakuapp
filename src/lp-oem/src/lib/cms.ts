@@ -38,6 +38,8 @@ export const DOCS = [
 ] as const;
 export type DocId = (typeof DOCS)[number]["id"];
 
+// 工場との連絡。t は決まった文（日本語・英語・タイ語がそろっている）、raw は自由に書いた文（本番では自動翻訳）
+export type Msg = { id: string; at: string; from: "factory" | "japan"; who: string; t?: { ja: string; en: string; th: string }; raw?: string; read?: boolean };
 export type Log = { at: string; who: string; text: string; kind?: "mail" | "doc" | "factory" | "system" };
 export type Deal = {
   id: string;
@@ -65,6 +67,7 @@ export type Deal = {
   place?: { x: number; y: number; w: number };
   proofVer?: number; // お客様に送った版（第1版・第2版…）
   proofReq?: string; // お客様からの修正の依頼
+  msgs?: Msg[]; // 工場との連絡
   logs: Log[];
 };
 
@@ -117,6 +120,16 @@ function seedLogs(stage: StageId, brand: string): Log[] {
   return out.reverse();
 }
 
+function seedMsgs(i: number): Msg[] | undefined {
+  const at = (h: number) => { const t = new Date(); t.setHours(t.getHours() - h, 0, 0, 0); return t.toISOString(); };
+  if (i === 5) return [{ id: "m1", at: at(3), from: "factory", who: "Somchai", t: { ja: "革の入荷が遅れています（2日ほど）", en: "Leather delivery is delayed (about 2 days)", th: "หนังมาส่งล่าช้า (ประมาณ 2 วัน)" } }];
+  if (i === 6) return [
+    { id: "m2", at: at(30), from: "factory", who: "Somchai", t: { ja: "ロゴの位置を確認してください（写真あり）", en: "Please check the logo position (photo attached)", th: "กรุณาตรวจสอบตำแหน่งโลโก้ (มีรูปแนบ)" }, read: true },
+    { id: "m3", at: at(28), from: "japan", who: "佐藤", t: { ja: "写真を確認しました。その位置で大丈夫です", en: "We checked the photo. That position is fine", th: "ตรวจสอบรูปแล้ว ตำแหน่งนั้นใช้ได้" }, read: true },
+  ];
+  return undefined;
+}
+
 export function seedDeals(): Deal[] {
   return SEEDS.map(([brand, person, model, lot, finish, color, stage, due, prodStep], i) => {
     const si = stageIndex(stage);
@@ -137,6 +150,7 @@ export function seedDeals(): Deal[] {
       tracking: si >= 5 ? `TH${880000 + i * 137}JP` : undefined,
       thbCost: Math.round(unitPriceOf(model, lot) / RATE / 1.6),
       message: i === 0 ? "ギフト向けに金箔でロゴを入れたいです。化粧箱も検討しています。" : undefined,
+      msgs: seedMsgs(i),
       logs: seedLogs(stage, brand),
     };
   });

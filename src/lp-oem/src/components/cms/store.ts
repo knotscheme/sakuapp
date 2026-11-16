@@ -2,9 +2,9 @@
 
 // デモ用のデータ置き場（ブラウザの localStorage に保存）
 import { useSyncExternalStore } from "react";
-import { DOCS, RATE, STAGES, seedDeals, stageIndex, today, unitPriceOf, type Deal, type Log, type StageId } from "@/lib/cms";
+import { DOCS, RATE, STAGES, seedDeals, stageIndex, today, unitPriceOf, type Deal, type Log, type Msg, type StageId } from "@/lib/cms";
 
-const KEY = "craft-oem-cms-v2";
+const KEY = "craft-oem-cms-v3";
 let cache: Deal[] | null = null;
 const subs = new Set<() => void>();
 
@@ -99,3 +99,19 @@ export function addInquiry(p: { brand: string; email: string; model: Deal["model
 export function resetDemo() {
   save(seedDeals());
 }
+
+// 工場との連絡を送る（履歴にも日本語で残す）
+export function sendMsg(id: string, m: Omit<Msg, "id" | "at">) {
+  updateDeal(id, (d) => {
+    const msg: Msg = { ...m, id: `m${Date.now().toString(36)}`, at: new Date().toISOString() };
+    const text = m.t ? m.t.ja : `「${m.raw}」（本番では日本語に自動翻訳）`;
+    return addLog({ ...d, msgs: [...(d.msgs ?? []), msg] }, m.who, m.from === "factory" ? `工場からの連絡：${text}` : `工場へ返信：${m.t ? m.t.ja : m.raw}`, "factory");
+  });
+}
+// 相手からの連絡を読んだことにする
+export function markRead(id: string, from: Msg["from"]) {
+  const d = load().find((x) => x.id === id);
+  if (!d?.msgs?.some((m) => m.from === from && !m.read)) return;
+  updateDeal(id, (x) => ({ ...x, msgs: x.msgs?.map((m) => (m.from === from ? { ...m, read: true } : m)) }));
+}
+export const unreadOf = (d: Pick<Deal, "msgs">, from: Msg["from"]) => (d.msgs ?? []).filter((m) => m.from === from && !m.read).length;
