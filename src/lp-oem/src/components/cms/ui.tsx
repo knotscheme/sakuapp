@@ -186,23 +186,24 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
       <aside className="fixed inset-y-0 left-0 hidden w-60 bg-[#ebebea] lg:block">{nav}</aside>
       {/* スマホ：画面全体のすりガラスのメニュー（文字だけ。デモの設定は下に小さく） */}
       <div id="cms-menu" aria-hidden={!open} onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
-        className={`fixed inset-0 z-50 flex flex-col overflow-y-auto overscroll-contain bg-[#f4f4f2]/75 px-9 pt-[calc(env(safe-area-inset-top)+3.5rem)] pb-[calc(env(safe-area-inset-bottom)+6rem)] backdrop-blur-2xl backdrop-saturate-150 transition-[opacity,visibility] duration-300 lg:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}>
+        className={`fixed inset-0 z-50 flex flex-col overflow-y-auto overscroll-contain bg-[#f4f4f2]/75 px-11 pt-[calc(env(safe-area-inset-top)+4rem)] pb-[calc(env(safe-area-inset-bottom)+6.5rem)] backdrop-blur-2xl backdrop-saturate-150 transition-[opacity,visibility] duration-300 lg:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}>
         <p className="font-display text-[12px] tracking-[0.4em] text-mute">CRAFT <span className="text-gold">CMS</span></p>
-        <ul className="mt-5">
-          {items.map(({ href, label: key }, i) => {
+        <ul className="mt-8 space-y-1">
+          {items.map(({ href, label: key, icon: Icon }, i) => {
             const on = isOn(href);
             return (
               <li key={href} className={`transition-all duration-500 ${open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}`} style={{ transitionDelay: open ? `${0.04 * i}s` : "0s" }}>
-                <Link href={href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} aria-current={on ? "page" : undefined} className={`flex items-center gap-3 py-[7px] text-[18px] tracking-[0.04em] transition ${on ? "font-medium text-ink" : "text-ink/40 active:text-ink"}`}>
+                <Link href={href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} aria-current={on ? "page" : undefined} className={`flex items-center gap-3.5 py-2.5 text-[15px] tracking-[0.06em] transition ${on ? "font-medium text-ink" : "text-ink/40 active:text-ink"}`}>
+                  <Icon size={17} strokeWidth={on ? 1.8 : 1.4} className="shrink-0" />
                   {t.nav[key]}
-                  {on && <span className="h-1.5 w-1.5 rounded-full bg-gold" />}
+                  {on && <span className="h-1 w-1 rounded-full bg-gold" />}
                   {(badge[key] ?? 0) > 0 && <span className="rounded-full bg-red-600 px-1.5 text-[11px] leading-5 text-white">{badge[key]}</span>}
                 </Link>
               </li>
             );
           })}
         </ul>
-        <div className="mt-auto space-y-3 border-t border-ink/10 pt-4 text-[12px] text-mute max-h-[700px]:mt-6">
+        <div className="mt-auto space-y-3 border-t border-ink/10 pt-5 text-[12px] text-mute">
           <MiniDemo onDone={() => setOpen(false)} />
         </div>
       </div>
