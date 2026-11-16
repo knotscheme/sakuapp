@@ -73,10 +73,10 @@ export default function FactoryPage() {
           return (
             <Card key={d.id}>
               <div className="flex gap-4 p-5">
-                <ProofView d={d} label={false} className="w-32 shrink-0 self-start" />
+                <div className="w-32 shrink-0 self-start"><ProofView d={d} label={false} /></div>
                 <div className="min-w-0 flex-1 text-[13px]">
                   <p className="text-[11.5px] text-mute">PO-{d.id.slice(2)}</p>
-                  <p className="font-medium">{trModel(d.model, lang)}</p>
+                  <p className="font-medium"><Ph>{trModel(d.model, lang)}</Ph></p>
                   <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{trColor(d.color, lang)}・{trFinish(d.finish, lang)}</p>
                   <p className="text-ink/80">{t.ship}: {d.due}</p>
                   <Link href={`/cms/doc/?id=${d.id}&type=work`} className="mt-1.5 inline-flex items-center gap-1 text-[12px] underline underline-offset-4"><FileText size={13} />{t.order}</Link>

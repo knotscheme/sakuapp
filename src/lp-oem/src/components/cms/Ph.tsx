@@ -27,6 +27,7 @@ function chunks(text: string): string[] {
     const prev = out[out.length - 1];
     if (glue && prev !== undefined) { out[out.length - 1] = prev + s; glue = /^[ごお御]$/.test(s) || OPEN.test(s); continue; }
     glue = /^[ごお御]$/.test(s) || OPEN.test(s);
+    if (/^[ごお御]$/.test(s)) { out.push(s); continue; } // 「お客様」の「お」は、後ろの言葉と組にする
     // 1文字の漢字（「集計|用」の「用」など）は前の漢字につなげる
     const join = prev !== undefined && ((s.length === 1 && /[\u4e00-\u9fff]/.test(s) && /[\u4e00-\u9fff]$/.test(prev)) || HIRA.test(s) || CLOSE.test(s) || OPEN.test(prev) || (NUM.test(prev) && /^[0-9０-９,，.%円個件日月年万枚か]/.test(s)) || /^\s+$/.test(s));
     if (join) out[out.length - 1] = prev + s;
