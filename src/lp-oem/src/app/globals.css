@@ -202,6 +202,9 @@ html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top
   .cms-bg input[type="range"] { height: 32px; }
 }
 
+/* 英字の飾り書体の数字は、高さのそろった形にする（3や6が下にはみ出す形にしない） */
+.font-display { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+
 /* base の層に入れて、truncate（…で省略）などのクラスが優先されるようにする */
 @layer base {
   p, dd, li, legend, h3 { text-wrap: pretty; }
