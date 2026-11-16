@@ -9,7 +9,7 @@ import { DOCS, FACTORY, PROD_STEPS, RATE, STAGES, amounts, modelOf, stageIndex, 
 import { asset } from "@/lib/asset";
 import { addLog, advance, revert, updateDeal, useDeals } from "@/components/cms/store";
 import { askConfirm } from "@/components/cms/Confirm";
-import { Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
+import { Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useNavHidden, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { ProofCard } from "./proof-card";
 import { MsgThread } from "@/components/cms/Messages";
@@ -22,6 +22,7 @@ export default function DealPage() {
   const d = deals.find((x) => x.id === id);
   const [memo, setMemo] = useState("");
   const { can, me } = useAuth();
+  const navHidden = useNavHidden();
   // ダッシュボードの「工場からの連絡」から来たときは、連絡の欄まで移動する
   const loaded = !!d;
   useEffect(() => { if (loaded && location.hash === "#msgs") setTimeout(() => document.getElementById("msgs")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50); }, [loaded]);
@@ -86,8 +87,8 @@ export default function DealPage() {
       )}
 
       {d.stage !== "done" && can("deals.advance") && (
-        <div className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-30 border-t border-line bg-white/95 px-5 py-2.5 backdrop-blur md:hidden">
-          <button type="button" onClick={doAdvance} className="cms-btn flex w-full items-center justify-center gap-2 bg-ink py-3.5 text-[14px] text-white">
+        <div className={`fixed inset-x-5 z-30 transition-[bottom] duration-300 md:hidden ${navHidden ? "bottom-[calc(0.75rem+env(safe-area-inset-bottom))]" : "bottom-[calc(4.75rem+env(safe-area-inset-bottom))]"}`}>
+          <button type="button" onClick={doAdvance} className="flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-[14px] text-white shadow-[0_8px_24px_rgba(0,0,0,.22)] active:scale-[.99]">
             {STAGES[si].next} <ChevronRight size={16} />
           </button>
         </div>

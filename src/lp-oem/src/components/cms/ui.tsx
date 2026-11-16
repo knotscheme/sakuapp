@@ -4,7 +4,7 @@ import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
@@ -84,6 +84,14 @@ function UserSwitch() {
   );
 }
 
+// 下のメニューが隠れているか（案件の画面の「次にやること」ボタンも、これに合わせて動く）
+let navHiddenNow = false;
+const navSubs = new Set<() => void>();
+function setNavHidden(v: boolean) { if (v !== navHiddenNow) { navHiddenNow = v; navSubs.forEach((f) => f()); } }
+export function useNavHidden() {
+  return useSyncExternalStore((f) => { navSubs.add(f); return () => navSubs.delete(f); }, () => navHiddenNow, () => false);
+}
+
 export function Shell({ title, children, actions, note, bottomPad }: { title: string; children: ReactNode; actions?: ReactNode; note?: ReactNode; bottomPad?: boolean }) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
@@ -91,6 +99,19 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
   const t = useUI();
   const { lang } = useLang();
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+  const navHidden = useNavHidden();
+  useEffect(() => {
+    let last = scrollY;
+    setNavHidden(false);
+    const on = () => {
+      const y = scrollY;
+      const atEnd = innerHeight + y >= document.documentElement.scrollHeight - 40;
+      if (atEnd) setNavHidden(false);
+      else if (Math.abs(y - last) > 8) { setNavHidden(y > last && y > 80); last = y; }
+    };
+    addEventListener("scroll", on, { passive: true });
+    return () => removeEventListener("scroll", on);
+  }, [path]);
   const items = NAV.filter((n) => !n.perm || can(n.perm));
   // 工場からの未読の連絡（日本側の人だけ）、工場の人には日本からの未読の返信
   const allDeals = useDeals();
@@ -137,7 +158,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
           <button type="button" className="-ml-2.5 p-2.5" onClick={() => setOpen(true)} aria-label={t.menu}><Menu size={20} /></button>
           <span className="font-display text-[13px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></span>
         </div>
-        <main className={`mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10 ${bottomPad ? "pb-[calc(10rem+env(safe-area-inset-bottom))] md:pb-[calc(6rem+env(safe-area-inset-bottom))]" : "pb-[calc(6rem+env(safe-area-inset-bottom))]"} lg:pb-10`}>
+        <main className={`mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10 ${bottomPad ? "pb-[calc(9rem+env(safe-area-inset-bottom))] md:pb-[calc(6rem+env(safe-area-inset-bottom))]" : "pb-[calc(6rem+env(safe-area-inset-bottom))]"} lg:pb-10`}>
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div>
               <h1 className="text-[22px] font-semibold tracking-[0.02em]"><Ph>{trTitle(title, lang)}</Ph></h1>
@@ -149,21 +170,22 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
           <ConfirmHost />
           <p className="mt-10 text-[11px] text-mute">{t.footer}{t.sample && <span className="block">{t.sample}</span>}</p>
         </main>
-        {/* スマホ・タブレット：下のタブ（アプリのように片手で移動できる） */}
-        <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden" aria-label={t.menu}>
-          <ul className="mx-auto flex h-14 max-w-xl">
+        {/* スマホ・タブレット：下に浮かぶ小さなメニュー（アイコンだけ。下へスクロールすると隠れる） */}
+        <nav aria-label={t.menu} className={`fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 z-40 -translate-x-1/2 transition-[translate,opacity] duration-300 lg:hidden ${navHidden ? "pointer-events-none translate-y-[160%] opacity-0" : "translate-y-0 opacity-100"}`}>
+          <ul className="flex items-center gap-1 rounded-full border border-black/5 bg-white/80 p-1.5 shadow-[0_6px_24px_rgba(0,0,0,.12)] backdrop-blur-xl backdrop-saturate-150">
             {tabs.map(({ href, label, icon: Icon }) => {
               const on = isOn(href);
               return (
-                <li key={href} className="min-w-0 flex-1">
-                  <Link href={href} aria-current={on ? "page" : undefined} aria-label={t.nav[label]} className={`flex h-full w-full flex-col items-center justify-center gap-0.5 text-[10.5px] leading-tight ${on ? "font-medium text-ink" : "text-mute"}`}>
-                    <span className="relative"><Icon size={20} strokeWidth={on ? 2 : 1.6} /><Badge k={label} dot /></span><span className="w-full truncate px-1 text-center">{t.tab[label]}</span>
+                <li key={href}>
+                  <Link href={href} aria-current={on ? "page" : undefined} aria-label={t.nav[label]} title={t.nav[label]} className={`relative flex h-11 w-11 items-center justify-center rounded-full transition ${on ? "bg-ink text-white" : "text-ink/55 active:bg-black/5"}`}>
+                    <Icon size={19} strokeWidth={on ? 1.9 : 1.6} />
+                    {(badge[label] ?? 0) > 0 && <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-600 ring-2 ring-white" aria-label={`未読 ${badge[label]}`} />}
                   </Link>
                 </li>
               );
             })}
-            <li className="min-w-0 flex-1">
-              <button type="button" onClick={() => setOpen(true)} className="flex h-full w-full flex-col items-center justify-center gap-0.5 text-[10.5px] text-mute"><Menu size={20} strokeWidth={1.6} /><span>{t.more}</span></button>
+            <li>
+              <button type="button" onClick={() => setOpen(true)} aria-label={t.more} className="flex h-11 w-11 items-center justify-center rounded-full text-ink/55 active:bg-black/5"><Menu size={19} strokeWidth={1.6} /></button>
             </li>
           </ul>
         </nav>
