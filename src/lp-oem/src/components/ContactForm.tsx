@@ -185,8 +185,6 @@ export default function ContactForm() {
             <CheckCircle2 className="mx-auto text-gold" size={56} strokeWidth={1.3} />
             <h3 id="done-title" className="mt-4 text-xl font-bold">送信が完了しました</h3>
             <p className="mt-3 text-[14px] leading-loose text-mute">お問い合わせありがとうございます。<br />2営業日以内に、担当者よりご連絡いたします。</p>
-            <a href="/sakuapp/works/lp-oem/cms/deals/" className="mt-4 inline-block text-[12.5px] underline underline-offset-4">管理画面（デモ）で届いた様子を見る</a>
-            <p className="mt-2 text-[10.5px] leading-relaxed text-mute">※本番では：Next.js のAPI経由で Supabase に保存し、Resend で受付メールを自動送信</p>
             <button type="button" onClick={reset} autoFocus className="mt-7 w-full bg-ink py-3.5 font-bold text-white transition hover:bg-gold">閉じる</button>
           </div>
         </div>
