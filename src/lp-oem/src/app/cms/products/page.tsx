@@ -76,7 +76,7 @@ export default function ProductsAdmin() {
               <li key={c.id} className="flex items-center gap-2 px-4 py-2.5">
                 <input defaultValue={c.name} onBlur={(e) => e.target.value.trim() && renameCat(c.id, e.target.value.trim())} className="min-w-0 flex-1 rounded-md px-2 py-1 text-[13px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" aria-label="カテゴリ名" />
                 <span className="text-[11px] text-mute">{products.filter((p) => p.cat === c.id).length}</span>
-                <button type="button" aria-label="削除" onClick={() => { if (!deleteCat(c.id)) alert("商品が入っているカテゴリは削除できません。先に商品を別のカテゴリへ移してください。"); }} className="rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
+                <button type="button" aria-label="削除" onClick={async () => { if (!(await askConfirm({ title: `カテゴリ「${c.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; if (!deleteCat(c.id)) alert("商品が入っているカテゴリは削除できません。先に商品を別のカテゴリへ移してください。"); }} className="rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
               </li>
             ))}
           </ul>
@@ -240,7 +240,7 @@ function ColorCard() {
             </label>
             <span className="flex-1 text-[13px]">{c.name}</span>
             <span className="font-mono text-[11px] text-mute" title="SKUの記号">{c.code}</span>
-            <button type="button" aria-label={`${c.name}を削除`} onClick={() => setMsg(deleteColor(c.id) ? "" : `「${c.name}」は商品で使われているため、削除できません。`)} className="rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
+            <button type="button" aria-label={`${c.name}を削除`} onClick={async () => { if (!(await askConfirm({ title: `カラー「${c.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; setMsg(deleteColor(c.id) ? "" : `「${c.name}」は商品で使われているため、削除できません。`); }} className="rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
           </li>
         ))}
       </ul>
@@ -270,7 +270,7 @@ function SizeCard() {
         {sizes.map((z) => (
           <span key={z.id} className="flex items-center gap-1 rounded-full border border-line py-1 pr-1 pl-3 text-[12.5px]">
             {z.name}
-            <button type="button" aria-label={`${z.name}を削除`} onClick={() => setMsg(deleteSize(z.id) ? "" : `「${z.name}」は商品で使われているため、削除できません。`)} className="-my-1 rounded-full p-2.5 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><X size={12} /></button>
+            <button type="button" aria-label={`${z.name}を削除`} onClick={async () => { if (!(await askConfirm({ title: `サイズ「${z.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; setMsg(deleteSize(z.id) ? "" : `「${z.name}」は商品で使われているため、削除できません。`); }} className="-my-1 rounded-full p-2.5 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><X size={12} /></button>
           </span>
         ))}
       </div>

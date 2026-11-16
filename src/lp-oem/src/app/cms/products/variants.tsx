@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Plus, Trash2, Wand2, X } from "lucide-react";
 import { MAX_OPTIONS, OPTION_PRESETS, autoSku, buildVariants, swatchOf, useCatalog, type ColorDef, type Product, type VOption } from "@/components/cms/catalog";
 import { TechNote } from "@/components/cms/ui";
+import { askConfirm } from "@/components/cms/Confirm";
 
 const KINDS = [
   { id: "color", ja: "カラー" },
@@ -36,6 +37,13 @@ export function VariantsEditor({ p, onChange, taken }: { p: Product; onChange: (
     setOptions([...options, preset ? { ...preset, values: [...preset.values] } : { name: "", kind: "custom", values: [] }]);
   };
   const setVar = (key: string, x: Partial<(typeof variants)[number]>) => onChange({ variants: variants.map((v) => (v.key === key ? { ...v, ...x } : v)) });
+  // 入力済みのSKUの数（i：種類の番号、v：その値。-1 なら全部）
+  const filled = (i: number, v?: string) => variants.filter((x) => x.sku.trim() && (i < 0 || v === undefined || x.values[i] === v)).length;
+  const removeOpt = async (i: number) => {
+    const o = options[i];
+    const n = filled(-1);
+    if (await askConfirm({ title: `「${o.name || "この種類"}」を消しますか？`, body: `組み合わせが作り直され${n ? `、入力したSKU（${n}件）が消えることがあります` : "ます"}。保存するまでは、閉じれば元に戻せます。`, ok: "消す", danger: true })) setOptions(options.filter((_, k) => k !== i));
+  };
   const fillSku = () => onChange({ variants: variants.map((v) => (!v.sku.trim() ? { ...v, sku: autoSku(p.sku ?? "", options, v.values, codes) } : v)) });
 
   // 重複のチェック（他の商品と、この商品の中で）
@@ -52,13 +60,17 @@ export function VariantsEditor({ p, onChange, taken }: { p: Product; onChange: (
       </label>
 
       <label className="flex items-center gap-2.5 font-medium">
-        <input type="checkbox" checked={has} onChange={(e) => (e.target.checked ? setOptions([{ ...OPTION_PRESETS[0], values: [] }]) : onChange({ options: [], variants: [] }))} className="h-4 w-4 accent-[#1a1a1a]" />
+        <input type="checkbox" checked={has} onChange={async (e) => {
+          if (e.target.checked) return setOptions([{ ...OPTION_PRESETS[0], values: [] }]);
+          const n = filled(-1);
+          if (await askConfirm({ title: "バリエーションをやめますか？", body: `種類と組み合わせ（${variants.length}通り）${n ? `、入力したSKU（${n}件）` : ""}がすべて消えます。保存するまでは、閉じれば元に戻せます。`, ok: "やめる", danger: true })) onChange({ options: [], variants: [] });
+        }} className="h-4 w-4 accent-[#1a1a1a]" />
         カラーやサイズなどのバリエーションがある
       </label>
 
       {has && (
         <>
-          {options.map((o, i) => <OptionRow key={i} o={o} hasColor={options.some((x, k) => k !== i && x.kind === "color")} hasSize={options.some((x, k) => k !== i && x.kind === "size")} onChange={(x) => setOpt(i, x)} onRemove={() => setOptions(options.filter((_, k) => k !== i))} />)}
+          {options.map((o, i) => <OptionRow key={i} o={o} hasColor={options.some((x, k) => k !== i && x.kind === "color")} hasSize={options.some((x, k) => k !== i && x.kind === "size")} onChange={(x) => setOpt(i, x)} onRemove={() => removeOpt(i)} filled={(v) => filled(i, v)} />)}
           {options.length < MAX_OPTIONS && (
             <button type="button" onClick={addOpt} className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-line py-2.5 text-[12.5px] text-mute hover:border-ink hover:text-ink">
               <Plus size={14} />種類を追加（例：サイズ・素材）<span className="text-[11px]">最大{MAX_OPTIONS}つ</span>
@@ -117,7 +129,13 @@ export function VariantsEditor({ p, onChange, taken }: { p: Product; onChange: (
 }
 
 // 種類1つ分：タイプ（カラー・サイズ・自由）と値
-function OptionRow({ o, hasColor, hasSize, onChange, onRemove }: { o: VOption; hasColor: boolean; hasSize: boolean; onChange: (o: VOption) => void; onRemove: () => void }) {
+function OptionRow({ o, hasColor, hasSize, onChange, onRemove, filled }: { o: VOption; hasColor: boolean; hasSize: boolean; onChange: (o: VOption) => void; onRemove: () => void; filled: (v: string) => number }) {
+  // 値を外すとき、その値のSKUを入れていたら確認する
+  const removeValue = async (v: string) => {
+    const n = filled(v);
+    if (n && !(await askConfirm({ title: `「${v}」を外しますか？`, body: `「${v}」の組み合わせに入力したSKU（${n}件）も消えます。`, ok: "外す", danger: true }))) return;
+    onChange({ ...o, values: o.values.filter((x) => x !== v) });
+  };
   const { colors, sizes } = useCatalog();
   const [text, setText] = useState("");
   const kind = o.kind ?? "custom";
@@ -126,8 +144,9 @@ function OptionRow({ o, hasColor, hasSize, onChange, onRemove }: { o: VOption; h
     if (vals.length) onChange({ ...o, values: [...o.values, ...vals] });
     setText("");
   };
-  const toggle = (name: string, list: string[]) => {
+  const toggle = async (name: string, list: string[]) => {
     const on = o.values.includes(name);
+    if (on) return removeValue(name);
     // 登録した順に並べる
     const next = on ? o.values.filter((x) => x !== name) : list.filter((x) => x === name || o.values.includes(x));
     onChange({ ...o, values: next });
@@ -184,7 +203,7 @@ function OptionRow({ o, hasColor, hasSize, onChange, onRemove }: { o: VOption; h
             {o.values.map((v) => (
               <span key={v} className="flex items-center gap-1 rounded-full border border-line bg-white py-1 pr-1 pl-3 text-[12.5px]">
                 {v}
-                <button type="button" onClick={() => onChange({ ...o, values: o.values.filter((x) => x !== v) })} aria-label={`${v}を消す`} className="rounded-full p-1 text-mute hover:bg-[#f1f1f0] hover:text-ink"><X size={12} /></button>
+                <button type="button" onClick={() => removeValue(v)} aria-label={`${v}を消す`} className="rounded-full p-1 text-mute hover:bg-[#f1f1f0] hover:text-ink"><X size={12} /></button>
               </span>
             ))}
           </div>
