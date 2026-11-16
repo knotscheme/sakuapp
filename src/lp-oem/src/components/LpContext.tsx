@@ -1,10 +1,10 @@
 "use client";
 
-import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
-import { PRICE_DEFAULT, type Lot, type ModelId } from "@/lib/models";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { ALL_MODELS, PRICE_DEFAULT, type Lot, type ModelId } from "@/lib/models";
 
 // ベースモデル一覧・シミュレーター・問い合わせフォームの間で選択内容を受け渡す
-type Prefill = { model: ModelId; lot: Lot; price: number; stamp: number; note?: string } | null;
+type Prefill = { model: ModelId; lot: Lot; price: number; stamp: number; note?: string; keepModel?: boolean } | null;
 
 type Ctx = {
   model: ModelId;
@@ -28,6 +28,18 @@ export function LpProvider({ children }: { children: ReactNode }) {
   const [lot, setLot] = useState<Lot>(50);
   const [price, setPrice] = useState(PRICE_DEFAULT);
   const [prefill, setPrefill] = useState<Prefill>(null);
+
+  // 製品一覧ページから「?model=…#simulator」「?model=…#contact」で来たときは、そのモデルを選んだ状態にする
+  useEffect(() => {
+    const id = new URLSearchParams(location.search).get("model");
+    const m = ALL_MODELS.find((x) => x.id === id);
+    if (!m) return;
+    /* eslint-disable react-hooks/set-state-in-effect -- URLの指定を最初に反映するため */
+    setModel(m.id);
+    if (location.hash === "#contact") setPrefill({ model: m.id, lot: 50, price: PRICE_DEFAULT, stamp: Date.now(), note: `【ご希望モデル】${m.name}`, keepModel: true });
+    /* eslint-enable react-hooks/set-state-in-effect */
+    setTimeout(() => location.hash && scrollToId(location.hash.slice(1)), 400);
+  }, []);
 
   const chooseModelAndScroll = useCallback((m: ModelId) => {
     setModel(m);

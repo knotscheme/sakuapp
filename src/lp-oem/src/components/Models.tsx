@@ -36,7 +36,8 @@ export default function Models() {
             </article>
           ))}
         </div>
-        <p className="mt-12 text-center text-[12px] text-mute"><span className="inline-block">※参考単価はロゴ加工（素押し）込み・</span><span className="inline-block">30個発注時の目安です。</span></p>
+        <div className="mt-14 text-center"><a href="products/" className="group inline-flex items-center gap-3 border border-ink px-8 py-3.5 text-[13px] tracking-[0.12em] text-ink transition hover:bg-ink hover:text-white">製品一覧を見る <ArrowRight size={15} className="transition group-hover:translate-x-1" /></a></div>
+        <p className="mt-8 text-center text-[12px] text-mute"><span className="inline-block">※参考単価はロゴ加工（素押し）込み・</span><span className="inline-block">30個発注時の目安です。</span></p>
       </div>
     </section>
   );

@@ -32,10 +32,12 @@ export default function ContactForm() {
     if (!prefill.note) {
       setModel(prefill.model);
       setLot(String(prefill.lot));
+    } else if (prefill.keepModel) {
+      setModel(prefill.model);
     }
     setMessage((m) => {
       const line = prefill.note ?? `【シミュレーション条件】${getModel(prefill.model).name} / ${prefill.lot}個 / 想定販売価格 ${yen(prefill.price)}`;
-      const rest = m.replace(/^【(シミュレーション条件|刻印イメージ)】.*\n?/, "");
+      const rest = m.replace(/^【(シミュレーション条件|刻印イメージ|ご希望モデル)】.*\n?/, "");
       return `${line}\n${rest}`;
     });
     setFlash(true);
