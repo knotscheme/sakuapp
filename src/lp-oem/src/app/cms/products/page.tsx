@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ExternalLink, ImagePlus, Pencil, Plus, Trash2, X } from "lucide-react";
-import { addCat, deleteCat, deleteProduct, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
+import { ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
+import { MAX_SUB, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
 import { Card, CardHead, Shell, TechNote } from "@/components/cms/ui";
 
 const yen = (n: number) => `${n.toLocaleString("ja-JP")}円`;
@@ -49,7 +49,7 @@ export default function ProductsAdmin() {
                 )}
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[13.5px] font-medium">{p.short || "（名前なし）"}</p>
-                  <p className="truncate text-[11.5px] text-mute">{catName(p.cat)}・{yen(p.unitPrice)}〜</p>
+                  <p className="truncate text-[11.5px] text-mute">{catName(p.cat)}・{yen(p.unitPrice)}〜{(p.subImgs?.length ?? 0) > 0 && `・写真+${p.subImgs!.length}`}{p.video && "・動画"}</p>
                 </div>
                 <button type="button" onClick={() => toggleVisible(p.id)} className={`shrink-0 rounded-full px-3 py-1.5 text-[11px] ${p.visible ? "bg-[#e6f4ea] text-[#1e6b34]" : "bg-[#f1f1f0] text-mute"}`}>
                   {p.visible ? "公開中" : "非公開"}
@@ -89,9 +89,13 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
   const { cats, products } = useCatalog();
   const [p, setP] = useState<Product>(initial);
   const [busy, setBusy] = useState(false);
+  const [busySub, setBusySub] = useState(false);
+  const subs = p.subImgs ?? [];
+  const embed = embedUrl(p.video);
+  const move = (arr: string[], from: number, to: number) => { const a = [...arr]; const [x] = a.splice(from, 1); a.splice(to, 0, x); return a; };
   const isNew = !products.some((x) => x.id === initial.id);
   const set = <K extends keyof Product>(k: K, v: Product[K]) => setP((x) => ({ ...x, [k]: v }));
-  const ok = p.short.trim() && p.cat && p.unitPrice > 0 && p.img;
+  const ok = p.short.trim() && p.cat && p.unitPrice > 0 && p.img && (!p.video?.trim() || embedUrl(p.video));
   const field = "mt-1.5 w-full rounded-lg border border-line px-3 py-2 text-[13.5px] outline-none focus:border-ink";
 
   return (
@@ -103,7 +107,7 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
         </div>
         <div className="flex-1 space-y-5 overflow-y-auto px-6 py-6 text-[13px]">
           <div>
-            <p className="font-medium">商品画像<span className="ml-1 text-[11px] text-gold">必須</span></p>
+            <p className="font-medium">メイン画像<span className="ml-1 text-[11px] text-gold">必須</span></p>
             <label className="mt-1.5 flex aspect-[4/3] cursor-pointer items-center justify-center overflow-hidden rounded-lg border border-dashed border-line bg-[#fafafa] hover:border-ink">
               {p.img ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -114,6 +118,49 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
               <input type="file" accept="image/*" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (!f) return; setBusy(true); try { set("img", await shrinkImage(f)); } finally { setBusy(false); } }} />
             </label>
             <TechNote className="mt-1.5">Supabase Storage に保存し、自動で縮小</TechNote>
+          </div>
+          <div>
+            <p className="flex items-baseline justify-between font-medium">サブ画像<span className="text-[11px] font-normal text-mute">{subs.length} / {MAX_SUB}枚</span></p>
+            <div className="mt-1.5 grid grid-cols-3 gap-2">
+              {subs.map((src, i) => (
+                <div key={i} className="group relative aspect-square overflow-hidden rounded-md bg-[#f1f1f0]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={imgSrc(src)} alt="" className="h-full w-full object-cover" />
+                  <button type="button" aria-label="削除" onClick={() => set("subImgs", subs.filter((_, k) => k !== i))} className="absolute top-1 right-1 rounded-full bg-black/55 p-1 text-white"><X size={13} /></button>
+                  {i > 0 && <button type="button" aria-label="前へ" onClick={() => set("subImgs", move(subs, i, i - 1))} className="absolute top-1 left-1 rounded-full bg-black/55 p-1 text-white"><ChevronLeft size={13} /></button>}
+                  <button type="button" onClick={() => setP((x) => ({ ...x, img: src, subImgs: x.img ? [x.img, ...subs.filter((_, k) => k !== i)] : subs.filter((_, k) => k !== i) }))} className="absolute inset-x-0 bottom-0 bg-black/50 py-1 text-[10.5px] whitespace-nowrap text-white">メインにする</button>
+                </div>
+              ))}
+              {subs.length < MAX_SUB && (
+                <label className="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-md border border-dashed border-line text-[11px] text-mute hover:border-ink">
+                  <Plus size={18} />{busySub ? "…" : "追加"}
+                  <input type="file" accept="image/*" multiple className="sr-only" onChange={async (e) => {
+                    // ファイルの一覧は、入力欄を空にする前に配列にしておく（空にすると中身も消えるため）
+                    const files = Array.from(e.target.files ?? []).slice(0, MAX_SUB - subs.length);
+                    e.target.value = "";
+                    if (!files.length) return;
+                    setBusySub(true);
+                    try {
+                      const out: string[] = [];
+                      for (const f of files) out.push(await shrinkImage(f, 800, 600, 0.72));
+                      setP((x) => ({ ...x, subImgs: [...(x.subImgs ?? []), ...out].slice(0, MAX_SUB) }));
+                    } finally { setBusySub(false); }
+                  }} />
+                </label>
+              )}
+            </div>
+            <p className="mt-1.5 text-[11px] text-mute">複数まとめて選べます。「メインにする」でメイン画像と入れ替え、「＜」で順番を前へ。</p>
+          </div>
+          <div>
+            <label className="block font-medium">動画のURL
+              <input value={p.video ?? ""} onChange={(e) => set("video", e.target.value)} placeholder="YouTube・Vimeo のURL" inputMode="url" className={field} />
+            </label>
+            {p.video?.trim() && (embed ? (
+              <div className="mt-2 aspect-video overflow-hidden rounded-lg bg-black">
+                <iframe src={embed} title="動画のプレビュー" className="h-full w-full" allow="encrypted-media; picture-in-picture; fullscreen" />
+              </div>
+            ) : <p className="mt-1.5 text-[11.5px] text-red-600">YouTube か Vimeo の動画URLを入れてください。</p>)}
+            <TechNote className="mt-1.5">動画はURLだけを保存し、YouTube・Vimeo のプレーヤーで埋め込み表示（容量を使わない）</TechNote>
           </div>
           <label className="block font-medium">カテゴリ<span className="ml-1 text-[11px] text-gold">必須</span>
             <select value={p.cat} onChange={(e) => set("cat", e.target.value)} className={field}>
@@ -145,7 +192,7 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
           {!isNew ? (
             <button type="button" onClick={() => { if (confirm("この商品を削除しますか？")) { deleteProduct(p.id); onClose(); } }} className="flex items-center gap-1.5 text-[12.5px] text-red-600"><Trash2 size={14} /> 削除</button>
           ) : <span />}
-          <button type="button" disabled={!ok} onClick={() => { saveProduct({ ...p, name: p.name.trim() || p.short.trim() }); onClose(); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute">保存する</button>
+          <button type="button" disabled={!ok} onClick={() => { saveProduct({ ...p, name: p.name.trim() || p.short.trim(), video: p.video?.trim() || undefined }); onClose(); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute">保存する</button>
         </div>
       </div>
     </div>

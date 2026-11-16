@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Images, Play } from "lucide-react";
 import { ALL_MODELS, COLORS, MIN_LOT, PLATE_COST, yen } from "@/lib/models";
 import { imgSrc, useCatalog } from "./cms/catalog";
 import NoOrphan from "./NoOrphan";
+import Gallery from "./Gallery";
+import type { Product } from "./cms/catalog";
 
 const HOME = "/sakuapp/works/lp-oem/";
 
@@ -18,6 +20,7 @@ export default function ProductList() {
   const tabs = [{ id: "all", name: "すべて" }, ...cats.filter((c) => shown.some((p) => p.cat === c.id))];
   const catName = (id: string) => cats.find((c) => c.id === id)?.name ?? "";
   const inSim = (id: string) => ALL_MODELS.some((m) => m.id === id);
+  const [view, setView] = useState<Product | null>(null);
 
   return (
     <>
@@ -38,10 +41,16 @@ export default function ProductList() {
       <ul className="mt-12 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((m) => (
           <li key={m.id} className="fade-up group">
-            <a href={inSim(m.id) ? `${HOME}?model=${m.id}#simulator` : `${HOME}?model=${m.id}#contact`} className="block overflow-hidden bg-paper" aria-label={`${m.short}の利益を計算する`}>
+            <button type="button" onClick={() => setView(m)} className="relative block w-full overflow-hidden bg-paper" aria-label={`${m.short}の写真を見る`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={imgSrc(m.img)} alt={m.name} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-[1200ms] ease-out group-hover:scale-[1.04]" />
-            </a>
+              {((m.subImgs?.length ?? 0) > 0 || m.video) && (
+                <span className="absolute right-3 bottom-3 flex items-center gap-2 bg-white/85 px-2.5 py-1 text-[11px] text-ink backdrop-blur">
+                  {(m.subImgs?.length ?? 0) > 0 && <span className="flex items-center gap-1"><Images size={12} />{(m.subImgs?.length ?? 0) + 1}</span>}
+                  {m.video && <span className="flex items-center gap-1"><Play size={11} />動画</span>}
+                </span>
+              )}
+            </button>
             <p className="mt-5 text-[11.5px] tracking-[0.2em] text-mute">{catName(m.cat)}</p>
             <h2 className="mt-1.5 text-[19px] font-medium">{m.short}</h2>
             {m.name !== m.short && <p className="mt-0.5 text-[12px] text-mute">{m.name}</p>}
@@ -61,6 +70,8 @@ export default function ProductList() {
           </li>
         ))}
       </ul>
+
+      {view && <Gallery p={view} onClose={() => setView(null)} />}
 
       <p className="mt-16 text-center text-[12px] leading-relaxed text-mute">
         <span className="inline-block">※参考単価はロゴ加工（素押し）込み・</span><span className="inline-block">{MIN_LOT}個発注時の目安です。</span>

@@ -16,7 +16,9 @@ export type Product = {
   size: string;
   logo: string;
   unitPrice: number;
-  img: string; // 画像（初期の商品はサイト内の写真、追加した商品は縮小した画像データ）
+  img: string; // メイン画像（初期の商品はサイト内の写真、追加した商品は縮小した画像データ）
+  subImgs?: string[]; // サブ画像（10枚まで）
+  video?: string; // 動画のURL（YouTube・Vimeo）
   visible: boolean; // 製品一覧に出すか
 };
 type Catalog = { cats: Cat[]; products: Product[] };
@@ -100,12 +102,24 @@ export function resetCatalog() {
 }
 
 // アップロードした画像を 4:3・横960px に縮小して保存できる大きさにする
-export function shrinkImage(file: File): Promise<string> {
+export const MAX_SUB = 10;
+
+// YouTube・Vimeo のURLを、埋め込み用のURLに変える（対応していないURLは null）
+export function embedUrl(url?: string): string | null {
+  if (!url) return null;
+  const u = url.trim();
+  const yt = u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{11})/);
+  if (yt) return `https://www.youtube-nocookie.com/embed/${yt[1]}?rel=0`;
+  const vm = u.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vm) return `https://player.vimeo.com/video/${vm[1]}`;
+  return null;
+}
+
+export function shrinkImage(file: File, W = 960, H = 720, q = 0.78): Promise<string> {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const im = new Image();
     im.onload = () => {
-      const W = 960, H = 720;
       const cv = document.createElement("canvas");
       cv.width = W; cv.height = H;
       const ctx = cv.getContext("2d")!;
@@ -115,7 +129,7 @@ export function shrinkImage(file: File): Promise<string> {
       const w = im.width * k, h = im.height * k;
       ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
       URL.revokeObjectURL(url);
-      resolve(cv.toDataURL("image/jpeg", 0.78));
+      resolve(cv.toDataURL("image/jpeg", q));
     };
     im.onerror = reject;
     im.src = url;
