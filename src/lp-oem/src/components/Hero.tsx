@@ -1,67 +1,139 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { asset } from "@/lib/asset";
 
-// ファーストビュー：画面いっぱいの写真に、見出しを重ねる（スマホは下、パソコンは左）
-// 専用の写真が届いたら、HERO_PC / HERO_SP を差し替える
-const HERO_PC = "/images/hero-pc.webp";
-const HERO_SP = "/images/hero-sp.webp";
+// ファーストビュー
+// ・巨大な「CRAFT」の文字が、写真の財布の“後ろ”を通る（財布だけ切り抜いた画像を手前に重ねる）
+// ・窓の光がゆっくり流れ、マウスの位置に光が当たる
+// ・スクロールすると、金のロゴに吸い込まれるようにズームして、次の場面へ
+type Shot = { src: string; cut: string; w: number; h: number; logo: [number, number]; pos: [number, number] };
+const PC: Shot = { src: "/images/hero-pc.webp", cut: "/images/hero-pc-cut.webp", w: 1376, h: 768, logo: [1040, 228], pos: [0.6, 0.5] };
+const SP: Shot = { src: "/images/hero-sp.webp", cut: "/images/hero-sp-cut.webp", w: 768, h: 1376, logo: [472, 588], pos: [0.5, 0.25] };
+
+// object-fit: cover で表示したとき、写真上の点が画面のどこに来るか
+function pointOnScreen(s: Shot, cw: number, ch: number) {
+  const k = Math.max(cw / s.w, ch / s.h);
+  const ox = (s.w * k - cw) * s.pos[0];
+  const oy = (s.h * k - ch) * s.pos[1];
+  return { x: s.logo[0] * k - ox, y: s.logo[1] * k - oy };
+}
 
 export default function Hero() {
-  const photo = useRef<HTMLDivElement>(null);
+  const sec = useRef<HTMLElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const copy = useRef<HTMLDivElement>(null);
+  const word = useRef<HTMLDivElement>(null);
+  const veil = useRef<HTMLDivElement>(null);
+  const light = useRef<HTMLDivElement>(null);
+  const [glint, setGlint] = useState<{ x: number; y: number } | null>(null);
 
-  // スクロールで写真がゆっくり沈む
   useEffect(() => {
-    const el = photo.current;
-    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = sec.current, st = stage.current;
+    if (!el || !st) return;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let raf = 0;
-    const on = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => { el.style.transform = `translate3d(0, ${scrollY * 0.3}px, 0)`; }); };
+    let origin = { x: 0, y: 0 };
+
+    const measure = () => {
+      const lg = innerWidth >= 1024;
+      const r = st.getBoundingClientRect();
+      origin = pointOnScreen(lg ? PC : SP, r.width, r.height);
+      st.style.transformOrigin = `${origin.x}px ${origin.y}px`;
+      setGlint({ x: origin.x, y: origin.y });
+    };
+
+    const frame = () => {
+      const total = el.offsetHeight - innerHeight;
+      const p = reduce ? 0 : Math.min(1, Math.max(0, scrollY / Math.max(1, total)));
+      const z = Math.pow(p, 2.1);
+      st.style.transform = `scale(${1 + z * 9})`;
+      if (copy.current) { copy.current.style.opacity = String(Math.max(0, 1 - p * 3.2)); copy.current.style.transform = `translateY(${p * -40}px)`; }
+      if (word.current) { word.current.style.opacity = String(Math.max(0, 1 - p * 2.2)); word.current.style.translate = `0 ${p * -90}px`; }
+      if (veil.current) veil.current.style.opacity = String(Math.min(1, Math.max(0, (p - 0.5) / 0.4)));
+    };
+    const on = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); };
+
+    // マウスの位置に光を当てる
+    const move = (e: MouseEvent) => {
+      if (!light.current) return;
+      light.current.style.setProperty("--mx", `${e.clientX}px`);
+      light.current.style.setProperty("--my", `${e.clientY}px`);
+      light.current.style.opacity = "1";
+    };
+
+    measure(); frame();
     addEventListener("scroll", on, { passive: true });
-    return () => { removeEventListener("scroll", on); cancelAnimationFrame(raf); };
+    addEventListener("resize", () => { measure(); on(); });
+    if (matchMedia("(pointer: fine)").matches) addEventListener("mousemove", move);
+    return () => { removeEventListener("scroll", on); removeEventListener("mousemove", move); cancelAnimationFrame(raf); };
   }, []);
 
-  return (
-    <section id="top" className="relative overflow-hidden bg-white lg:h-[100svh] lg:min-h-[620px]">
-      <div className="relative h-[66svh] min-h-[420px] overflow-hidden lg:absolute lg:inset-0 lg:h-auto lg:min-h-0">
-      <div ref={photo} className="absolute inset-x-0 top-0 -bottom-24 will-change-transform">
-        <div className="hero-zoom absolute inset-0">
-          <picture>
-            <source media="(min-width: 1024px)" srcSet={asset(HERO_PC)} />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset(HERO_SP)} alt="窓辺の光に照らされた、金のロゴ入りの革財布" className="h-full w-full object-cover object-[50%_25%] lg:object-[60%_50%]" />
-          </picture>
-        </div>
-      </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white to-transparent to-20% lg:bg-gradient-to-r lg:from-white/90 lg:via-white/50 lg:via-30% lg:to-transparent lg:to-55%" />
-      </div>
+  const layer = "absolute inset-0 h-full w-full object-cover";
+  const posSp = "object-[50%_25%]";
+  const posPc = "lg:object-[60%_50%]";
 
-      <div className="relative mx-auto max-w-6xl px-6 pt-4 pb-16 md:px-8 lg:absolute lg:inset-0 lg:flex lg:flex-col lg:justify-center lg:py-0">
-        <div className="lg:max-w-[520px]">
-          <p className="hero-in font-display text-[11px] tracking-[0.22em] text-mute sm:text-[12px] sm:tracking-[0.4em]" style={{ animationDelay: ".1s" }}>LOGO OEM FOR LEATHER GOODS</p>
-          <h1 className="mt-5 text-[32px] leading-[1.4] font-medium tracking-[0.04em] sm:text-[44px] lg:text-[56px]">
-            <span className="line-mask"><span style={{ animationDelay: ".2s" }}>あなたのロゴで、</span></span>
-            <span className="line-mask"><span style={{ animationDelay: ".35s" }}><span className="text-gold">上質な革財布</span>を。</span></span>
-          </h1>
-          <p className="hero-in mt-5 max-w-md text-[14px] leading-loose text-ink/65 md:text-[14.5px]" style={{ animationDelay: ".6s" }}>
-            売れている定番の型に、ブランドロゴを刻印・箔押しするだけ。設計いらずで、自分の財布ブランドを始められます。
-          </p>
-          <p className="hero-in mt-6 text-[13px] tracking-[0.12em] text-ink" style={{ animationDelay: ".75s" }}>
-            型代 0円<span className="mx-3 text-line">|</span>30個から<span className="mx-3 text-line">|</span>最短30日
-          </p>
-          <div className="hero-in mt-9 flex items-center gap-8" style={{ animationDelay: ".9s" }}>
-            <a href="#models" className="group inline-flex items-center gap-3 bg-ink px-8 py-4 text-[14px] tracking-[0.1em] whitespace-nowrap text-white transition hover:bg-gold">
-              ベースモデルを見る <ArrowRight size={16} className="transition group-hover:translate-x-1" />
-            </a>
-            <a href="#simulator" className="hidden border-b border-ink/40 pb-0.5 text-[13px] tracking-[0.08em] text-ink transition hover:border-gold hover:text-gold sm:inline">利益を試算する</a>
+  return (
+    <section ref={sec} id="top" className="relative h-[175svh] bg-white">
+      <div className="sticky top-0 h-[100svh] overflow-hidden">
+        {/* 写真のエリア（スマホは上 62%、パソコンは全面） */}
+        <div className="absolute inset-x-0 top-0 h-[62svh] overflow-hidden lg:h-full">
+          <div ref={stage} className="absolute inset-0 will-change-transform">
+            <div className="hero-zoom absolute inset-0">
+              <picture>
+                <source media="(min-width: 1024px)" srcSet={asset(PC.src)} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={asset(SP.src)} alt="窓辺の光に照らされた、金のロゴ入りの革財布" className={`${layer} ${posSp} ${posPc}`} />
+              </picture>
+
+              {/* 財布の後ろを通る大きな文字 */}
+              <div ref={word} className="hero-word pointer-events-none absolute inset-x-0 top-[22%] text-center font-display leading-[0.8] tracking-[-0.01em] text-ink/90 select-none lg:top-[16%] lg:text-left" aria-hidden>
+                <span className="block text-[29vw] lg:pl-[3vw] lg:text-[25vw]">CRAFT</span>
+              </div>
+
+              {/* 財布だけ切り抜いた画像を手前に重ねる */}
+              <picture>
+                <source media="(min-width: 1024px)" srcSet={asset(PC.cut)} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={asset(SP.cut)} alt="" aria-hidden className={`${layer} ${posSp} ${posPc} pointer-events-none`} />
+              </picture>
+
+              {/* 窓の光がゆっくり流れる */}
+              <div className="window-light pointer-events-none absolute inset-0" aria-hidden />
+              {/* ロゴのきらめき */}
+              {glint && <span className="logo-glint pointer-events-none absolute" style={{ left: glint.x, top: glint.y }} aria-hidden />}
+            </div>
+          </div>
+          {/* マウスの光（パソコン） */}
+          <div ref={light} className="cursor-light pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700" aria-hidden />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-white to-transparent lg:hidden" />
+          <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-tr from-white/85 via-white/20 via-35% to-transparent to-60% lg:block" />
+        </div>
+
+        {/* 見出し（スマホは写真の下、パソコンは左下） */}
+        <div ref={copy} className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-6 pb-10 md:px-8 lg:pb-16">
+          <div className="lg:max-w-[520px]">
+            <p className="hero-in font-display text-[11px] tracking-[0.22em] text-mute sm:text-[12px] sm:tracking-[0.4em]" style={{ animationDelay: ".1s" }}>LOGO OEM FOR LEATHER GOODS</p>
+            <h1 className="mt-4 text-[30px] leading-[1.4] font-medium tracking-[0.04em] sm:text-[40px] lg:text-[46px]">
+              <span className="line-mask"><span style={{ animationDelay: ".2s" }}>あなたのロゴで、</span></span>
+              <span className="line-mask"><span style={{ animationDelay: ".35s" }}><span className="text-gold">上質な革財布</span>を。</span></span>
+            </h1>
+            <p className="hero-in mt-5 text-[13px] tracking-[0.12em] text-ink" style={{ animationDelay: ".6s" }}>
+              型代 0円<span className="mx-3 text-line">|</span>30個から<span className="mx-3 text-line">|</span>最短30日
+            </p>
+            <div className="hero-in mt-7 flex items-center gap-8" style={{ animationDelay: ".75s" }}>
+              <a href="#models" className="group inline-flex items-center gap-3 bg-ink px-7 py-3.5 text-[13.5px] tracking-[0.1em] whitespace-nowrap text-white transition hover:bg-gold">
+                ベースモデルを見る <ArrowRight size={16} className="transition group-hover:translate-x-1" />
+              </a>
+              <a href="#stamp" className="hidden border-b border-ink/40 pb-0.5 text-[13px] tracking-[0.08em] text-ink transition hover:border-gold hover:text-gold sm:inline">ロゴを試し押しする</a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <a href="#philosophy" className="hero-in absolute right-6 bottom-8 hidden flex-col items-center gap-3 font-display text-[11px] tracking-[0.3em] text-ink/50 [writing-mode:vertical-rl] lg:flex" style={{ animationDelay: "1.2s" }} aria-label="下へスクロール">
-        SCROLL <span className="scroll-cue block h-12 w-px bg-ink/30" />
-      </a>
+        {/* ロゴに吸い込まれたあとの白い光 */}
+        <div ref={veil} className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,#fffaf0,#ffffff_60%)] opacity-0" aria-hidden />
+      </div>
     </section>
   );
 }
