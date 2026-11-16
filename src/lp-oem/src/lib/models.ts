@@ -39,6 +39,7 @@ export const PRICE_MAX = 35000;
 export const PRICE_STEP = 500;
 export const PRICE_DEFAULT = 18000;
 export const NORMAL_DIE_COST = 300000; // 通常のフルオーダー時の型代（目安）
+export const PLATE_COST = 10000; // ロゴの版代（初回のみ・1デザインにつき）
 
 export function getModel(id: ModelId): BaseModel {
   return ALL_MODELS.find((m) => m.id === id) ?? MODELS[0];
@@ -50,7 +51,8 @@ export function calcProfit(id: ModelId, lot: Lot, sellPrice: number) {
   const total = unit * lot;
   const grossPerItem = sellPrice - unit;
   const margin = sellPrice > 0 ? grossPerItem / sellPrice : 0;
-  const grossTotal = grossPerItem * lot;
+  // 手元に残る利益＝粗利の合計から、初回の版代を引いたもの
+  const grossTotal = grossPerItem * lot - PLATE_COST;
   return { unit, total, grossPerItem, margin, grossTotal, discount: LOT_DISCOUNT[lot] };
 }
 

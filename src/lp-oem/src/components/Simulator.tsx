@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, Info } from "lucide-react";
-import { LOTS, MODELS, NORMAL_DIE_COST, PRICE_MAX, PRICE_MIN, PRICE_STEP, calcProfit, getModel, yen } from "@/lib/models";
+import { LOTS, MODELS, NORMAL_DIE_COST, PLATE_COST, PRICE_MAX, PRICE_MIN, PRICE_STEP, calcProfit, getModel, yen } from "@/lib/models";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
@@ -87,12 +87,18 @@ export default function Simulator() {
                         <div className="relative">
               <p className="text-xs tracking-widest text-mute">{m.short} × {lot}個</p>
 
-              <div className="mt-5 flex items-center justify-between border-y border-line py-4">
-                <span className="text-[13px] text-gold">初期費用（型代）</span>
-                <span className="text-right">
-                  <span className="mr-2 text-xs text-mute line-through">通常 {yen(NORMAL_DIE_COST)}〜</span>
-                  <b className="text-2xl text-gold">0円</b>
-                </span>
+              <div className="mt-5 border-y border-line py-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[13px] text-gold">型代</span>
+                  <span className="text-right">
+                    <span className="mr-2 text-xs text-mute line-through">通常 {yen(NORMAL_DIE_COST)}〜</span>
+                    <b className="text-2xl text-gold">0円</b>
+                  </span>
+                </div>
+                <div className="mt-2 flex items-center justify-between text-[13px]">
+                  <span className="text-mute">ロゴの版代（初回のみ）</span>
+                  <span className="font-bold tabular-nums">{yen(PLATE_COST)}</span>
+                </div>
               </div>
 
               <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5 text-[13px]">
@@ -109,7 +115,7 @@ export default function Simulator() {
                 </p>
                 <p className="mt-3 flex items-start gap-1.5 text-[11.5px] leading-relaxed text-mute">
                   <Info size={13} className="mt-0.5 shrink-0" />
-                  販売価格 − 仕入れ単価 で計算した、全数販売時の目安です（送料・販売手数料・税は含みません）。
+                  <span>（販売価格 − 仕入れ単価）× 個数 − 版代 で計算した、全数販売時の目安です（送料・販売手数料・<span className="whitespace-nowrap">税は含みません）。</span></span>
                 </p>
               </div>
 
