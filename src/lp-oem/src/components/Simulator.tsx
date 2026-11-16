@@ -21,7 +21,7 @@ export default function Simulator() {
 
   return (
     <section id="simulator" className="bg-[#f5f5f4] py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+      <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Profit Simulator" ja="利益シミュレーター" sub="条件を選ぶだけで、|手元に残る利益が|すぐに分かります。" />
 
         <div className="reveal grid overflow-hidden border border-line bg-white lg:grid-cols-[1.05fr_.95fr]">

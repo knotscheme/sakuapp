@@ -86,7 +86,7 @@ export default function ContactForm() {
 
   return (
     <section id="contact" className="bg-[#f5f5f4] py-20 md:py-28">
-      <div className="mx-auto max-w-3xl px-5 md:px-8">
+      <div className="mx-auto max-w-3xl px-6 md:px-8">
         <SectionTitle en="Contact" ja="無料見積もり・ご相談" sub="ロゴが未完成でも、|お気軽にどうぞ。" />
 
         <form noValidate onSubmit={onSubmit} className={`reveal border bg-white p-6 transition md:p-12 ${flash ? "border-gold ring-4 ring-gold-3" : "border-line"}`}>
