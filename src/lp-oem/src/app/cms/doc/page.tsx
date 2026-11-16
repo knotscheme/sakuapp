@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, Printer } from "lucide-react";
-import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, modelOf, today, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
+import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, modelOf, today, colorLines, quoteLines, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { useDeals } from "@/components/cms/store";
 import { NoAccess, Shell, useQuery } from "@/components/cms/ui";
@@ -37,8 +37,11 @@ export default function DocPage() {
   const isWork = type === "work";
   const isInspect = type === "inspect";
 
-  const rows = [
-    { name: `${m.name}（${d.color}・ロゴ${d.finish}）`, qty: d.lot, unit: a.unit, sum: a.items },
+  // カラーごとの行＋数量割引（合計の数で決まる）＋版代
+  const q = quoteLines(d);
+  const rows: { name: string; qty?: number; unit?: number; sum: number; off?: boolean }[] = [
+    ...q.lines.map((x) => ({ name: `${m.name}（${x.color}・ロゴ${d.finish}）`, qty: x.qty, unit: x.unit, sum: x.sum })),
+    ...(q.discount ? [{ name: `数量割引（合計${d.lot}個・${Math.round(q.discount.rate * 100)}%引き）`, sum: -q.discount.amount, off: true }] : []),
     { name: "ロゴの版代（初回のみ）", qty: 1, unit: a.plate, sum: a.plate },
   ];
 
@@ -94,7 +97,7 @@ export default function DocPage() {
                   {[
                     ["製品 / Model / รุ่น", tri((l) => trModel(d.model, l))],
                     ["数量 / Qty / จำนวน", `${d.lot} pcs`],
-                    ["革の色 / Leather / สีหนัง", tri((l) => trColor(d.color, l))],
+                    ["革の色と数量 / Color & qty / สีและจำนวน", <>{colorLines(d).map((x) => <span key={x.color} className="block">{trColor(x.color, "ja")} {x.qty}<span className="text-[11px] text-mute">　{trColor(x.color, "en")} / {trColor(x.color, "th")}</span></span>)}</>],
                     ["ロゴ加工 / Logo / โลโก้", tri((l) => trFinish(d.finish, l))],
                     ["ロゴ位置 / Position / ตำแหน่ง", tri((l) => trPos(m.logo, l))],
                     ["ロゴの大きさ / Logo size / ขนาดโลโก้", `${logoSize(d).w.toFixed(1)} × ${logoSize(d).h.toFixed(1)} cm（W×H）`],
@@ -153,14 +156,14 @@ export default function DocPage() {
               {rows.map((r) => (
                 <li key={r.name} className="py-3">
                   <p>{r.name}</p>
-                  <p className="mt-1 flex justify-between text-ink/80"><span className="whitespace-nowrap">{yenOf(r.unit)} × {r.qty}</span><span className="font-medium whitespace-nowrap text-ink">{yenOf(r.sum)}</span></p>
+                  <p className="mt-1 flex justify-between text-ink/80"><span className="whitespace-nowrap">{r.off ? "" : `${yenOf(r.unit!)} × ${r.qty}`}</span><span className="font-medium whitespace-nowrap text-ink">{r.sum < 0 ? `−${yenOf(-r.sum)}` : yenOf(r.sum)}</span></p>
                 </li>
               ))}
             </ul>
             <table className="mt-5 hidden w-full sm:table">
               <thead className="border-y border-ink text-left text-[11.5px]"><tr><th className="py-2 font-normal">品名</th><th className="py-2 pl-3 text-right font-normal whitespace-nowrap">数量</th><th className="py-2 pl-3 text-right font-normal whitespace-nowrap">単価</th><th className="py-2 pl-3 text-right font-normal whitespace-nowrap">金額</th></tr></thead>
               <tbody className="divide-y divide-line">
-                {rows.map((r) => <tr key={r.name}><td className="py-2.5">{r.name}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{r.qty}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{yenOf(r.unit)}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{yenOf(r.sum)}</td></tr>)}
+                {rows.map((r) => <tr key={r.name}><td className="py-2.5">{r.name}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{r.qty ?? ""}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{r.unit !== undefined ? yenOf(r.unit) : ""}</td><td className="py-2.5 pl-3 text-right whitespace-nowrap">{r.sum < 0 ? `−${yenOf(-r.sum)}` : yenOf(r.sum)}</td></tr>)}
               </tbody>
             </table>
             <div className="mt-4 ml-auto w-full text-[12.5px] sm:w-64">

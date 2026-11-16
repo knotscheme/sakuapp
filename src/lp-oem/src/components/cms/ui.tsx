@@ -156,7 +156,7 @@ export function Shell({ title, children, actions, note, bottomPad, hideTabs }: {
   const isOn = (href: string) => (href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, "")));
   // スマホ下のタブ：よく使う画面を4つまで（残りは「その他」からメニューで）
   const TAB_ORDER: NavKey[] = ["dash", "deals", "msgs", "products", "analytics", "factory", "inspect", "members", "manual"];
-  const tabs = TAB_ORDER.map((k) => items.find((n) => n.label === k)).filter((n): n is (typeof NAV)[number] => !!n).slice(0, 4);
+  const tabs = TAB_ORDER.map((k) => items.find((n) => n.label === k)).filter((n): n is (typeof NAV)[number] => !!n).slice(0, 5);
   const nav = (
     <nav className="flex h-full flex-col overflow-y-auto">
       <Link href="/cms/" className="px-6 pt-7 pb-7 font-display text-[15px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></Link>

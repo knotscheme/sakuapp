@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ProofPair, ProofView, sizeText } from "@/components/cms/Proof";
 import { Check, FileText } from "lucide-react";
-import { DOCS, STAGES, amounts, modelOf, stageIndex, yenOf } from "@/lib/cms";
+import { DOCS, STAGES, amounts, modelOf, stageIndex, yenOf , colorText } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { NoAccess, Shell, TechNote, useQuery } from "@/components/cms/ui";
@@ -96,7 +96,8 @@ export default function Portal() {
           <dl className="grid grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
             <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
             <dt className="text-mute">数量</dt><dd>{d.lot}個</dd>
-            <dt className="text-mute">仕様</dt><dd>{d.color}・ロゴ{d.finish}</dd>
+            <dt className="text-mute">カラー</dt><dd>{colorText(d)}</dd>
+            <dt className="text-mute">ロゴ</dt><dd>{d.finish}</dd>
             <dt className="text-mute">合計</dt><dd>{yenOf(a.total)}（税込）</dd>
             {d.tracking && si >= 7 && (<><dt className="text-mute">追跡番号</dt><dd>{d.tracking}</dd></>)}
           </dl>

@@ -4,7 +4,7 @@
 import { useSyncExternalStore } from "react";
 import { DOCS, RATE, STAGES, seedDeals, stageIndex, today, unitPriceOf, type Deal, type Log, type Msg, type StageId } from "@/lib/cms";
 
-const KEY = "craft-oem-cms-v3";
+const KEY = "craft-oem-cms-v4";
 let cache: Deal[] | null = null;
 const subs = new Set<() => void>();
 
@@ -82,15 +82,15 @@ export function revert(id: string, who = "佐藤") {
   });
 }
 
-export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number }) {
+export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"] }) {
   const list = load();
   const n = Math.max(1023, ...list.map((d) => Number(d.id.slice(2)))) + 1;
   const deal: Deal = {
     id: `C-${n}`, brand: p.brand, person: p.brand, email: p.email, model: p.model, lot: p.lot,
-    finish: "金箔", color: "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
+    finish: "金箔", color: p.items?.[0]?.color ?? "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
     createdAt: today(), due: today(), prodStep: 0, defects: 0, checks: [false, false, false, false, false, false],
     thbCost: Math.round(unitPriceOf(p.model, p.lot) / RATE / 1.6),
-    message: p.message, logo: p.logo, logoAspect: p.logoAspect,
+    message: p.message, logo: p.logo, logoAspect: p.logoAspect, items: p.items?.length ? p.items : undefined,
     logs: [{ at: today(), who: "システム", text: p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
   };
   save([deal, ...list]);

@@ -5,13 +5,14 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIcon, Activity } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DOCS, FACTORY, PROD_STEPS, RATE, STAGES, amounts, modelOf, stageIndex, yenOf, OWNERS } from "@/lib/cms";
+import { DOCS, FACTORY, PROD_STEPS, RATE, STAGES, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, revert, updateDeal, useDeals } from "@/components/cms/store";
 import { askConfirm } from "@/components/cms/Confirm";
 import { Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useNavHidden, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { ProofCard } from "./proof-card";
+import { ItemsEditor } from "./items";
 import { MsgThread } from "@/components/cms/Messages";
 
 const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity } as const;
@@ -32,6 +33,7 @@ export default function DealPage() {
 
   const m = modelOf(d.model);
   const a = amounts(d);
+  const q = quoteLines(d);
   const si = stageIndex(d.stage);
   const cost = (d.thbCost ?? 0) * RATE;
   const profit = a.items - cost * d.lot;
@@ -105,16 +107,19 @@ export default function DealPage() {
               </div>
               <dl className="grid flex-1 grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
                 <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
-                <dt className="text-mute">数量</dt><dd>{d.lot}個</dd>
+                <dt className="text-mute">数量</dt><dd>合計 {d.lot}個</dd>
                 <dt className="text-mute">ロゴ加工</dt><dd>{d.finish}</dd>
-                <dt className="text-mute">革の色</dt><dd>{d.color}</dd>
                 <dt className="text-mute">ロゴ位置</dt><dd><Ph>{m.logo}</Ph></dd>
               </dl>
             </div>
+            <ItemsEditor d={d} canEdit={can("deals.advance")} />
             {can("money.view") ? (<>
             <table className="w-full border-t border-line text-[13px]">
               <tbody className="divide-y divide-line">
-                <tr><td className="px-5 py-2.5 text-mute">製品<span className="whitespace-nowrap">（{yenOf(a.unit)}×{d.lot}個）</span></td><td className="px-5 py-2.5 text-right whitespace-nowrap tabular-nums">{yenOf(a.items)}</td></tr>
+                {q.lines.map((x) => (
+                  <tr key={x.color}><td className="px-5 py-2.5 text-mute">{x.color}<span className="whitespace-nowrap">（{yenOf(x.unit)}×{x.qty}個）</span></td><td className="px-5 py-2.5 text-right whitespace-nowrap tabular-nums">{yenOf(x.sum)}</td></tr>
+                ))}
+                {q.discount && <tr><td className="px-5 py-2.5 text-[#8a650c]">数量割引<span className="whitespace-nowrap">（合計{d.lot}個・{Math.round(q.discount.rate * 100)}%引き）</span></td><td className="px-5 py-2.5 text-right whitespace-nowrap text-[#8a650c] tabular-nums">−{yenOf(q.discount.amount)}</td></tr>}
                 <tr><td className="px-5 py-2.5 text-mute">ロゴの版代（初回のみ）</td><td className="px-5 py-2.5 text-right whitespace-nowrap tabular-nums">{yenOf(a.plate)}</td></tr>
                 <tr><td className="px-5 py-2.5 text-mute">消費税（10%）</td><td className="px-5 py-2.5 text-right whitespace-nowrap tabular-nums">{yenOf(a.tax)}</td></tr>
                 <tr className="bg-[#fafafa]"><td className="px-5 py-3 font-medium">合計（税込）</td><td className="px-5 py-3 text-right text-[16px] font-medium whitespace-nowrap tabular-nums">{yenOf(a.total)}</td></tr>

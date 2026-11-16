@@ -7,6 +7,9 @@ import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
+import { useCatalog } from "./cms/catalog";
+import { PLATE_COST, MIN_LOT, ALL_MODELS } from "@/lib/models";
+import { tierInfo, unitPriceOf } from "@/lib/cms";
 import { toLogoMask } from "./cms/Proof";
 
 type Errors = Partial<Record<"name" | "email" | "model" | "lot" | "message" | "file", string>>;
@@ -19,6 +22,14 @@ export default function ContactForm() {
   const [email, setEmail] = useState("");
   const [model, setModel] = useState<ModelId | "" | "undecided">("");
   const [lot, setLot] = useState("");
+  // カラーごとの数量（入れると、合計の数で数量割引を出して概算を見せる）
+  const [qtys, setQtys] = useState<Record<string, number>>({});
+  const { products, colors } = useCatalog();
+  const prod = products.find((p) => p.id === model);
+  const ci = (prod?.options ?? []).findIndex((o) => o.kind === "color");
+  const colorChoices = ci < 0 ? [] : [...new Set((prod?.variants ?? []).filter((v) => v.visible).map((v) => v.values[ci]))];
+  const total = colorChoices.reduce((s, c) => s + (qtys[c] || 0), 0);
+  const inSim = ALL_MODELS.some((m) => m.id === model);
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Errors>({});
@@ -54,7 +65,7 @@ export default function ContactForm() {
     if (!email.trim()) e.email = "メールアドレスを入力してください";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "メールアドレスの形式が正しくありません";
     if (!model) e.model = "希望ベースモデルを選んでください";
-    if (!lot) e.lot = "希望ロット数を選んでください";
+    if (total > 0 ? total < MIN_LOT : !lot) e.lot = total > 0 ? `カラーごとの数量は、合計${MIN_LOT}個からです` : "希望ロット数を選んでください";
     if (message.length > 1000) e.message = "相談内容は1,000文字以内で入力してください";
     if (file && (file.size > MAX_FILE || !OK_EXT.test(file.name))) e.file = "10MB以内の ai / pdf / svg / eps / png / jpg を添付してください";
     return e;
@@ -76,14 +87,14 @@ export default function ContactForm() {
       const lg = await logo;
       setSending(false);
       // デモ：管理画面（CMS）の案件ボードに、問い合わせとして追加する
-      addInquiry({ brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: lot === "more" || !lot ? 300 : Number(lot), message: message.trim() || undefined, logo: lg?.src, logoAspect: lg?.ar });
+      addInquiry({ brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: message.trim() || undefined, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
       setDone(true);
     }, 1100);
   };
 
   const reset = () => {
     setDone(false);
-    setName(""); setEmail(""); setModel(""); setLot(""); setMessage(""); setFile(null); setErrors({});
+    setName(""); setEmail(""); setModel(""); setLot(""); setQtys({}); setMessage(""); setFile(null); setErrors({});
     if (fileRef.current) fileRef.current.value = "";
   };
 
@@ -139,7 +150,8 @@ export default function ContactForm() {
             </fieldset>
             <fieldset className="min-w-0 text-sm font-bold md:col-span-2" aria-invalid={!!errors.lot} aria-describedby="err-lot">
               <legend>希望ロット数<span className="ml-1 text-xs text-gold">必須</span></legend>
-              <div className="mt-3 grid grid-cols-5 gap-2">
+              {total > 0 && <p className="mt-2 text-[12px] font-normal text-mute">下のカラーごとの数量（合計{total}個）で見積もります</p>}
+              <div className={`mt-3 grid grid-cols-5 gap-2 ${total > 0 ? "pointer-events-none opacity-35" : ""}`}>
                 {[...LOTS.map((l) => [String(l), `${l}個`]), ["more", "未定"]].map(([v, t]) => (
                   <label key={v} className={`cursor-pointer border py-3 text-center text-[13px] font-medium transition ${lot === v ? "border-ink bg-ink text-white" : errors.lot ? "border-red-300" : "border-line hover:border-mute"}`}>
                     <input type="radio" name="cf-lot" value={v} checked={lot === v} onChange={() => setLot(v)} className="sr-only" />
@@ -149,6 +161,28 @@ export default function ContactForm() {
               </div>
               <Err k="lot" />
             </fieldset>
+
+            {colorChoices.length > 0 && (
+              <div className="min-w-0 text-sm md:col-span-2">
+                <p className="font-bold">カラーごとの数量<span className="ml-1 text-xs font-normal text-mute">任意・入れると概算の見積もりが出ます</span></p>
+                <ul className="mt-3 divide-y divide-line border-y border-line">
+                  {colorChoices.map((c) => {
+                    const v = qtys[c] || 0;
+                    const set = (n: number) => setQtys((x) => ({ ...x, [c]: Math.max(0, Math.min(9999, Math.round(n))) }));
+                    return (
+                      <li key={c} className="flex items-center gap-2 py-2.5">
+                        <span className="h-5 w-5 shrink-0 rounded-full ring-1 ring-black/15" style={{ background: colors.find((x) => x.name === c)?.hex ?? "#ccc" }} />
+                        <span className="min-w-0 flex-1 truncate text-[13.5px] whitespace-nowrap">{c}</span>
+                        <button type="button" onClick={() => set(v - 10)} aria-label={`${c}を10個減らす`} className="h-9 w-8 shrink-0 border border-line text-[16px] text-mute hover:border-ink hover:text-ink">−</button>
+                        <input type="number" inputMode="numeric" min={0} step={10} value={v || ""} placeholder="0" onChange={(e) => set(Number(e.target.value))} aria-label={`${c}の数量`} className="h-9 w-14 shrink-0 border border-line text-center text-[14px] tabular-nums outline-none focus:border-ink" />
+                        <button type="button" onClick={() => set(v + 10)} aria-label={`${c}を10個増やす`} className="h-9 w-8 shrink-0 border border-line text-[16px] text-mute hover:border-ink hover:text-ink">＋</button>
+                      </li>
+                    );
+                  })}
+                </ul>
+                {total > 0 && <Estimate model={model as ModelId} total={total} show={inSim} />}
+              </div>
+            )}
 
             <div className="text-sm font-bold md:col-span-2">
               ロゴデータ添付<span className="ml-1 text-xs font-normal text-mute">任意</span><span className="mt-1 block text-[11px] font-normal text-mute">ai / pdf / svg / eps / png / jpg・10MBまで</span>
@@ -190,5 +224,25 @@ export default function ContactForm() {
         </div>
       )}
     </section>
+  );
+}
+
+// 概算の見積もり：合計の数で単価が下がる（数量割引）。あと何個で次の割引かも出す
+function Estimate({ model, total, show }: { model: ModelId; total: number; show: boolean }) {
+  const t = tierInfo(total);
+  if (total < MIN_LOT) return <p className="mt-3 text-[12.5px] text-red-600">合計{MIN_LOT}個から承ります（いま{total}個）</p>;
+  if (!show) return <p className="mt-3 text-[12.5px] text-mute">合計{total}個。お見積もりは担当者からお送りします。</p>;
+  const unit = unitPriceOf(model, total);
+  const items = unit * total;
+  const sum = Math.round((items + PLATE_COST) * 1.1);
+  return (
+    <div className="mt-4 bg-paper px-4 py-4 text-[13px] leading-relaxed">
+      <p className="flex justify-between"><span>合計数量</span><b className="tabular-nums">{total}個</b></p>
+      <p className="flex justify-between"><span>単価{t.cur && t.cur.rate > 0 ? `（${t.cur.at}個以上で${Math.round(t.cur.rate * 100)}%引き）` : ""}</span><span className="tabular-nums">{yen(unit)}</span></p>
+      <p className="flex justify-between text-mute"><span>ロゴの版代（初回のみ）</span><span className="tabular-nums">{yen(PLATE_COST)}</span></p>
+      <p className="mt-2 flex items-baseline justify-between border-t border-line pt-2"><span className="font-bold">概算合計（税込）</span><b className="text-[18px] tabular-nums">{yen(sum)}</b></p>
+      {t.next && <p className="mt-1.5 text-[12px] text-gold">あと{t.need}個（合計{t.next.at}個）で、単価が{Math.round(t.next.rate * 100)}%引きになります</p>}
+      <p className="mt-1.5 text-[11px] text-mute">※概算です。正式なお見積もりは、ロゴの配置を確認してからお送りします。</p>
+    </div>
   );
 }

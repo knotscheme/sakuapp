@@ -4,7 +4,7 @@ import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
 import { Camera, Check, Minus, Plus } from "lucide-react";
-import { CHECKS, modelOf } from "@/lib/cms";
+import { CHECKS, modelOf , colorText } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { Card, NoAccess, Shell, TechNote } from "@/components/cms/ui";
@@ -32,7 +32,7 @@ export default function InspectPage() {
                 <img src={asset(m.img)} alt="" className="aspect-[4/3] w-20 object-cover" />
                 <div className="flex-1 text-[13px]">
                   <Link href={`/cms/deal/?id=${d.id}`} className="tap font-medium underline-offset-4 hover:underline">{d.id}　{d.brand}</Link>
-                  <p className="text-ink/80"><Ph>{`${m.short}・${d.lot}個・${d.color}・${d.finish}`}</Ph></p>
+                  <p className="text-ink/80"><Ph>{`${m.short}・${d.lot}個・${d.finish}`}</Ph><span className="block text-[12px] text-mute">{colorText(d)}</span></p>
                   <p className="text-[11.5px] text-mute">{arrived ? "到着済み・検品中" : `輸送中（${d.tracking}）`}</p>
                 </div>
               </div>

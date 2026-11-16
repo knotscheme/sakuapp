@@ -7,7 +7,7 @@ import { useState } from "react";
 import { MessageSquare } from "lucide-react";
 import { MsgThread, unreadOf } from "@/components/cms/Messages";
 import { Camera, Check, FileText, Truck } from "lucide-react";
-import { FACTORY, PROD_STEPS, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
+import { FACTORY, PROD_STEPS, colorLines, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
 import { ProofView } from "@/components/cms/Proof";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { Card, NoAccess, Shell, TechNote } from "@/components/cms/ui";
@@ -63,7 +63,8 @@ export default function FactoryPage() {
                 <div className="min-w-0 flex-1 text-[13px]">
                   <p className="text-[11.5px] text-mute">PO-{d.id.slice(2)}</p>
                   <p className="font-medium"><Ph>{trModel(d.model, lang)}</Ph></p>
-                  <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{trColor(d.color, lang)}・{trFinish(d.finish, lang)}</p>
+                  <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{trFinish(d.finish, lang)}</p>
+                  <p className="text-ink/80"><Ph>{colorLines(d).map((x) => `${trColor(x.color, lang)} ${x.qty}`).join(" / ")}</Ph></p>
                   <p className="text-ink/80">{t.ship}: {d.due}</p>
                   <Link href={`/cms/doc/?id=${d.id}&type=work`} className="tap mt-1.5 inline-flex items-center gap-1 text-[12px] underline underline-offset-4"><FileText size={13} />{t.order}</Link>
                 </div>

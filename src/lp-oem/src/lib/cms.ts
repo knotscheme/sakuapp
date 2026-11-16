@@ -68,6 +68,7 @@ export type Deal = {
   proofVer?: number; // お客様に送った版（第1版・第2版…）
   proofReq?: string; // お客様からの修正の依頼
   msgs?: Msg[]; // 工場との連絡
+  items?: { color: string; qty: number }[]; // カラーごとの数量（合計が lot。合計で数量割引が決まる）
   logs: Log[];
 };
 
@@ -120,6 +121,13 @@ function seedLogs(stage: StageId, brand: string): Log[] {
   return out.reverse();
 }
 
+// カラーごとの数量の例（合計が数量）
+const SEED_ITEMS: Record<number, { color: string; qty: number }[]> = {
+  0: [{ color: "ダークブラウン", qty: 60 }, { color: "ブラック", qty: 40 }],
+  2: [{ color: "ネイビー", qty: 150 }, { color: "ブラック", qty: 100 }, { color: "ダークブラウン", qty: 50 }],
+  6: [{ color: "ブラック", qty: 200 }, { color: "ダークブラウン", qty: 100 }],
+};
+
 function seedMsgs(i: number): Msg[] | undefined {
   const at = (h: number) => { const t = new Date(); t.setHours(t.getHours() - h, 0, 0, 0); return t.toISOString(); };
   if (i === 5) return [{ id: "m1", at: at(3), from: "factory", who: "Somchai", t: { ja: "革の入荷が遅れています（2日ほど）", en: "Leather delivery is delayed (about 2 days)", th: "หนังมาส่งล่าช้า (ประมาณ 2 วัน)" } }];
@@ -151,9 +159,31 @@ export function seedDeals(): Deal[] {
       thbCost: Math.round(unitPriceOf(model, lot) / RATE / 1.6),
       message: i === 0 ? "ギフト向けに金箔でロゴを入れたいです。化粧箱も検討しています。" : undefined,
       msgs: seedMsgs(i),
+      items: SEED_ITEMS[i],
       logs: seedLogs(stage, brand),
     };
   });
+}
+
+// カラーごとの内訳（無ければ、1色で全部）
+export const colorLines = (d: Pick<Deal, "items" | "color" | "lot">) => (d.items?.length ? d.items : [{ color: d.color, qty: d.lot }]);
+export const colorText = (d: Pick<Deal, "items" | "color" | "lot">) => colorLines(d).map((x) => (d.items?.length ? `${x.color} ${x.qty}個` : x.color)).join("・");
+// 数量割引：合計の数で段階が決まる（30・50・100・300個以上）
+export function tierInfo(total: number) {
+  const tiers = ([30, 50, 100, 300] as Lot[]).map((at) => ({ at, rate: LOT_DISCOUNT[at] }));
+  const cur = [...tiers].reverse().find((t) => total >= t.at);
+  const next = tiers.find((t) => total < t.at && t.rate > (cur?.rate ?? -1));
+  return { cur, next, need: next ? next.at - total : 0 };
+}
+
+// 見積の明細：カラーごとの行（通常の単価）と、合計の数で決まる数量割引の行。合計は amounts().items と同じ
+export function quoteLines(d: Pick<Deal, "items" | "color" | "lot" | "model">) {
+  const base = unitPriceOf(d.model, 30);
+  const unit = unitPriceOf(d.model, d.lot);
+  const lines = colorLines(d).map((x) => ({ color: x.color, qty: x.qty, unit: base, sum: base * x.qty }));
+  const t = tierInfo(d.lot);
+  const off = (base - unit) * d.lot;
+  return { base, unit, lines, discount: off > 0 ? { rate: t.cur?.rate ?? 0, at: t.cur?.at ?? 0, amount: off } : null, tier: t };
 }
 
 export const yenOf = (n: number) => `${Math.round(n).toLocaleString("ja-JP")}円`;
