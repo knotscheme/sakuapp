@@ -40,6 +40,12 @@ export type DocId = (typeof DOCS)[number]["id"];
 
 // 工場との連絡。t は決まった文（日本語・英語・タイ語がそろっている）、raw は自由に書いた文（本番では自動翻訳）
 export type Msg = { id: string; at: string; from: "factory" | "japan"; who: string; t?: { ja: string; en: string; th: string }; raw?: string; read?: boolean };
+// 自動で作る下書き。reply：返信と見積、proof：ロゴ配置案、factory：タイの工場への発注、remind：入金のお願い
+export type DraftKind = "reply" | "proof" | "factory" | "remind";
+export type Draft = { id: string; kind: DraftKind; to: "お客様" | "工場"; subject: string; body: string; at: string; status: "draft" | "sent" | "discarded"; sentBy?: string; sentAt?: string };
+export const DRAFT_LABEL: Record<DraftKind, string> = { reply: "返信と見積", proof: "ロゴ配置案の送付", factory: "工場への発注", remind: "入金のお願い" };
+// その段階で、どの下書きを送れば次に進むか
+export const STAGE_DRAFT: Partial<Record<StageId, DraftKind>> = { inquiry: "reply", order: "proof", proof: "factory" };
 export type Log = { at: string; who: string; text: string; kind?: "mail" | "doc" | "factory" | "system" };
 export type Deal = {
   id: string;
@@ -69,6 +75,9 @@ export type Deal = {
   proofReq?: string; // お客様からの修正の依頼
   msgs?: Msg[]; // 工場との連絡
   items?: { color: string; qty: number }[]; // カラーごとの数量（合計が lot。合計で数量割引が決まる）
+  drafts?: Draft[]; // 自動で作った下書き（人が確認して送る）
+  paid?: { at: string; amount: number; via: string }; // 前金の入金（自動で確認）
+  proofOk?: boolean; // お客様がロゴ配置を承認した
   logs: Log[];
 };
 
@@ -161,7 +170,20 @@ export function seedDeals(): Deal[] {
       msgs: seedMsgs(i),
       items: SEED_ITEMS[i],
       logs: seedLogs(stage, brand),
-    };
+      // 入金・ロゴ承認・自動で作った下書き（例）
+      paid: si >= 3 || i === 3 ? { at: d(-14), amount: 0, via: "銀行振込（自動照合）" } : undefined,
+      proofOk: si >= 4 || i === 4 ? true : undefined,
+    } as Deal;
+  }).map((x) => {
+    const si = stageIndex(x.stage);
+    if (x.paid) x.paid.amount = amounts(x).deposit;
+    const pending: DraftKind | undefined = x.stage === "inquiry" ? "reply" : x.stage === "order" && x.paid ? "proof" : x.stage === "proof" && x.proofOk ? "factory" : undefined;
+    const sent: DraftKind[] = (["reply", "proof", "factory"] as DraftKind[]).filter((k) => stageIndex(k === "reply" ? "quote" : k === "proof" ? "proof" : "production") <= si);
+    x.drafts = [
+      ...sent.map((k, j) => ({ ...makeDraft(k, x), id: `d-${x.id}-${k}`, status: "sent" as const, sentBy: x.owner, sentAt: d(-18 + j * 4) })),
+      ...(pending ? [{ ...makeDraft(pending, x), id: `d-${x.id}-${pending}` }] : []),
+    ];
+    return x;
   });
 }
 
@@ -228,3 +250,83 @@ export const trModel = (id: ModelId, l: LangId) => MODEL_I18N[id]?.[l] ?? modelO
 export const trColor = (c: string, l: LangId) => COLOR_I18N[c]?.[l] ?? c;
 export const trFinish = (f: string, l: LangId) => FINISH_I18N[f]?.[l] ?? f;
 export const trPos = (p: string, l: LangId) => p.split(" / ").map((x) => POS_I18N[x]?.[l] ?? x).join(" / ");
+
+// ===== 自動で作る下書き（本番では、AIで文面を整え、送信は Resend・工場へは LINE でも通知） =====
+const shipBy = () => { const t = new Date(); t.setDate(t.getDate() + 21); return t.toISOString().slice(0, 10); };
+export function makeDraft(kind: DraftKind, d: Deal): Draft {
+  const m = modelOf(d.model);
+  const a = amounts(d);
+  const q = quoteLines(d);
+  const base = { id: `d-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`, kind, at: new Date().toISOString(), status: "draft" as const };
+  const sign = "\n\n――――――――\nCRAFT OEM（架空の会社・デモ）\n担当：" + d.owner;
+  const link = `専用ページ：https://craft-oem.example/p/${d.id}（ログイン不要・あなたの案件だけが表示されます）`;
+  if (kind === "reply") {
+    const t = q.tier;
+    return { ...base, to: "お客様", subject: `【CRAFT OEM】お見積りのご案内（${d.id}）`, body:
+`${d.person} 様
+
+このたびは CRAFT OEM にお問い合わせいただき、ありがとうございます。
+いただいた内容で、お見積りをお作りしました。
+
+■ 製品：${m.name}
+■ カラーと数量：${colorText(d)}（合計${d.lot}個）
+■ ロゴ加工：${d.finish}
+
+【お見積り】
+・製品代：${q.lines.map((x) => `${x.color} ${x.qty}個`).join("、")}
+　単価 ${yenOf(q.unit)}${q.discount ? `（合計${d.lot}個で${Math.round(q.discount.rate * 100)}%の数量割引）` : ""} × ${d.lot}個 ＝ ${yenOf(a.items)}
+・ロゴの版代（初回のみ）：${yenOf(a.plate)}
+・消費税：${yenOf(a.tax)}
+・合計（税込）：${yenOf(a.total)}
+${t.next ? `\n※あと${t.need}個（合計${t.next.at}個）で、単価が${Math.round(t.next.rate * 100)}%引きになります。\n` : ""}
+ロゴデータ：${d.logo ? "受け取りました。配置のイメージは、ご注文のあとにお送りします。" : "まだ届いていません。ai・pdf・png などでお送りください。"}
+
+見積書のご確認と承諾は、下の専用ページからできます。
+${link}${sign}` };
+  }
+  if (kind === "proof") return { ...base, to: "お客様", subject: `【CRAFT OEM】ロゴ配置のご確認のお願い（${d.id}）`, body:
+`${d.person} 様
+
+前金のお支払いを確認しました。ありがとうございます。
+ロゴの配置イメージをお作りしましたので、ご確認をお願いします。
+
+■ 製品：${m.name}（${colorText(d)}）
+■ ロゴ加工：${d.finish}
+
+実物の写真にロゴを重ねたイメージを、専用ページでご覧いただけます。
+問題なければ「この配置で承認する」を、変えたい場合は「修正をお願いする」を押してください。
+承認いただくと、製造の手配に進みます。
+
+${link}${sign}` };
+  if (kind === "factory") return { ...base, to: "工場", subject: `[PO-${d.id.slice(2)}] New production order / ใบสั่งผลิตใหม่`, body:
+`Dear ${FACTORY.replace("（仮）", "")},
+
+Please start production of the following order.
+กรุณาเริ่มผลิตตามรายการต่อไปนี้
+
+Model / รุ่น: ${trModel(d.model, "en")} / ${trModel(d.model, "th")}
+Colors & qty / สีและจำนวน:
+${colorLines(d).map((x) => `  - ${trColor(x.color, "en")} / ${trColor(x.color, "th")}: ${x.qty} pcs`).join("\n")}
+Total / รวม: ${d.lot} pcs
+Logo / โลโก้: ${trFinish(d.finish, "en")} / ${trFinish(d.finish, "th")} (approved placement attached)
+Ship by / ส่งภายใน: ${shipBy()}
+
+The production order (EN/TH) is on your factory screen.
+ใบสั่งผลิต (อังกฤษ/ไทย) อยู่ในหน้าจอโรงงานแล้ว
+
+Thank you / ขอบคุณครับ
+CRAFT OEM` };
+  return { ...base, to: "お客様", subject: `【CRAFT OEM】前金のお支払いのお願い（${d.id}）`, body:
+`${d.person} 様
+
+ご注文ありがとうございます。
+前金（ご注文金額の50%）のお支払いが、まだ確認できていません。
+
+■ 前金：${yenOf(a.deposit)}（税込）
+■ お支払い方法：カード・銀行振込（専用ページから）
+
+お支払いが確認でき次第、ロゴの配置イメージをお送りします。
+すでにお支払い済みの場合は、行き違いですのでご容赦ください。
+
+${link}${sign}` };
+}

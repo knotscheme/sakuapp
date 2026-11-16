@@ -8,7 +8,7 @@ import { ProofPair, ProofView, sizeText } from "@/components/cms/Proof";
 import { Check, FileText } from "lucide-react";
 import { DOCS, STAGES, amounts, modelOf, stageIndex, yenOf , colorText } from "@/lib/cms";
 import { asset } from "@/lib/asset";
-import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
+import { addLog, advance, approveProof, confirmPayment, updateDeal, useDeals } from "@/components/cms/store";
 import { NoAccess, Shell, TechNote, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { ConfirmHost, askConfirm } from "@/components/cms/Confirm";
@@ -64,12 +64,28 @@ export default function Portal() {
             </div>
           </section>
         )}
+        {d.stage === "order" && (
+          <section className="mt-8 cms-card p-6 ring-1 ring-ink/70">
+            {d.paid ? (
+              <p className="text-[14px]"><span className="font-medium text-[#2f7a46]">前金のお支払いを確認しました。</span><span className="mt-1 block text-[13px] text-mute"><Ph tail={4}>ロゴの配置イメージができたら、この画面とメールでお知らせします。</Ph></span></p>
+            ) : (
+              <>
+                <p className="text-[15px] font-medium">前金のお支払い</p>
+                <p className="mt-1 text-[13px] text-mute">ご注文金額の50%：<b className="text-ink">{yenOf(a.deposit)}</b>（税込）。お支払いが確認できると、自動でロゴの配置の準備に進みます。</p>
+                <button type="button" onClick={async () => { if (await askConfirm({ title: `${yenOf(a.deposit)} を支払いますか？`, body: "デモのため、実際のお支払いは発生しません。", ok: "支払う" })) confirmPayment(d.id, "カード決済（Stripe）"); }} className="cms-btn mt-4 bg-ink px-5 py-2.5 text-[13px] text-white">カードで支払う（デモ）</button>
+                <TechNote className="mt-3">Stripe の決済画面で支払う。決済が終わると通知（Webhook）が届き、入金を自動で確認する。銀行振込は入金データと自動で照合</TechNote>
+              </>
+            )}
+          </section>
+        )}
         {d.stage === "proof" && (
           <section className="mt-8 cms-card p-6 ring-1 ring-ink/70">
             <p className="text-[15px] font-medium"><Ph>ロゴの配置をご確認ください</Ph><span className="ml-2 text-[12px] font-normal text-mute">第{d.proofVer ?? 1}版</span></p>
             <p className="mt-1 text-[13px] text-mute"><Ph tail={4}>{`${d.finish}・ロゴの大きさ ${sizeText(d)}。位置や大きさを変えたいときは「修正をお願いする」からお知らせください。`}</Ph></p>
             <div className="mt-4"><ProofPair d={d} /></div>
-            {d.proofReq ? (
+            {d.proofOk ? (
+              <p className="mt-4 rounded-lg bg-[#eef6f0] px-4 py-3 text-[13px] text-[#2f7a46]"><Ph tail={4}>承認ありがとうございます。製造の手配をしています。工場に発注したら、この画面とメールでお知らせします。</Ph></p>
+            ) : d.proofReq ? (
               <p className="mt-4 rounded-lg bg-[#f6f6f5] px-4 py-3 text-[13px]"><Ph tail={4}>{`修正のご依頼を受け付けました。修正版ができたら、この画面とメールでお知らせします。（ご依頼：「${d.proofReq}」）`}</Ph></p>
             ) : asking ? (
               <form className="mt-4 space-y-2" onSubmit={(e) => { e.preventDefault(); const t = req.trim(); if (!t) return; updateDeal(d.id, (x) => addLog({ ...x, proofReq: t }, "お客様", `ロゴ配置の修正を依頼しました：「${t}」`, "mail")); setReq(""); setAsking(false); }}>
@@ -81,7 +97,7 @@ export default function Portal() {
               </form>
             ) : (
               <div className="mt-4 flex flex-wrap items-center gap-4">
-                <button type="button" onClick={async () => { if (!(await askConfirm({ title: "この配置で承認しますか？", body: "承認すると製造が始まります。修正したい場合は、承認せずに「修正をお願いする」からお知らせください。", ok: "承認する" }))) return; updateDeal(d.id, (x) => addLog(x, "お客様", `お客様の画面からロゴ配置（第${x.proofVer ?? 1}版）を承認しました`)); advance(d.id, "お客様"); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white">この配置で承認する</button>
+                <button type="button" onClick={async () => { if (!(await askConfirm({ title: "この配置で承認しますか？", body: "承認すると、製造の手配に進みます。修正したい場合は、承認せずに「修正をお願いする」からお知らせください。", ok: "承認する" }))) return; approveProof(d.id); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white">この配置で承認する</button>
                 <button type="button" onClick={() => setAsking(true)} className="text-[13px] underline underline-offset-4">修正をお願いする</button>
               </div>
             )}

@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
-import { X, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
+import { X, Inbox, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo, unreadOf, useDeals } from "./store";
@@ -26,6 +26,7 @@ export function useQuery(name: string) {
 type NavKey = keyof (typeof UI)["ja"]["nav"];
 const NAV: { href: string; label: NavKey; icon: typeof LayoutGrid; perm?: Perm }[] = [
   { href: "/cms/", label: "dash", icon: LayoutGrid, perm: "deals.view" },
+  { href: "/cms/inbox/", label: "inbox", icon: Inbox, perm: "deals.advance" },
   { href: "/cms/deals/", label: "deals", icon: KanbanSquare, perm: "deals.view" },
   { href: "/cms/messages/", label: "msgs", icon: MessageCircle, perm: "deals.view" },
   { href: "/cms/products/", label: "products", icon: Package, perm: "products.edit" },
@@ -150,13 +151,13 @@ export function Shell({ title, children, actions, note, bottomPad, hideTabs }: {
   // 工場からの未読の連絡（日本側の人だけ）、工場の人には日本からの未読の返信
   const allDeals = useDeals();
   const badge: Partial<Record<NavKey, number>> = can("deals.view")
-    ? { msgs: allDeals.reduce((s, d) => s + unreadOf(d, "factory"), 0) }
+    ? { msgs: allDeals.reduce((s, d) => s + unreadOf(d, "factory"), 0), inbox: allDeals.reduce((s, d) => s + (d.drafts?.filter((x) => x.status === "draft").length ?? 0), 0) }
     : { factory: allDeals.reduce((s, d) => s + unreadOf(d, "japan"), 0) };
   const Badge = ({ k, dot }: { k: NavKey; dot?: boolean }) => (badge[k] ?? 0) > 0 ? <span className={dot ? "absolute -top-1 left-1/2 ml-1.5 min-w-4 rounded-full bg-red-600 px-1 text-[9.5px] leading-4 text-white" : "ml-auto rounded-full bg-red-600 px-1.5 text-[10.5px] leading-5 text-white"}>{badge[k]}</span> : null;
   const isOn = (href: string) => (href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, "")));
   // スマホ下のタブ：よく使う画面を4つまで（残りは「その他」からメニューで）
-  const TAB_ORDER: NavKey[] = ["dash", "deals", "msgs", "products", "analytics", "factory", "inspect", "members", "manual"];
-  const tabs = TAB_ORDER.map((k) => items.find((n) => n.label === k)).filter((n): n is (typeof NAV)[number] => !!n).slice(0, 5);
+  const TAB_ORDER: NavKey[] = ["dash", "inbox", "deals", "msgs", "products", "analytics", "factory", "inspect", "members", "manual"];
+  const tabs = TAB_ORDER.map((k) => items.find((n) => n.label === k)).filter((n): n is (typeof NAV)[number] => !!n).slice(0, 6);
   const nav = (
     <nav className="flex h-full flex-col overflow-y-auto">
       <Link href="/cms/" className="px-6 pt-7 pb-7 font-display text-[15px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></Link>
@@ -230,12 +231,12 @@ export function Shell({ title, children, actions, note, bottomPad, hideTabs }: {
         {/* スマホ・タブレット：下に浮かぶ小さなメニュー（アイコンだけ。下へスクロールすると隠れる） */}
         {!hideTabs && (
         <nav aria-label={t.menu} className={`fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 z-40 -translate-x-1/2 transition-[translate,opacity] duration-300 lg:hidden ${navHidden ? "pointer-events-none translate-y-[160%] opacity-0" : "translate-y-0 opacity-100"}`}>
-          <ul className="flex items-center gap-1 rounded-full border border-black/5 bg-white/80 p-1.5 shadow-[0_6px_24px_rgba(0,0,0,.12)] backdrop-blur-xl backdrop-saturate-150">
+          <ul className="flex items-center gap-1 rounded-full border border-black/5 bg-white/80 p-1.5 max-[400px]:gap-0.5 max-[400px]:p-1 shadow-[0_6px_24px_rgba(0,0,0,.12)] backdrop-blur-xl backdrop-saturate-150">
             {tabs.map(({ href, label, icon: Icon }) => {
               const on = isOn(href);
               return (
                 <li key={href}>
-                  <Link href={href} aria-current={on ? "page" : undefined} aria-label={t.nav[label]} title={t.nav[label]} className={`relative flex h-11 w-11 items-center justify-center rounded-full transition ${on ? "bg-ink text-white" : "text-ink/55 active:bg-black/5"}`}>
+                  <Link href={href} aria-current={on ? "page" : undefined} aria-label={t.nav[label]} title={t.nav[label]} className={`relative flex h-11 w-11 items-center justify-center rounded-full transition max-[400px]:h-10 max-[400px]:w-10 ${on ? "bg-ink text-white" : "text-ink/55 active:bg-black/5"}`}>
                     <Icon size={19} strokeWidth={on ? 1.9 : 1.6} />
                     {(badge[label] ?? 0) > 0 && <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-600 ring-2 ring-white" aria-label={`未読 ${badge[label]}`} />}
                   </Link>
@@ -243,7 +244,7 @@ export function Shell({ title, children, actions, note, bottomPad, hideTabs }: {
               );
             })}
             <li>
-              <button type="button" onClick={() => setOpen(true)} aria-label={t.more} className="flex h-11 w-11 items-center justify-center rounded-full text-ink/55 active:bg-black/5"><Menu size={19} strokeWidth={1.6} /></button>
+              <button type="button" onClick={() => setOpen(true)} aria-label={t.more} className="flex h-11 w-11 items-center justify-center rounded-full text-ink/55 active:bg-black/5 max-[400px]:h-10 max-[400px]:w-10"><Menu size={19} strokeWidth={1.6} /></button>
             </li>
           </ul>
         </nav>

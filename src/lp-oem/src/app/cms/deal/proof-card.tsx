@@ -12,8 +12,8 @@ import { STAMP, ProofPair, logoSize, pctOfCm, placeOf, sizeText, toLogoMask, wid
 // 案件の画面：ロゴ配置イメージを作る・直す・お客様に送る
 export function ProofCard({ d, canEdit, who }: { d: Deal; canEdit: boolean; who: string }) {
   const si = stageIndex(d.stage);
-  const editable = canEdit && si <= 3; // 製造に入るまで直せる
-  const approved = si >= 4;
+  const approved = si >= 4 || !!d.proofOk; // お客様が承認したら、配置は固定
+  const editable = canEdit && si <= 3 && !approved; // 製造に入るまで直せる
   const p = placeOf(d);
   const size = logoSize(d);
   const range = widthRange(d);
@@ -34,7 +34,7 @@ export function ProofCard({ d, canEdit, who }: { d: Deal; canEdit: boolean; who:
     updateDeal(d.id, (x) => addLog({ ...x, proofVer: v, proofReq: undefined }, who, `修正したロゴ配置イメージ（第${v}版）をお客様に送りました`, "mail"));
   };
 
-  const status = approved ? `お客様が承認済み（第${d.proofVer ?? 1}版）。この配置で製造します`
+  const status = approved ? `お客様が承認済み（第${d.proofVer ?? 1}版）。${si >= 4 ? "この配置で製造します" : "工場への発注の確認待ちです"}`
     : d.stage === "proof" ? (d.proofReq ? `お客様から修正の依頼があります（第${d.proofVer ?? 1}版）` : `お客様に送付済み（第${d.proofVer ?? 1}版）・承認待ち`)
     : si < 2 ? "ご注文（発注・入金）のあとに、お客様へ送ります。いまのうちに配置を準備できます"
     : "まだ送っていません。「ロゴ配置イメージを送る」でお客様に届きます";

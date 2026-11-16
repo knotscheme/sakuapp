@@ -5,14 +5,15 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIcon, Activity } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DOCS, FACTORY, PROD_STEPS, RATE, STAGES, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS } from "@/lib/cms";
+import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS } from "@/lib/cms";
 import { asset } from "@/lib/asset";
-import { addLog, advance, revert, updateDeal, useDeals } from "@/components/cms/store";
+import { addLog, advance, confirmPayment, revert, updateDeal, useDeals } from "@/components/cms/store";
 import { askConfirm } from "@/components/cms/Confirm";
 import { Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useNavHidden, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { ProofCard } from "./proof-card";
 import { ItemsEditor } from "./items";
+import { AutoFlow } from "./auto-flow";
 import { MsgThread } from "@/components/cms/Messages";
 
 const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity } as const;
@@ -38,6 +39,10 @@ export default function DealPage() {
   const cost = (d.thbCost ?? 0) * RATE;
   const profit = a.items - cost * d.lot;
   const docs = DOCS.filter((k) => stageIndex(k.at) <= si);
+  // 次にやること：確認待ちの下書きがあれば、それを確認して送る。お客様や入金を待つ段階は「待っています」
+  const pend = (d.drafts ?? []).find((x) => x.status === "draft" && x.kind === STAGE_DRAFT[d.stage]);
+  const waiting = d.stage === "quote" ? "お客様の見積の承諾を待っています（承諾されると自動で注文に）" : d.stage === "order" && !d.paid ? "前金の入金を待っています（自動で確認します）" : d.stage === "proof" && !d.proofOk ? "お客様のロゴ配置の承認を待っています" : null;
+  const nextText = pend ? (pend.kind === "factory" ? "工場への発注を最終確認する" : `「${DRAFT_LABEL[pend.kind]}」の下書きを確認して送る`) : waiting ?? STAGES[si].next;
   const doAdvance = async () => {
     const nextDocs = DOCS.filter((k) => k.at === STAGES[si + 1]?.id).map((k) => k.ja);
     if (await askConfirm({ title: `「${STAGES[si].next}」を実行しますか？`, body: `段階が「${STAGES[si + 1].ja}」に進みます。${nextDocs.length ? `${nextDocs.join("・")}が作られ、` : ""}必要なメールが自動で送られます。`, ok: "実行する" })) advance(d.id, d.owner);
@@ -48,7 +53,7 @@ export default function DealPage() {
 
   return (
     <Shell
-      bottomPad={d.stage !== "done" && can("deals.advance")}
+      bottomPad={d.stage !== "done" && can("deals.advance") && !(d.stage === "quote" || (d.stage === "order" && !d.paid) || (d.stage === "proof" && !d.proofOk))}
       title={`${d.id}　${d.brand}`}
       actions={<Link href={`/cms/portal/?id=${d.id}`} className="hidden items-center gap-1.5 text-[12px] text-mute hover:text-ink sm:flex">お客様の画面 <ExternalLink size={13} /></Link>}
     >
@@ -75,24 +80,36 @@ export default function DealPage() {
         <div className="cms-card mt-5 flex flex-wrap items-center justify-between gap-4 px-6 py-5 ring-1 ring-ink/70">
           <div>
             <p className="text-[11.5px] text-mute">次にやること</p>
-            <p className="mt-0.5 text-[16px] font-semibold">{STAGES[si].next}</p>
-            <TechNote className="mt-1.5">「実行する」で Supabase Edge Function が動き、書類PDFの作成と Resend でのメール送信を自動で行う</TechNote>
+            <p className={`mt-0.5 text-[16px] font-semibold ${waiting && !pend ? "text-[#8a650c]" : ""}`}>{nextText}</p>
+            {pend && <p className="mt-1 text-[12px] text-[#2a4f9e]">システムが下書きを自動で作りました。確認して送るだけです。</p>}
+            {waiting && !pend && can("deals.advance") && (
+              <p className="mt-1 text-[12px] text-mute">
+                {d.stage === "order" && <button type="button" onClick={async () => { if (await askConfirm({ title: "入金を記録しますか？", body: "銀行振込などを手で確認したときに使います（デモでは、お客様の画面からも支払えます）。", ok: "記録する" })) confirmPayment(d.id, "銀行振込（手動で記録）"); }} className="tap mr-4 underline underline-offset-4 hover:text-ink">入金を手動で記録</button>}
+                <button type="button" onClick={doAdvance} className="tap underline underline-offset-4 hover:text-ink">待たずに手動で進める</button>
+              </p>
+            )}
+            <TechNote className="mt-1.5">きっかけごとに Supabase Edge Function が動き、下書き・書類PDF・メール（Resend）を自動で作る。送るのは人が確認してから</TechNote>
           </div>
           <div className="flex items-center gap-4">
             {si > 0 && can("deals.advance") && <button type="button" onClick={doRevert} className="tap text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button>}
             <DueBadge due={d.due} stage={d.stage} />
-            {can("deals.advance") && <button type="button" onClick={doAdvance} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
+            {can("deals.advance") && pend && <Link href={`/cms/inbox/?id=${pend.id}`} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">確認する <ChevronRight size={15} /></Link>}
+            {can("deals.advance") && !pend && !waiting && <button type="button" onClick={doAdvance} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
               実行する <ChevronRight size={15} />
             </button>}
           </div>
         </div>
       )}
 
-      {d.stage !== "done" && can("deals.advance") && (
+      {d.stage !== "done" && can("deals.advance") && !waiting && (
         <div className={`fixed inset-x-5 z-30 transition-[bottom] duration-300 md:hidden ${navHidden ? "bottom-[calc(0.75rem+env(safe-area-inset-bottom))]" : "bottom-[calc(4.75rem+env(safe-area-inset-bottom))]"}`}>
-          <button type="button" onClick={doAdvance} className="flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-[14px] text-white shadow-[0_8px_24px_rgba(0,0,0,.22)] active:scale-[.99]">
-            {STAGES[si].next} <ChevronRight size={16} />
-          </button>
+          {pend ? (
+            <Link href={`/cms/inbox/?id=${pend.id}`} className="flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-[14px] text-white shadow-[0_8px_24px_rgba(0,0,0,.22)] active:scale-[.99]">{nextText} <ChevronRight size={16} /></Link>
+          ) : (
+            <button type="button" onClick={doAdvance} className="flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-[14px] text-white shadow-[0_8px_24px_rgba(0,0,0,.22)] active:scale-[.99]">
+              {STAGES[si].next} <ChevronRight size={16} />
+            </button>
+          )}
         </div>
       )}
       <div className="mt-5 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
@@ -133,6 +150,9 @@ export default function DealPage() {
             </div>
             </>) : <p className="border-t border-line px-5 py-4 text-[12.5px] text-mute">金額・原価を見る権限がありません。</p>}
           </Card>
+
+          {/* 自動化の流れ */}
+          <AutoFlow d={d} />
 
           {/* 工場との連絡 */}
           {(si >= 4 || (d.msgs?.length ?? 0) > 0) && (

@@ -3,9 +3,10 @@
 import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
-import { AlertTriangle, MessageSquare, Mail, FileText, Factory as FactoryIcon, Activity } from "lucide-react";
-import { STAGES, amounts, daysLeft, modelOf, stageIndex, yenOf } from "@/lib/cms";
-import { useDeals } from "@/components/cms/store";
+import { useEffect } from "react";
+import { AlertTriangle, MessageSquare, Sparkles, Mail, FileText, Factory as FactoryIcon, Activity } from "lucide-react";
+import { DRAFT_LABEL, STAGES, amounts, daysLeft, modelOf, stageIndex, yenOf } from "@/lib/cms";
+import { checkReminders, pendingDrafts, useDeals } from "@/components/cms/store";
 import { Card, CardHead, DueBadge, Shell, StageBadge, TechNote, NoAccess } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 
@@ -13,6 +14,8 @@ const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity
 
 export default function Dashboard() {
   const deals = useDeals();
+  const drafts = pendingDrafts(deals);
+  useEffect(() => { checkReminders(); }, []);
   const factoryMsgs = deals.flatMap((d) => (d.msgs ?? []).filter((m) => m.from === "factory").map((m) => ({ d, m }))).sort((a, b) => (a.m.read === b.m.read ? b.m.at.localeCompare(a.m.at) : a.m.read ? 1 : -1));
   const unread = factoryMsgs.filter((x) => !x.m.read).length;
   const { can } = useAuth();
@@ -64,6 +67,24 @@ export default function Dashboard() {
         </Card>
 
         <div className="space-y-5">
+        {/* 確認待ち：自動で作った下書き（人が確認して送るだけ） */}
+        {can("deals.advance") && (
+          <Card>
+            <CardHead note="問い合わせ・入金・承認をきっかけに、システムが下書きを自動で作成" right={drafts.length > 0 ? <span className="rounded-full bg-ink px-2 py-0.5 text-[11px] text-white">{drafts.length}件</span> : undefined}>確認待ち（自動で作った下書き）</CardHead>
+            {!drafts.length && <p className="border-t border-line px-5 py-6 text-[13px] text-mute">確認待ちはありません。</p>}
+            <ul className="divide-y divide-line border-t border-line">
+              {drafts.slice(0, 4).map(({ d, x }) => (
+                <li key={x.id}>
+                  <Link href={`/cms/inbox/?id=${x.id}`} className="flex items-center gap-3 px-5 py-3 hover:bg-[#fafafa]">
+                    <Sparkles size={15} className={x.kind === "factory" ? "shrink-0 text-[#9b2c2c]" : "shrink-0 text-[#2a4f9e]"} />
+                    <span className="min-w-0 flex-1 text-[13px]"><span className="block truncate font-medium">{DRAFT_LABEL[x.kind]}</span><span className="block truncate text-[12px] text-mute">{d.brand}・{d.id}・{x.to}あて</span></span>
+                    <span className="shrink-0 text-[12px] text-ink/70">{x.kind === "factory" ? "最終確認" : "確認して送信"} →</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        )}
         {/* 工場からの連絡（新しいものを上に） */}
         <Card>
           <CardHead note="工場が連絡すると、担当に LINE・メールでも通知" right={unread > 0 ? <span className="rounded-full bg-red-600 px-2 py-0.5 text-[11px] text-white">未読 {unread}</span> : undefined}>工場からの連絡</CardHead>

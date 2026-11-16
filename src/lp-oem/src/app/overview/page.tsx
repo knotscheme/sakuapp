@@ -24,6 +24,8 @@ const GROUPS: { en: string; ja: string; lead: string; screens: Screen[] }[] = [
   {
     en: "For the team", ja: "社内で使う画面（管理画面）", lead: "問い合わせから発送までを1つで管理。スマホでも同じように使えます。",
     screens: [
+      { img: "inbox", title: "確認待ち（自動の下書き）", who: "オーナー・営業", href: "/cms/inbox/", points: ["返信と見積・配置案・発注書を自動で下書き", "人は確認して「送信」を押すだけ", "工場への発注は最終確認のあと"] },
+      { img: "autoflow", title: "自動化の流れ（案件ごと）", who: "オーナー・営業", href: "/cms/deal/?id=C-1027", points: ["どこが自動で、どこが人の確認かが分かる", "いまどこまで進んだか", "確認待ちへ、そのまま進める"] },
       { img: "dash", title: "ダッシュボード", who: "オーナー・営業", href: "/cms/", points: ["進行中の案件・受注金額・期日", "数字を押すと、その一覧が開く", "工場からの新しい連絡"] },
       { img: "deals", title: "案件ボード", who: "オーナー・営業", href: "/cms/deals/", points: ["段階ごとの列で、案件の今が分かる", "スマホは段階のボタンで移動", "一覧（カード）表示にも切り替え"] },
       { img: "deal", title: "案件の画面・ロゴ配置イメージ", who: "オーナー・営業", href: "/cms/deal/?id=C-1027", points: ["「次にやること」を押すだけで進む", "実物の写真にロゴを重ねた配置イメージ", "書類とメールは自動で作られる"] },
@@ -51,7 +53,19 @@ const FLOW = [
   { n: "07", t: "発送・完了", s: "追跡番号つきのお知らせ" },
 ];
 
+// 自動化しているところ（自動：人の操作なし／自動→人：下書きまで自動、送るのは人）
+const AUTO: [string, string, string][] = [
+  ["お問い合わせの登録", "自動", "LPのフォームから案件を作り、ロゴの背景も自動で透明に"],
+  ["返信と見積の作成", "自動→人", "カラー別・数量割引の見積と返信文を下書き。人が確認して送信"],
+  ["注文の確定・請求書", "自動", "お客様が見積を承諾すると、発注依頼書と前金の請求書を送付"],
+  ["前金の入金確認", "自動", "決済・振込を自動で照合し、領収のお知らせ。入金がなければお願いの下書き"],
+  ["ロゴ配置案の送付", "自動→人", "入金を確認したら、配置イメージつきの案内を下書き。人が確認して送信"],
+  ["タイの工場への発注", "自動→人", "お客様の承認で発注書（英語・タイ語）を下書き。人が最終確認して発注"],
+  ["書類・期日・集計", "自動", "見積書〜納品書のPDF、次の期日、売上や不良率の集計"],
+];
+
 const FEATURES = [
+  ["下書きの自動作成", "問い合わせ・入金・承認をきっかけに、メールと発注書を自動で下書き。人は確認して送るだけ"],
   ["ロゴ配置イメージ", "お客様のロゴを、実物の写真に箔押し・素押しの見た目で重ね、修正の依頼と承認までやり取り"],
   ["カラー別の見積と数量割引", "色ごとの数量の合計で、単価が自動で下がる。あと何個で次の割引かも表示"],
   ["SKUとバリエーション", "カラー・サイズを登録しておき、組み合わせごとに品番。製品一覧には丸のカラーピッカー"],
@@ -124,6 +138,24 @@ export default function Overview() {
           </ul>
         </section>
       ))}
+
+      {/* 自動化 */}
+      <section className="border-t border-line py-14 md:py-20">
+        <div className="mx-auto max-w-6xl px-6 md:px-8">
+          <p className="font-display text-[12px] tracking-[0.4em] text-mute">AUTOMATION</p>
+          <h2 className="mt-3 text-[20px] font-medium tracking-[0.04em] md:text-[24px]">自動化しているところ</h2>
+          <p className="mt-2 text-[13.5px] text-mute"><NoOrphan text="下書きまでは自動で作り、お客様に送る・工場に発注するのは人が確認してから。間違いが外に出ない仕組みです。" n={5} /></p>
+          <ul className="mt-6 divide-y divide-line border-y border-line">
+            {AUTO.map(([k, by, v]) => (
+              <li key={k} className="grid gap-1 py-4 sm:grid-cols-[12em_6em_1fr] sm:items-baseline sm:gap-4">
+                <p className="text-[14px] font-medium">{k}</p>
+                <p><span className={`rounded-full px-2.5 py-0.5 text-[11.5px] ${by === "自動" ? "bg-ink text-white" : "bg-[#eef4ff] text-[#2a4f9e]"}`}>{by}</span></p>
+                <p className="text-[13px] leading-relaxed text-ink/75"><NoOrphan text={v} n={5} /></p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {/* 主な機能・使う技術 */}
       <section className="border-t border-line bg-paper py-14 md:py-20">
