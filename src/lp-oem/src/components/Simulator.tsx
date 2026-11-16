@@ -4,7 +4,7 @@ import { ArrowRight, Info } from "lucide-react";
 import { LOTS, MODELS, NORMAL_DIE_COST, PRICE_MAX, PRICE_MIN, PRICE_STEP, calcProfit, getModel, yen } from "@/lib/models";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
-import WalletArt from "./WalletArt";
+import { asset } from "@/lib/asset";
 import { useCountUp } from "./useCountUp";
 
 export default function Simulator() {
@@ -36,7 +36,8 @@ export default function Simulator() {
                     className={`flex cursor-pointer flex-col items-center gap-1 rounded-xl border p-2.5 text-center transition sm:flex-row sm:gap-2 sm:text-left ${model === x.id ? "border-gold bg-[#faf8f3] ring-1 ring-gold" : "border-line hover:border-gold-2"}`}
                   >
                     <input type="radio" name="sim-model" value={x.id} checked={model === x.id} onChange={() => setModel(x.id)} className="sr-only" />
-                    <WalletArt id={x.id} className="w-16 shrink-0 sm:w-14" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={asset(x.img)} alt="" className="aspect-[4/3] w-20 shrink-0 rounded-lg object-cover sm:w-16" />
                     <span className="text-[12.5px] leading-snug font-bold">{x.short}<span className="block font-normal text-mute">{yen(x.unitPrice)}〜</span></span>
                   </label>
                 ))}

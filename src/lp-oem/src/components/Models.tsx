@@ -4,7 +4,7 @@ import { Calculator, MapPin, Ruler, Sparkles } from "lucide-react";
 import { MODELS, yen } from "@/lib/models";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
-import WalletArt from "./WalletArt";
+import { asset } from "@/lib/asset";
 import Tilt from "./Tilt";
 
 export default function Models() {
@@ -19,9 +19,10 @@ export default function Models() {
             return (
               <div key={m.id} className="reveal h-full" style={{ transitionDelay: `${i * 0.08}s` }}>
               <Tilt className={`group flex h-full flex-col overflow-hidden rounded-2xl border bg-white hover:shadow-[0_24px_50px_-28px_rgba(0,0,0,.35)] ${active ? "border-gold" : "border-line"}`}>
-                <div className="relative bg-gradient-to-b from-[#f6f6f6] to-[#ececec] px-4 pt-6 pb-2">
-                  <span className="absolute top-3 left-3 rounded-full bg-ink px-2.5 py-1 font-display text-[11px] tracking-widest text-gold-2">MODEL {String(i + 1).padStart(2, "0")}</span>
-                  <WalletArt id={m.id} className="mx-auto w-full max-w-[260px] transition duration-700 group-hover:scale-[1.04]" />
+                <div className="relative overflow-hidden bg-white">
+                  <span className="absolute top-3 left-3 z-10 rounded-full bg-ink px-2.5 py-1 font-display text-[11px] tracking-widest text-gold-2">MODEL {String(i + 1).padStart(2, "0")}</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={asset(m.img)} alt={m.name} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-[1.05]" />
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="text-[18px] leading-snug font-bold">{m.short}</h3>
