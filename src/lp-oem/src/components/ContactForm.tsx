@@ -93,7 +93,7 @@ export default function ContactForm() {
           {prefill && (
             <p className="mb-6 bg-[#faf8f3] px-4 py-3 text-[13px] text-ink-2">シミュレーションの条件を入力しました。内容をご確認ください。</p>
           )}
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-[minmax(0,1fr)] gap-6 md:grid-cols-2">
             <label className="block text-sm font-bold md:col-span-2">
               お名前（または会社名）<span className="ml-1 text-xs text-gold">必須</span>
               <input value={name} onChange={(e) => setName(e.target.value)} maxLength={100} autoComplete="name" className={`${field} ${bd("name")}`} aria-invalid={!!errors.name} aria-describedby="err-name" placeholder="例）株式会社サンプル / 山田 花子" />
@@ -105,21 +105,21 @@ export default function ContactForm() {
               <Err k="email" />
             </label>
             {/* 希望ベースモデル：写真つきで選べるように（ベースモデルの見出しと同じ名前） */}
-            <fieldset className="text-sm font-bold md:col-span-2" aria-invalid={!!errors.model} aria-describedby="err-model">
+            <fieldset className="min-w-0 text-sm font-bold md:col-span-2" aria-invalid={!!errors.model} aria-describedby="err-model">
               <legend>希望ベースモデル<span className="ml-1 text-xs text-gold">必須</span></legend>
               {/* 写真つきの小さな一覧（モデルが増えても選びやすいように、多いときは枠の中でスクロール） */}
-              <div className="mt-3 max-h-[352px] divide-y divide-line overflow-y-auto border border-line">
+              <div className="mt-3 grid border-t border-line sm:grid-cols-2 sm:gap-x-6">
                 {[...MODELS.map((m) => ({ id: m.id as ModelId | "undecided", img: m.img as string | null, name: m.short, sub: `${yen(m.unitPrice)}〜` })), { id: "undecided" as const, img: null, name: "まだ決めていない", sub: "ご相談しながら決められます" }].map((o) => (
-                  <label key={o.id} className={`flex cursor-pointer items-center gap-4 px-3 py-2.5 transition ${model === o.id ? "bg-paper" : "hover:bg-paper/60"}`}>
+                  <label key={o.id} className={`flex cursor-pointer items-center gap-4 border-b border-line py-2.5 transition ${model === o.id ? "text-ink" : "text-ink/80 hover:text-ink"}`}>
                     <input type="radio" name="cf-model" value={o.id} checked={model === o.id} onChange={() => setModel(o.id)} className="sr-only" />
                     {o.img ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={asset(o.img)} alt="" loading="lazy" className="aspect-[4/3] w-16 shrink-0 object-cover" />
+                      <img src={asset(o.img)} alt="" loading="lazy" className="aspect-[4/3] w-14 shrink-0 object-cover" />
                     ) : (
-                      <span className="flex aspect-[4/3] w-16 shrink-0 items-center justify-center bg-paper text-[18px] text-mute">?</span>
+                      <span className="flex aspect-[4/3] w-14 shrink-0 items-center justify-center bg-paper text-[16px] text-mute">?</span>
                     )}
                     <span className="flex-1">
-                      <span className="block text-[14px] font-medium">{o.name}</span>
+                      <span className="block text-[13.5px] font-medium">{o.name}</span>
                       <span className="block text-[11.5px] font-normal text-mute">{o.sub}</span>
                     </span>
                     <span className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border ${model === o.id ? "border-ink" : errors.model ? "border-red-300" : "border-line"}`}>
@@ -130,7 +130,7 @@ export default function ContactForm() {
               </div>
               <Err k="model" />
             </fieldset>
-            <fieldset className="text-sm font-bold md:col-span-2" aria-invalid={!!errors.lot} aria-describedby="err-lot">
+            <fieldset className="min-w-0 text-sm font-bold md:col-span-2" aria-invalid={!!errors.lot} aria-describedby="err-lot">
               <legend>希望ロット数<span className="ml-1 text-xs text-gold">必須</span></legend>
               <div className="mt-3 grid grid-cols-5 gap-2">
                 {[...LOTS.map((l) => [String(l), `${l}個`]), ["more", "未定"]].map(([v, t]) => (
@@ -144,7 +144,7 @@ export default function ContactForm() {
             </fieldset>
 
             <div className="text-sm font-bold md:col-span-2">
-              ロゴデータ添付<span className="ml-1 text-xs font-normal text-mute">任意（ai / pdf / svg / eps / png / jpg・10MBまで）</span>
+              ロゴデータ添付<span className="ml-1 text-xs font-normal text-mute">任意</span><span className="mt-1 block text-[11px] font-normal text-mute">ai / pdf / svg / eps / png / jpg・10MBまで</span>
               <label className={`mt-2 flex cursor-pointer items-center gap-3 border border-dashed px-4 py-5 transition hover:border-gold hover:bg-[#faf8f3] ${errors.file ? "border-red-400" : "border-gold-2/60"}`}>
                 <Paperclip size={20} className="text-gold" />
                 <span className="flex-1 truncate font-normal text-mute">{file ? file.name : "ファイルを選択、またはここにドロップ"}</span>
