@@ -7,7 +7,7 @@ import { addLog, updateDeal } from "@/components/cms/store";
 import { askConfirm } from "@/components/cms/Confirm";
 import { Card, CardHead, TechNote } from "@/components/cms/ui";
 import { Ph } from "@/components/cms/Ph";
-import { PHOTOS, ProofPair, logoCm, placeOf, toLogoMask } from "@/components/cms/Proof";
+import { STAMP, ProofPair, logoSize, pctOfCm, placeOf, sizeText, toLogoMask, widthRange } from "@/components/cms/Proof";
 
 // 案件の画面：ロゴ配置イメージを作る・直す・お客様に送る
 export function ProofCard({ d, canEdit, who }: { d: Deal; canEdit: boolean; who: string }) {
@@ -15,6 +15,8 @@ export function ProofCard({ d, canEdit, who }: { d: Deal; canEdit: boolean; who:
   const editable = canEdit && si <= 3; // 製造に入るまで直せる
   const approved = si >= 4;
   const p = placeOf(d);
+  const size = logoSize(d);
+  const range = widthRange(d);
   const fileRef = useRef<HTMLInputElement>(null);
   const [err, setErr] = useState("");
 
@@ -47,7 +49,7 @@ export function ProofCard({ d, canEdit, who }: { d: Deal; canEdit: boolean; who:
   return (
     <Card>
       <CardHead note="お客様のロゴは Storage に保存し、配置（位置・大きさ）は版ごとに proofs テーブルに記録。承認された版が製造指示書に載る"
-        right={<span className="text-[11.5px] text-mute">{d.finish}・ロゴ幅 約{logoCm(d).toFixed(1)}cm</span>}>ロゴ配置イメージ</CardHead>
+        right={<span className="text-[11.5px] text-mute">{d.finish}・{sizeText(d)}</span>}>ロゴ配置イメージ</CardHead>
       <div className="px-5 pb-5">
         <ProofPair d={d} />
         <p className={`mt-3 text-[12.5px] ${d.proofReq ? "text-[#8a650c]" : approved ? "text-[#2f7a46]" : "text-mute"}`}><Ph tail={4}>{status}</Ph></p>
@@ -61,10 +63,19 @@ export function ProofCard({ d, canEdit, who }: { d: Deal; canEdit: boolean; who:
           <div className="mt-4 space-y-3 border-t border-line pt-4">
             {slider("x", "左右", 5, 95)}
             {slider("y", "上下", 5, 95)}
-            {slider("w", "大きさ", 3, 30)}
+            <label className="flex items-center gap-3 text-[12px]">
+              <span className="w-16 shrink-0 text-mute">大きさ</span>
+              <input type="range" min={range.lo} max={range.hi} step={0.1} value={Math.round(size.w * 10) / 10} onChange={(e) => set("w", pctOfCm(d.model, Number(e.target.value)))} className="min-w-0 flex-1 accent-ink" aria-label="大きさ" />
+              <span className="w-12 shrink-0 text-right tabular-nums">{size.w.toFixed(1)}cm</span>
+            </label>
+            <p className="text-[11.5px] leading-relaxed text-mute">
+              刻印できる大きさは、縦{STAMP.minH}〜{STAMP.maxH}cm × 横{STAMP.minW}〜{STAMP.maxW}cm です。
+              いまのロゴ：{sizeText(d)}（版の大きさ 縦{size.plateH.toFixed(1)}×横{size.plateW.toFixed(1)}cm）
+              {range.hi < STAMP.maxW && `。このロゴは縦に長いため、縦${STAMP.maxH}cmにおさまる大きさ（横${range.hi.toFixed(1)}cmまで）にしています`}
+            </p>
             <div className="flex flex-wrap items-center gap-2 pt-1">
               <button type="button" onClick={() => fileRef.current?.click()} className="cms-btn inline-flex items-center gap-1.5 border border-line px-3 py-2 text-[12.5px] hover:border-ink"><Upload size={14} />{d.logo ? "ロゴを差し替える" : "ロゴをアップロード"}</button>
-              <button type="button" onClick={() => updateDeal(d.id, (x) => ({ ...x, place: { x: PHOTOS[x.model].x, y: PHOTOS[x.model].y, w: PHOTOS[x.model].w } }))} className="inline-flex items-center gap-1.5 px-2 py-2 text-[12.5px] text-mute hover:text-ink"><RotateCcw size={13} />最初の位置に戻す</button>
+              <button type="button" onClick={() => updateDeal(d.id, (x) => ({ ...x, place: undefined }))} className="inline-flex items-center gap-1.5 px-2 py-2 text-[12.5px] text-mute hover:text-ink"><RotateCcw size={13} />最初の位置に戻す</button>
               {d.stage === "proof" && d.proofReq && (
                 <button type="button" onClick={sendRevision} className="cms-btn ml-auto inline-flex items-center gap-1.5 bg-ink px-3.5 py-2 text-[12.5px] text-white"><Send size={13} />修正版を送る</button>
               )}

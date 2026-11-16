@@ -4,7 +4,7 @@ import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
 import { useState } from "react";
-import { ProofPair, ProofView, logoCm } from "@/components/cms/Proof";
+import { ProofPair, ProofView, sizeText } from "@/components/cms/Proof";
 import { Check, FileText } from "lucide-react";
 import { DOCS, STAGES, amounts, modelOf, stageIndex, yenOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
@@ -67,7 +67,7 @@ export default function Portal() {
         {d.stage === "proof" && (
           <section className="mt-8 cms-card p-6 ring-1 ring-ink/70">
             <p className="text-[15px] font-medium"><Ph>ロゴの配置をご確認ください</Ph><span className="ml-2 text-[12px] font-normal text-mute">第{d.proofVer ?? 1}版</span></p>
-            <p className="mt-1 text-[13px] text-mute"><Ph tail={4}>{`${d.finish}・ロゴの幅 約${logoCm(d).toFixed(1)}cm。位置や大きさを変えたいときは「修正をお願いする」からお知らせください。`}</Ph></p>
+            <p className="mt-1 text-[13px] text-mute"><Ph tail={4}>{`${d.finish}・ロゴの大きさ ${sizeText(d)}。位置や大きさを変えたいときは「修正をお願いする」からお知らせください。`}</Ph></p>
             <div className="mt-4"><ProofPair d={d} /></div>
             {d.proofReq ? (
               <p className="mt-4 rounded-lg bg-[#f6f6f5] px-4 py-3 text-[13px]"><Ph tail={4}>{`修正のご依頼を受け付けました。修正版ができたら、この画面とメールでお知らせします。（ご依頼：「${d.proofReq}」）`}</Ph></p>

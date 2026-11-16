@@ -9,26 +9,51 @@ import { ALL_MODELS } from "@/lib/models";
 import { asset } from "@/lib/asset";
 
 // 写真ごとの最初のロゴ位置（中心・%）と大きさ（写真の幅に対する%）。objW は写真の幅のうち製品が占める割合（実寸の目安用）
-export const PHOTOS: Record<ModelId, { img: string; ar: string; x: number; y: number; w: number; objW: number }> = {
-  long: { img: "blank-long", ar: "1408/768", x: 73.3, y: 73.7, w: 11, objW: 0.78 },
-  bifold: { img: "blank-bifold", ar: "1408/768", x: 38.5, y: 72.7, w: 9, objW: 0.5 },
-  trifold: { img: "blank-trifold", ar: "1408/768", x: 49.9, y: 50.6, w: 9, objW: 0.44 },
-  fragment: { img: "blank-fragment", ar: "1408/768", x: 49.9, y: 70.3, w: 10, objW: 0.48 },
-  tote: { img: "blank-tote", ar: "960/720", x: 50, y: 47.8, w: 7, objW: 0.4 },
-  phone: { img: "blank-phone", ar: "960/720", x: 39.4, y: 77.4, w: 8, objW: 0.32 },
+// cm は最初のロゴの幅（cm）
+export const PHOTOS: Record<ModelId, { img: string; ar: string; x: number; y: number; cm: number; objW: number }> = {
+  long: { img: "blank-long", ar: "1408/768", x: 72, y: 72.5, cm: 4.5, objW: 0.81 },
+  bifold: { img: "blank-bifold", ar: "1408/768", x: 41, y: 71.5, cm: 3.5, objW: 0.4 },
+  trifold: { img: "blank-trifold", ar: "1408/768", x: 49.9, y: 50.6, cm: 3.5, objW: 0.39 },
+  fragment: { img: "blank-fragment", ar: "1408/768", x: 49.9, y: 70.3, cm: 4, objW: 0.48 },
+  tote: { img: "blank-tote", ar: "960/720", x: 50, y: 47.8, cm: 6, objW: 0.49 },
+  phone: { img: "blank-phone", ar: "960/720", x: 39.4, y: 77.4, cm: 4, objW: 0.32 },
 };
 
-export const placeOf = (d: Pick<Deal, "model" | "place">) => d.place ?? { x: PHOTOS[d.model].x, y: PHOTOS[d.model].y, w: PHOTOS[d.model].w };
-
-// ロゴの実寸の目安（cm）
-export function logoCm(d: Pick<Deal, "model" | "place">) {
-  const m = ALL_MODELS.find((x) => x.id === d.model);
-  const W = Number(m?.size.match(/W([\d.]+)/)?.[1] ?? 10);
-  return (placeOf(d).w / 100 / PHOTOS[d.model].objW) * W;
+// 刻印できる大きさ：版は 縦1cm×横3cm 〜 縦5cm×横7cm（ロゴは版の中に入れる）
+export const STAMP = { minW: 3, maxW: 7, minH: 1, maxH: 5 };
+type LogoSrc = Pick<Deal, "model" | "place" | "logo" | "logoAspect" | "brand">;
+const productW = (model: ModelId) => Number(ALL_MODELS.find((x) => x.id === model)?.size.match(/W([\d.]+)/)?.[1] ?? 10);
+const cmToPct = (model: ModelId, cm: number) => (cm / productW(model)) * PHOTOS[model].objW * 100;
+const pctToCm = (model: ModelId, pct: number) => (pct / 100 / PHOTOS[model].objW) * productW(model);
+export const logoAr = (d: Pick<Deal, "logo" | "logoAspect" | "brand">) => (d.logo ? d.logoAspect ?? 2 : textLogo(d.brand).ar);
+// このロゴで選べる幅（cm）。高さが5cmを超えないようにする
+export function widthRange(d: Pick<Deal, "logo" | "logoAspect" | "brand">) {
+  const ar = logoAr(d);
+  const hi = Math.min(STAMP.maxW, STAMP.maxH * ar);
+  // 縦長のロゴ（縦5cmにしても横が3cmに届かない）は、縦2.5〜5cmの間で選ぶ（版は横3cm）
+  return { lo: hi < STAMP.minW ? hi / 2 : STAMP.minW, hi };
 }
+// 位置と大きさ（大きさは刻印できる範囲におさめる）
+export function placeOf(d: LogoSrc) {
+  const ph = PHOTOS[d.model];
+  const p = d.place ?? { x: ph.x, y: ph.y, w: cmToPct(d.model, ph.cm) };
+  const { lo, hi } = widthRange(d);
+  const cm = Math.min(hi, Math.max(lo, pctToCm(d.model, p.w)));
+  return { ...p, w: cmToPct(d.model, cm) };
+}
+export const pctOfCm = cmToPct;
+// ロゴの実寸（cm）と、版の大きさ
+export function logoSize(d: LogoSrc) {
+  const w = pctToCm(d.model, placeOf(d).w);
+  const h = w / logoAr(d);
+  return { w, h, plateW: Math.max(STAMP.minW, w), plateH: Math.max(STAMP.minH, h) };
+}
+export const logoCm = (d: LogoSrc) => logoSize(d).w;
+// 「幅4.0×高さ0.7cm」のような表示
+export const sizeText = (d: LogoSrc) => { const z = logoSize(d); return `幅${z.w.toFixed(1)}×高さ${z.h.toFixed(1)}cm`; };
 
 // ロゴが無いときは、ブランド名を文字のロゴにする
-function textLogo(brand: string) {
+export function textLogo(brand: string) {
   const t = brand.toUpperCase().slice(0, 20).replace(/[&<>"]/g, "");
   const w = Math.max(160, t.length * 64);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} 110"><text x="50%" y="74" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="84" letter-spacing="10" fill="#000">${t}</text></svg>`;
