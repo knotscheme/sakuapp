@@ -6,8 +6,8 @@ import { asset } from "@/lib/asset";
 
 // ファーストビュー：画面いっぱいの写真に、見出しを重ねる（スマホは下、パソコンは左）
 // 専用の写真が届いたら、HERO_PC / HERO_SP を差し替える
-const HERO_PC = "/images/giftbox.webp";
-const HERO_SP = "/images/giftbox.webp";
+const HERO_PC = "/images/hero-pc.webp";
+const HERO_SP = "/images/hero-sp.webp";
 
 export default function Hero() {
   const photo = useRef<HTMLDivElement>(null);
@@ -23,26 +23,28 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="top" className="relative h-[100svh] min-h-[620px] overflow-hidden bg-white">
+    <section id="top" className="relative overflow-hidden bg-white lg:h-[100svh] lg:min-h-[620px]">
+      <div className="relative h-[66svh] min-h-[420px] overflow-hidden lg:absolute lg:inset-0 lg:h-auto lg:min-h-0">
       <div ref={photo} className="absolute inset-x-0 top-0 -bottom-24 will-change-transform">
         <div className="hero-zoom absolute inset-0">
           <picture>
             <source media="(min-width: 1024px)" srcSet={asset(HERO_PC)} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset(HERO_SP)} alt="ロゴ入りの化粧箱に収められた革財布" className="h-full w-full object-cover object-[62%_50%] lg:object-[70%_50%]" />
+            <img src={asset(HERO_SP)} alt="窓辺の光に照らされた、金のロゴ入りの革財布" className="h-full w-full object-cover object-[50%_25%] lg:object-[60%_50%]" />
           </picture>
         </div>
       </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white via-white/75 to-transparent to-70% lg:bg-gradient-to-r lg:from-white lg:via-white/85 lg:to-transparent lg:to-55%" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white to-transparent to-20% lg:bg-gradient-to-r lg:from-white/90 lg:via-white/50 lg:via-30% lg:to-transparent lg:to-55%" />
+      </div>
 
-      <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-end px-6 pb-12 md:px-8 lg:justify-center lg:pb-0">
+      <div className="relative mx-auto max-w-6xl px-6 pt-4 pb-16 md:px-8 lg:absolute lg:inset-0 lg:flex lg:flex-col lg:justify-center lg:py-0">
         <div className="lg:max-w-[520px]">
-          <p className="hero-in font-display text-[12px] tracking-[0.4em] text-mute" style={{ animationDelay: ".1s" }}>LOGO OEM FOR LEATHER GOODS</p>
-          <h1 className="mt-5 text-[38px] leading-[1.35] font-medium tracking-[0.04em] sm:text-[46px] lg:text-[56px]">
+          <p className="hero-in font-display text-[11px] tracking-[0.22em] text-mute sm:text-[12px] sm:tracking-[0.4em]" style={{ animationDelay: ".1s" }}>LOGO OEM FOR LEATHER GOODS</p>
+          <h1 className="mt-5 text-[32px] leading-[1.4] font-medium tracking-[0.04em] sm:text-[44px] lg:text-[56px]">
             <span className="line-mask"><span style={{ animationDelay: ".2s" }}>あなたのロゴで、</span></span>
             <span className="line-mask"><span style={{ animationDelay: ".35s" }}><span className="text-gold">上質な革財布</span>を。</span></span>
           </h1>
-          <p className="hero-in mt-6 max-w-md text-[14.5px] leading-loose text-ink/65" style={{ animationDelay: ".6s" }}>
+          <p className="hero-in mt-5 max-w-md text-[14px] leading-loose text-ink/65 md:text-[14.5px]" style={{ animationDelay: ".6s" }}>
             売れている定番の型に、ブランドロゴを刻印・箔押しするだけ。設計いらずで、自分の財布ブランドを始められます。
           </p>
           <p className="hero-in mt-6 text-[13px] tracking-[0.12em] text-ink" style={{ animationDelay: ".75s" }}>
