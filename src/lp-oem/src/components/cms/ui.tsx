@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
-import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
+import { X, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo, unreadOf, useDeals } from "./store";
@@ -84,6 +84,33 @@ function UserSwitch() {
   );
 }
 
+// スマホのメニューの下：デモの設定を1〜2行に小さくまとめる
+function MiniDemo({ onDone }: { onDone: () => void }) {
+  const { members, roles, me } = usePermState();
+  const { me: cur } = useAuth();
+  const { lang, home } = useLang();
+  const t = useUI();
+  return (
+    <>
+      <div className="flex items-center gap-2">
+        <span className="shrink-0">{t.viewing.replace(/（.*）|\(.*\)/, "")}</span>
+        <select value={me} onChange={(e) => { setViewLang("", null); switchUser(e.target.value); }} className="min-w-0 flex-1 bg-transparent text-[13px] text-ink underline decoration-ink/20 underline-offset-4 outline-none" aria-label={t.viewing}>
+          {members.map((m) => <option key={m.id} value={m.id}>{m.name}（{roles.find((r) => r.id === m.role)?.name}）</option>)}
+        </select>
+      </div>
+      <div className="flex items-center gap-4">
+        {cur && LANGS.map((l) => <button key={l.id} type="button" aria-pressed={lang === l.id} onClick={() => setViewLang(cur.id, l.id === home ? null : l.id)} className={lang === l.id ? "text-ink underline underline-offset-4" : ""}>{l.label}</button>)}
+      </div>
+      <div className="flex items-center gap-4">
+        <span className="flex gap-4">
+          <button type="button" onClick={async () => { onDone(); if (await askConfirm({ title: t.resetQ, body: t.resetB, ok: t.resetOk, danger: true })) { setViewLang("", null); resetDemo(); resetCatalog(); resetPerm(); } }}>{t.reset}</button>
+          <a href="/sakuapp/works/lp-oem/">{t.back}</a>
+        </span>
+      </div>
+    </>
+  );
+}
+
 // 下のメニューが隠れているか（案件の画面の「次にやること」ボタンも、これに合わせて動く）
 let navHiddenNow = false;
 const navSubs = new Set<() => void>();
@@ -100,6 +127,12 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
   const { lang } = useLang();
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   const navHidden = useNavHidden();
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    const key = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    addEventListener("keydown", key);
+    return () => { removeEventListener("keydown", key); document.documentElement.style.overflow = ""; };
+  }, [open]);
   useEffect(() => {
     let last = scrollY;
     setNavHidden(false);
@@ -151,8 +184,30 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
   return (
     <div className="cms-bg min-h-[100svh] text-ink">
       <aside className="fixed inset-y-0 left-0 hidden w-60 bg-[#ebebea] lg:block">{nav}</aside>
-      {open && <div className="fixed inset-0 z-40 bg-black/30 lg:hidden" onClick={() => setOpen(false)} />}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#ebebea] transition-transform lg:hidden ${open ? "translate-x-0" : "-translate-x-full"}`}>{nav}</aside>
+      {/* スマホ：画面全体のすりガラスのメニュー（文字だけ。デモの設定は下に小さく） */}
+      <div id="cms-menu" aria-hidden={!open} onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
+        className={`fixed inset-0 z-50 flex flex-col overflow-y-auto overscroll-contain bg-[#f4f4f2]/75 px-9 pt-[calc(env(safe-area-inset-top)+3.5rem)] pb-[calc(env(safe-area-inset-bottom)+6rem)] backdrop-blur-2xl backdrop-saturate-150 transition-[opacity,visibility] duration-300 lg:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}>
+        <p className="font-display text-[12px] tracking-[0.4em] text-mute">CRAFT <span className="text-gold">CMS</span></p>
+        <ul className="mt-5">
+          {items.map(({ href, label: key }, i) => {
+            const on = isOn(href);
+            return (
+              <li key={href} className={`transition-all duration-500 ${open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}`} style={{ transitionDelay: open ? `${0.04 * i}s` : "0s" }}>
+                <Link href={href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} aria-current={on ? "page" : undefined} className={`flex items-center gap-3 py-[7px] text-[18px] tracking-[0.04em] transition ${on ? "font-medium text-ink" : "text-ink/40 active:text-ink"}`}>
+                  {t.nav[key]}
+                  {on && <span className="h-1.5 w-1.5 rounded-full bg-gold" />}
+                  {(badge[key] ?? 0) > 0 && <span className="rounded-full bg-red-600 px-1.5 text-[11px] leading-5 text-white">{badge[key]}</span>}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="mt-auto space-y-3 border-t border-ink/10 pt-4 text-[12px] text-mute max-h-[700px]:mt-6">
+          <MiniDemo onDone={() => setOpen(false)} />
+        </div>
+      </div>
+      <button type="button" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} aria-label="閉じる"
+          className={`fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 z-[51] flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-white shadow-[0_6px_24px_rgba(0,0,0,.2)] transition-opacity duration-300 lg:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}><X size={20} strokeWidth={1.6} /></button>
       <div className="lg:pl-60">
         <div className="sticky top-0 z-30 flex h-14 items-center gap-3 bg-[#f1f1f0]/90 px-5 backdrop-blur lg:hidden">
           <button type="button" className="-ml-2.5 p-2.5" onClick={() => setOpen(true)} aria-label={t.menu}><Menu size={20} /></button>
