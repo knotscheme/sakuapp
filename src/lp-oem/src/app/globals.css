@@ -138,3 +138,28 @@ input[type="range"].brass::-moz-range-thumb { width: 20px; height: 20px; border-
 @media (prefers-reduced-motion: reduce) { .statement .c { opacity: 1 !important; filter: none !important; transform: none !important; } .opening { display: none; } }
 /* オープニングが終わるまで、ファーストビューの動きを止めておく */
 html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top .line-mask > span { animation-play-state: paused; }
+
+/* ===== 箔押し体験 ===== */
+.stamp-mark { position: relative; opacity: 0; animation: markIn 1s cubic-bezier(.2,.8,.2,1) .55s forwards; }
+.stamp-mark.gold { color: transparent; background: linear-gradient(100deg, #8a650c 0%, #f4e0a4 30%, #b8860b 50%, #f1d999 70%, #8a650c 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 -1px 0 rgba(255,255,255,.08)); animation: markIn 1s cubic-bezier(.2,.8,.2,1) .55s forwards, foilShine 4.5s ease-in-out 1.4s infinite; }
+.stamp-mark.silver { color: transparent; background: linear-gradient(100deg, #7d838a 0%, #f6f8fa 30%, #a6acb3 50%, #eef1f4 70%, #7d838a 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 1px 0 rgba(0,0,0,.55)); animation: markIn 1s cubic-bezier(.2,.8,.2,1) .55s forwards, foilShine 4.5s ease-in-out 1.4s infinite; }
+.stamp-mark.blind { color: rgba(0,0,0,.42); text-shadow: 0 1px 0 rgba(255,255,255,.14), 0 -1px 1px rgba(0,0,0,.55); }
+@keyframes markIn { 0% { opacity: 0; transform: scale(1.04); } 100% { opacity: 1; transform: none; } }
+@keyframes foilShine { 0%, 100% { background-position: 100% 0; } 50% { background-position: 0% 0; } }
+
+/* 真鍮の型が降りて、押して、上がる */
+.stamp-die { position: absolute; left: 50%; top: 50%; width: 112%; height: 150%; pointer-events: none; z-index: 2;
+  background: linear-gradient(180deg, #e6cf8f, #a8801f 60%, #6f540f); border-radius: 6px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.45), inset 0 -6px 12px rgba(0,0,0,.35), 0 40px 60px -20px rgba(0,0,0,.7);
+  animation: dieDrop 1.1s cubic-bezier(.5,0,.3,1) forwards; }
+@keyframes dieDrop {
+  0% { transform: translate(-50%, -260%) scale(1.06); opacity: 0; }
+  25% { opacity: 1; }
+  45% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  55% { transform: translate(-50%, -48%) scale(.99); opacity: 1; }
+  100% { transform: translate(-50%, -280%) scale(1.06); opacity: 0; }
+}
+.stamp-glow { position: absolute; left: 50%; top: 50%; width: 140%; height: 220%; transform: translate(-50%,-50%); pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255,226,150,.55), transparent); opacity: 0; animation: glowPop 1.4s ease-out .5s forwards; }
+@keyframes glowPop { 0% { opacity: 0; transform: translate(-50%,-50%) scale(.6); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%,-50%) scale(1.3); } }
+@media (prefers-reduced-motion: reduce) { .stamp-die, .stamp-glow { display: none; } .stamp-mark { opacity: 1; animation: none !important; } }

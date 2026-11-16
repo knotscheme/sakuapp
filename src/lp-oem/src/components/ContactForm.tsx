@@ -28,11 +28,13 @@ export default function ContactForm() {
   useEffect(() => {
     if (!prefill) return;
     /* eslint-disable react-hooks/set-state-in-effect -- 外から渡された条件をフォームに反映するため */
-    setModel(prefill.model);
-    setLot(String(prefill.lot));
+    if (!prefill.note) {
+      setModel(prefill.model);
+      setLot(String(prefill.lot));
+    }
     setMessage((m) => {
-      const line = `【シミュレーション条件】${getModel(prefill.model).name} / ${prefill.lot}個 / 想定販売価格 ${yen(prefill.price)}`;
-      const rest = m.replace(/^【シミュレーション条件】.*\n?/, "");
+      const line = prefill.note ?? `【シミュレーション条件】${getModel(prefill.model).name} / ${prefill.lot}個 / 想定販売価格 ${yen(prefill.price)}`;
+      const rest = m.replace(/^【(シミュレーション条件|刻印イメージ)】.*\n?/, "");
       return `${line}\n${rest}`;
     });
     setFlash(true);

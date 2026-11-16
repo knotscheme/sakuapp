@@ -59,7 +59,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <a href="#problems" className="hero-in absolute right-6 bottom-8 hidden flex-col items-center gap-3 font-display text-[11px] tracking-[0.3em] text-ink/50 [writing-mode:vertical-rl] lg:flex" style={{ animationDelay: "1.2s" }} aria-label="下へスクロール">
+      <a href="#philosophy" className="hero-in absolute right-6 bottom-8 hidden flex-col items-center gap-3 font-display text-[11px] tracking-[0.3em] text-ink/50 [writing-mode:vertical-rl] lg:flex" style={{ animationDelay: "1.2s" }} aria-label="下へスクロール">
         SCROLL <span className="scroll-cue block h-12 w-px bg-ink/30" />
       </a>
     </section>

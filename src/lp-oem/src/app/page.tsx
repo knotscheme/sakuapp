@@ -2,9 +2,11 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Opening from "@/components/Opening";
 import Statement from "@/components/Statement";
+import Craft from "@/components/Craft";
+import StampExperience from "@/components/StampExperience";
+import ActBreak from "@/components/ActBreak";
 import Pains from "@/components/Pains";
 import Features from "@/components/Features";
-import Craft from "@/components/Craft";
 import Models from "@/components/Models";
 import Simulator from "@/components/Simulator";
 import Options from "@/components/Options";
@@ -15,6 +17,7 @@ import Reveal from "@/components/Reveal";
 import ScrollProgress from "@/components/ScrollProgress";
 import { LpProvider } from "@/components/LpContext";
 
+// 前半は「ブランドの物語」、後半は「はじめ方のご案内」の2幕構成
 export default function Page() {
   return (
     <LpProvider>
@@ -22,11 +25,15 @@ export default function Page() {
       <ScrollProgress />
       <Header />
       <main>
+        {/* 第1幕：物語 */}
         <Hero />
         <Statement />
+        <Craft />
+        <StampExperience />
+        {/* 第2幕：ご案内 */}
+        <ActBreak />
         <Pains />
         <Features />
-        <Craft />
         <Models />
         <Simulator />
         <Options />
