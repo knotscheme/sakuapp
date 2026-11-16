@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Bell, Database, EyeOff, Factory, FileClock, Globe, KeyRound, Link2, Lock, ShieldCheck, Users, Vault } from "lucide-react";
+
+const SEC_ICON = { users: Users, factory: Factory, eye: EyeOff, link: Link2, db: Database, lock: Lock, key: KeyRound, log: FileClock, shield: ShieldCheck, globe: Globe, vault: Vault, bell: Bell } as const;
 import { asset } from "@/lib/asset";
 import NoOrphan from "@/components/NoOrphan";
 import { Ph } from "@/components/cms/Ph";
@@ -53,15 +55,45 @@ const FLOW = [
   { n: "07", t: "発送・完了", s: "追跡番号つきのお知らせ" },
 ];
 
-// 自動化しているところ（自動：人の操作なし／自動→人：下書きまで自動、送るのは人）
-const AUTO: [string, string, string][] = [
-  ["お問い合わせの登録", "自動", "LPのフォームから案件を作り、ロゴの背景も自動で透明に"],
-  ["返信と見積の作成", "自動→人", "カラー別・数量割引の見積と返信文を下書き。人が確認して送信"],
-  ["注文の確定・請求書", "自動", "お客様が見積を承諾すると、発注依頼書と前金の請求書を送付"],
-  ["前金の入金確認", "自動", "決済・振込を自動で照合し、領収のお知らせ。入金がなければお願いの下書き"],
-  ["ロゴ配置案の送付", "自動→人", "入金を確認したら、配置イメージつきの案内を下書き。人が確認して送信"],
-  ["タイの工場への発注", "自動→人", "お客様の承認で発注書（英語・タイ語）を下書き。人が最終確認して発注"],
-  ["書類・期日・集計", "自動", "見積書〜納品書のPDF、次の期日、売上や不良率の集計"],
+// 自動化：これまでの手作業 → このツールでは
+const BEFORE_AFTER: [string, string, string][] = [
+  ["見積の計算と見積書", "Excelで単価・割引・税を計算して、見積書を作る", "カラーと数量を入れるだけで、数量割引まで自動で計算。見積書も自動で作成"],
+  ["問い合わせへの返信", "一から文面を考えて書く", "見積つきの返信がすでに下書きされていて、確認して送るだけ"],
+  ["入金の確認", "通帳やカード明細と、注文を見比べる", "決済・振込を自動で照合。領収のお知らせも自動で送信"],
+  ["入金の催促", "期日を自分で追いかけて、メールを書く", "期日を過ぎると、お願いのメールが下書きされて届く"],
+  ["ロゴ配置の確認", "画像を加工して、メールに添付して送る", "実物写真にロゴを重ねた配置イメージを自動で作成。承認もお客様の画面で"],
+  ["タイの工場への発注", "英語やタイ語で発注書を作り、数を書き写す", "承認されたら、英語・タイ語の発注書をカラー別の数量つきで自動作成。最終確認して発注"],
+  ["進み具合と連絡", "電話やLINEで、そのつど確認する", "工場が工程を押すと管理画面に反映。連絡は相手の言葉で届く"],
+];
+// 人の確認が入るのは3か所だけ（送る・発注する前）
+const AUTO_STEPS: { t: string; by: "auto" | "human" | "customer" }[] = [
+  { t: "問い合わせの登録", by: "auto" },
+  { t: "返信と見積の下書き", by: "auto" },
+  { t: "確認して送信", by: "human" },
+  { t: "見積の承諾", by: "customer" },
+  { t: "注文確定・請求書", by: "auto" },
+  { t: "入金の確認・領収", by: "auto" },
+  { t: "配置案の下書き", by: "auto" },
+  { t: "確認して送信", by: "human" },
+  { t: "ロゴ配置の承認", by: "customer" },
+  { t: "発注書の下書き", by: "auto" },
+  { t: "最終確認して発注", by: "human" },
+];
+
+// セキュリティ：demo＝このデモで動いている／plan＝本番で導入する予定
+const SECURITY: { icon: "users" | "factory" | "eye" | "link" | "db" | "lock" | "key" | "log" | "shield" | "globe" | "vault" | "bell"; t: string; s: string; st: "demo" | "plan" }[] = [
+  { icon: "users", t: "役割ごとの権限", s: "見られる画面・押せるボタンを役割で分ける。権限を変えられるのはオーナーだけで、変更はすべて記録", st: "demo" },
+  { icon: "factory", t: "工場には顧客情報を見せない", s: "工場の画面は担当の注文だけ。お客様の名前・連絡先・価格は表示しない", st: "demo" },
+  { icon: "eye", t: "連絡先の伏せ字", s: "お客様の情報を見る権限がない人には、●●●● で表示", st: "demo" },
+  { icon: "link", t: "お客様は自分の案件だけ", s: "期限つきの専用リンクで、ほかのお客様の情報には届かない", st: "demo" },
+  { icon: "db", t: "データベース側でも守る（RLS）", s: "画面に不具合があっても、権限のないデータはデータベースが読ませない「行レベルの権限」", st: "plan" },
+  { icon: "lock", t: "個人情報の暗号化", s: "電話番号・住所は AES-256 で暗号化して保存。万一データが漏れても読めない", st: "plan" },
+  { icon: "key", t: "ログインの強化", s: "管理者は2段階認証。ログインの失敗が続くと一時的に止める", st: "plan" },
+  { icon: "log", t: "操作の記録と通知", s: "CSVの書き出し・権限の変更・発注を記録。いつもと違う書き出しは、オーナーに通知", st: "plan" },
+  { icon: "shield", t: "不正な送信を防ぐ", s: "フォームの連投制限、入力のチェック、ファイルの種類と大きさの確認、CSVの危険な文字の無害化", st: "plan" },
+  { icon: "globe", t: "通信と画面の保護", s: "常に暗号化通信（HSTS）、読み込める先を限る設定（CSP）、他サイトへの埋め込みを禁止", st: "plan" },
+  { icon: "vault", t: "秘密の鍵の管理", s: "APIキーは暗号化して保存。開発用のパソコンには本番の鍵を置かない", st: "plan" },
+  { icon: "bell", t: "監視と事故への備え", s: "使っている部品の弱点と、鍵の混入を自動で点検。不審なアクセスの通知、バックアップ、事故の対応手順", st: "plan" },
 ];
 
 const FEATURES = [
@@ -87,12 +119,64 @@ export default function Overview() {
         <p className="mt-5 max-w-2xl text-[14px] leading-loose text-mute">
           <span className="inline-block">お客様が見るLPと見積もり、</span><span className="inline-block">社内の管理画面、</span><span className="inline-block">タイの工場とのやり取り、</span><span className="inline-block">お客様の確認画面までを、</span><span className="inline-block">ひとつのサービスとしてつないでいます。</span><span className="inline-block">このページから、すべての画面を確かめられます。</span>
         </p>
+        <ul className="mt-6 flex flex-wrap gap-2 text-[12.5px]">
+          {["下書きまで自動、送るのは人が確認して", "タイの工場と、それぞれの言葉でつながる", "顧客情報を守る、高いセキュリティ設計"].map((x) => <li key={x} className="rounded-full border border-line px-3.5 py-1.5"><Ph>{x}</Ph></li>)}
+        </ul>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href={asset("/")} className="inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-[13px] tracking-[0.1em] text-white transition hover:bg-gold">LPを見る<ArrowUpRight size={15} /></a>
           <a href={asset("/cms/")} className="inline-flex items-center gap-2 border border-ink px-6 py-3.5 text-[13px] tracking-[0.1em] transition hover:bg-ink hover:text-white">管理画面を見る<ArrowUpRight size={15} /></a>
         </div>
         <p className="mt-6 text-[11.5px] text-mute"><NoOrphan text="※ポートフォリオ用の制作サンプルです。会社名・金額・データはすべて架空で、操作した内容は見ている人のブラウザにだけ保存されます。" /></p>
       </header>
+
+      {/* 自動化 */}
+      <section className="py-14 md:py-20">
+        <div className="mx-auto max-w-6xl px-6 md:px-8">
+          <p className="font-display text-[12px] tracking-[0.4em] text-mute">AUTOMATION</p>
+          <h2 className="mt-3 text-[22px] leading-snug font-medium tracking-[0.04em] md:text-[30px]"><span className="inline-block">人がやるのは、</span><span className="inline-block">確認して押すだけ。</span></h2>
+          <p className="mt-4 max-w-2xl text-[14px] leading-loose text-mute"><NoOrphan text="問い合わせ・入金・ロゴの承認をきっかけに、システムが返信・見積・発注書の下書きまで自動で作ります。お客様に送る前と、工場に発注する前には必ず人が確認するので、間違いが外に出ません。" n={5} /></p>
+
+          {/* 数字で */}
+          <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden border border-line bg-line text-center">
+            {[["3回", "人が押すのは", "返信・配置案・工場への発注"], ["6種類", "自動で作る書類", "見積書から納品書まで"], ["3か国語", "自動で切り替え", "日本語・英語・タイ語"]].map(([n, k, v]) => (
+              <div key={k} className="bg-white px-2 py-5 md:py-7">
+                <dt className="text-[11.5px] text-mute md:text-[12.5px]">{k}</dt>
+                <dd className="mt-1 font-display text-[28px] leading-none md:text-[40px]">{n}</dd>
+                <dd className="mt-2 px-1 text-[10.5px] leading-snug text-mute md:text-[12px]"><Ph>{v}</Ph></dd>
+              </div>
+            ))}
+          </dl>
+
+          {/* 流れの中で、どこが自動か */}
+          <div className="mt-8">
+            <div className="flex flex-wrap items-center gap-4 text-[12px] text-mute">
+              <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-full bg-ink" />自動</span>
+              <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-full bg-[#2a4f9e]" />人が確認</span>
+              <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-full border border-ink/40 bg-white" />お客様</span>
+            </div>
+            <ol className="mt-3 flex flex-wrap gap-x-1.5 gap-y-2">
+              {AUTO_STEPS.map((x, i) => (
+                <li key={i} className="flex items-center gap-1.5">
+                  <span className={`rounded-full px-3 py-1.5 text-[12px] whitespace-nowrap ${x.by === "auto" ? "bg-ink text-white" : x.by === "human" ? "bg-[#2a4f9e] text-white" : "border border-ink/30 bg-white"}`}>{x.t}</span>
+                  {i < AUTO_STEPS.length - 1 && <span className="text-[11px] text-mute">→</span>}
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* これまで → このツールでは */}
+          <ul className="mt-10 divide-y divide-line border-y border-line">
+            {BEFORE_AFTER.map(([k, b, a]) => (
+              <li key={k} className="grid gap-2 py-5 md:grid-cols-[11em_1fr_1.3fr] md:gap-6">
+                <p className="text-[14px] font-medium">{k}</p>
+                <p className="text-[12.5px] leading-relaxed text-mute"><span className="mr-2 inline-block rounded bg-[#f1f1f0] px-1.5 py-0.5 text-[10.5px]">これまで</span><NoOrphan text={b} n={5} /></p>
+                <p className="text-[13px] leading-relaxed"><span className="mr-2 inline-block rounded bg-ink px-1.5 py-0.5 text-[10.5px] text-white">このツール</span><NoOrphan text={a} n={5} /></p>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-[11.5px] text-mute"><NoOrphan text="※デモでは、入金は「カードで支払う（デモ）」のボタンで、メールは履歴に記録するだけです。本番では Stripe・銀行の入金データ・Resend とつなぎます。" n={5} /></p>
+        </div>
+      </section>
 
       {/* 流れ */}
       <section className="border-y border-line bg-paper py-14 md:py-20">
@@ -139,21 +223,28 @@ export default function Overview() {
         </section>
       ))}
 
-      {/* 自動化 */}
-      <section className="border-t border-line py-14 md:py-20">
+      {/* セキュリティ */}
+      <section className="bg-ink py-14 text-white md:py-20">
         <div className="mx-auto max-w-6xl px-6 md:px-8">
-          <p className="font-display text-[12px] tracking-[0.4em] text-mute">AUTOMATION</p>
-          <h2 className="mt-3 text-[20px] font-medium tracking-[0.04em] md:text-[24px]">自動化しているところ</h2>
-          <p className="mt-2 text-[13.5px] text-mute"><NoOrphan text="下書きまでは自動で作り、お客様に送る・工場に発注するのは人が確認してから。間違いが外に出ない仕組みです。" n={5} /></p>
-          <ul className="mt-6 divide-y divide-line border-y border-line">
-            {AUTO.map(([k, by, v]) => (
-              <li key={k} className="grid gap-1 py-4 sm:grid-cols-[12em_6em_1fr] sm:items-baseline sm:gap-4">
-                <p className="text-[14px] font-medium">{k}</p>
-                <p><span className={`rounded-full px-2.5 py-0.5 text-[11.5px] ${by === "自動" ? "bg-ink text-white" : "bg-[#eef4ff] text-[#2a4f9e]"}`}>{by}</span></p>
-                <p className="text-[13px] leading-relaxed text-ink/75"><NoOrphan text={v} n={5} /></p>
-              </li>
-            ))}
+          <p className="font-display text-[12px] tracking-[0.4em] text-white/50">SECURITY</p>
+          <h2 className="mt-3 text-[22px] leading-snug font-medium tracking-[0.04em] md:text-[30px]"><span className="inline-block">お客様の情報を守る、</span><span className="inline-block">高いセキュリティ設計。</span></h2>
+          <p className="mt-4 max-w-2xl text-[14px] leading-loose text-white/70"><NoOrphan text="自社で開発・運営しているECプラットフォーム「Spider」と同じ水準の対策を、本番で導入する予定です。画面・データベース・通信・運用のそれぞれで、何重にも守ります。" n={5} /></p>
+          <ul className="mt-8 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
+            {SECURITY.map((x) => {
+              const I = SEC_ICON[x.icon];
+              return (
+                <li key={x.t} className="bg-ink px-5 py-5">
+                  <div className="flex items-center justify-between gap-2">
+                    <I size={20} strokeWidth={1.5} className="text-gold" />
+                    <span className={`rounded-full px-2 py-0.5 text-[10.5px] ${x.st === "demo" ? "bg-white text-ink" : "border border-white/25 text-white/70"}`}>{x.st === "demo" ? "デモで動いています" : "本番で導入予定"}</span>
+                  </div>
+                  <p className="mt-3 text-[14.5px] font-medium">{x.t}</p>
+                  <p className="mt-1.5 text-[12.5px] leading-relaxed text-white/65"><NoOrphan text={x.s} n={5} /></p>
+                </li>
+              );
+            })}
           </ul>
+          <p className="mt-4 text-[11.5px] text-white/50">※「本番で導入予定」の項目は、このデモ（ポートフォリオ用の見本）には含まれていません。</p>
         </div>
       </section>
 
