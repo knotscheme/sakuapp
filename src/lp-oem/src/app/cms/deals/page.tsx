@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 import { STAGES, amounts, modelOf, yenOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { useDeals } from "@/components/cms/store";
@@ -13,7 +14,18 @@ export default function Deals() {
   const [view, setView] = useState<"board" | "list">("board");
   const [q, setQ] = useState("");
   const { can } = useAuth();
-  const list = deals.filter((d) => !q || `${d.brand}${d.person}${d.id}${modelOf(d.model).short}`.toLowerCase().includes(q.toLowerCase()));
+  // ダッシュボードから ?stage=… で来たときは、その段階だけに絞る（active は完了以外）
+  const [stages, setStages] = useState<string[] | null>(null);
+  useEffect(() => {
+    const q = new URLSearchParams(location.search);
+    const st = q.get("stage");
+    /* eslint-disable react-hooks/set-state-in-effect -- URLは表示後にしか読めないため */
+    if (st) setStages(st === "active" ? STAGES.filter((x) => x.id !== "done").map((x) => x.id) : st.split(","));
+    if (q.get("view") === "list") setView("list");
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
+  const clearStages = () => { setStages(null); history.replaceState(null, "", location.pathname); };
+  const list = deals.filter((d) => !stages || stages.includes(d.stage)).filter((d) => !q || `${d.brand}${d.person}${d.id}${modelOf(d.model).short}`.toLowerCase().includes(q.toLowerCase()));
 
   if (!can("deals.view")) return <Shell title="案件ボード"><NoAccess /></Shell>;
   const toggle = (
@@ -29,10 +41,17 @@ export default function Deals() {
 
   return (
     <Shell title="案件ボード" actions={toggle} note="案件は Supabase の deals テーブル。LPのフォーム送信（Next.js のAPI）で自動で1件追加">
+      {stages && (
+        <div className="mb-4 flex flex-wrap items-center gap-2 text-[12.5px]">
+          <span className="text-mute">絞り込み中：</span>
+          <span className="rounded-full bg-white px-3 py-1 shadow-[0_0_0_1px_rgba(0,0,0,.08)]">{stages.length >= STAGES.length - 1 && !stages.includes("done") ? "進行中（完了以外）" : stages.join() === "order,proof,production,transit,inspection,shipping" ? "受注後〜発送済み" : stages.map((id) => STAGES.find((x) => x.id === id)?.ja).join("・")}（{list.length}件）</span>
+          <button type="button" onClick={clearStages} className="flex items-center gap-1 rounded-full px-2 py-1 text-mute hover:bg-white hover:text-ink"><X size={13} />解除</button>
+        </div>
+      )}
       {view === "board" ? (
         <div className="snap-x-cols -mx-5 overflow-x-auto scroll-px-5 px-5 pb-4 md:-mx-10 md:px-10">
           <div className="flex gap-4" style={{ width: "max-content" }}>
-            {STAGES.map((s) => {
+            {STAGES.filter((s) => !stages || stages.includes(s.id)).map((s) => {
               const items = list.filter((d) => d.stage === s.id);
               return (
                 <div key={s.id} className="w-[82vw] shrink-0 rounded-xl bg-[#e8e8e6]/60 p-2.5 sm:w-64">

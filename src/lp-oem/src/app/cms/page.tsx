@@ -22,20 +22,20 @@ export default function Dashboard() {
 
   if (!can("deals.view")) return <Shell title="ダッシュボード"><NoAccess /></Shell>;
   const kpis = [
-    { k: "進行中の案件", v: `${active.length}件` },
-    { k: "新しい問い合わせ", v: `${deals.filter((d) => d.stage === "inquiry").length}件` },
-    { k: "受注金額（税込）", v: can("money.view") ? yenOf(sales) : "—" },
-    { k: "製造・輸送中の数量", v: `${pieces.toLocaleString()}個` },
+    { k: "進行中の案件", v: `${active.length}件`, href: "/cms/deals/?stage=active" },
+    { k: "新しい問い合わせ", v: `${deals.filter((d) => d.stage === "inquiry").length}件`, href: "/cms/deals/?stage=inquiry" },
+    { k: "受注金額（税込）", v: can("money.view") ? `${(sales / 10000).toLocaleString("ja-JP", { maximumFractionDigits: 1 })}万円` : "—", href: can("analytics.view") ? "/cms/analytics/" : "/cms/deals/?view=list" },
+    { k: "製造・輸送中の数量", v: `${pieces.toLocaleString()}個`, href: "/cms/deals/?stage=order,proof,production,transit,inspection,shipping" },
   ];
 
   return (
     <Shell title="ダッシュボード" note="数字は Supabase（データベース）の案件データを集計して表示">
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {kpis.map((x) => (
-          <Card key={x.k} className="px-5 py-5">
-            <p className="text-[11.5px] text-mute">{x.k}</p>
-            <p className="mt-2 text-[24px] font-semibold tabular-nums">{x.v}</p>
-          </Card>
+          <Link key={x.k} href={x.href} className="cms-card group block px-5 py-5 transition hover:shadow-md">
+            <p className="flex items-center justify-between text-[11.5px] text-mute">{x.k}<span className="transition group-hover:translate-x-0.5 group-hover:text-ink">→</span></p>
+            <p className="mt-2 text-[22px] font-semibold whitespace-nowrap tabular-nums sm:text-[24px]">{x.v}</p>
+          </Link>
         ))}
       </div>
 
@@ -46,10 +46,13 @@ export default function Dashboard() {
             {STAGES.map((s) => {
               const n = deals.filter((d) => d.stage === s.id).length;
               return (
-                <li key={s.id} className="flex items-center gap-4 px-5 py-3 text-[13px]">
+                <li key={s.id}>
+                  <Link href={`/cms/deals/?stage=${s.id}`} className="flex items-center gap-4 px-5 py-3 text-[13px] hover:bg-[#fafafa]">
                   <span className="w-32 shrink-0 text-ink/80">{s.ja}</span>
                   <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-[#f1f1f0]"><span className="absolute inset-y-0 left-0 rounded-full bg-ink" style={{ width: `${(n / Math.max(1, deals.length)) * 100 * 2.5}%`, maxWidth: "100%" }} /></span>
                   <span className="w-8 text-right tabular-nums">{n}</span>
+                  <span className="text-mute">›</span>
+                  </Link>
                 </li>
               );
             })}
