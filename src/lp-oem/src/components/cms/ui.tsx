@@ -184,30 +184,29 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
   return (
     <div className="cms-bg min-h-[100svh] text-ink">
       <aside className="fixed inset-y-0 left-0 hidden w-60 bg-[#ebebea] lg:block">{nav}</aside>
-      {/* スマホ：画面全体のすりガラスのメニュー（文字だけ。デモの設定は下に小さく） */}
-      <div id="cms-menu" aria-hidden={!open} onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
-        className={`fixed inset-0 z-50 flex flex-col overflow-y-auto overscroll-contain bg-[#f4f4f2]/75 px-9 pt-[calc(env(safe-area-inset-top)+3.5rem)] pb-[calc(env(safe-area-inset-bottom)+6rem)] backdrop-blur-2xl backdrop-saturate-150 transition-[opacity,visibility] duration-300 lg:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}>
-        <p className="font-display text-[12px] tracking-[0.4em] text-mute">CRAFT <span className="text-gold">CMS</span></p>
-        <ul className="mt-5">
-          {items.map(({ href, label: key }, i) => {
+      {/* スマホ：下の丸いメニューから開く、小さなパネル（アイコン＋名前。デモの設定は下に小さく） */}
+      <div onClick={() => setOpen(false)} aria-hidden className={`fixed inset-0 z-50 bg-black/15 transition-opacity duration-300 lg:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`} />
+      <div id="cms-menu" aria-hidden={!open}
+        className={`fixed bottom-[calc(5.25rem+env(safe-area-inset-bottom))] left-1/2 z-50 max-h-[calc(100svh-7.5rem)] w-[min(19rem,calc(100vw-2rem))] -translate-x-1/2 origin-bottom overflow-y-auto overscroll-contain rounded-3xl border border-black/5 bg-white/85 p-2 shadow-[0_12px_40px_rgba(0,0,0,.18)] backdrop-blur-xl backdrop-saturate-150 transition-[opacity,scale,visibility] duration-300 lg:hidden ${open ? "visible scale-100 opacity-100" : "invisible scale-95 opacity-0"}`}>
+        <ul>
+          {items.map(({ href, label: key, icon: Icon }) => {
             const on = isOn(href);
             return (
-              <li key={href} className={`transition-all duration-500 ${open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}`} style={{ transitionDelay: open ? `${0.04 * i}s` : "0s" }}>
-                <Link href={href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} aria-current={on ? "page" : undefined} className={`flex items-center gap-3 py-[7px] text-[18px] tracking-[0.04em] transition ${on ? "font-medium text-ink" : "text-ink/40 active:text-ink"}`}>
-                  {t.nav[key]}
-                  {on && <span className="h-1.5 w-1.5 rounded-full bg-gold" />}
+              <li key={href}>
+                <Link href={href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} aria-current={on ? "page" : undefined}
+                  className={`flex items-center gap-3 rounded-2xl px-3.5 py-2.5 text-[14px] transition ${on ? "bg-ink text-white" : "text-ink/75 active:bg-black/5"}`}>
+                  <Icon size={18} strokeWidth={on ? 1.9 : 1.6} className={on ? "" : "text-ink/45"} />
+                  <span className="flex-1">{t.nav[key]}</span>
                   {(badge[key] ?? 0) > 0 && <span className="rounded-full bg-red-600 px-1.5 text-[11px] leading-5 text-white">{badge[key]}</span>}
                 </Link>
               </li>
             );
           })}
         </ul>
-        <div className="mt-auto space-y-3 border-t border-ink/10 pt-4 text-[12px] text-mute max-h-[700px]:mt-6">
+        <div className="mx-1.5 mt-1.5 space-y-2.5 border-t border-black/5 px-2 pt-3 pb-2 text-[12px] text-mute">
           <MiniDemo onDone={() => setOpen(false)} />
         </div>
       </div>
-      <button type="button" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} aria-label="閉じる"
-          className={`fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 z-[51] flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink text-white shadow-[0_6px_24px_rgba(0,0,0,.2)] transition-opacity duration-300 lg:hidden ${open ? "visible opacity-100" : "invisible opacity-0"}`}><X size={20} strokeWidth={1.6} /></button>
       <div className="lg:pl-60">
         <div className="sticky top-0 z-30 flex h-14 items-center gap-3 bg-[#f1f1f0]/90 px-5 backdrop-blur lg:hidden">
           <button type="button" className="-ml-2.5 p-2.5" onClick={() => setOpen(true)} aria-label={t.menu}><Menu size={20} /></button>
@@ -226,7 +225,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
           <p className="mt-10 text-[11px] text-mute">{t.footer}{t.sample && <span className="block">{t.sample}</span>}</p>
         </main>
         {/* スマホ・タブレット：下に浮かぶ小さなメニュー（アイコンだけ。下へスクロールすると隠れる） */}
-        <nav aria-label={t.menu} className={`fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 z-40 -translate-x-1/2 transition-[translate,opacity] duration-300 lg:hidden ${navHidden ? "pointer-events-none translate-y-[160%] opacity-0" : "translate-y-0 opacity-100"}`}>
+        <nav aria-label={t.menu} className={`fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 transition-[translate,opacity] duration-300 lg:hidden ${open ? "z-[52]" : "z-40"} ${navHidden && !open ? "pointer-events-none translate-y-[160%] opacity-0" : "translate-y-0 opacity-100"}`}>
           <ul className="flex items-center gap-1 rounded-full border border-black/5 bg-white/80 p-1.5 shadow-[0_6px_24px_rgba(0,0,0,.12)] backdrop-blur-xl backdrop-saturate-150">
             {tabs.map(({ href, label, icon: Icon }) => {
               const on = isOn(href);
@@ -240,7 +239,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
               );
             })}
             <li>
-              <button type="button" onClick={() => setOpen(true)} aria-label={t.more} className="flex h-11 w-11 items-center justify-center rounded-full text-ink/55 active:bg-black/5"><Menu size={19} strokeWidth={1.6} /></button>
+              <button type="button" onClick={() => setOpen(!open)} aria-label={open ? "閉じる" : t.more} aria-expanded={open} aria-controls="cms-menu" className={`flex h-11 w-11 items-center justify-center rounded-full transition ${open ? "bg-ink text-white" : "text-ink/55 active:bg-black/5"}`}>{open ? <X size={19} strokeWidth={1.7} /> : <Menu size={19} strokeWidth={1.6} />}</button>
             </li>
           </ul>
         </nav>
