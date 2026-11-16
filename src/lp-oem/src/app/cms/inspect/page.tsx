@@ -6,6 +6,7 @@ import { CHECKS, modelOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { Card, Shell, TechNote } from "@/components/cms/ui";
+import { askConfirm } from "@/components/cms/Confirm";
 
 // 国内検品：スマホで、チェック・不良数・写真を登録する
 export default function InspectPage() {
@@ -53,7 +54,7 @@ export default function InspectPage() {
                   <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-3">
                     <button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "検品", "検品の写真を登録しました"))} className="flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><Camera size={14} />写真を登録</button>
                     <TechNote className="hidden sm:flex">スマホのカメラで撮影→Storage</TechNote>
-                    <button type="button" disabled={!all} onClick={() => { updateDeal(d.id, (x) => addLog(x, "検品", `検品が完了しました（良品${x.lot - x.defects}・不良${x.defects}）`)); advance(d.id, "検品"); }}
+                    <button type="button" disabled={!all} onClick={async () => { if (!(await askConfirm({ title: "検品OKにして発送しますか？", body: `良品${d.lot - d.defects}個・不良${d.defects}個。検品報告書と納品書が作られ、お客様に発送のお知らせが届きます。`, ok: "発送する" }))) return; updateDeal(d.id, (x) => addLog(x, "検品", `検品が完了しました（良品${x.lot - x.defects}・不良${x.defects}）`)); advance(d.id, "検品"); }}
                       className="cms-btn bg-ink px-4 py-2 text-[12.5px] text-white disabled:bg-line disabled:text-mute">検品OK・発送する</button>
                   </div>
                 </>

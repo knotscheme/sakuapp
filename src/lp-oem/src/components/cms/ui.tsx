@@ -7,6 +7,7 @@ import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo } from "./store";
 import { resetCatalog } from "./catalog";
+import { ConfirmHost, askConfirm } from "./Confirm";
 
 // URLの ?id= などを読む（静的に書き出すため、表示後に読む）
 export function useQuery(name: string) {
@@ -47,7 +48,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
       </ul>
       <div className="space-y-1 px-3 py-4 text-[12px]">
         <TechNote className="mx-3 mb-3">ログインは Supabase Auth（スタッフ・工場・検品で権限を分ける）</TechNote>
-        <button type="button" onClick={() => { if (confirm("デモのデータ（案件・商品）を最初の状態に戻しますか？")) { resetDemo(); resetCatalog(); } }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
+        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "案件と商品の変更がすべて消えます。", ok: "戻す", danger: true })) { resetDemo(); resetCatalog(); } }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
         <a href="/sakuapp/works/lp-oem/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><ArrowLeft size={14} /> LPに戻る</a>
       </div>
     </nav>
@@ -71,6 +72,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
             {actions}
           </div>
           {children}
+          <ConfirmHost />
           <p className="mt-10 text-[11px] text-mute">※ポートフォリオ用のデモです。データはすべて架空で、操作した内容はこのブラウザにだけ保存されます。</p>
         </main>
       </div>

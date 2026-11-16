@@ -68,6 +68,19 @@ export function advance(id: string, who = "白川") {
   });
 }
 
+// 1つ前の段階に戻す（押し間違いの取り消し用）
+export function revert(id: string, who = "白川") {
+  updateDeal(id, (d) => {
+    const i = stageIndex(d.stage);
+    if (i <= 0) return d;
+    const prev = STAGES[i - 1].id as StageId;
+    let x: Deal = { ...d, stage: prev };
+    if (prev === "production") x.prodStep = 4;
+    x = addLog(x, who, `「${STAGES[i].ja}」から「${STAGES[i - 1].ja}」に戻しました`, "system");
+    return x;
+  });
+}
+
 export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string }) {
   const list = load();
   const n = Math.max(1023, ...list.map((d) => Number(d.id.slice(2)))) + 1;

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
 import { MAX_SUB, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
 import { Card, CardHead, Shell, TechNote } from "@/components/cms/ui";
+import { askConfirm } from "@/components/cms/Confirm";
 
 const yen = (n: number) => `${n.toLocaleString("ja-JP")}円`;
 const blank = (cat: string): Product => ({ id: `p-${Date.now().toString(36)}`, name: "", short: "", cat, feature: "", size: "", logo: "", unitPrice: 0, img: "", visible: true });
@@ -190,7 +191,7 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
         </div>
         <div className="flex items-center justify-between gap-3 border-t border-line px-6 py-4">
           {!isNew ? (
-            <button type="button" onClick={() => { if (confirm("この商品を削除しますか？")) { deleteProduct(p.id); onClose(); } }} className="flex items-center gap-1.5 text-[12.5px] text-red-600"><Trash2 size={14} /> 削除</button>
+            <button type="button" onClick={async () => { if (await askConfirm({ title: "この商品を削除しますか？", body: "製品一覧からも消えます。元に戻せません。", ok: "削除する", danger: true })) { deleteProduct(p.id); onClose(); } }} className="flex items-center gap-1.5 text-[12.5px] text-red-600"><Trash2 size={14} /> 削除</button>
           ) : <span />}
           <button type="button" disabled={!ok} onClick={() => { saveProduct({ ...p, name: p.name.trim() || p.short.trim(), video: p.video?.trim() || undefined }); onClose(); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute">保存する</button>
         </div>

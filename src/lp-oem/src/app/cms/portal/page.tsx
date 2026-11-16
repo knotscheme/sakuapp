@@ -6,6 +6,7 @@ import { DOCS, STAGES, amounts, modelOf, stageIndex, yenOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { TechNote, useQuery } from "@/components/cms/ui";
+import { ConfirmHost, askConfirm } from "@/components/cms/Confirm";
 
 // お客様の画面：自分の案件だけ。見積の承諾・ロゴ配置の承認・進み具合の確認ができる
 const SIMPLE = ["お問い合わせ", "お見積り", "ご注文", "ロゴの確認", "製造", "輸送", "検品", "発送", "お届け完了"];
@@ -46,7 +47,7 @@ export default function Portal() {
             <p className="text-[15px] font-medium">お見積りをご確認ください</p>
             <p className="mt-1 text-[13px] text-mute">合計 {yenOf(a.total)}（税込）。承諾いただくと、発注依頼書と前金の請求書が届きます。</p>
             <div className="mt-4 flex gap-4">
-              <button type="button" onClick={() => { updateDeal(d.id, (x) => addLog(x, "お客様", "お客様の画面から見積を承諾しました")); advance(d.id, "お客様"); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white">見積を承諾する</button>
+              <button type="button" onClick={async () => { if (!(await askConfirm({ title: "このお見積りで承諾しますか？", body: `合計 ${yenOf(a.total)}（税込）。承諾すると、発注依頼書と前金の請求書が届きます。`, ok: "承諾する" }))) return; updateDeal(d.id, (x) => addLog(x, "お客様", "お客様の画面から見積を承諾しました")); advance(d.id, "お客様"); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white">見積を承諾する</button>
               <Link href={`/cms/doc/?id=${d.id}&type=quote`} className="self-center text-[13px] underline underline-offset-4">見積書を見る</Link>
             </div>
           </section>
@@ -56,7 +57,7 @@ export default function Portal() {
             <p className="text-[15px] font-medium">ロゴの配置をご確認ください</p>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={asset("/images/finish-gold.webp")} alt="ロゴ配置のイメージ" className="mt-4 aspect-[16/9] w-full object-cover" />
-            <button type="button" onClick={() => { updateDeal(d.id, (x) => addLog(x, "お客様", "お客様の画面からロゴ配置を承認しました")); advance(d.id, "お客様"); }} className="cms-btn mt-4 bg-ink px-5 py-2.5 text-[13px] text-white">この配置で承認する</button>
+            <button type="button" onClick={async () => { if (!(await askConfirm({ title: "この配置で承認しますか？", body: "承認すると製造が始まります。修正したい場合は、承認せずにご連絡ください。", ok: "承認する" }))) return; updateDeal(d.id, (x) => addLog(x, "お客様", "お客様の画面からロゴ配置を承認しました")); advance(d.id, "お客様"); }} className="cms-btn mt-4 bg-ink px-5 py-2.5 text-[13px] text-white">この配置で承認する</button>
           </section>
         )}
 
@@ -91,6 +92,7 @@ export default function Portal() {
           </ul>
         </section>
 
+        <ConfirmHost />
         <p className="mt-12 text-center text-[11px] text-mute">
           お客様が見る画面のデモです。<Link href={`/cms/deal/?id=${d.id}`} className="underline underline-offset-4">管理画面に戻る</Link>
         </p>

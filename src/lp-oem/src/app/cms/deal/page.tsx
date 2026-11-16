@@ -5,7 +5,8 @@ import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIc
 import { useState } from "react";
 import { DOCS, FACTORY, PROD_STEPS, RATE, STAGES, amounts, modelOf, stageIndex, yenOf, OWNERS } from "@/lib/cms";
 import { asset } from "@/lib/asset";
-import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
+import { addLog, advance, revert, updateDeal, useDeals } from "@/components/cms/store";
+import { askConfirm } from "@/components/cms/Confirm";
 import { Card, CardHead, DueBadge, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
 
 const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity } as const;
@@ -24,6 +25,13 @@ export default function DealPage() {
   const cost = (d.thbCost ?? 0) * RATE;
   const profit = a.items - cost * d.lot;
   const docs = DOCS.filter((k) => stageIndex(k.at) <= si);
+  const doAdvance = async () => {
+    const nextDocs = DOCS.filter((k) => k.at === STAGES[si + 1]?.id).map((k) => k.ja);
+    if (await askConfirm({ title: `「${STAGES[si].next}」を実行しますか？`, body: `段階が「${STAGES[si + 1].ja}」に進みます。${nextDocs.length ? `${nextDocs.join("・")}が作られ、` : ""}必要なメールが自動で送られます。`, ok: "実行する" })) advance(d.id, d.owner);
+  };
+  const doRevert = async () => {
+    if (await askConfirm({ title: `「${STAGES[si - 1].ja}」に戻しますか？`, body: "押し間違えたときに使います。送ったメールや作った書類は取り消されません。", ok: "戻す", danger: true })) revert(d.id, d.owner);
+  };
 
   return (
     <Shell
@@ -47,6 +55,9 @@ export default function DealPage() {
         </ol>
       </Card>
 
+      {d.stage === "done" && (
+        <div className="mt-4 text-right"><button type="button" onClick={doRevert} className="text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button></div>
+      )}
       {d.stage !== "done" && (
         <div className="cms-card mt-5 flex flex-wrap items-center justify-between gap-4 px-6 py-5 ring-1 ring-ink/70">
           <div>
@@ -55,8 +66,9 @@ export default function DealPage() {
             <TechNote className="mt-1.5">「実行する」で Supabase Edge Function が動き、書類PDFの作成と Resend でのメール送信を自動で行う</TechNote>
           </div>
           <div className="flex items-center gap-4">
+            {si > 0 && <button type="button" onClick={doRevert} className="text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button>}
             <DueBadge due={d.due} stage={d.stage} />
-            <button type="button" onClick={() => advance(d.id, d.owner)} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
+            <button type="button" onClick={doAdvance} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
               実行する <ChevronRight size={15} />
             </button>
           </div>
@@ -65,7 +77,7 @@ export default function DealPage() {
 
       {d.stage !== "done" && (
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur md:hidden">
-          <button type="button" onClick={() => advance(d.id, d.owner)} className="cms-btn flex w-full items-center justify-center gap-2 bg-ink py-3.5 text-[14px] text-white">
+          <button type="button" onClick={doAdvance} className="cms-btn flex w-full items-center justify-center gap-2 bg-ink py-3.5 text-[14px] text-white">
             {STAGES[si].next} <ChevronRight size={16} />
           </button>
         </div>
