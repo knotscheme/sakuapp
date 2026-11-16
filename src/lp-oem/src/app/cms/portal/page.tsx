@@ -3,6 +3,8 @@
 import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
+import { useState } from "react";
+import { ProofPair, ProofView, logoCm } from "@/components/cms/Proof";
 import { Check, FileText } from "lucide-react";
 import { DOCS, STAGES, amounts, modelOf, stageIndex, yenOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
@@ -11,6 +13,7 @@ import { NoAccess, Shell, TechNote, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { ConfirmHost, askConfirm } from "@/components/cms/Confirm";
 
+// お客様の画面：自分の案件だけ。履歴は、お客様に送ったメールとお客様自身の操作だけを見せる（社内のメモや作業記録は出さない）
 // お客様の画面：自分の案件だけ。見積の承諾・ロゴ配置の承認・進み具合の確認ができる
 const SIMPLE = ["お問い合わせ", "お見積り", "ご注文", "ロゴの確認", "製造", "輸送", "検品", "発送", "お届け完了"];
 
@@ -18,6 +21,8 @@ export default function Portal() {
   const id = useQuery("id");
   const d = useDeals().find((x) => x.id === id);
   const { can } = useAuth();
+  const [asking, setAsking] = useState(false);
+  const [req, setReq] = useState("");
   // デモでは管理画面の人が「お客様の画面」を見る。案件を見る権限が無い人（工場など）には見せない
   // ※本番では、お客様はメールの専用リンクで、自分の案件だけを見る
   if (!can("deals.view")) return <Shell title="お客様の画面（例）"><NoAccess /></Shell>;
@@ -61,16 +66,33 @@ export default function Portal() {
         )}
         {d.stage === "proof" && (
           <section className="mt-8 cms-card p-6 ring-1 ring-ink/70">
-            <p className="text-[15px] font-medium">ロゴの配置をご確認ください</p>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset("/images/finish-gold.webp")} alt="ロゴ配置のイメージ" className="mt-4 aspect-[16/9] w-full object-cover" />
-            <button type="button" onClick={async () => { if (!(await askConfirm({ title: "この配置で承認しますか？", body: "承認すると製造が始まります。修正したい場合は、承認せずにご連絡ください。", ok: "承認する" }))) return; updateDeal(d.id, (x) => addLog(x, "お客様", "お客様の画面からロゴ配置を承認しました")); advance(d.id, "お客様"); }} className="cms-btn mt-4 bg-ink px-5 py-2.5 text-[13px] text-white">この配置で承認する</button>
+            <p className="text-[15px] font-medium"><Ph>ロゴの配置をご確認ください</Ph><span className="ml-2 text-[12px] font-normal text-mute">第{d.proofVer ?? 1}版</span></p>
+            <p className="mt-1 text-[13px] text-mute"><Ph tail={4}>{`${d.finish}・ロゴの幅 約${logoCm(d).toFixed(1)}cm。位置や大きさを変えたいときは「修正をお願いする」からお知らせください。`}</Ph></p>
+            <div className="mt-4"><ProofPair d={d} /></div>
+            {d.proofReq ? (
+              <p className="mt-4 rounded-lg bg-[#f6f6f5] px-4 py-3 text-[13px]"><Ph tail={4}>{`修正のご依頼を受け付けました。修正版ができたら、この画面とメールでお知らせします。（ご依頼：「${d.proofReq}」）`}</Ph></p>
+            ) : asking ? (
+              <form className="mt-4 space-y-2" onSubmit={(e) => { e.preventDefault(); const t = req.trim(); if (!t) return; updateDeal(d.id, (x) => addLog({ ...x, proofReq: t }, "お客様", `ロゴ配置の修正を依頼しました：「${t}」`, "mail")); setReq(""); setAsking(false); }}>
+                <textarea value={req} onChange={(e) => setReq(e.target.value)} rows={3} maxLength={300} placeholder="例：ロゴをもう少し小さく、右下に寄せてください" className="w-full rounded-lg border border-line px-3 py-2 text-[14px] outline-none focus:border-ink" />
+                <div className="flex gap-3">
+                  <button type="submit" className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white">修正をお願いする</button>
+                  <button type="button" onClick={() => setAsking(false)} className="text-[13px] text-mute underline underline-offset-4">やめる</button>
+                </div>
+              </form>
+            ) : (
+              <div className="mt-4 flex flex-wrap items-center gap-4">
+                <button type="button" onClick={async () => { if (!(await askConfirm({ title: "この配置で承認しますか？", body: "承認すると製造が始まります。修正したい場合は、承認せずに「修正をお願いする」からお知らせください。", ok: "承認する" }))) return; updateDeal(d.id, (x) => addLog(x, "お客様", `お客様の画面からロゴ配置（第${x.proofVer ?? 1}版）を承認しました`)); advance(d.id, "お客様"); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white">この配置で承認する</button>
+                <button type="button" onClick={() => setAsking(true)} className="text-[13px] underline underline-offset-4">修正をお願いする</button>
+              </div>
+            )}
           </section>
         )}
 
         <section className="mt-8 grid gap-6 cms-card p-6 sm:grid-cols-[160px_1fr]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={asset(m.img)} alt="" className="aspect-[4/3] w-full object-cover" />
+          {si >= 4 ? <ProofView d={d} label={false} className="self-start" /> : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={asset(m.img)} alt="" className="aspect-[4/3] w-full object-cover" />
+          )}
           <dl className="grid grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
             <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
             <dt className="text-mute">数量</dt><dd>{d.lot}個</dd>
@@ -93,7 +115,7 @@ export default function Portal() {
         <section className="mt-6">
           <p className="text-[13.5px] font-medium">これまでの流れ</p>
           <ul className="mt-3 space-y-2">
-            {d.logs.filter((l) => l.kind !== "factory" || l.text.includes("出荷")).slice(0, 8).map((l, i) => (
+            {d.logs.filter((l) => l.kind === "mail" || l.who === "お客様" || l.text.startsWith("LPのフォームから")).slice(0, 8).map((l, i) => (
               <li key={i} className="flex gap-3 text-[12.5px]"><Check size={14} className="mt-0.5 shrink-0 text-mute" /><span className="flex-1"><Ph tail={4}>{l.text}</Ph></span><span className="text-mute">{l.at.slice(5).replace("-", "/")}</span></li>
             ))}
           </ul>

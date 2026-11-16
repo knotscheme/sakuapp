@@ -59,6 +59,12 @@ export type Deal = {
   tracking?: string;
   thbCost?: number; // 工場の原価（1個・バーツ）
   message?: string;
+  // ロゴ配置イメージ：お客様のロゴ（透明PNG）と、写真の上の位置・大きさ（%）
+  logo?: string;
+  logoAspect?: number; // ロゴの横÷縦
+  place?: { x: number; y: number; w: number };
+  proofVer?: number; // お客様に送った版（第1版・第2版…）
+  proofReq?: string; // お客様からの修正の依頼
   logs: Log[];
 };
 
@@ -127,6 +133,7 @@ export function seedDeals(): Deal[] {
       prodStep,
       defects: stage === "inspection" ? 2 : 0,
       checks: CHECKS.map((_, k) => stage === "done" || (stage === "inspection" && k < 3)),
+      proofVer: si >= 3 ? 1 : undefined,
       tracking: si >= 5 ? `TH${880000 + i * 137}JP` : undefined,
       thbCost: Math.round(unitPriceOf(model, lot) / RATE / 1.6),
       message: i === 0 ? "ギフト向けに金箔でロゴを入れたいです。化粧箱も検討しています。" : undefined,

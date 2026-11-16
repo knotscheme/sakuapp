@@ -11,6 +11,7 @@ import { addLog, advance, revert, updateDeal, useDeals } from "@/components/cms/
 import { askConfirm } from "@/components/cms/Confirm";
 import { Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
+import { ProofCard } from "./proof-card";
 
 const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity } as const;
 
@@ -119,6 +120,9 @@ export default function DealPage() {
             </div>
             </>) : <p className="border-t border-line px-5 py-4 text-[12.5px] text-mute">金額・原価を見る権限がありません。</p>}
           </Card>
+
+          {/* ロゴ配置イメージ */}
+          <ProofCard d={d} canEdit={can("deals.advance")} who={d.owner} />
 
           {/* 工場の進み具合 */}
           {si >= 4 && (

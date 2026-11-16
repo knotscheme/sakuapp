@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { MessageSquare, Send } from "lucide-react";
 import { Camera, Check, FileText, Truck } from "lucide-react";
-import { FACTORY, PROD_STEPS, modelOf, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
-import { asset } from "@/lib/asset";
+import { FACTORY, PROD_STEPS, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
+import { ProofView } from "@/components/cms/Proof";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { Card, NoAccess, Shell, TechNote } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
@@ -69,13 +69,11 @@ export default function FactoryPage() {
       {!list.length && <p className="text-[13px] text-mute">{t.empty}</p>}
       <div className="grid gap-5 lg:grid-cols-2">
         {list.map((d) => {
-          const m = modelOf(d.model);
           const shipped = stageIndex(d.stage) >= 5;
           return (
             <Card key={d.id}>
               <div className="flex gap-4 p-5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={asset(m.img)} alt="" className="aspect-[4/3] w-28 shrink-0 object-cover" />
+                <ProofView d={d} label={false} className="w-32 shrink-0 self-start" />
                 <div className="min-w-0 flex-1 text-[13px]">
                   <p className="text-[11.5px] text-mute">PO-{d.id.slice(2)}</p>
                   <p className="font-medium">{trModel(d.model, lang)}</p>

@@ -60,6 +60,7 @@ export function advance(id: string, who = "佐藤") {
       done: "完了しました。お礼のメールを送りました",
     };
     if (mail[next]) x = addLog(x, who, mail[next]!, next === "production" ? "factory" : "mail");
+    if (next === "proof") { x.proofVer = (x.proofVer ?? 0) + 1; x.proofReq = undefined; }
     if (next === "production") x.prodStep = 0;
     if (next === "transit") x.tracking = x.tracking ?? `TH${Math.floor(100000 + Math.random() * 899999)}JP`;
     const due = new Date(); due.setDate(due.getDate() + ({ quote: 3, order: 5, proof: 3, production: 21, transit: 7, inspection: 2, shipping: 3, done: 0 } as Record<string, number>)[next]);
@@ -81,7 +82,7 @@ export function revert(id: string, who = "佐藤") {
   });
 }
 
-export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string }) {
+export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number }) {
   const list = load();
   const n = Math.max(1023, ...list.map((d) => Number(d.id.slice(2)))) + 1;
   const deal: Deal = {
@@ -89,7 +90,8 @@ export function addInquiry(p: { brand: string; email: string; model: Deal["model
     finish: "金箔", color: "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
     createdAt: today(), due: today(), prodStep: 0, defects: 0, checks: [false, false, false, false, false, false],
     thbCost: Math.round(unitPriceOf(p.model, p.lot) / RATE / 1.6),
-    message: p.message, logs: [{ at: today(), who: "システム", text: "LPのフォームから問い合わせが届きました", kind: "system" }],
+    message: p.message, logo: p.logo, logoAspect: p.logoAspect,
+    logs: [{ at: today(), who: "システム", text: p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
   };
   save([deal, ...list]);
 }

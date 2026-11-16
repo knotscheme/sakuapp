@@ -7,6 +7,7 @@ import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
+import { toLogoMask } from "./cms/Proof";
 
 type Errors = Partial<Record<"name" | "email" | "model" | "lot" | "message" | "file", string>>;
 const MAX_FILE = 10 * 1024 * 1024;
@@ -69,10 +70,13 @@ export default function ContactForm() {
     }
     setSending(true);
     // 制作サンプルのため、実際には送信しない
-    setTimeout(() => {
+    // 添付のロゴ（png・jpg・svg）は、管理画面のロゴ配置イメージに使えるように透明な画像にしておく
+    const logo = file ? toLogoMask(file) : Promise.resolve(null);
+    setTimeout(async () => {
+      const lg = await logo;
       setSending(false);
       // デモ：管理画面（CMS）の案件ボードに、問い合わせとして追加する
-      addInquiry({ brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: lot === "more" || !lot ? 300 : Number(lot), message: message.trim() || undefined });
+      addInquiry({ brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: lot === "more" || !lot ? 300 : Number(lot), message: message.trim() || undefined, logo: lg?.src, logoAspect: lg?.ar });
       setDone(true);
     }, 1100);
   };

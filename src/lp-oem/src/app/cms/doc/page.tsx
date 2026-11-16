@@ -8,6 +8,7 @@ import { useDeals } from "@/components/cms/store";
 import { NoAccess, Shell, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { useLang } from "@/components/cms/i18n";
+import { ProofView, logoCm } from "@/components/cms/Proof";
 
 const BACK_F = { ja: "工場の画面に戻る", en: "Back to factory", th: "กลับไปหน้าจอโรงงาน" };
 const LOADING = { ja: "読み込み中…", en: "Loading…", th: "กำลังโหลด…" };
@@ -96,6 +97,7 @@ export default function DocPage() {
                     ["革の色 / Leather / สีหนัง", tri((l) => trColor(d.color, l))],
                     ["ロゴ加工 / Logo / โลโก้", tri((l) => trFinish(d.finish, l))],
                     ["ロゴ位置 / Position / ตำแหน่ง", tri((l) => trPos(m.logo, l))],
+                    ["ロゴの幅 / Logo width / ความกว้างโลโก้", `${logoCm(d).toFixed(1)} cm`],
                     ["サイズ / Size / ขนาด", m.size],
                     ["工場出荷期限 / Ship by / ส่งภายใน", d.due],
                   ].map(([k, v]) => (
@@ -105,6 +107,14 @@ export default function DocPage() {
               </table>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={asset(m.img)} alt="" className="aspect-[4/3] w-full border border-line object-cover" />
+            </section>
+            <section className="mt-6 break-inside-avoid">
+              <p className="font-medium">ロゴ配置（お客様が承認済み・第{d.proofVer ?? 1}版） / Approved logo placement / ตำแหน่งโลโก้ที่อนุมัติแล้ว</p>
+              <div className="mt-2 grid gap-2 sm:grid-cols-[1.6fr_1fr]">
+                <ProofView d={d} label={false} className="border border-line" />
+                <ProofView d={d} label={false} zoom className="border border-line" />
+              </div>
+              <p className="mt-1 text-[11px] text-mute">ロゴの幅 約{logoCm(d).toFixed(1)}cm / Logo width approx. {logoCm(d).toFixed(1)} cm / ความกว้างโลโก้ประมาณ {logoCm(d).toFixed(1)} ซม.</p>
             </section>
             <section className="mt-6">
               <p className="font-medium">工程 / Process / ขั้นตอน</p>
