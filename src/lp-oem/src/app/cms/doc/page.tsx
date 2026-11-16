@@ -5,11 +5,13 @@ import { ArrowLeft, Printer } from "lucide-react";
 import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, modelOf, today, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { useDeals } from "@/components/cms/store";
-import { useQuery } from "@/components/cms/ui";
+import { NoAccess, Shell, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { useLang } from "@/components/cms/i18n";
 
 const BACK_F = { ja: "工場の画面に戻る", en: "Back to factory", th: "กลับไปหน้าจอโรงงาน" };
+const LOADING = { ja: "読み込み中…", en: "Loading…", th: "กำลังโหลด…" };
+const DOC_NO = { ja: "書類", en: "Document", th: "เอกสาร" };
 const PRINT = { ja: "印刷・PDFで保存", en: "Print / Save as PDF", th: "พิมพ์ / บันทึกเป็น PDF" };
 
 // 製造指示書の値：日本語のあとに英語・タイ語を小さく添える
@@ -22,7 +24,10 @@ export default function DocPage() {
   const d = useDeals().find((x) => x.id === id);
   const { can } = useAuth();
   const { lang } = useLang();
-  if (!d || !type) return <p className="p-8 text-[13px] text-mute">読み込み中…</p>;
+  if (!d || !type) return <p className="p-8 text-[13px] text-mute">{LOADING[lang]}</p>;
+  // 製造指示書は工場の人も見られる。それ以外の書類（金額・お客様の情報あり）は案件を見る権限が必要
+  // ※本番では、書類の取得そのものをサーバー側の権限（RLS）でも止める
+  if (!(type === "work" ? can("factory.use") || can("deals.view") : can("deals.view"))) return <Shell title={DOC_NO[lang]}><NoAccess /></Shell>;
 
   const m = modelOf(d.model);
   const a = amounts(d);
@@ -55,7 +60,7 @@ export default function DocPage() {
           </div>
           <div className="text-right text-[11.5px] text-mute">
             <p>No. {no}</p>
-            <p>発行日　{today()}</p>
+            <p>{isWork ? "発行日 / Date / วันที่" : "発行日"}　{today()}</p>
           </div>
         </header>
 
@@ -166,7 +171,7 @@ export default function DocPage() {
           </>
         )}
 
-        <p className="mt-10 text-center text-[10.5px] text-mute">※ポートフォリオ用のデモです。会社名・金額・内容はすべて架空です。</p>
+        <p className="mt-10 text-center text-[10.5px] text-mute">※ポートフォリオ用のデモです。会社名・金額・内容はすべて架空です。{isWork && <span className="block">※Portfolio demo. All names and data are fictional. / เดโมสำหรับพอร์ตโฟลิโอ ข้อมูลทั้งหมดเป็นข้อมูลสมมติ</span>}</p>
       </article>
     </div>
   );

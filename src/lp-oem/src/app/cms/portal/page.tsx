@@ -5,7 +5,8 @@ import { Check, FileText } from "lucide-react";
 import { DOCS, STAGES, amounts, modelOf, stageIndex, yenOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
-import { TechNote, useQuery } from "@/components/cms/ui";
+import { NoAccess, Shell, TechNote, useQuery } from "@/components/cms/ui";
+import { useAuth } from "@/components/cms/perm";
 import { ConfirmHost, askConfirm } from "@/components/cms/Confirm";
 
 // お客様の画面：自分の案件だけ。見積の承諾・ロゴ配置の承認・進み具合の確認ができる
@@ -14,6 +15,10 @@ const SIMPLE = ["お問い合わせ", "お見積り", "ご注文", "ロゴの確
 export default function Portal() {
   const id = useQuery("id");
   const d = useDeals().find((x) => x.id === id);
+  const { can } = useAuth();
+  // デモでは管理画面の人が「お客様の画面」を見る。案件を見る権限が無い人（工場など）には見せない
+  // ※本番では、お客様はメールの専用リンクで、自分の案件だけを見る
+  if (!can("deals.view")) return <Shell title="お客様の画面（例）"><NoAccess /></Shell>;
   if (!d) return <p className="p-8 text-[13px] text-mute">{id ? "案件が見つかりません。" : "読み込み中…"}</p>;
   const m = modelOf(d.model);
   const a = amounts(d);

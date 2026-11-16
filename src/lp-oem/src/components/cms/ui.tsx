@@ -9,7 +9,7 @@ import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo } from "./store";
 import { resetCatalog } from "./catalog";
 import { ConfirmHost, askConfirm } from "./Confirm";
-import { LANGS, setViewLang, useLang, useUI, UI } from "./i18n";
+import { LANGS, setViewLang, trTitle, useLang, useUI, UI } from "./i18n";
 
 // URLの ?id= などを読む（静的に書き出すため、表示後に読む）
 export function useQuery(name: string) {
@@ -37,11 +37,14 @@ const NAV: { href: string; label: NavKey; icon: typeof LayoutGrid; perm?: Perm }
 // 権限が無いときの表示
 export function NoAccess() {
   const t = useUI();
+  const { can } = useAuth();
+  const first = NAV.find((n) => n.perm && can(n.perm)) ?? NAV[NAV.length - 1];
   return (
     <div className="cms-card flex flex-col items-center px-6 py-14 text-center">
       <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f1f1f0]"><Lock size={18} /></span>
       <p className="mt-4 text-[15px] font-semibold">{t.noAccess}</p>
       <p className="mt-1.5 text-[13px] text-mute">{t.noAccessB}</p>
+      <Link href={first.href} className="cms-btn mt-6 inline-flex items-center gap-1.5 bg-ink px-4 py-2.5 text-[13px] text-white">{t.goTo}：{t.nav[first.label]}</Link>
     </div>
   );
 }
@@ -124,7 +127,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
         <main className={`mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10 ${bottomPad ? "pb-28 md:pb-10" : ""}`}>
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="text-[22px] font-semibold tracking-[0.02em]">{title}</h1>
+              <h1 className="text-[22px] font-semibold tracking-[0.02em]">{trTitle(title, lang)}</h1>
               {note && <TechNote className="mt-1.5">{note}</TechNote>}
             </div>
             {actions}
