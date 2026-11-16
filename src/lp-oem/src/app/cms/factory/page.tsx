@@ -1,0 +1,83 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { Camera, Check, FileText, Truck } from "lucide-react";
+import { FACTORY, PROD_STEPS, modelOf, stageIndex } from "@/lib/cms";
+import { asset } from "@/lib/asset";
+import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
+import { Card, Shell } from "@/components/cms/ui";
+
+// 工場の画面：担当の注文だけ。お客様の名前・連絡先・販売価格は見せない。英語・タイ語に切り替えられる
+const T = {
+  en: { title: "Production orders", ship: "Ship by", qty: "Qty", done: "Mark as done", shipBtn: "Ship to Japan", photo: "Upload photo", order: "Production order", empty: "No orders in production.", shipped: "Shipped" },
+  th: { title: "รายการสั่งผลิต", ship: "ส่งภายใน", qty: "จำนวน", done: "เสร็จแล้ว", shipBtn: "ส่งไปญี่ปุ่น", photo: "อัปโหลดรูป", order: "ใบสั่งผลิต", empty: "ไม่มีงานที่กำลังผลิต", shipped: "ส่งแล้ว" },
+  ja: { title: "製造中の注文", ship: "出荷期限", qty: "数量", done: "完了にする", shipBtn: "日本へ出荷", photo: "写真を登録", order: "製造指示書", empty: "製造中の注文はありません。", shipped: "出荷済み" },
+};
+
+export default function FactoryPage() {
+  const deals = useDeals();
+  const [lang, setLang] = useState<"en" | "th" | "ja">("en");
+  const t = T[lang];
+  const list = deals.filter((d) => d.stage === "production" || d.stage === "transit");
+
+  const langs = (
+    <div className="flex border border-line text-[12px]">
+      {(["en", "th", "ja"] as const).map((l) => (
+        <button key={l} type="button" onClick={() => setLang(l)} className={`px-3 py-1.5 ${lang === l ? "bg-ink text-white" : "text-mute"}`}>{l === "en" ? "EN" : l === "th" ? "ไทย" : "日本語"}</button>
+      ))}
+    </div>
+  );
+
+  return (
+    <Shell title={`${t.title}｜${FACTORY}`} actions={langs}>
+      <p className="mb-5 text-[12.5px] text-mute">工場の人が見る画面です。担当の注文だけが表示され、お客様の名前・連絡先・販売価格は表示されません。</p>
+      {!list.length && <p className="text-[13px] text-mute">{t.empty}</p>}
+      <div className="grid gap-5 lg:grid-cols-2">
+        {list.map((d) => {
+          const m = modelOf(d.model);
+          const shipped = stageIndex(d.stage) >= 5;
+          return (
+            <Card key={d.id}>
+              <div className="flex gap-4 p-5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={asset(m.img)} alt="" className="aspect-[4/3] w-28 shrink-0 object-cover" />
+                <div className="min-w-0 flex-1 text-[13px]">
+                  <p className="text-[11.5px] text-mute">PO-{d.id.slice(2)}</p>
+                  <p className="font-medium">{m.name}</p>
+                  <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{d.color}・{d.finish}</p>
+                  <p className="text-ink/80">{t.ship}: {d.due}</p>
+                  <Link href={`/cms/doc/?id=${d.id}&type=work`} className="mt-1.5 inline-flex items-center gap-1 text-[12px] underline underline-offset-4"><FileText size={13} />{t.order}</Link>
+                </div>
+              </div>
+              <ol className="grid grid-cols-4 gap-px border-t border-line bg-line">
+                {PROD_STEPS.map((p, i) => {
+                  const done = shipped || d.prodStep > i;
+                  const cur = !shipped && d.prodStep === i;
+                  return (
+                    <li key={p.en} className="bg-white p-3 text-center text-[11.5px]">
+                      <span className={`mx-auto mb-1.5 flex h-6 w-6 items-center justify-center rounded-full border ${done ? "border-ink bg-ink text-white" : cur ? "border-ink" : "border-line text-mute"}`}>{done ? <Check size={12} /> : i + 1}</span>
+                      <span className={done || cur ? "" : "text-mute"}>{lang === "ja" ? p.ja : lang === "th" ? p.th : p.en}</span>
+                      {cur && (
+                        <button type="button" onClick={() => updateDeal(d.id, (x) => addLog({ ...x, prodStep: x.prodStep + 1 }, "工場", `「${p.ja}」が完了しました（写真あり）`, "factory"))}
+                          className="mt-2 block w-full bg-ink py-1.5 text-[11px] text-white">{t.done}</button>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+              <div className="flex items-center justify-between border-t border-line px-5 py-3">
+                <button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "工場", "写真を登録しました", "factory"))} className="flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><Camera size={14} />{t.photo}</button>
+                {shipped ? (
+                  <span className="flex items-center gap-1.5 text-[12px] text-mute"><Truck size={14} />{t.shipped}・{d.tracking}</span>
+                ) : (
+                  <button type="button" disabled={d.prodStep < 4} onClick={() => advance(d.id, "工場")} className="flex items-center gap-1.5 border border-ink px-3 py-1.5 text-[12px] disabled:border-line disabled:text-mute"><Truck size={14} />{t.shipBtn}</button>
+                )}
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+    </Shell>
+  );
+}

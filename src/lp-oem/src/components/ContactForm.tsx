@@ -6,6 +6,7 @@ import { LOTS, MODELS, getModel, yen, type ModelId } from "@/lib/models";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
+import { addInquiry } from "./cms/store";
 
 type Errors = Partial<Record<"name" | "email" | "model" | "lot" | "message" | "file", string>>;
 const MAX_FILE = 10 * 1024 * 1024;
@@ -70,6 +71,8 @@ export default function ContactForm() {
     // 制作サンプルのため、実際には送信しない
     setTimeout(() => {
       setSending(false);
+      // デモ：管理画面（CMS）の案件ボードに、問い合わせとして追加する
+      addInquiry({ brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: lot === "more" || !lot ? 300 : Number(lot), message: message.trim() || undefined });
       setDone(true);
     }, 1100);
   };
@@ -178,6 +181,7 @@ export default function ContactForm() {
             <CheckCircle2 className="mx-auto text-gold" size={56} strokeWidth={1.3} />
             <h3 id="done-title" className="mt-4 text-xl font-bold">送信が完了しました</h3>
             <p className="mt-3 text-[14px] leading-loose text-mute">お問い合わせありがとうございます。<br />2営業日以内に、担当者よりご連絡いたします。</p>
+            <a href="/sakuapp/works/lp-oem/cms/deals/" className="mt-4 inline-block text-[12.5px] underline underline-offset-4">管理画面（デモ）で届いた様子を見る</a>
             <button type="button" onClick={reset} autoFocus className="mt-7 w-full bg-ink py-3.5 font-bold text-white transition hover:bg-gold">閉じる</button>
           </div>
         </div>

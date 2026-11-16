@@ -6,6 +6,7 @@ export default function Footer() {
       <p className="mx-auto mt-6 max-w-md px-5 text-[11px] leading-relaxed text-mute/80">
         ※本ページはポートフォリオ用の制作サンプルです。サービス名・価格・条件などはすべて架空のものです。
       </p>
+      <a href="/sakuapp/works/lp-oem/cms/" className="mt-5 inline-block text-[11px] tracking-[0.2em] text-mute underline underline-offset-4 hover:text-ink">管理画面のデモを見る</a>
       <p className="mt-4 font-display text-[11px] tracking-widest text-mute/60">© CRAFT OEM (SAMPLE)</p>
     </footer>
   );
