@@ -77,7 +77,8 @@ export function ProofView({ d, className = "", label = true, zoom = false }: { d
       <div className="absolute inset-0" style={zoom ? { transform: `translate(${50 - p.x}%, ${50 - p.y}%) scale(${Math.min(6, 42 / p.w)})`, transformOrigin: `${p.x}% ${p.y}%` } : undefined}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={asset(`/images/${ph.img}.webp`)} alt="ロゴ配置のイメージ" className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute" style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${p.w}%`, aspectRatio: String(lg.ar), translate: "-50% -50%", filter: d.finish === "素押し" ? "drop-shadow(0 1px 0 rgba(255,255,255,.32)) drop-shadow(0 -1px 0 rgba(0,0,0,.35))" : "drop-shadow(0 1px 0 rgba(0,0,0,.55))" }}>
+      <div className="absolute" style={{ left: `${p.x}%`, top: `${p.y}%`, width: `${p.w}%`, aspectRatio: String(lg.ar), translate: "-50% -50%", // 刻印は革に押し込まれるので、ずらした影は付けない（拡大すると二重に見えるため）。縁をごく薄くなじませるだけ
+        filter: d.finish === "素押し" ? "drop-shadow(0 0 0.4px rgba(0,0,0,.35))" : "drop-shadow(0 0 0.35px rgba(0,0,0,.3))" }}>
         <div className="h-full w-full" style={{ ...mask, ...FILL[d.finish] }} />
       </div>
       </div>
