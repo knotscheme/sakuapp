@@ -6,6 +6,8 @@ import { useState, type ReactNode } from "react";
 import { STAGES } from "@/lib/cms";
 import { useAuth, type Perm } from "@/components/cms/perm";
 import { Card, Shell } from "@/components/cms/ui";
+import { useLang, useUI } from "@/components/cms/i18n";
+import { FactoryManual } from "./factory-manual";
 
 // 使い方マニュアル：だれが読んでも分かるように、短い文と手順で書く
 type Chapter = { id: string; title: string; who: string; perm?: Perm; href?: string; body: ReactNode };
@@ -107,8 +109,9 @@ const CHAPTERS: Chapter[] = [
     id: "factory", title: "工場の画面：製造の進み具合を入れる", who: "工場", perm: "factory.use", href: "/cms/factory/",
     body: (
       <>
-        <P>タイの工場の方が使う画面です。右上で <B>English／ภาษาไทย／日本語</B> を切り替えられます。お客様の名前や販売価格は表示されません。</P>
+        <P>タイの工場の方が使う画面です。工場の方がログインすると、<B>メニューやマニュアルも含めて最初からタイ語</B>で表示されます。お客様の名前や販売価格は表示されません。</P>
         <Steps items={["「製造指示書」を開いて、作る内容を確認する", "工程（裁断→縫製→箔押し→仕上げ・梱包）が終わるたびに「完了にする」を押す", "写真を登録する", "4つの工程が終わったら「日本へ出荷」を押す"]} />
+        <P><span className="mt-3 block">工場からの連絡（「日本への連絡」）は、案件の履歴に<B>日本語で</B>届きます。オーナーが工場の人と同じ画面を見たいときは、右上かメニューの「表示する言語」で切り替えます。</span></P>
         <Tip>間違えて完了にしたときは、最後に完了したチェックマークを押すと取り消せます（出荷前のみ）。</Tip>
       </>
     ),
@@ -146,7 +149,7 @@ const CHAPTERS: Chapter[] = [
     body: (
       <>
         <P>権限の付与・変更は<B>オーナーだけ</B>ができます。</P>
-        <Steps items={["新しい人は、名前・メール・役割を入れて「招待する」", "役割ごとの権限は、表のチェックで変える", "1人だけ例外にしたいときは「個別設定」で、その人だけ許可・禁止する", "新しい役割（例：経理）は「役割を作る」で増やせる"]} />
+        <Steps items={["新しい人は、名前・メール・役割を入れて「招待する」", "役割ごとの権限は、表のチェックで変える", "1人だけ例外にしたいときは「個別設定」で、その人だけ許可・禁止する", "新しい役割（例：経理）は「役割を作る」で増やせる", "メンバーごとに、画面の言語（日本語／ไทย／English）を選べる。タイの工場の人は「ไทย」にする"]} />
         <Tip>変更はすべて「権限の変更履歴」に残ります。左下の「表示中」で人を切り替えると、その人の見え方を試せます（デモ用）。</Tip>
       </>
     ),
@@ -172,8 +175,12 @@ const WORDS = [
 ];
 
 export default function Manual() {
-  const { can, role } = useAuth();
+  const { can, role, me } = useAuth();
+  const { lang } = useLang();
+  const t = useUI();
   const [open, setOpen] = useState<number | null>(0);
+  // タイ語・英語のときは、工場向けのマニュアルを表示
+  if (lang !== "ja") return <Shell title={t.nav.manual}><FactoryManual lang={lang} name={me?.name ?? ""} canFactory={can("factory.use")} /></Shell>;
   const mine = CHAPTERS.filter((c) => c.perm && can(c.perm));
 
   return (

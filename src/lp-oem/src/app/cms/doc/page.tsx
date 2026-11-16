@@ -2,16 +2,26 @@
 
 import Link from "next/link";
 import { ArrowLeft, Printer } from "lucide-react";
-import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, modelOf, today, yenOf, type DocId } from "@/lib/cms";
+import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, modelOf, today, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { useDeals } from "@/components/cms/store";
 import { useQuery } from "@/components/cms/ui";
+import { useAuth } from "@/components/cms/perm";
+import { useLang } from "@/components/cms/i18n";
+
+const BACK_F = { ja: "工場の画面に戻る", en: "Back to factory", th: "กลับไปหน้าจอโรงงาน" };
+const PRINT = { ja: "印刷・PDFで保存", en: "Print / Save as PDF", th: "พิมพ์ / บันทึกเป็น PDF" };
+
+// 製造指示書の値：日本語のあとに英語・タイ語を小さく添える
+const tri = (f: (l: LangId) => string) => (<>{f("ja")}<span className="block text-[11px] text-mute">{f("en")} / {f("th")}</span></>);
 
 // 自動で作られる書類のプレビュー（A4・印刷やPDF保存ができる）
 export default function DocPage() {
   const id = useQuery("id");
   const type = useQuery("type") as DocId | null;
   const d = useDeals().find((x) => x.id === id);
+  const { can } = useAuth();
+  const { lang } = useLang();
   if (!d || !type) return <p className="p-8 text-[13px] text-mute">読み込み中…</p>;
 
   const m = modelOf(d.model);
@@ -29,8 +39,12 @@ export default function DocPage() {
   return (
     <div className="min-h-[100svh] bg-[#e9e9e7] py-6 print:bg-white print:py-0">
       <div className="mx-auto mb-4 flex max-w-[794px] items-center justify-between px-4 print:hidden">
-        <Link href={`/cms/deal/?id=${d.id}`} className="flex items-center gap-1.5 text-[13px] text-mute hover:text-ink"><ArrowLeft size={14} /> 案件に戻る</Link>
-        <button type="button" onClick={() => print()} className="flex items-center gap-2 bg-ink px-4 py-2 text-[12.5px] text-white"><Printer size={14} /> 印刷・PDFで保存</button>
+        {isWork && !can("deals.view") ? (
+          <Link href="/cms/factory/" className="flex items-center gap-1.5 text-[13px] text-mute hover:text-ink"><ArrowLeft size={14} /> {BACK_F[lang]}</Link>
+        ) : (
+          <Link href={`/cms/deal/?id=${d.id}`} className="flex items-center gap-1.5 text-[13px] text-mute hover:text-ink"><ArrowLeft size={14} /> 案件に戻る</Link>
+        )}
+        <button type="button" onClick={() => print()} className="flex items-center gap-2 bg-ink px-4 py-2 text-[12.5px] text-white"><Printer size={14} /> {PRINT[lang]}</button>
       </div>
 
       <article className="mx-auto max-w-[794px] bg-white px-8 py-10 text-[12.5px] leading-relaxed text-ink shadow-sm sm:px-14 sm:py-14 print:shadow-none">
@@ -72,15 +86,15 @@ export default function DocPage() {
               <table className="w-full border border-line">
                 <tbody className="divide-y divide-line">
                   {[
-                    ["製品 / Model / รุ่น", m.name],
+                    ["製品 / Model / รุ่น", tri((l) => trModel(d.model, l))],
                     ["数量 / Qty / จำนวน", `${d.lot} pcs`],
-                    ["革の色 / Leather / สีหนัง", d.color],
-                    ["ロゴ加工 / Logo / โลโก้", d.finish],
-                    ["ロゴ位置 / Position / ตำแหน่ง", m.logo],
+                    ["革の色 / Leather / สีหนัง", tri((l) => trColor(d.color, l))],
+                    ["ロゴ加工 / Logo / โลโก้", tri((l) => trFinish(d.finish, l))],
+                    ["ロゴ位置 / Position / ตำแหน่ง", tri((l) => trPos(m.logo, l))],
                     ["サイズ / Size / ขนาด", m.size],
                     ["工場出荷期限 / Ship by / ส่งภายใน", d.due],
                   ].map(([k, v]) => (
-                    <tr key={k}><th className="w-[46%] bg-paper px-3 py-2 text-left align-top font-normal text-mute">{k}</th><td className="px-3 py-2">{v}</td></tr>
+                    <tr key={String(k)}><th className="w-[46%] bg-paper px-3 py-2 text-left align-top font-normal text-mute">{k}</th><td className="px-3 py-2">{v}</td></tr>
                   ))}
                 </tbody>
               </table>
@@ -96,9 +110,9 @@ export default function DocPage() {
             <section className="mt-6 border border-line p-4">
               <p className="font-medium">注意事項 / Notes / หมายเหตุ</p>
               <ul className="mt-1 list-disc pl-5 text-ink/80">
-                <li>ロゴは配置確認済みのデータ通りに押してください。 / Stamp the logo exactly as the approved proof.</li>
-                <li>各工程の写真を、工場の画面から登録してください。 / Upload photos for each step.</li>
-                <li>不良品は別にして、数を報告してください。 / Separate defects and report the quantity.</li>
+                <li>ロゴは配置確認済みのデータ通りに押してください。 / Stamp the logo exactly as the approved proof. / ปั๊มโลโก้ให้ตรงตามแบบที่ได้รับอนุมัติ</li>
+                <li>各工程の写真を、工場の画面から登録してください。 / Upload photos for each step. / อัปโหลดรูปของแต่ละขั้นตอนจากหน้าจอโรงงาน</li>
+                <li>不良品は別にして、数を報告してください。 / Separate defects and report the quantity. / แยกสินค้าที่มีตำหนิ และรายงานจำนวน</li>
               </ul>
             </section>
           </>

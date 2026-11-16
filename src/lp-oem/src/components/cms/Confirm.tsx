@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AlertTriangle } from "lucide-react";
+import { useUI } from "./i18n";
 
 // 「本当に〜しますか？」の確認ウィンドウ。どこからでも await askConfirm({...}) で呼べる
 type Opts = { title: string; body?: string; ok?: string; cancel?: string; danger?: boolean };
@@ -17,6 +18,7 @@ export function askConfirm(o: Opts): Promise<boolean> {
 
 export function ConfirmHost() {
   const [req, setReq] = useState<Req | null>(null);
+  const t = useUI();
   useEffect(() => {
     push = setReq;
     return () => { push = null; };
@@ -40,8 +42,8 @@ export function ConfirmHost() {
           </div>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-2">
-          <button type="button" onClick={() => close(false)} className="cms-btn border border-line py-3 text-[13.5px]">{req.cancel ?? "キャンセル"}</button>
-          <button type="button" autoFocus onClick={() => close(true)} className={`cms-btn py-3 text-[13.5px] text-white ${req.danger ? "bg-red-600" : "bg-ink"}`}>{req.ok ?? "実行する"}</button>
+          <button type="button" onClick={() => close(false)} className="cms-btn border border-line py-3 text-[13.5px]">{req.cancel ?? t.cancel}</button>
+          <button type="button" autoFocus onClick={() => close(true)} className={`cms-btn py-3 text-[13.5px] text-white ${req.danger ? "bg-red-600" : "bg-ink"}`}>{req.ok ?? t.ok}</button>
         </div>
       </div>
     </div>

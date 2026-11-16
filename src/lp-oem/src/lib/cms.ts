@@ -139,3 +139,41 @@ export const yenOf = (n: number) => `${Math.round(n).toLocaleString("ja-JP")}円
 export const modelOf = (id: ModelId) => ALL_MODELS.find((m) => m.id === id)!;
 export const today = () => new Date().toISOString().slice(0, 10);
 export const daysLeft = (due: string) => Math.round((new Date(due).getTime() - new Date(today()).getTime()) / 86400000);
+
+// 工場向けの言葉（製品名・革の色・ロゴ加工・ロゴ位置）。※タイ語・英語はサンプルの翻訳
+type L3 = { ja: string; en: string; th: string };
+export const MODEL_I18N: Record<ModelId, L3> = {
+  long: { ja: "本革ラウンドファスナー長財布", en: "Leather zip-around long wallet", th: "กระเป๋าสตางค์ใบยาวซิปรอบ หนังแท้" },
+  bifold: { ja: "キャッシュレス二つ折り財布", en: "Slim bifold wallet", th: "กระเป๋าสตางค์พับสองทบ แบบบาง" },
+  trifold: { ja: "コンパクト三つ折りミニ財布", en: "Compact trifold mini wallet", th: "กระเป๋าสตางค์ใบเล็กพับสามทบ" },
+  fragment: { ja: "スリムフラグメントケース", en: "Slim fragment case", th: "เคสใส่บัตรแบบบาง" },
+  tote: { ja: "本革トートバッグ", en: "Leather tote bag", th: "กระเป๋าโท้ทหนังแท้" },
+  phone: { ja: "本革スマホショルダー", en: "Leather phone shoulder bag", th: "กระเป๋าสะพายใส่โทรศัพท์ หนังแท้" },
+};
+const COLOR_I18N: Record<string, L3> = {
+  ブラック: { ja: "ブラック", en: "Black", th: "ดำ" },
+  ダークブラウン: { ja: "ダークブラウン", en: "Dark brown", th: "น้ำตาลเข้ม" },
+  キャメル: { ja: "キャメル", en: "Camel", th: "น้ำตาลอ่อน (คาเมล)" },
+  ネイビー: { ja: "ネイビー", en: "Navy", th: "กรมท่า" },
+};
+const FINISH_I18N: Record<string, L3> = {
+  金箔: { ja: "金箔", en: "Gold foil", th: "ฟอยล์ทอง" },
+  銀箔: { ja: "銀箔", en: "Silver foil", th: "ฟอยล์เงิน" },
+  素押し: { ja: "素押し", en: "Blind deboss", th: "ปั๊มจม (ไม่ใช้ฟอยล์)" },
+};
+const POS_I18N: Record<string, L3> = {
+  表面右下: { ja: "表面右下", en: "front, bottom right", th: "ด้านหน้า มุมขวาล่าง" },
+  内装中央: { ja: "内装中央", en: "inside, center", th: "ด้านใน ตรงกลาง" },
+  表面左下: { ja: "表面左下", en: "front, bottom left", th: "ด้านหน้า มุมซ้ายล่าง" },
+  札入れ内側: { ja: "札入れ内側", en: "inside the bill pocket", th: "ด้านในช่องใส่ธนบัตร" },
+  フラップ中央: { ja: "フラップ中央", en: "flap, center", th: "ฝาปิด ตรงกลาง" },
+  表面中央: { ja: "表面中央", en: "front, center", th: "ด้านหน้า ตรงกลาง" },
+  前面中央: { ja: "前面中央", en: "front, center", th: "ด้านหน้า ตรงกลาง" },
+  内ポケット: { ja: "内ポケット", en: "inner pocket", th: "ช่องด้านใน" },
+  前面下部: { ja: "前面下部", en: "front, lower part", th: "ด้านหน้า ส่วนล่าง" },
+};
+export type LangId = "ja" | "en" | "th";
+export const trModel = (id: ModelId, l: LangId) => MODEL_I18N[id]?.[l] ?? modelOf(id).name;
+export const trColor = (c: string, l: LangId) => COLOR_I18N[c]?.[l] ?? c;
+export const trFinish = (f: string, l: LangId) => FINISH_I18N[f]?.[l] ?? f;
+export const trPos = (p: string, l: LangId) => p.split(" / ").map((x) => POS_I18N[x]?.[l] ?? x).join(" / ");

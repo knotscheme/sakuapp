@@ -9,6 +9,7 @@ import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo } from "./store";
 import { resetCatalog } from "./catalog";
 import { ConfirmHost, askConfirm } from "./Confirm";
+import { LANGS, setViewLang, useLang, useUI, UI } from "./i18n";
 
 // URLの ?id= などを読む（静的に書き出すため、表示後に読む）
 export function useQuery(name: string) {
@@ -20,25 +21,44 @@ export function useQuery(name: string) {
   return v;
 }
 
-const NAV: { href: string; label: string; icon: typeof LayoutGrid; perm?: Perm }[] = [
-  { href: "/cms/", label: "ダッシュボード", icon: LayoutGrid, perm: "deals.view" },
-  { href: "/cms/deals/", label: "案件ボード", icon: KanbanSquare, perm: "deals.view" },
-  { href: "/cms/products/", label: "商品管理", icon: Package, perm: "products.edit" },
-  { href: "/cms/analytics/", label: "アナリティクス", icon: BarChart3, perm: "analytics.view" },
-  { href: "/cms/factory/", label: "工場の画面", icon: Factory, perm: "factory.use" },
-  { href: "/cms/inspect/", label: "国内検品", icon: ClipboardCheck, perm: "inspect.use" },
-  { href: "/cms/members/", label: "メンバーと権限", icon: ShieldCheck, perm: "members.manage" },
-  { href: "/cms/portal/?id=C-1027", label: "お客様の画面（例）", icon: UserRound, perm: "deals.view" },
-  { href: "/cms/manual/", label: "使い方マニュアル", icon: BookOpen },
+type NavKey = keyof (typeof UI)["ja"]["nav"];
+const NAV: { href: string; label: NavKey; icon: typeof LayoutGrid; perm?: Perm }[] = [
+  { href: "/cms/", label: "dash", icon: LayoutGrid, perm: "deals.view" },
+  { href: "/cms/deals/", label: "deals", icon: KanbanSquare, perm: "deals.view" },
+  { href: "/cms/products/", label: "products", icon: Package, perm: "products.edit" },
+  { href: "/cms/analytics/", label: "analytics", icon: BarChart3, perm: "analytics.view" },
+  { href: "/cms/factory/", label: "factory", icon: Factory, perm: "factory.use" },
+  { href: "/cms/inspect/", label: "inspect", icon: ClipboardCheck, perm: "inspect.use" },
+  { href: "/cms/members/", label: "members", icon: ShieldCheck, perm: "members.manage" },
+  { href: "/cms/portal/?id=C-1027", label: "portal", icon: UserRound, perm: "deals.view" },
+  { href: "/cms/manual/", label: "manual", icon: BookOpen },
 ];
 
 // 権限が無いときの表示
 export function NoAccess() {
+  const t = useUI();
   return (
     <div className="cms-card flex flex-col items-center px-6 py-14 text-center">
       <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f1f1f0]"><Lock size={18} /></span>
-      <p className="mt-4 text-[15px] font-semibold">この画面を見る権限がありません</p>
-      <p className="mt-1.5 text-[13px] text-mute">必要な場合は、オーナーに権限の追加を頼んでください。</p>
+      <p className="mt-4 text-[15px] font-semibold">{t.noAccess}</p>
+      <p className="mt-1.5 text-[13px] text-mute">{t.noAccessB}</p>
+    </div>
+  );
+}
+
+// 表示する言語を一時的に切り替える（その人の本来の言語は「メンバーと権限」で設定）
+function LangSwitch() {
+  const { me } = useAuth();
+  const { lang, home } = useLang();
+  const t = useUI();
+  if (!me) return null;
+  return (
+    <div className="mx-3 mb-2">
+      <p className="mb-1 px-0.5 text-[10.5px] text-mute">{t.lang}</p>
+      <div className="flex overflow-hidden rounded-lg border border-line bg-white/70 text-[11.5px]">
+        {LANGS.map((l) => <button key={l.id} type="button" aria-pressed={lang === l.id} onClick={() => setViewLang(me.id, l.id === home ? null : l.id)} className={`flex-1 py-1.5 ${lang === l.id ? "bg-ink text-white" : "text-mute hover:text-ink"}`}>{l.label}</button>)}
+      </div>
+      {t.langNote && <p className="mt-1 px-0.5 text-[10px] leading-snug text-mute">{t.langNote}</p>}
     </div>
   );
 }
@@ -47,11 +67,12 @@ export function NoAccess() {
 function UserSwitch() {
   const { members, roles, me } = usePermState();
   const cur = members.find((m) => m.id === me);
+  const t = useUI();
   if (!cur) return null;
   return (
     <label className="mx-3 mb-2 block rounded-lg bg-white/70 px-3 py-2.5">
-      <span className="block text-[10.5px] text-mute">表示中（デモ：人を切り替え）</span>
-      <select value={me} onChange={(e) => switchUser(e.target.value)} className="mt-1 w-full bg-transparent text-[13px] font-medium outline-none">
+      <span className="block text-[10.5px] text-mute">{t.viewing}</span>
+      <select value={me} onChange={(e) => { setViewLang("", null); switchUser(e.target.value); }} className="mt-1 w-full bg-transparent text-[13px] font-medium outline-none">
         {members.map((m) => <option key={m.id} value={m.id}>{m.name}（{roles.find((r) => r.id === m.role)?.name}）</option>)}
       </select>
     </label>
@@ -62,11 +83,15 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const { can } = useAuth();
+  const t = useUI();
+  const { lang } = useLang();
+  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   const nav = (
     <nav className="flex h-full flex-col overflow-y-auto">
       <Link href="/cms/" className="px-6 pt-7 pb-7 font-display text-[15px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></Link>
       <ul className="flex-1 space-y-1 px-3">
-        {NAV.filter((n) => !n.perm || can(n.perm)).map(({ href, label, icon: Icon }) => {
+        {NAV.filter((n) => !n.perm || can(n.perm)).map(({ href, label: key, icon: Icon }) => {
+          const label = t.nav[key];
           const on = href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, ""));
           return (
             <li key={href}>
@@ -79,9 +104,10 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
       </ul>
       <div className="space-y-1 px-3 py-4 text-[12px]">
         <UserSwitch />
-        <TechNote className="mx-3 mb-3">ログインは Supabase Auth（スタッフ・工場・検品で権限を分ける）</TechNote>
-        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "案件・商品・メンバーと権限の変更がすべて消えます。", ok: "戻す", danger: true })) { resetDemo(); resetCatalog(); resetPerm(); } }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
-        <a href="/sakuapp/works/lp-oem/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><ArrowLeft size={14} /> LPに戻る</a>
+        <LangSwitch />
+        <TechNote className="mx-3 mb-3">{t.authNote}</TechNote>
+        <button type="button" onClick={async () => { if (await askConfirm({ title: t.resetQ, body: t.resetB, ok: t.resetOk, danger: true })) { setViewLang("", null); resetDemo(); resetCatalog(); resetPerm(); } }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> {t.reset}</button>
+        <a href="/sakuapp/works/lp-oem/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><ArrowLeft size={14} /> {t.back}</a>
       </div>
     </nav>
   );
@@ -92,7 +118,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#ebebea] transition-transform lg:hidden ${open ? "translate-x-0" : "-translate-x-full"}`}>{nav}</aside>
       <div className="lg:pl-60">
         <div className="sticky top-0 z-30 flex h-14 items-center gap-3 bg-[#f1f1f0]/90 px-5 backdrop-blur lg:hidden">
-          <button type="button" className="-ml-1 p-1" onClick={() => setOpen(true)} aria-label="メニュー"><Menu size={20} /></button>
+          <button type="button" className="-ml-1 p-1" onClick={() => setOpen(true)} aria-label={t.menu}><Menu size={20} /></button>
           <span className="font-display text-[13px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></span>
         </div>
         <main className={`mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10 ${bottomPad ? "pb-28 md:pb-10" : ""}`}>
@@ -105,7 +131,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
           </div>
           {children}
           <ConfirmHost />
-          <p className="mt-10 text-[11px] text-mute">※ポートフォリオ用のデモです。データはすべて架空で、操作した内容はこのブラウザにだけ保存されます。</p>
+          <p className="mt-10 text-[11px] text-mute">{t.footer}{t.sample && <span className="block">{t.sample}</span>}</p>
         </main>
       </div>
     </div>
@@ -114,10 +140,11 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
 
 // 仕組みの説明（本番ではここで何を使うか）を小さく添える
 export function TechNote({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const t = useUI();
   return (
     <p className={`flex items-start gap-1.5 text-[11px] leading-relaxed text-[#8a8a86] ${className}`}>
       <Cpu size={12} strokeWidth={1.6} className="mt-[2px] shrink-0" />
-      <span>※本番では：{children}</span>
+      <span>{t.prod}{children}</span>
     </p>
   );
 }

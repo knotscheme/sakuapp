@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { Check, ChevronRight, Lock, Minus, Plus, SlidersHorizontal, Trash2, UserPlus, X } from "lucide-react";
-import { PERMS, addMember, addRole, clearMemberOverrides, cycleMemberPerm, deleteRole, effective, removeMember, setMemberRole, togglePerm, useAuth, usePermState, type Member } from "@/components/cms/perm";
+import { PERMS, addMemberWithLang, addRole, setMemberLang, clearMemberOverrides, cycleMemberPerm, deleteRole, effective, removeMember, setMemberRole, togglePerm, useAuth, usePermState, type Member } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
+import { LANGS, type Lang } from "@/components/cms/i18n";
 import { Card, CardHead, NoAccess, Shell, TechNote } from "@/components/cms/ui";
 
 export default function Members() {
@@ -12,6 +13,7 @@ export default function Members() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("sales");
+  const [lang, setLang] = useState<Lang>("ja");
   const [edit, setEdit] = useState<string | null>(null);
   const [roleName, setRoleName] = useState("");
   const [roleFrom, setRoleFrom] = useState("viewer");
@@ -27,7 +29,7 @@ export default function Members() {
       )}
       <div className="space-y-5">
         <Card>
-          <CardHead note="「個別設定」で、その人だけに権限を足したり外したりできる">メンバー</CardHead>
+          <CardHead note="「個別設定」で、その人だけに権限を足したり外したりできる。言語は、その人がログインしたときの画面の言葉（メンバー情報に保存）">メンバー</CardHead>
           <ul className="divide-y divide-line border-t border-line">
             {members.map((m) => {
               const r = roles.find((x) => x.id === m.role);
@@ -45,24 +47,32 @@ export default function Members() {
                       <button type="button" aria-label="削除" onClick={async () => { if (await askConfirm({ title: `${m.name}さんを外しますか？`, body: "この人はログインできなくなります。", ok: "外す", danger: true })) removeMember(m.id); }} className="rounded-md p-2 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={15} /></button>
                     </>
                   )}
+                  <div className="order-last ml-12 flex w-[calc(100%-3rem)] gap-2 sm:order-none sm:ml-0 sm:w-auto">
+                  <select value={m.lang ?? "ja"} disabled={!isOwner} onChange={(e) => setMemberLang(m.id, e.target.value as Lang)} className={`${field} w-28 shrink-0 disabled:bg-[#fafafa] disabled:text-ink`} aria-label={`${m.name}の表示言語`}>
+                    {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
+                  </select>
                   <select value={m.role} disabled={!isOwner || m.id === "u1"} onChange={async (e) => {
                     const v = e.target.value;
                     if (v === "owner" && !(await askConfirm({ title: `${m.name}さんをオーナーにしますか？`, body: "オーナーはすべての操作と、権限の変更ができるようになります。", ok: "オーナーにする", danger: true }))) return;
                     setMemberRole(m.id, v);
-                  }} className={`${field} order-last ml-12 w-[calc(100%-3rem)] disabled:bg-[#fafafa] disabled:text-ink sm:order-none sm:ml-0 sm:w-40`} aria-label={`${m.name}の役割`}>
+                  }} className={`${field} min-w-0 flex-1 disabled:bg-[#fafafa] disabled:text-ink sm:w-40 sm:flex-none`} aria-label={`${m.name}の役割`}>
                     {roles.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}
                   </select>
+                  </div>
                   <p className="order-last -mt-1 w-full pl-12 text-[11.5px] text-mute sm:hidden">{r?.desc}</p>
                 </li>
               );
             })}
           </ul>
           {isOwner && (
-            <form className="flex flex-wrap gap-2 border-t border-line p-5" onSubmit={(e) => { e.preventDefault(); if (!name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return; addMember(name.trim(), email.trim(), role); setName(""); setEmail(""); }}>
+            <form className="flex flex-wrap gap-2 border-t border-line p-5" onSubmit={(e) => { e.preventDefault(); if (!name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return; addMemberWithLang(name.trim(), email.trim(), role, lang); setName(""); setEmail(""); setLang("ja"); }}>
               <input value={name} onChange={(e) => setName(e.target.value)} placeholder="名前" className={`${field} w-full sm:w-32`} />
               <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="メールアドレス" type="email" className={`${field} min-w-0 flex-1`} />
               <select value={role} onChange={(e) => setRole(e.target.value)} className={`${field} w-full sm:w-40`}>
                 {roles.filter((x) => x.id !== "owner").map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}
+              </select>
+              <select value={lang} onChange={(e) => setLang(e.target.value as Lang)} aria-label="表示する言語" className={`${field} w-full sm:w-28`}>
+                {LANGS.map((l) => <option key={l.id} value={l.id}>{l.label}</option>)}
               </select>
               <button className="cms-btn inline-flex w-full items-center justify-center gap-1.5 bg-ink px-4 py-2 text-[13px] text-white sm:w-auto"><UserPlus size={15} />招待する</button>
             </form>

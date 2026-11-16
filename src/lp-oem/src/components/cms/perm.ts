@@ -19,7 +19,8 @@ export type Perm = (typeof PERMS)[number]["id"];
 
 export type Role = { id: string; name: string; desc: string; perms: Perm[]; locked?: boolean };
 // extra：役割に加えて許可、deny：役割にあっても禁止（人ごとの個別設定）
-export type Member = { id: string; name: string; email: string; role: string; extra?: Perm[]; deny?: Perm[] };
+// lang：その人の画面の言語（タイの工場の人はタイ語）
+export type Member = { id: string; name: string; email: string; role: string; lang?: "ja" | "th" | "en"; extra?: Perm[]; deny?: Perm[] };
 export type PermLog = { at: string; by: string; text: string };
 type State = { roles: Role[]; members: Member[]; me: string; logs: PermLog[] };
 
@@ -37,7 +38,7 @@ export function seedPerm(): State {
       { id: "u1", name: "佐藤", email: "owner@craft.example", role: "owner" },
       { id: "u2", name: "田中", email: "tanaka@craft.example", role: "sales" },
       { id: "u3", name: "小川", email: "ogawa@craft.example", role: "sales" },
-      { id: "u4", name: "Somchai", email: "factory@bkk-leather.example", role: "factory" },
+      { id: "u4", name: "Somchai", email: "factory@bkk-leather.example", role: "factory", lang: "th" },
       { id: "u5", name: "鈴木", email: "qc@craft.example", role: "inspector" },
       { id: "u6", name: "山本（経理）", email: "account@craft.example", role: "viewer" },
     ],
@@ -46,7 +47,7 @@ export function seedPerm(): State {
   };
 }
 
-const KEY = "craft-oem-perm-v3";
+const KEY = "craft-oem-perm-v4";
 let cache: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {
@@ -85,6 +86,9 @@ export function togglePerm(roleId: string, p: Perm) {
   const on = !r.perms.includes(p);
   save(log({ ...s, roles: s.roles.map((x) => (x.id !== roleId ? x : { ...x, perms: on ? [...x.perms, p] : x.perms.filter((y) => y !== p) })) }, `役割「${r.name}」：「${permName(p)}」を${on ? "許可" : "禁止"}しました`));
 }
+const LANG_JA = { ja: "日本語", th: "タイ語", en: "英語" } as const;
+export function setMemberLang(id: string, lang: "ja" | "th" | "en") { const s = load(); const m = s.members.find((x) => x.id === id); save(log({ ...s, members: s.members.map((x) => (x.id === id ? { ...x, lang } : x)) }, `${m?.name}の表示言語を「${LANG_JA[lang]}」に変更しました`)); }
+export function addMemberWithLang(name: string, email: string, role: string, lang: "ja" | "th" | "en") { addMember(name, email, role); const s = load(); const last = s.members[s.members.length - 1]; save({ ...s, members: s.members.map((x) => (x.id === last.id ? { ...x, lang } : x)) }); }
 export function resetPerm() { save(seedPerm()); }
 
 // その人が実際にできること（役割＋個別の許可−個別の禁止）
