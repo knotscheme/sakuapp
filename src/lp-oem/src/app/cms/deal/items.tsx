@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, X } from "lucide-react";
+import { ChevronDown, Plus, X } from "lucide-react";
 import { stageIndex, tierInfo, type Deal } from "@/lib/cms";
 import { MIN_LOT } from "@/lib/models";
 import { updateDeal } from "@/components/cms/store";
@@ -31,10 +31,14 @@ export function ItemsEditor({ d, canEdit }: { d: Deal; canEdit: boolean }) {
             <Dot c={colorOf(x.color)} size={16} />
             {editable ? (
               <>
-                <select value={x.color} onChange={(e) => save(items.map((y, k) => (k === i ? { ...y, color: e.target.value } : y)))} className="min-w-0 flex-1 rounded-lg border border-line bg-white px-2 py-2 text-[13px] outline-none focus:border-ink" aria-label="カラー">
-                  {[x.color, ...unused.map((c) => c.name)].map((n) => <option key={n} value={n}>{n}</option>)}
-                </select>
-                <input type="number" inputMode="numeric" min={0} step={10} value={x.qty || ""} onChange={(e) => save(items.map((y, k) => (k === i ? { ...y, qty: Math.max(0, Math.round(Number(e.target.value))) } : y)))} className="w-16 shrink-0 rounded-lg border border-line px-2 py-2 text-right text-[13px] tabular-nums outline-none focus:border-ink" aria-label={`${x.color}の数量`} />
+                <label className="relative flex min-w-0 flex-1 items-center gap-1 rounded-lg border border-line bg-white px-2.5 py-1.5 text-[13px] focus-within:border-ink">
+                  <span className="min-w-0 flex-1 truncate">{x.color}</span><ChevronDown size={13} className="shrink-0 text-mute" />
+                  {/* 見た目は小さな文字。押すと、スマホの選択の一覧が開く */}
+                  <select value={x.color} onChange={(e) => save(items.map((y, k) => (k === i ? { ...y, color: e.target.value } : y)))} className="absolute inset-0 h-full w-full cursor-pointer opacity-0" aria-label="カラー">
+                    {[x.color, ...unused.map((c) => c.name)].map((n) => <option key={n} value={n}>{n}</option>)}
+                  </select>
+                </label>
+                <input type="number" inputMode="numeric" min={0} step={10} value={x.qty || ""} onChange={(e) => save(items.map((y, k) => (k === i ? { ...y, qty: Math.max(0, Math.round(Number(e.target.value))) } : y)))} className="w-16 shrink-0 rounded-lg border border-line px-2 py-1.5 text-right text-[13px] tabular-nums outline-none focus:border-ink" aria-label={`${x.color}の数量`} />
                 <span className="shrink-0 text-mute">個</span>
                 {items.length > 1 && (
                   <button type="button" aria-label={`${x.color}を外す`} onClick={async () => { if (await askConfirm({ title: `「${x.color}」を外しますか？`, body: `${x.qty}個が見積から外れます。`, ok: "外す", danger: true })) save(items.filter((_, k) => k !== i)); }} className="rounded-md p-2 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><X size={14} /></button>

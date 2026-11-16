@@ -164,18 +164,18 @@ export default function ContactForm() {
 
             {colorChoices.length > 0 && (
               <div className="min-w-0 text-sm md:col-span-2">
-                <p className="font-bold">カラーごとの数量<span className="ml-1 text-xs font-normal text-mute">任意・入れると概算の見積もりが出ます</span></p>
+                <p className="font-bold">カラーごとの数量<span className="ml-1 text-xs font-normal text-mute">任意・入れると概算が出ます</span></p>
                 <ul className="mt-3 divide-y divide-line border-y border-line">
                   {colorChoices.map((c) => {
                     const v = qtys[c] || 0;
                     const set = (n: number) => setQtys((x) => ({ ...x, [c]: Math.max(0, Math.min(9999, Math.round(n))) }));
                     return (
-                      <li key={c} className="flex items-center gap-2 py-2.5">
-                        <span className="h-5 w-5 shrink-0 rounded-full ring-1 ring-black/15" style={{ background: colors.find((x) => x.name === c)?.hex ?? "#ccc" }} />
-                        <span className="min-w-0 flex-1 truncate text-[13.5px] whitespace-nowrap">{c}</span>
-                        <button type="button" onClick={() => set(v - 10)} aria-label={`${c}を10個減らす`} className="h-9 w-8 shrink-0 border border-line text-[16px] text-mute hover:border-ink hover:text-ink">−</button>
-                        <input type="number" inputMode="numeric" min={0} step={10} value={v || ""} placeholder="0" onChange={(e) => set(Number(e.target.value))} aria-label={`${c}の数量`} className="h-9 w-14 shrink-0 border border-line text-center text-[14px] tabular-nums outline-none focus:border-ink" />
-                        <button type="button" onClick={() => set(v + 10)} aria-label={`${c}を10個増やす`} className="h-9 w-8 shrink-0 border border-line text-[16px] text-mute hover:border-ink hover:text-ink">＋</button>
+                      <li key={c} className="flex items-center gap-2 py-2">
+                        <span className="h-3.5 w-3.5 shrink-0 rounded-full ring-1 ring-black/15" style={{ background: colors.find((x) => x.name === c)?.hex ?? "#ccc" }} />
+                        <span className="min-w-0 flex-1 truncate text-[12.5px] font-normal whitespace-nowrap text-ink/80">{c}</span>
+                        <button type="button" onClick={() => set(v - 10)} aria-label={`${c}を10個減らす`} className="h-8 w-8 shrink-0 border border-line text-[14px] font-normal text-mute hover:border-ink hover:text-ink">−</button>
+                        <input type="number" inputMode="numeric" min={0} step={10} value={v || ""} placeholder="0" onChange={(e) => set(Number(e.target.value))} aria-label={`${c}の数量`} className="h-8 w-12 shrink-0 border border-line text-center text-[16px] font-normal tabular-nums outline-none focus:border-ink" />
+                        <button type="button" onClick={() => set(v + 10)} aria-label={`${c}を10個増やす`} className="h-8 w-8 shrink-0 border border-line text-[14px] font-normal text-mute hover:border-ink hover:text-ink">＋</button>
                       </li>
                     );
                   })}
