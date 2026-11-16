@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock } from "lucide-react";
+import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo } from "./store";
@@ -20,7 +20,7 @@ export function useQuery(name: string) {
   return v;
 }
 
-const NAV: { href: string; label: string; icon: typeof LayoutGrid; perm: Perm }[] = [
+const NAV: { href: string; label: string; icon: typeof LayoutGrid; perm?: Perm }[] = [
   { href: "/cms/", label: "ダッシュボード", icon: LayoutGrid, perm: "deals.view" },
   { href: "/cms/deals/", label: "案件ボード", icon: KanbanSquare, perm: "deals.view" },
   { href: "/cms/products/", label: "商品管理", icon: Package, perm: "products.edit" },
@@ -29,6 +29,7 @@ const NAV: { href: string; label: string; icon: typeof LayoutGrid; perm: Perm }[
   { href: "/cms/inspect/", label: "国内検品", icon: ClipboardCheck, perm: "inspect.use" },
   { href: "/cms/members/", label: "メンバーと権限", icon: ShieldCheck, perm: "members.manage" },
   { href: "/cms/portal/?id=C-1027", label: "お客様の画面（例）", icon: UserRound, perm: "deals.view" },
+  { href: "/cms/manual/", label: "使い方マニュアル", icon: BookOpen },
 ];
 
 // 権限が無いときの表示
@@ -65,7 +66,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
     <nav className="flex h-full flex-col overflow-y-auto">
       <Link href="/cms/" className="px-6 pt-7 pb-7 font-display text-[15px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></Link>
       <ul className="flex-1 space-y-1 px-3">
-        {NAV.filter((n) => can(n.perm)).map(({ href, label, icon: Icon }) => {
+        {NAV.filter((n) => !n.perm || can(n.perm)).map(({ href, label, icon: Icon }) => {
           const on = href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, ""));
           return (
             <li key={href}>

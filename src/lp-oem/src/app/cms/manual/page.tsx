@@ -1,0 +1,251 @@
+"use client";
+
+import Link from "next/link";
+import { ArrowRight, BookOpen, ChevronDown, Lightbulb } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { STAGES } from "@/lib/cms";
+import { useAuth, type Perm } from "@/components/cms/perm";
+import { Card, Shell } from "@/components/cms/ui";
+
+// 使い方マニュアル：だれが読んでも分かるように、短い文と手順で書く
+type Chapter = { id: string; title: string; who: string; perm?: Perm; href?: string; body: ReactNode };
+
+const Steps = ({ items }: { items: ReactNode[] }) => (
+  <ol className="mt-3 space-y-2.5">
+    {items.map((t, i) => (
+      <li key={i} className="flex gap-3 text-[13.5px] leading-relaxed">
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink text-[11.5px] text-white">{i + 1}</span>
+        <span className="pt-0.5">{t}</span>
+      </li>
+    ))}
+  </ol>
+);
+const Tip = ({ children }: { children: ReactNode }) => (
+  <p className="mt-4 flex gap-2.5 rounded-lg bg-[#fbf7ee] px-4 py-3 text-[12.5px] leading-relaxed text-ink/85"><Lightbulb size={15} className="mt-0.5 shrink-0 text-gold" /><span>{children}</span></p>
+);
+const P = ({ children }: { children: ReactNode }) => <p className="text-[13.5px] leading-[1.9] text-ink/85">{children}</p>;
+const B = ({ children }: { children: ReactNode }) => <b className="font-semibold text-ink">{children}</b>;
+
+const CHAPTERS: Chapter[] = [
+  {
+    id: "start", title: "はじめに", who: "全員",
+    body: (
+      <>
+        <P>この管理画面は、LPから届いたお問い合わせを、<B>見積 → 発注 → 製造（タイの工場）→ 国内検品 → 発送</B>まで、1つの画面で管理するためのものです。</P>
+        <P>書類（見積書・発注依頼書・製造指示書など）とお客様へのメールは、<B>ボタンを押すと自動で作られ、送られます。</B>手で作る必要はありません。</P>
+        <Tip>メニュー（スマホでは左上の「≡」）に出る項目は、あなたの役割によって変わります。必要な画面が無いときは、オーナーに権限をお願いしてください。</Tip>
+      </>
+    ),
+  },
+  {
+    id: "flow", title: "全体の流れ（9つの段階）", who: "全員",
+    body: (
+      <>
+        <P>1つの案件は、次の順に進みます。案件の画面で「実行する」を押すと、次の段階に進みます。</P>
+        <ol className="mt-4 grid gap-2 sm:grid-cols-3">
+          {STAGES.map((s, i) => (
+            <li key={s.id} className="rounded-lg border border-line px-3.5 py-3">
+              <p className="text-[11px] text-mute">STEP {i + 1}</p>
+              <p className="text-[13.5px] font-semibold">{s.ja}</p>
+              {s.next && <p className="mt-1 text-[11.5px] leading-relaxed text-mute">次：{s.next}</p>}
+            </li>
+          ))}
+        </ol>
+      </>
+    ),
+  },
+  {
+    id: "dashboard", title: "ダッシュボード：今日やることを確認する", who: "営業・オーナー", perm: "deals.view", href: "/cms/",
+    body: (
+      <>
+        <P>毎朝まずここを開きます。いま何件動いているか、期日が近い案件はどれかが分かります。</P>
+        <Steps items={["上の4つの数字（進行中・新しい問い合わせ・受注金額・製造中の数量）を確認する", "「期日のお知らせ」に赤や黄色の案件があれば、先に対応する", "数字や段階の行を押すと、その案件だけを絞り込んだ一覧が開く"]} />
+        <Tip>「1日遅れ」と赤く出ている案件は、期日を過ぎています。お客様や工場への連絡を優先しましょう。</Tip>
+      </>
+    ),
+  },
+  {
+    id: "deals", title: "案件ボード：すべての案件を見る", who: "営業・オーナー", perm: "deals.view", href: "/cms/deals/",
+    body: (
+      <>
+        <P>案件が段階ごとの列に並んでいます。カードを押すと、その案件の画面が開きます。</P>
+        <Steps items={["右上の「ボード／一覧」で見え方を切り替える（一覧は表の形）", "検索欄にブランド名や案件番号を入れて探す", "スマホでは、列を横にスワイプして見る"]} />
+      </>
+    ),
+  },
+  {
+    id: "deal", title: "案件を進める：見積から発送まで", who: "営業・オーナー", perm: "deals.advance", href: "/cms/deals/",
+    body: (
+      <>
+        <P>案件の画面の上に<B>「次にやること」</B>が出ています。内容を確認して「実行する」を押すだけで進みます。</P>
+        <Steps items={["「次にやること」を読む（例：見積を作成して送る）", "注文内容・金額に間違いがないか確認する", "「実行する」を押し、確認の画面で「実行する」をもう一度押す", "書類が自動で作られ、お客様にメールが届く（下の履歴に残る）"]} />
+        <Tip>間違えて進めたときは、「1つ前に戻す」で戻せます。ただし、すでに送ったメールは取り消されないので、必要ならお客様に一言連絡してください。</Tip>
+        <P><span className="mt-3 block">電話などで話した内容は、「やり取りの履歴」のメモ欄に残しておくと、ほかの人にも伝わります。</span></P>
+      </>
+    ),
+  },
+  {
+    id: "docs", title: "書類を見る・印刷する", who: "営業・オーナー", perm: "deals.view",
+    body: (
+      <>
+        <P>案件の画面の右側「書類（自動で作成）」から開きます。まだ作られていない書類は、どの段階で作られるかが表示されます。</P>
+        <Steps items={["書類の「開く」を押す", "内容を確認する", "右上の「印刷・PDFで保存」を押す（PDFで保存してメールに添付もできる）"]} />
+      </>
+    ),
+  },
+  {
+    id: "products", title: "商品管理：商品を登録する", who: "営業・オーナー", perm: "products.edit", href: "/cms/products/",
+    body: (
+      <>
+        <P>ここで登録・公開した商品が、LPの「製品一覧」ページに表示されます。</P>
+        <Steps items={["「商品を追加」を押す", "メイン画像を1枚選ぶ（サブ画像は10枚まで、まとめて選べる）", "カテゴリ・名前・特徴・サイズ・参考単価を入れる", "動画があれば YouTube か Vimeo のURLを入れる", "「保存する」を押す"]} />
+        <Tip>「公開中／非公開」を押すと、製品一覧に出すかどうかをすぐに切り替えられます。カテゴリは右側の「カテゴリ」欄で増やせます。</Tip>
+      </>
+    ),
+  },
+  {
+    id: "factory", title: "工場の画面：製造の進み具合を入れる", who: "工場", perm: "factory.use", href: "/cms/factory/",
+    body: (
+      <>
+        <P>タイの工場の方が使う画面です。右上で <B>English／ภาษาไทย／日本語</B> を切り替えられます。お客様の名前や販売価格は表示されません。</P>
+        <Steps items={["「製造指示書」を開いて、作る内容を確認する", "工程（裁断→縫製→箔押し→仕上げ・梱包）が終わるたびに「完了にする」を押す", "写真を登録する", "4つの工程が終わったら「日本へ出荷」を押す"]} />
+        <Tip>間違えて完了にしたときは、最後に完了したチェックマークを押すと取り消せます（出荷前のみ）。</Tip>
+      </>
+    ),
+  },
+  {
+    id: "inspect", title: "国内検品：届いた商品をチェックする", who: "検品担当", perm: "inspect.use", href: "/cms/inspect/",
+    body: (
+      <>
+        <P>日本に届いた商品を検品する画面です。スマホで使えます。</P>
+        <Steps items={["6つのチェック項目を確認し、問題がなければ1つずつ押してチェックを付ける", "不良品があれば「＋」で数を入れる", "写真を登録する", "すべてチェックしたら「検品OK・発送する」を押す（検品報告書と納品書が自動で作られる）"]} />
+      </>
+    ),
+  },
+  {
+    id: "portal", title: "お客様の画面：お客様に見えるもの", who: "営業・オーナー", perm: "deals.view", href: "/cms/portal/?id=C-1027",
+    body: (
+      <>
+        <P>お客様には専用のリンクがメールで届き、ログインなしで自分の案件だけを見られます。お客様はこの画面で<B>見積の承諾</B>と<B>ロゴ配置の承認</B>ができます。</P>
+        <Tip>お客様が承諾・承認すると、自動で次の段階に進みます。営業側で「実行する」を押す必要はありません。</Tip>
+      </>
+    ),
+  },
+  {
+    id: "analytics", title: "アナリティクス：数字を見る・CSVで出す", who: "オーナー・経理", perm: "analytics.view", href: "/cms/analytics/",
+    body: (
+      <>
+        <P>売上・受注件数・成約率・不良率などを、グラフで確認できます。右上で期間（3か月・6か月・12か月）を切り替えます。</P>
+        <Steps items={["グラフの棒に触れると、その月の数字が出る（「表で見る」で表にもできる）", "「CSVでダウンロード」で、種類・開始月・終了月・並び順を選ぶ", "「ダウンロード」を押すと、Excelで開けるファイルが保存される"]} />
+        <Tip>権限によって、CSVに入る項目が変わります（金額やお客様の連絡先は、見る権限がある人のファイルにだけ入ります）。</Tip>
+      </>
+    ),
+  },
+  {
+    id: "members", title: "メンバーと権限：だれが何をできるか決める", who: "オーナー", perm: "members.manage", href: "/cms/members/",
+    body: (
+      <>
+        <P>権限の付与・変更は<B>オーナーだけ</B>ができます。</P>
+        <Steps items={["新しい人は、名前・メール・役割を入れて「招待する」", "役割ごとの権限は、表のチェックで変える", "1人だけ例外にしたいときは「個別設定」で、その人だけ許可・禁止する", "新しい役割（例：経理）は「役割を作る」で増やせる"]} />
+        <Tip>変更はすべて「権限の変更履歴」に残ります。左下の「表示中」で人を切り替えると、その人の見え方を試せます（デモ用）。</Tip>
+      </>
+    ),
+  },
+];
+
+const FAQ = [
+  { q: "間違えてボタンを押してしまいました", a: "大事な操作の前には確認の画面が出ます。進めてしまった場合も、案件の画面の「1つ前に戻す」や、工場の画面のチェックマークを押せば戻せます。" },
+  { q: "メニューに必要な画面がありません", a: "あなたの役割に、その画面の権限がありません。オーナーに「メンバーと権限」で権限を付けてもらってください。" },
+  { q: "スマホでも使えますか？", a: "はい。すべての画面がスマホで使えます。案件の画面では「実行する」ボタンが画面の下に固定されます。" },
+  { q: "お客様の連絡先が「●●●●」になっています", a: "お客様の名前・連絡先を見る権限がない場合、伏せて表示されます。必要ならオーナーに相談してください。" },
+  { q: "書類の内容を手で直したいです", a: "書類は注文内容から自動で作られます。数量や仕様を変えたいときは、案件の注文内容を直すと書類にも反映されます（本番の仕様）。" },
+];
+
+const WORDS = [
+  ["案件", "1件のお問い合わせから納品までの、ひとまとまりの仕事"],
+  ["段階", "案件がいまどこまで進んでいるか（問い合わせ・見積送付・製造中など）"],
+  ["版代", "ロゴを押すための型（版）の費用。デザインごとに初回だけかかる"],
+  ["箔押し", "金や銀の箔を、熱と圧で革にロゴとして押す加工"],
+  ["素押し", "箔を使わず、革そのものにロゴを刻む加工"],
+  ["ロット", "1回の注文の個数（30個から）"],
+  ["権限", "その人が見られる画面・押せるボタンの範囲"],
+];
+
+export default function Manual() {
+  const { can, role } = useAuth();
+  const [open, setOpen] = useState<number | null>(0);
+  const mine = CHAPTERS.filter((c) => c.perm && can(c.perm));
+
+  return (
+    <Shell title="使い方マニュアル">
+      <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
+        {/* 目次 */}
+        <nav className="hidden lg:block">
+          <div className="sticky top-8 space-y-0.5 text-[12.5px]">
+            <p className="mb-2 px-3 text-[11px] text-mute">目次</p>
+            {CHAPTERS.map((c) => <a key={c.id} href={`#${c.id}`} className="block rounded-md px-3 py-1.5 text-ink/70 hover:bg-white hover:text-ink">{c.title.split("：")[0]}</a>)}
+            <a href="#faq" className="block rounded-md px-3 py-1.5 text-ink/70 hover:bg-white hover:text-ink">困ったとき</a>
+            <a href="#words" className="block rounded-md px-3 py-1.5 text-ink/70 hover:bg-white hover:text-ink">言葉の説明</a>
+          </div>
+        </nav>
+
+        <div className="space-y-5">
+          <Card className="px-6 py-6">
+            <div className="flex items-start gap-4">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-white"><BookOpen size={19} /></span>
+              <div>
+                <p className="text-[15px] font-semibold">{role ? `あなたは「${role.name}」です` : "ようこそ"}</p>
+                <p className="mt-1 text-[13px] leading-relaxed text-mute">まず「はじめに」と「全体の流れ」を読み、そのあと下の、あなたに関係する章を読んでください。</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {mine.map((c) => <a key={c.id} href={`#${c.id}`} className="rounded-full bg-[#f1f1f0] px-3 py-1.5 text-[12px] hover:bg-ink hover:text-white">{c.title.split("：")[0]}</a>)}
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          {CHAPTERS.map((c, i) => (
+            <Card key={c.id} className="scroll-mt-20" >
+              <section id={c.id} className="scroll-mt-20 px-6 py-6">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h2 className="text-[17px] font-semibold"><span className="mr-2 text-[12px] font-normal text-mute">{String(i + 1).padStart(2, "0")}</span>{c.title}</h2>
+                  <span className="rounded-full bg-[#f1f1f0] px-2.5 py-0.5 text-[11px] text-mute">対象：{c.who}</span>
+                </div>
+                <div className="mt-3 space-y-2">{c.body}</div>
+                {c.href && (!c.perm || can(c.perm)) && (
+                  <Link href={c.href} className="mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-medium underline underline-offset-4 hover:text-gold">この画面を開く <ArrowRight size={14} /></Link>
+                )}
+              </section>
+            </Card>
+          ))}
+
+          <Card>
+            <section id="faq" className="scroll-mt-20 px-6 py-6">
+              <h2 className="text-[17px] font-semibold">困ったとき</h2>
+              <div className="mt-3 divide-y divide-line border-y border-line">
+                {FAQ.map((f, i) => (
+                  <div key={f.q}>
+                    <button type="button" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i} className="flex w-full items-center gap-3 py-4 text-left text-[13.5px] font-medium">
+                      <span className="flex-1">{f.q}</span><ChevronDown size={16} className={`shrink-0 text-mute transition ${open === i ? "rotate-180" : ""}`} />
+                    </button>
+                    {open === i && <p className="pb-4 text-[13px] leading-[1.9] text-ink/80">{f.a}</p>}
+                  </div>
+                ))}
+              </div>
+            </section>
+          </Card>
+
+          <Card>
+            <section id="words" className="scroll-mt-20 px-6 py-6">
+              <h2 className="text-[17px] font-semibold">言葉の説明</h2>
+              <dl className="mt-3 divide-y divide-line border-y border-line text-[13px]">
+                {WORDS.map(([k, v]) => (
+                  <div key={k} className="flex gap-4 py-3"><dt className="w-16 shrink-0 font-semibold">{k}</dt><dd className="leading-relaxed text-ink/80">{v}</dd></div>
+                ))}
+              </dl>
+            </section>
+          </Card>
+        </div>
+      </div>
+    </Shell>
+  );
+}
