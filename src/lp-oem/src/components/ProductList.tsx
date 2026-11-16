@@ -11,6 +11,14 @@ import type { Product } from "./cms/catalog";
 const HOME = "/sakuapp/works/lp-oem/";
 
 // 製品一覧：分類で絞り込み、各モデルからシミュレーター・相談へ進める
+// 商品管理で登録したバリエーション（取り扱うものだけ）を、種類ごとに「ブラック・キャメル」のように並べる
+function optionRows(m: Product): [string, string][] {
+  const opts = m.options ?? [];
+  if (!opts.length) return [["革の色", COLORS]];
+  const vs = (m.variants ?? []).filter((v) => v.visible);
+  return opts.map((o, i) => [o.name, o.values.filter((val) => vs.some((v) => v.values[i] === val)).join("・")] as [string, string]).filter(([, v]) => v);
+}
+
 export default function ProductList() {
   // 管理画面の「商品管理」で登録・公開した商品を表示する
   const { cats, products } = useCatalog();
@@ -56,7 +64,7 @@ export default function ProductList() {
             {m.name !== m.short && <p className="mt-0.5 text-[12px] text-mute">{m.name}</p>}
             <p className="mt-3 text-[13.5px] leading-relaxed text-mute"><NoOrphan text={m.feature} /></p>
             <dl className="mt-5 space-y-1.5 border-t border-line pt-5 text-[12.5px]">
-              {[["サイズ", m.size], ["ロゴ位置", m.logo], ["革の色", COLORS], ["最小ロット", `${MIN_LOT}個から`]].filter(([, v]) => v).map(([k, v]) => (
+              {[["寸法", m.size], ["ロゴ位置", m.logo], ...optionRows(m), ["最小ロット", `${MIN_LOT}個から`]].filter(([, v]) => v).map(([k, v]) => (
                 <div key={k} className="flex gap-3"><dt className="w-16 shrink-0 text-mute">{k}</dt><dd className="text-ink">{v.split("・").map((t, i, arr) => <span key={t} className="inline-block">{t}{i < arr.length - 1 ? "・" : ""}</span>)}</dd></div>
               ))}
             </dl>

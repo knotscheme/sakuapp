@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
-import { MAX_SUB, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
+import { MAX_SUB, skuList, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
 import { Card, CardHead, NoAccess, Shell, TechNote } from "@/components/cms/ui";
+import { VariantsEditor } from "./variants";
 import { useAuth } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
 
@@ -54,6 +55,7 @@ export default function ProductsAdmin() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[13.5px] font-medium">{p.short || "（名前なし）"}</p>
                   <p className="truncate text-[11.5px] text-mute">{catName(p.cat)}・{yen(p.unitPrice)}〜{(p.subImgs?.length ?? 0) > 0 && `・写真+${p.subImgs!.length}`}{p.video && "・動画"}</p>
+                  <p className="truncate font-mono text-[11px] text-mute">{p.variants?.length ? `${p.sku ?? "SKU"}・${p.variants.filter((v) => v.visible).length}通り` : p.sku ?? "SKU未登録"}</p>
                 </div>
                 <button type="button" onClick={() => toggleVisible(p.id)} className={`shrink-0 rounded-full px-3 py-1.5 text-[11px] max-lg:min-h-9 ${p.visible ? "bg-[#e6f4ea] text-[#1e6b34]" : "bg-[#f1f1f0] text-mute"}`}>
                   {p.visible ? "公開中" : "非公開"}
@@ -99,7 +101,14 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
   const move = (arr: string[], from: number, to: number) => { const a = [...arr]; const [x] = a.splice(from, 1); a.splice(to, 0, x); return a; };
   const isNew = !products.some((x) => x.id === initial.id);
   const set = <K extends keyof Product>(k: K, v: Product[K]) => setP((x) => ({ ...x, [k]: v }));
-  const ok = p.short.trim() && p.cat && p.unitPrice > 0 && p.img && (!p.video?.trim() || embedUrl(p.video));
+  // SKU：ほかの商品と同じ品番は使えない。取り扱うバリエーションには、すべてSKUが必要
+  const taken = skuList(products, initial.id);
+  const vs = (p.variants ?? []).filter((v) => v.visible);
+  const skus = vs.map((v) => v.sku.trim().toUpperCase());
+  const skuOk = p.variants?.length
+    ? vs.length > 0 && skus.every((x) => x && !taken.includes(x)) && new Set(skus).size === skus.length
+    : !p.sku?.trim() || !taken.includes(p.sku.trim().toUpperCase());
+  const ok = p.short.trim() && p.cat && p.unitPrice > 0 && p.img && (!p.video?.trim() || embedUrl(p.video)) && skuOk;
   const field = "mt-1.5 w-full rounded-lg border border-line px-3 py-2 text-[13.5px] outline-none focus:border-ink";
 
   return (
@@ -181,22 +190,27 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
             <textarea value={p.feature} onChange={(e) => set("feature", e.target.value)} rows={3} className={`${field} resize-y`} />
           </label>
           <div className="grid grid-cols-2 gap-4">
-            <label className="block font-medium">サイズ<input value={p.size} onChange={(e) => set("size", e.target.value)} placeholder="W10 × H7 × D2 cm" className={field} /></label>
+            <label className="block font-medium">寸法<input value={p.size} onChange={(e) => set("size", e.target.value)} placeholder="W10 × H7 × D2 cm" className={field} /></label>
             <label className="block font-medium">ロゴ位置<input value={p.logo} onChange={(e) => set("logo", e.target.value)} placeholder="表面中央" className={field} /></label>
           </div>
           <label className="block font-medium">参考単価（30個・円）<span className="ml-1 text-[11px] text-gold">必須</span>
             <input type="number" min={0} step={100} value={p.unitPrice || ""} onChange={(e) => set("unitPrice", Number(e.target.value))} className={field} />
           </label>
+          <div className="border-t border-line pt-5">
+            <p className="mb-3 text-[14px] font-semibold">SKU品番とバリエーション</p>
+            <VariantsEditor p={p} onChange={(x) => setP((cur) => ({ ...cur, ...x }))} taken={taken} />
+          </div>
           <label className="flex items-center gap-2.5 font-medium">
             <input type="checkbox" checked={p.visible} onChange={(e) => set("visible", e.target.checked)} className="h-4 w-4 accent-[#1a1a1a]" />
             製品一覧に公開する
           </label>
         </div>
+        {!skuOk && <p role="status" className="border-t border-line bg-[#fdf3f3] px-6 py-2.5 text-[12px] text-red-700">SKU品番に、空欄か、ほかと同じ品番があります。直すと保存できます。</p>}
         <div className="flex items-center justify-between gap-3 border-t border-line px-6 py-4">
           {!isNew ? (
             <button type="button" onClick={async () => { if (await askConfirm({ title: "この商品を削除しますか？", body: "製品一覧からも消えます。元に戻せません。", ok: "削除する", danger: true })) { deleteProduct(p.id); onClose(); } }} className="flex items-center gap-1.5 text-[12.5px] text-red-600"><Trash2 size={14} /> 削除</button>
           ) : <span />}
-          <button type="button" disabled={!ok} onClick={() => { saveProduct({ ...p, name: p.name.trim() || p.short.trim(), video: p.video?.trim() || undefined }); onClose(); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute">保存する</button>
+          <button type="button" disabled={!ok} onClick={() => { saveProduct({ ...p, name: p.name.trim() || p.short.trim(), video: p.video?.trim() || undefined, sku: p.sku?.trim() || undefined, options: p.options?.filter((o) => o.name.trim() && o.values.length), variants: p.variants?.map((v) => ({ ...v, sku: v.sku.trim() })) }); onClose(); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute">保存する</button>
         </div>
       </div>
     </div>
