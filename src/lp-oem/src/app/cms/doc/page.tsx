@@ -68,7 +68,7 @@ export default function DocPage() {
         {isWork ? (
           <>
             {/* 製造指示書：英語・タイ語を併記。お客様の連絡先と販売価格は載せない */}
-            <section className="mt-8 grid grid-cols-[1fr_170px] gap-6">
+            <section className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-[1fr_170px]">
               <table className="w-full border border-line">
                 <tbody className="divide-y divide-line">
                   {[

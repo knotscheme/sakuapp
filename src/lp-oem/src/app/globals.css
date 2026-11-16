@@ -211,3 +211,7 @@ h1, h2 { text-wrap: balance; }
 /* 案件ボード：スマホは1列ずつ横にスワイプ */
 .snap-x-cols { scroll-snap-type: x mandatory; }
 .snap-x-cols > div > * { scroll-snap-align: start; }
+
+/* 管理画面：中身が長くても、カードや列が画面幅より広がらないように（Safari対策） */
+.cms-bg main *, .cms-bg [role="dialog"] * { min-width: 0; }
+.cms-bg dd, .cms-bg td, .cms-bg h1, .cms-bg h2 { overflow-wrap: anywhere; }
