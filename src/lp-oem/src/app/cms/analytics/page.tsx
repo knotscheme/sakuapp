@@ -24,6 +24,21 @@ function months(n: number) {
     return { ym: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`, label: `${d.getMonth() + 1}月`, inquiries, quotes, orders, delivered, sales, defect: 0.8 + wave(i, 6) * 1.6, onTime: 88 + wave(i, 7) * 10 };
   });
 }
+type Order = "desc" | "asc" | "sales" | "orders";
+const ORDERS: { id: Order; ja: string }[] = [
+  { id: "desc", ja: "新しい順" },
+  { id: "asc", ja: "古い順" },
+  { id: "sales", ja: "売上（金額）の多い順" },
+  { id: "orders", ja: "受注件数（数量）の多い順" },
+];
+function sortRows<T>(arr: T[], order: Order, date: (x: T) => string, money: (x: T) => number, count: (x: T) => number) {
+  return [...arr].sort((a, b) => {
+    if (order === "sales") return money(b) - money(a);
+    if (order === "orders") return count(b) - count(a) || money(b) - money(a);
+    const c = date(a) < date(b) ? -1 : date(a) > date(b) ? 1 : 0;
+    return order === "asc" ? c : -c;
+  });
+}
 const man = (n: number) => (n >= 10000 ? `${(n / 10000).toLocaleString("ja-JP", { maximumFractionDigits: 0 })}万円` : `${n.toLocaleString()}円`);
 
 // 縦棒：1つの数字の月ごとの変化（色は1色。最新の月だけ濃く）
@@ -77,12 +92,19 @@ function HBars({ rows, fmt }: { rows: { label: string; v: number }[]; fmt: (n: n
 
 export default function Analytics() {
   const { can } = useAuth();
-  const [n, setN] = useState(6);
+  const all = months(12);
+  const [from, setFrom] = useState(all[6].ym);
+  const [to, setTo] = useState(all[11].ym);
+  const [order, setOrder] = useState<Order>("desc");
   const [table, setTable] = useState(false);
   const deals = useDeals();
   if (!can("analytics.view")) return <Shell title="アナリティクス"><NoAccess /></Shell>;
 
-  const m = months(n);
+  const [lo, hi] = from <= to ? [from, to] : [to, from];
+  const m = all.filter((x) => x.ym >= lo && x.ym <= hi); // グラフは月の順
+  const sorted = sortRows(m, order, (x) => x.ym, (x) => x.sales, (x) => x.orders); // 表とCSVは並び順どおり
+  const preset = all.length - all.findIndex((x) => x.ym === lo);
+  const isPreset = hi === all[11].ym && [3, 6, 12].includes(preset) ? preset : 0;
   const sum = (k: "inquiries" | "quotes" | "orders" | "delivered" | "sales") => m.reduce((s, x) => s + x[k], 0);
   const showMoney = can("money.view");
   const kpis = [
@@ -116,15 +138,40 @@ export default function Analytics() {
     { label: "検品→発送", v: 1.8 },
   ];
 
-  const csvBox = <CsvBox canMoney={showMoney} canCustomer={can("customer.view")} deals={deals} />;
-  const range = (
-    <div className="flex overflow-hidden rounded-lg border border-line bg-white text-[12.5px]">
-      {[3, 6, 12].map((x) => <button key={x} type="button" onClick={() => setN(x)} className={`px-3.5 py-2 ${n === x ? "bg-ink text-white" : "text-mute"}`}>直近{x}か月</button>)}
-    </div>
+  const ymLabel = (ym: string) => `${ym.slice(0, 4)}年${Number(ym.slice(5))}月`;
+  const periodText = `${ymLabel(lo)}〜${ymLabel(hi)}（${m.length}か月）・${ORDERS.find((o) => o.id === order)!.ja}`;
+  const csvBox = <CsvBox canMoney={showMoney} canCustomer={can("customer.view")} deals={deals} monthly={sorted} lo={lo} hi={hi} order={order} periodText={periodText} />;
+  const sel = "w-full rounded-lg border border-line bg-white px-3 py-2 text-[13px] outline-none focus:border-ink";
+  const filter = (
+    <Card className="mb-5 px-5 py-4">
+      <div className="flex flex-wrap items-end gap-x-4 gap-y-3 text-[12px]">
+        <div className="flex w-full flex-col gap-1.5 sm:w-auto"><span className="text-mute">期間</span>
+          <div className="flex overflow-hidden rounded-lg border border-line bg-white text-[12.5px]">
+            {[3, 6, 12].map((x) => <button key={x} type="button" onClick={() => { setFrom(all[12 - x].ym); setTo(all[11].ym); }} className={`flex-1 px-3.5 py-2 whitespace-nowrap ${isPreset === x ? "bg-ink text-white" : "text-mute"}`}>直近{x}か月</button>)}
+          </div>
+        </div>
+        <div className="flex w-full items-end gap-2 sm:w-auto">
+          <label className="flex flex-1 flex-col gap-1.5"><span className="text-mute">開始月</span>
+            <select value={from} onChange={(e) => setFrom(e.target.value)} className={sel}>{all.map((x) => <option key={x.ym} value={x.ym}>{ymLabel(x.ym)}</option>)}</select>
+          </label>
+          <span className="pb-2.5 text-mute">〜</span>
+          <label className="flex flex-1 flex-col gap-1.5"><span className="text-mute">終了月</span>
+            <select value={to} onChange={(e) => setTo(e.target.value)} className={sel}>{all.map((x) => <option key={x.ym} value={x.ym}>{ymLabel(x.ym)}</option>)}</select>
+          </label>
+        </div>
+        <label className="flex w-full flex-col gap-1.5 sm:w-auto"><span className="text-mute">並び順</span>
+          <select value={order} onChange={(e) => setOrder(e.target.value as Order)} className={sel}>
+            {ORDERS.filter((o) => showMoney || o.id !== "sales").map((o) => <option key={o.id} value={o.id}>{o.ja}</option>)}
+          </select>
+        </label>
+      </div>
+      <p className="mt-3 text-[11.5px] text-mute">この条件で、下のすべての数字・グラフ・表・CSVが表示されます（グラフは月の順）</p>
+    </Card>
   );
 
   return (
-    <Shell title="アナリティクス" actions={range} note="案件・検品のデータを Supabase の集計用ビュー（SQL）でまとめて表示。LPのアクセス数は Google アナリティクスと連携">
+    <Shell title="アナリティクス" note="案件・検品のデータを Supabase の集計用ビュー（SQL）でまとめて表示。LPのアクセス数は Google アナリティクスと連携">
+      {filter}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
         {kpis.map((x) => (
           <Card key={x.k} className="px-5 py-5">
@@ -143,7 +190,7 @@ export default function Analytics() {
             <table className="w-full min-w-[520px] text-[12.5px]">
               <thead className="bg-[#fafafa] text-left text-mute"><tr>{["月", "問い合わせ", "見積", "受注", ...(showMoney ? ["売上"] : [])].map((h) => <th key={h} className="px-5 py-2.5 font-normal">{h}</th>)}</tr></thead>
               <tbody className="divide-y divide-line">
-                {m.map((x) => <tr key={x.label}><td className="px-5 py-2.5">{x.label}</td><td className="px-5 py-2.5 tabular-nums">{x.inquiries}</td><td className="px-5 py-2.5 tabular-nums">{x.quotes}</td><td className="px-5 py-2.5 tabular-nums">{x.orders}</td>{showMoney && <td className="px-5 py-2.5 tabular-nums">{man(x.sales)}</td>}</tr>)}
+                {sorted.map((x) => <tr key={x.ym}><td className="px-5 py-2.5">{ymLabel(x.ym)}</td><td className="px-5 py-2.5 tabular-nums">{x.inquiries}</td><td className="px-5 py-2.5 tabular-nums">{x.quotes}</td><td className="px-5 py-2.5 tabular-nums">{x.orders}</td>{showMoney && <td className="px-5 py-2.5 tabular-nums">{man(x.sales)}</td>}</tr>)}
               </tbody>
             </table>
           </div>
@@ -189,59 +236,38 @@ export default function Analytics() {
   );
 }
 
-// CSVのダウンロード：種類・期間（開始月〜終了月）・並び順を選ぶ
-function CsvBox({ canMoney, canCustomer, deals }: { canMoney: boolean; canCustomer: boolean; deals: ReturnType<typeof useDeals> }) {
-  const all = months(12);
+// CSVのダウンロード：期間と並び順は、ページ上部の条件をそのまま使う
+function CsvBox({ canMoney, canCustomer, deals, monthly, lo, hi, order, periodText }: { canMoney: boolean; canCustomer: boolean; deals: ReturnType<typeof useDeals>; monthly: ReturnType<typeof months>; lo: string; hi: string; order: Order; periodText: string }) {
   const [kind, setKind] = useState<"monthly" | "deals">("monthly");
-  const [from, setFrom] = useState(all[6].ym);
-  const [to, setTo] = useState(all[11].ym);
-  const [order, setOrder] = useState<"desc" | "asc">("desc");
-  const [lo, hi] = from <= to ? [from, to] : [to, from];
-  const sorter = <T,>(arr: T[], key: (x: T) => string) => [...arr].sort((a, b) => (order === "asc" ? 1 : -1) * (key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0));
-
-  const monthly = sorter(all.filter((x) => x.ym >= lo && x.ym <= hi), (x) => x.ym);
-  const dealRows = sorter(deals.filter((d) => d.createdAt.slice(0, 7) >= lo && d.createdAt.slice(0, 7) <= hi), (d) => d.createdAt);
+  const dealRows = sortRows(deals.filter((d) => d.createdAt.slice(0, 7) >= lo && d.createdAt.slice(0, 7) <= hi), order, (d) => d.createdAt, (d) => amounts(d).total, (d) => d.lot);
   const count = kind === "monthly" ? monthly.length : dealRows.length;
 
   const download = () => {
     if (kind === "monthly") {
       const head = ["月", "問い合わせ", "見積送付", "受注", "納品完了", ...(canMoney ? ["売上（円）"] : []), "成約率（%）", "不良率（%）", "納期どおりの出荷（%）"];
-      downloadCsv(`craft-oem_monthly_${lo}_${hi}.csv`, [head, ...monthly.map((x) => [x.ym, x.inquiries, x.quotes, x.orders, x.delivered, ...(canMoney ? [x.sales] : []), ((x.orders / x.inquiries) * 100).toFixed(1), x.defect.toFixed(1), x.onTime.toFixed(0)])]);
+      downloadCsv(`craft-oem_monthly_${lo}_${hi}_${order}.csv`, [head, ...monthly.map((x) => [x.ym, x.inquiries, x.quotes, x.orders, x.delivered, ...(canMoney ? [x.sales] : []), ((x.orders / x.inquiries) * 100).toFixed(1), x.defect.toFixed(1), x.onTime.toFixed(0)])]);
     } else {
       const head = ["案件番号", "受付日", "ブランド", ...(canCustomer ? ["担当者", "メール"] : []), "製品", "数量", "ロゴ加工", "革の色", "段階", ...(canMoney ? ["金額（税込・円）"] : []), "担当", "期日"];
-      downloadCsv(`craft-oem_deals_${lo}_${hi}.csv`, [head, ...dealRows.map((d) => [d.id, d.createdAt, d.brand, ...(canCustomer ? [d.person, d.email] : []), modelOf(d.model).name, d.lot, d.finish, d.color, STAGES.find((s) => s.id === d.stage)!.ja, ...(canMoney ? [amounts(d).total] : []), d.owner, d.due])]);
+      downloadCsv(`craft-oem_deals_${lo}_${hi}_${order}.csv`, [head, ...dealRows.map((d) => [d.id, d.createdAt, d.brand, ...(canCustomer ? [d.person, d.email] : []), modelOf(d.model).name, d.lot, d.finish, d.color, STAGES.find((s) => s.id === d.stage)!.ja, ...(canMoney ? [amounts(d).total] : []), d.owner, d.due])]);
     }
   };
-  const sel = "rounded-lg border border-line bg-white px-3 py-2 text-[13px] outline-none focus:border-ink";
 
   return (
     <Card className="mt-5">
       <CardHead note="サーバーで作成し、誰がいつダウンロードしたかを操作履歴に記録。権限のない項目（金額・連絡先）は入らない">CSVでダウンロード</CardHead>
-      <div className="flex flex-wrap items-end gap-3 px-5 pt-1 pb-5 text-[12px]">
-        <label className="flex w-full flex-col gap-1.5 sm:w-auto"><span className="text-mute">種類</span>
-          <select value={kind} onChange={(e) => setKind(e.target.value as "monthly" | "deals")} className={sel}>
-            <option value="monthly">月ごとの集計</option>
-            <option value="deals">案件の一覧</option>
-          </select>
-        </label>
-        <div className="flex w-full items-end gap-2 sm:w-auto">
-          <label className="flex flex-1 flex-col gap-1.5"><span className="text-mute">開始月</span>
-            <select value={from} onChange={(e) => setFrom(e.target.value)} className={sel}>{all.map((x) => <option key={x.ym} value={x.ym}>{x.ym.replace("-", "年")}月</option>)}</select>
+      <div className="px-5 pt-1 pb-5 text-[12px]">
+        <p className="rounded-lg bg-[#f6f6f5] px-3.5 py-2.5 text-[12.5px]"><span className="text-mute">条件：</span>{periodText.split("・").map((t, i) => <span key={t} className="inline-block whitespace-nowrap">{i ? "・" : ""}{t}</span>)}<span className="block text-[11px] text-mute sm:inline sm:pl-2">（ページ上部で変更できます）</span></p>
+        <div className="mt-3 flex flex-wrap items-end gap-3">
+          <label className="flex w-full flex-col gap-1.5 sm:w-auto"><span className="text-mute">種類</span>
+            <select value={kind} onChange={(e) => setKind(e.target.value as "monthly" | "deals")} className="rounded-lg border border-line bg-white px-3 py-2 text-[13px] outline-none focus:border-ink">
+              <option value="monthly">月ごとの集計</option>
+              <option value="deals">案件の一覧</option>
+            </select>
           </label>
-          <span className="pb-2.5 text-mute">〜</span>
-          <label className="flex flex-1 flex-col gap-1.5"><span className="text-mute">終了月</span>
-            <select value={to} onChange={(e) => setTo(e.target.value)} className={sel}>{all.map((x) => <option key={x.ym} value={x.ym}>{x.ym.replace("-", "年")}月</option>)}</select>
-          </label>
+          <button type="button" onClick={download} disabled={!count} className="cms-btn inline-flex w-full items-center justify-center gap-2 bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute sm:w-auto">
+            <Download size={15} /> ダウンロード（{count}行）
+          </button>
         </div>
-        <label className="flex w-full flex-col gap-1.5 sm:w-auto"><span className="text-mute">並び順</span>
-          <select value={order} onChange={(e) => setOrder(e.target.value as "desc" | "asc")} className={sel}>
-            <option value="desc">新しい順</option>
-            <option value="asc">古い順</option>
-          </select>
-        </label>
-        <button type="button" onClick={download} disabled={!count} className="cms-btn inline-flex w-full items-center justify-center gap-2 bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute sm:w-auto">
-          <Download size={15} /> ダウンロード（{count}行）
-        </button>
       </div>
       {!canMoney && <TechNote className="px-5 pb-4">あなたの権限では、金額の列は含まれません</TechNote>}
     </Card>
