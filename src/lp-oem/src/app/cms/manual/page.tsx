@@ -10,6 +10,7 @@ import { useAuth, type Perm } from "@/components/cms/perm";
 import { Card, Shell } from "@/components/cms/ui";
 import { useLang, useUI } from "@/components/cms/i18n";
 import { FactoryManual } from "./factory-manual";
+import VoiceGuide, { ListenButton } from "@/components/VoiceGuide";
 
 // 使い方マニュアル：だれが読んでも分かるように、短い文と手順で書く
 type Chapter = { id: string; title: string; who: string; perm?: Perm; href?: string; body: ReactNode };
@@ -18,7 +19,7 @@ const Steps = ({ items }: { items: ReactNode[] }) => (
   <ol className="mt-3 space-y-2.5">
     {items.map((t, i) => (
       <li key={i} className="flex gap-3 text-[13.5px] leading-relaxed">
-        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink text-[11.5px] text-white">{i + 1}</span>
+        <span data-say={`手順${i + 1}、`} className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink text-[11.5px] text-white">{i + 1}</span>
         <span className="pt-0.5">{typeof t === "string" ? <Ph tail={4}>{t}</Ph> : t}</span>
       </li>
     ))}
@@ -38,6 +39,16 @@ const CHAPTERS: Chapter[] = [
         <P>この管理画面は、LPから届いたお問い合わせを、<B>見積 → 発注 → 製造（タイの工場）→ 国内検品 → 発送</B>まで、1つの画面で管理するためのものです。</P>
         <P>書類（見積書・発注依頼書・製造指示書など）とお客様へのメールは、<B>ボタンを押すと自動で作られ、送られます。</B>手で作る必要はありません。</P>
         <Tip>メニュー（スマホでは左上の「≡」）に出る項目は、あなたの役割によって変わります。必要な画面が無いときは、オーナーに権限をお願いしてください。</Tip>
+      </>
+    ),
+  },
+  {
+    id: "login", title: "ログインと2段階認証", who: "全員",  href: "/cms/login/",
+    body: (
+      <>
+        <P>管理画面には、メールアドレスとパスワードに加えて、<B>スマホの認証アプリに出る6桁のコード</B>でログインします（2段階認証）。パスワードが漏れても、スマホが無ければ入れません。</P>
+        <Steps items={["メールアドレスとパスワードを入れて「次へ」", "スマホの認証アプリ（Google Authenticator など）を開き、出ている6桁のコードを入れる", "初めてのときは、画面のQRコードを認証アプリで読み取ってから、コードを入れる", "自分のスマホなら「30日間コードを省略」にチェックしてもよい"]} />
+        <Tip>コードを5回間違えると、しばらくログインできなくなります。スマホをなくしたときは、オーナーに「メンバーと権限」で2段階認証をリセットしてもらってください。</Tip>
       </>
     ),
   },
@@ -236,6 +247,7 @@ export default function Manual() {
               <div>
                 <p className="text-[15px] font-semibold">{role ? `あなたは「${role.name}」です` : "ようこそ"}</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-mute">まず「はじめに」と「全体の流れ」を読み、そのあと下の、あなたに関係する章を読んでください。</p>
+                <div className="mt-4"><VoiceGuide lang="ja" sections={[...CHAPTERS.map((c) => ({ id: c.id, title: c.title })), { id: "faq", title: "困ったとき", text: "困ったとき。" + FAQ.map((f) => `${f.q}。${f.a}`).join("") }, { id: "words", title: "言葉の説明" }]} /></div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {mine.map((c) => <a key={c.id} href={`#${c.id}`} className="rounded-full bg-[#f1f1f0] px-3.5 py-2.5 text-[12.5px] hover:bg-ink hover:text-white">{c.title.split("：")[0]}</a>)}
                 </div>
@@ -247,12 +259,12 @@ export default function Manual() {
             <Card key={c.id} className="scroll-mt-20" >
               <section id={c.id} className="scroll-mt-20 px-6 py-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="text-[17px] font-semibold"><span className="mr-2 text-[12px] font-normal text-mute">{String(i + 1).padStart(2, "0")}</span><Ph>{c.title}</Ph></h2>
-                  <span className="rounded-full bg-[#f1f1f0] px-2.5 py-0.5 text-[11px] text-mute">対象：{c.who}</span>
+                  <h2 className="text-[17px] font-semibold"><span data-nosay className="mr-2 text-[12px] font-normal text-mute">{String(i + 1).padStart(2, "0")}</span><Ph>{c.title}</Ph></h2>
+                  <span className="flex items-center gap-3"><ListenButton id={c.id} /><span data-say={`対象は${c.who}です。`} className="rounded-full bg-[#f1f1f0] px-2.5 py-0.5 text-[11px] text-mute">対象：{c.who}</span></span>
                 </div>
                 <div className="mt-3 space-y-2">{c.body}</div>
                 {c.href && (!c.perm || can(c.perm)) && (
-                  <Link href={c.href} className="tap mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-medium underline underline-offset-4 hover:text-gold">この画面を開く <ArrowRight size={14} /></Link>
+                  <Link data-nosay href={c.href} className="tap mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-medium underline underline-offset-4 hover:text-gold">この画面を開く <ArrowRight size={14} /></Link>
                 )}
               </section>
             </Card>

@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, Bell, Database, EyeOff, Factory, FileClock, Globe, KeyRound, Link2, Lock, ShieldCheck, Users, Vault } from "lucide-react";
 
+// 音声ガイドの台本（聞いて分かるように、画面の文章とは別に書く）
+const VOICE: VoiceSection[] = [
+  { id: "v-intro", title: "はじめに", text: "クラフトOEMは、革小物にロゴを入れるOEMの仕事を、集客から納品までひとつにつなぐサービスです。お客様が見るランディングページと見積もり、社内の管理画面、タイの工場とのやり取り、そしてお客様の確認画面までがつながっています。このページでは、それぞれの画面と、自動化やセキュリティの考え方をご紹介します。" },
+  { id: "v-auto", title: "自動化", text: "まず、自動化についてです。人がやるのは、確認して押すだけ。お問い合わせ、入金、ロゴの承認をきっかけに、システムが返信、見積、発注書の下書きまで自動で作ります。人がボタンを押すのは、返信と配置案の送信、そして工場への発注の、三回だけです。たとえば見積は、これまでエクセルで単価や割引を計算していましたが、このツールでは、カラーと数量を入れるだけで、数量割引まで自動で計算します。入金の確認も、決済と振込を自動で照合し、領収のお知らせまで送ります。お客様に送る前と、工場に発注する前には、必ず人が確認するので、間違いが外に出ません。" },
+  { id: "v-flow", title: "問い合わせから納品までの流れ", text: "次に、全体の流れです。お客様はランディングページで刻印を試し、色と数で概算を見て相談します。届いた問い合わせには、見積つきの返信が自動で下書きされます。お客様が見積を承諾して前金を支払うと、ロゴ配置のイメージを確認していただきます。承認されたら、タイの工場に発注し、工場はタイ語の画面で工程を進めます。日本に届いたら、スマホで検品をして、追跡番号つきでお届けします。" },
+  { id: "v-customers", title: "お客様が見る画面", text: "お客様が見る画面は四つです。ランディングページ、製品一覧、見積もりフォーム、そしてお客様の確認画面です。製品一覧では丸いカラーピッカーで色を選べて、見積もりフォームでは、カラーごとの数量から、その場で概算がわかります。お客様の確認画面は、メールの専用リンクで、ご自分の案件だけを見られます。" },
+  { id: "v-team", title: "社内で使う画面", text: "社内で使う管理画面です。確認待ちの画面には、自動で作った下書きが並び、確かめて送るだけです。ダッシュボードと案件ボードで、すべての案件の今がわかります。案件の画面では、実物の写真にロゴを重ねた配置イメージを作れます。商品登録ではカラーとサイズのバリエーションとSKU品番を、工場との連絡では、ラインのように工場とやり取りできます。スマホでも同じように使えます。" },
+  { id: "v-factory", title: "工場が使う画面", text: "タイの工場の人は、ログインした時点からタイ語の画面になります。工程を押して進めるだけで、日本側の管理画面にすぐ反映されます。お客様の名前や価格は、工場には見えません。" },
+  { id: "v-sec", title: "セキュリティ", text: "最後に、セキュリティです。お客様の情報を守るため、自社のECプラットフォーム、スパイダーと同じ水準の対策を導入します。ログインには、パスワードに加えて、スマホの認証アプリの六桁のコードを使う二段階認証。役割ごとの権限で、工場にはお客様の情報を見せません。本番では、データベース側でも権限を守り、電話番号や住所は暗号化して保存します。操作の記録、不正な送信の防止、通信の保護、そして事故への備えまで、何重にも守ります。" },
+  { id: "v-tech", title: "主な機能と仕組み", text: "主な機能は、下書きの自動作成、ロゴ配置イメージ、カラー別の見積と数量割引、SKUとバリエーション、工場とのやり取り、そしてスマホで完結する使いやすさです。ご覧いただき、ありがとうございました。気になる画面は、カードを押すと実際に操作できます。" },
+];
+
 const SEC_ICON = { users: Users, factory: Factory, eye: EyeOff, link: Link2, db: Database, lock: Lock, key: KeyRound, log: FileClock, shield: ShieldCheck, globe: Globe, vault: Vault, bell: Bell } as const;
 import { asset } from "@/lib/asset";
 import NoOrphan from "@/components/NoOrphan";
 import { Ph } from "@/components/cms/Ph";
+import VoiceGuide, { type VoiceSection } from "@/components/VoiceGuide";
 
 export const metadata: Metadata = {
   title: "CRAFT OEM｜サービスとツールの全体像",
@@ -87,7 +100,7 @@ const SECURITY: { icon: "users" | "factory" | "eye" | "link" | "db" | "lock" | "
   { icon: "link", t: "お客様は自分の案件だけ", s: "期限つきの専用リンクで、ほかのお客様の情報には届かない", st: "demo" },
   { icon: "db", t: "データベース側でも守る（RLS）", s: "画面に不具合があっても、権限のないデータはデータベースが読ませない「行レベルの権限」", st: "plan" },
   { icon: "lock", t: "個人情報の暗号化", s: "電話番号・住所は AES-256 で暗号化して保存。万一データが漏れても読めない", st: "plan" },
-  { icon: "key", t: "ログインの強化", s: "管理者は2段階認証。ログインの失敗が続くと一時的に止める", st: "plan" },
+  { icon: "key", t: "2段階認証", s: "パスワードに加えて、スマホの認証アプリの6桁コードでログイン。役割ごとに必須にでき、間違いが続くと一時的にロック", st: "demo" },
   { icon: "log", t: "操作の記録と通知", s: "CSVの書き出し・権限の変更・発注を記録。いつもと違う書き出しは、オーナーに通知", st: "plan" },
   { icon: "shield", t: "不正な送信を防ぐ", s: "フォームの連投制限、入力のチェック、ファイルの種類と大きさの確認、CSVの危険な文字の無害化", st: "plan" },
   { icon: "globe", t: "通信と画面の保護", s: "常に暗号化通信（HSTS）、読み込める先を限る設定（CSP）、他サイトへの埋め込みを禁止", st: "plan" },
@@ -110,7 +123,7 @@ const TECH = ["Next.js（App Router）", "Supabase（データベース・ログ
 export default function Overview() {
   return (
     <main className="min-h-[100svh] bg-white text-ink">
-      <header className="mx-auto max-w-6xl px-6 pt-16 pb-12 md:px-8 md:pt-24">
+      <header id="v-intro" className="mx-auto max-w-6xl px-6 pt-16 pb-12 md:px-8 md:pt-24">
         <p className="font-display text-[12px] tracking-[0.4em] text-mute">CRAFT OEM / OVERVIEW</p>
         <h1 className="mt-5 text-[26px] leading-snug font-medium tracking-[0.04em] md:text-[38px]">
           <span className="inline-block">革小物のロゴ入れOEMを、</span><span className="inline-block">集客から納品まで。</span>
@@ -125,11 +138,12 @@ export default function Overview() {
           <a href={asset("/")} className="inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-[13px] tracking-[0.1em] text-white transition hover:bg-gold">LPを見る<ArrowUpRight size={15} /></a>
           <a href={asset("/cms/")} className="inline-flex items-center gap-2 border border-ink px-6 py-3.5 text-[13px] tracking-[0.1em] transition hover:bg-ink hover:text-white">管理画面を見る<ArrowUpRight size={15} /></a>
         </div>
+        <div className="mt-6"><VoiceGuide sections={VOICE} /></div>
         <p className="mt-6 text-[11.5px] text-mute"><NoOrphan text="※ポートフォリオ用の制作サンプルです。会社名・金額・データはすべて架空で、操作した内容は見ている人のブラウザにだけ保存されます。" /></p>
       </header>
 
       {/* 自動化 */}
-      <section className="py-14 md:py-20">
+      <section id="v-auto" className="py-14 md:py-20">
         <div className="mx-auto max-w-6xl px-6 md:px-8">
           <p className="font-display text-[12px] tracking-[0.4em] text-mute">AUTOMATION</p>
           <h2 className="mt-3 text-[22px] leading-snug font-medium tracking-[0.04em] md:text-[30px]"><span className="inline-block">人がやるのは、</span><span className="inline-block">確認して押すだけ。</span></h2>
@@ -187,7 +201,7 @@ export default function Overview() {
       </section>
 
       {/* 流れ */}
-      <section className="border-y border-line bg-paper py-14 md:py-20">
+      <section id="v-flow" className="border-y border-line bg-paper py-14 md:py-20">
         <div className="mx-auto max-w-6xl px-6 md:px-8">
           <p className="font-display text-[12px] tracking-[0.4em] text-mute">FLOW</p>
           <h2 className="mt-3 text-[20px] font-medium tracking-[0.04em] md:text-[24px]">問い合わせから納品までの流れ</h2>
@@ -205,7 +219,7 @@ export default function Overview() {
 
       {/* 画面ごと */}
       {GROUPS.map((g) => (
-        <section key={g.en} className="mx-auto max-w-6xl px-6 py-14 md:px-8 md:py-20">
+        <section key={g.en} id={`v-${g.en.split(" ").pop()!.toLowerCase()}`} className="mx-auto max-w-6xl px-6 py-14 md:px-8 md:py-20">
           <p className="font-display text-[12px] tracking-[0.4em] text-mute">{g.en.toUpperCase()}</p>
           <h2 className="mt-3 text-[20px] font-medium tracking-[0.04em] md:text-[24px]">{g.ja}</h2>
           <p className="mt-2 text-[13.5px] text-mute"><NoOrphan text={g.lead} n={5} /></p>
@@ -232,7 +246,7 @@ export default function Overview() {
       ))}
 
       {/* セキュリティ */}
-      <section className="bg-ink py-14 text-white md:py-20">
+      <section id="v-sec" className="bg-ink py-14 text-white md:py-20">
         <div className="mx-auto max-w-6xl px-6 md:px-8">
           <p className="font-display text-[12px] tracking-[0.4em] text-white/50">SECURITY</p>
           <h2 className="mt-3 text-[22px] leading-snug font-medium tracking-[0.04em] md:text-[30px]"><span className="inline-block">お客様の情報を守る、</span><span className="inline-block">高いセキュリティ設計。</span></h2>
@@ -257,7 +271,7 @@ export default function Overview() {
       </section>
 
       {/* 主な機能・使う技術 */}
-      <section className="border-t border-line bg-paper py-14 md:py-20">
+      <section id="v-tech" className="border-t border-line bg-paper py-14 md:py-20">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 md:px-8 lg:grid-cols-[1.6fr_1fr]">
           <div>
             <p className="font-display text-[12px] tracking-[0.4em] text-mute">FEATURES</p>

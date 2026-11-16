@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
+
 import { Ph } from "@/components/cms/Ph";
 
 import { useState } from "react";
 import { Check, ChevronRight, Lock, Minus, Plus, SlidersHorizontal, Trash2, UserPlus, X } from "lucide-react";
-import { PERMS, addMemberWithLang, addRole, setMemberLang, clearMemberOverrides, cycleMemberPerm, deleteRole, effective, removeMember, setMemberRole, togglePerm, useAuth, usePermState, type Member } from "@/components/cms/perm";
+import { mfaRequired, resetMfa, setMfaRole, PERMS, addMemberWithLang, addRole, setMemberLang, clearMemberOverrides, cycleMemberPerm, deleteRole, effective, removeMember, setMemberRole, togglePerm, useAuth, usePermState, type Member } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
 import { LANGS, type Lang } from "@/components/cms/i18n";
 import { Card, CardHead, NoAccess, Shell, TechNote } from "@/components/cms/ui";
@@ -133,6 +135,8 @@ export default function Members() {
           )}
         </Card>
 
+        <MfaCard />
+
         <Card>
           <CardHead note="権限の変更はすべて記録（audit_logs テーブル）">権限の変更履歴</CardHead>
           <ul className="divide-y divide-line border-t border-line">
@@ -192,5 +196,48 @@ function MemberPanel({ m, onClose }: { m: Member; onClose: () => void }) {
         </div>
       </div>
     </div>
+  );
+}
+
+// 2段階認証：役割ごとに必須にする（オーナーだけが変えられる）。設定の状況とリセット
+function MfaCard() {
+  const st = usePermState();
+  const { isOwner } = useAuth();
+  const done = st.members.filter((m) => m.mfa).length;
+  return (
+    <Card>
+      <CardHead note="Supabase Auth の MFA（TOTP）。必須の役割は、2段階認証を済ませるまでデータベース（RLS）でも管理データを読ませない"
+        right={<Link href="/cms/login/" className="tap text-[12px] text-mute underline underline-offset-4 hover:text-ink">ログイン画面を見る</Link>}>2段階認証</CardHead>
+      <div className="border-t border-line px-5 py-4">
+        <p className="text-[12.5px] text-mute"><Ph tail={4}>ログインのとき、パスワードに加えて認証アプリの6桁のコードを求めます。間違いが5回続くと、一時的にログインを止めます。</Ph></p>
+        <p className="mt-3 text-[12px] font-medium">必須にする役割</p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {st.roles.map((r) => {
+            const on = st.mfaRoles.includes(r.id);
+            const lock = r.id === "owner" || !isOwner;
+            return (
+              <label key={r.id} className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[12.5px] ${on ? "border-ink" : "border-line text-mute"} ${lock ? "opacity-70" : "cursor-pointer"}`}>
+                <input type="checkbox" checked={on} disabled={lock} onChange={(e) => setMfaRole(r.id, e.target.checked)} className="h-3.5 w-3.5 accent-[#1a1a1a]" />{r.name}{r.id === "owner" && "（常に必須）"}
+              </label>
+            );
+          })}
+        </div>
+      </div>
+      <ul className="divide-y divide-line border-t border-line">
+        {st.members.map((m) => {
+          const req = mfaRequired(st, m);
+          return (
+            <li key={m.id} className="flex items-center gap-3 px-5 py-2.5 text-[13px]">
+              <span className="min-w-0 flex-1 truncate">{m.name}</span>
+              <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] ${m.mfa ? "bg-[#eef6f0] text-[#2f7a46]" : req ? "bg-[#fbf3e2] text-[#8a650c]" : "bg-[#f1f1f0] text-mute"}`}>{m.mfa ? "設定済み" : req ? "未設定（次のログインで設定）" : "任意・未設定"}</span>
+              {isOwner && m.mfa && m.id !== st.me && (
+                <button type="button" onClick={async () => { if (await askConfirm({ title: `${m.name}さんの2段階認証をリセットしますか？`, body: "スマホをなくしたときなどに使います。次のログインで、設定し直してもらいます。", ok: "リセット", danger: true })) resetMfa(m.id); }} className="tap shrink-0 text-[12px] text-mute underline underline-offset-4 hover:text-red-600">リセット</button>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <p className="border-t border-line px-5 py-3 text-[12px] text-mute">設定済み {done} / {st.members.length}人</p>
+    </Card>
   );
 }

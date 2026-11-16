@@ -20,9 +20,11 @@ export type Perm = (typeof PERMS)[number]["id"];
 export type Role = { id: string; name: string; desc: string; perms: Perm[]; locked?: boolean };
 // extra：役割に加えて許可、deny：役割にあっても禁止（人ごとの個別設定）
 // lang：その人の画面の言語（タイの工場の人はタイ語）
-export type Member = { id: string; name: string; email: string; role: string; lang?: "ja" | "th" | "en"; extra?: Perm[]; deny?: Perm[] };
+// mfa：2段階認証（認証アプリ）の設定が済んでいるか
+export type Member = { id: string; name: string; email: string; role: string; lang?: "ja" | "th" | "en"; extra?: Perm[]; deny?: Perm[]; mfa?: boolean };
 export type PermLog = { at: string; by: string; text: string };
-type State = { roles: Role[]; members: Member[]; me: string; logs: PermLog[] };
+// mfaRoles：2段階認証を必ず使う役割
+type State = { roles: Role[]; members: Member[]; me: string; logs: PermLog[]; mfaRoles: string[] };
 
 const ALL = PERMS.map((p) => p.id) as Perm[];
 export function seedPerm(): State {
@@ -35,8 +37,8 @@ export function seedPerm(): State {
       { id: "viewer", name: "閲覧のみ", desc: "見るだけ（経理・外部の確認用）", perms: ["deals.view", "money.view", "analytics.view"] },
     ],
     members: [
-      { id: "u1", name: "佐藤", email: "owner@craft.example", role: "owner" },
-      { id: "u2", name: "田中", email: "tanaka@craft.example", role: "sales" },
+      { id: "u1", name: "佐藤", email: "owner@craft.example", role: "owner", mfa: true },
+      { id: "u2", name: "田中", email: "tanaka@craft.example", role: "sales", mfa: true },
       { id: "u3", name: "小川", email: "ogawa@craft.example", role: "sales" },
       { id: "u4", name: "Somchai", email: "factory@bkk-leather.example", role: "factory", lang: "th" },
       { id: "u5", name: "鈴木", email: "qc@craft.example", role: "inspector" },
@@ -44,10 +46,11 @@ export function seedPerm(): State {
     ],
     me: "u1",
     logs: [],
+    mfaRoles: ["owner", "sales", "factory"],
   };
 }
 
-const KEY = "craft-oem-perm-v4";
+const KEY = "craft-oem-perm-v5";
 let cache: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {
@@ -60,7 +63,7 @@ function save(next: State) {
   try { localStorage.setItem(KEY, JSON.stringify(next)); } catch {}
   subs.forEach((f) => f());
 }
-const EMPTY: State = { roles: [], members: [], me: "", logs: [] };
+const EMPTY: State = { roles: [], members: [], me: "", logs: [], mfaRoles: [] };
 export function usePermState(): State {
   return useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => load(), () => EMPTY);
 }
@@ -141,3 +144,21 @@ export function deleteRole(id: string) {
   save(log({ ...st, roles: st.roles.filter((x) => x.id !== id) }, `役割「${r.name}」を削除しました`));
   return true;
 }
+
+// ===== 2段階認証 =====
+// 本番では Supabase Auth の MFA（TOTP：認証アプリの6桁コード）。必須の役割はサーバー側（RLSで aal2 を確認）でも守る
+export const mfaRequired = (st: Pick<State, "mfaRoles">, m: Member) => st.mfaRoles.includes(m.role);
+export function setMfaRole(roleId: string, on: boolean) {
+  const s = load(); const r = s.roles.find((x) => x.id === roleId);
+  if (roleId === "owner" && !on) return; // オーナーは常に必須
+  save(log({ ...s, mfaRoles: on ? [...new Set([...s.mfaRoles, roleId])] : s.mfaRoles.filter((x) => x !== roleId) }, `役割「${r?.name}」の2段階認証を${on ? "必須" : "任意"}にしました`));
+}
+export function enrollMfa(memberId: string) {
+  const s = load(); const m = s.members.find((x) => x.id === memberId);
+  save(log({ ...s, members: s.members.map((x) => (x.id === memberId ? { ...x, mfa: true } : x)) }, `${m?.name}：2段階認証を設定しました`));
+}
+export function resetMfa(memberId: string) {
+  const s = load(); const m = s.members.find((x) => x.id === memberId);
+  save(log({ ...s, members: s.members.map((x) => (x.id === memberId ? { ...x, mfa: false } : x)) }, `${m?.name}：2段階認証をリセットしました（次のログインで設定し直し）`));
+}
+export function loginAs(memberId: string) { save({ ...load(), me: memberId }); }

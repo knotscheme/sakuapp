@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
-import { X, Inbox, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
+import { X, LogOut, Inbox, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo, unreadOf, useDeals } from "./store";
@@ -106,6 +106,7 @@ function MiniDemo({ onDone }: { onDone: () => void }) {
       <div className="flex items-center gap-4">
         <span className="flex gap-4">
           <button type="button" onClick={async () => { onDone(); if (await askConfirm({ title: t.resetQ, body: t.resetB, ok: t.resetOk, danger: true })) { setViewLang("", null); resetDemo(); resetCatalog(); resetPerm(); } }}>{t.reset}</button>
+          <Link href="/cms/login/">{t.logout}</Link>
           <a href="/sakuapp/works/lp-oem/">{t.back}</a>
         </span>
       </div>
@@ -179,6 +180,7 @@ export function Shell({ title, children, actions, note, bottomPad, hideTabs }: {
         <LangSwitch />
         <TechNote className="mx-3 mb-3">{t.authNote}</TechNote>
         <button type="button" onClick={async () => { if (await askConfirm({ title: t.resetQ, body: t.resetB, ok: t.resetOk, danger: true })) { setViewLang("", null); resetDemo(); resetCatalog(); resetPerm(); } }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> {t.reset}</button>
+        <Link href="/cms/login/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><LogOut size={14} /> {t.logout}</Link>
         <a href="/sakuapp/works/lp-oem/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><ArrowLeft size={14} /> {t.back}</a>
       </div>
     </nav>
@@ -260,7 +262,7 @@ export function TechNote({ children, className = "" }: { children: ReactNode; cl
   const [open, setOpen] = useState(false);
   // スマホでは1行だけ見せ、押すと全文を開く（画面を広く使うため）
   return (
-    <p onClick={() => setOpen(!open)} className={`flex cursor-pointer items-start gap-1.5 text-[11px] leading-relaxed text-[#8a8a86] lg:cursor-auto ${className}`}>
+    <p data-nosay onClick={() => setOpen(!open)} className={`flex cursor-pointer items-start gap-1.5 text-[11px] leading-relaxed text-[#8a8a86] lg:cursor-auto ${className}`}>
       <Cpu size={12} strokeWidth={1.6} className="mt-[2px] shrink-0" />
       <span className={open ? "" : "max-lg:line-clamp-1"}>{t.prod}{typeof children === "string" ? <Ph tail={4}>{children}</Ph> : children}</span>
     </p>

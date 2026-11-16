@@ -36,7 +36,7 @@ export const UI = {
   ja: {
     nav: { dash: "ダッシュボード", inbox: "確認待ち", deals: "案件ボード", msgs: "工場との連絡", products: "商品管理", analytics: "アナリティクス", factory: "工場の画面", inspect: "国内検品", members: "メンバーと権限", portal: "お客様の画面（例）", manual: "使い方マニュアル" },
     noAccess: "この画面を見る権限がありません", noAccessB: "必要な場合は、オーナーに権限の追加を頼んでください。",
-    viewing: "表示中（デモ：人を切り替え）", authNote: "ログインは Supabase Auth（スタッフ・工場・検品で権限を分ける）",
+    viewing: "表示中（デモ：人を切り替え）", authNote: "ログインは Supabase Auth＋2段階認証（認証アプリの6桁コード）", logout: "ログアウト（ログイン画面へ）",
     reset: "デモをリセット", resetQ: "デモを最初の状態に戻しますか？", resetB: "案件・商品・メンバーと権限の変更がすべて消えます。", resetOk: "戻す",
     back: "LPに戻る", menu: "メニュー", prod: "※本番では：",
     footer: "※ポートフォリオ用のデモです。データはすべて架空で、操作した内容はこのブラウザにだけ保存されます。",
@@ -47,7 +47,7 @@ export const UI = {
   th: {
     nav: { dash: "แดชบอร์ด", inbox: "รอตรวจสอบ", deals: "บอร์ดงาน", msgs: "แชทกับโรงงาน", products: "จัดการสินค้า", analytics: "สถิติ", factory: "หน้าจอโรงงาน", inspect: "ตรวจสินค้าที่ญี่ปุ่น", members: "สมาชิกและสิทธิ์", portal: "หน้าจอลูกค้า (ตัวอย่าง)", manual: "คู่มือการใช้งาน" },
     noAccess: "คุณไม่มีสิทธิ์ดูหน้านี้", noAccessB: "หากต้องการใช้งาน กรุณาขอสิทธิ์จากเจ้าของ",
-    viewing: "กำลังแสดง (เดโม: สลับผู้ใช้)", authNote: "เข้าสู่ระบบด้วย Supabase Auth (แยกสิทธิ์พนักงาน / โรงงาน / ผู้ตรวจ)",
+    viewing: "กำลังแสดง (เดโม: สลับผู้ใช้)", authNote: "เข้าสู่ระบบด้วย Supabase Auth (แยกสิทธิ์พนักงาน / โรงงาน / ผู้ตรวจ)", logout: "ออกจากระบบ",
     reset: "รีเซ็ตเดโม", resetQ: "รีเซ็ตเดโมกลับเป็นค่าเริ่มต้น?", resetB: "การเปลี่ยนแปลงงาน สินค้า และสิทธิ์ทั้งหมดจะถูกลบ", resetOk: "รีเซ็ต",
     back: "กลับไปหน้า LP", menu: "เมนู", prod: "※ในระบบจริง: ",
     footer: "※นี่คือเดโมสำหรับพอร์ตโฟลิโอ ข้อมูลทั้งหมดเป็นข้อมูลสมมติ และบันทึกไว้ในเบราว์เซอร์นี้เท่านั้น",
@@ -58,7 +58,7 @@ export const UI = {
   en: {
     nav: { dash: "Dashboard", inbox: "To review", deals: "Deals", msgs: "Factory chat", products: "Products", analytics: "Analytics", factory: "Factory", inspect: "Inspection (Japan)", members: "Members & roles", portal: "Customer view (sample)", manual: "User guide" },
     noAccess: "You don't have access to this page", noAccessB: "Ask the owner if you need access.",
-    viewing: "Viewing as (demo: switch user)", authNote: "Login uses Supabase Auth (separate roles for staff, factory and inspection)",
+    viewing: "Viewing as (demo: switch user)", authNote: "Login uses Supabase Auth (separate roles for staff, factory and inspection)", logout: "Log out (to login screen)",
     reset: "Reset demo", resetQ: "Reset the demo?", resetB: "All changes to deals, products and permissions will be cleared.", resetOk: "Reset",
     back: "Back to LP", menu: "Menu", prod: "※In production: ",
     footer: "※Portfolio demo. All data is fictional and only saved in this browser.",
