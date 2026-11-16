@@ -25,8 +25,11 @@ export default function UpdateCheck() {
   useEffect(() => { check(); }, [path]);
   useEffect(() => {
     const on = () => { if (document.visibilityState === "visible") check(); };
+    // Safari の「戻る」は前のページをそのまま復元するので、そのときも確かめる
+    const show = (e: PageTransitionEvent) => { if (e.persisted) check(); };
     document.addEventListener("visibilitychange", on);
-    return () => document.removeEventListener("visibilitychange", on);
+    addEventListener("pageshow", show);
+    return () => { document.removeEventListener("visibilitychange", on); removeEventListener("pageshow", show); };
   }, []);
   return null;
 }
