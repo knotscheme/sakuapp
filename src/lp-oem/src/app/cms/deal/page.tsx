@@ -98,8 +98,10 @@ export default function DealPage() {
           <Card>
             <CardHead note="価格・ロット割引・版代は製品マスタ（products / price_rules テーブル）から自動計算">注文内容</CardHead>
             <div className="flex gap-5 px-5 pt-2 pb-5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset(m.img)} alt="" className="aspect-[4/3] w-28 shrink-0 self-start object-cover sm:w-36" />
+              <div className="w-28 shrink-0 self-start sm:w-36">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={asset(m.img)} alt="" className="block aspect-[4/3] h-auto w-full object-cover" />
+              </div>
               <dl className="grid flex-1 grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
                 <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
                 <dt className="text-mute">数量</dt><dd>{d.lot}個</dd>
@@ -111,16 +113,17 @@ export default function DealPage() {
             {can("money.view") ? (<>
             <table className="w-full border-t border-line text-[13px]">
               <tbody className="divide-y divide-line">
-                <tr><td className="px-5 py-2.5 text-mute">製品（{yenOf(a.unit)}×{d.lot}個）</td><td className="px-5 py-2.5 text-right tabular-nums">{yenOf(a.items)}</td></tr>
-                <tr><td className="px-5 py-2.5 text-mute">ロゴの版代（初回のみ）</td><td className="px-5 py-2.5 text-right tabular-nums">{yenOf(a.plate)}</td></tr>
-                <tr><td className="px-5 py-2.5 text-mute">消費税（10%）</td><td className="px-5 py-2.5 text-right tabular-nums">{yenOf(a.tax)}</td></tr>
-                <tr className="bg-[#fafafa]"><td className="px-5 py-3 font-medium">合計（税込）</td><td className="px-5 py-3 text-right text-[16px] font-medium tabular-nums">{yenOf(a.total)}</td></tr>
+                <tr><td className="px-5 py-2.5 text-mute">製品<span className="whitespace-nowrap">（{yenOf(a.unit)}×{d.lot}個）</span></td><td className="px-5 py-2.5 text-right whitespace-nowrap tabular-nums">{yenOf(a.items)}</td></tr>
+                <tr><td className="px-5 py-2.5 text-mute">ロゴの版代（初回のみ）</td><td className="px-5 py-2.5 text-right whitespace-nowrap tabular-nums">{yenOf(a.plate)}</td></tr>
+                <tr><td className="px-5 py-2.5 text-mute">消費税（10%）</td><td className="px-5 py-2.5 text-right whitespace-nowrap tabular-nums">{yenOf(a.tax)}</td></tr>
+                <tr className="bg-[#fafafa]"><td className="px-5 py-3 font-medium">合計（税込）</td><td className="px-5 py-3 text-right text-[16px] font-medium whitespace-nowrap tabular-nums">{yenOf(a.total)}</td></tr>
               </tbody>
             </table>
-            <div className="grid grid-cols-3 border-t border-line text-[12px]">
-              <div className="px-5 py-3"><p className="text-mute">工場の原価（1個）</p><p className="mt-0.5 tabular-nums">{d.thbCost}バーツ（約{yenOf(cost)}）</p></div>
-              <div className="border-l border-line px-5 py-3"><p className="text-mute"><Ph>粗利（製品分）</Ph></p><p className="mt-0.5 tabular-nums">{yenOf(profit)}</p></div>
-              <div className="border-l border-line px-5 py-3"><p className="text-mute">粗利率</p><p className="mt-0.5 tabular-nums">{((profit / a.items) * 100).toFixed(1)}%</p></div>
+            {/* スマホでは1行ずつ（項目名と金額を左右に）、PCでは3列 */}
+            <div className="grid grid-cols-1 border-t border-line text-[12px] sm:grid-cols-3">
+              <div className="flex items-baseline justify-between gap-3 px-5 py-3 sm:block"><p className="text-mute">工場の原価（1個）</p><p className="tabular-nums sm:mt-0.5">{d.thbCost}バーツ（約{yenOf(cost)}）</p></div>
+              <div className="flex items-baseline justify-between gap-3 px-5 py-3 sm:block border-t border-line sm:border-t-0 sm:border-l"><p className="text-mute">粗利（製品分）</p><p className="tabular-nums sm:mt-0.5">{yenOf(profit)}</p></div>
+              <div className="flex items-baseline justify-between gap-3 px-5 py-3 sm:block border-t border-line sm:border-t-0 sm:border-l"><p className="text-mute">粗利率</p><p className="tabular-nums sm:mt-0.5">{((profit / a.items) * 100).toFixed(1)}%</p></div>
             </div>
             </>) : <p className="border-t border-line px-5 py-4 text-[12.5px] text-mute">金額・原価を見る権限がありません。</p>}
           </Card>

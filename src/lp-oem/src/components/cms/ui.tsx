@@ -155,14 +155,14 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
             {tabs.map(({ href, label, icon: Icon }) => {
               const on = isOn(href);
               return (
-                <li key={href} className="flex-1">
-                  <Link href={href} aria-current={on ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-0.5 text-[10.5px] leading-tight ${on ? "font-medium text-ink" : "text-mute"}`}>
-                    <span className="relative"><Icon size={20} strokeWidth={on ? 2 : 1.6} /><Badge k={label} dot /></span><span className="max-w-full truncate px-1">{t.nav[label]}</span>
+                <li key={href} className="min-w-0 flex-1">
+                  <Link href={href} aria-current={on ? "page" : undefined} aria-label={t.nav[label]} className={`flex h-full w-full flex-col items-center justify-center gap-0.5 text-[10.5px] leading-tight ${on ? "font-medium text-ink" : "text-mute"}`}>
+                    <span className="relative"><Icon size={20} strokeWidth={on ? 2 : 1.6} /><Badge k={label} dot /></span><span className="w-full truncate px-1 text-center">{t.tab[label]}</span>
                   </Link>
                 </li>
               );
             })}
-            <li className="flex-1">
+            <li className="min-w-0 flex-1">
               <button type="button" onClick={() => setOpen(true)} className="flex h-full w-full flex-col items-center justify-center gap-0.5 text-[10.5px] text-mute"><Menu size={20} strokeWidth={1.6} /><span>{t.more}</span></button>
             </li>
           </ul>
