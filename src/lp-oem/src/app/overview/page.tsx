@@ -65,20 +65,19 @@ const BEFORE_AFTER: [string, string, string][] = [
   ["タイの工場への発注", "英語やタイ語で発注書を作り、数を書き写す", "承認されたら、英語・タイ語の発注書をカラー別の数量つきで自動作成。最終確認して発注"],
   ["進み具合と連絡", "電話やLINEで、そのつど確認する", "工場が工程を押すと管理画面に反映。連絡は相手の言葉で届く"],
 ];
-// 人の確認が入るのは3か所だけ（送る・発注する前）
-const AUTO_STEPS: { t: string; by: "auto" | "human" | "customer" }[] = [
-  { t: "問い合わせの登録", by: "auto" },
-  { t: "返信と見積の下書き", by: "auto" },
-  { t: "確認して送信", by: "human" },
-  { t: "見積の承諾", by: "customer" },
-  { t: "注文確定・請求書", by: "auto" },
-  { t: "入金の確認・領収", by: "auto" },
-  { t: "配置案の下書き", by: "auto" },
-  { t: "確認して送信", by: "human" },
-  { t: "ロゴ配置の承認", by: "customer" },
-  { t: "発注書の下書き", by: "auto" },
-  { t: "最終確認して発注", by: "human" },
+// 人の確認が入るのは3か所だけ（送る・発注する前）。段階ごとに並べる
+type By = "auto" | "human" | "customer";
+const AUTO_PHASES: { n: string; t: string; steps: [string, By][] }[] = [
+  { n: "01", t: "見積", steps: [["問い合わせの登録", "auto"], ["返信と見積の下書き", "auto"], ["確認して送信", "human"]] },
+  { n: "02", t: "注文・入金", steps: [["見積の承諾", "customer"], ["注文の確定・請求書", "auto"], ["入金の確認・領収", "auto"]] },
+  { n: "03", t: "ロゴの確認", steps: [["配置案の下書き", "auto"], ["確認して送信", "human"], ["ロゴ配置の承認", "customer"]] },
+  { n: "04", t: "工場への発注", steps: [["発注書の下書き（英語・タイ語）", "auto"], ["最終確認して発注", "human"]] },
 ];
+const BY: Record<By, { ja: string; dot: string; tag: string }> = {
+  auto: { ja: "自動", dot: "bg-ink", tag: "bg-ink text-white" },
+  human: { ja: "人が確認", dot: "bg-[#2a4f9e]", tag: "bg-[#2a4f9e] text-white" },
+  customer: { ja: "お客様", dot: "border border-ink/40 bg-white", tag: "border border-ink/25 text-ink/70" },
+};
 
 // セキュリティ：demo＝このデモで動いている／plan＝本番で導入する予定
 const SECURITY: { icon: "users" | "factory" | "eye" | "link" | "db" | "lock" | "key" | "log" | "shield" | "globe" | "vault" | "bell"; t: string; s: string; st: "demo" | "plan" }[] = [
@@ -137,28 +136,37 @@ export default function Overview() {
           <p className="mt-4 max-w-2xl text-[14px] leading-loose text-mute"><NoOrphan text="問い合わせ・入金・ロゴの承認をきっかけに、システムが返信・見積・発注書の下書きまで自動で作ります。お客様に送る前と、工場に発注する前には必ず人が確認するので、間違いが外に出ません。" n={5} /></p>
 
           {/* 数字で */}
-          <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden border border-line bg-line text-center">
-            {[["3回", "人が押すのは", "返信・配置案・工場への発注"], ["6種類", "自動で作る書類", "見積書から納品書まで"], ["3か国語", "自動で切り替え", "日本語・英語・タイ語"]].map(([n, k, v]) => (
-              <div key={k} className="bg-white px-2 py-5 md:py-7">
-                <dt className="text-[11.5px] text-mute md:text-[12.5px]">{k}</dt>
-                <dd className="mt-1 font-display text-[28px] leading-none md:text-[40px]">{n}</dd>
-                <dd className="mt-2 px-1 text-[10.5px] leading-snug text-mute md:text-[12px]"><Ph>{v}</Ph></dd>
+          <dl className="mt-8 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-3 sm:text-center">
+            {[["3回", "人が押すのは", "返信と配置案の送信、工場への発注"], ["6種類", "自動で作る書類", "見積書から納品書まで"], ["3か国語", "自動で切り替え", "日本語・英語・タイ語"]].map(([n, k, v]) => (
+              <div key={k} className="flex items-center gap-4 bg-white px-5 py-4 sm:flex-col sm:justify-center sm:gap-0 sm:px-3 sm:py-7">
+                <dd className="w-[3.9em] shrink-0 font-display text-[28px] leading-none sm:order-2 sm:mt-1 sm:w-auto sm:text-[40px]">{n}</dd>
+                <div className="sm:contents">
+                  <dt className="text-[13px] font-medium sm:order-1 sm:text-[12.5px] sm:font-normal sm:text-mute">{k}</dt>
+                  <dd className="mt-0.5 text-[12px] leading-snug text-mute sm:order-3 sm:mt-2"><Ph>{v}</Ph></dd>
+                </div>
               </div>
             ))}
           </dl>
 
-          {/* 流れの中で、どこが自動か */}
+          {/* 流れの中で、どこが自動か（段階ごとのカード。工程は上から順に） */}
           <div className="mt-8">
-            <div className="flex flex-wrap items-center gap-4 text-[12px] text-mute">
-              <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-full bg-ink" />自動</span>
-              <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-full bg-[#2a4f9e]" />人が確認</span>
-              <span className="flex items-center gap-1.5"><span className="h-3 w-3 rounded-full border border-ink/40 bg-white" />お客様</span>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-mute">
+              {(Object.keys(BY) as By[]).map((k) => <span key={k} className="flex items-center gap-1.5"><span className={`h-3 w-3 rounded-full ${BY[k].dot}`} />{BY[k].ja}</span>)}
             </div>
-            <ol className="mt-3 flex flex-wrap gap-x-1.5 gap-y-2">
-              {AUTO_STEPS.map((x, i) => (
-                <li key={i} className="flex items-center gap-1.5">
-                  <span className={`rounded-full px-3 py-1.5 text-[12px] whitespace-nowrap ${x.by === "auto" ? "bg-ink text-white" : x.by === "human" ? "bg-[#2a4f9e] text-white" : "border border-ink/30 bg-white"}`}>{x.t}</span>
-                  {i < AUTO_STEPS.length - 1 && <span className="text-[11px] text-mute">→</span>}
+            <ol className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {AUTO_PHASES.map((ph) => (
+                <li key={ph.n} className="rounded-xl border border-line bg-white p-4">
+                  <p className="flex items-baseline gap-2"><span className="font-display text-[13px] tracking-[0.2em] text-gold">{ph.n}</span><span className="text-[14.5px] font-medium">{ph.t}</span></p>
+                  <ol className="mt-3">
+                    {ph.steps.map(([t, by], i) => (
+                      <li key={t + i} className="relative flex items-center gap-3 pb-3 last:pb-0">
+                        {i < ph.steps.length - 1 && <span className="absolute top-4 bottom-0 left-[5px] w-px bg-line" />}
+                        <span className={`relative z-[1] h-3 w-3 shrink-0 rounded-full ${BY[by].dot}`} />
+                        <span className={`flex-1 text-[13px] ${by === "human" ? "font-medium text-[#2a4f9e]" : ""}`}><Ph>{t}</Ph></span>
+                        <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10.5px] ${BY[by].tag}`}>{BY[by].ja}</span>
+                      </li>
+                    ))}
+                  </ol>
                 </li>
               ))}
             </ol>
