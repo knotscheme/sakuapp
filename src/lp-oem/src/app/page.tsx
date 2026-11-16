@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
 import Opening from "@/components/Opening";
 import Statement from "@/components/Statement";
 import Pains from "@/components/Pains";
@@ -24,7 +23,6 @@ export default function Page() {
       <Header />
       <main>
         <Hero />
-        <Marquee />
         <Statement />
         <Pains />
         <Features />

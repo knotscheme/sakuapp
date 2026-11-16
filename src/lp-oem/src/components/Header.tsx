@@ -33,7 +33,7 @@ export default function Header() {
               {n.label}
             </a>
           ))}
-          <a href="#contact" className="rounded-full bg-ink px-5 py-2.5 text-[13px] font-bold tracking-wider text-white transition hover:bg-gold">
+          <a href="#contact" className="bg-ink px-5 py-2.5 text-[13px] tracking-[0.1em] text-white transition hover:bg-gold">
             無料見積もり・相談
           </a>
         </nav>
@@ -48,7 +48,7 @@ export default function Header() {
               {n.label}
             </a>
           ))}
-          <a href="#contact" onClick={() => setOpen(false)} className="mt-5 block rounded-full bg-ink py-3.5 text-center text-[15px] font-bold text-white">
+          <a href="#contact" onClick={() => setOpen(false)} className="mt-5 block bg-ink py-3.5 text-center text-[15px] font-bold text-white">
             無料見積もり・相談
           </a>
         </nav>

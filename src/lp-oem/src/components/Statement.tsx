@@ -29,11 +29,10 @@ export default function Statement() {
 
   return (
     <section className="relative overflow-hidden bg-white py-28 md:py-40">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_60%_at_50%_50%,rgba(197,160,89,.08),transparent_70%)]" />
       <div ref={ref} className={`statement relative mx-auto max-w-4xl px-6 text-center ${on ? "on" : ""}`}>
-        <p className="mb-10 font-display text-xs tracking-[0.5em] text-gold">OUR PHILOSOPHY</p>
+        <p className="mb-12 font-display text-[12px] tracking-[0.5em] text-mute">OUR PHILOSOPHY</p>
         {chars.map((line, li) => (
-          <p key={li} className="text-[26px] leading-[2] font-medium tracking-[0.18em] text-ink sm:text-[34px] md:text-[44px]">
+          <p key={li} className="text-[24px] leading-[2.1] font-normal tracking-[0.2em] text-ink sm:text-[34px] md:text-[44px]">
             {line.map(({ w, accent, cs }) => (
               <span key={w} className={`inline-block whitespace-nowrap ${accent ? "ac" : ""}`}>
                 {cs.map((c, k) => (

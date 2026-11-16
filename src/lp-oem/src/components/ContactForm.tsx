@@ -75,7 +75,7 @@ export default function ContactForm() {
     if (fileRef.current) fileRef.current.value = "";
   };
 
-  const field = "mt-2 w-full rounded-xl border bg-white px-4 py-3.5 text-[15px] outline-none transition focus:border-gold focus:ring-2 focus:ring-gold-3";
+  const field = "mt-2 w-full border bg-white px-4 py-3.5 text-[15px] outline-none transition focus:border-gold focus:ring-2 focus:ring-gold-3";
   const bd = (k: keyof Errors) => (errors[k] ? "border-red-400" : "border-line");
   const Err = ({ k }: { k: keyof Errors }) => (errors[k] ? <p className="mt-1.5 text-xs text-red-500" id={`err-${k}`}>{errors[k]}</p> : null);
 
@@ -84,9 +84,9 @@ export default function ContactForm() {
       <div className="mx-auto max-w-3xl px-5 md:px-8">
         <SectionTitle en="Contact" ja="無料見積もり・ご相談" sub="ロゴが未完成でも、|お気軽にどうぞ。" />
 
-        <form noValidate onSubmit={onSubmit} className={`reveal rounded-3xl border bg-white p-6 shadow-[0_30px_70px_-45px_rgba(0,0,0,.45)] transition md:p-10 ${flash ? "border-gold ring-4 ring-gold-3" : "border-line"}`}>
+        <form noValidate onSubmit={onSubmit} className={`reveal border bg-white p-6 transition md:p-12 ${flash ? "border-gold ring-4 ring-gold-3" : "border-line"}`}>
           {prefill && (
-            <p className="mb-6 rounded-xl bg-[#faf8f3] px-4 py-3 text-[13px] text-ink-2">シミュレーションの条件を入力しました。内容をご確認ください。</p>
+            <p className="mb-6 bg-[#faf8f3] px-4 py-3 text-[13px] text-ink-2">シミュレーションの条件を入力しました。内容をご確認ください。</p>
           )}
           <div className="grid gap-6 md:grid-cols-2">
             <label className="block text-sm font-bold md:col-span-2">
@@ -120,7 +120,7 @@ export default function ContactForm() {
 
             <div className="text-sm font-bold md:col-span-2">
               ロゴデータ添付<span className="ml-1 text-xs font-normal text-mute">任意（ai / pdf / svg / eps / png / jpg・10MBまで）</span>
-              <label className={`mt-2 flex cursor-pointer items-center gap-3 rounded-xl border border-dashed px-4 py-5 transition hover:border-gold hover:bg-[#faf8f3] ${errors.file ? "border-red-400" : "border-gold-2/60"}`}>
+              <label className={`mt-2 flex cursor-pointer items-center gap-3 border border-dashed px-4 py-5 transition hover:border-gold hover:bg-[#faf8f3] ${errors.file ? "border-red-400" : "border-gold-2/60"}`}>
                 <Paperclip size={20} className="text-gold" />
                 <span className="flex-1 truncate font-normal text-mute">{file ? file.name : "ファイルを選択、またはここにドロップ"}</span>
                 {file && (
@@ -140,7 +140,7 @@ export default function ContactForm() {
             </label>
           </div>
 
-          <button type="submit" disabled={sending} className="group mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink py-4 text-[15px] font-bold tracking-wide text-white transition hover:bg-gold disabled:opacity-60">
+          <button type="submit" disabled={sending} className="group mt-8 inline-flex w-full items-center justify-center gap-2 bg-ink py-4 text-[15px] font-medium tracking-[0.1em] text-white transition hover:bg-gold disabled:opacity-60">
             {sending ? "送信中…" : <>無料で見積もりを依頼する <Send size={17} className="transition group-hover:translate-x-1" /></>}
           </button>
           <p className="mt-3 text-center text-xs text-mute">※制作サンプルのため、実際には送信されません。</p>
@@ -149,11 +149,11 @@ export default function ContactForm() {
 
       {done && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-5 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="done-title" onClick={reset}>
-          <div className="pop-in w-full max-w-sm rounded-3xl bg-white p-8 text-center" onClick={(e) => e.stopPropagation()}>
+          <div className="pop-in w-full max-w-sm bg-white p-8 text-center" onClick={(e) => e.stopPropagation()}>
             <CheckCircle2 className="mx-auto text-gold" size={56} strokeWidth={1.3} />
             <h3 id="done-title" className="mt-4 text-xl font-bold">送信が完了しました</h3>
             <p className="mt-3 text-[14px] leading-loose text-mute">お問い合わせありがとうございます。<br />2営業日以内に、担当者よりご連絡いたします。</p>
-            <button type="button" onClick={reset} autoFocus className="mt-7 w-full rounded-full bg-ink py-3.5 font-bold text-white transition hover:bg-gold">閉じる</button>
+            <button type="button" onClick={reset} autoFocus className="mt-7 w-full bg-ink py-3.5 font-bold text-white transition hover:bg-gold">閉じる</button>
           </div>
         </div>
       )}

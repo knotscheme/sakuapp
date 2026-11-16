@@ -39,8 +39,8 @@ export default function Craft() {
 
   const head = (
     <div>
-      <p className="font-display text-sm tracking-[0.35em] text-gold uppercase">Craftsmanship</p>
-      <h2 className="mt-3 text-[26px] leading-snug font-bold tracking-wide md:text-4xl md:leading-snug">
+      <p className="font-display text-[12px] tracking-[0.4em] text-mute uppercase">Craftsmanship</p>
+      <h2 className="mt-3 text-[26px] leading-snug font-medium tracking-[0.06em] md:text-[36px] md:leading-snug">
         <Phrase text="ロゴひとつにも、|職人の手を。" />
       </h2>
       <p className="mt-5 text-[15px] leading-loose text-mute">
@@ -62,7 +62,7 @@ export default function Craft() {
                   <li key={s.en} className={`relative border-l py-4 pl-6 transition-all duration-500 ${i === active ? "border-gold" : "border-line"}`}>
                     <span className={`absolute top-0 -left-px h-full w-[2px] origin-top bg-gold transition-transform duration-500 ${i === active ? "scale-y-100" : "scale-y-0"}`} />
                     <p className={`font-display text-xs tracking-[0.3em] transition-colors ${i === active ? "text-gold" : "text-mute/60"}`}>{String(i + 1).padStart(2, "0")} — {s.en}</p>
-                    <p className={`mt-1 text-lg font-bold transition-colors ${i === active ? "text-ink" : "text-ink/35"}`}>{s.title}</p>
+                    <p className={`mt-1 text-lg font-medium transition-colors ${i === active ? "text-ink" : "text-ink/35"}`}>{s.title}</p>
                     <div className={`grid transition-[grid-template-rows,opacity] duration-500 ${i === active ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                       <p className="overflow-hidden text-[14px] leading-loose text-mute"><span className="block pt-2">{s.body}</span></p>
                     </div>
@@ -71,13 +71,13 @@ export default function Craft() {
               </ol>
             </div>
             <div className="relative">
-              <div className="relative aspect-[16/11] overflow-hidden rounded-3xl bg-line shadow-[0_40px_80px_-50px_rgba(0,0,0,.6)]">
+              <div className="relative aspect-[16/11] overflow-hidden bg-line">
                 {STEPS.map((s, i) => (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img key={s.img} src={asset(`/images/${s.img}.webp`)} alt={s.alt} loading={i ? "lazy" : "eager"}
                     className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform,clip-path] duration-[1100ms] ease-[cubic-bezier(.6,0,.2,1)] ${i === active ? "scale-100 opacity-100 [clip-path:inset(0_0_0_0)]" : i < active ? "scale-105 opacity-0 [clip-path:inset(0_0_0_0)]" : "scale-110 opacity-100 [clip-path:inset(100%_0_0_0)]"}`} />
                 ))}
-                <span className="absolute bottom-5 left-5 rounded-full bg-white/90 px-3 py-1.5 font-display text-[11px] tracking-[0.25em] text-ink backdrop-blur">{String(active + 1).padStart(2, "0")} / {String(STEPS.length).padStart(2, "0")} · {STEPS[active].en}</span>
+                <span className="absolute bottom-5 left-5 font-display text-[11px] tracking-[0.3em] text-white drop-shadow">{String(active + 1).padStart(2, "0")} / {String(STEPS.length).padStart(2, "0")} · {STEPS[active].en}</span>
               </div>
               <div className="mt-5 h-[2px] w-full overflow-hidden rounded bg-line">
                 <div className="h-full origin-left bg-gradient-to-r from-gold to-gold-2" style={{ transform: `scaleX(${prog})` }} />
@@ -93,13 +93,13 @@ export default function Craft() {
         <ol className="mt-10 space-y-12">
           {STEPS.map((s, i) => (
             <li key={s.en}>
-              <div className="clip-up overflow-hidden rounded-2xl">
+              <div className="clip-up overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={asset(`/images/${s.img}.webp`)} alt={s.alt} loading="lazy" className="aspect-[16/10] w-full object-cover" />
               </div>
               <div className="reveal mt-5">
                 <p className="font-display text-xs tracking-[0.3em] text-gold">{String(i + 1).padStart(2, "0")} — {s.en}</p>
-                <p className="mt-1 text-lg font-bold">{s.title}</p>
+                <p className="mt-1 text-lg font-medium">{s.title}</p>
                 <p className="mt-2 text-[14px] leading-loose text-mute">{s.body}</p>
               </div>
             </li>
