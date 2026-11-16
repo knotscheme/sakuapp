@@ -89,7 +89,7 @@ export default function ContactForm() {
       <div className="mx-auto max-w-3xl px-6 md:px-8">
         <SectionTitle en="Contact" ja="無料見積もり・ご相談" sub="ロゴが未完成でも、|お気軽にどうぞ。" />
 
-        <form noValidate onSubmit={onSubmit} className={`reveal border bg-white p-6 transition md:p-12 ${flash ? "border-gold ring-4 ring-gold-3" : "border-line"}`}>
+        <form noValidate onSubmit={onSubmit} className={`border bg-white p-6 transition md:p-12 ${flash ? "border-gold ring-4 ring-gold-3" : "border-line"}`}>
           {prefill && (
             <p className="mb-6 bg-[#faf8f3] px-4 py-3 text-[13px] text-ink-2">シミュレーションの条件を入力しました。内容をご確認ください。</p>
           )}

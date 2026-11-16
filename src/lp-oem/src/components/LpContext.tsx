@@ -38,7 +38,14 @@ export function LpProvider({ children }: { children: ReactNode }) {
     setModel(m.id);
     if (location.hash === "#contact") setPrefill({ model: m.id, lot: 50, price: PRICE_DEFAULT, stamp: Date.now(), note: `【ご希望モデル】${m.name}`, keepModel: true });
     /* eslint-enable react-hooks/set-state-in-effect */
-    setTimeout(() => location.hash && scrollToId(location.hash.slice(1)), 400);
+    setTimeout(() => {
+      if (location.hash === "#contact") {
+        // 選んだ製品が画面の真ん中に来るように
+        const row = document.querySelector("input[name=cf-model]:checked")?.closest("label");
+        if (row) { row.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+      }
+      if (location.hash) scrollToId(location.hash.slice(1));
+    }, 500);
   }, []);
 
   const chooseModelAndScroll = useCallback((m: ModelId) => {
