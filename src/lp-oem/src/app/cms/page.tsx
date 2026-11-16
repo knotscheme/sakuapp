@@ -43,7 +43,7 @@ export default function Dashboard() {
 
       <div className="mt-5 grid gap-5 lg:grid-cols-[1.2fr_1fr]">
         <Card>
-          <CardHead right={<Link href="/cms/deals/" className="text-[12px] text-mute hover:text-ink">案件ボードへ →</Link>}>段階ごとの案件数</CardHead>
+          <CardHead right={<Link href="/cms/deals/" className="tap text-[12px] text-mute hover:text-ink">案件ボードへ →</Link>}>段階ごとの案件数</CardHead>
           <ul className="divide-y divide-line border-t border-line">
             {STAGES.map((s) => {
               const n = deals.filter((d) => d.stage === s.id).length;

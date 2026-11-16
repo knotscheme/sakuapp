@@ -79,7 +79,7 @@ export default function FactoryPage() {
                   <p className="font-medium"><Ph>{trModel(d.model, lang)}</Ph></p>
                   <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{trColor(d.color, lang)}・{trFinish(d.finish, lang)}</p>
                   <p className="text-ink/80">{t.ship}: {d.due}</p>
-                  <Link href={`/cms/doc/?id=${d.id}&type=work`} className="mt-1.5 inline-flex items-center gap-1 text-[12px] underline underline-offset-4"><FileText size={13} />{t.order}</Link>
+                  <Link href={`/cms/doc/?id=${d.id}&type=work`} className="tap mt-1.5 inline-flex items-center gap-1 text-[12px] underline underline-offset-4"><FileText size={13} />{t.order}</Link>
                 </div>
               </div>
               <ol className="grid grid-cols-4 gap-px border-t border-line bg-line">
@@ -90,7 +90,7 @@ export default function FactoryPage() {
                     <li key={p.en} className="bg-white p-3 text-center text-[11.5px]">
                       {/* 完了済みの最後の工程は、押すと取り消せる（出荷前のみ） */}
                       {done && !shipped && d.prodStep === i + 1 ? (
-                        <button type="button" onClick={() => undoStep(d.id, i)} aria-label={t.undoAria} className="mx-auto mb-1.5 flex h-6 w-6 items-center justify-center rounded-full border border-ink bg-ink text-white"><Check size={12} /></button>
+                        <button type="button" onClick={() => undoStep(d.id, i)} aria-label={t.undoAria} className="mx-auto mb-1.5 flex h-6 w-6 items-center justify-center rounded-full border border-ink bg-ink text-white relative after:absolute after:-inset-3 after:content-['']"><Check size={12} /></button>
                       ) : (
                         <span className={`mx-auto mb-1.5 flex h-6 w-6 items-center justify-center rounded-full border ${done ? "border-ink bg-ink text-white" : cur ? "border-ink" : "border-line text-mute"}`}>{done ? <Check size={12} /> : i + 1}</span>
                       )}
@@ -104,7 +104,7 @@ export default function FactoryPage() {
                 })}
               </ol>
               <div className="flex items-center justify-between border-t border-line px-5 py-3">
-                <span><button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "工場", "写真を登録しました", "factory"))} className="flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><Camera size={14} />{t.photo}</button><TechNote className="mt-1">{t.photoNote}</TechNote></span>
+                <span><button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "工場", "写真を登録しました", "factory"))} className="tap flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><Camera size={14} />{t.photo}</button><TechNote className="mt-1">{t.photoNote}</TechNote></span>
                 {shipped ? (
                   <span className="flex items-center gap-1.5 text-[12px] text-mute"><Truck size={14} />{t.shipped}・{d.tracking}</span>
                 ) : (
@@ -112,13 +112,13 @@ export default function FactoryPage() {
                 )}
               </div>
               <div className="border-t border-line px-5 py-3">
-                <button type="button" onClick={() => setOpen(open === d.id ? null : d.id)} aria-expanded={open === d.id} className="flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><MessageSquare size={14} />{t.msg}</button>
+                <button type="button" onClick={() => setOpen(open === d.id ? null : d.id)} aria-expanded={open === d.id} className="tap flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><MessageSquare size={14} />{t.msg}</button>
                 {sent === d.id && <p className="mt-2 text-[12px] text-[#2f7a46]">✓ {t.sent}</p>}
                 {open === d.id && (
                   <div className="mt-3 space-y-2.5">
                     <p className="text-[11px] text-mute">{t.quick}</p>
                     <div className="flex flex-wrap gap-2">
-                      {QUICK.map((q) => <button key={q.ja} type="button" onClick={() => send(d.id, q.ja)} className="rounded-full border border-line px-3 py-1.5 text-left text-[12px] hover:border-ink">{q[lang]}</button>)}
+                      {QUICK.map((q) => <button key={q.ja} type="button" onClick={() => send(d.id, q.ja)} className="rounded-full border border-line px-3.5 py-2.5 text-left text-[12.5px] hover:border-ink">{q[lang]}</button>)}
                     </div>
                     <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); if (text.trim()) send(d.id, text.trim(), true); }}>
                       <input value={text} onChange={(e) => setText(e.target.value)} placeholder={t.msgPh} className="min-w-0 flex-1 rounded-lg border border-line px-3 py-2 text-[13px] outline-none focus:border-ink" />

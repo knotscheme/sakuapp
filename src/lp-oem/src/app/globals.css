@@ -196,6 +196,12 @@ html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top
 @media (prefers-reduced-motion: reduce) { .stamp-die, .stamp-glow { display: none; } .stamp-mark { opacity: 1; animation: none !important; } }
 
 /* 改行の調整：最後の行が1〜2文字だけにならないように */
+/* スマホ：指で押しやすい大きさ（高さ44px）にする */
+@media (max-width: 1023px) {
+  .tap { min-height: 44px; display: inline-flex; align-items: center; }
+  .cms-bg input[type="range"] { height: 32px; }
+}
+
 /* base の層に入れて、truncate（…で省略）などのクラスが優先されるようにする */
 @layer base {
   p, dd, li, legend, h3 { text-wrap: pretty; }

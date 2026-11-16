@@ -45,8 +45,8 @@ export default function Members() {
                   </div>
                   {isOwner && m.id !== "u1" && (
                     <>
-                      <button type="button" onClick={() => setEdit(m.id)} className="flex items-center gap-1 rounded-md px-2 py-2 text-[12px] text-mute hover:bg-[#f1f1f0] hover:text-ink"><SlidersHorizontal size={14} /><span className="hidden sm:inline">個別設定</span></button>
-                      <button type="button" aria-label="削除" onClick={async () => { if (await askConfirm({ title: `${m.name}さんを外しますか？`, body: "この人はログインできなくなります。", ok: "外す", danger: true })) removeMember(m.id); }} className="rounded-md p-2 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={15} /></button>
+                      <button type="button" onClick={() => setEdit(m.id)} className="flex items-center gap-1 rounded-md px-2.5 py-2.5 text-[12px] text-mute hover:bg-[#f1f1f0] hover:text-ink"><SlidersHorizontal size={14} /><span className="hidden sm:inline">個別設定</span></button>
+                      <button type="button" aria-label="削除" onClick={async () => { if (await askConfirm({ title: `${m.name}さんを外しますか？`, body: "この人はログインできなくなります。", ok: "外す", danger: true })) removeMember(m.id); }} className="rounded-md p-2.5 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={15} /></button>
                     </>
                   )}
                   <div className="order-last ml-12 flex w-[calc(100%-3rem)] gap-2 sm:order-none sm:ml-0 sm:w-auto">
@@ -108,7 +108,7 @@ export default function Members() {
                       return (
                         <td key={r.id} className="px-3 py-2 text-center">
                           <button type="button" disabled={off} onClick={() => togglePerm(r.id, p.id)} aria-pressed={on} aria-label={`${r.name}：${p.ja}`}
-                            className={`inline-flex h-7 w-7 items-center justify-center rounded-md border transition ${on ? "border-ink bg-ink text-white" : "border-line bg-white text-transparent hover:border-mute"} ${off ? "cursor-default opacity-60" : ""}`}>
+                            className={`inline-flex h-9 w-9 items-center justify-center rounded-md border transition lg:h-7 lg:w-7 ${on ? "border-ink bg-ink text-white" : "border-line bg-white text-transparent hover:border-mute"} ${off ? "cursor-default opacity-60" : ""}`}>
                             <Check size={14} />
                           </button>
                         </td>

@@ -55,10 +55,10 @@ export default function ProductsAdmin() {
                   <p className="truncate text-[13.5px] font-medium">{p.short || "（名前なし）"}</p>
                   <p className="truncate text-[11.5px] text-mute">{catName(p.cat)}・{yen(p.unitPrice)}〜{(p.subImgs?.length ?? 0) > 0 && `・写真+${p.subImgs!.length}`}{p.video && "・動画"}</p>
                 </div>
-                <button type="button" onClick={() => toggleVisible(p.id)} className={`shrink-0 rounded-full px-3 py-1.5 text-[11px] ${p.visible ? "bg-[#e6f4ea] text-[#1e6b34]" : "bg-[#f1f1f0] text-mute"}`}>
+                <button type="button" onClick={() => toggleVisible(p.id)} className={`shrink-0 rounded-full px-3 py-1.5 text-[11px] max-lg:min-h-9 ${p.visible ? "bg-[#e6f4ea] text-[#1e6b34]" : "bg-[#f1f1f0] text-mute"}`}>
                   {p.visible ? "公開中" : "非公開"}
                 </button>
-                <button type="button" onClick={() => setEdit(p)} aria-label="編集" className="shrink-0 rounded-md p-2 text-mute hover:bg-[#f1f1f0] hover:text-ink"><Pencil size={15} /></button>
+                <button type="button" onClick={() => setEdit(p)} aria-label="編集" className="shrink-0 rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-ink"><Pencil size={15} /></button>
               </li>
             ))}
             {!list.length && <li className="px-5 py-10 text-center text-[13px] text-mute">このカテゴリには、まだ商品がありません。</li>}
@@ -73,7 +73,7 @@ export default function ProductsAdmin() {
               <li key={c.id} className="flex items-center gap-2 px-4 py-2.5">
                 <input defaultValue={c.name} onBlur={(e) => e.target.value.trim() && renameCat(c.id, e.target.value.trim())} className="min-w-0 flex-1 rounded-md px-2 py-1 text-[13px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" aria-label="カテゴリ名" />
                 <span className="text-[11px] text-mute">{products.filter((p) => p.cat === c.id).length}</span>
-                <button type="button" aria-label="削除" onClick={() => { if (!deleteCat(c.id)) alert("商品が入っているカテゴリは削除できません。先に商品を別のカテゴリへ移してください。"); }} className="rounded-md p-1.5 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
+                <button type="button" aria-label="削除" onClick={() => { if (!deleteCat(c.id)) alert("商品が入っているカテゴリは削除できません。先に商品を別のカテゴリへ移してください。"); }} className="rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
               </li>
             ))}
           </ul>
@@ -130,7 +130,7 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
                 <div key={i} className="group relative aspect-square overflow-hidden rounded-md bg-[#f1f1f0]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={imgSrc(src)} alt="" className="h-full w-full object-cover" />
-                  <button type="button" aria-label="削除" onClick={() => set("subImgs", subs.filter((_, k) => k !== i))} className="absolute top-1 right-1 rounded-full bg-black/55 p-1 text-white"><X size={13} /></button>
+                  <button type="button" aria-label="削除" onClick={() => set("subImgs", subs.filter((_, k) => k !== i))} className="absolute top-1 right-1 rounded-full bg-black/55 p-1.5 text-white"><X size={14} /></button>
                   {i > 0 && <button type="button" aria-label="前へ" onClick={() => set("subImgs", move(subs, i, i - 1))} className="absolute top-1 left-1 rounded-full bg-black/55 p-1 text-white"><ChevronLeft size={13} /></button>}
                   <button type="button" onClick={() => setP((x) => ({ ...x, img: src, subImgs: x.img ? [x.img, ...subs.filter((_, k) => k !== i)] : subs.filter((_, k) => k !== i) }))} className="absolute inset-x-0 bottom-0 bg-black/50 py-1 text-[10.5px] whitespace-nowrap text-white">メインにする</button>
                 </div>

@@ -91,16 +91,21 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
   const t = useUI();
   const { lang } = useLang();
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+  const items = NAV.filter((n) => !n.perm || can(n.perm));
+  const isOn = (href: string) => (href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, "")));
+  // スマホ下のタブ：よく使う画面を4つまで（残りは「その他」からメニューで）
+  const TAB_ORDER: NavKey[] = ["dash", "deals", "products", "analytics", "factory", "inspect", "members", "manual"];
+  const tabs = TAB_ORDER.map((k) => items.find((n) => n.label === k)).filter((n): n is (typeof NAV)[number] => !!n).slice(0, 4);
   const nav = (
     <nav className="flex h-full flex-col overflow-y-auto">
       <Link href="/cms/" className="px-6 pt-7 pb-7 font-display text-[15px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></Link>
       <ul className="flex-1 space-y-1 px-3">
-        {NAV.filter((n) => !n.perm || can(n.perm)).map(({ href, label: key, icon: Icon }) => {
+        {items.map(({ href, label: key, icon: Icon }) => {
           const label = t.nav[key];
-          const on = href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, ""));
+          const on = isOn(href);
           return (
             <li key={href}>
-              <Link href={href} onClick={() => setOpen(false)} className={`flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] transition ${on ? "bg-white font-medium text-ink shadow-[0_1px_2px_rgba(0,0,0,.08)]" : "text-ink/65 hover:bg-white/60 hover:text-ink"}`}>
+              <Link href={href} onClick={() => setOpen(false)} className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[14px] transition lg:py-2 lg:text-[13.5px] ${on ? "bg-white font-medium text-ink shadow-[0_1px_2px_rgba(0,0,0,.08)]" : "text-ink/65 hover:bg-white/60 hover:text-ink"}`}>
                 <Icon size={16} strokeWidth={1.7} /> {label}
               </Link>
             </li>
@@ -123,10 +128,10 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
       <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#ebebea] transition-transform lg:hidden ${open ? "translate-x-0" : "-translate-x-full"}`}>{nav}</aside>
       <div className="lg:pl-60">
         <div className="sticky top-0 z-30 flex h-14 items-center gap-3 bg-[#f1f1f0]/90 px-5 backdrop-blur lg:hidden">
-          <button type="button" className="-ml-1 p-1" onClick={() => setOpen(true)} aria-label={t.menu}><Menu size={20} /></button>
+          <button type="button" className="-ml-2.5 p-2.5" onClick={() => setOpen(true)} aria-label={t.menu}><Menu size={20} /></button>
           <span className="font-display text-[13px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></span>
         </div>
-        <main className={`mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10 ${bottomPad ? "pb-28 md:pb-10" : ""}`}>
+        <main className={`mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10 ${bottomPad ? "pb-[calc(10rem+env(safe-area-inset-bottom))] md:pb-[calc(6rem+env(safe-area-inset-bottom))]" : "pb-[calc(6rem+env(safe-area-inset-bottom))]"} lg:pb-10`}>
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div>
               <h1 className="text-[22px] font-semibold tracking-[0.02em]"><Ph>{trTitle(title, lang)}</Ph></h1>
@@ -138,6 +143,24 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
           <ConfirmHost />
           <p className="mt-10 text-[11px] text-mute">{t.footer}{t.sample && <span className="block">{t.sample}</span>}</p>
         </main>
+        {/* スマホ・タブレット：下のタブ（アプリのように片手で移動できる） */}
+        <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden" aria-label={t.menu}>
+          <ul className="mx-auto flex h-14 max-w-xl">
+            {tabs.map(({ href, label, icon: Icon }) => {
+              const on = isOn(href);
+              return (
+                <li key={href} className="flex-1">
+                  <Link href={href} aria-current={on ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-0.5 text-[10.5px] leading-tight ${on ? "font-medium text-ink" : "text-mute"}`}>
+                    <Icon size={20} strokeWidth={on ? 2 : 1.6} /><span className="max-w-full truncate px-1">{t.nav[label]}</span>
+                  </Link>
+                </li>
+              );
+            })}
+            <li className="flex-1">
+              <button type="button" onClick={() => setOpen(true)} className="flex h-full w-full flex-col items-center justify-center gap-0.5 text-[10.5px] text-mute"><Menu size={20} strokeWidth={1.6} /><span>{t.more}</span></button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );
@@ -146,10 +169,12 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
 // 仕組みの説明（本番ではここで何を使うか）を小さく添える
 export function TechNote({ children, className = "" }: { children: ReactNode; className?: string }) {
   const t = useUI();
+  const [open, setOpen] = useState(false);
+  // スマホでは1行だけ見せ、押すと全文を開く（画面を広く使うため）
   return (
-    <p className={`flex items-start gap-1.5 text-[11px] leading-relaxed text-[#8a8a86] ${className}`}>
+    <p onClick={() => setOpen(!open)} className={`flex cursor-pointer items-start gap-1.5 text-[11px] leading-relaxed text-[#8a8a86] lg:cursor-auto ${className}`}>
       <Cpu size={12} strokeWidth={1.6} className="mt-[2px] shrink-0" />
-      <span>{t.prod}{typeof children === "string" ? <Ph tail={4}>{children}</Ph> : children}</span>
+      <span className={open ? "" : "max-lg:line-clamp-1"}>{t.prod}{typeof children === "string" ? <Ph tail={4}>{children}</Ph> : children}</span>
     </p>
   );
 }

@@ -42,7 +42,7 @@ export const UI = {
     footer: "※ポートフォリオ用のデモです。データはすべて架空で、操作した内容はこのブラウザにだけ保存されます。",
     lang: "表示する言語", langNote: "メンバーごとの言語は「メンバーと権限」で設定", sample: "",
     ok: "実行する", cancel: "キャンセル",
-    deal: "案件", goTo: "使える画面へ", loading: "読み込み中…", docNo: "この書類を見る権限がありません",
+    more: "その他", deal: "案件", goTo: "使える画面へ", loading: "読み込み中…", docNo: "この書類を見る権限がありません",
   },
   th: {
     nav: { dash: "แดชบอร์ด", deals: "บอร์ดงาน", products: "จัดการสินค้า", analytics: "สถิติ", factory: "หน้าจอโรงงาน", inspect: "ตรวจสินค้าที่ญี่ปุ่น", members: "สมาชิกและสิทธิ์", portal: "หน้าจอลูกค้า (ตัวอย่าง)", manual: "คู่มือการใช้งาน" },
@@ -53,7 +53,7 @@ export const UI = {
     footer: "※นี่คือเดโมสำหรับพอร์ตโฟลิโอ ข้อมูลทั้งหมดเป็นข้อมูลสมมติ และบันทึกไว้ในเบราว์เซอร์นี้เท่านั้น",
     lang: "ภาษา", langNote: "", sample: "※คำแปลภาษาไทยเป็นตัวอย่าง",
     ok: "ยืนยัน", cancel: "ยกเลิก",
-    deal: "รายละเอียดงาน", goTo: "ไปยังหน้าที่ใช้งานได้", loading: "กำลังโหลด…", docNo: "คุณไม่มีสิทธิ์ดูเอกสารนี้",
+    more: "เพิ่มเติม", deal: "รายละเอียดงาน", goTo: "ไปยังหน้าที่ใช้งานได้", loading: "กำลังโหลด…", docNo: "คุณไม่มีสิทธิ์ดูเอกสารนี้",
   },
   en: {
     nav: { dash: "Dashboard", deals: "Deals", products: "Products", analytics: "Analytics", factory: "Factory", inspect: "Inspection (Japan)", members: "Members & roles", portal: "Customer view (sample)", manual: "User guide" },
@@ -64,7 +64,7 @@ export const UI = {
     footer: "※Portfolio demo. All data is fictional and only saved in this browser.",
     lang: "Language", langNote: "", sample: "※English text is a sample translation",
     ok: "OK", cancel: "Cancel",
-    deal: "Deal", goTo: "Go to your pages", loading: "Loading…", docNo: "You don't have access to this document",
+    more: "More", deal: "Deal", goTo: "Go to your pages", loading: "Loading…", docNo: "You don't have access to this document",
   },
 } as const;
 export const useUI = () => UI[useLang().lang];

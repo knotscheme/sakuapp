@@ -106,7 +106,7 @@ export default function Portal() {
           <p className="border-b border-line px-6 py-3.5 text-[13.5px] font-medium">書類</p>
           <ul className="divide-y divide-line">
             {docs.map((k) => (
-              <li key={k.id}><Link href={`/cms/doc/?id=${d.id}&type=${k.id}`} className="flex items-center gap-3 px-6 py-3 text-[13px] hover:bg-paper"><FileText size={15} className="text-mute" />{k.ja}<span className="ml-auto text-[12px] text-mute">開く</span></Link></li>
+              <li key={k.id}><Link href={`/cms/doc/?id=${d.id}&type=${k.id}`} className="flex items-center gap-3 px-6 py-3.5 text-[13px] hover:bg-paper"><FileText size={15} className="text-mute" />{k.ja}<span className="ml-auto text-[12px] text-mute">開く</span></Link></li>
             ))}
             {!docs.length && <li className="px-6 py-4 text-[13px] text-mute">まだ書類はありません。</li>}
           </ul>
@@ -123,7 +123,7 @@ export default function Portal() {
 
         <ConfirmHost />
         <p className="mt-12 text-center text-[11px] text-mute">
-          お客様が見る画面のデモです。<Link href={`/cms/deal/?id=${d.id}`} className="underline underline-offset-4">管理画面に戻る</Link>
+          お客様が見る画面のデモです。<Link href={`/cms/deal/?id=${d.id}`} className="tap underline underline-offset-4">管理画面に戻る</Link>
         </p>
       </main>
     </div>

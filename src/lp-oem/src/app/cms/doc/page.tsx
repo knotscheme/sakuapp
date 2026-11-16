@@ -46,9 +46,9 @@ export default function DocPage() {
     <div className="min-h-[100svh] bg-[#e9e9e7] py-6 print:bg-white print:py-0">
       <div className="mx-auto mb-4 flex max-w-[794px] items-center justify-between px-4 print:hidden">
         {isWork && !can("deals.view") ? (
-          <Link href="/cms/factory/" className="flex items-center gap-1.5 text-[13px] text-mute hover:text-ink"><ArrowLeft size={14} /> {BACK_F[lang]}</Link>
+          <Link href="/cms/factory/" className="tap flex items-center gap-1.5 text-[13px] text-mute hover:text-ink"><ArrowLeft size={14} /> {BACK_F[lang]}</Link>
         ) : (
-          <Link href={`/cms/deal/?id=${d.id}`} className="flex items-center gap-1.5 text-[13px] text-mute hover:text-ink"><ArrowLeft size={14} /> 案件に戻る</Link>
+          <Link href={`/cms/deal/?id=${d.id}`} className="tap flex items-center gap-1.5 text-[13px] text-mute hover:text-ink"><ArrowLeft size={14} /> 案件に戻る</Link>
         )}
         <button type="button" onClick={() => print()} className="flex items-center gap-2 bg-ink px-4 py-2 text-[12.5px] text-white"><Printer size={14} /> {PRINT[lang]}</button>
       </div>

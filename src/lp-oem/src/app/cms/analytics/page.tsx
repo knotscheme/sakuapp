@@ -182,7 +182,7 @@ export default function Analytics() {
       </div>
 
       <Card className="mt-5">
-        <CardHead right={<button type="button" onClick={() => setTable(!table)} className="text-[12px] text-mute underline underline-offset-4 hover:text-ink">{table ? "グラフで見る" : "表で見る"}</button>}>
+        <CardHead right={<button type="button" onClick={() => setTable(!table)} className="tap text-[12px] text-mute underline underline-offset-4 hover:text-ink">{table ? "グラフで見る" : "表で見る"}</button>}>
           {showMoney ? "月ごとの売上" : "月ごとの受注件数"}
         </CardHead>
         {table ? (

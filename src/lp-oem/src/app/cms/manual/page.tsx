@@ -171,7 +171,7 @@ const CHAPTERS: Chapter[] = [
 const FAQ = [
   { q: "間違えてボタンを押してしまいました", a: "大事な操作の前には確認の画面が出ます。進めてしまった場合も、案件の画面の「1つ前に戻す」や、工場の画面のチェックマークを押せば戻せます。" },
   { q: "メニューに必要な画面がありません", a: "あなたの役割に、その画面の権限がありません。オーナーに「メンバーと権限」で権限を付けてもらってください。" },
-  { q: "スマホでも使えますか？", a: "はい。すべての画面がスマホで使えます。案件の画面では「実行する」ボタンが画面の下に固定されます。" },
+  { q: "スマホでも使えますか？", a: "はい。すべての画面がスマホで使えます。画面の下のタブで、よく使う画面にすぐ移動できます（ほかの画面は「その他」から）。案件の画面では、次にやることのボタンが画面の下に固定されます。「※本番では」の説明は1行だけ表示され、押すと全文が開きます。" },
   { q: "お客様の連絡先が「●●●●」になっています", a: "お客様の名前・連絡先を見る権限がない場合、伏せて表示されます。必要ならオーナーに相談してください。" },
   { q: "書類の内容を手で直したいです", a: "書類は注文内容から自動で作られます。数量や仕様を変えたいときは、案件の注文内容を直すと書類にも反映されます（本番の仕様）。" },
 ];
@@ -216,7 +216,7 @@ export default function Manual() {
                 <p className="text-[15px] font-semibold">{role ? `あなたは「${role.name}」です` : "ようこそ"}</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-mute">まず「はじめに」と「全体の流れ」を読み、そのあと下の、あなたに関係する章を読んでください。</p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {mine.map((c) => <a key={c.id} href={`#${c.id}`} className="rounded-full bg-[#f1f1f0] px-3 py-1.5 text-[12px] hover:bg-ink hover:text-white">{c.title.split("：")[0]}</a>)}
+                  {mine.map((c) => <a key={c.id} href={`#${c.id}`} className="rounded-full bg-[#f1f1f0] px-3.5 py-2.5 text-[12.5px] hover:bg-ink hover:text-white">{c.title.split("：")[0]}</a>)}
                 </div>
               </div>
             </div>
@@ -231,7 +231,7 @@ export default function Manual() {
                 </div>
                 <div className="mt-3 space-y-2">{c.body}</div>
                 {c.href && (!c.perm || can(c.perm)) && (
-                  <Link href={c.href} className="mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-medium underline underline-offset-4 hover:text-gold">この画面を開く <ArrowRight size={14} /></Link>
+                  <Link href={c.href} className="tap mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-medium underline underline-offset-4 hover:text-gold">この画面を開く <ArrowRight size={14} /></Link>
                 )}
               </section>
             </Card>

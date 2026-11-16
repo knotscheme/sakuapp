@@ -62,7 +62,7 @@ export default function DealPage() {
       </Card>
 
       {d.stage === "done" && can("deals.advance") && (
-        <div className="mt-4 text-right"><button type="button" onClick={doRevert} className="text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button></div>
+        <div className="mt-4 text-right"><button type="button" onClick={doRevert} className="tap text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button></div>
       )}
       {d.stage !== "done" && (
         <div className="cms-card mt-5 flex flex-wrap items-center justify-between gap-4 px-6 py-5 ring-1 ring-ink/70">
@@ -72,7 +72,7 @@ export default function DealPage() {
             <TechNote className="mt-1.5">「実行する」で Supabase Edge Function が動き、書類PDFの作成と Resend でのメール送信を自動で行う</TechNote>
           </div>
           <div className="flex items-center gap-4">
-            {si > 0 && can("deals.advance") && <button type="button" onClick={doRevert} className="text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button>}
+            {si > 0 && can("deals.advance") && <button type="button" onClick={doRevert} className="tap text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button>}
             <DueBadge due={d.due} stage={d.stage} />
             {can("deals.advance") && <button type="button" onClick={doAdvance} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
               実行する <ChevronRight size={15} />
@@ -82,7 +82,7 @@ export default function DealPage() {
       )}
 
       {d.stage !== "done" && can("deals.advance") && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur md:hidden">
+        <div className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-30 border-t border-line bg-white/95 px-5 py-2.5 backdrop-blur md:hidden">
           <button type="button" onClick={doAdvance} className="cms-btn flex w-full items-center justify-center gap-2 bg-ink py-3.5 text-[14px] text-white">
             {STAGES[si].next} <ChevronRight size={16} />
           </button>
@@ -194,7 +194,7 @@ export default function DealPage() {
                     <FileText size={15} className={ready ? "text-ink" : "text-line"} />
                     <span className={`flex-1 ${ready ? "" : "text-mute"}`}>{k.ja}</span>
                     {ready ? (
-                      <Link href={`/cms/doc/?id=${d.id}&type=${k.id}`} className="text-[12px] underline underline-offset-4">開く</Link>
+                      <Link href={`/cms/doc/?id=${d.id}&type=${k.id}`} className="tap -my-2 px-2 text-[12px] underline underline-offset-4">開く</Link>
                     ) : (
                       <span className="text-[11px] text-mute">{STAGES[stageIndex(k.at)].ja}で作成</span>
                     )}
