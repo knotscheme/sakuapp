@@ -27,11 +27,16 @@ export default function DealPage() {
 
   return (
     <Shell
+      bottomPad={d.stage !== "done"}
       title={`${d.id}　${d.brand}`}
       actions={<Link href={`/cms/portal/?id=${d.id}`} className="hidden items-center gap-1.5 text-[12px] text-mute hover:text-ink sm:flex">お客様の画面 <ExternalLink size={13} /></Link>}
     >
       {/* 段階 */}
-      <Card className="overflow-x-auto">
+      <Card className="px-5 py-4 md:hidden">
+        <div className="flex items-baseline justify-between text-[13px]"><span className="font-semibold">{STAGES[si].ja}</span><span className="text-[11.5px] text-mute">{si + 1} / {STAGES.length}</span></div>
+        <div className="mt-2.5 flex gap-1">{STAGES.map((s, i) => <span key={s.id} className={`h-1.5 flex-1 rounded-full ${i <= si ? "bg-ink" : "bg-line"}`} />)}</div>
+      </Card>
+      <Card className="hidden overflow-x-auto md:block">
         <ol className="flex min-w-[760px] p-1.5">
           {STAGES.map((s, i) => (
             <li key={s.id} className={`flex flex-1 items-center gap-2 rounded-lg px-3 py-2.5 text-[11.5px] ${i === si ? "bg-ink text-white" : i < si ? "text-ink" : "text-mute"}`}>
@@ -51,13 +56,20 @@ export default function DealPage() {
           </div>
           <div className="flex items-center gap-4">
             <DueBadge due={d.due} stage={d.stage} />
-            <button type="button" onClick={() => advance(d.id, d.owner)} className="inline-flex items-center gap-2 cms-btn bg-ink px-5 py-2.5 text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
+            <button type="button" onClick={() => advance(d.id, d.owner)} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
               実行する <ChevronRight size={15} />
             </button>
           </div>
         </div>
       )}
 
+      {d.stage !== "done" && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur md:hidden">
+          <button type="button" onClick={() => advance(d.id, d.owner)} className="cms-btn flex w-full items-center justify-center gap-2 bg-ink py-3.5 text-[14px] text-white">
+            {STAGES[si].next} <ChevronRight size={16} />
+          </button>
+        </div>
+      )}
       <div className="mt-5 grid gap-5 lg:grid-cols-[1.4fr_1fr]">
         <div className="space-y-5">
           {/* 注文内容と金額 */}

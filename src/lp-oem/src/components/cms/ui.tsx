@@ -27,7 +27,7 @@ const NAV = [
   { href: "/cms/portal/?id=C-1027", label: "お客様の画面（例）", icon: UserRound },
 ];
 
-export function Shell({ title, children, actions, note }: { title: string; children: ReactNode; actions?: ReactNode; note?: ReactNode }) {
+export function Shell({ title, children, actions, note, bottomPad }: { title: string; children: ReactNode; actions?: ReactNode; note?: ReactNode; bottomPad?: boolean }) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const nav = (
@@ -62,7 +62,7 @@ export function Shell({ title, children, actions, note }: { title: string; child
           <button type="button" className="-ml-1 p-1" onClick={() => setOpen(true)} aria-label="メニュー"><Menu size={20} /></button>
           <span className="font-display text-[13px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></span>
         </div>
-        <main className="mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10">
+        <main className={`mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10 ${bottomPad ? "pb-28 md:pb-10" : ""}`}>
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div>
               <h1 className="text-[22px] font-semibold tracking-[0.02em]">{title}</h1>

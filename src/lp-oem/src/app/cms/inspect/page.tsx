@@ -35,7 +35,7 @@ export default function InspectPage() {
                   <ul className="divide-y divide-line">
                     {CHECKS.map((c, i) => (
                       <li key={c}>
-                        <button type="button" onClick={() => updateDeal(d.id, (x) => ({ ...x, checks: x.checks.map((v, k) => (k === i ? !v : v)) }))} className="flex w-full items-center gap-3 px-5 py-3 text-left text-[13.5px]">
+                        <button type="button" onClick={() => updateDeal(d.id, (x) => ({ ...x, checks: x.checks.map((v, k) => (k === i ? !v : v)) }))} className="flex w-full items-center gap-3 px-5 py-3.5 text-left text-[14px]">
                           <span className={`flex h-5 w-5 items-center justify-center rounded-md border ${d.checks[i] ? "border-ink bg-ink text-white" : "border-line"}`}>{d.checks[i] && <Check size={13} />}</span>
                           {c}
                         </button>
@@ -45,9 +45,9 @@ export default function InspectPage() {
                   <div className="flex items-center justify-between border-t border-line px-5 py-3 text-[13px]">
                     <span>不良の数</span>
                     <span className="flex items-center gap-3">
-                      <button type="button" aria-label="減らす" onClick={() => updateDeal(d.id, (x) => ({ ...x, defects: Math.max(0, x.defects - 1) }))} className="rounded-md border border-line p-1.5"><Minus size={13} /></button>
+                      <button type="button" aria-label="減らす" onClick={() => updateDeal(d.id, (x) => ({ ...x, defects: Math.max(0, x.defects - 1) }))} className="rounded-md border border-line p-2.5"><Minus size={13} /></button>
                       <span className="w-6 text-center tabular-nums">{d.defects}</span>
-                      <button type="button" aria-label="増やす" onClick={() => updateDeal(d.id, (x) => ({ ...x, defects: x.defects + 1 }))} className="rounded-md border border-line p-1.5"><Plus size={13} /></button>
+                      <button type="button" aria-label="増やす" onClick={() => updateDeal(d.id, (x) => ({ ...x, defects: x.defects + 1 }))} className="rounded-md border border-line p-2.5"><Plus size={13} /></button>
                     </span>
                   </div>
                   <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-3">

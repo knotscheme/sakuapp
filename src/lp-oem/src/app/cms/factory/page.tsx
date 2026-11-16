@@ -24,7 +24,7 @@ export default function FactoryPage() {
   const langs = (
     <div className="flex overflow-hidden rounded-lg border border-line bg-white text-[12px]">
       {(["en", "th", "ja"] as const).map((l) => (
-        <button key={l} type="button" onClick={() => setLang(l)} className={`px-3 py-1.5 ${lang === l ? "bg-ink text-white" : "text-mute"}`}>{l === "en" ? "EN" : l === "th" ? "ไทย" : "日本語"}</button>
+        <button key={l} type="button" onClick={() => setLang(l)} className={`px-3.5 py-2 ${lang === l ? "bg-ink text-white" : "text-mute"}`}>{l === "en" ? "EN" : l === "th" ? "ไทย" : "日本語"}</button>
       ))}
     </div>
   );
@@ -60,7 +60,7 @@ export default function FactoryPage() {
                       <span className={done || cur ? "" : "text-mute"}>{lang === "ja" ? p.ja : lang === "th" ? p.th : p.en}</span>
                       {cur && (
                         <button type="button" onClick={() => updateDeal(d.id, (x) => addLog({ ...x, prodStep: x.prodStep + 1 }, "工場", `「${p.ja}」が完了しました（写真あり）`, "factory"))}
-                          className="mt-2 block w-full bg-ink py-1.5 text-[11px] text-white">{t.done}</button>
+                          className="cms-btn mt-2 block w-full bg-ink py-2.5 text-[11px] text-white">{t.done}</button>
                       )}
                     </li>
                   );

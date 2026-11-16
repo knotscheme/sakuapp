@@ -18,7 +18,7 @@ export default function Deals() {
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="検索" className="hidden w-40 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink sm:block" />
       <div className="flex overflow-hidden rounded-lg border border-line bg-white text-[12.5px]">
         {(["board", "list"] as const).map((v) => (
-          <button key={v} type="button" onClick={() => setView(v)} className={`px-3 py-1.5 ${view === v ? "bg-ink text-white" : "text-mute"}`}>{v === "board" ? "ボード" : "一覧"}</button>
+          <button key={v} type="button" onClick={() => setView(v)} className={`px-3.5 py-2 ${view === v ? "bg-ink text-white" : "text-mute"}`}>{v === "board" ? "ボード" : "一覧"}</button>
         ))}
       </div>
     </div>
@@ -27,12 +27,12 @@ export default function Deals() {
   return (
     <Shell title="案件ボード" actions={toggle} note="案件は Supabase の deals テーブル。LPのフォーム送信（Next.js のAPI）で自動で1件追加">
       {view === "board" ? (
-        <div className="-mx-5 overflow-x-auto px-5 pb-4 md:-mx-8 md:px-8">
+        <div className="snap-x-cols -mx-5 overflow-x-auto scroll-px-5 px-5 pb-4 md:-mx-10 md:px-10">
           <div className="flex gap-4" style={{ width: "max-content" }}>
             {STAGES.map((s) => {
               const items = list.filter((d) => d.stage === s.id);
               return (
-                <div key={s.id} className="w-64 shrink-0 rounded-xl bg-[#e8e8e6]/60 p-2.5">
+                <div key={s.id} className="w-[82vw] shrink-0 rounded-xl bg-[#e8e8e6]/60 p-2.5 sm:w-64">
                   <div className="mb-2.5 flex items-center justify-between px-1.5 pt-1">
                     <p className="text-[12.5px] font-medium">{s.ja}</p>
                     <span className="text-[11px] text-mute">{items.length}</span>

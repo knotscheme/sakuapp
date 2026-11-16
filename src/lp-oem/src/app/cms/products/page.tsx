@@ -32,7 +32,7 @@ export default function ProductsAdmin() {
             {[{ id: "all", name: "すべて" }, ...cats].map((c) => {
               const n = c.id === "all" ? products.length : products.filter((p) => p.cat === c.id).length;
               return (
-                <button key={c.id} type="button" onClick={() => setCat(c.id)} className={`-mb-px shrink-0 border-b-2 px-3 pb-2.5 text-[13px] ${cat === c.id ? "border-ink font-medium" : "border-transparent text-mute hover:text-ink"}`}>
+                <button key={c.id} type="button" onClick={() => setCat(c.id)} className={`-mb-px shrink-0 border-b-2 px-3 pt-1 pb-3 text-[13px] ${cat === c.id ? "border-ink font-medium" : "border-transparent text-mute hover:text-ink"}`}>
                   {c.name}<span className="ml-1.5 text-[11px] text-mute">{n}</span>
                 </button>
               );
@@ -51,7 +51,7 @@ export default function ProductsAdmin() {
                   <p className="truncate text-[13.5px] font-medium">{p.short || "（名前なし）"}</p>
                   <p className="truncate text-[11.5px] text-mute">{catName(p.cat)}・{yen(p.unitPrice)}〜</p>
                 </div>
-                <button type="button" onClick={() => toggleVisible(p.id)} className={`shrink-0 rounded-full px-2.5 py-0.5 text-[11px] ${p.visible ? "bg-[#e6f4ea] text-[#1e6b34]" : "bg-[#f1f1f0] text-mute"}`}>
+                <button type="button" onClick={() => toggleVisible(p.id)} className={`shrink-0 rounded-full px-3 py-1.5 text-[11px] ${p.visible ? "bg-[#e6f4ea] text-[#1e6b34]" : "bg-[#f1f1f0] text-mute"}`}>
                   {p.visible ? "公開中" : "非公開"}
                 </button>
                 <button type="button" onClick={() => setEdit(p)} aria-label="編集" className="shrink-0 rounded-md p-2 text-mute hover:bg-[#f1f1f0] hover:text-ink"><Pencil size={15} /></button>
