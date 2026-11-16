@@ -85,8 +85,8 @@ export default function Hero() {
               </picture>
 
               {/* 財布の後ろを通る大きな文字 */}
-              <div ref={word} className="hero-word pointer-events-none absolute inset-x-0 top-[22%] text-center font-display leading-[0.8] tracking-[-0.01em] text-ink/90 select-none lg:top-[16%] lg:text-left" aria-hidden>
-                <span className="block text-[29vw] lg:pl-[3vw] lg:text-[25vw]">CRAFT</span>
+              <div ref={word} className="hero-word pointer-events-none absolute inset-x-0 top-[24%] text-center font-display leading-none font-light tracking-[0.32em] text-ink/75 select-none lg:top-[22%] lg:text-left" aria-hidden>
+                <span className="mx-auto block max-w-6xl pl-[0.32em] text-[15vw] md:px-8 lg:pl-8 lg:text-[8vw] xl:text-[112px]">CRAFT</span>
               </div>
 
               {/* 財布だけ切り抜いた画像を手前に重ねる */}
