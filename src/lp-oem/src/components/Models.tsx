@@ -19,7 +19,7 @@ export default function Models() {
             return (
               <div key={m.id} className="reveal h-full" style={{ transitionDelay: `${i * 0.08}s` }}>
               <Tilt className={`group flex h-full flex-col overflow-hidden rounded-2xl border bg-white hover:shadow-[0_24px_50px_-28px_rgba(0,0,0,.35)] ${active ? "border-gold" : "border-line"}`}>
-                <div className="relative bg-gradient-to-b from-[#f3f0ea] to-[#e9e4da] px-4 pt-6 pb-2">
+                <div className="relative bg-gradient-to-b from-[#f6f6f6] to-[#ececec] px-4 pt-6 pb-2">
                   <span className="absolute top-3 left-3 rounded-full bg-ink px-2.5 py-1 font-display text-[11px] tracking-widest text-gold-2">MODEL {String(i + 1).padStart(2, "0")}</span>
                   <WalletArt id={m.id} className="mx-auto w-full max-w-[260px] transition duration-700 group-hover:scale-[1.04]" />
                 </div>

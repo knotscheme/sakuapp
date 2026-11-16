@@ -9,7 +9,7 @@ const REASONS = [
 
 export default function Features() {
   return (
-    <section id="reasons" className="bg-[#f4f1ea] py-20 md:py-28">
+    <section id="reasons" className="bg-[#f5f5f4] py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionTitle en="Why Logo OEM" ja="選ばれる|3つの理由" />
         <div className="grid gap-6 md:grid-cols-3">

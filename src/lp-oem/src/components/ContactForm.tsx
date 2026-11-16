@@ -80,13 +80,13 @@ export default function ContactForm() {
   const Err = ({ k }: { k: keyof Errors }) => (errors[k] ? <p className="mt-1.5 text-xs text-red-500" id={`err-${k}`}>{errors[k]}</p> : null);
 
   return (
-    <section id="contact" className="bg-[#f2efe8] py-20 md:py-28">
+    <section id="contact" className="bg-[#f5f5f4] py-20 md:py-28">
       <div className="mx-auto max-w-3xl px-5 md:px-8">
         <SectionTitle en="Contact" ja="無料見積もり・ご相談" sub="ロゴが未完成でも、|お気軽にどうぞ。" />
 
         <form noValidate onSubmit={onSubmit} className={`reveal rounded-3xl border bg-white p-6 shadow-[0_30px_70px_-45px_rgba(0,0,0,.45)] transition md:p-10 ${flash ? "border-gold ring-4 ring-gold-3" : "border-line"}`}>
           {prefill && (
-            <p className="mb-6 rounded-xl bg-[#fbf7ee] px-4 py-3 text-[13px] text-ink-2">シミュレーションの条件を入力しました。内容をご確認ください。</p>
+            <p className="mb-6 rounded-xl bg-[#faf8f3] px-4 py-3 text-[13px] text-ink-2">シミュレーションの条件を入力しました。内容をご確認ください。</p>
           )}
           <div className="grid gap-6 md:grid-cols-2">
             <label className="block text-sm font-bold md:col-span-2">
@@ -120,7 +120,7 @@ export default function ContactForm() {
 
             <div className="text-sm font-bold md:col-span-2">
               ロゴデータ添付<span className="ml-1 text-xs font-normal text-mute">任意（ai / pdf / svg / eps / png / jpg・10MBまで）</span>
-              <label className={`mt-2 flex cursor-pointer items-center gap-3 rounded-xl border border-dashed px-4 py-5 transition hover:border-gold hover:bg-[#fbf7ee] ${errors.file ? "border-red-400" : "border-gold-2/60"}`}>
+              <label className={`mt-2 flex cursor-pointer items-center gap-3 rounded-xl border border-dashed px-4 py-5 transition hover:border-gold hover:bg-[#faf8f3] ${errors.file ? "border-red-400" : "border-gold-2/60"}`}>
                 <Paperclip size={20} className="text-gold" />
                 <span className="flex-1 truncate font-normal text-mute">{file ? file.name : "ファイルを選択、またはここにドロップ"}</span>
                 {file && (

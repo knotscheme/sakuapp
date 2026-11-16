@@ -58,7 +58,7 @@ export default function HeroStage() {
   return (
     <div ref={stage} className="relative mx-auto w-full max-w-[620px]">
       <canvas ref={canvas} className="pointer-events-none absolute -inset-16 h-[calc(100%+8rem)] w-[calc(100%+8rem)]" aria-hidden />
-      <div className="absolute inset-[8%] rounded-full bg-gold-2/20 blur-3xl" />
+      <div className="absolute inset-[8%] rounded-full bg-gold-2/10 blur-3xl" />
       <div className="relative aspect-[5/4]">
         {/* 奥：三つ折り */}
         <div data-depth="0.5" className="absolute right-[-6%] bottom-[0%] w-[54%]">

@@ -57,7 +57,7 @@ export default function Options() {
           </div>
         </div>
 
-        <aside className="reveal mx-auto mt-16 max-w-3xl rounded-2xl border border-dashed border-gold-2/60 bg-[#fbf8f1] p-6 md:p-8">
+        <aside className="reveal mx-auto mt-16 max-w-3xl rounded-2xl border border-dashed border-gold-2/60 bg-[#fafafa] p-6 md:p-8">
           <div className="flex items-start gap-4">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-gold ring-1 ring-gold-2/40">
               <Layers size={20} strokeWidth={1.5} />

@@ -20,7 +20,7 @@ export default function Simulator() {
   const cGrossTotal = useCountUp(r.grossTotal, 750);
 
   return (
-    <section id="simulator" className="bg-[#f2efe8] py-20 md:py-28">
+    <section id="simulator" className="bg-[#f5f5f4] py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionTitle en="Profit Simulator" ja="利益シミュレーター" sub="条件を選ぶだけで、|手元に残る利益が|すぐに分かります。" />
 
@@ -33,7 +33,7 @@ export default function Simulator() {
                 {MODELS.map((x) => (
                   <label
                     key={x.id}
-                    className={`flex cursor-pointer flex-col items-center gap-1 rounded-xl border p-2.5 text-center transition sm:flex-row sm:gap-2 sm:text-left ${model === x.id ? "border-gold bg-[#fbf7ee] ring-1 ring-gold" : "border-line hover:border-gold-2"}`}
+                    className={`flex cursor-pointer flex-col items-center gap-1 rounded-xl border p-2.5 text-center transition sm:flex-row sm:gap-2 sm:text-left ${model === x.id ? "border-gold bg-[#faf8f3] ring-1 ring-gold" : "border-line hover:border-gold-2"}`}
                   >
                     <input type="radio" name="sim-model" value={x.id} checked={model === x.id} onChange={() => setModel(x.id)} className="sr-only" />
                     <WalletArt id={x.id} className="w-16 shrink-0 sm:w-14" />

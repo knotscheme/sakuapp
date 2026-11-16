@@ -10,7 +10,7 @@ const BADGES = [
 export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden bg-paper pt-28 pb-20 text-ink md:pt-36 md:pb-28">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_60%_at_78%_45%,rgba(197,160,89,.16),transparent_70%),linear-gradient(180deg,#fff,#f6f3ec)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_60%_at_78%_45%,rgba(197,160,89,.08),transparent_70%),linear-gradient(180deg,#fff,#f7f7f7)]" />
       <div className="pointer-events-none absolute inset-0 opacity-[.5] [background-image:linear-gradient(rgba(26,26,26,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(26,26,26,.04)_1px,transparent_1px)] [background-size:64px_64px]" />
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 md:px-8 lg:grid-cols-[1fr_1fr]">
