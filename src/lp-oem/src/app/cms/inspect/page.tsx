@@ -5,15 +5,15 @@ import { Camera, Check, Minus, Plus } from "lucide-react";
 import { CHECKS, modelOf } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
-import { Card, Shell } from "@/components/cms/ui";
+import { Card, Shell, TechNote } from "@/components/cms/ui";
 
 // 国内検品：スマホで、チェック・不良数・写真を登録する
 export default function InspectPage() {
   const list = useDeals().filter((d) => d.stage === "inspection" || d.stage === "transit");
 
   return (
-    <Shell title="国内検品">
-      <p className="mb-5 text-[12.5px] text-mute">日本の検品担当がスマホで使う画面です。届いた荷物を検品し、合格したらそのまま発送に進めます。</p>
+    <Shell title="国内検品" note="検品結果は inspections テーブルに保存し、検品報告書PDFを自動作成">
+      <p className="mb-6 text-[13px] text-mute">日本の検品担当がスマホで使う画面です。届いた荷物を検品し、合格したらそのまま発送に進めます。</p>
       <div className="grid gap-5 lg:grid-cols-2">
         {list.map((d) => {
           const m = modelOf(d.model);
@@ -36,7 +36,7 @@ export default function InspectPage() {
                     {CHECKS.map((c, i) => (
                       <li key={c}>
                         <button type="button" onClick={() => updateDeal(d.id, (x) => ({ ...x, checks: x.checks.map((v, k) => (k === i ? !v : v)) }))} className="flex w-full items-center gap-3 px-5 py-3 text-left text-[13.5px]">
-                          <span className={`flex h-5 w-5 items-center justify-center border ${d.checks[i] ? "border-ink bg-ink text-white" : "border-line"}`}>{d.checks[i] && <Check size={13} />}</span>
+                          <span className={`flex h-5 w-5 items-center justify-center rounded-md border ${d.checks[i] ? "border-ink bg-ink text-white" : "border-line"}`}>{d.checks[i] && <Check size={13} />}</span>
                           {c}
                         </button>
                       </li>
@@ -45,15 +45,16 @@ export default function InspectPage() {
                   <div className="flex items-center justify-between border-t border-line px-5 py-3 text-[13px]">
                     <span>不良の数</span>
                     <span className="flex items-center gap-3">
-                      <button type="button" aria-label="減らす" onClick={() => updateDeal(d.id, (x) => ({ ...x, defects: Math.max(0, x.defects - 1) }))} className="border border-line p-1.5"><Minus size={13} /></button>
+                      <button type="button" aria-label="減らす" onClick={() => updateDeal(d.id, (x) => ({ ...x, defects: Math.max(0, x.defects - 1) }))} className="rounded-md border border-line p-1.5"><Minus size={13} /></button>
                       <span className="w-6 text-center tabular-nums">{d.defects}</span>
-                      <button type="button" aria-label="増やす" onClick={() => updateDeal(d.id, (x) => ({ ...x, defects: x.defects + 1 }))} className="border border-line p-1.5"><Plus size={13} /></button>
+                      <button type="button" aria-label="増やす" onClick={() => updateDeal(d.id, (x) => ({ ...x, defects: x.defects + 1 }))} className="rounded-md border border-line p-1.5"><Plus size={13} /></button>
                     </span>
                   </div>
                   <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-3">
                     <button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "検品", "検品の写真を登録しました"))} className="flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><Camera size={14} />写真を登録</button>
+                    <TechNote className="hidden sm:flex">スマホのカメラで撮影→Storage</TechNote>
                     <button type="button" disabled={!all} onClick={() => { updateDeal(d.id, (x) => addLog(x, "検品", `検品が完了しました（良品${x.lot - x.defects}・不良${x.defects}）`)); advance(d.id, "検品"); }}
-                      className="bg-ink px-4 py-2 text-[12.5px] text-white disabled:bg-line disabled:text-mute">検品OK・発送する</button>
+                      className="cms-btn bg-ink px-4 py-2 text-[12.5px] text-white disabled:bg-line disabled:text-mute">検品OK・発送する</button>
                   </div>
                 </>
               ) : (

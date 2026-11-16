@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AlertTriangle, Mail, FileText, Factory as FactoryIcon, Activity } from "lucide-react";
 import { STAGES, amounts, daysLeft, modelOf, stageIndex, yenOf } from "@/lib/cms";
 import { useDeals } from "@/components/cms/store";
-import { Card, CardHead, DueBadge, Shell, StageBadge } from "@/components/cms/ui";
+import { Card, CardHead, DueBadge, Shell, StageBadge, TechNote } from "@/components/cms/ui";
 
 const ICON = { mail: Mail, doc: FileText, factory: FactoryIcon, system: Activity } as const;
 
@@ -26,26 +26,26 @@ export default function Dashboard() {
   ];
 
   return (
-    <Shell title="ダッシュボード">
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    <Shell title="ダッシュボード" note="数字は Supabase（データベース）の案件データを集計して表示">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {kpis.map((x) => (
-          <Card key={x.k} className="px-5 py-4">
+          <Card key={x.k} className="px-5 py-5">
             <p className="text-[11.5px] text-mute">{x.k}</p>
-            <p className="mt-1.5 text-[22px] font-medium tabular-nums">{x.v}</p>
+            <p className="mt-2 text-[24px] font-semibold tabular-nums">{x.v}</p>
           </Card>
         ))}
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+      <div className="mt-5 grid gap-5 lg:grid-cols-[1.2fr_1fr]">
         <Card>
           <CardHead right={<Link href="/cms/deals/" className="text-[12px] text-mute hover:text-ink">案件ボードへ →</Link>}>段階ごとの案件数</CardHead>
-          <ul className="divide-y divide-line">
+          <ul className="divide-y divide-line border-t border-line">
             {STAGES.map((s) => {
               const n = deals.filter((d) => d.stage === s.id).length;
               return (
-                <li key={s.id} className="flex items-center gap-4 px-5 py-2.5 text-[13px]">
+                <li key={s.id} className="flex items-center gap-4 px-5 py-3 text-[13px]">
                   <span className="w-32 shrink-0 text-ink/80">{s.ja}</span>
-                  <span className="relative h-1.5 flex-1 bg-paper"><span className="absolute inset-y-0 left-0 bg-ink" style={{ width: `${(n / Math.max(1, deals.length)) * 100 * 2.5}%`, maxWidth: "100%" }} /></span>
+                  <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-[#f1f1f0]"><span className="absolute inset-y-0 left-0 rounded-full bg-ink" style={{ width: `${(n / Math.max(1, deals.length)) * 100 * 2.5}%`, maxWidth: "100%" }} /></span>
                   <span className="w-8 text-right tabular-nums">{n}</span>
                 </li>
               );
@@ -54,12 +54,12 @@ export default function Dashboard() {
         </Card>
 
         <Card>
-          <CardHead>期日のお知らせ</CardHead>
+          <CardHead note="毎朝、Supabase の定期実行（Cron）で期日をチェックし、担当にメール通知">期日のお知らせ</CardHead>
           {late.length + soon.length === 0 && <p className="px-5 py-6 text-[13px] text-mute">期日が近い案件はありません。</p>}
-          <ul className="divide-y divide-line">
+          <ul className="divide-y divide-line border-t border-line">
             {[...late, ...soon].map((d) => (
               <li key={d.id}>
-                <Link href={`/cms/deal/?id=${d.id}`} className="flex items-center gap-3 px-5 py-3 hover:bg-paper">
+                <Link href={`/cms/deal/?id=${d.id}`} className="flex items-center gap-3 px-5 py-3.5 hover:bg-[#fafafa]">
                   <AlertTriangle size={15} className={daysLeft(d.due) < 0 ? "text-red-600" : "text-gold"} />
                   <span className="flex-1 truncate text-[13px]">{d.brand}<span className="ml-2 text-mute">{modelOf(d.model).short}×{d.lot}</span></span>
                   <StageBadge stage={d.stage} />
@@ -71,14 +71,14 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      <Card className="mt-6">
-        <CardHead>最近の動き（自動の書類作成・メール送信を含む）</CardHead>
-        <ul className="divide-y divide-line">
+      <Card className="mt-5">
+        <CardHead note="すべての操作を履歴テーブル（activity_logs）に記録">最近の動き</CardHead>
+        <ul className="divide-y divide-line border-t border-line">
           {logs.map((l, i) => {
             const Icon = ICON[l.kind ?? "system"];
             return (
               <li key={i}>
-                <Link href={`/cms/deal/?id=${l.deal.id}`} className="flex items-start gap-3 px-5 py-3 hover:bg-paper">
+                <Link href={`/cms/deal/?id=${l.deal.id}`} className="flex items-start gap-3 px-5 py-3.5 hover:bg-[#fafafa]">
                   <Icon size={15} className="mt-0.5 shrink-0 text-mute" />
                   <span className="flex-1 text-[13px] leading-relaxed"><b className="font-medium">{l.deal.brand}</b>　{l.text}</span>
                   <span className="shrink-0 text-[11px] text-mute">{l.at.slice(5).replace("-", "/")}・{l.who}</span>

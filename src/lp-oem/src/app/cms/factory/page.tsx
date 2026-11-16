@@ -6,7 +6,7 @@ import { Camera, Check, FileText, Truck } from "lucide-react";
 import { FACTORY, PROD_STEPS, modelOf, stageIndex } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
-import { Card, Shell } from "@/components/cms/ui";
+import { Card, Shell, TechNote } from "@/components/cms/ui";
 
 // 工場の画面：担当の注文だけ。お客様の名前・連絡先・販売価格は見せない。英語・タイ語に切り替えられる
 const T = {
@@ -22,7 +22,7 @@ export default function FactoryPage() {
   const list = deals.filter((d) => d.stage === "production" || d.stage === "transit");
 
   const langs = (
-    <div className="flex border border-line text-[12px]">
+    <div className="flex overflow-hidden rounded-lg border border-line bg-white text-[12px]">
       {(["en", "th", "ja"] as const).map((l) => (
         <button key={l} type="button" onClick={() => setLang(l)} className={`px-3 py-1.5 ${lang === l ? "bg-ink text-white" : "text-mute"}`}>{l === "en" ? "EN" : l === "th" ? "ไทย" : "日本語"}</button>
       ))}
@@ -30,8 +30,8 @@ export default function FactoryPage() {
   );
 
   return (
-    <Shell title={`${t.title}｜${FACTORY}`} actions={langs}>
-      <p className="mb-5 text-[12.5px] text-mute">工場の人が見る画面です。担当の注文だけが表示され、お客様の名前・連絡先・販売価格は表示されません。</p>
+    <Shell title={`${t.title}｜${FACTORY}`} actions={langs} note="工場用アカウントは行レベルの権限（RLS）で、担当の注文だけ見える。更新時に LINE 通知も可能">
+      <p className="mb-6 text-[13px] text-mute">工場の人が見る画面です。お客様の名前・連絡先・販売価格は表示されません。</p>
       {!list.length && <p className="text-[13px] text-mute">{t.empty}</p>}
       <div className="grid gap-5 lg:grid-cols-2">
         {list.map((d) => {
@@ -67,11 +67,11 @@ export default function FactoryPage() {
                 })}
               </ol>
               <div className="flex items-center justify-between border-t border-line px-5 py-3">
-                <button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "工場", "写真を登録しました", "factory"))} className="flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><Camera size={14} />{t.photo}</button>
+                <span><button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "工場", "写真を登録しました", "factory"))} className="flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><Camera size={14} />{t.photo}</button><TechNote className="mt-1">写真は Supabase Storage に保存</TechNote></span>
                 {shipped ? (
                   <span className="flex items-center gap-1.5 text-[12px] text-mute"><Truck size={14} />{t.shipped}・{d.tracking}</span>
                 ) : (
-                  <button type="button" disabled={d.prodStep < 4} onClick={() => advance(d.id, "工場")} className="flex items-center gap-1.5 border border-ink px-3 py-1.5 text-[12px] disabled:border-line disabled:text-mute"><Truck size={14} />{t.shipBtn}</button>
+                  <button type="button" disabled={d.prodStep < 4} onClick={() => advance(d.id, "工場")} className="flex items-center gap-1.5 cms-btn border border-ink px-3 py-1.5 text-[12px] disabled:border-line disabled:text-mute"><Truck size={14} />{t.shipBtn}</button>
                 )}
               </div>
             </Card>

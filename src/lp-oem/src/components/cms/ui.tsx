@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, X } from "lucide-react";
+import { LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu } from "lucide-react";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo } from "./store";
 
@@ -25,52 +25,71 @@ const NAV = [
   { href: "/cms/portal/?id=C-1027", label: "お客様の画面（例）", icon: UserRound },
 ];
 
-export function Shell({ title, children, actions }: { title: string; children: ReactNode; actions?: ReactNode }) {
+export function Shell({ title, children, actions, note }: { title: string; children: ReactNode; actions?: ReactNode; note?: ReactNode }) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const nav = (
     <nav className="flex h-full flex-col">
-      <Link href="/cms/" className="px-6 pt-7 pb-8 font-display text-[15px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></Link>
-      <ul className="flex-1 space-y-0.5 px-3">
+      <Link href="/cms/" className="px-6 pt-7 pb-7 font-display text-[15px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></Link>
+      <ul className="flex-1 space-y-1 px-3">
         {NAV.map(({ href, label, icon: Icon }) => {
           const on = href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, ""));
           return (
             <li key={href}>
-              <Link href={href} onClick={() => setOpen(false)} className={`flex items-center gap-3 px-3 py-2.5 text-[13.5px] transition ${on ? "bg-ink text-white" : "text-ink/70 hover:bg-paper hover:text-ink"}`}>
-                <Icon size={16} strokeWidth={1.6} /> {label}
+              <Link href={href} onClick={() => setOpen(false)} className={`flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] transition ${on ? "bg-white font-medium text-ink shadow-[0_1px_2px_rgba(0,0,0,.08)]" : "text-ink/65 hover:bg-white/60 hover:text-ink"}`}>
+                <Icon size={16} strokeWidth={1.7} /> {label}
               </Link>
             </li>
           );
         })}
       </ul>
-      <div className="space-y-1 border-t border-line px-3 py-4 text-[12px]">
-        <button type="button" onClick={() => { if (confirm("デモのデータを最初の状態に戻しますか？")) resetDemo(); }} className="flex w-full items-center gap-2 px-3 py-2 text-mute hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
-        <a href="/sakuapp/works/lp-oem/" className="flex items-center gap-2 px-3 py-2 text-mute hover:text-ink"><ArrowLeft size={14} /> LPに戻る</a>
+      <div className="space-y-1 px-3 py-4 text-[12px]">
+        <TechNote className="mx-3 mb-3">ログインは Supabase Auth（スタッフ・工場・検品で権限を分ける）</TechNote>
+        <button type="button" onClick={() => { if (confirm("デモのデータを最初の状態に戻しますか？")) resetDemo(); }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><RotateCcw size={14} /> デモをリセット</button>
+        <a href="/sakuapp/works/lp-oem/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-mute hover:bg-white/60 hover:text-ink"><ArrowLeft size={14} /> LPに戻る</a>
       </div>
     </nav>
   );
   return (
-    <div className="min-h-[100svh] bg-paper text-ink">
-      <aside className="fixed inset-y-0 left-0 hidden w-60 border-r border-line bg-white lg:block">{nav}</aside>
+    <div className="cms-bg min-h-[100svh] text-ink">
+      <aside className="fixed inset-y-0 left-0 hidden w-60 bg-[#ebebea] lg:block">{nav}</aside>
       {open && <div className="fixed inset-0 z-40 bg-black/30 lg:hidden" onClick={() => setOpen(false)} />}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 border-r border-line bg-white transition-transform lg:hidden ${open ? "translate-x-0" : "-translate-x-full"}`}>{nav}</aside>
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#ebebea] transition-transform lg:hidden ${open ? "translate-x-0" : "-translate-x-full"}`}>{nav}</aside>
       <div className="lg:pl-60">
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-line bg-white/90 px-5 backdrop-blur md:px-8">
-          <button type="button" className="-ml-1 p-1 lg:hidden" onClick={() => setOpen(true)} aria-label="メニュー">{open ? <X size={20} /> : <Menu size={20} />}</button>
-          <h1 className="flex-1 truncate text-[16px] font-medium tracking-[0.04em]">{title}</h1>
-          {actions}
-        </header>
-        <main className="px-5 py-6 md:px-8 md:py-8">{children}</main>
-        <p className="px-5 pb-8 text-[11px] text-mute md:px-8">※ポートフォリオ用のデモです。データはすべて架空で、操作した内容はこのブラウザにだけ保存されます。</p>
+        <div className="sticky top-0 z-30 flex h-14 items-center gap-3 bg-[#f1f1f0]/90 px-5 backdrop-blur lg:hidden">
+          <button type="button" className="-ml-1 p-1" onClick={() => setOpen(true)} aria-label="メニュー"><Menu size={20} /></button>
+          <span className="font-display text-[13px] tracking-[0.4em]">CRAFT <span className="text-gold">CMS</span></span>
+        </div>
+        <main className="mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10">
+          <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h1 className="text-[22px] font-semibold tracking-[0.02em]">{title}</h1>
+              {note && <TechNote className="mt-1.5">{note}</TechNote>}
+            </div>
+            {actions}
+          </div>
+          {children}
+          <p className="mt-10 text-[11px] text-mute">※ポートフォリオ用のデモです。データはすべて架空で、操作した内容はこのブラウザにだけ保存されます。</p>
+        </main>
       </div>
     </div>
+  );
+}
+
+// 仕組みの説明（本番ではここで何を使うか）を小さく添える
+export function TechNote({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <p className={`flex items-start gap-1.5 text-[11px] leading-relaxed text-[#8a8a86] ${className}`}>
+      <Cpu size={12} strokeWidth={1.6} className="mt-[2px] shrink-0" />
+      <span>※本番では：{children}</span>
+    </p>
   );
 }
 
 export function StageBadge({ stage }: { stage: StageId }) {
   const i = stageIndex(stage);
   const tone = stage === "done" ? "bg-ink/5 text-mute" : i >= 4 ? "bg-[#eef4ff] text-[#2a4f9e]" : i >= 2 ? "bg-[#fbf3e2] text-[#8a650c]" : "bg-[#f1f1ef] text-ink";
-  return <span className={`inline-block px-2 py-0.5 text-[11px] whitespace-nowrap ${tone}`}>{STAGES[i].ja}</span>;
+  return <span className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] whitespace-nowrap ${tone}`}>{STAGES[i].ja}</span>;
 }
 
 export function DueBadge({ due, stage }: { due: string; stage: StageId }) {
@@ -81,8 +100,13 @@ export function DueBadge({ due, stage }: { due: string; stage: StageId }) {
 }
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`border border-line bg-white ${className}`}>{children}</section>;
+  return <section className={`cms-card overflow-hidden ${className}`}>{children}</section>;
 }
-export function CardHead({ children, right }: { children: ReactNode; right?: ReactNode }) {
-  return <div className="flex items-center justify-between border-b border-line px-5 py-3.5"><h2 className="text-[13.5px] font-medium">{children}</h2>{right}</div>;
+export function CardHead({ children, right, note }: { children: ReactNode; right?: ReactNode; note?: ReactNode }) {
+  return (
+    <div className="px-5 pt-5 pb-3">
+      <div className="flex items-center justify-between gap-3"><h2 className="text-[14px] font-semibold">{children}</h2>{right}</div>
+      {note && <TechNote className="mt-1">{note}</TechNote>}
+    </div>
+  );
 }

@@ -15,8 +15,8 @@ export default function Deals() {
 
   const toggle = (
     <div className="flex items-center gap-3">
-      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="検索" className="hidden w-40 border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink sm:block" />
-      <div className="flex border border-line text-[12.5px]">
+      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="検索" className="hidden w-40 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink sm:block" />
+      <div className="flex overflow-hidden rounded-lg border border-line bg-white text-[12.5px]">
         {(["board", "list"] as const).map((v) => (
           <button key={v} type="button" onClick={() => setView(v)} className={`px-3 py-1.5 ${view === v ? "bg-ink text-white" : "text-mute"}`}>{v === "board" ? "ボード" : "一覧"}</button>
         ))}
@@ -25,21 +25,21 @@ export default function Deals() {
   );
 
   return (
-    <Shell title="案件ボード" actions={toggle}>
+    <Shell title="案件ボード" actions={toggle} note="案件は Supabase の deals テーブル。LPのフォーム送信（Next.js のAPI）で自動で1件追加">
       {view === "board" ? (
         <div className="-mx-5 overflow-x-auto px-5 pb-4 md:-mx-8 md:px-8">
-          <div className="flex gap-3" style={{ width: "max-content" }}>
+          <div className="flex gap-4" style={{ width: "max-content" }}>
             {STAGES.map((s) => {
               const items = list.filter((d) => d.stage === s.id);
               return (
-                <div key={s.id} className="w-64 shrink-0">
-                  <div className="mb-2 flex items-center justify-between px-1">
+                <div key={s.id} className="w-64 shrink-0 rounded-xl bg-[#e8e8e6]/60 p-2.5">
+                  <div className="mb-2.5 flex items-center justify-between px-1.5 pt-1">
                     <p className="text-[12.5px] font-medium">{s.ja}</p>
                     <span className="text-[11px] text-mute">{items.length}</span>
                   </div>
                   <div className="space-y-2">
                     {items.map((d) => (
-                      <Link key={d.id} href={`/cms/deal/?id=${d.id}`} className="block border border-line bg-white p-3 transition hover:border-ink">
+                      <Link key={d.id} href={`/cms/deal/?id=${d.id}`} className="cms-card block p-3.5 transition hover:shadow-md">
                         <div className="flex items-center gap-3">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={asset(modelOf(d.model).img)} alt="" className="aspect-[4/3] w-12 object-cover" />
@@ -54,7 +54,7 @@ export default function Deals() {
                         </div>
                       </Link>
                     ))}
-                    {!items.length && <p className="border border-dashed border-line px-3 py-6 text-center text-[11px] text-mute">なし</p>}
+                    {!items.length && <p className="rounded-lg border border-dashed border-line px-3 py-6 text-center text-[11px] text-mute">なし</p>}
                   </div>
                 </div>
               );
@@ -62,14 +62,14 @@ export default function Deals() {
           </div>
         </div>
       ) : (
-        <div className="overflow-x-auto border border-line bg-white">
+        <div className="cms-card overflow-x-auto">
           <table className="w-full min-w-[760px] text-[13px]">
-            <thead className="border-b border-line bg-paper text-left text-[11.5px] text-mute">
+            <thead className="border-b border-line bg-[#fafafa] text-left text-[11.5px] text-mute">
               <tr>{["番号", "ブランド", "製品・数量", "段階", "金額（税込）", "担当", "期日"].map((h) => <th key={h} className="px-4 py-2.5 font-normal">{h}</th>)}</tr>
             </thead>
             <tbody className="divide-y divide-line">
               {list.map((d) => (
-                <tr key={d.id} className="hover:bg-paper">
+                <tr key={d.id} className="hover:bg-[#fafafa]">
                   <td className="px-4 py-3 text-mute"><Link href={`/cms/deal/?id=${d.id}`}>{d.id}</Link></td>
                   <td className="px-4 py-3 font-medium"><Link href={`/cms/deal/?id=${d.id}`}>{d.brand}</Link></td>
                   <td className="px-4 py-3">{modelOf(d.model).short}×{d.lot}</td>
