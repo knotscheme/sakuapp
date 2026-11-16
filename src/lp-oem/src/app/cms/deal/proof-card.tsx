@@ -6,6 +6,7 @@ import { stageIndex, type Deal } from "@/lib/cms";
 import { addLog, updateDeal } from "@/components/cms/store";
 import { askConfirm } from "@/components/cms/Confirm";
 import { Card, CardHead, TechNote } from "@/components/cms/ui";
+import { Ph } from "@/components/cms/Ph";
 import { PHOTOS, ProofPair, logoCm, placeOf, toLogoMask } from "@/components/cms/Proof";
 
 // 案件の画面：ロゴ配置イメージを作る・直す・お客様に送る
@@ -49,7 +50,7 @@ export function ProofCard({ d, canEdit, who }: { d: Deal; canEdit: boolean; who:
         right={<span className="text-[11.5px] text-mute">{d.finish}・ロゴ幅 約{logoCm(d).toFixed(1)}cm</span>}>ロゴ配置イメージ</CardHead>
       <div className="px-5 pb-5">
         <ProofPair d={d} />
-        <p className={`mt-3 text-[12.5px] ${d.proofReq ? "text-[#8a650c]" : approved ? "text-[#2f7a46]" : "text-mute"}`}>{status}</p>
+        <p className={`mt-3 text-[12.5px] ${d.proofReq ? "text-[#8a650c]" : approved ? "text-[#2f7a46]" : "text-mute"}`}><Ph tail={4}>{status}</Ph></p>
         {d.proofReq && (
           <div className="mt-3 flex gap-2.5 rounded-lg bg-[#fbf3e2] px-4 py-3 text-[13px]">
             <MessageSquareWarning size={16} className="mt-0.5 shrink-0 text-[#8a650c]" />
