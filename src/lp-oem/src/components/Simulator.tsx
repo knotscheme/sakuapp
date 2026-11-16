@@ -28,7 +28,7 @@ export default function Simulator() {
           {/* 入力 */}
           <div className="space-y-9 p-6 md:p-10">
             <fieldset>
-              <legend className="flex items-center gap-2 text-sm font-bold"><span className="font-display text-gold">01</span>ベースモデルを選ぶ</legend>
+              <legend className="flex items-center gap-2 text-sm font-bold"><span className="font-num font-medium text-gold">01</span>ベースモデルを選ぶ</legend>
               <div className="mt-4 grid grid-cols-2 gap-3">
                 {MODELS.map((x) => (
                   <label
@@ -45,7 +45,7 @@ export default function Simulator() {
             </fieldset>
 
             <fieldset>
-              <legend className="flex items-center gap-2 text-sm font-bold"><span className="font-display text-gold">02</span>発注ロット数</legend>
+              <legend className="flex items-center gap-2 text-sm font-bold"><span className="font-num font-medium text-gold">02</span>発注ロット数</legend>
               <div className="mt-4 grid grid-cols-4 gap-2">
                 {LOTS.map((l) => (
                   <button
@@ -64,7 +64,7 @@ export default function Simulator() {
 
             <fieldset>
               <legend className="flex w-full items-baseline justify-between text-sm font-bold">
-                <span className="flex items-center gap-2"><span className="font-display text-gold">03</span>想定販売価格（1個）</span>
+                <span className="flex items-center gap-2"><span className="font-num font-medium text-gold">03</span>想定販売価格（1個）</span>
                 <output className="text-2xl font-bold tabular-nums">{yen(price)}</output>
               </legend>
               <input

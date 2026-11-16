@@ -14,7 +14,7 @@ export default function Pains() {
         <ol className="border-t border-line">
           {PAINS.map((t, i) => (
             <li key={i} className="reveal flex items-baseline gap-6 border-b border-line py-7 md:gap-10" style={{ transitionDelay: `${i * 0.1}s` }}>
-              <span className="font-display text-sm text-gold">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-num text-sm font-medium text-gold">{String(i + 1).padStart(2, "0")}</span>
               <p className="text-[16px] leading-relaxed text-ink md:text-[18px]">{t.split("|").map((x) => <span key={x} className="inline-block">{x}</span>)}</p>
             </li>
           ))}

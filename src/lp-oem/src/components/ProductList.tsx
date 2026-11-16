@@ -70,7 +70,7 @@ export default function ProductList() {
             return (
               <button key={c.id} type="button" role="tab" aria-selected={cat === c.id} onClick={() => setCat(c.id)}
                 className={`-mb-px border-b pb-3 text-[14px] transition ${cat === c.id ? "border-ink text-ink" : "border-transparent text-mute hover:text-ink"}`}>
-                {c.name}<span className="ml-1.5 font-display text-[12px] text-mute">{n}</span>
+                {c.name}<span className="ml-1.5 font-num text-[11.5px] text-mute">{n}</span>
               </button>
             );
           })}

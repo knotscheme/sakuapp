@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import UpdateCheck from "@/components/UpdateCheck";
 
-const noto = Noto_Sans_JP({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-noto", display: "swap" });
+const noto = Noto_Sans_JP({ subsets: ["latin"], weight: ["300", "400", "500", "700"], variable: "--font-noto", display: "swap" });
 const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600"], variable: "--font-cormorant", display: "swap" });
 
 export const metadata: Metadata = {

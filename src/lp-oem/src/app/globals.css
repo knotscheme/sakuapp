@@ -204,6 +204,8 @@ html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top
 
 /* 英字の飾り書体の数字は、高さのそろった形にする（3や6が下にはみ出す形にしない） */
 .font-display { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+/* 日本語と並ぶ数字は、日本語と同じゴシック体にそろえる（英字の飾り書体の数字は、日本語の横では浮いて見えるため） */
+.font-num { font-family: var(--font-sans); font-variant-numeric: lining-nums tabular-nums; letter-spacing: 0.02em; }
 
 /* base の層に入れて、truncate（…で省略）などのクラスが優先されるようにする */
 @layer base {

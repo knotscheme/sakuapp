@@ -15,7 +15,7 @@ export default function Features() {
         <div className="grid gap-14 md:grid-cols-3 md:gap-12">
           {REASONS.map(({ no, title, body }, i) => (
             <article key={no} className="reveal border-t border-ink/80 pt-7" style={{ transitionDelay: `${i * 0.12}s` }}>
-              <p className="font-display text-sm text-gold">{no}</p>
+              <p className="font-num text-sm font-medium tracking-[0.1em] text-gold">{no}</p>
               <h3 className="mt-4 text-[19px] leading-relaxed font-medium">{title.split("|").map((t) => <span key={t} className="inline-block">{t}</span>)}</h3>
               <p className="mt-4 text-[14px] leading-loose text-mute"><NoOrphan text={body} /></p>
             </article>

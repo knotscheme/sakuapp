@@ -30,7 +30,7 @@ export default function FlowFaq() {
           {STEPS.map((s, i) => (
             <li key={s.title} className="reveal" style={{ transitionDelay: `${0.1 + i * 0.15}s` }}>
               <div className="flex items-center gap-4">
-                <span className="font-display text-[40px] leading-none text-ink">{i + 1}</span>
+                <span className="font-num text-[36px] leading-none font-light text-ink">{i + 1}</span>
                 <span className="h-px flex-1 bg-line" />
               </div>
               <h3 className="mt-5 text-[17px] font-medium">{s.title.split("|").map((t) => <span key={t} className="inline-block">{t}</span>)}</h3>

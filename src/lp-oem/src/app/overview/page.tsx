@@ -139,7 +139,7 @@ export default function Overview() {
           <dl className="mt-8 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-3 sm:text-center">
             {[["3回", "人が押すのは", "返信と配置案の送信、工場への発注"], ["6種類", "自動で作る書類", "見積書から納品書まで"], ["3か国語", "自動で切り替え", "日本語・英語・タイ語"]].map(([n, k, v]) => (
               <div key={k} className="flex items-center gap-4 bg-white px-5 py-4 sm:flex-col sm:justify-center sm:gap-0 sm:px-3 sm:py-7">
-                <dd className="w-[3.9em] shrink-0 font-display text-[28px] leading-none sm:order-2 sm:mt-1 sm:w-auto sm:text-[40px]">{n}</dd>
+                <dd className="w-[3.9em] shrink-0 font-num text-[26px] font-light leading-none sm:order-2 sm:mt-1 sm:w-auto sm:text-[36px]">{n}</dd>
                 <div className="sm:contents">
                   <dt className="text-[13px] font-medium sm:order-1 sm:text-[12.5px] sm:font-normal sm:text-mute">{k}</dt>
                   <dd className="mt-0.5 text-[12px] leading-snug text-mute sm:order-3 sm:mt-2"><Ph>{v}</Ph></dd>
@@ -156,7 +156,7 @@ export default function Overview() {
             <ol className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {AUTO_PHASES.map((ph) => (
                 <li key={ph.n} className="rounded-xl border border-line bg-white p-4">
-                  <p className="flex items-baseline gap-2"><span className="font-display text-[13px] tracking-[0.2em] text-gold">{ph.n}</span><span className="text-[14.5px] font-medium">{ph.t}</span></p>
+                  <p className="flex items-baseline gap-2"><span className="font-num text-[12.5px] font-medium tracking-[0.1em] text-gold">{ph.n}</span><span className="text-[14.5px] font-medium">{ph.t}</span></p>
                   <ol className="mt-3">
                     {ph.steps.map(([t, by], i) => (
                       <li key={t + i} className="relative flex items-center gap-3 pb-3 last:pb-0">
@@ -194,7 +194,7 @@ export default function Overview() {
           <ol className="mt-8 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-7">
             {FLOW.map((f) => (
               <li key={f.n} className="bg-white px-4 py-5">
-                <p className="font-display text-[13px] tracking-[0.2em] text-gold">{f.n}</p>
+                <p className="font-num text-[12.5px] font-medium tracking-[0.1em] text-gold">{f.n}</p>
                 <p className="mt-2 text-[14px] font-medium">{f.t}</p>
                 <p className="mt-1 text-[12px] leading-relaxed text-mute"><NoOrphan text={f.s} n={5} /></p>
               </li>
