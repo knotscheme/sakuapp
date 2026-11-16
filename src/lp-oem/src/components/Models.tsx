@@ -13,7 +13,7 @@ export default function Models() {
     <section id="models" className="bg-white py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Base Models" ja="ベースモデル" sub="販売実績のある|定番型から|選べます。" />
-        <div className="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           {MODELS.map((m, i) => (
             <article key={m.id} className="reveal group" style={{ transitionDelay: `${i * 0.08}s` }}>
               <button type="button" onClick={() => chooseModelAndScroll(m.id)} className="block w-full overflow-hidden bg-paper" aria-label={`${m.name}で利益計算する`}>
