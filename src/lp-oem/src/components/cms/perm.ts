@@ -18,8 +18,10 @@ export const PERMS = [
 export type Perm = (typeof PERMS)[number]["id"];
 
 export type Role = { id: string; name: string; desc: string; perms: Perm[]; locked?: boolean };
-export type Member = { id: string; name: string; email: string; role: string };
-type State = { roles: Role[]; members: Member[]; me: string };
+// extra：役割に加えて許可、deny：役割にあっても禁止（人ごとの個別設定）
+export type Member = { id: string; name: string; email: string; role: string; extra?: Perm[]; deny?: Perm[] };
+export type PermLog = { at: string; by: string; text: string };
+type State = { roles: Role[]; members: Member[]; me: string; logs: PermLog[] };
 
 const ALL = PERMS.map((p) => p.id) as Perm[];
 export function seedPerm(): State {
@@ -40,10 +42,11 @@ export function seedPerm(): State {
       { id: "u6", name: "山本（経理）", email: "account@craft.example", role: "viewer" },
     ],
     me: "u1",
+    logs: [],
   };
 }
 
-const KEY = "craft-oem-perm-v2";
+const KEY = "craft-oem-perm-v3";
 let cache: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {
@@ -56,7 +59,7 @@ function save(next: State) {
   try { localStorage.setItem(KEY, JSON.stringify(next)); } catch {}
   subs.forEach((f) => f());
 }
-const EMPTY: State = { roles: [], members: [], me: "" };
+const EMPTY: State = { roles: [], members: [], me: "", logs: [] };
 export function usePermState(): State {
   return useSyncExternalStore((f) => { subs.add(f); return () => subs.delete(f); }, () => load(), () => EMPTY);
 }
@@ -67,15 +70,70 @@ export function useAuth() {
   const me = s.members.find((m) => m.id === s.me);
   const role = s.roles.find((r) => r.id === me?.role);
   const ready = s.members.length > 0;
-  return { ready, me, role, can: (p: Perm) => !ready || !!role?.perms.includes(p) };
+  const perms = me ? effective(me, s.roles) : [];
+  return { ready, me, role, isOwner: role?.id === "owner", can: (p: Perm) => !ready || perms.includes(p) };
 }
 
 export function switchUser(id: string) { save({ ...load(), me: id }); }
-export function setMemberRole(id: string, role: string) { const s = load(); save({ ...s, members: s.members.map((m) => (m.id === id ? { ...m, role } : m)) }); }
-export function addMember(name: string, email: string, role: string) { const s = load(); save({ ...s, members: [...s.members, { id: `u${Date.now().toString(36)}`, name, email, role }] }); }
-export function removeMember(id: string) { const s = load(); save({ ...s, members: s.members.filter((m) => m.id !== id), me: s.me === id ? "u1" : s.me }); }
+export function setMemberRole(id: string, role: string) { const s = load(); const m = s.members.find((x) => x.id === id); const r = s.roles.find((x) => x.id === role); save(log({ ...s, members: s.members.map((x) => (x.id === id ? { ...x, role } : x)) }, `${m?.name}の役割を「${r?.name}」に変更しました`)); }
+export function addMember(name: string, email: string, role: string) { const s = load(); const r = s.roles.find((x) => x.id === role); save(log({ ...s, members: [...s.members, { id: `u${Date.now().toString(36)}`, name, email, role }] }, `${name}を「${r?.name}」として招待しました`)); }
+export function removeMember(id: string) { const s = load(); const m = s.members.find((x) => x.id === id); save(log({ ...s, members: s.members.filter((x) => x.id !== id), me: s.me === id ? "u1" : s.me }, `${m?.name}をメンバーから外しました`)); }
 export function togglePerm(roleId: string, p: Perm) {
   const s = load();
-  save({ ...s, roles: s.roles.map((r) => (r.id !== roleId || r.locked ? r : { ...r, perms: r.perms.includes(p) ? r.perms.filter((x) => x !== p) : [...r.perms, p] })) });
+  const r = s.roles.find((x) => x.id === roleId);
+  if (!r || r.locked) return;
+  const on = !r.perms.includes(p);
+  save(log({ ...s, roles: s.roles.map((x) => (x.id !== roleId ? x : { ...x, perms: on ? [...x.perms, p] : x.perms.filter((y) => y !== p) })) }, `役割「${r.name}」：「${permName(p)}」を${on ? "許可" : "禁止"}しました`));
 }
 export function resetPerm() { save(seedPerm()); }
+
+// その人が実際にできること（役割＋個別の許可−個別の禁止）
+export function effective(m: Member, roles: Role[]): Perm[] {
+  const r = roles.find((x) => x.id === m.role);
+  if (r?.locked) return [...r.perms];
+  const base = new Set<Perm>([...(r?.perms ?? []), ...(m.extra ?? [])]);
+  (m.deny ?? []).forEach((p) => base.delete(p));
+  return [...base];
+}
+
+const nowStr = () => new Date().toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+const meName = (st: State) => st.members.find((m) => m.id === st.me)?.name ?? "";
+const permName = (p: Perm) => PERMS.find((x) => x.id === p)?.ja ?? p;
+function log(st: State, text: string): State { return { ...st, logs: [{ at: nowStr(), by: meName(st), text }, ...st.logs].slice(0, 50) }; }
+
+// 人ごとの個別設定：役割どおり → 許可 → 禁止 → 役割どおり、の順に切り替える
+export function cycleMemberPerm(memberId: string, p: Perm) {
+  const st = load();
+  const m = st.members.find((x) => x.id === memberId);
+  if (!m) return;
+  const r = st.roles.find((x) => x.id === m.role);
+  const inRole = !!r?.perms.includes(p);
+  const extra = new Set(m.extra ?? []), deny = new Set(m.deny ?? []);
+  let text: string;
+  if (inRole) {
+    if (deny.has(p)) { deny.delete(p); text = `${m.name}：「${permName(p)}」を役割どおり（許可）に戻しました`; }
+    else { deny.add(p); text = `${m.name}：「${permName(p)}」を個別に禁止しました`; }
+  } else {
+    if (extra.has(p)) { extra.delete(p); text = `${m.name}：「${permName(p)}」の個別の許可を外しました`; }
+    else { extra.add(p); text = `${m.name}：「${permName(p)}」を個別に許可しました`; }
+  }
+  save(log({ ...st, members: st.members.map((x) => (x.id === memberId ? { ...x, extra: [...extra], deny: [...deny] } : x)) }, text));
+}
+export function clearMemberOverrides(memberId: string) {
+  const st = load();
+  const m = st.members.find((x) => x.id === memberId);
+  save(log({ ...st, members: st.members.map((x) => (x.id === memberId ? { ...x, extra: [], deny: [] } : x)) }, `${m?.name}：個別の設定をすべて外し、役割どおりに戻しました`));
+}
+export function addRole(name: string, desc: string, copyFrom?: string) {
+  const st = load();
+  const src = st.roles.find((r) => r.id === copyFrom);
+  const id = `r-${Date.now().toString(36)}`;
+  save(log({ ...st, roles: [...st.roles, { id, name, desc, perms: src && !src.locked ? [...src.perms] : [] }] }, `役割「${name}」を作りました`));
+}
+export function deleteRole(id: string) {
+  const st = load();
+  const r = st.roles.find((x) => x.id === id);
+  if (!r || r.locked || st.members.some((m) => m.role === id)) return false;
+  save(log({ ...st, roles: st.roles.filter((x) => x.id !== id) }, `役割「${r.name}」を削除しました`));
+  return true;
+}
