@@ -25,12 +25,17 @@ export type Product = {
   variants?: Variant[]; // 組み合わせごとのSKU品番
 };
 // 例：{ name: "カラー", values: ["ブラック", "キャメル"] }
-export type VOption = { name: string; values: string[] };
+// kind：color は登録したカラーから、size は登録したサイズから選ぶ。custom は自由に入力
+export type VOption = { name: string; values: string[]; kind?: "color" | "size" | "custom" };
 // 例：{ key: "ブラック|M", values: ["ブラック", "M"], sku: "CR-TT-BK-M", visible: true }
-export type Variant = { key: string; values: string[]; sku: string; visible: boolean };
-type Catalog = { cats: Cat[]; products: Product[] };
+// swatch：このSKUで丸のカラーピッカーに出す色（登録したカラーの名前）。無ければカラーの値と同じ色
+export type Variant = { key: string; values: string[]; sku: string; visible: boolean; swatch?: string };
+// あらかじめ登録しておくカラーとサイズ（カテゴリと同じように、商品管理の画面で増やせる）
+export type ColorDef = { id: string; name: string; hex: string; code?: string }; // code：SKUに入れる記号（例：BK）
+export type SizeDef = { id: string; name: string };
+type Catalog = { cats: Cat[]; products: Product[]; colors: ColorDef[]; sizes: SizeDef[] };
 
-const KEY = "craft-oem-catalog-v2";
+const KEY = "craft-oem-catalog-v3";
 let cache: Catalog | null = null;
 const subs = new Set<() => void>();
 
@@ -40,11 +45,22 @@ export function seedCatalog(): Catalog {
       { id: "wallet", name: "財布・小物" },
       { id: "bag", name: "バッグ" },
     ],
+    colors: [
+      { id: "c-bk", name: "ブラック", hex: "#1f1f21", code: "BK" },
+      { id: "c-db", name: "ダークブラウン", hex: "#4a3226", code: "DB" },
+      { id: "c-cm", name: "キャメル", hex: "#b0743f", code: "CM" },
+      { id: "c-nv", name: "ネイビー", hex: "#1f2b45", code: "NV" },
+      { id: "c-gy", name: "グレー", hex: "#8c8c8a", code: "GY" },
+      { id: "c-iv", name: "アイボリー", hex: "#ece6d8", code: "IV" },
+    ],
+    sizes: [
+      { id: "s-s", name: "S" }, { id: "s-m", name: "M" }, { id: "s-l", name: "L" }, { id: "s-xl", name: "XL" }, { id: "s-f", name: "フリー" },
+    ],
     products: ALL_MODELS.map((m) => {
       const sku = SEED_SKU[m.id] ?? `CR-${m.id.toUpperCase()}`;
       const options: VOption[] = m.id === "tote"
-        ? [{ name: "カラー", values: ["ブラック", "ダークブラウン"] }, { name: "サイズ", values: ["M", "L"] }]
-        : [{ name: "カラー", values: ["ブラック", "ダークブラウン", "キャメル", "ネイビー"] }];
+        ? [{ name: "カラー", kind: "color", values: ["ブラック", "ダークブラウン"] }, { name: "サイズ", kind: "size", values: ["M", "L"] }]
+        : [{ name: "カラー", kind: "color", values: ["ブラック", "ダークブラウン", "キャメル", "ネイビー"] }];
       const variants = buildVariants(options, []).map((v) => ({ ...v, sku: autoSku(sku, options, v.values) }));
       return { id: m.id, name: m.name, short: m.short, cat: m.cat, feature: m.feature, size: m.size, logo: m.logo, unitPrice: m.unitPrice, img: m.img, visible: !m.soon, sku, options, variants };
     }),
@@ -71,7 +87,7 @@ function save(next: Catalog) {
   subs.forEach((f) => f());
 }
 
-const EMPTY: Catalog = { cats: [], products: [] };
+const EMPTY: Catalog = { cats: [], products: [], colors: [], sizes: [] };
 export function useCatalog(): Catalog {
   return useSyncExternalStore(
     (f) => { subs.add(f); return () => subs.delete(f); },
@@ -111,6 +127,48 @@ export function deleteCat(id: string) {
   save({ ...c, cats: c.cats.filter((x) => x.id !== id) });
   return true;
 }
+// ===== カラー・サイズの登録 =====
+export function addColor(name: string, hex: string, code?: string) {
+  const c = loadCatalog();
+  if (c.colors.some((x) => x.name === name)) return false;
+  const cd = (code ?? "").normalize("NFKC").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4) || `C${c.colors.length + 1}`;
+  save({ ...c, colors: [...c.colors, { id: `c-${Date.now().toString(36)}`, name, hex, code: cd }] });
+  return true;
+}
+export function setColorHex(id: string, hex: string) {
+  const c = loadCatalog();
+  save({ ...c, colors: c.colors.map((x) => (x.id === id ? { ...x, hex } : x)) });
+}
+// 使っている商品があるカラー・サイズは消さない
+const usedIn = (c: Catalog, kind: "color" | "size", name: string) =>
+  c.products.some((p) => p.options?.some((o) => o.kind === kind && o.values.includes(name)) || (kind === "color" && p.variants?.some((v) => v.swatch === name)));
+export function deleteColor(id: string) {
+  const c = loadCatalog();
+  const col = c.colors.find((x) => x.id === id);
+  if (!col || usedIn(c, "color", col.name)) return false;
+  save({ ...c, colors: c.colors.filter((x) => x.id !== id) });
+  return true;
+}
+export function addSize(name: string) {
+  const c = loadCatalog();
+  if (c.sizes.some((x) => x.name === name)) return false;
+  save({ ...c, sizes: [...c.sizes, { id: `s-${Date.now().toString(36)}`, name }] });
+  return true;
+}
+export function deleteSize(id: string) {
+  const c = loadCatalog();
+  const sz = c.sizes.find((x) => x.id === id);
+  if (!sz || usedIn(c, "size", sz.name)) return false;
+  save({ ...c, sizes: c.sizes.filter((x) => x.id !== id) });
+  return true;
+}
+// そのSKUの丸に出す色
+export function swatchOf(colors: ColorDef[], p: Product, v: Variant): ColorDef | undefined {
+  const i = (p.options ?? []).findIndex((o) => o.kind === "color");
+  const name = v.swatch ?? (i >= 0 ? v.values[i] : undefined);
+  return colors.find((c) => c.name === name);
+}
+
 export function resetCatalog() {
   save(seedCatalog());
 }
@@ -156,10 +214,10 @@ const SEED_SKU: Record<string, string> = { long: "CR-LW", bifold: "CR-BF", trifo
 export const MAX_OPTIONS = 3;
 // よく使う種類（押すだけで入る。名前も値も自由に変えられる）
 export const OPTION_PRESETS: VOption[] = [
-  { name: "カラー", values: ["ブラック", "ダークブラウン", "キャメル", "ネイビー"] },
-  { name: "サイズ", values: ["S", "M", "L"] },
-  { name: "素材", values: ["牛革", "ヌメ革"] },
-  { name: "金具の色", values: ["ゴールド", "シルバー"] },
+  { name: "カラー", kind: "color", values: [] },
+  { name: "サイズ", kind: "size", values: [] },
+  { name: "素材", kind: "custom", values: ["牛革", "ヌメ革"] },
+  { name: "金具の色", kind: "custom", values: ["ゴールド", "シルバー"] },
 ];
 const CODE: Record<string, string> = {
   ブラック: "BK", ダークブラウン: "DB", ブラウン: "BR", キャメル: "CM", ネイビー: "NV", グレー: "GY", ホワイト: "WH", レッド: "RD", グリーン: "GR", ベージュ: "BE",
@@ -180,9 +238,10 @@ export function buildVariants(options: VOption[], old: Variant[]): Variant[] {
 }
 
 // SKUを自動で作る：基本の品番＋値の記号（例：CR-TT-BK-M）。英数字の値はそのまま、日本語は記号の表か連番
-export function autoSku(base: string, options: VOption[], values: string[]) {
+export function autoSku(base: string, options: VOption[], values: string[], codes: Record<string, string> = {}) {
   const opts = options.filter((o) => o.name.trim() && o.values.length);
   const parts = values.map((v, i) => {
+    if (opts[i]?.kind === "color" && codes[v]) return codes[v]; // 登録したカラーの記号
     if (CODE[v]) return CODE[v];
     const ascii = v.normalize("NFKC").toUpperCase().replace(/[^A-Z0-9]/g, "");
     if (ascii) return ascii.slice(0, 4);

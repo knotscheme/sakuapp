@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Send } from "lucide-react";
 import type { Deal, Msg } from "@/lib/cms";
 import { markRead, sendMsg } from "./store";
@@ -34,7 +34,7 @@ const T = {
 const time = (iso: string) => { const d = new Date(iso); return `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
 
 // 会話の画面。side は自分の側（日本 or 工場）
-export function MsgThread({ d, side, lang, who }: { d: Deal; side: Msg["from"]; lang: Lang; who: string }) {
+export function MsgThread({ d, side, lang, who, listClass = "max-h-[22rem]", compact = false }: { d: Deal; side: Msg["from"]; lang: Lang; who: string; listClass?: string; compact?: boolean }) {
   const t = T[lang];
   const other: Msg["from"] = side === "japan" ? "factory" : "japan";
   const [text, setText] = useState("");
@@ -42,11 +42,14 @@ export function MsgThread({ d, side, lang, who }: { d: Deal; side: Msg["from"]; 
   const [fresh] = useState(() => new Set((d.msgs ?? []).filter((m) => m.from === other && !m.read).map((m) => m.id)));
   useEffect(() => { markRead(d.id, other); }, [d.id, other, d.msgs?.length]);
   const quick = side === "japan" ? JAPAN_QUICK : FACTORY_QUICK;
+  // 新しい連絡が下に来るので、いちばん下まで送る（LINEと同じ）
+  const listRef = useRef<HTMLUListElement>(null);
+  useEffect(() => { const el = listRef.current; if (el) el.scrollTop = el.scrollHeight; }, [d.msgs?.length, d.id]);
   const msgs = d.msgs ?? [];
 
   return (
     <div>
-      <ul className="max-h-[22rem] space-y-2.5 overflow-y-auto pr-1">
+      <ul ref={listRef} className={`${listClass} space-y-2.5 overflow-y-auto pr-1`}>
         {!msgs.length && <li className="text-[12.5px] text-mute">{t.empty}</li>}
         {msgs.map((m) => {
           const mine = m.from === side;
@@ -65,18 +68,19 @@ export function MsgThread({ d, side, lang, who }: { d: Deal; side: Msg["from"]; 
           );
         })}
       </ul>
-      <div className="mt-4 border-t border-line pt-3.5">
-        <p className="text-[11px] text-mute">{t.quick}</p>
-        <div className="mt-2 flex flex-wrap gap-2">
+      <div className={compact ? "mt-2 pt-1" : "mt-4 border-t border-line pt-3.5"}>
+        {!compact && <p className="text-[11px] text-mute">{t.quick}</p>}
+        {/* compact：LINEのように、よく使う文を横にスクロールする1列に */}
+        <div className={compact ? "-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none]" : "mt-2 flex flex-wrap gap-2"}>
           {quick.map((q) => (
-            <button key={q.ja} type="button" onClick={() => sendMsg(d.id, { from: side, who, t: q })} className="rounded-full border border-line px-3.5 py-2.5 text-left text-[12.5px] hover:border-ink">{q[lang]}</button>
+            <button key={q.ja} type="button" onClick={() => sendMsg(d.id, { from: side, who, t: q })} className={`rounded-full border border-line bg-white text-left hover:border-ink ${compact ? "shrink-0 px-3.5 py-2 text-[12.5px] whitespace-nowrap" : "px-3.5 py-2.5 text-[12.5px]"}`}>{q[lang]}</button>
           ))}
         </div>
-        <form className="mt-3 flex gap-2" onSubmit={(e) => { e.preventDefault(); const v = text.trim(); if (!v) return; sendMsg(d.id, { from: side, who, raw: v }); setText(""); }}>
+        <form className={`${compact ? "mt-2" : "mt-3"} flex gap-2`} onSubmit={(e) => { e.preventDefault(); const v = text.trim(); if (!v) return; sendMsg(d.id, { from: side, who, raw: v }); setText(""); }}>
           <input value={text} onChange={(e) => setText(e.target.value)} placeholder={t.ph} maxLength={300} className="min-w-0 flex-1 rounded-lg border border-line px-3 py-2.5 text-[13px] outline-none focus:border-ink" />
           <button type="submit" className="cms-btn flex shrink-0 items-center gap-1.5 bg-ink px-4 py-2.5 text-[12.5px] text-white"><Send size={13} />{t.send}</button>
         </form>
-        <TechNote className="mt-2.5">{t.note}</TechNote>
+        {!compact && <TechNote className="mt-2.5">{t.note}</TechNote>}
       </div>
     </div>
   );

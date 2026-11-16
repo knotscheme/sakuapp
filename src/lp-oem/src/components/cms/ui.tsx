@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
-import { X, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
+import { X, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo, unreadOf, useDeals } from "./store";
@@ -27,6 +27,7 @@ type NavKey = keyof (typeof UI)["ja"]["nav"];
 const NAV: { href: string; label: NavKey; icon: typeof LayoutGrid; perm?: Perm }[] = [
   { href: "/cms/", label: "dash", icon: LayoutGrid, perm: "deals.view" },
   { href: "/cms/deals/", label: "deals", icon: KanbanSquare, perm: "deals.view" },
+  { href: "/cms/messages/", label: "msgs", icon: MessageCircle, perm: "deals.view" },
   { href: "/cms/products/", label: "products", icon: Package, perm: "products.edit" },
   { href: "/cms/analytics/", label: "analytics", icon: BarChart3, perm: "analytics.view" },
   { href: "/cms/factory/", label: "factory", icon: Factory, perm: "factory.use" },
@@ -119,7 +120,7 @@ export function useNavHidden() {
   return useSyncExternalStore((f) => { navSubs.add(f); return () => navSubs.delete(f); }, () => navHiddenNow, () => false);
 }
 
-export function Shell({ title, children, actions, note, bottomPad }: { title: string; children: ReactNode; actions?: ReactNode; note?: ReactNode; bottomPad?: boolean }) {
+export function Shell({ title, children, actions, note, bottomPad, hideTabs }: { title: string; children: ReactNode; actions?: ReactNode; note?: ReactNode; bottomPad?: boolean; hideTabs?: boolean }) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const { can } = useAuth();
@@ -149,12 +150,12 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
   // 工場からの未読の連絡（日本側の人だけ）、工場の人には日本からの未読の返信
   const allDeals = useDeals();
   const badge: Partial<Record<NavKey, number>> = can("deals.view")
-    ? { dash: allDeals.reduce((s, d) => s + unreadOf(d, "factory"), 0) }
+    ? { msgs: allDeals.reduce((s, d) => s + unreadOf(d, "factory"), 0) }
     : { factory: allDeals.reduce((s, d) => s + unreadOf(d, "japan"), 0) };
   const Badge = ({ k, dot }: { k: NavKey; dot?: boolean }) => (badge[k] ?? 0) > 0 ? <span className={dot ? "absolute -top-1 left-1/2 ml-1.5 min-w-4 rounded-full bg-red-600 px-1 text-[9.5px] leading-4 text-white" : "ml-auto rounded-full bg-red-600 px-1.5 text-[10.5px] leading-5 text-white"}>{badge[k]}</span> : null;
   const isOn = (href: string) => (href === "/cms/" ? path === "/cms/" || path === "/cms" : path.startsWith(href.split("?")[0].replace(/\/$/, "")));
   // スマホ下のタブ：よく使う画面を4つまで（残りは「その他」からメニューで）
-  const TAB_ORDER: NavKey[] = ["dash", "deals", "products", "analytics", "factory", "inspect", "members", "manual"];
+  const TAB_ORDER: NavKey[] = ["dash", "deals", "msgs", "products", "analytics", "factory", "inspect", "members", "manual"];
   const tabs = TAB_ORDER.map((k) => items.find((n) => n.label === k)).filter((n): n is (typeof NAV)[number] => !!n).slice(0, 4);
   const nav = (
     <nav className="flex h-full flex-col overflow-y-auto">
@@ -227,6 +228,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
           <p className="mt-10 text-[11px] text-mute">{t.footer}{t.sample && <span className="block">{t.sample}</span>}</p>
         </main>
         {/* スマホ・タブレット：下に浮かぶ小さなメニュー（アイコンだけ。下へスクロールすると隠れる） */}
+        {!hideTabs && (
         <nav aria-label={t.menu} className={`fixed bottom-[calc(0.75rem+env(safe-area-inset-bottom))] left-1/2 z-40 -translate-x-1/2 transition-[translate,opacity] duration-300 lg:hidden ${navHidden ? "pointer-events-none translate-y-[160%] opacity-0" : "translate-y-0 opacity-100"}`}>
           <ul className="flex items-center gap-1 rounded-full border border-black/5 bg-white/80 p-1.5 shadow-[0_6px_24px_rgba(0,0,0,.12)] backdrop-blur-xl backdrop-saturate-150">
             {tabs.map(({ href, label, icon: Icon }) => {
@@ -245,6 +247,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
             </li>
           </ul>
         </nav>
+        )}
       </div>
     </div>
   );

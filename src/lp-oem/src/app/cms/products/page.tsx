@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
-import { MAX_SUB, skuList, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
+import { MAX_SUB, skuList, addColor, addSize, deleteColor, deleteSize, setColorHex, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
 import { Card, CardHead, NoAccess, Shell, TechNote } from "@/components/cms/ui";
-import { VariantsEditor } from "./variants";
+import { Dot, VariantsEditor } from "./variants";
 import { useAuth } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
 
@@ -67,8 +67,9 @@ export default function ProductsAdmin() {
           </ul>
         </Card>
 
+        <div className="space-y-5 self-start">
         {/* カテゴリの管理 */}
-        <Card className="self-start">
+        <Card>
           <CardHead note="並び順・名前は categories テーブルで管理">カテゴリ</CardHead>
           <ul className="divide-y divide-line border-t border-line">
             {cats.map((c) => (
@@ -84,6 +85,9 @@ export default function ProductsAdmin() {
             <button className="cms-btn border border-ink px-3 text-[12.5px]">追加</button>
           </form>
         </Card>
+        <ColorCard />
+        <SizeCard />
+        </div>
       </div>
 
       {edit && <Editor initial={edit} onClose={() => setEdit(null)} />}
@@ -214,5 +218,67 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
         </div>
       </div>
     </div>
+  );
+}
+
+// カラーの登録：名前と色（丸の色）。商品のバリエーションでは、ここから選ぶ
+function ColorCard() {
+  const { colors } = useCatalog();
+  const [name, setName] = useState("");
+  const [hex, setHex] = useState("#8a6a4f");
+  const [code, setCode] = useState("");
+  const [msg, setMsg] = useState("");
+  return (
+    <Card>
+      <CardHead note="colors テーブル。色は製品一覧の丸に、記号（BKなど）はSKUの自動作成に使う">カラー</CardHead>
+      <ul className="divide-y divide-line border-t border-line">
+        {colors.map((c) => (
+          <li key={c.id} className="flex items-center gap-3 px-4 py-2">
+            <label className="relative -m-2 cursor-pointer p-2" title="色を変える">
+              <Dot c={c} size={22} />
+              <input type="color" value={c.hex} onChange={(e) => setColorHex(c.id, e.target.value)} className="absolute inset-0 h-full w-full cursor-pointer opacity-0" aria-label={`${c.name}の色を変える`} />
+            </label>
+            <span className="flex-1 text-[13px]">{c.name}</span>
+            <span className="font-mono text-[11px] text-mute" title="SKUの記号">{c.code}</span>
+            <button type="button" aria-label={`${c.name}を削除`} onClick={() => setMsg(deleteColor(c.id) ? "" : `「${c.name}」は商品で使われているため、削除できません。`)} className="rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
+          </li>
+        ))}
+      </ul>
+      {msg && <p className="border-t border-line bg-[#fdf3f3] px-4 py-2 text-[12px] text-red-700">{msg}</p>}
+      <form className="flex items-center gap-2 border-t border-line p-4" onSubmit={(e) => { e.preventDefault(); const n = name.trim(); if (!n) return; setMsg(addColor(n, hex, code) ? "" : `「${n}」はもう登録されています。`); setName(""); setCode(""); }}>
+        <label className="relative shrink-0 cursor-pointer" title="色を選ぶ">
+          <span className="block h-9 w-9 rounded-full ring-1 ring-black/15" style={{ background: hex }} />
+          <input type="color" value={hex} onChange={(e) => setHex(e.target.value)} className="absolute inset-0 h-full w-full cursor-pointer opacity-0" aria-label="新しいカラーの色" />
+        </label>
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="例：ボルドー" className="min-w-0 flex-1 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink" aria-label="新しいカラーの名前" />
+        <input value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="記号 BD" maxLength={4} className="w-[4.5rem] rounded-lg border border-line px-2 py-1.5 font-mono text-[13px] uppercase outline-none focus:border-ink" aria-label="SKUに入れる記号" />
+        <button className="cms-btn border border-ink px-3 py-1.5 text-[12.5px]">追加</button>
+      </form>
+    </Card>
+  );
+}
+
+// サイズの登録
+function SizeCard() {
+  const { sizes } = useCatalog();
+  const [name, setName] = useState("");
+  const [msg, setMsg] = useState("");
+  return (
+    <Card>
+      <CardHead note="sizes テーブル。商品のバリエーションでは、ここから選ぶ">サイズ</CardHead>
+      <div className="flex flex-wrap gap-2 border-t border-line px-4 py-3.5">
+        {sizes.map((z) => (
+          <span key={z.id} className="flex items-center gap-1 rounded-full border border-line py-1 pr-1 pl-3 text-[12.5px]">
+            {z.name}
+            <button type="button" aria-label={`${z.name}を削除`} onClick={() => setMsg(deleteSize(z.id) ? "" : `「${z.name}」は商品で使われているため、削除できません。`)} className="-my-1 rounded-full p-2.5 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><X size={12} /></button>
+          </span>
+        ))}
+      </div>
+      {msg && <p className="border-t border-line bg-[#fdf3f3] px-4 py-2 text-[12px] text-red-700">{msg}</p>}
+      <form className="flex gap-2 border-t border-line p-4" onSubmit={(e) => { e.preventDefault(); const n = name.trim(); if (!n) return; setMsg(addSize(n) ? "" : `「${n}」はもう登録されています。`); setName(""); }}>
+        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="例：XXL、ミニ" className="min-w-0 flex-1 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink" aria-label="新しいサイズ" />
+        <button className="cms-btn border border-ink px-3 text-[12.5px]">追加</button>
+      </form>
+    </Card>
   );
 }

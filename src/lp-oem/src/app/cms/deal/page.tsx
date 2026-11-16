@@ -133,7 +133,7 @@ export default function DealPage() {
           {(si >= 4 || (d.msgs?.length ?? 0) > 0) && (
             <div id="msgs" className="scroll-mt-20">
               <Card>
-                <CardHead right={<span className="text-[11.5px] text-mute">{FACTORY.replace("（仮）", "")}</span>}>工場との連絡</CardHead>
+                <CardHead right={<Link href={`/cms/messages/?id=${d.id}`} className="tap text-[12px] text-mute underline underline-offset-4 hover:text-ink">連絡の画面で開く</Link>}>工場との連絡</CardHead>
                 <div className="px-5 pb-5">
                   <MsgThread d={d} side="japan" lang="ja" who={me?.name ?? d.owner} />
                   <p className="mt-2 text-[11.5px] text-mute">工場の人には、タイ語で表示されます。</p>

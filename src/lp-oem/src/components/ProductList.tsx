@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowRight, Images, Play } from "lucide-react";
 import { ALL_MODELS, COLORS, MIN_LOT, PLATE_COST, yen } from "@/lib/models";
-import { imgSrc, useCatalog } from "./cms/catalog";
+import { imgSrc, swatchOf, useCatalog, type ColorDef } from "./cms/catalog";
 import NoOrphan from "./NoOrphan";
 import Gallery from "./Gallery";
 import type { Product } from "./cms/catalog";
@@ -15,13 +15,44 @@ const HOME = "/sakuapp/works/lp-oem/";
 function optionRows(m: Product): [string, string][] {
   const opts = m.options ?? [];
   if (!opts.length) return [["革の色", COLORS]];
+  // カラーは丸のカラーピッカーで出す
   const vs = (m.variants ?? []).filter((v) => v.visible);
-  return opts.map((o, i) => [o.name, o.values.filter((val) => vs.some((v) => v.values[i] === val)).join("・")] as [string, string]).filter(([, v]) => v);
+  return opts.map((o, i) => (o.kind === "color" ? ["", ""] : [o.name, o.values.filter((val) => vs.some((v) => v.values[i] === val)).join("・")]) as [string, string]).filter(([, v]) => v);
+}
+
+function colorChoices(m: Product, colors: ColorDef[]) {
+  const i = (m.options ?? []).findIndex((o) => o.kind === "color");
+  if (i < 0) return [];
+  const out: { name: string; c?: ColorDef }[] = [];
+  for (const v of (m.variants ?? []).filter((x) => x.visible)) {
+    const name = v.values[i];
+    if (!out.some((x) => x.name === name)) out.push({ name, c: swatchOf(colors, m, v) });
+  }
+  return out;
+}
+
+// 小さな丸のカラーピッカー（押すと選んだ色の名前が出て、そのまま相談できる）
+function ColorPick({ m, colors, value, onChange }: { m: Product; colors: ColorDef[]; value?: string; onChange: (v?: string) => void }) {
+  const list = colorChoices(m, colors);
+  if (!list.length) return null;
+  const label = m.options?.find((o) => o.kind === "color")?.name ?? "カラー";
+  return (
+    <div className="mt-5">
+      <p className="text-[12px] text-mute">{label}<span className="ml-2 text-ink">{value ?? `${list.length}色`}</span></p>
+      <div className="mt-2.5 flex flex-wrap gap-3" role="radiogroup" aria-label={label}>
+        {list.map((x) => (
+          <button key={x.name} type="button" role="radio" aria-checked={value === x.name} aria-label={x.name} title={x.name} onClick={() => onChange(value === x.name ? undefined : x.name)}
+            className={`h-6 w-6 rounded-full transition ${value === x.name ? "ring-2 ring-ink ring-offset-2" : "ring-1 ring-black/15 hover:ring-black/40"}`} style={{ background: x.c?.hex ?? "#ccc" }} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function ProductList() {
   // 管理画面の「商品管理」で登録・公開した商品を表示する
-  const { cats, products } = useCatalog();
+  const { cats, products, colors } = useCatalog();
+  const [picked, setPicked] = useState<Record<string, string | undefined>>({});
   const shown = products.filter((p) => p.visible);
   const [cat, setCat] = useState("all");
   const list = shown.filter((m) => cat === "all" || m.cat === cat);
@@ -63,6 +94,7 @@ export default function ProductList() {
             <h2 className="mt-1.5 text-[19px] font-medium">{m.short}</h2>
             {m.name !== m.short && <p className="mt-0.5 text-[12px] text-mute">{m.name}</p>}
             <p className="mt-3 text-[13.5px] leading-relaxed text-mute"><NoOrphan text={m.feature} /></p>
+            <ColorPick m={m} colors={colors} value={picked[m.id]} onChange={(v) => setPicked((x) => ({ ...x, [m.id]: v }))} />
             <dl className="mt-5 space-y-1.5 border-t border-line pt-5 text-[12.5px]">
               {[["寸法", m.size], ["ロゴ位置", m.logo], ...optionRows(m), ["最小ロット", `${MIN_LOT}個から`]].filter(([, v]) => v).map(([k, v]) => (
                 <div key={k} className="flex gap-3"><dt className="w-16 shrink-0 text-mute">{k}</dt><dd className="text-ink">{v.split("・").map((t, i, arr) => <span key={t} className="inline-block">{t}{i < arr.length - 1 ? "・" : ""}</span>)}</dd></div>
@@ -70,7 +102,7 @@ export default function ProductList() {
             </dl>
             <p className="mt-5 text-[12px] text-mute">参考単価<span className="ml-2 text-[20px] font-medium text-ink">{yen(m.unitPrice)}〜</span></p>
             <div className="mt-5 flex items-center gap-6">
-              <a href={`${HOME}?model=${m.id}#contact`} className="inline-flex items-center gap-2 bg-ink px-5 py-3 text-[12.5px] tracking-[0.1em] text-white transition hover:bg-gold">
+              <a href={`${HOME}?model=${m.id}${picked[m.id] ? `&color=${encodeURIComponent(picked[m.id]!)}` : ""}#contact`} className="inline-flex items-center gap-2 bg-ink px-5 py-3 text-[12.5px] tracking-[0.1em] text-white transition hover:bg-gold">
                 このモデルで相談 <ArrowRight size={14} />
               </a>
               {inSim(m.id) && <a href={`${HOME}?model=${m.id}#simulator`} className="border-b border-ink/40 pb-0.5 text-[12.5px] text-ink transition hover:border-gold hover:text-gold">利益を計算</a>}

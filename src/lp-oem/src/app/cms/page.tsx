@@ -71,7 +71,7 @@ export default function Dashboard() {
           <ul className="divide-y divide-line border-t border-line">
             {factoryMsgs.slice(0, 3).map(({ d, m }) => (
               <li key={m.id}>
-                <Link href={`/cms/deal/?id=${d.id}#msgs`} className="flex items-start gap-3 px-5 py-3.5 hover:bg-[#fafafa]">
+                <Link href={`/cms/messages/?id=${d.id}`} className="flex items-start gap-3 px-5 py-3.5 hover:bg-[#fafafa]">
                   <MessageSquare size={15} className={`mt-0.5 shrink-0 ${m.read ? "text-mute" : "text-red-600"}`} />
                   <span className="min-w-0 flex-1 text-[13px]">
                     <span className="block truncate"><span className={m.read ? "" : "font-semibold"}>{d.brand}</span><span className="ml-2 text-[11.5px] text-mute">{d.id}</span></span>
