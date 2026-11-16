@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { Download } from "lucide-react";
+import { STAGES, amounts, modelOf } from "@/lib/cms";
+import { useDeals } from "@/components/cms/store";
+import { downloadCsv } from "@/components/cms/csv";
 import { ALL_MODELS } from "@/lib/models";
 import { useAuth } from "@/components/cms/perm";
-import { Card, CardHead, NoAccess, Shell } from "@/components/cms/ui";
+import { Card, CardHead, NoAccess, Shell, TechNote } from "@/components/cms/ui";
 
 // アナリティクス（デモ用の架空の数字。月ごとの数字は毎回同じになるよう計算で作る）
 const wave = (i: number, k: number) => Math.sin(i * 1.7 + k) * 0.5 + 0.5;
@@ -17,7 +21,7 @@ function months(n: number) {
     const orders = Math.round(quotes * (0.42 + wave(i, 3) * 0.14));
     const delivered = Math.max(0, orders - Math.round(wave(i, 4) * 2));
     const sales = orders * Math.round(380000 + wave(i, 5) * 260000);
-    return { label: `${d.getMonth() + 1}月`, inquiries, quotes, orders, delivered, sales, defect: 0.8 + wave(i, 6) * 1.6, onTime: 88 + wave(i, 7) * 10 };
+    return { ym: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`, label: `${d.getMonth() + 1}月`, inquiries, quotes, orders, delivered, sales, defect: 0.8 + wave(i, 6) * 1.6, onTime: 88 + wave(i, 7) * 10 };
   });
 }
 const man = (n: number) => (n >= 10000 ? `${(n / 10000).toLocaleString("ja-JP", { maximumFractionDigits: 0 })}万円` : `${n.toLocaleString()}円`);
@@ -75,6 +79,7 @@ export default function Analytics() {
   const { can } = useAuth();
   const [n, setN] = useState(6);
   const [table, setTable] = useState(false);
+  const deals = useDeals();
   if (!can("analytics.view")) return <Shell title="アナリティクス"><NoAccess /></Shell>;
 
   const m = months(n);
@@ -111,6 +116,7 @@ export default function Analytics() {
     { label: "検品→発送", v: 1.8 },
   ];
 
+  const csvBox = <CsvBox canMoney={showMoney} canCustomer={can("customer.view")} deals={deals} />;
   const range = (
     <div className="flex overflow-hidden rounded-lg border border-line bg-white text-[12.5px]">
       {[3, 6, 12].map((x) => <button key={x} type="button" onClick={() => setN(x)} className={`px-3.5 py-2 ${n === x ? "bg-ink text-white" : "text-mute"}`}>直近{x}か月</button>)}
@@ -146,6 +152,8 @@ export default function Analytics() {
         )}
       </Card>
 
+      {csvBox}
+
       <div className="mt-5 grid gap-5 lg:grid-cols-2">
         <Card>
           <CardHead note="段階ごとに、何件が次に進んだか">問い合わせから納品までの流れ</CardHead>
@@ -178,5 +186,64 @@ export default function Analytics() {
       </div>
       <p className="mt-4 text-[11px] text-mute">※グラフの数字はデモ用の架空のものです。</p>
     </Shell>
+  );
+}
+
+// CSVのダウンロード：種類・期間（開始月〜終了月）・並び順を選ぶ
+function CsvBox({ canMoney, canCustomer, deals }: { canMoney: boolean; canCustomer: boolean; deals: ReturnType<typeof useDeals> }) {
+  const all = months(12);
+  const [kind, setKind] = useState<"monthly" | "deals">("monthly");
+  const [from, setFrom] = useState(all[6].ym);
+  const [to, setTo] = useState(all[11].ym);
+  const [order, setOrder] = useState<"desc" | "asc">("desc");
+  const [lo, hi] = from <= to ? [from, to] : [to, from];
+  const sorter = <T,>(arr: T[], key: (x: T) => string) => [...arr].sort((a, b) => (order === "asc" ? 1 : -1) * (key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0));
+
+  const monthly = sorter(all.filter((x) => x.ym >= lo && x.ym <= hi), (x) => x.ym);
+  const dealRows = sorter(deals.filter((d) => d.createdAt.slice(0, 7) >= lo && d.createdAt.slice(0, 7) <= hi), (d) => d.createdAt);
+  const count = kind === "monthly" ? monthly.length : dealRows.length;
+
+  const download = () => {
+    if (kind === "monthly") {
+      const head = ["月", "問い合わせ", "見積送付", "受注", "納品完了", ...(canMoney ? ["売上（円）"] : []), "成約率（%）", "不良率（%）", "納期どおりの出荷（%）"];
+      downloadCsv(`craft-oem_monthly_${lo}_${hi}.csv`, [head, ...monthly.map((x) => [x.ym, x.inquiries, x.quotes, x.orders, x.delivered, ...(canMoney ? [x.sales] : []), ((x.orders / x.inquiries) * 100).toFixed(1), x.defect.toFixed(1), x.onTime.toFixed(0)])]);
+    } else {
+      const head = ["案件番号", "受付日", "ブランド", ...(canCustomer ? ["担当者", "メール"] : []), "製品", "数量", "ロゴ加工", "革の色", "段階", ...(canMoney ? ["金額（税込・円）"] : []), "担当", "期日"];
+      downloadCsv(`craft-oem_deals_${lo}_${hi}.csv`, [head, ...dealRows.map((d) => [d.id, d.createdAt, d.brand, ...(canCustomer ? [d.person, d.email] : []), modelOf(d.model).name, d.lot, d.finish, d.color, STAGES.find((s) => s.id === d.stage)!.ja, ...(canMoney ? [amounts(d).total] : []), d.owner, d.due])]);
+    }
+  };
+  const sel = "rounded-lg border border-line bg-white px-3 py-2 text-[13px] outline-none focus:border-ink";
+
+  return (
+    <Card className="mt-5">
+      <CardHead note="サーバーで作成し、誰がいつダウンロードしたかを操作履歴に記録。権限のない項目（金額・連絡先）は入らない">CSVでダウンロード</CardHead>
+      <div className="flex flex-wrap items-end gap-3 px-5 pt-1 pb-5 text-[12px]">
+        <label className="flex w-full flex-col gap-1.5 sm:w-auto"><span className="text-mute">種類</span>
+          <select value={kind} onChange={(e) => setKind(e.target.value as "monthly" | "deals")} className={sel}>
+            <option value="monthly">月ごとの集計</option>
+            <option value="deals">案件の一覧</option>
+          </select>
+        </label>
+        <div className="flex w-full items-end gap-2 sm:w-auto">
+          <label className="flex flex-1 flex-col gap-1.5"><span className="text-mute">開始月</span>
+            <select value={from} onChange={(e) => setFrom(e.target.value)} className={sel}>{all.map((x) => <option key={x.ym} value={x.ym}>{x.ym.replace("-", "年")}月</option>)}</select>
+          </label>
+          <span className="pb-2.5 text-mute">〜</span>
+          <label className="flex flex-1 flex-col gap-1.5"><span className="text-mute">終了月</span>
+            <select value={to} onChange={(e) => setTo(e.target.value)} className={sel}>{all.map((x) => <option key={x.ym} value={x.ym}>{x.ym.replace("-", "年")}月</option>)}</select>
+          </label>
+        </div>
+        <label className="flex w-full flex-col gap-1.5 sm:w-auto"><span className="text-mute">並び順</span>
+          <select value={order} onChange={(e) => setOrder(e.target.value as "desc" | "asc")} className={sel}>
+            <option value="desc">新しい順</option>
+            <option value="asc">古い順</option>
+          </select>
+        </label>
+        <button type="button" onClick={download} disabled={!count} className="cms-btn inline-flex w-full items-center justify-center gap-2 bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute sm:w-auto">
+          <Download size={15} /> ダウンロード（{count}行）
+        </button>
+      </div>
+      {!canMoney && <TechNote className="px-5 pb-4">あなたの権限では、金額の列は含まれません</TechNote>}
+    </Card>
   );
 }
