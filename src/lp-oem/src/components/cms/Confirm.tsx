@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AlertTriangle } from "lucide-react";
 import { useUI } from "./i18n";
+import { Ph } from "./Ph";
 
 // 「本当に〜しますか？」の確認ウィンドウ。どこからでも await askConfirm({...}) で呼べる
 type Opts = { title: string; body?: string; ok?: string; cancel?: string; danger?: boolean };
@@ -37,8 +38,8 @@ export function ConfirmHost() {
         <div className="flex items-start gap-3">
           <span className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${req.danger ? "bg-red-50 text-red-600" : "bg-[#f1f1f0] text-ink"}`}><AlertTriangle size={17} /></span>
           <div>
-            <p id="cf-title" className="text-[15px] font-semibold leading-snug">{req.title}</p>
-            {req.body && <p className="mt-1.5 text-[13px] leading-relaxed text-mute">{req.body}</p>}
+            <p id="cf-title" className="text-[15px] font-semibold leading-snug"><Ph>{req.title}</Ph></p>
+            {req.body && <p className="mt-1.5 text-[13px] leading-relaxed text-mute"><Ph tail={4}>{req.body}</Ph></p>}
           </div>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-2">

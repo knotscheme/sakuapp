@@ -59,7 +59,7 @@ export default function Options() {
           <p className="mt-3 text-[17px] font-medium"><span className="inline-block">完全オリジナル設計</span><span className="inline-block">（ODM）も対応</span></p>
           <p className="mt-3 text-[13.5px] leading-loose text-mute">
             ポケット配置の変更や、オリジナルの型作成も可能です（別途、型代・設計費がかかります）。<br className="hidden md:block" />
-            まずは手軽なロゴ入れOEMから始められるお客様が9割です。
+            <NoOrphan text="まずは手軽なロゴ入れOEMから始められるお客様が9割です。" />
           </p>
           <a href="#contact" className="mt-5 inline-block border-b border-ink pb-0.5 text-[13px] transition hover:border-gold hover:text-gold">ODMについて相談する</a>
         </div>

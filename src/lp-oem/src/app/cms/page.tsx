@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph } from "@/components/cms/Ph";
+
 import Link from "next/link";
 import { AlertTriangle, Mail, FileText, Factory as FactoryIcon, Activity } from "lucide-react";
 import { STAGES, amounts, daysLeft, modelOf, stageIndex, yenOf } from "@/lib/cms";
@@ -48,7 +50,7 @@ export default function Dashboard() {
               return (
                 <li key={s.id}>
                   <Link href={`/cms/deals/?stage=${s.id}`} className="flex items-center gap-4 px-5 py-3 text-[13px] hover:bg-[#fafafa]">
-                  <span className="w-32 shrink-0 text-ink/80">{s.ja}</span>
+                  <span className="w-32 shrink-0 text-ink/80"><Ph>{s.ja}</Ph></span>
                   <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-[#f1f1f0]"><span className="absolute inset-y-0 left-0 rounded-full bg-ink" style={{ width: `${(n / Math.max(1, deals.length)) * 100 * 2.5}%`, maxWidth: "100%" }} /></span>
                   <span className="w-8 text-right tabular-nums">{n}</span>
                   <span className="text-mute">›</span>
@@ -86,7 +88,7 @@ export default function Dashboard() {
               <li key={i}>
                 <Link href={`/cms/deal/?id=${l.deal.id}`} className="flex items-start gap-3 px-5 py-3.5 hover:bg-[#fafafa]">
                   <Icon size={15} className="mt-0.5 shrink-0 text-mute" />
-                  <span className="flex-1 text-[13px] leading-relaxed"><b className="font-medium">{l.deal.brand}</b>　{l.text}</span>
+                  <span className="flex-1 text-[13px] leading-relaxed"><b className="font-medium">{l.deal.brand}</b>　<Ph tail={4}>{l.text}</Ph></span>
                   <span className="shrink-0 text-[11px] text-mute">{l.at.slice(5).replace("-", "/")}・{l.who}</span>
                 </Link>
               </li>

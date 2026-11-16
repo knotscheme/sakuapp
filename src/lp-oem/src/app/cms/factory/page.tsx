@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph } from "@/components/cms/Ph";
+
 import Link from "next/link";
 import { useState } from "react";
 import { MessageSquare, Send } from "lucide-react";
@@ -94,7 +96,7 @@ export default function FactoryPage() {
                       ) : (
                         <span className={`mx-auto mb-1.5 flex h-6 w-6 items-center justify-center rounded-full border ${done ? "border-ink bg-ink text-white" : cur ? "border-ink" : "border-line text-mute"}`}>{done ? <Check size={12} /> : i + 1}</span>
                       )}
-                      <span className={done || cur ? "" : "text-mute"}>{lang === "ja" ? p.ja : lang === "th" ? p.th : p.en}</span>
+                      <span className={done || cur ? "" : "text-mute"}><Ph>{lang === "ja" ? p.ja : lang === "th" ? p.th : p.en}</Ph></span>
                       {cur && (
                         <button type="button" onClick={() => finishStep(d.id, i)}
                           className="cms-btn mt-2 block w-full bg-ink py-2.5 text-[11px] text-white">{t.done}</button>

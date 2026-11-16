@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph } from "@/components/cms/Ph";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
@@ -56,7 +58,7 @@ export default function Deals() {
               return (
                 <div key={s.id} className="w-[82vw] shrink-0 rounded-xl bg-[#e8e8e6]/60 p-2.5 sm:w-64">
                   <div className="mb-2.5 flex items-center justify-between px-1.5 pt-1">
-                    <p className="text-[12.5px] font-medium">{s.ja}</p>
+                    <p className="text-[12.5px] font-medium"><Ph>{s.ja}</Ph></p>
                     <span className="text-[11px] text-mute">{items.length}</span>
                   </div>
                   <div className="space-y-2">
@@ -67,7 +69,7 @@ export default function Deals() {
                           <img src={asset(modelOf(d.model).img)} alt="" className="aspect-[4/3] w-12 object-cover" />
                           <div className="min-w-0 flex-1">
                             <p className="truncate text-[13px] font-medium">{d.brand}</p>
-                            <p className="text-[11px] text-mute">{modelOf(d.model).short}・{d.lot}個・{d.finish}</p>
+                            <p className="text-[11px] text-mute"><Ph>{`${modelOf(d.model).short}・${d.lot}個・${d.finish}`}</Ph></p>
                           </div>
                         </div>
                         <div className="mt-2.5 flex items-center justify-between border-t border-line pt-2 text-[11px]">
@@ -96,7 +98,7 @@ export default function Deals() {
                   <td className="px-4 py-3 font-medium"><Link href={`/cms/deal/?id=${d.id}`}>{d.brand}</Link></td>
                   <td className="px-4 py-3">{modelOf(d.model).short}×{d.lot}</td>
                   <td className="px-4 py-3"><StageBadge stage={d.stage} /></td>
-                  <td className="px-4 py-3 tabular-nums">{can("money.view") ? yenOf(amounts(d).total) : "—"}</td>
+                  <td className="px-4 py-3 whitespace-nowrap tabular-nums">{can("money.view") ? yenOf(amounts(d).total) : "—"}</td>
                   <td className="px-4 py-3">{d.owner}</td>
                   <td className="px-4 py-3"><DueBadge due={d.due} stage={d.stage} /></td>
                 </tr>

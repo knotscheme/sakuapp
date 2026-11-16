@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph } from "@/components/cms/Ph";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
@@ -61,7 +63,7 @@ function LangSwitch() {
       <div className="flex overflow-hidden rounded-lg border border-line bg-white/70 text-[11.5px]">
         {LANGS.map((l) => <button key={l.id} type="button" aria-pressed={lang === l.id} onClick={() => setViewLang(me.id, l.id === home ? null : l.id)} className={`flex-1 py-1.5 ${lang === l.id ? "bg-ink text-white" : "text-mute hover:text-ink"}`}>{l.label}</button>)}
       </div>
-      {t.langNote && <p className="mt-1 px-0.5 text-[10px] leading-snug text-mute">{t.langNote}</p>}
+      {t.langNote && <p className="mt-1 px-0.5 text-[10px] leading-snug text-mute"><Ph>{t.langNote}</Ph></p>}
     </div>
   );
 }
@@ -127,7 +129,7 @@ export function Shell({ title, children, actions, note, bottomPad }: { title: st
         <main className={`mx-auto max-w-[1180px] px-5 py-6 md:px-10 md:py-10 ${bottomPad ? "pb-28 md:pb-10" : ""}`}>
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h1 className="text-[22px] font-semibold tracking-[0.02em]">{trTitle(title, lang)}</h1>
+              <h1 className="text-[22px] font-semibold tracking-[0.02em]"><Ph>{trTitle(title, lang)}</Ph></h1>
               {note && <TechNote className="mt-1.5">{note}</TechNote>}
             </div>
             {actions}
@@ -147,7 +149,7 @@ export function TechNote({ children, className = "" }: { children: ReactNode; cl
   return (
     <p className={`flex items-start gap-1.5 text-[11px] leading-relaxed text-[#8a8a86] ${className}`}>
       <Cpu size={12} strokeWidth={1.6} className="mt-[2px] shrink-0" />
-      <span>{t.prod}{children}</span>
+      <span>{t.prod}{typeof children === "string" ? <Ph tail={4}>{children}</Ph> : children}</span>
     </p>
   );
 }
@@ -155,7 +157,7 @@ export function TechNote({ children, className = "" }: { children: ReactNode; cl
 export function StageBadge({ stage }: { stage: StageId }) {
   const i = stageIndex(stage);
   const tone = stage === "done" ? "bg-ink/5 text-mute" : i >= 4 ? "bg-[#eef4ff] text-[#2a4f9e]" : i >= 2 ? "bg-[#fbf3e2] text-[#8a650c]" : "bg-[#f1f1ef] text-ink";
-  return <span className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] whitespace-nowrap ${tone}`}>{STAGES[i].ja}</span>;
+  return <span className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] whitespace-nowrap ${tone}`}><Ph>{STAGES[i].ja}</Ph></span>;
 }
 
 export function DueBadge({ due, stage }: { due: string; stage: StageId }) {
@@ -171,7 +173,7 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
 export function CardHead({ children, right, note }: { children: ReactNode; right?: ReactNode; note?: ReactNode }) {
   return (
     <div className="px-5 pt-5 pb-3">
-      <div className="flex items-center justify-between gap-3"><h2 className="text-[14px] font-semibold">{children}</h2>{right}</div>
+      <div className="flex items-center justify-between gap-3"><h2 className="text-[14px] font-semibold">{typeof children === "string" ? <Ph>{children}</Ph> : children}</h2>{right}</div>
       {note && <TechNote className="mt-1">{note}</TechNote>}
     </div>
   );

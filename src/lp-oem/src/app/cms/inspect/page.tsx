@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph } from "@/components/cms/Ph";
+
 import Link from "next/link";
 import { Camera, Check, Minus, Plus } from "lucide-react";
 import { CHECKS, modelOf } from "@/lib/cms";
@@ -30,7 +32,7 @@ export default function InspectPage() {
                 <img src={asset(m.img)} alt="" className="aspect-[4/3] w-20 object-cover" />
                 <div className="flex-1 text-[13px]">
                   <Link href={`/cms/deal/?id=${d.id}`} className="font-medium underline-offset-4 hover:underline">{d.id}　{d.brand}</Link>
-                  <p className="text-ink/80">{m.short}・{d.lot}個・{d.color}・{d.finish}</p>
+                  <p className="text-ink/80"><Ph>{`${m.short}・${d.lot}個・${d.color}・${d.finish}`}</Ph></p>
                   <p className="text-[11.5px] text-mute">{arrived ? "到着済み・検品中" : `輸送中（${d.tracking}）`}</p>
                 </div>
               </div>
@@ -55,10 +57,10 @@ export default function InspectPage() {
                     </span>
                   </div>
                   <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-3">
-                    <button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "検品", "検品の写真を登録しました"))} className="flex items-center gap-1.5 text-[12px] text-mute hover:text-ink"><Camera size={14} />写真を登録</button>
+                    <button type="button" onClick={() => updateDeal(d.id, (x) => addLog(x, "検品", "検品の写真を登録しました"))} className="flex items-center gap-1.5 text-[12px] whitespace-nowrap text-mute hover:text-ink"><Camera size={14} />写真を登録</button>
                     <TechNote className="hidden sm:flex">スマホのカメラで撮影→Storage</TechNote>
                     <button type="button" disabled={!all} onClick={async () => { if (!(await askConfirm({ title: "検品OKにして発送しますか？", body: `良品${d.lot - d.defects}個・不良${d.defects}個。検品報告書と納品書が作られ、お客様に発送のお知らせが届きます。`, ok: "発送する" }))) return; updateDeal(d.id, (x) => addLog(x, "検品", `検品が完了しました（良品${x.lot - x.defects}・不良${x.defects}）`)); advance(d.id, "検品"); }}
-                      className="cms-btn bg-ink px-4 py-2 text-[12.5px] text-white disabled:bg-line disabled:text-mute">検品OK・発送する</button>
+                      className="cms-btn bg-ink px-4 py-2 text-[12.5px] whitespace-nowrap text-white disabled:bg-line disabled:text-mute">検品OK・発送する</button>
                   </div>
                 </>
               ) : (

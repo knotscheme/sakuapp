@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph } from "@/components/cms/Ph";
+
 import Link from "next/link";
 import { Check, FileText } from "lucide-react";
 import { DOCS, STAGES, amounts, modelOf, stageIndex, yenOf } from "@/lib/cms";
@@ -36,7 +38,7 @@ export default function Portal() {
       <main className="mx-auto max-w-3xl px-6 py-10">
         <p className="text-[12px] text-mute">ご注文番号 {d.id}</p>
         <TechNote className="mt-1">お客様にはログイン不要の専用リンク（期限つき）をメールで送付。自分の案件だけ見える</TechNote>
-        <h1 className="mt-1 text-[24px] font-medium tracking-[0.04em]">{STAGES[si].id === "done" ? "お届けが完了しました" : `ただいま「${SIMPLE[si]}」の段階です`}</h1>
+        <h1 className="mt-1 text-[24px] font-medium tracking-[0.04em]"><Ph>{STAGES[si].id === "done" ? "お届けが完了しました" : `ただいま「${SIMPLE[si]}」の段階です`}</Ph></h1>
 
         <ol className="mt-8 grid grid-cols-9 gap-1">
           {SIMPLE.map((s, i) => (
@@ -70,7 +72,7 @@ export default function Portal() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={asset(m.img)} alt="" className="aspect-[4/3] w-full object-cover" />
           <dl className="grid grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
-            <dt className="text-mute">製品</dt><dd>{m.name}</dd>
+            <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
             <dt className="text-mute">数量</dt><dd>{d.lot}個</dd>
             <dt className="text-mute">仕様</dt><dd>{d.color}・ロゴ{d.finish}</dd>
             <dt className="text-mute">合計</dt><dd>{yenOf(a.total)}（税込）</dd>
@@ -92,7 +94,7 @@ export default function Portal() {
           <p className="text-[13.5px] font-medium">これまでの流れ</p>
           <ul className="mt-3 space-y-2">
             {d.logs.filter((l) => l.kind !== "factory" || l.text.includes("出荷")).slice(0, 8).map((l, i) => (
-              <li key={i} className="flex gap-3 text-[12.5px]"><Check size={14} className="mt-0.5 shrink-0 text-mute" /><span className="flex-1">{l.text}</span><span className="text-mute">{l.at.slice(5).replace("-", "/")}</span></li>
+              <li key={i} className="flex gap-3 text-[12.5px]"><Check size={14} className="mt-0.5 shrink-0 text-mute" /><span className="flex-1"><Ph tail={4}>{l.text}</Ph></span><span className="text-mute">{l.at.slice(5).replace("-", "/")}</span></li>
             ))}
           </ul>
         </section>

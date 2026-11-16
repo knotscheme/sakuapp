@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph } from "@/components/cms/Ph";
+
 import { useState } from "react";
 import { Check, ChevronRight, Lock, Minus, Plus, SlidersHorizontal, Trash2, UserPlus, X } from "lucide-react";
 import { PERMS, addMemberWithLang, addRole, setMemberLang, clearMemberOverrides, cycleMemberPerm, deleteRole, effective, removeMember, setMemberRole, togglePerm, useAuth, usePermState, type Member } from "@/components/cms/perm";
@@ -135,7 +137,7 @@ export default function Members() {
           <CardHead note="権限の変更はすべて記録（audit_logs テーブル）">権限の変更履歴</CardHead>
           <ul className="divide-y divide-line border-t border-line">
             {logs.map((l, i) => (
-              <li key={i} className="flex items-start gap-3 px-5 py-3 text-[12.5px]"><ChevronRight size={14} className="mt-0.5 shrink-0 text-mute" /><span className="flex-1">{l.text}</span><span className="shrink-0 text-[11px] text-mute">{l.at}・{l.by}</span></li>
+              <li key={i} className="flex items-start gap-3 px-5 py-3 text-[12.5px]"><ChevronRight size={14} className="mt-0.5 shrink-0 text-mute" /><span className="flex-1"><Ph tail={4}>{l.text}</Ph></span><span className="shrink-0 text-[11px] text-mute">{l.at}・{l.by}</span></li>
             ))}
             {!logs.length && <li className="px-5 py-5 text-[12.5px] text-mute">まだ変更はありません。</li>}
           </ul>

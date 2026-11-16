@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph } from "@/components/cms/Ph";
+
 import Link from "next/link";
 import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIcon, Activity } from "lucide-react";
 import { useState } from "react";
@@ -52,7 +54,7 @@ export default function DealPage() {
           {STAGES.map((s, i) => (
             <li key={s.id} className={`flex flex-1 items-center gap-2 rounded-lg px-3 py-2.5 text-[11.5px] ${i === si ? "bg-ink text-white" : i < si ? "text-ink" : "text-mute"}`}>
               <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${i < si ? "border-ink bg-ink text-white" : i === si ? "border-white" : "border-line"}`}>{i < si && <Check size={10} />}</span>
-              {s.ja}
+              <span><Ph>{s.ja}</Ph></span>
             </li>
           ))}
         </ol>
@@ -94,11 +96,11 @@ export default function DealPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={asset(m.img)} alt="" className="aspect-[4/3] w-28 shrink-0 object-cover sm:w-36" />
               <dl className="grid flex-1 grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
-                <dt className="text-mute">製品</dt><dd>{m.name}</dd>
+                <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
                 <dt className="text-mute">数量</dt><dd>{d.lot}個</dd>
                 <dt className="text-mute">ロゴ加工</dt><dd>{d.finish}</dd>
                 <dt className="text-mute">革の色</dt><dd>{d.color}</dd>
-                <dt className="text-mute">ロゴ位置</dt><dd>{m.logo}</dd>
+                <dt className="text-mute">ロゴ位置</dt><dd><Ph>{m.logo}</Ph></dd>
               </dl>
             </div>
             {can("money.view") ? (<>
@@ -112,7 +114,7 @@ export default function DealPage() {
             </table>
             <div className="grid grid-cols-3 border-t border-line text-[12px]">
               <div className="px-5 py-3"><p className="text-mute">工場の原価（1個）</p><p className="mt-0.5 tabular-nums">{d.thbCost}バーツ（約{yenOf(cost)}）</p></div>
-              <div className="border-l border-line px-5 py-3"><p className="text-mute">粗利（製品分）</p><p className="mt-0.5 tabular-nums">{yenOf(profit)}</p></div>
+              <div className="border-l border-line px-5 py-3"><p className="text-mute"><Ph>粗利（製品分）</Ph></p><p className="mt-0.5 tabular-nums">{yenOf(profit)}</p></div>
               <div className="border-l border-line px-5 py-3"><p className="text-mute">粗利率</p><p className="mt-0.5 tabular-nums">{((profit / a.items) * 100).toFixed(1)}%</p></div>
             </div>
             </>) : <p className="border-t border-line px-5 py-4 text-[12.5px] text-mute">金額・原価を見る権限がありません。</p>}
@@ -128,7 +130,7 @@ export default function DealPage() {
                   return (
                     <li key={p.ja} className={`bg-white px-3 py-3 text-center text-[12px] ${done ? "text-ink" : "text-mute"}`}>
                       <span className={`mx-auto mb-1.5 flex h-6 w-6 items-center justify-center rounded-full border ${done ? "border-ink bg-ink text-white" : "border-line"}`}>{done ? <Check size={12} /> : i + 1}</span>
-                      {p.ja}
+                      <Ph>{p.ja}</Ph>
                     </li>
                   );
                 })}
@@ -150,7 +152,7 @@ export default function DealPage() {
                 return (
                   <li key={i} className="flex items-start gap-3 px-5 py-3">
                     <Icon size={15} className="mt-0.5 shrink-0 text-mute" />
-                    <span className="flex-1 text-[13px] leading-relaxed">{l.text}</span>
+                    <span className="flex-1 text-[13px] leading-relaxed"><Ph tail={4}>{l.text}</Ph></span>
                     <span className="shrink-0 text-[11px] text-mute">{l.at.slice(5).replace("-", "/")}・{l.who}</span>
                   </li>
                 );

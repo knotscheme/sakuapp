@@ -1,5 +1,7 @@
 "use client";
 
+import { Ph, PhNodes } from "@/components/cms/Ph";
+
 import Link from "next/link";
 import { ArrowRight, BookOpen, ChevronDown, Lightbulb } from "lucide-react";
 import { useState, type ReactNode } from "react";
@@ -17,16 +19,16 @@ const Steps = ({ items }: { items: ReactNode[] }) => (
     {items.map((t, i) => (
       <li key={i} className="flex gap-3 text-[13.5px] leading-relaxed">
         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink text-[11.5px] text-white">{i + 1}</span>
-        <span className="pt-0.5">{t}</span>
+        <span className="pt-0.5">{typeof t === "string" ? <Ph tail={4}>{t}</Ph> : t}</span>
       </li>
     ))}
   </ol>
 );
 const Tip = ({ children }: { children: ReactNode }) => (
-  <p className="mt-4 flex gap-2.5 rounded-lg bg-[#fbf7ee] px-4 py-3 text-[12.5px] leading-relaxed text-ink/85"><Lightbulb size={15} className="mt-0.5 shrink-0 text-gold" /><span>{children}</span></p>
+  <p className="mt-4 flex gap-2.5 rounded-lg bg-[#fbf7ee] px-4 py-3 text-[12.5px] leading-relaxed text-ink/85"><Lightbulb size={15} className="mt-0.5 shrink-0 text-gold" /><span>{typeof children === "string" ? <Ph tail={4}>{children}</Ph> : children}</span></p>
 );
-const P = ({ children }: { children: ReactNode }) => <p className="text-[13.5px] leading-[1.9] text-ink/85">{children}</p>;
-const B = ({ children }: { children: ReactNode }) => <b className="font-semibold text-ink">{children}</b>;
+const P = ({ children, className = "" }: { children: ReactNode; className?: string }) => <p className={`text-[13.5px] leading-[1.9] text-ink/85 ${className}`}><PhNodes>{children}</PhNodes></p>;
+const B = ({ children }: { children: ReactNode }) => <b className="font-semibold text-ink"><PhNodes>{children}</PhNodes></b>;
 
 const CHAPTERS: Chapter[] = [
   {
@@ -48,7 +50,7 @@ const CHAPTERS: Chapter[] = [
           {STAGES.map((s, i) => (
             <li key={s.id} className="rounded-lg border border-line px-3.5 py-3">
               <p className="text-[11px] text-mute">STEP {i + 1}</p>
-              <p className="text-[13.5px] font-semibold">{s.ja}</p>
+              <p className="text-[13.5px] font-semibold"><Ph>{s.ja}</Ph></p>
               {s.next && <p className="mt-1 text-[11.5px] leading-relaxed text-mute">次：{s.next}</p>}
             </li>
           ))}
@@ -82,7 +84,7 @@ const CHAPTERS: Chapter[] = [
         <P>案件の画面の上に<B>「次にやること」</B>が出ています。内容を確認して「実行する」を押すだけで進みます。</P>
         <Steps items={["「次にやること」を読む（例：見積を作成して送る）", "注文内容・金額に間違いがないか確認する", "「実行する」を押し、確認の画面で「実行する」をもう一度押す", "書類が自動で作られ、お客様にメールが届く（下の履歴に残る）"]} />
         <Tip>間違えて進めたときは、「1つ前に戻す」で戻せます。ただし、すでに送ったメールは取り消されないので、必要ならお客様に一言連絡してください。</Tip>
-        <P><span className="mt-3 block">電話などで話した内容は、「やり取りの履歴」のメモ欄に残しておくと、ほかの人にも伝わります。</span></P>
+        <P className="mt-3">電話などで話した内容は、「やり取りの履歴」のメモ欄に残しておくと、ほかの人にも伝わります。</P>
       </>
     ),
   },
@@ -111,7 +113,7 @@ const CHAPTERS: Chapter[] = [
       <>
         <P>タイの工場の方が使う画面です。工場の方がログインすると、<B>メニューやマニュアルも含めて最初からタイ語</B>で表示されます。お客様の名前や販売価格は表示されません。</P>
         <Steps items={["「製造指示書」を開いて、作る内容を確認する", "工程（裁断→縫製→箔押し→仕上げ・梱包）が終わるたびに「完了にする」を押す", "写真を登録する", "4つの工程が終わったら「日本へ出荷」を押す"]} />
-        <P><span className="mt-3 block">工場からの連絡（「日本への連絡」）は、案件の履歴に<B>日本語で</B>届きます。オーナーが工場の人と同じ画面を見たいときは、右上かメニューの「表示する言語」で切り替えます。</span></P>
+        <P className="mt-3">工場からの連絡（「日本への連絡」）は、案件の履歴に<B>日本語で</B>届きます。オーナーが工場の人と同じ画面を見たいときは、右上かメニューの「表示する言語」で切り替えます。</P>
         <Tip>間違えて完了にしたときは、最後に完了したチェックマークを押すと取り消せます（出荷前のみ）。</Tip>
       </>
     ),
@@ -214,7 +216,7 @@ export default function Manual() {
             <Card key={c.id} className="scroll-mt-20" >
               <section id={c.id} className="scroll-mt-20 px-6 py-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="text-[17px] font-semibold"><span className="mr-2 text-[12px] font-normal text-mute">{String(i + 1).padStart(2, "0")}</span>{c.title}</h2>
+                  <h2 className="text-[17px] font-semibold"><span className="mr-2 text-[12px] font-normal text-mute">{String(i + 1).padStart(2, "0")}</span><Ph>{c.title}</Ph></h2>
                   <span className="rounded-full bg-[#f1f1f0] px-2.5 py-0.5 text-[11px] text-mute">対象：{c.who}</span>
                 </div>
                 <div className="mt-3 space-y-2">{c.body}</div>
@@ -232,9 +234,9 @@ export default function Manual() {
                 {FAQ.map((f, i) => (
                   <div key={f.q}>
                     <button type="button" onClick={() => setOpen(open === i ? null : i)} aria-expanded={open === i} className="flex w-full items-center gap-3 py-4 text-left text-[13.5px] font-medium">
-                      <span className="flex-1">{f.q}</span><ChevronDown size={16} className={`shrink-0 text-mute transition ${open === i ? "rotate-180" : ""}`} />
+                      <span className="flex-1"><Ph>{f.q}</Ph></span><ChevronDown size={16} className={`shrink-0 text-mute transition ${open === i ? "rotate-180" : ""}`} />
                     </button>
-                    {open === i && <p className="pb-4 text-[13px] leading-[1.9] text-ink/80">{f.a}</p>}
+                    {open === i && <p className="pb-4 text-[13px] leading-[1.9] text-ink/80"><Ph tail={4}>{f.a}</Ph></p>}
                   </div>
                 ))}
               </div>
@@ -246,7 +248,7 @@ export default function Manual() {
               <h2 className="text-[17px] font-semibold">言葉の説明</h2>
               <dl className="mt-3 divide-y divide-line border-y border-line text-[13px]">
                 {WORDS.map(([k, v]) => (
-                  <div key={k} className="flex gap-4 py-3"><dt className="w-16 shrink-0 font-semibold">{k}</dt><dd className="leading-relaxed text-ink/80">{v}</dd></div>
+                  <div key={k} className="flex gap-4 py-3"><dt className="w-16 shrink-0 font-semibold">{k}</dt><dd className="leading-relaxed text-ink/80"><Ph tail={4}>{v}</Ph></dd></div>
                 ))}
               </dl>
             </section>
