@@ -4,7 +4,7 @@
 import { useSyncExternalStore } from "react";
 import { DOCS, RATE, STAGES, seedDeals, stageIndex, today, unitPriceOf, type Deal, type Log, type StageId } from "@/lib/cms";
 
-const KEY = "craft-oem-cms-v1";
+const KEY = "craft-oem-cms-v2";
 let cache: Deal[] | null = null;
 const subs = new Set<() => void>();
 
@@ -41,7 +41,7 @@ export function addLog(d: Deal, who: string, text: string, kind?: Log["kind"]): 
 }
 
 // 次の段階へ進める（書類の作成・メール送信は、ここで自動で起きる想定）
-export function advance(id: string, who = "白川") {
+export function advance(id: string, who = "佐藤") {
   updateDeal(id, (d) => {
     const i = stageIndex(d.stage);
     if (i >= STAGES.length - 1) return d;
@@ -69,7 +69,7 @@ export function advance(id: string, who = "白川") {
 }
 
 // 1つ前の段階に戻す（押し間違いの取り消し用）
-export function revert(id: string, who = "白川") {
+export function revert(id: string, who = "佐藤") {
   updateDeal(id, (d) => {
     const i = stageIndex(d.stage);
     if (i <= 0) return d;
@@ -86,7 +86,7 @@ export function addInquiry(p: { brand: string; email: string; model: Deal["model
   const n = Math.max(1023, ...list.map((d) => Number(d.id.slice(2)))) + 1;
   const deal: Deal = {
     id: `C-${n}`, brand: p.brand, person: p.brand, email: p.email, model: p.model, lot: p.lot,
-    finish: "金箔", color: "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "白川",
+    finish: "金箔", color: "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
     createdAt: today(), due: today(), prodStep: 0, defects: 0, checks: [false, false, false, false, false, false],
     thbCost: Math.round(unitPriceOf(p.model, p.lot) / RATE / 1.6),
     message: p.message, logs: [{ at: today(), who: "システム", text: "LPのフォームから問い合わせが届きました", kind: "system" }],

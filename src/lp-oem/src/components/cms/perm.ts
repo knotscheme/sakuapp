@@ -32,9 +32,9 @@ export function seedPerm(): State {
       { id: "viewer", name: "閲覧のみ", desc: "見るだけ（経理・外部の確認用）", perms: ["deals.view", "money.view", "analytics.view"] },
     ],
     members: [
-      { id: "u1", name: "白川", email: "owner@craft.example", role: "owner" },
-      { id: "u2", name: "佐藤", email: "sato@craft.example", role: "sales" },
-      { id: "u3", name: "田中", email: "tanaka@craft.example", role: "sales" },
+      { id: "u1", name: "佐藤", email: "owner@craft.example", role: "owner" },
+      { id: "u2", name: "田中", email: "tanaka@craft.example", role: "sales" },
+      { id: "u3", name: "小川", email: "ogawa@craft.example", role: "sales" },
       { id: "u4", name: "Somchai", email: "factory@bkk-leather.example", role: "factory" },
       { id: "u5", name: "鈴木", email: "qc@craft.example", role: "inspector" },
       { id: "u6", name: "山本（経理）", email: "account@craft.example", role: "viewer" },
@@ -43,7 +43,7 @@ export function seedPerm(): State {
   };
 }
 
-const KEY = "craft-oem-perm-v1";
+const KEY = "craft-oem-perm-v2";
 let cache: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {

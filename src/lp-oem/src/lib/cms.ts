@@ -62,7 +62,7 @@ export type Deal = {
   logs: Log[];
 };
 
-export const OWNERS = ["白川", "佐藤", "田中"];
+export const OWNERS = ["佐藤", "田中", "小川"];
 export const FACTORY = "Bangkok Leather Factory（仮）";
 export const RATE = 4.3; // 1バーツ＝4.3円（仮）
 
@@ -101,13 +101,13 @@ const SEEDS: Seed[] = [
 function seedLogs(stage: StageId, brand: string): Log[] {
   const out: Log[] = [{ at: d(-20), who: "システム", text: `LPのフォームから問い合わせが届きました（${brand}）`, kind: "system" }];
   const i = stageIndex(stage);
-  if (i >= 1) out.push({ at: d(-18), who: "白川", text: "見積書を作成し、お客様にメールで送りました", kind: "mail" });
+  if (i >= 1) out.push({ at: d(-18), who: "佐藤", text: "見積書を作成し、お客様にメールで送りました", kind: "mail" });
   if (i >= 2) out.push({ at: d(-15), who: "お客様", text: "見積を承諾しました。発注依頼書と前金の請求書を作成しました", kind: "doc" });
-  if (i >= 3) out.push({ at: d(-13), who: "白川", text: "ロゴ配置イメージを送りました", kind: "mail" });
+  if (i >= 3) out.push({ at: d(-13), who: "佐藤", text: "ロゴ配置イメージを送りました", kind: "mail" });
   if (i >= 4) out.push({ at: d(-11), who: "お客様", text: "ロゴ配置を承認しました。製造指示書を工場へ送りました", kind: "factory" });
   if (i >= 5) out.push({ at: d(-4), who: "工場", text: "出荷しました（タイ→日本）", kind: "factory" });
   if (i >= 6) out.push({ at: d(-1), who: "検品", text: "日本に到着しました。検品を始めます", kind: "system" });
-  if (i >= 8) out.push({ at: d(-12), who: "佐藤", text: "受け取りを確認し、完了にしました", kind: "system" });
+  if (i >= 8) out.push({ at: d(-12), who: "田中", text: "受け取りを確認し、完了にしました", kind: "system" });
   return out.reverse();
 }
 
