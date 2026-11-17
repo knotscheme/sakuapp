@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Bot, Check, ChevronRight, Copy, FileSpreadsheet, Plug, Rss, Search, X } from "lucide-react";
+import { ArrowRight, Bot, CalendarClock, Check, ChevronRight, Copy, FileSpreadsheet, KeyRound, Mail, Megaphone, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, SearchX, ShieldCheck, Smartphone, TrendingUp, X } from "lucide-react";
 import J from "@/components/J";
 import { Laptop, Phone } from "@/components/Devices";
 import { SAMPLE_URL } from "@/lib/check";
@@ -328,6 +328,138 @@ const WAYS: { m: Method | "feed"; icon: typeof Plug; t: string; d: string }[] = 
   { m: "feed", icon: Rss, t: "商品フィード", d: "サイトの外から、AIに商品を届ける" },
 ];
 
+// ---------- 足した場面：悩み・1週間の流れ・安心・料金・はじめ方・よくある質問 ----------
+function Pain() {
+  const items = [
+    { icon: Megaphone, t: "広告費は、上がりつづける", d: "同じ売上のために、毎年かかるお金が増えていく。" },
+    { icon: Smartphone, t: "SNSは、続けるのが大変", d: "毎日の投稿に時間を取られて、本業が進まない。" },
+    { icon: SearchX, t: "検索の順位も、見られなくなる", d: "お客様は検索より先に、AIに聞きはじめている。" },
+  ];
+  return (
+    <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">集客の入口が、</span><span className="inline-block">変わりはじめている。</span></h2></Reveal>
+      <div className="mx-auto mt-14 grid max-w-[60rem] gap-4 sm:mt-16 md:grid-cols-3">
+        {items.map(({ icon: Icon, t, d }, i) => (
+          <Reveal key={t} delay={i * 100} className="h-full"><div className="h-full rounded-[28px] bg-white p-8"><Icon size={28} strokeWidth={1.6} className="text-[#86868b]" /><b className="mt-6 block text-[1.15rem] leading-[1.6]"><J>{t}</J></b><p className="mt-2 text-[0.95rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></p></div></Reveal>
+        ))}
+      </div>
+      <Reveal className="mt-14 text-center"><p className="lp-h text-[1.5rem] sm:text-[2.2rem]">次の入口は、<span className="text-[#00a37a]">AI</span>です。</p></Reveal>
+    </section>
+  );
+}
+
+function Week() {
+  const items = [
+    { icon: CalendarClock, k: "月曜", t: "自動で測る", d: "TSURETEが4つのAIに質問。お店の作業はありません。" },
+    { icon: Mail, k: "火曜", t: "やることが届く", d: "結果と「今週やること」をメールでお知らせ。" },
+    { icon: MousePointerClick, k: "5分", t: "読んで、押すだけ", d: "書き直し案を読んで「この案を使う」を押す。" },
+    { icon: TrendingUp, k: "翌週", t: "効果がわかる", d: "すすめられた回数と、AI経由の売上で確かめる。" },
+  ];
+  return (
+    <section className="px-5 py-24 sm:py-36">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">お店の1週間は、こう変わる。</h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>やることは、週に一度の5分だけ。</J></p></Reveal>
+      <ol className="relative mx-auto mt-14 grid max-w-[64rem] gap-8 sm:mt-20 md:grid-cols-4 md:gap-6">
+        <i className="absolute left-[1.35rem] top-2 hidden h-[calc(100%-1rem)] w-px bg-[#d2d2d7] max-md:block" aria-hidden />
+        <i className="absolute left-[12%] right-[12%] top-[1.4rem] hidden h-px bg-[#d2d2d7] md:block" aria-hidden />
+        {items.map(({ icon: Icon, k, t, d }, i) => (
+          <Reveal key={k} delay={i * 120}>
+            <li className="relative flex gap-5 md:flex-col md:items-center md:text-center">
+              <span className={`relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-full ${i === 2 ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-[#d2d2d7]"}`}><Icon size={19} /></span>
+              <span className="min-w-0 md:mt-5"><span className={`block text-[0.85rem] font-semibold ${i === 2 ? "text-[#00a37a]" : "text-[#86868b]"}`}>{k}</span><b className="mt-1 block text-[1.1rem]">{t}</b><span className="mt-1.5 block text-[0.9rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></span></span>
+            </li>
+          </Reveal>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+function Safety() {
+  const items = [
+    { icon: ShieldCheck, t: "勝手に書きかえない", d: "サイトが変わるのは、お店の人が「この案を使う」を押したものだけ。" },
+    { icon: RotateCcw, t: "いつでも、元に戻せる", d: "書きかえる前の文章を残しておくので、ひと押しで戻せます。" },
+    { icon: PenLine, t: "分からない事実は、作らない", d: "成分や使える期間など、ページにないことは【】で空けてお店に確かめます。" },
+    { icon: KeyRound, t: "パスワードは預からない", d: "ShopifyやBASEなど、各サイトの公式のつなぎ方だけを使います。" },
+  ];
+  return (
+    <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">お店の大事なページだから。</h2></Reveal>
+      <div className="mx-auto mt-14 grid max-w-[60rem] gap-4 sm:mt-16 sm:grid-cols-2">
+        {items.map(({ icon: Icon, t, d }, i) => (
+          <Reveal key={t} delay={i * 90} className="h-full"><div className="flex h-full gap-5 rounded-[28px] bg-white p-7 sm:p-8"><Icon size={26} strokeWidth={1.7} className="mt-0.5 shrink-0 text-[#00a37a]" /><span className="min-w-0"><b className="block text-[1.1rem]">{t}</b><span className="mt-1.5 block text-[0.92rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></span></span></div></Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const PLANS = [
+  { n: "フリー", p: "0", u: "円", d: "まず試したい", f: ["1商品の無料診断", "AIに選ばれるために足りないところ", "書き直し案のひな形"] },
+  { n: "スタンダード", p: "2,980", u: "円／月", d: "はじめての店に", f: ["50商品まで", "毎週の自動測定", "AIが書き直し案を作る", "CSV・コピーで届ける"], hi: true },
+  { n: "プロ", p: "9,800", u: "円／月", d: "商品が多い店に", f: ["500商品まで", "よくすすめられている店との比較", "Shopifyなどへ自動で書きかえ", "AI経由の売上を計測"] },
+];
+function Pricing() {
+  return (
+    <section id="price" className="scroll-mt-12 px-5 py-24 sm:py-36">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">料金</h2><p className="mt-4 text-[0.9rem] text-[#6e6e73]"><J>※デモ用の仮の料金です。実際の料金は決まっていません。</J></p></Reveal>
+      <div className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-3">
+        {PLANS.map((x, i) => (
+          <Reveal key={x.n} delay={i * 100} className="h-full">
+            <div className={`flex h-full flex-col rounded-[28px] p-8 ${x.hi ? "bg-[#1d1d1f] text-white" : "bg-[#f5f5f7]"}`}>
+              <p className="flex items-center justify-between"><b className="text-[1.15rem]">{x.n}</b>{x.hi && <span className="rounded-full bg-[#2fd9a6] px-2.5 py-0.5 text-[0.72rem] font-semibold text-[#03140f]">おすすめ</span>}</p>
+              <p className={`mt-1 text-[0.88rem] ${x.hi ? "text-white/60" : "text-[#6e6e73]"}`}>{x.d}</p>
+              <p className="mt-6"><b className="num text-[2.6rem] leading-none">{x.p}</b><span className={`ml-1 text-[0.9rem] ${x.hi ? "text-white/70" : "text-[#6e6e73]"}`}>{x.u}</span></p>
+              <ul className="mt-7 flex-1 space-y-3 text-[0.92rem]">{x.f.map((t) => <li key={t} className="flex gap-2.5"><Check size={17} className={`mt-0.5 shrink-0 ${x.hi ? "text-[#2fd9a6]" : "text-[#00a37a]"}`} /><span className="min-w-0"><J>{t}</J></span></li>)}</ul>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Start() {
+  const steps = [
+    { t: "URLを入れる", d: "まずは1商品、無料で診断。登録はいりません。" },
+    { t: "お店のサイトを選ぶ", d: "Shopify・楽天・BASEなど。サイトに合った届け方になります。" },
+    { t: "毎週、届くのを待つ", d: "あとはTSURETEが自動で測って、やることを届けます。" },
+  ];
+  return (
+    <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">はじめ方は、3つだけ。</h2></Reveal>
+      <ol className="mx-auto mt-14 grid max-w-[60rem] gap-10 sm:mt-16 md:grid-cols-3 md:gap-8">
+        {steps.map((x, i) => (
+          <Reveal key={x.t} delay={i * 110}><li className="border-t border-[#d2d2d7] pt-6"><span className="num text-[2.4rem] font-bold leading-none text-[#00a37a]">{i + 1}</span><b className="mt-4 block text-[1.2rem]">{x.t}</b><span className="mt-2 block text-[0.95rem] leading-[1.8] text-[#6e6e73]"><J>{x.d}</J></span></li></Reveal>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+const FAQ = [
+  { q: "必ずAIにすすめられるようになりますか？", a: "いいえ、保証はできません。AIの答えは、AIを作っている会社のしくみで決まります。TSURETEは、すすめられた回数をはかり、すすめられやすくするための材料をそろえます。" },
+  { q: "どのAIで測りますか？", a: "ChatGPT・Gemini・Claude・Perplexityの4つで測る予定です。お客様がよく使うAIが変われば、測るAIも見直します。" },
+  { q: "お店の作業は、どれくらいですか？", a: "AIに質問して記録するのは、すべて自動です。お店の人は、毎週届く「やること」を読んで、使う案のボタンを押すだけです。目安は週に5分ほどです。" },
+  { q: "サイトの文章が、勝手に変わることはありますか？", a: "ありません。サイトが変わるのは、お店の人が「この案を使う」を押したものだけです。書きかえる前の文章は残しておくので、いつでも戻せます。" },
+  { q: "化粧品以外でも使えますか？", a: "使えます。食品・雑貨・アパレル・ハンドメイドなど、お客様が比べて選ぶ商品に向いています。" },
+  { q: "解約はいつでもできますか？", a: "いつでもできるようにする予定です。料金や契約の決まりは、正式に決まりしだいお知らせします。" },
+];
+function Faq() {
+  return (
+    <section id="faq" className="scroll-mt-12 px-5 py-24 sm:py-36">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">よくある質問</h2></Reveal>
+      <div className="mx-auto mt-12 max-w-[46rem] sm:mt-16">
+        {FAQ.map((x) => (
+          <details key={x.q} className="group border-b border-[#d2d2d7]">
+            <summary className="flex cursor-pointer list-none items-center gap-4 py-6 text-[1.05rem] font-semibold [&::-webkit-details-marker]:hidden"><span className="min-w-0 flex-1"><J>{x.q}</J></span><Plus size={20} className="shrink-0 text-[#86868b] transition group-open:rotate-45" /></summary>
+            <p className="pb-6 pr-8 text-[0.98rem] leading-[1.95] text-[#6e6e73]"><J>{x.a}</J></p>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function Page() {
   const router = useRouter();
   const [url, setUrl] = useState(SAMPLE_URL);
@@ -345,7 +477,7 @@ export default function Page() {
       <header className={`sticky top-0 z-40 border-b backdrop-blur-xl transition-colors duration-500 ${dark ? "border-white/10 bg-black/70 text-white" : "border-black/5 bg-white/75"}`}>
         <div className="mx-auto flex h-12 max-w-[1000px] items-center gap-8 px-5 text-[0.8rem]">
           <Link href="/lp/" className="flex items-center gap-1.5 font-semibold tracking-[.18em]"><span className="h-1.5 w-1.5 rounded-full bg-[#00a37a]" />TSURETE</Link>
-          <nav className={`hidden gap-7 sm:flex ${dark ? "text-white/70" : "text-[#424245]"}`}><a href="#how" className="hover:text-black">しくみ</a><a href="#sites" className="hover:text-black">対応サイト</a><a href="#try" className="hover:text-black">無料診断</a></nav>
+          <nav className={`hidden gap-7 sm:flex ${dark ? "text-white/70" : "text-[#424245]"}`}><a href="#how" className="hover:text-black">しくみ</a><a href="#sites" className="hover:text-black">対応サイト</a><a href="#price" className="hover:text-black">料金</a><a href="#faq" className="hover:text-black">よくある質問</a><a href="#try" className="hover:text-black">無料診断</a></nav>
           <Link href="/" className={`ml-auto rounded-full px-3.5 py-1 text-[0.78rem] font-semibold transition-colors ${dark ? "bg-white text-black" : "bg-[#1d1d1f] text-white"}`}>デモを使う</Link>
         </div>
       </header>
@@ -365,6 +497,7 @@ export default function Page() {
           </Reveal>
         </section>
 
+        <Pain />
         <TenToThree />
         <Showcase />
 
@@ -395,19 +528,21 @@ export default function Page() {
           </div>
         </section>
 
+        <Week />
+
         {/* 書き直す前と後 */}
-        <section className="px-5 py-24 sm:py-36">
+        <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">書き直すと、こう変わる。</h2><div className="mt-6 flex items-center justify-center gap-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/sakuapp/works/tsurete/img/products/lotion.webp?v=3" alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover" /><p className="text-left text-[0.88rem] leading-[1.6] text-[#6e6e73]">見本：SORAE 化粧水<br />（架空のブランド・模擬の結果）</p></div></Reveal>
-          <div className="mx-auto mt-16 max-w-[60rem] rounded-[36px] bg-[#f5f5f7] p-3 sm:p-4"><Bars /></div>
+          <div className="mx-auto mt-16 max-w-[60rem]"><Bars /></div>
         </section>
 
         {/* 対応サイト */}
-        <section id="sites" className="scroll-mt-12 bg-[#f5f5f7] px-5 py-24 sm:py-36">
+        <section id="sites" className="scroll-mt-12 px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">どのサイトでも。</h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>測るのは、サイトに何も入れずに。直すときは、サイトに合わせて届け方を選べます。</J></p></Reveal>
           <div className="mx-auto mt-16 grid max-w-[60rem] gap-4 sm:grid-cols-2">
             {WAYS.map(({ m, icon: Icon, t, d }, i) => (
               <Reveal key={t} delay={i * 90} className="h-full">
-                <div className="flex h-full flex-col rounded-[28px] bg-white p-8">
+                <div className="flex h-full flex-col rounded-[28px] bg-[#f5f5f7] p-8">
                   <Icon size={30} strokeWidth={1.6} className="text-[#00a37a]" />
                   <b className="mt-6 text-[1.3rem]">{t}</b>
                   <p className="mt-1 text-[0.95rem] text-[#6e6e73]"><J>{d}</J></p>
@@ -419,7 +554,7 @@ export default function Page() {
         </section>
 
         {/* 小さなネットショップのために */}
-        <section className="px-5 py-24 sm:py-36">
+        <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
           <div className="mx-auto grid max-w-[64rem] items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
             <Reveal>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -429,22 +564,27 @@ export default function Page() {
               <h2 className="lp-h text-[2rem] sm:text-[2.6rem] lg:text-[2.3rem]"><span className="inline-block">小さなネットショップの、</span><span className="inline-block">AI担当に。</span></h2>
               <p className="mt-5 text-[1.02rem] leading-[1.95] text-[#6e6e73]"><J>大きな会社のように、AI対策の担当者は置けない。TSURETEが毎週自動ではかって、やることだけを届けます。</J></p>
               <p className="mt-8 text-[0.85rem] font-semibold text-[#1d1d1f]">比べて選ばれる商品なら、ジャンルは問いません。</p>
-              <p className="mt-3 flex flex-wrap gap-2">{["スキンケア", "食品・お菓子", "雑貨・インテリア", "アパレル", "ハンドメイド", "ベビー用品", "ペット用品"].map((t) => <span key={t} className="rounded-full bg-[#f5f5f7] px-3.5 py-1.5 text-[0.85rem]">{t}</span>)}</p>
+              <p className="mt-3 flex flex-wrap gap-2">{["スキンケア", "食品・お菓子", "雑貨・インテリア", "アパレル", "ハンドメイド", "ベビー用品", "ペット用品"].map((t) => <span key={t} className="rounded-full bg-white px-3.5 py-1.5 text-[0.85rem]">{t}</span>)}</p>
             </Reveal>
           </div>
         </section>
 
         {/* AIに自分で聞くのと何が違う */}
-        <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
+        <section className="px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIに自分で聞くのと、</span><span className="inline-block">何が違う？</span></h2></Reveal>
           <div className="mx-auto mt-16 grid max-w-[52rem] gap-4 md:grid-cols-2">
-            <Reveal><div className="h-full rounded-[28px] bg-white p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]">AIに自分で聞く</p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない", "毎回、自分で聞きに行く"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
+            <Reveal><div className="h-full rounded-[28px] bg-[#f5f5f7] p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]">AIに自分で聞く</p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない", "毎回、自分で聞きに行く"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
             <Reveal delay={150}><div className="h-full rounded-[28px] bg-[#1d1d1f] p-8 text-white sm:p-10"><p className="text-[1rem] font-semibold text-[#2fd9a6]">TSURETE</p><ul className="mt-6 space-y-4 text-[0.98rem]">{["4つのAIに、毎週自動で何百回も聞いて記録", "よくすすめられている店と比べて、差を出す", "全商品まとめて、サイトに合わせて届ける", "AI経由の売上で、効果を確かめる", "AIへの質問は、毎週ぜんぶ自動"].map((t) => <li key={t} className="flex gap-3"><Check size={18} className="mt-1 shrink-0 text-[#2fd9a6]" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
           </div>
         </section>
 
+        <Safety />
+        <Pricing />
+        <Start />
+        <Faq />
+
         {/* 無料診断 */}
-        <section id="try" className="scroll-mt-12 px-5 py-28 text-center sm:py-40">
+        <section id="try" className="scroll-mt-12 bg-[#f5f5f7] px-5 py-28 text-center sm:py-40">
           <Reveal className="mx-auto max-w-[38rem]">
             <h2 className="lp-h text-[2rem] sm:text-[3.4rem]">まずは1商品、無料で。</h2>
             <p className="mt-4 text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>商品ページのURLを入れると、AIに選ばれるために足りないところと、書き直し案をお出しします。</J></p>
