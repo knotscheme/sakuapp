@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { ArrowRight, Camera, Check, MessageCircle, PenLine, Rocket, Sparkles } from "lucide-react";
 
-// 「全部おまかせ」「一からオリジナル」で作りたい人への案内。サクアプの無料相談フォーム（LINEで送る）へ
-export const ORDER_URL = `/sakuapp/contact/?from=lpb&svc=${encodeURIComponent("LP制作のおまかせ")}`;
+// 「全部おまかせ」「一からオリジナル」で作りたい人への案内。LP BUILDER の相談ページ（サクアプとは別のサービス）へ
+export const ORDER_URL = "/contact/";
 
 const POINTS = [
   { icon: PenLine, t: "構成と文章", b: "売りたいもの・届けたい人を聞きとり、伝わる順番と言葉を作ります" },
@@ -11,14 +12,14 @@ const POINTS = [
 ];
 
 export default function OrderCta({ variant = "band", from = "" }: { variant?: "band" | "card"; from?: string }) {
-  const href = from ? `${ORDER_URL}&ref=${from}` : ORDER_URL;
+  const href = from ? `${ORDER_URL}?ref=${from}` : ORDER_URL;
   if (variant === "card") {
     return (
       <aside className="rounded-2xl bg-ink p-5 text-white">
         <p className="text-[11px] tracking-[.2em] text-accent">ORDER MADE</p>
         <h2 className="mt-2 text-[16px] font-bold leading-[1.6]">全部おまかせしたい・<br />一からオリジナルで作りたい方へ</h2>
         <p className="mt-2 text-[12.5px] leading-[1.9] text-white/70">文章・写真・デザイン・公開まで、まるごと制作します。</p>
-        <a href={href} className="btn mt-4 w-full bg-white py-3 text-[13.5px] text-ink hover:bg-white/90"><MessageCircle size={15} />無料で相談する</a>
+        <Link href={href} className="btn mt-4 w-full bg-white py-3 text-[13.5px] text-ink hover:bg-white/90"><MessageCircle size={15} />無料で相談する</Link>
       </aside>
     );
   }
@@ -32,9 +33,9 @@ export default function OrderCta({ variant = "band", from = "" }: { variant?: "b
           <h2 className="mt-3 text-[23px] font-bold leading-[1.5] sm:text-[30px]"><span className="inline-block">全部おまかせしたい。</span><br /><span className="inline-block">一からオリジナルで</span><span className="inline-block">作りたい。</span></h2>
           <p className="mt-4 text-[14px] leading-[2] text-white/75">そんな方は、制作をまるごとご依頼ください。型を使わない完全オリジナルのLPも、作品例と同じ作りこみで一から作ります。</p>
           <ul className="mt-5 space-y-1.5 text-[13px] text-white/80">
-            {["相談・お見積もりは無料", "LINEで気軽にやりとり", "LP BUILDER で作ったLPの手直しもOK"].map((x) => <li key={x} className="flex items-center gap-2"><Check size={14} className="text-accent" />{x}</li>)}
+            {["相談・お見積もりは無料", "メールで気軽にやりとり", "LP BUILDER で作ったLPの手直しもOK"].map((x) => <li key={x} className="flex items-center gap-2"><Check size={14} className="text-accent" />{x}</li>)}
           </ul>
-          <a href={href} className="btn btn-accent mt-7 px-7 py-3.5 text-[15px]"><MessageCircle size={17} />無料で相談する<ArrowRight size={16} /></a>
+          <Link href={href} className="btn btn-accent mt-7 px-7 py-3.5 text-[15px]"><MessageCircle size={17} />無料で相談する<ArrowRight size={16} /></Link>
         </div>
         <ul className="grid grid-cols-2 gap-2.5 sm:gap-3">
           {POINTS.map(({ icon: Icon, t, b }) => (

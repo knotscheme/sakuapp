@@ -1,5 +1,5 @@
 :HL["/sakuapp/works/lp-builder/_next/static/chunks/1c38i6y1jh-xn.css","style"]
-:HL["/sakuapp/works/lp-builder/_next/static/chunks/0bhb4gm1vkxr-.css","style"]
+:HL["/sakuapp/works/lp-builder/_next/static/chunks/3t9hokoud8pmz.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"GgUEKV_8jKKy2bFT-QgOp","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"Fmbx3tVrXvp_aMWL7QVrP","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
