@@ -15,7 +15,7 @@ def chunks(ss,limit=140):
   return out
 def syn(t):
   q=json.load(urllib.request.urlopen(urllib.request.Request(f'http://127.0.0.1:50021/audio_query?speaker={SP}&text='+urllib.parse.quote(t),method='POST')))
-  q['speedScale']=1.3;q['prePhonemeLength']=0.05;q['postPhonemeLength']=0.12;q['pauseLengthScale']=0.55;q['outputSamplingRate']=RATE
+  q['speedScale']=1.5;q['prePhonemeLength']=0.05;q['postPhonemeLength']=0.12;q['pauseLengthScale']=0.45;q['outputSamplingRate']=RATE
   return urllib.request.urlopen(urllib.request.Request(f'http://127.0.0.1:50021/synthesis?speaker={SP}',data=json.dumps(q).encode(),headers={'Content-Type':'application/json'})).read()
 only=sys.argv[1:];tmp='/tmp/vtmp.wav';tot=0
 for x in A:
