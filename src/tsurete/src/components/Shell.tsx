@@ -19,7 +19,7 @@ export function Logo({ light = false }: { light?: boolean }) {
   return (
     <Link href="/" className="flex items-center gap-2.5">
       <span className="grid h-9 w-9 place-items-center rounded-xl bg-lime text-[#03140f]"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12h9" /><path d="m10 7 5 5-5 5" /><circle cx="19" cy="12" r="2" /></svg></span>
-      <span className="leading-tight"><b className={`block font-display text-[1.1rem] tracking-[.14em] ${light ? "text-white" : ""}`}>TSURETE</b><span className={`block text-[0.68rem] ${light ? "text-white/55" : "text-sub"}`}>デモ版です</span></span>
+      <span className="leading-tight"><b className={`block font-display text-[1.1rem] tracking-[.14em] ${light ? "text-white" : ""}`}>TSURETE</b><span className={`block text-[0.68rem] ${light ? "text-white/55" : "text-sub"}`}>AI集客ツール（デモ）</span></span>
     </Link>
   );
 }

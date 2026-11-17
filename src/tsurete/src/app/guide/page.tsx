@@ -62,7 +62,7 @@ function Guide() {
       </section>
 
       <div className="mt-4 rounded-2xl border border-line bg-panel p-5 text-[0.95rem] leading-[1.95]">
-        <b>TSURETEとは：</b>お客様がお店を「検索」ではなく「AIに聞いて」探す時代に、<b>AIにおすすめしてもらい、AIに予約まで取ってもらう</b>ための集客ツールです。下の6つの順番に触ると、5分ほどで全体がわかります。
+        <b>TSURETEとは：</b>お客様がお店を「検索」ではなく「AIに聞いて」探す時代に、<b>AIにおすすめしてもらい、AIに予約まで取ってもらう</b>ための集客ツールです。いわば「Googleマップ対策」のAI版です。下の6つの順番に触ると、5分ほどで全体がわかります。
       </div>
 
       <nav aria-label="手順の目次" className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, Bot, CalendarClock, ChevronRight, Network, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Bot, CalendarCheck, User, CalendarClock, ChevronRight, Network, Sparkles } from "lucide-react";
 import Shell from "@/components/Shell";
 import Ready from "@/components/Ready";
 import { ACTIONS, PARTNERS, SHOP, simulate } from "@/lib/demo";
@@ -31,15 +31,40 @@ function Home() {
         <span className="btn btn-ai shrink-0">使い方ガイドを見る<ArrowRight size={18} /></span>
       </Link>
 
-      <section className="glow relative overflow-hidden rounded-[28px] px-6 py-10 text-white sm:px-10 sm:py-14">
-        <p className="text-[0.85rem] tracking-[.2em] text-lime">AI時代の集客</p>
-        <h1 className="mt-3 text-[2rem] font-bold leading-[1.35] sm:text-[2.8rem]"><span className="inline-block">AIが、</span><span className="inline-block">お客様をつれてくる。</span></h1>
-        <p className="mt-4 max-w-[38em] text-[1rem] leading-[1.95] text-white/75">お客様は、お店を「検索」ではなく<b className="text-white">「AIに聞いて」</b>探しはじめています。TSURETEは、AIに選ばれ、AIに予約され、空いた時間は街ぐるみで埋める。地域のお店のための、新しい集客の仕組みです。</p>
-        <div className="mt-7 flex flex-wrap gap-3">
-          <Link href="/erabareru/" className="btn bg-lime px-6 text-[#03140f] hover:brightness-95">AI推薦シェアを見る<ArrowRight size={18} /></Link>
-          <Link href="/yoyaku/" className="btn bg-white/10 px-5 text-white hover:bg-white/15">AIが予約するところを見る</Link>
+      <section className="glow relative overflow-hidden rounded-[24px] px-5 py-8 text-white sm:px-10 sm:py-12">
+        <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr] lg:gap-x-8">
+          <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+            <p className="text-[0.85rem] font-bold tracking-[.08em] text-lime">整体院・美容室・飲食店のための AI集客ツール</p>
+            <h1 className="mt-3 text-[1.9rem] font-bold leading-[1.4] sm:text-[2.6rem]"><span className="inline-block">AIに聞かれたら、</span><span className="inline-block">うちの店が出てくる。</span></h1>
+            <p className="mt-4 text-[0.98rem] leading-[1.95] text-white/75">お客様がChatGPTなどのAIに「近くでいいお店ある？」と聞いたとき、<b className="text-white">あなたのお店をおすすめしてもらい、そのまま予約まで取ってもらう</b>ためのツールです。いわば<b className="text-white">「Googleマップ対策」のAI版</b>です。</p>
+            <ul className="mt-5 space-y-1.5 text-[0.9rem]">
+              {[["測る", "AIのおすすめに、お店が出ているか"], ["直す", "おすすめに出るために、足りない情報を"], ["受け付ける", "AIからの予約を、自動で"]].map(([a, b]) => (
+                <li key={a} className="flex items-baseline gap-3"><b className="w-[5.2em] shrink-0 text-lime">{a}</b><span className="min-w-0 text-white/70">{b}</span></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* お客様 → AI → お店 の流れを、実際の会話の形で見せる */}
+          <ol className="min-w-0 space-y-3 self-center lg:col-start-2 lg:row-span-2 lg:row-start-1" aria-label="TSURETEを入れると、こうなります">
+            <li className="rounded-2xl border border-white/10 bg-black/25 p-4">
+              <p className="flex items-center gap-2 text-[0.75rem] font-bold text-white/55"><span className="num grid h-5 w-5 place-items-center rounded-full bg-white/10 text-[0.7rem]">1</span><User size={14} />お客様が、AIに聞く</p>
+              <p className="ml-auto mt-2 w-fit max-w-[92%] rounded-2xl rounded-br-md bg-white/10 px-3.5 py-2 text-[0.9rem] leading-[1.7]">みなと台で、夜遅くまでやってる整体ある？</p>
+            </li>
+            <li className="rounded-2xl border border-white/10 bg-black/25 p-4">
+              <p className="flex items-center gap-2 text-[0.75rem] font-bold text-white/55"><span className="num grid h-5 w-5 place-items-center rounded-full bg-white/10 text-[0.7rem]">2</span><Bot size={14} />AIが、あなたのお店をすすめる</p>
+              <p className="mt-2 w-fit max-w-[92%] rounded-2xl rounded-tl-md border border-ai/40 bg-ai/10 px-3.5 py-2 text-[0.9rem] leading-[1.7]"><b className="text-lime">{SHOP.name}</b>がおすすめです。21時まで営業で、今日の16時が空いています。予約しますか？</p>
+            </li>
+            <li className="rounded-2xl border border-ai/50 bg-ai/10 p-4">
+              <p className="flex items-center gap-2 text-[0.75rem] font-bold text-lime"><span className="num grid h-5 w-5 place-items-center rounded-full bg-lime text-[0.7rem] text-[#03140f]">3</span><CalendarCheck size={14} />お店の予約表に、予約が入る</p>
+              <p className="mt-2 flex flex-wrap items-baseline gap-x-3 text-[0.92rem]"><b className="num">11/18 16:00</b><span>肩・首集中 40分</span><span className="text-[0.78rem] text-white/55">ChatGPT経由</span></p>
+            </li>
+          </ol>
+          <div className="flex flex-wrap gap-3 lg:col-start-1 lg:row-start-2">
+            <Link href="/erabareru/" className="btn bg-lime px-6 text-[#03140f] hover:brightness-95">おすすめに出ているか見る<ArrowRight size={18} /></Link>
+            <Link href="/yoyaku/" className="btn bg-white/10 px-5 text-white hover:bg-white/15">AIが予約するところを見る</Link>
+          </div>
         </div>
-        <p className="mt-6 text-[0.8rem] text-white/45">デモ：架空の町「みなと台」の整体院「{SHOP.name}」（店長 {SHOP.owner}さん）。数字は模擬の結果です。</p>
+        <p className="mt-6 text-[0.78rem] text-white/45">デモ：架空の町「みなと台」の整体院「{SHOP.name}」（店長 {SHOP.owner}さん）。数字は模擬の結果です。</p>
       </section>
 
       {todo.length > 0 && (
