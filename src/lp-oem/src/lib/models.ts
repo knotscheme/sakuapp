@@ -1,4 +1,4 @@
-// ベースモデルと価格の計算ロジック（制作サンプル用の架空の数値）
+// ベースモデルと価格の計算ロジック（デモ版の数値）
 
 export type ModelId = "long" | "bifold" | "trifold" | "fragment" | "tote" | "phone";
 

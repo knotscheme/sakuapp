@@ -84,7 +84,7 @@ export default function DocPage() {
           </div>
           <div className="text-[11.5px] sm:text-right">
             <p className="font-display text-[15px] tracking-[0.3em]">CRAFT OEM</p>
-            <p className="text-mute">（架空の会社・デモ用）</p>
+            <p className="text-mute">（デモ版）</p>
           </div>
         </section>
 
@@ -184,7 +184,7 @@ export default function DocPage() {
           </>
         )}
 
-        <p className="mt-10 text-center text-[10.5px] text-mute">※ポートフォリオ用のデモです。会社名・金額・内容はすべて架空です。{isWork && <span className="block">※Portfolio demo. All names and data are fictional. / เดโมสำหรับพอร์ตโฟลิโอ ข้อมูลทั้งหมดเป็นข้อมูลสมมติ</span>}</p>
+        <p className="mt-10 text-center text-[10.5px] text-mute">※デモ版です。{isWork && <span className="block">※Demo version. / เวอร์ชันเดโม</span>}</p>
       </article>
     </div>
   );

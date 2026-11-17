@@ -6,8 +6,8 @@ import ThemeColor from "@/components/ThemeColor";
 import ProductList from "@/components/ProductList";
 
 export const metadata: Metadata = {
-  title: "製品一覧｜CRAFT OEM（制作サンプル）",
-  description: "ロゴ入れOEMで選べるベースモデルの一覧です。※ポートフォリオ用の制作サンプルです。",
+  title: "製品一覧｜CRAFT OEM（デモ版）",
+  description: "ロゴ入れOEMで選べるベースモデルの一覧です。※デモ版です。",
   robots: { index: false },
 };
 

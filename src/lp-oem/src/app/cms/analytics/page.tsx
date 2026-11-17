@@ -231,7 +231,7 @@ export default function Analytics() {
           <HBars rows={lead} fmt={(v) => `${v.toFixed(1)}日`} />
         </Card>
       </div>
-      <p className="mt-4 text-[11px] text-mute">※グラフの数字はデモ用の架空のものです。</p>
+      <p className="mt-4 text-[11px] text-mute">※デモ版のため、グラフの数字は見本です。</p>
     </Shell>
   );
 }

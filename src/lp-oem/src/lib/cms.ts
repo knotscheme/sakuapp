@@ -258,7 +258,7 @@ export function makeDraft(kind: DraftKind, d: Deal): Draft {
   const a = amounts(d);
   const q = quoteLines(d);
   const base = { id: `d-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`, kind, at: new Date().toISOString(), status: "draft" as const };
-  const sign = "\n\n――――――――\nCRAFT OEM（架空の会社・デモ）\n担当：" + d.owner;
+  const sign = "\n\n――――――――\nCRAFT OEM（デモ版）\n担当：" + d.owner;
   const link = `専用ページ：https://craft-oem.example/p/${d.id}（ログイン不要・あなたの案件だけが表示されます）`;
   if (kind === "reply") {
     const t = q.tier;

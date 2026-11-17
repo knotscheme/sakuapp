@@ -7,8 +7,8 @@ const noto = Noto_Sans_JP({ subsets: ["latin"], weight: ["300", "400", "500", "7
 const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600"], variable: "--font-cormorant", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "CRAFT OEM｜型代0円の革財布ロゴ入れOEM（制作サンプル）",
-  description: "型代0円・最短30日で、オリジナル財布をブランド化。高品質な定番モデルにロゴを入れるだけのスマートOEM。※ポートフォリオ用の制作サンプルです。",
+  title: "CRAFT OEM｜型代0円の革財布ロゴ入れOEM（デモ版）",
+  description: "型代0円・最短30日で、オリジナル財布をブランド化。高品質な定番モデルにロゴを入れるだけのスマートOEM。※デモ版です。",
   robots: { index: false },
 };
 

@@ -21,7 +21,7 @@ import VoiceGuide, { type VoiceSection } from "@/components/VoiceGuide";
 
 export const metadata: Metadata = {
   title: "CRAFT OEM｜サービスとツールの全体像",
-  description: "革小物ロゴ入れOEMのLP・見積・管理画面（CMS）・工場とのやり取り・お客様の確認画面を、ひとつにまとめた確認用ページ（ポートフォリオ用の制作サンプル）",
+  description: "革小物ロゴ入れOEMのLP・見積・管理画面（CMS）・工場とのやり取り・お客様の確認画面を、ひとつにまとめた確認用ページ（デモ版）",
 };
 
 // このサービス（LP＋管理画面＋工場＋お客様）を、まとめて確認するためのページ
@@ -140,7 +140,7 @@ export default function Overview() {
           <a href={asset("/cms/")} className="inline-flex items-center gap-2 border border-ink px-6 py-3.5 text-[13px] tracking-[0.1em] transition hover:bg-ink hover:text-white">管理画面を見る<ArrowUpRight size={15} /></a>
         </div>
         <div className="mt-6"><VoiceGuide sections={VOICE.map((x) => ({ ...x, audio: `/audio/overview-${x.id}.mp3` }))} /></div>
-        <p className="mt-6 text-[11.5px] text-mute"><NoOrphan text="※ポートフォリオ用の制作サンプルです。会社名・金額・データはすべて架空で、操作した内容は見ている人のブラウザにだけ保存されます。" /></p>
+        <p className="mt-6 text-[11.5px] text-mute"><NoOrphan text="※デモ版です。操作した内容は、見ている人のブラウザにだけ保存されます。" /></p>
       </header>
 
       {/* 自動化 */}
@@ -267,7 +267,7 @@ export default function Overview() {
               );
             })}
           </ul>
-          <p className="mt-4 text-[11.5px] text-white/50">※「本番で導入予定」の項目は、このデモ（ポートフォリオ用の見本）には含まれていません。</p>
+          <p className="mt-4 text-[11.5px] text-white/50">※「本番で導入予定」の項目は、このデモ版には含まれていません。</p>
         </div>
       </section>
 

@@ -80,7 +80,7 @@ export default function ContactForm() {
       return;
     }
     setSending(true);
-    // 制作サンプルのため、実際には送信しない
+    // デモ版のため、実際には送信しない
     // 添付のロゴ（png・jpg・svg）は、管理画面のロゴ配置イメージに使えるように透明な画像にしておく
     const logo = file ? toLogoMask(file) : Promise.resolve(null);
     setTimeout(async () => {
@@ -209,7 +209,7 @@ export default function ContactForm() {
           <button type="submit" disabled={sending} className="group mt-8 inline-flex w-full items-center justify-center gap-2 bg-ink py-4 text-[15px] font-medium tracking-[0.1em] text-white transition hover:bg-gold disabled:opacity-60">
             {sending ? "送信中…" : <>無料で見積もりを依頼する <Send size={17} className="transition group-hover:translate-x-1" /></>}
           </button>
-          <p className="mt-3 text-center text-xs text-mute">※制作サンプルのため、実際には送信されません。</p>
+          <p className="mt-3 text-center text-xs text-mute">※デモ版のため、実際には送信されません。</p>
         </form>
       </div>
 
