@@ -2,4 +2,4 @@
 :HL["/sakuapp/works/tsurete/_next/static/chunks/0p6x7iiwrtulg.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"5s53OTLIIvef82fcn6_QZ","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"vET9f5Zga9jpHDLJuErI8","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
