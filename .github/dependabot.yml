@@ -1,0 +1,14 @@
+# 部品の更新を、週に一度まとめて提案する（CRAFT OEM：src/lp-oem）
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /src/lp-oem
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Tokyo
+    open-pull-requests-limit: 3
+    groups:
+      lp-oem:
+        patterns: ["*"]

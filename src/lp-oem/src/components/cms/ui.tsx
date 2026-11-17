@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
-import { X, LogOut, Inbox, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
+import { X, ScanSearch, LogOut, Inbox, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo, unreadOf, useDeals } from "./store";
@@ -34,6 +34,7 @@ const NAV: { href: string; label: NavKey; icon: typeof LayoutGrid; perm?: Perm }
   { href: "/cms/factory/", label: "factory", icon: Factory, perm: "factory.use" },
   { href: "/cms/inspect/", label: "inspect", icon: ClipboardCheck, perm: "inspect.use" },
   { href: "/cms/members/", label: "members", icon: ShieldCheck, perm: "members.manage" },
+  { href: "/cms/security/", label: "security", icon: ScanSearch, perm: "members.manage" },
   { href: "/cms/portal/?id=C-1027", label: "portal", icon: UserRound, perm: "deals.view" },
   { href: "/cms/manual/", label: "manual", icon: BookOpen },
 ];

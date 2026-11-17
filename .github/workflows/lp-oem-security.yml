@@ -1,0 +1,58 @@
+name: lp-oem-security
+
+# CRAFT OEM（works/lp-oem）の脆弱性チェック。毎週月曜 9:13（日本時間）に自動で実行。
+# 手動実行（Actions タブの Run workflow）と、lp-oem の部品（package.json など）を変えたときにも実行します。
+# 問題が見つかると失敗になり、GitHub からメールで知らせが届きます。
+on:
+  schedule:
+    - cron: "13 0 * * 1"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/lp-oem/package.json"
+      - "src/lp-oem/package-lock.json"
+      - ".github/workflows/lp-oem-security.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: 部品の弱点（npm audit）
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: src/lp-oem
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: 部品の弱点を調べる（本番で使う部品：重要度「高」以上で失敗）
+        run: |
+          npm audit --omit=dev --json > audit.json || true
+          node -e '
+            const a = require("./audit.json").metadata?.vulnerabilities ?? {};
+            const line = `重大 ${a.critical ?? 0}・高 ${a.high ?? 0}・中 ${a.moderate ?? 0}・低 ${a.low ?? 0}`;
+            require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## 部品の弱点（本番で使う部品）\n${line}\n`);
+            console.log(line);
+          '
+          npm audit --omit=dev --audit-level=high
+      - name: 開発用の部品も含めて調べる（記録のみ）
+        run: npm audit || true
+
+  secrets:
+    name: 秘密の値の混入（gitleaks）
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: パスワード・APIキーなどが、コードや公開ファイルに入っていないか調べる
+        run: |
+          for d in src/lp-oem works/lp-oem; do
+            echo "== $d"
+            docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.21.2 dir "/repo/$d" --redact --no-banner
+          done
+          printf '## 秘密の値の混入\n見つかりませんでした\n' >> "$GITHUB_STEP_SUMMARY"
