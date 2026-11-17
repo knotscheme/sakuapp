@@ -215,12 +215,12 @@ function TenToThree() {
   return (
     <section ref={ref} className="relative h-[300vh] bg-black text-white" aria-label="検索とAIの違い">
       <div className="sticky top-0 flex h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pt-12">
-        <div className="relative h-[5.5rem] w-full max-w-[44rem] text-center sm:h-[8rem]">
+        <div className="relative h-[5rem] w-full max-w-[44rem] text-center sm:h-[8rem]">
           {lines.map((t, i) => <h2 key={t} className={`lp-h absolute inset-0 grid place-items-center text-[1.75rem] transition duration-700 sm:text-[3.4rem] ${stage === i ? "translate-y-0 opacity-100" : stage > i ? "-translate-y-8 opacity-0" : "translate-y-8 opacity-0"} ${i === 2 ? "text-[#2fd9a6]" : ""}`}><J>{t}</J></h2>)}
         </div>
 
         {/* 白い画面：はじめは検索結果ページ、AIの段階ではチャット画面 */}
-        <div className="mt-4 w-full max-w-[34rem] overflow-hidden rounded-[22px] bg-white text-[#202124] shadow-[0_30px_80px_-30px_rgba(47,217,166,.35)] sm:mt-7">
+        <div className="relative mt-4 w-full max-w-[34rem] overflow-hidden rounded-[22px] bg-white text-[#202124] shadow-[0_30px_80px_-30px_rgba(47,217,166,.35)] sm:mt-7">
           <div className="relative h-[5.6rem] border-b border-black/[.06] sm:h-[5.4rem]">
             <div className={`absolute inset-0 px-4 pt-3 transition duration-700 ${stage === 0 ? "opacity-100" : "-translate-y-2 opacity-0"}`}>
               <div className="flex h-9 items-center gap-2.5 rounded-full border border-black/10 px-4 text-[0.85rem] shadow-[0_1px_4px_rgba(0,0,0,.08)]"><Search size={15} className="shrink-0 text-[#5f6368]" />敏感肌 化粧水 3000円</div>
@@ -232,13 +232,14 @@ function TenToThree() {
             </div>
           </div>
 
-          <div ref={box} className="overflow-hidden transition-[height] duration-700 [--serp-h:19rem] sm:[--serp-h:25rem]" style={{ height: stage === 0 ? "var(--serp-h)" : undefined }}>
+          {/* 枠の高さは、場面が変わっても同じにする（中身だけが入れかわる） */}
+          <div ref={box} className={`h-[var(--card-h)] overflow-hidden transition-[padding] duration-700 [--card-h:25.5rem] sm:[--card-h:27rem] ${stage >= 1 ? "pb-14" : "pb-0"}`}>
           {stage >= 1 && <p className="fade-in px-4 pt-3 text-[0.86rem] leading-[1.8] text-[#0d0d0d]"><J>敏感肌でも使える3,000円台の化粧水なら、次の3つがおすすめです。</J></p>}
           <ol ref={list} className="px-4 py-3" style={{ transform: stage === 0 && flow ? `translate3d(0,-${over}px,0)` : "translate3d(0,0,0)", transition: stage === 0 && flow ? "transform 2s cubic-bezier(.45,0,.25,1) .9s" : "none" }} aria-hidden>
             {SEARCH.map((r, i) => {
               const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
               return (
-                <li key={r.u} className="overflow-hidden transition-all duration-700" style={{ opacity: gone ? 0 : 1, maxHeight: gone ? 0 : ai ? "4rem" : "4.6rem", marginTop: i && !gone ? (ai ? "0.55rem" : "0.15rem") : 0, transform: gone ? "translateX(-24px)" : "none", transitionDelay: `${gone ? (i - 3) * 40 : 0}ms` }}>
+                <li key={r.u} className="overflow-hidden transition-all duration-700" style={{ opacity: gone ? 0 : 1, maxHeight: gone ? 0 : ai ? "4rem" : "4.6rem", marginTop: i && !gone ? (ai ? "0.4rem" : "0.15rem") : 0, transform: gone ? "translateX(-24px)" : "none", transitionDelay: `${gone ? (i - 3) * 40 : 0}ms` }}>
                   {ai ? (
                     <div className="fade-in flex gap-2 text-[0.86rem] leading-[1.7] text-[#0d0d0d]">
                       <span className="w-4 shrink-0 text-right">{i + 1}.</span>
@@ -259,7 +260,7 @@ function TenToThree() {
             })}
 
             {/* 最後：自分の商品は、AIの答えに入っていない */}
-            <li className={`overflow-hidden transition-all duration-700 ${stage === 2 ? "mt-3 max-h-24 opacity-100" : "mt-0 max-h-0 opacity-0"}`}>
+            <li className={`overflow-hidden transition-all duration-700 ${stage === 2 ? "mt-2 max-h-24 opacity-100 sm:mt-3" : "mt-0 max-h-0 opacity-0"}`}>
               <div className="flex items-center gap-3 rounded-2xl border border-dashed border-[#00a37a]/60 bg-[#f3fbf8] px-3.5 py-2.5">
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-dashed border-[#00a37a]/70 text-[0.68rem] text-[#00a37a]">？</span>
                 <span className="min-w-0"><b className="block truncate text-[0.9rem] text-[#00805f]"><J>SORAE　化粧水 しっとり</J></b><span className="block text-[0.74rem] text-[#6e6e73]"><J>検索では10位。AIの答えには、入っていない</J></span></span>
@@ -267,7 +268,7 @@ function TenToThree() {
             </li>
           </ol>
           </div>
-          <div className={`overflow-hidden transition-all duration-700 ${stage >= 1 ? "max-h-20 opacity-100" : "max-h-0 opacity-0"}`}>
+          <div className={`absolute inset-x-0 bottom-0 bg-white pt-1 transition duration-700 ${stage >= 1 ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}>
             <div className="mx-3 mb-3 flex items-center gap-2 rounded-full border border-black/10 py-1.5 pl-3 pr-1.5 shadow-[0_2px_8px_rgba(0,0,0,.06)]">
               <span className="text-[1.1rem] leading-none text-[#5d5d5d]">＋</span>
               <span className="flex-1 text-[0.82rem] text-[#8e8e8e]">何でも聞いてください</span>
@@ -275,7 +276,7 @@ function TenToThree() {
             </div>
           </div>
         </div>
-        <div className="mt-8 flex w-full max-w-[22rem] gap-2" role="tablist" aria-label="場面">
+        <div className="mt-5 flex w-full max-w-[22rem] gap-2 sm:mt-8" role="tablist" aria-label="場面">
           {["検索", "AI", "結果"].map((l, i) => (
             <button key={l} type="button" role="tab" aria-selected={stage === i} onClick={() => { changedAt.current = Date.now(); setAuto(i); setStage(i); }} className="flex-1 text-left">
               <span className="block h-1 overflow-hidden rounded-full bg-white/20"><span key={`${i}-${stage}-${visible}`} className="block h-full rounded-full bg-white" style={{ width: stage > i ? "100%" : "0%", animation: stage === i && visible ? `tsr-bar ${DUR[i]}ms linear forwards` : "none" }} /></span>
