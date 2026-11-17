@@ -7,6 +7,7 @@ import Ready from "@/components/Ready";
 import { ChatSim, Real } from "@/components/ChatSim";
 import { AIS, BRAND, PRODUCTS, QUESTIONS, RIVAL_HAS, SIGNALS, WEEKS, fmt, shelf, signals, winners, type Sig } from "@/lib/demo";
 import { useStore } from "@/lib/store";
+import J from "@/components/J";
 
 // 週ごとの推薦率の折れ線
 function Trend({ data, W = 640, H = 180, fs = 10 }: { data: { w: string; p: number }[]; W?: number; H?: number; fs?: number }) {
@@ -67,13 +68,13 @@ function Hakaru() {
       <section className="mt-24" aria-labelledby="gap">
         <h2 id="gap" className="text-[1.2rem] font-bold tracking-[.04em]">よくすすめられている店との差</h2>
         <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub">AIが答えるときに参考にしたページを読んで、書かれていることを比べました。</p>
-        <div className="mt-8 overflow-x-auto">
-          <table className="w-full min-w-[520px] text-[0.88rem]">
-            <thead><tr className="border-b hair text-left text-[0.78rem] text-sub"><th className="py-3 font-medium">AIが見ている情報</th>{cols.map((c) => <th key={c} className={`px-2 py-3 text-center font-bold ${c === BRAND.name ? "text-ai" : ""}`}>{c}</th>)}</tr></thead>
+        <div className="mt-8">
+          <table className="w-full table-fixed text-[0.8rem] sm:text-[0.88rem]">
+            <thead><tr className="border-b hair text-left text-[0.78rem] text-sub"><th className="w-[38%] py-3 font-medium sm:w-auto">AIが見ている情報</th>{cols.map((c) => <th key={c} className={`px-1 py-3 text-center text-[0.68rem] font-bold leading-[1.3] sm:px-2 sm:text-[0.78rem] ${c === BRAND.name ? "text-ai" : ""}`}>{c}</th>)}</tr></thead>
             <tbody>
               {(Object.keys(SIGNALS) as Sig[]).map((k) => (
                 <tr key={k} className="border-b hair">
-                  <td className="py-3.5">{SIGNALS[k]}</td>
+                  <td className="py-3.5 pr-2 leading-[1.5]"><J>{SIGNALS[k]}</J></td>
                   {cols.map((c) => { const ok = c === BRAND.name ? mine(k) : RIVAL_HAS[c].includes(k); return <td key={c} className="px-2 text-center">{ok ? <Check size={17} className="mx-auto text-ai" /> : c === BRAND.name ? <span className="text-[0.75rem] font-bold text-warn">なし</span> : <Minus size={15} className="mx-auto text-sub/50" />}</td>; })}
                 </tr>
               ))}

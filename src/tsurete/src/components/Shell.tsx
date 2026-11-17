@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import J from "@/components/J";
 import { BookOpen, Home, ScanSearch, Search, Settings, TrendingUp, Wand2 } from "lucide-react";
 
 export const NAV = [
@@ -58,7 +59,7 @@ export function Title({ n, title, lead }: { n?: string; title: string; lead: Rea
     <div className="mb-10 sm:mb-14">
       {n && <p className="eyebrow">STEP {n}</p>}
       <h1 className="mt-2 text-[1.6rem] font-bold leading-[1.5] tracking-[.04em] sm:text-[2rem]">{title}</h1>
-      <p className="mt-3 max-w-[38em] text-[0.95rem] leading-[2] text-sub">{lead}</p>
+      <p className="mt-3 max-w-[38em] text-[0.95rem] leading-[2] text-sub">{typeof lead === "string" ? <J>{lead}</J> : lead}</p>
     </div>
   );
 }

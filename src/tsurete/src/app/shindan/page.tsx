@@ -5,6 +5,7 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrowRight, Check, ChevronDown, Copy, Download, FileSpreadsheet, Link2, Loader2, Upload } from "lucide-react";
 import Shell, { Title } from "@/components/Shell";
+import J from "@/components/J";
 import Ready from "@/components/Ready";
 import { toast } from "@/components/Confirm";
 import { CHECKS, SAMPLE_CSV, SAMPLE_HTML, SAMPLE_REWRITES, SAMPLE_URL, diagnose, download, parseCsv, readProducts, strip, template, toCsv, type Check as Ck, type Item } from "@/lib/check";
@@ -52,14 +53,14 @@ function Finding({ it, c, open, onToggle }: { it: Item; c: Ck; open: boolean; on
     <li className="border-b hair">
       <button type="button" aria-expanded={open} onClick={onToggle} className="flex w-full items-center gap-4 py-5 text-left">
         <span className="h-2 w-2 shrink-0 rounded-full bg-warn" aria-hidden />
-        <span className="min-w-0 flex-1"><b className="block text-[1rem]">{k.label}</b><span className="text-[0.86rem] text-sub">{k.ng}</span></span>
+        <span className="min-w-0 flex-1"><b className="block text-[1rem]">{k.label}</b><span className="text-[0.86rem] text-sub"><J>{k.ng}</J></span></span>
         <ChevronDown size={20} className={`shrink-0 text-sub transition ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
         <div className="fade-in grid gap-6 pb-8 pl-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-10">
           <dl className="space-y-4 text-[0.88rem] leading-[1.9]">
-            <div><dt className="text-[0.75rem] font-bold text-sub">どうやって調べた？</dt><dd className="mt-1">{k.how}</dd></div>
-            <div><dt className="text-[0.75rem] font-bold text-sub">なぜ大事？</dt><dd className="mt-1">{k.why}</dd></div>
+            <div><dt className="text-[0.75rem] font-bold text-sub">どうやって調べた？</dt><dd className="mt-1"><J>{k.how}</J></dd></div>
+            <div><dt className="text-[0.75rem] font-bold text-sub">なぜ大事？</dt><dd className="mt-1"><J>{k.why}</J></dd></div>
           </dl>
           {text ? (
             <div className="min-w-0 rounded-2xl bg-ai/[.07] p-5">

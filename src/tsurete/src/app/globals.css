@@ -44,3 +44,6 @@ h1, h2, h3 { word-break: auto-phrase; text-wrap: pretty; }
 .field::placeholder { color: #4d5d7a; }
 .eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .24em; color: var(--color-ai); }
 .hair { border-color: rgba(255,255,255,.06); }
+/* 文節で改行する（J部品の中）。Chromeでは、ほかの文章も文節で改行する */
+.jp { word-break: keep-all; overflow-wrap: anywhere; }
+p, li, dd, h1, h2, h3, button, a { word-break: auto-phrase; }

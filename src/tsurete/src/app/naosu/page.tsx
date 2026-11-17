@@ -8,6 +8,7 @@ import Ready from "@/components/Ready";
 import { toast } from "@/components/Confirm";
 import { BRAND, FIXES, PAGES, PRODUCTS, fmt, shelf, type Fix } from "@/lib/demo";
 import { getState, update, useStore } from "@/lib/store";
+import J from "@/components/J";
 import { download } from "@/lib/check";
 import { METHOD, platformCsv, platformOf } from "@/lib/platforms";
 import SitePicker, { SiteGrid } from "@/components/SitePicker";
@@ -39,7 +40,7 @@ function Block({ id, label, before, after, gain, done }: { id: string; label: st
     <div>
       {before ? <p className="whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#374151]">{before}</p> : <p className="text-[0.82rem] text-[#9ca3af]">（{label}がありません）</p>}
       <div className="mt-2.5 rounded-xl border border-dashed border-[#10b981] bg-white p-3.5">
-        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.75rem]"><b className="flex items-center gap-1 text-[#047857]"><Wand2 size={13} />AIの書き直し案</b><span className="text-[#6b7280]">{f.why}</span></p>
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.75rem]"><b className="flex items-center gap-1 text-[#047857]"><Wand2 size={13} />AIの書き直し案</b><span className="text-[#6b7280]"><J>{f.why}</J></span></p>
         <p className="mt-2 whitespace-pre-line text-[0.88rem] leading-[1.8] text-[#111827]">{after}</p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <button type="button" onClick={() => use([id], after)} className="btn min-h-[2.3rem] bg-[#10b981] px-4 text-[0.85rem] text-white hover:bg-[#059669]">{m === "copy" ? <Copy size={16} /> : <Check size={16} />}この案を使う</button>
@@ -55,12 +56,12 @@ function Block({ id, label, before, after, gain, done }: { id: string; label: st
 function Outside({ f, done, gain }: { f: Fix; done: boolean; gain: number }) {
   const Icon = f.id === "media" ? Mail : Star;
   return (
-    <li className={`card p-7 ${done ? "ring-1 ring-ok/40" : ""}`}>
-      <div className="flex items-start gap-3">
+    <li className={`card p-6 sm:p-7 ${done ? "ring-1 ring-ok/40" : ""}`}>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-3">
         <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ai-2 text-ai"><Icon size={19} /></span>
         <div className="min-w-0 flex-1">
-          <b className="block text-[0.98rem] leading-[1.6]">{f.title}</b>
-          <p className="mt-1 text-[0.84rem] leading-[1.7] text-sub">{f.why}</p>
+          <b className="block text-[0.98rem] leading-[1.6]"><J>{f.title}</J></b>
+          <p className="mt-1 text-[0.84rem] leading-[1.8] text-sub"><J>{f.why}</J></p>
           <p className="mt-2 whitespace-pre-line rounded-xl bg-paper p-3 text-[0.85rem] leading-[1.8]">{f.after}</p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {done ? <><span className="chip bg-ok text-[#03140f]"><Check size={13} />{f.id === "media" ? "依頼文を作りました" : "変えました"}</span><button type="button" onClick={() => apply([f.id], false)} className="text-[0.8rem] text-sub underline">戻す</button></>

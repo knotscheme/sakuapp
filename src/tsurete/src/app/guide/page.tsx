@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, ChevronRight, CircleHelp, Hand, Lightbulb, MonitorSmartphone, RotateCcw, Store } from "lucide-react";
 import Shell from "@/components/Shell";
+import J from "@/components/J";
 
 const IMG = "/sakuapp/works/tsurete/img/guide";
 
@@ -50,13 +51,13 @@ function Guide() {
         ].map(({ icon: Icon, t, b }) => (
           <div key={t} className="card flex gap-3 p-5">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ai-2 text-ai"><Icon size={20} /></span>
-            <span className="min-w-0"><b className="block text-[1rem] leading-[1.6]">{t}</b><span className="text-[0.88rem] leading-[1.8] text-sub">{b}</span></span>
+            <span className="min-w-0"><b className="block text-[1rem] leading-[1.6]">{t}</b><span className="text-[0.88rem] leading-[1.8] text-sub"><J>{b}</J></span></span>
           </div>
         ))}
       </section>
 
       <div className="mt-4 rounded-2xl border border-line bg-panel p-5 text-[0.95rem] leading-[1.95]">
-        <b>TSURETEとは：</b>お客様がChatGPTなどのAIに商品を聞いたとき、<b>あなたの商品が何回すすめられているかを毎週はかり、負けている理由を直す</b>ツールです。Shopify・楽天・Amazonなど、どのサイトでも使えます。
+        <b>TSURETEとは：</b><J>お客様がChatGPTなどのAIに商品を聞いたとき、あなたの商品が何回すすめられているかを毎週はかり、負けている理由を直すツールです。Shopify・楽天・Amazonなど、どのサイトでも使えます。</J>
       </div>
 
       <nav aria-label="手順の目次" className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -77,12 +78,12 @@ function Guide() {
               </div>
               <div className="p-5 sm:p-6">
                 <p className="flex items-center gap-2"><span className="num grid h-8 w-8 place-items-center rounded-full bg-ai text-[#03140f]">{s.n}</span><b className="text-[1.25rem]">{s.title}</b></p>
-                <p className="mt-3 text-[0.95rem] leading-[1.9]">{s.what}</p>
+                <p className="mt-3 text-[0.95rem] leading-[1.9]"><J>{s.what}</J></p>
                 <p className="mt-4 text-[0.85rem] font-bold text-ai">押してみよう</p>
                 <ol className="mt-1 space-y-1.5">
-                  {s.try.map((t, i) => <li key={t} className="flex gap-2 text-[0.93rem] leading-[1.8]"><span className="num mt-[0.2rem] grid h-5 w-5 shrink-0 place-items-center rounded-full border border-ai text-[0.7rem] text-ai">{i + 1}</span><span className="min-w-0">{t}</span></li>)}
+                  {s.try.map((t, i) => <li key={t} className="flex gap-2 text-[0.93rem] leading-[1.8]"><span className="num mt-[0.2rem] grid h-5 w-5 shrink-0 place-items-center rounded-full border border-ai text-[0.7rem] text-ai">{i + 1}</span><span className="min-w-0"><J>{t}</J></span></li>)}
                 </ol>
-                <p className="mt-4 flex gap-2 rounded-xl bg-warn/10 p-3 text-[0.86rem] leading-[1.8]"><Lightbulb size={18} className="mt-[0.15rem] shrink-0 text-warn" /><span className="min-w-0">{s.point}</span></p>
+                <p className="mt-4 flex gap-2 rounded-xl bg-warn/10 p-3 text-[0.86rem] leading-[1.8]"><Lightbulb size={18} className="mt-[0.15rem] shrink-0 text-warn" /><span className="min-w-0"><J>{s.point}</J></span></p>
                 <Link href={s.href} className="btn btn-ai mt-4 w-full sm:w-auto">この画面を開く<ArrowRight size={18} /></Link>
               </div>
             </div>
@@ -96,7 +97,7 @@ function Guide() {
           {QA.map((x) => (
             <details key={x.q} className="card group p-0">
               <summary className="flex cursor-pointer list-none items-center gap-3 p-4 text-[0.98rem] font-bold"><span className="min-w-0 flex-1">{x.q}</span><ChevronRight size={18} className="shrink-0 text-sub transition group-open:rotate-90" /></summary>
-              <p className="px-4 pb-4 text-[0.92rem] leading-[1.9] text-sub">{x.a}</p>
+              <p className="px-4 pb-4 text-[0.92rem] leading-[1.9] text-sub"><J>{x.a}</J></p>
             </details>
           ))}
         </div>

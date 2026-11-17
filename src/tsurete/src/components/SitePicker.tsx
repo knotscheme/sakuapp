@@ -13,11 +13,11 @@ export function SiteGrid({ onPick }: { onPick?: () => void }) {
       {(["api", "csv", "copy"] as Method[]).map((m) => (
         <div key={m}>
           <p className="text-[0.78rem] font-bold text-sub">{METHOD[m]}</p>
-          <div className="mt-2 grid gap-2 sm:grid-cols-2">
+          <div className="mt-2 grid grid-cols-2 gap-2">
             {PLATFORMS.filter((p) => p.method === m).map((p) => (
               <button key={p.id} type="button" aria-pressed={s.site === p.id} onClick={() => { update((x) => ({ ...x, site: p.id })); onPick?.(); }}
-                className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-left text-[0.92rem] font-bold transition ${s.site === p.id ? "bg-ai/15 text-ai ring-1 ring-ai" : "bg-white/[.04] hover:bg-white/[.07]"}`}>
-                <span className="min-w-0 flex-1">{p.name}</span>{s.site === p.id && <Check size={17} />}
+                className={`flex min-h-[3rem] items-center gap-2 rounded-2xl px-3.5 py-2 text-left text-[0.84rem] font-bold leading-[1.45] transition sm:px-4 sm:text-[0.92rem] ${s.site === p.id ? "bg-ai/15 text-ai ring-1 ring-ai" : "bg-white/[.04] hover:bg-white/[.07]"}`}>
+                <span className="min-w-0 flex-1">{p.name.replace("（WooCommerce）", "")}</span>{s.site === p.id && <Check size={17} />}
               </button>
             ))}
           </div>
