@@ -37,7 +37,7 @@ function Dashboard() {
         {kpi.map((k) => (
           <Link key={k.l} href={k.href} className="card group min-w-0 p-3.5 transition hover:bg-white/[.03] sm:p-7">
             <p className="text-[0.68rem] leading-[1.5] text-sub sm:text-[0.82rem]"><J>{k.l}</J></p>
-            <p className="mt-2 whitespace-nowrap sm:mt-3"><b className="num text-[1.2rem] leading-none sm:text-[2.4rem]">{k.v}</b><span className="ml-0.5 text-[0.75rem] text-sub sm:ml-1 sm:text-base">{k.u}</span></p>
+            <p className="mt-2 whitespace-nowrap sm:mt-3"><b className="num text-[1.02rem] leading-none min-[360px]:text-[1.2rem] sm:text-[2.4rem]">{k.v}</b><span className="ml-0.5 text-[0.75rem] text-sub sm:ml-1 sm:text-base">{k.u}</span></p>
             <p className={`mt-2 text-[0.66rem] leading-[1.5] sm:mt-3 sm:text-[0.8rem] ${k.good ? "text-ai" : "text-sub"}`}>{k.d}</p>
           </Link>
         ))}

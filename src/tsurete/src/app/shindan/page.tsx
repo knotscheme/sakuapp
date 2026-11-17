@@ -42,7 +42,7 @@ function Mode() {
   const ai = useAi();
   return aiReady(ai)
     ? <p className="text-[0.8rem] text-sub">書き直し案は {PNAME[ai.provider as keyof typeof PNAME]} が作ります</p>
-    : <p className="text-[0.8rem] leading-[1.9] text-sub">AIのキーがないため、書き直し案は【】つきのひな形になります。<Link href="/settings/" className="text-ai underline underline-offset-4">キーを入れる</Link></p>;
+    : <p className="text-[0.8rem] leading-[1.9] text-sub"><J>AIのキーがないため、書き直し案は【】つきのひな形になります。</J><Link href="/settings/" className="text-ai underline underline-offset-4">キーを入れる</Link></p>;
 }
 
 // 1つの点検項目：何が足りないか → どう調べたか・なぜ大事か → 書き直し案
@@ -136,7 +136,7 @@ function ByUrl({ initial }: { initial?: string }) {
         <input id="url" value={url} onChange={(e) => setUrl(e.target.value)} className="field num" inputMode="url" placeholder="https://（商品ページのURL）" />
         <button type="submit" disabled={busy} className="btn btn-ai shrink-0 px-8">{busy ? "診断しています…" : "診断する"}</button>
       </form>
-      <p className="mt-3 text-[0.8rem] text-sub">はじめは見本のURL（架空のブランド SORAE）が入っています。</p>
+      <p className="mt-3 text-[0.8rem] text-sub"><J>はじめは見本のURL（架空のブランド SORAE）が入っています。</J></p>
       {needPaste && <label className="mt-6 block text-[0.9rem] font-bold">商品ページの文章<textarea value={paste} onChange={(e) => setPaste(e.target.value)} rows={6} className="field mt-2" placeholder="商品名・値段・説明など、ページの文章をそのまま貼りつけてください" /></label>}
       {err && <p className="mt-4 text-[0.88rem] leading-[1.9] text-warn">{err}</p>}
       <div className="mt-12"><How at={at} /></div>
@@ -199,7 +199,7 @@ function ByCsv() {
       )}
       <input ref={file} type="file" accept=".csv,text/csv" hidden onChange={async (e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) load(await f.text(), f.name); }} />
       {err && <p className="mt-4 text-[0.88rem] text-warn">{err}</p>}
-      {!isSample && rows.length > LIMIT && aiReady() && <p className="mt-3 text-[0.8rem] text-sub">AIで書き直し案を作るのは、先頭から{LIMIT}商品までです。残りはひな形になります。</p>}
+      {!isSample && rows.length > LIMIT && aiReady() && <p className="mt-3 text-[0.8rem] text-sub"><J>{`AIで書き直し案を作るのは、先頭から${LIMIT}商品までです。残りはひな形になります。`}</J></p>}
       {prog && <div className="mt-8"><p className="num text-[0.85rem] text-sub">{prog[0] + 1} / {prog[1]}</p><div className="mt-2 h-1 overflow-hidden rounded-full bg-white/[.06]"><div className="h-full rounded-full bg-ai transition-all" style={{ width: `${((prog[0] + 1) / prog[1]) * 100}%` }} /></div></div>}
 
       {items.length > 0 && !prog && (

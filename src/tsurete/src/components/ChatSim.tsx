@@ -29,7 +29,7 @@ export function ChatSim() {
   return (
     <section className="mt-24" aria-labelledby="chat">
       <h2 id="chat" className="text-[1.2rem] font-bold tracking-[.04em]">お客様がAIに聞くと</h2>
-      <p className="mt-1 text-[0.86rem] text-sub">いまの商品ページの状態で、AIがどう答えるかを再現しています。</p>
+      <p className="mt-1 text-[0.86rem] text-sub"><J>いまの商品ページの状態で、AIがどう答えるかを再現しています。</J></p>
       <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,21rem)] lg:gap-5">
         <div className="card min-w-0 p-4 lg:col-start-2 lg:row-start-1">
           <div className="grid grid-cols-4 gap-1.5" role="group" aria-label="AI">{AIS.map((a) => <button key={a} type="button" aria-pressed={ai === a} onClick={() => { setAi(a); setT(0); }} className={`rounded-lg border px-1 py-1.5 text-[0.72rem] font-bold sm:text-[0.8rem] ${ai === a ? "border-ai text-ai" : "border-line text-sub"}`}>{a}</button>)}</div>
@@ -46,7 +46,7 @@ export function ChatSim() {
                 <ol className="space-y-2">{picks.map((p, i) => (
                   <li key={p.brand} className={`flex gap-3 rounded-xl border p-3 ${p.me ? "border-ai bg-ai/10" : "border-line bg-paper"}`}>
                     <span className={`num grid h-7 w-7 shrink-0 place-items-center rounded-full text-[0.8rem] ${p.me ? "bg-ai text-[#03140f]" : "bg-deep"}`}>{i + 1}</span>
-                    <span className="min-w-0 flex-1"><b className="block text-[0.95rem] leading-[1.5]">{p.brand}　{p.item}<span className="num block text-[0.78rem] font-normal text-sub sm:ml-2 sm:inline">{fmt(p.price)}円</span></b><span className="block text-[0.83rem] leading-[1.7] text-sub">{p.why}</span>
+                    <span className="min-w-0 flex-1"><b className="block text-[0.95rem] leading-[1.5]"><span className="whitespace-nowrap">{p.brand}</span>　<span className="whitespace-nowrap">{p.item}</span><span className="num block text-[0.78rem] font-normal text-sub sm:ml-2 sm:inline">{fmt(p.price)}円</span></b><span className="block text-[0.83rem] leading-[1.7] text-sub"><J>{p.why}</J></span>
                       {p.me && <button type="button" onClick={() => setOpen(p)} className="btn btn-ai mt-2 min-h-[2.3rem] px-3.5 text-[0.85rem]"><ShoppingBag size={16} />商品を見る</button>}</span>
                   </li>))}</ol>
               </div>
@@ -56,7 +56,7 @@ export function ChatSim() {
         </div>
         <div className={`card min-w-0 p-5 lg:col-start-2 lg:row-start-2 lg:self-start ${n >= 10 ? "border-ai/60" : "border-warn/50"}`}>
           <p className="text-[0.82rem] text-sub">この質問を{TRIES}回聞くと</p>
-          <p className="mt-1"><b className={`num text-[2.4rem] leading-none ${n >= 10 ? "text-ai" : "text-warn"}`}>{n}</b><span className="ml-1 text-[0.95rem]">回 {BRAND.name}が出る</span></p>
+          <p className="mt-1"><b className={`num text-[2.4rem] leading-none ${n >= 10 ? "text-ai" : "text-warn"}`}>{n}</b><span className="ml-1 whitespace-nowrap text-[0.95rem]">回 {BRAND.name}が出る</span></p>
           <div className="mt-3 flex gap-[3px]" aria-hidden>{Array.from({ length: TRIES }, (_, i) => <i key={i} className={`h-2 flex-1 rounded-sm ${i < n ? "bg-ai" : "bg-deep"}`} />)}</div>
           <p className="mt-3 text-[0.8rem] leading-[1.7] text-sub">AIの答えは、聞くたびに少し変わります。</p>
           {n < 10 && <Link href="/naosu/" className="mt-3 flex items-center gap-1 text-[0.88rem] font-bold text-ai">商品ページを書き直す<ArrowRight size={16} /></Link>}
@@ -84,7 +84,7 @@ export function Real() {
   return (
     <section className="card mt-5 p-7" aria-labelledby="real">
       <h2 id="real" className="flex items-center gap-2 text-[1.05rem] font-bold"><Search size={18} className="text-ai" />本物のAIに聞いてみる</h2>
-      <p className="mt-1 text-[0.85rem] text-sub">「設定」でAIのキーとブランド名を入れると、自分の商品で試せます（ネット検索なしの答えです）。</p>
+      <p className="mt-1 text-[0.85rem] text-sub"><J>「設定」でAIのキーとブランド名を入れると、自分の商品で試せます（ネット検索なしの答えです）。</J></p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <input value={q} onChange={(e) => setQ(e.target.value)} className="field" aria-label="質問" />
         <button type="button" disabled={busy || !q.trim()} onClick={async () => { if (!aiReady(ai)) { setErr("先に「設定」でAIのキーを入れてください"); return; } setBusy(true); setErr(""); setRes(""); try { setRes(await askProduct(q)); } catch (e) { setErr((e as Error).message); } finally { setBusy(false); } }} className="btn btn-ai shrink-0">{busy ? "聞いています…" : "聞く"}</button>

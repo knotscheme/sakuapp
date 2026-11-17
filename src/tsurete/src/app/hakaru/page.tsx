@@ -49,7 +49,7 @@ function Hakaru() {
 
       <section className="mt-24" aria-labelledby="rk">
         <h2 id="rk" className="text-[1.2rem] font-bold tracking-[.04em]">AIの売り場での順位</h2>
-        <p className="mt-2 text-[0.88rem] text-sub">同じ質問で、どのブランドがすすめられたか。いまは <b className="text-ink">{myPos}位</b> です。</p>
+        <p className="mt-2 text-[0.88rem] text-sub"><J>同じ質問で、どのブランドがすすめられたか。</J><span className="whitespace-nowrap">いまは <b className="text-ink">{myPos}位</b> です。</span></p>
         <ol className="mt-8 border-t hair">
           {rank.map((r, i) => {
             const me = r.name === BRAND.name;
@@ -67,10 +67,10 @@ function Hakaru() {
 
       <section className="mt-24" aria-labelledby="gap">
         <h2 id="gap" className="text-[1.2rem] font-bold tracking-[.04em]">よくすすめられている店との差</h2>
-        <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub">AIが答えるときに参考にしたページを読んで、書かれていることを比べました。</p>
+        <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>AIが答えるときに参考にしたページを読んで、書かれていることを比べました。</J></p>
         <div className="mt-8">
           <table className="w-full table-fixed text-[0.8rem] sm:text-[0.88rem]">
-            <thead><tr className="border-b hair text-left text-[0.78rem] text-sub"><th className="w-[38%] py-3 font-medium sm:w-auto">AIが見ている情報</th>{cols.map((c) => <th key={c} className={`px-1 py-3 text-center text-[0.68rem] font-bold leading-[1.3] sm:px-2 sm:text-[0.78rem] ${c === BRAND.name ? "text-ai" : ""}`}>{c}</th>)}</tr></thead>
+            <thead><tr className="border-b hair text-left text-[0.78rem] text-sub"><th className="w-[33%] py-3 min-[360px]:w-[38%] font-medium sm:w-auto"><J>AIが見ている情報</J></th>{cols.map((c) => <th key={c} className={`px-0.5 py-3 text-center text-[0.66rem] font-bold leading-[1.3] sm:px-2 sm:text-[0.78rem] ${c === BRAND.name ? "text-ai" : ""}`}>{c.includes(" ") ? <J>{c}</J> : <span className="whitespace-nowrap">{c}</span>}</th>)}</tr></thead>
             <tbody>
               {(Object.keys(SIGNALS) as Sig[]).map((k) => (
                 <tr key={k} className="border-b hair">

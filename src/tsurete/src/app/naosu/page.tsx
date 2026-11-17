@@ -139,7 +139,7 @@ function Naosu() {
             <img src={`/sakuapp/works/tsurete/img/products/${pid}.webp`} alt={p.name} width={600} height={600} className="block aspect-square h-auto w-full object-cover" />
           </div>
           <div className="min-w-0 space-y-8 p-6 sm:p-10">
-            <div><p className="text-[0.75rem] tracking-[.2em] text-[#6b7280]">SORAE</p><h2 className="mt-1 text-[1.3rem] font-bold leading-[1.5]">{p.name}</h2><p className="num mt-1 text-[1.2rem] font-bold">{fmt(p.price)}円<span className="text-[0.75rem] font-normal text-[#6b7280]">（税込）</span></p></div>
+            <div><p className="text-[0.75rem] tracking-[.2em] text-[#6b7280]">SORAE</p><h2 className="mt-1 text-[1.3rem] font-bold leading-[1.5]"><J>{p.name}</J></h2><p className="num mt-1 text-[1.2rem] font-bold">{fmt(p.price)}円<span className="whitespace-nowrap text-[0.75rem] font-normal text-[#6b7280]">（税込）</span></p></div>
             {blocks.map((b) => <div key={b.id}><p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]">{b.label}</p><Block id={b.id} label={b.label} before={b.t[0]} after={b.t[1]} gain={gain(b.id)} done={done(b.id)} /></div>)}
             <div>
               <p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]"><J>AIが読む商品データ（ページには表示されません）</J></p>
@@ -157,7 +157,7 @@ function Naosu() {
 
       <section className="mt-24" aria-labelledby="feed">
         <h2 id="feed" className="flex items-center gap-2 text-[1.2rem] font-bold tracking-[.04em]"><Rss size={20} className="text-ai" />商品フィード（どのサイトでも）</h2>
-        <p className="mt-2 max-w-[40em] text-[0.88rem] leading-[1.95] text-sub">商品名・値段・特徴をまとめた一覧のファイルを、TSURETEが作ってネット上に置きます。Googleショッピングなど、AIが商品を探すときに読む場所に登録すると、サイトの種類に関係なく、書き直した内容が届きます。</p>
+        <p className="mt-2 max-w-[40em] text-[0.88rem] leading-[1.95] text-sub"><J>商品名・値段・特徴をまとめた一覧のファイルを、TSURETEが作ってネット上に置きます。Googleショッピングなど、AIが商品を探すときに読む場所に登録すると、サイトの種類に関係なく、書き直した内容が届きます。</J></p>
         {s.feed ? (
           <div className="fade-in mt-8 rounded-[24px] bg-white/[.03] p-6 sm:p-8">
             <p className="text-[0.78rem] font-bold text-sub">フィードのURL（デモ）</p>

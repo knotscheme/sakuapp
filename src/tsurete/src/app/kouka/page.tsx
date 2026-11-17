@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import J from "@/components/J";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import { PAST, PRODUCTS, fmt, sales, shelf } from "@/lib/demo";
@@ -43,12 +44,12 @@ function Uriage() {
         <ul className="mt-8 border-t hair">
           {sh.byAi.map((x) => { const p = Math.round((x.n / tot) * 100); return <li key={x.ai} className="grid grid-cols-[7rem_1fr_3rem] items-center gap-4 border-b hair py-4 text-[0.92rem]"><span>{x.ai}</span><span className="h-1.5 overflow-hidden rounded-full bg-white/[.06]"><span className="block h-full rounded-full bg-ai" style={{ width: `${p}%` }} /></span><span className="num text-right">{p}%</span></li>; })}
         </ul>
-        <p className="mt-5 text-[0.8rem] leading-[1.9] text-sub">AIのサイトから来たお客様を、リンクに付けた目印とアクセス元で見分けて数えます。どのサイトでも、計測用のタグを1行入れるだけで使えます。</p>
+        <p className="mt-5 text-[0.8rem] leading-[1.9] text-sub"><J>AIのサイトから来たお客様を、リンクに付けた目印とアクセス元で見分けて数えます。どのサイトでも、計測用のタグを1行入れるだけで使えます。</J></p>
       </section>
 
       <section className="mt-24" aria-labelledby="od">
         <h2 id="od" className="text-[1.2rem] font-bold tracking-[.04em]">デモの中で買われた注文</h2>
-        {s.orders.length === 0 ? <p className="mt-4 text-[0.9rem] leading-[1.9] text-sub">まだありません。「<Link href="/hakaru/" className="text-ai underline underline-offset-4">測る</Link>」の「お客様がAIに聞くと」で、{"SORAE"}の「商品を見る」→「買う」を押すと、ここに入ります。</p> : (
+        {s.orders.length === 0 ? <p className="mt-4 text-[0.9rem] leading-[1.9] text-sub">まだありません。<span className="whitespace-nowrap">「<Link href="/hakaru/" className="text-ai underline underline-offset-4">測る</Link>」の</span><J>「お客様がAIに聞くと」で、SORAEの「商品を見る」→「買う」を押すと、ここに入ります。</J></p> : (
           <ul className="mt-6 border-t hair">{s.orders.slice(0, 8).map((o) => <li key={o.id} className="flex flex-wrap items-baseline gap-x-4 border-b hair py-4 text-[0.92rem]"><b>{PRODUCTS.find((p) => p.id === o.product)?.short}</b><span className="num">{fmt(o.price)}円</span><span className="text-[0.82rem] text-ai">{o.ai}経由</span><span className="num ml-auto text-[0.78rem] text-sub">{new Date(o.at).toLocaleTimeString("ja-JP", { hour: "2-digit", minute: "2-digit" })}</span></li>)}</ul>
         )}
       </section>
