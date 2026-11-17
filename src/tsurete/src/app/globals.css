@@ -47,3 +47,17 @@ h1, h2, h3 { word-break: auto-phrase; text-wrap: pretty; }
 /* 文節で改行する（J部品の中）。Chromeでは、ほかの文章も文節で改行する */
 .jp { word-break: keep-all; overflow-wrap: anywhere; }
 p, li, dd, h1, h2, h3, button, a { word-break: auto-phrase; }
+
+/* LP（Appleのサイトのような明るい見た目）。この中だけ色を入れかえる */
+.lp-light {
+  --color-paper: #ffffff; --color-panel: #f5f5f7; --color-deep: #e8e8ed; --color-ink: #1d1d1f; --color-sub: #6e6e73;
+  --color-line: #d2d2d7; --color-ai: #00a37a; --color-ai-2: #e3f6ef; --color-lime: #00a37a; --color-warn: #c2410c;
+  background: #fff; color: #1d1d1f;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", var(--font-noto), sans-serif;
+  letter-spacing: .01em;
+}
+.lp-light .btn-ai { background: #1d1d1f; color: #fff; } .lp-light .btn-ai:hover { background: #000; box-shadow: none; }
+.lp-light .field { background: #fff; border-color: #d2d2d7; color: #1d1d1f; }
+.lp-light .field:focus { border-color: #00a37a; }
+.lp-light .num { font-family: -apple-system, BlinkMacSystemFont, var(--font-outfit), sans-serif; letter-spacing: -.02em; }
+.lp-h { font-weight: 700; letter-spacing: -.01em; line-height: 1.3; }

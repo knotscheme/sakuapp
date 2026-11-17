@@ -16,14 +16,14 @@ export function Phone({ children, src, alt = "" }: { children?: React.ReactNode;
     ro.observe(el); return () => ro.disconnect();
   }, []);
   return (
-    <div className="rounded-[15%/7%] bg-[#1b1f27] p-[3.4%] shadow-[0_30px_60px_-20px_rgba(0,0,0,.7)] ring-1 ring-white/15">
-      <div ref={box} className="relative overflow-hidden rounded-[12%/5.6%] bg-paper" style={{ aspectRatio: `${W} / ${H}` }}>
+    <div className="rounded-[15%/7%] bg-[#1b1f27] p-[3.4%] shadow-[0_30px_60px_-20px_rgba(0,0,0,.5)] ring-1 ring-[#8a8d93]/60">
+      <div ref={box} className={`relative overflow-hidden rounded-[12%/5.6%] ${src ? "bg-[#060b18]" : "bg-white"}`} style={{ aspectRatio: `${W} / ${H}` }}>
         {/* 上の帯（時刻・電波）と、カメラの部分 */}
-        <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-[8%] font-display font-semibold text-ink" style={{ height: `${(BAR / H) * 100}%`, fontSize: 15 * k }}>
+        <div className={`absolute inset-x-0 top-0 z-10 flex items-center justify-between px-[8%] font-display font-semibold ${src ? "bg-[#060b18] text-white [--sb:#fff]" : "text-[#1d1d1f] [--sb:#1d1d1f]"}`} style={{ height: `${(BAR / H) * 100}%`, fontSize: 15 * k }}>
           <span>9:41</span>
           <span className="flex items-end gap-[3%]" style={{ width: "16%" }} aria-hidden>
-            {[0.4, 0.6, 0.8, 1].map((h) => <i key={h} className="flex-1 rounded-[1px] bg-ink" style={{ height: 10 * k * h }} />)}
-            <i className="ml-[8%] rounded-[2px] border border-ink/70" style={{ width: 22 * k, height: 11 * k }} />
+            {[0.4, 0.6, 0.8, 1].map((h) => <i key={h} className="flex-1 rounded-[1px] bg-[var(--sb)]" style={{ height: 10 * k * h }} />)}
+            <i className="ml-[8%] rounded-[2px] border border-[var(--sb)]" style={{ width: 22 * k, height: 11 * k }} />
           </span>
         </div>
         <div className="absolute left-1/2 top-[1.3%] z-20 -translate-x-1/2 rounded-full bg-black" style={{ width: "32%", height: "4.2%" }} aria-hidden />
@@ -41,18 +41,18 @@ export function Phone({ children, src, alt = "" }: { children?: React.ReactNode;
   );
 }
 
-export function Laptop({ src, alt }: { src: string; alt: string }) {
+export function Laptop({ src, alt, silver = false }: { src: string; alt: string; silver?: boolean }) {
   return (
     <div>
-      <div className="rounded-t-[2.2%/3.4%] bg-[#1b1f27] px-[2.2%] pb-[2.4%] pt-[2.2%] ring-1 ring-white/15">
+      <div className={`rounded-t-[2.2%/3.4%] bg-[#0d0d10] px-[2.2%] pb-[2.4%] pt-[2.2%] ring-1 ${silver ? "ring-[#c7c8cb] shadow-[0_40px_80px_-40px_rgba(0,0,0,.45)]" : "ring-white/15"}`}>
         <div className="relative overflow-hidden rounded-[0.6%] bg-paper" style={{ aspectRatio: "1440 / 900" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={src} alt={alt} className="block h-full w-full object-cover object-top" loading="lazy" />
         </div>
       </div>
       {/* 台座（キーボード側の手前のふち） */}
-      <div className="relative -mx-[7%] h-0 rounded-b-[40%/100%] bg-gradient-to-b from-[#3a404c] to-[#1e222a] pb-[3.2%]">
-        <i className="absolute bottom-[55%] left-1/2 top-0 w-[13%] -translate-x-1/2 rounded-b-[30%/100%] bg-[#151820]" aria-hidden />
+      <div className={`relative -mx-[7%] h-0 rounded-b-[40%/100%] bg-gradient-to-b pb-[3.2%] ${silver ? "from-[#e3e4e6] via-[#c9cacd] to-[#9fa1a6] shadow-[0_18px_30px_-18px_rgba(0,0,0,.45)]" : "from-[#3a404c] to-[#1e222a]"}`}>
+        <i className={`absolute bottom-[55%] left-1/2 top-0 w-[13%] -translate-x-1/2 rounded-b-[30%/100%] ${silver ? "bg-[#b4b6ba]" : "bg-[#151820]"}`} aria-hidden />
       </div>
     </div>
   );
