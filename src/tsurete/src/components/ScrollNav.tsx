@@ -21,18 +21,32 @@ export default function ScrollNav({ names, dark = [], colors }: { names: string[
       if (n !== last) { last = n; setI(n); }
       const v = scrollY > innerHeight * 0.6;
       if (v !== vis) { vis = v; setShow(v); }
+      paint();
+    };
+    // 背景の色：次のセクションが画面の下から上がってくるにつれて、少しずつ次の色へ混ぜる
+    // （時間で変えるとiPhoneで一瞬に見えるため、スクロールした量で決める）
+    const root = document.querySelector<HTMLElement>(".lp-light");
+    const rgb = (c: string) => [1, 3, 5].map((k) => parseInt(c.slice(k, k + 2), 16));
+    const cols = (colors ?? []).map(rgb);
+    let lastBg = "";
+    const paint = () => {
+      if (!root || !cols.length) return;
+      let k = 0, t = 0;
+      for (let j = 1; j < tops.length && j < cols.length; j++) {
+        const p = (innerHeight - (tops[j] - scrollY)) / (innerHeight * 0.7);
+        if (p > 0) { k = j; t = Math.min(1, p); }
+      }
+      const a = cols[Math.max(0, k - 1)], b = cols[k];
+      const c = k === 0 ? cols[0] : a.map((v, n) => Math.round(v + (b[n] - v) * t));
+      const bg = `rgb(${c.join(",")})`;
+      if (bg !== lastBg) { lastBg = bg; root.style.backgroundColor = bg; }
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(tick); };
     measure(); tick();
     const ro = new ResizeObserver(() => { measure(); on(); }); ro.observe(document.body);
     addEventListener("scroll", on, { passive: true });
     return () => { removeEventListener("scroll", on); ro.disconnect(); cancelAnimationFrame(raf); };
-  }, []);
-  // いまのセクションの色を、ページ全体の背景に（CSSの transition で、ゆっくりとけるように変わる）
-  useEffect(() => {
-    const root = document.querySelector<HTMLElement>(".lp-light");
-    if (root && colors) root.style.backgroundColor = colors[Math.max(0, i)] ?? "#fff";
-  }, [i, colors]);
+  }, [colors]);
   const d = dark.includes(i);
   return (
     <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 z-40 transition-[opacity,transform] duration-500"
