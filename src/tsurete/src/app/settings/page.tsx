@@ -23,7 +23,7 @@ function Settings() {
           <label className="text-[0.9rem] font-bold">商品の種類<input value={s.real.item} onChange={(e) => real({ item: e.target.value })} placeholder="例）敏感肌向けの化粧水" className="field mt-1" /></label>
           <label className="text-[0.9rem] font-bold">ジャンル<input value={s.real.kind} onChange={(e) => real({ kind: e.target.value })} placeholder="例）スキンケア" className="field mt-1" /></label>
         </div>
-        <p className="mt-2 text-[0.82rem] text-sub">入れると「棚チェック」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</p>
+        <p className="mt-2 text-[0.82rem] text-sub">入れると「効果」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</p>
       </section>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">
         <h2 id="ak" className="text-[1.1rem] font-bold">AIのキー</h2>

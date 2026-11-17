@@ -145,7 +145,33 @@ export function shelf(applied: string[]) {
 
 // AIから来たお客様と売上（月の見込み）
 export const AVG = 3800;
-export function sales(pct: number) { const visits = Math.round(40 + pct * 14); const orders = Math.round(visits * 0.045); return { visits, orders, yen: orders * AVG }; }
+export function sales(pct: number) { const visits = Math.round(40 + pct * 6); const orders = Math.round(visits * 0.045); return { visits, orders, yen: orders * AVG }; }
 export const PAST = [{ w: "9/22", o: 2 }, { w: "9/29", o: 1 }, { w: "10/6", o: 3 }, { w: "10/13", o: 2 }, { w: "10/20", o: 2 }, { w: "10/27", o: 3 }, { w: "11/3", o: 2 }, { w: "11/10", o: 3 }];
 
 export const fmt = (n: number) => n.toLocaleString("ja-JP");
+
+// 商品ページの中身（書き直し前 → AIの書き直し案）。キーは FIXES の id と同じ
+export type PageText = { catch: string; target: [string, string]; ingredient: [string, string]; spec: [string, string]; faq: [string, string] };
+export const PAGES: Record<string, PageText> = {
+  lotion: {
+    catch: "毎日のうるおいに",
+    target: ["空のように澄んだ肌へ。毎日のうるおいに寄りそう、SORAEの化粧水。", "敏感肌・乾燥肌の方のために作った化粧水です。肌がゆらぎやすい季節にも、毎日やさしくうるおいを届けます。"],
+    ingredient: ["", "主な成分：セラミド、グリセリン、ヒアルロン酸\n入っていないもの：香料、アルコール（エタノール）、着色料、鉱物油"],
+    spec: ["150ml　3,300円（税込）", "150ml　3,300円（税込）\n朝晩使って約2か月・1日あたり約55円\n詰め替え用（300ml）4,950円もあります"],
+    faq: ["", "Q. 敏感肌でも使えますか？\nA. パッチテスト済みで、香料・アルコールは入っていません。\nQ. 朝も使えますか？\nA. はい、朝晩お使いいただけます。\nQ. 詰め替えはありますか？\nA. 300mlの詰め替え用があります。"],
+  },
+  serum: {
+    catch: "透明感のその先へ",
+    target: ["透明感のその先へ。SORAEの美容液。", "毛穴やくすみが気になる方のための美容液です。初めて美容液を使う方でも続けやすいよう、刺激を抑えて作りました。"],
+    ingredient: ["", "主な成分：ナイアシンアミド5%、パンテノール、ヒアルロン酸\n入っていないもの：香料、アルコール（エタノール）、着色料、パラベン"],
+    spec: ["30ml　4,950円（税込）", "30ml　4,950円（税込）\n朝晩2〜3滴で約1.5か月・1日あたり約110円"],
+    faq: ["", "Q. 朝も夜も使えますか？\nA. はい。化粧水のあとにお使いください。\nQ. 初めてでも刺激はありませんか？\nA. パッチテスト済みです。心配な方は腕の内側で試してからお使いください。\nQ. ほかの美容液と一緒に使えますか？\nA. はい。SORAEの美容液を先にお使いください。"],
+  },
+  uv: {
+    catch: "毎日の、軽やかなUVケア",
+    target: ["毎日の、軽やかなUVケア。", "敏感肌の方やお子さまとも使える、顔・からだ用の日焼け止めジェルです。白くならず、毎日のメイク下地にも使えます。"],
+    ingredient: ["", "紫外線吸収剤を使っていません（ノンケミカル）\n入っていないもの：香料、アルコール（エタノール）、着色料"],
+    spec: ["60g　2,750円（税込）", "60g　2,750円（税込）・SPF50 PA++++\n顔に毎日使って約1か月・1日あたり約90円"],
+    faq: ["", "Q. 石けんで落とせますか？\nA. はい、ふだんの洗顔料や石けんで落とせます。\nQ. 子どもにも使えますか？\nA. 1歳ごろから使えます。\nQ. 白くなりませんか？\nA. 透明なジェルなので、白くなりにくいです。"],
+  },
+};
