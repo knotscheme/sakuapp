@@ -227,8 +227,15 @@ function TenToThree() {
 
 // ---------- ノートパソコンが大きくなり、iPhoneが横から入る ----------
 function Showcase() {
-  const [ref, on] = useInView<HTMLDivElement>();
-  const k = on ? 1 : 0;
+  // 端末が3分の1ほど見えたら動き出し、画面から完全に外れたら元に戻す（また見たときにもう一度動く）
+  const ref = useRef<HTMLDivElement>(null);
+  const [k, setK] = useState(0);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    if (reduced()) { setK(1); return; }
+    const io = new IntersectionObserver(([e]) => { if (e.intersectionRatio >= 0.35) setK(1); else if (!e.isIntersecting) setK(0); }, { threshold: [0, 0.35] });
+    io.observe(el); return () => io.disconnect();
+  }, []);
   return (
     <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
       <Reveal className="text-center">
@@ -236,8 +243,8 @@ function Showcase() {
         <p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>開いたら、数字とやることだけ。パソコンでも、スマホでも。</J></p>
       </Reveal>
       <div ref={ref} className="relative mx-auto mt-16 max-w-[60rem] pr-[10%] sm:mt-24 sm:pr-[12%]">
-        <div style={{ transform: `scale(${0.86 + 0.14 * k})`, transformOrigin: "50% 100%", transition: "transform 1.6s cubic-bezier(.2,.7,.2,1)" }}><Laptop silver src={`${IMG}/dash-pc.webp?v=3`} alt="パソコンで見たTSURETEのホーム画面" /></div>
-        <div className="absolute bottom-[-2%] right-0 w-[22%]" style={{ transform: `translateX(${(1 - k) * 60}%)`, opacity: k, transition: "transform 1.4s cubic-bezier(.2,.7,.2,1) .35s, opacity 1s .35s" }}><Phone src={`${IMG}/dash-phone.webp?v=3`} alt="スマホで見たTSURETEのホーム画面" /></div>
+        <div style={{ transform: `translateY(${(1 - k) * 40}px) scale(${0.8 + 0.2 * k})`, opacity: 0.35 + 0.65 * k, transformOrigin: "50% 100%", transition: "transform 1.8s cubic-bezier(.2,.7,.2,1), opacity 1.2s" }}><Laptop silver src={`${IMG}/dash-pc.webp?v=3`} alt="パソコンで見たTSURETEのホーム画面" /></div>
+        <div className="absolute bottom-[-2%] right-0 w-[22%]" style={{ transform: `translateX(${(1 - k) * 90}%) rotate(${(1 - k) * 6}deg)`, opacity: k, transition: "transform 1.5s cubic-bezier(.2,.7,.2,1) .7s, opacity 1s .7s" }}><Phone src={`${IMG}/dash-phone.webp?v=3`} alt="スマホで見たTSURETEのホーム画面" /></div>
       </div>
     </section>
   );
