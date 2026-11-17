@@ -95,7 +95,7 @@ function Hero() {
   return (
     <section className="relative overflow-hidden px-5 pb-16 pt-14 text-center sm:pb-24 sm:pt-16">
       {/* 後ろの光：ゆっくり漂う */}
-      <div className="pointer-events-none absolute inset-0 -z-0" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 -z-0 [mask-image:linear-gradient(to_bottom,#000_55%,transparent_98%)] [-webkit-mask-image:linear-gradient(to_bottom,#000_55%,transparent_98%)]" aria-hidden>
         <i className="lp-anim absolute left-1/2 top-[48%] h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[#2fd9a6]/30 blur-[90px] sm:h-[38rem] sm:w-[38rem]" style={{ animation: "lp-aurora1 14s ease-in-out infinite" }} />
         <i className="lp-anim absolute left-1/2 top-[58%] h-[26rem] w-[26rem] -translate-x-[10%] rounded-full bg-[#0a84ff]/20 blur-[90px] sm:h-[32rem] sm:w-[32rem]" style={{ animation: "lp-aurora2 17s ease-in-out infinite" }} />
       </div>
