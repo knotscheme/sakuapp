@@ -114,25 +114,50 @@ const SEARCH = [
   { t: "SORAE 化粧水 しっとり 150ml", u: "sorae-skin.example", n: "SORAE", d: "空のように澄んだ肌へ。毎日のうるおいに。", me: true },
 ];
 const PICKS = [{ b: "しずく舎　やさしい化粧水", w: "敏感肌向けと明記されている" }, { b: "Lunae　バリアローション", w: "皮膚科医と共同開発" }, { b: "NORMA BASIC　化粧水", w: "口コミが多く、手ごろ" }];
-// 3つの場面の長さ（ミリ秒）：検索なら10件 → AIなら3つ → ないのと同じ
-const DUR = [4800, 4200, 5200];
+// 3つの場面：検索なら10件 → AIなら3つ → ないのと同じ
+const DUR = [4800, 4200, 5200]; // 止まって見ているとき、次へ進むまでの時間
+const MIN = 1600; // スクロールが速くても、ひとつの場面を最低これだけは見せる
 function TenToThree() {
-  // 画面に入ったら自動で再生し、外れたら止める（スクロールの速さに左右されない）
+  // 場面は画面に張りつき、スクロールした分か時間がたった分の先に来たほうで進む
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
   const [stage, setStage] = useState(0);
+  const [scrollStage, setScrollStage] = useState(0);
+  const [auto, setAuto] = useState(0);
   const [flow, setFlow] = useState(false);
+  const changedAt = useRef(0);
   useEffect(() => {
     const el = ref.current; if (!el) return;
-    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.45 });
-    io.observe(el); return () => io.disconnect();
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0 });
+    io.observe(el);
+    let raf = 0, last = -1;
+    const tick = () => {
+      raf = 0; const r = el.getBoundingClientRect(), stick = (el.firstElementChild as HTMLElement | null)?.offsetHeight ?? window.innerHeight;
+      const v = -r.top / Math.max(1, r.height - stick);
+      const st = v >= 0.62 ? 2 : v >= 0.28 ? 1 : 0;
+      if (st !== last) { last = st; setScrollStage(st); }
+    };
+    const on = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    tick(); window.addEventListener("scroll", on, { passive: true });
+    return () => { io.disconnect(); window.removeEventListener("scroll", on); cancelAnimationFrame(raf); };
   }, []);
+  // 場面が見えはじめた時点から、最初の場面の時間を数える
+  useEffect(() => { if (visible) changedAt.current = Date.now(); else { setStage(0); setAuto(0); } }, [visible]);
+  // 止まって見ているときは、時間で次へ（最後の場面で止まる）
   useEffect(() => {
-    if (!visible) { setStage(0); setFlow(false); return; }
-    if (reduced()) { setStage(2); return; }
-    const t = setTimeout(() => setStage((x) => (x + 1) % 3), DUR[stage]);
+    if (!visible) { setAuto(0); return; }
+    if (stage >= 2) return;
+    const t = setTimeout(() => setAuto(stage + 1), DUR[stage]);
     return () => clearTimeout(t);
   }, [visible, stage]);
+  // 見せたい場面へ、1つずつ、最低MINだけ見せてから進む（戻るときも同じ）
+  const want = reduced() ? 2 : Math.max(scrollStage, Math.min(auto, 2), visible ? 0 : 0);
+  useEffect(() => {
+    if (want === stage) return;
+    const wait = Math.max(0, MIN - (Date.now() - changedAt.current));
+    const t = setTimeout(() => { changedAt.current = Date.now(); setStage((x) => x + (want > x ? 1 : -1)); }, wait);
+    return () => clearTimeout(t);
+  }, [want, stage]);
   // 検索の場面になるたびに、結果をいちばん上から流しなおす
   useEffect(() => {
     setFlow(false);
@@ -150,8 +175,8 @@ function TenToThree() {
   }, []);
   const lines = ["検索なら、10件。", "AIなら、3つ。", "3つに入らなければ、ないのと同じ。"];
   return (
-    <section ref={ref} className="relative bg-black text-white" aria-label="検索とAIの違い">
-      <div className="flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 py-16">
+    <section ref={ref} className="relative h-[300vh] bg-black text-white" aria-label="検索とAIの違い">
+      <div className="sticky top-0 flex h-[100svh] flex-col items-center justify-center overflow-hidden px-5 pt-12">
         <div className="relative h-[5.5rem] w-full max-w-[44rem] text-center sm:h-[8rem]">
           {lines.map((t, i) => <h2 key={t} className={`lp-h absolute inset-0 grid place-items-center text-[1.75rem] transition duration-700 sm:text-[3.4rem] ${stage === i ? "translate-y-0 opacity-100" : stage > i ? "-translate-y-8 opacity-0" : "translate-y-8 opacity-0"} ${i === 2 ? "text-[#2fd9a6]" : ""}`}><J>{t}</J></h2>)}
         </div>
@@ -214,7 +239,7 @@ function TenToThree() {
         </div>
         <div className="mt-8 flex w-full max-w-[22rem] gap-2" role="tablist" aria-label="場面">
           {["検索", "AI", "結果"].map((l, i) => (
-            <button key={l} type="button" role="tab" aria-selected={stage === i} onClick={() => setStage(i)} className="flex-1 text-left">
+            <button key={l} type="button" role="tab" aria-selected={stage === i} onClick={() => { changedAt.current = Date.now(); setAuto(i); setStage(i); }} className="flex-1 text-left">
               <span className="block h-1 overflow-hidden rounded-full bg-white/20"><span key={`${i}-${stage}-${visible}`} className="block h-full rounded-full bg-white" style={{ width: stage > i ? "100%" : "0%", animation: stage === i && visible ? `tsr-bar ${DUR[i]}ms linear forwards` : "none" }} /></span>
               <span className={`mt-2 block text-[0.72rem] ${stage === i ? "text-white" : "text-white/45"}`}>{l}</span>
             </button>
