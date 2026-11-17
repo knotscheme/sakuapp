@@ -46,51 +46,88 @@ function Count({ to, suffix = "", from = 0 }: { to: number; suffix?: string; fro
 // ---------- ヒーローのスマホ：AIの答えが「直す前 → 直した後」で入れかわる ----------
 const BEFORE = [{ b: "しずく舎", i: "やさしい化粧水", w: "敏感肌向けと明記" }, { b: "Lunae", i: "バリアローション", w: "皮膚科医と共同開発" }, { b: "NORMA BASIC", i: "化粧水", w: "口コミが多い" }];
 const AFTER = [{ b: "SORAE", i: "化粧水 しっとり", w: "無香料・アルコールフリーで敏感肌向けと明記", me: true }, { b: "しずく舎", i: "やさしい化粧水", w: "敏感肌向けと明記" }, { b: "Lunae", i: "バリアローション", w: "皮膚科医と共同開発" }];
+// iPhoneの中：質問 →「考えています」→ 答えが1つずつ出る。直した後はSORAEが1位に入り、光の輪が広がる
 function ChatScreen({ after }: { after: boolean }) {
   const list = after ? AFTER : BEFORE;
+  const [typing, setTyping] = useState(true);
+  useEffect(() => { setTyping(true); const t = setTimeout(() => setTyping(false), 900); return () => clearTimeout(t); }, [after]);
   return (
     <div className="flex h-full flex-col bg-white text-[#1d1d1f]">
       <div className="flex items-center justify-center gap-2 border-b border-black/5 py-3 text-[15px] font-semibold"><Bot size={18} className="text-[#00a37a]" />AIアシスタント</div>
       <div className="flex-1 space-y-4 px-4 pt-5">
-        <p className="ml-auto w-fit max-w-[80%] rounded-[20px] rounded-br-md bg-[#0a84ff] px-4 py-2.5 text-[16px] leading-[1.55] text-white"><J>敏感肌でも使える、3,000円台の化粧水は？</J></p>
-        <p className="text-[15px] text-[#6e6e73]"><J>おすすめを3つ選びました。</J></p>
-        <ol key={String(after)} className="fade-in space-y-2.5">
-          {list.map((x, i) => (
-            <li key={x.b} className={`flex gap-3 rounded-2xl p-3.5 ${"me" in x ? "bg-[#e3f6ef] ring-2 ring-[#00a37a]" : "bg-[#f2f2f7]"}`}>
-              <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[12px] font-semibold ${"me" in x ? "bg-[#00a37a] text-white" : "bg-white text-[#6e6e73]"}`}>{i + 1}</span>
-              <span className="min-w-0"><b className={`block text-[15px] leading-[1.5] ${"me" in x ? "text-[#007a5a]" : ""}`}>{x.b}　{x.i}</b><span className="mt-0.5 block text-[13px] leading-[1.6] text-[#6e6e73]">{x.w}</span></span>
-            </li>
-          ))}
-        </ol>
+        <p key={`q${after}`} className="lp-anim ml-auto w-fit max-w-[80%] rounded-[20px] rounded-br-md bg-[#0a84ff] px-4 py-2.5 text-[16px] leading-[1.55] text-white" style={{ animation: "lp-in .45s ease-out both" }}>敏感肌でも使える、3,000円台の化粧水は？</p>
+        {typing ? (
+          <p className="flex gap-1.5 pl-1 pt-1" aria-label="考えています">{[0, 1, 2].map((i) => <i key={i} className="lp-anim h-2 w-2 rounded-full bg-[#8e8e93]" style={{ animation: `lp-dot 1s ${i * 0.15}s infinite` }} />)}</p>
+        ) : (
+          <>
+            <p className="lp-anim text-[15px] text-[#6e6e73]" style={{ animation: "lp-in .4s ease-out both" }}>おすすめを3つ選びました。</p>
+            <ol className="space-y-2.5">
+              {list.map((x, i) => (
+                <li key={`${after}${x.b}`} className={`lp-anim flex gap-3 rounded-2xl p-3.5 ${"me" in x ? "bg-[#e3f6ef] ring-2 ring-[#00a37a]" : "bg-[#f2f2f7]"}`} style={{ animation: `lp-in .45s ${0.15 + i * 0.18}s ease-out both${"me" in x ? ", lp-ring 1.4s .7s ease-out 2" : ""}` }}>
+                  <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[12px] font-semibold ${"me" in x ? "bg-[#00a37a] text-white" : "bg-white text-[#6e6e73]"}`}>{i + 1}</span>
+                  <span className="min-w-0"><b className={`block text-[15px] leading-[1.5] ${"me" in x ? "text-[#007a5a]" : ""}`}>{x.b}　{x.i}</b><span className="mt-0.5 block text-[13px] leading-[1.6] text-[#6e6e73]">{x.w}</span></span>
+                </li>
+              ))}
+            </ol>
+          </>
+        )}
       </div>
       <div className="mx-4 mb-9 mt-4 rounded-full bg-[#f2f2f7] px-4 py-3 text-[15px] text-[#8e8e93]">メッセージを入力</div>
     </div>
   );
 }
+// iPhoneのまわりに浮かぶ、お客様がAIに聞きそうな質問
+const QS = [
+  { t: "白くならない日焼け止めは？", x: "-left-[3.2rem] sm:-left-[17rem] top-[8%]", d: 0 },
+  { t: "30代へのギフト、何がいい？", x: "-right-[3.2rem] sm:-right-[17rem] top-[22%]", d: 1.6 },
+  { t: "無香料のハンドクリームは？", x: "-left-[3.2rem] sm:-left-[19rem] top-[46%]", d: 3.1 },
+  { t: "毛穴に効く美容液は？", x: "-right-[3.2rem] sm:-right-[15rem] top-[60%]", d: 0.8 },
+  { t: "詰め替えのある化粧水", x: "-left-[14rem] top-[74%]", d: 2.3 },
+  { t: "3,000円以下で、肌にやさしいもの", x: "-right-[19rem] top-[80%]", d: 3.8 },
+];
 function Hero() {
   const [after, setAfter] = useState(false);
   const [ready, setReady] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setReady(true), 60); const id = setInterval(() => setAfter((a) => !a), 3600); return () => { clearTimeout(t); clearInterval(id); }; }, []);
+  useEffect(() => { const t = setTimeout(() => setReady(true), 60); const id = setInterval(() => setAfter((a) => !a), 4200); return () => { clearTimeout(t); clearInterval(id); }; }, []);
+  const lines = [{ t: "AIの売り場で、", c: "" }, { t: "あなたの商品は", c: "" }, { t: "何番目？", c: "lp-shine" }];
   return (
-    <section className="overflow-hidden px-5 pb-10 pt-16 text-center sm:pt-24">
-      <div className={`transition duration-[1100ms] ease-[cubic-bezier(.2,.7,.2,1)] ${ready ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
-        <p className="text-[1.05rem] font-semibold text-[#00a37a] sm:text-[1.2rem]">TSURETE</p>
-        <h1 className="lp-h mx-auto mt-3 max-w-[14em] text-[2.4rem] sm:text-[4.2rem]"><span className="inline-block">AIの売り場で、</span><span className="inline-block">あなたの商品は</span><span className="inline-block">何番目？</span></h1>
-        <p className="mx-auto mt-5 max-w-[30em] text-[1.05rem] leading-[1.8] text-[#6e6e73] sm:text-[1.3rem]"><J>AIにすすめられる回数を、毎週自動ではかる。全商品の商品ページを、まとめて直す。</J></p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+    <section className="relative overflow-hidden px-5 pb-16 pt-14 text-center sm:pb-24 sm:pt-16">
+      {/* 後ろの光：ゆっくり漂う */}
+      <div className="pointer-events-none absolute inset-0 -z-0" aria-hidden>
+        <i className="lp-anim absolute left-1/2 top-[48%] h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[#2fd9a6]/30 blur-[90px] sm:h-[38rem] sm:w-[38rem]" style={{ animation: "lp-aurora1 14s ease-in-out infinite" }} />
+        <i className="lp-anim absolute left-1/2 top-[58%] h-[26rem] w-[26rem] -translate-x-[10%] rounded-full bg-[#0a84ff]/20 blur-[90px] sm:h-[32rem] sm:w-[32rem]" style={{ animation: "lp-aurora2 17s ease-in-out infinite" }} />
+      </div>
+
+      <div className="relative">
+        <p className={`text-[1.05rem] font-semibold text-[#00a37a] transition duration-700 sm:text-[1.2rem] ${ready ? "opacity-100" : "opacity-0"}`}>TSURETE</p>
+        <h1 className="lp-h mx-auto mt-3 max-w-[14em] text-[2.5rem] sm:text-[4.4rem]">
+          {lines.map((l, i) => (
+            <span key={l.t} className="inline-block overflow-hidden pb-[.08em] align-bottom">
+              <span className={`lp-anim inline-block ${l.c}`} style={{ animation: ready ? `lp-rise .9s ${0.1 + i * 0.16}s cubic-bezier(.2,.7,.2,1) both${l.c ? ", lp-shine 4s linear infinite" : ""}` : "none", transform: ready ? undefined : "translateY(105%)" }}>{l.t}</span>
+            </span>
+          ))}
+        </h1>
+        <p className={`mx-auto mt-5 max-w-[30em] text-[1.05rem] leading-[1.8] text-[#6e6e73] transition duration-700 sm:text-[1.3rem] ${ready ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`} style={{ transitionDelay: "600ms" }}><J>AIにすすめられる回数を、毎週自動ではかる。全商品の商品ページを、まとめて直す。</J></p>
+        <div className={`mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 transition duration-700 ${ready ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "800ms" }}>
           <Link href="/" className="btn btn-ai px-7">デモを使ってみる</Link>
           <a href="#try" className="flex items-center text-[1.02rem] text-[#00a37a] hover:underline">無料で診断<ChevronRight size={18} /></a>
         </div>
       </div>
-      <div className={`relative mx-auto mt-16 w-[15.5rem] sm:mt-20 sm:w-[18rem] ${ready ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"}`} style={{ transition: "opacity 1.4s, transform 1.4s cubic-bezier(.2,.7,.2,1)" }}>
-        <Phone><ChatScreen after={after} /></Phone>
-        <div className="mt-6 flex justify-center gap-3 sm:contents">
-          <div className={`whitespace-nowrap rounded-2xl px-4 py-3 text-left shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] transition duration-500 sm:absolute sm:-left-44 sm:top-48 ${after ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-black/5"}`}>
+
+      <div className={`relative mx-auto mt-14 w-[15.5rem] sm:mt-12 sm:w-[18rem] ${ready ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"}`} style={{ transition: "opacity 1.4s .5s, transform 1.4s .5s cubic-bezier(.2,.7,.2,1)" }}>
+        {/* まわりに浮かぶ質問（スマホでは左右2つずつ） */}
+        {QS.map((q, i) => (
+          <span key={q.t} className={`lp-anim pointer-events-none absolute z-20 whitespace-nowrap sm:z-0 rounded-full bg-white/90 px-3.5 py-2 text-[0.8rem] text-[#424245] shadow-[0_10px_30px_-12px_rgba(0,0,0,.25)] ring-1 ring-black/5 ${q.x} ${i >= 4 ? "hidden sm:block" : ""} max-sm:text-[0.7rem]`}
+            style={{ animation: `lp-floatq 6s ${q.d}s ease-in-out infinite` }}>{q.t}</span>
+        ))}
+        <div className="relative z-10"><Phone><ChatScreen after={after} /></Phone></div>
+        <div className="relative z-10 mt-6 flex justify-center gap-3 sm:contents">
+          <div key={`r${after}`} className={`lp-anim whitespace-nowrap rounded-2xl px-4 py-3 text-left shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] sm:absolute sm:-left-44 sm:top-48 sm:z-20 ${after ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-black/5"}`} style={{ animation: "lp-pop .55s cubic-bezier(.2,.7,.2,1) both" }}>
             <p className="text-[0.7rem] font-semibold opacity-80">{after ? "TSURETEで直した後" : "直す前"}</p>
             <p className="text-[1.5rem] font-bold leading-tight">{after ? "1位" : "圏外"}</p>
           </div>
-          <div className="whitespace-nowrap rounded-2xl bg-white px-4 py-3 text-left shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] ring-1 ring-black/5 sm:absolute sm:-right-48 sm:bottom-36">
-            <p className="text-[0.7rem] text-[#6e6e73]"><J>AIにすすめられた割合</J></p>
+          <div className="whitespace-nowrap rounded-2xl bg-white px-4 py-3 text-left shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] ring-1 ring-black/5 sm:absolute sm:-right-48 sm:bottom-36 sm:z-20">
+            <p className="text-[0.7rem] text-[#6e6e73]">AIにすすめられた割合</p>
             <p className="num text-[1.3rem] font-bold">10% <span className="text-[#86868b]">→</span> <span className="text-[#00a37a]">70%</span></p>
           </div>
         </div>
