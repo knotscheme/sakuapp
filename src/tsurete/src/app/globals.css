@@ -61,3 +61,4 @@ p, li, dd, h1, h2, h3, button, a { word-break: auto-phrase; }
 .lp-light .field:focus { border-color: #00a37a; }
 .lp-light .num { font-family: -apple-system, BlinkMacSystemFont, var(--font-outfit), sans-serif; letter-spacing: -.02em; }
 .lp-h { font-weight: 700; letter-spacing: -.01em; line-height: 1.3; }
+@keyframes tsr-bar { from { width: 0%; } to { width: 100%; } }

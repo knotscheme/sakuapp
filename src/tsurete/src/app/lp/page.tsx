@@ -14,26 +14,6 @@ const IMG = "/sakuapp/works/tsurete/img/lp";
 // ---------- 動きのための小さな道具 ----------
 const reduced = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// 張りつく場面の「段階」だけを知らせる（スクロールのたびに画面を作り直さない）
-function useStage<T extends HTMLElement>(cuts: number[]) {
-  const ref = useRef<T>(null);
-  const [stage, setStage] = useState(0);
-  useEffect(() => {
-    if (reduced()) { setStage(cuts.length); return; }
-    let raf = 0, last = -1;
-    const tick = () => {
-      raf = 0; const el = ref.current; if (!el) return;
-      const r = el.getBoundingClientRect(), stick = (el.firstElementChild as HTMLElement | null)?.offsetHeight ?? window.innerHeight;
-      const v = -r.top / Math.max(1, r.height - stick);
-      const st = cuts.filter((c) => v >= c).length;
-      if (st !== last) { last = st; setStage(st); }
-    };
-    const on = () => { if (!raf) raf = requestAnimationFrame(tick); };
-    tick(); window.addEventListener("scroll", on, { passive: true });
-    return () => { window.removeEventListener("scroll", on); cancelAnimationFrame(raf); };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  return [ref, stage] as const;
-}
 // 一度だけ「画面に入った」を知らせる
 function useInView<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -134,12 +114,33 @@ const SEARCH = [
   { t: "SORAE 化粧水 しっとり 150ml", u: "sorae-skin.example", n: "SORAE", d: "空のように澄んだ肌へ。毎日のうるおいに。", me: true },
 ];
 const PICKS = [{ b: "しずく舎　やさしい化粧水", w: "敏感肌向けと明記されている" }, { b: "Lunae　バリアローション", w: "皮膚科医と共同開発" }, { b: "NORMA BASIC　化粧水", w: "口コミが多く、手ごろ" }];
+// 3つの場面の長さ（ミリ秒）：検索なら10件 → AIなら3つ → ないのと同じ
+const DUR = [4800, 4200, 5200];
 function TenToThree() {
-  // 0：まだ手前、1：検索なら10件、2：AIなら3つ、3：ないのと同じ
-  const [ref, st] = useStage<HTMLElement>([0.01, 0.37, 0.68]);
-  const stage = Math.max(0, st - 1);
-  const flow = st >= 1; // 場面に入ったら、検索結果を自動で流す
-  // 検索結果は、スクロールに合わせて下へ流れ、最後に10位（自分の商品）が見える
+  // 画面に入ったら自動で再生し、外れたら止める（スクロールの速さに左右されない）
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [stage, setStage] = useState(0);
+  const [flow, setFlow] = useState(false);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.45 });
+    io.observe(el); return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!visible) { setStage(0); setFlow(false); return; }
+    if (reduced()) { setStage(2); return; }
+    const t = setTimeout(() => setStage((x) => (x + 1) % 3), DUR[stage]);
+    return () => clearTimeout(t);
+  }, [visible, stage]);
+  // 検索の場面になるたびに、結果をいちばん上から流しなおす
+  useEffect(() => {
+    setFlow(false);
+    if (!visible || stage !== 0) return;
+    const t = setTimeout(() => setFlow(true), 60);
+    return () => clearTimeout(t);
+  }, [visible, stage]);
+  // 検索結果は、場面に入ると下へ流れ、最後に10位（自分の商品）が見える
   const box = useRef<HTMLDivElement>(null), list = useRef<HTMLOListElement>(null);
   const [over, setOver] = useState(0);
   useEffect(() => {
@@ -149,8 +150,8 @@ function TenToThree() {
   }, []);
   const lines = ["検索なら、10件。", "AIなら、3つ。", "3つに入らなければ、ないのと同じ。"];
   return (
-    <section ref={ref} className="relative h-[420vh] bg-black text-white" aria-label="検索とAIの違い">
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5 pt-12">
+    <section ref={ref} className="relative bg-black text-white" aria-label="検索とAIの違い">
+      <div className="flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 py-16">
         <div className="relative h-[5.5rem] w-full max-w-[44rem] text-center sm:h-[8rem]">
           {lines.map((t, i) => <h2 key={t} className={`lp-h absolute inset-0 grid place-items-center text-[1.75rem] transition duration-700 sm:text-[3.4rem] ${stage === i ? "translate-y-0 opacity-100" : stage > i ? "-translate-y-8 opacity-0" : "translate-y-8 opacity-0"} ${i === 2 ? "text-[#2fd9a6]" : ""}`}><J>{t}</J></h2>)}
         </div>
@@ -170,7 +171,7 @@ function TenToThree() {
 
           <div ref={box} className="overflow-hidden transition-[height] duration-700 [--serp-h:19rem] sm:[--serp-h:25rem]" style={{ height: stage === 0 ? "var(--serp-h)" : undefined }}>
           {stage >= 1 && <p className="fade-in px-4 pt-3 text-[0.86rem] leading-[1.8] text-[#0d0d0d]">敏感肌でも使える3,000円台の化粧水なら、次の3つがおすすめです。</p>}
-          <ol ref={list} className="px-4 py-3" style={{ transform: stage === 0 && flow ? `translate3d(0,-${over}px,0)` : "translate3d(0,0,0)", transition: stage === 0 ? "transform 1.6s cubic-bezier(.45,0,.25,1) .25s" : "none" }} aria-hidden>
+          <ol ref={list} className="px-4 py-3" style={{ transform: stage === 0 && flow ? `translate3d(0,-${over}px,0)` : "translate3d(0,0,0)", transition: stage === 0 && flow ? "transform 2s cubic-bezier(.45,0,.25,1) .9s" : "none" }} aria-hidden>
             {SEARCH.map((r, i) => {
               const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
               return (
@@ -210,6 +211,14 @@ function TenToThree() {
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[#0d0d0d] text-white"><ArrowRight size={14} className="-rotate-90" /></span>
             </div>
           </div>
+        </div>
+        <div className="mt-8 flex w-full max-w-[22rem] gap-2" role="tablist" aria-label="場面">
+          {["検索", "AI", "結果"].map((l, i) => (
+            <button key={l} type="button" role="tab" aria-selected={stage === i} onClick={() => setStage(i)} className="flex-1 text-left">
+              <span className="block h-1 overflow-hidden rounded-full bg-white/20"><span key={`${i}-${stage}-${visible}`} className="block h-full rounded-full bg-white" style={{ width: stage > i ? "100%" : "0%", animation: stage === i && visible ? `tsr-bar ${DUR[i]}ms linear forwards` : "none" }} /></span>
+              <span className={`mt-2 block text-[0.72rem] ${stage === i ? "text-white" : "text-white/45"}`}>{l}</span>
+            </button>
+          ))}
         </div>
       </div>
     </section>
