@@ -1,91 +1,79 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import Shell from "@/components/Shell";
 import Ready from "@/components/Ready";
-import { SAMPLE_URL } from "@/lib/check";
-import { BRAND, shelf } from "@/lib/demo";
-import { PLATFORMS } from "@/lib/platforms";
+import { BRAND, FIXES, WEEKS, fmt, sales, shelf, winners } from "@/lib/demo";
+import { platformOf } from "@/lib/platforms";
 import { useStore } from "@/lib/store";
 
-const STEPS = [
-  { href: "/hakaru/", t: "測る", d: "お客様が聞きそうな質問を、ChatGPTなど4つのAIに毎週何度も聞きます。あなたの商品が何回すすめられたか、どの店に負けているかを記録します。" },
-  { href: "/naosu/", t: "直す", d: "よくすすめられている店との差を、AIが商品ページの書き直し案にします。全商品まとめて、お店のサイトに合った方法で届けます。" },
-  { href: "/kouka/", t: "売上で確かめる", d: "AIにすすめられて来たお客様と、その売上を数えます。直した効果を、お金で確かめられます。" },
-];
-const VS = [
-  ["AIに1回聞く", "4つのAIに、何十通りの質問を、毎週何百回も聞いて記録"],
-  ["自分の商品だけを見る", "よくすすめられている店のページと比べて、差を出す"],
-  ["1商品ずつコピペ", "全商品まとめて、サイトに合わせて書きかえ・CSV・フィード"],
-  ["効いたか分からない", "AI経由の売上で、効果を確かめる"],
-];
-
-function Home() {
-  const router = useRouter();
+// ツールのホーム：今週の状況と、やることだけを出す
+function Dashboard() {
   const s = useStore();
-  const [url, setUrl] = useState(SAMPLE_URL);
   const sh = shelf(s.applied);
+  const diff = sh.pct - WEEKS[WEEKS.length - 1].p;
+  const rank = [...sh.rivals.slice(0, 4), { name: BRAND.name, n: sh.total }].sort((a, b) => b.n - a.n);
+  const pos = rank.findIndex((r) => r.name === BRAND.name) + 1;
+  const m = sales(sh.pct);
+  const yen = m.yen + s.orders.reduce((a, o) => a + o.price, 0);
+  const todo = FIXES.filter((f) => !s.applied.includes(f.id)).map((f) => ({ f, g: shelf([...s.applied, f.id]).total - sh.total })).sort((a, b) => b.g - a.g).slice(0, 3);
+  const lose = winners(s.applied).filter((w) => w.top !== BRAND.name).sort((a, b) => a.me - b.me).slice(0, 3);
+  const plat = platformOf(s.site);
+  const kpi = [
+    { href: "/hakaru/", l: "AIにすすめられた割合", v: `${sh.pct}`, u: "%", d: diff > 0 ? `先週より +${diff}` : "先週と同じ", good: diff > 0 },
+    { href: "/hakaru/", l: "AIの売り場での順位", v: `${pos}`, u: "位", d: `1位は ${rank[0].name === BRAND.name ? "自社" : rank[0].name}`, good: pos === 1 },
+    { href: "/kouka/", l: "AI経由の売上（今月）", v: fmt(yen), u: "円", d: `注文 ${m.orders + s.orders.length}件`, good: false },
+  ];
   return (
     <>
-      <section className="mx-auto max-w-[46rem] pt-4 text-center sm:pt-10">
-        <p className="text-[0.85rem] font-bold tracking-[.12em] text-ai">ネットショップのための AI集客ツール</p>
-        <h1 className="mt-6 text-[2rem] font-bold leading-[1.55] tracking-[.06em] sm:text-[2.8rem]"><span className="inline-block">AIの売り場で、</span><span className="inline-block">あなたの商品は何番目？</span></h1>
-        <p className="mx-auto mt-6 max-w-[34em] text-[0.98rem] leading-[2.1] text-sub">お客様は、ChatGPTに「おすすめの化粧水は？」と聞いて買い物をし始めています。TSURETEは、AIにすすめられている回数を毎週はかり、負けている理由を見つけて、全商品の商品ページをまとめて直します。</p>
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <Link href="/hakaru/" className="btn btn-ai px-8">デモを見る<ArrowRight size={18} /></Link>
-        </div>
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-3 sm:mb-14">
+        <div><p className="text-[0.82rem] text-sub">11月18日（火）の状況</p><h1 className="mt-1 text-[1.5rem] font-bold tracking-[.04em] sm:text-[1.8rem]">{BRAND.name} の今週</h1></div>
+        <p className="text-[0.8rem] text-sub">次の測定：11月24日（月）{plat ? `・サイト：${plat.name}` : ""}</p>
+      </div>
+
+      <section className="grid grid-cols-3 gap-2 sm:gap-4" aria-label="今週の数字">
+        {kpi.map((k) => (
+          <Link key={k.l} href={k.href} className="card group min-w-0 p-3.5 transition hover:bg-white/[.03] sm:p-7">
+            <p className="text-[0.68rem] leading-[1.5] text-sub sm:text-[0.82rem]">{k.l}</p>
+            <p className="mt-2 whitespace-nowrap sm:mt-3"><b className="num text-[1.2rem] leading-none sm:text-[2.4rem]">{k.v}</b><span className="ml-0.5 text-[0.75rem] text-sub sm:ml-1 sm:text-base">{k.u}</span></p>
+            <p className={`mt-2 text-[0.66rem] leading-[1.5] sm:mt-3 sm:text-[0.8rem] ${k.good ? "text-ai" : "text-sub"}`}>{k.d}</p>
+          </Link>
+        ))}
       </section>
 
-      <section className="mx-auto mt-20 max-w-[40rem] text-center" aria-label="いまの結果">
-        <p className="text-[0.82rem] text-sub">デモのブランド {BRAND.name} の、今週のAI推薦率</p>
-        <p className="mt-2"><b className="num text-[3.4rem] leading-none text-ai">{sh.pct}</b><span className="ml-1 text-sub">%</span></p>
-      </section>
+      <div className="mt-16 grid gap-14 lg:grid-cols-2 lg:gap-12">
+        <section aria-labelledby="todo">
+          <div className="flex items-end justify-between"><h2 id="todo" className="text-[1.1rem] font-bold">今週やること</h2><Link href="/naosu/" className="flex items-center gap-1 text-[0.82rem] text-ai">直す画面へ<ArrowRight size={15} /></Link></div>
+          {todo.length ? (
+            <ul className="mt-5 border-t hair">
+              {todo.map(({ f, g }, i) => (
+                <li key={f.id}><Link href="/naosu/" className="flex items-center gap-4 border-b hair py-4 hover:bg-white/[.02]">
+                  <span className="num text-[0.78rem] text-ai">0{i + 1}</span>
+                  <span className="min-w-0 flex-1"><b className="block text-[0.95rem] leading-[1.6]">{f.title}</b><span className="text-[0.78rem] text-sub">AIに出る回数 +{fmt(g)}回の見込み・{f.effort}</span></span>
+                  <ChevronRight size={18} className="shrink-0 text-sub" />
+                </Link></li>
+              ))}
+            </ul>
+          ) : <p className="mt-5 text-[0.9rem] text-sub">今週やることは、すべて終わりました。</p>}
+        </section>
 
-      <section className="mt-28 sm:mt-36" aria-labelledby="st">
-        <h2 id="st" className="text-center text-[1.3rem] font-bold tracking-[.06em]">測る・直す・売上で確かめる</h2>
-        <ol className="mt-12 grid gap-10 md:grid-cols-3 md:gap-12">
-          {STEPS.map((x, i) => (
-            <li key={x.href} className="border-t hair pt-6">
-              <p className="num text-[0.8rem] text-ai">0{i + 1}</p>
-              <Link href={x.href} className="group mt-2 flex items-center gap-2 text-[1.15rem] font-bold">{x.t}<ArrowRight size={18} className="text-ai transition group-hover:translate-x-1" /></Link>
-              <p className="mt-3 text-[0.9rem] leading-[2] text-sub">{x.d}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="mt-28 sm:mt-36" aria-labelledby="vs">
-        <h2 id="vs" className="text-center text-[1.3rem] font-bold tracking-[.06em]">AIに自分で聞くのと、何が違う？</h2>
-        <ul className="mx-auto mt-12 max-w-[48rem] border-t hair">
-          {VS.map(([a, b]) => (
-            <li key={a} className="grid gap-1 border-b hair py-5 sm:grid-cols-[12rem_auto_1fr] sm:items-center sm:gap-6">
-              <span className="text-[0.88rem] text-sub">{a}</span><ArrowRight size={16} className="hidden text-sub sm:block" /><b className="text-[0.95rem]">{b}</b>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-28 sm:mt-36" aria-labelledby="sites">
-        <h2 id="sites" className="text-center text-[1.3rem] font-bold tracking-[.06em]">どのサイトでも使えます</h2>
-        <p className="mx-auto mt-4 max-w-[36em] text-center text-[0.9rem] leading-[2] text-sub">測るのはサイトに何も入れずにできます。直すときは、サイトに合わせて「自動で書きかえ」「CSVで一括」「コピー」「商品フィード」から届け方を選びます。</p>
-        <p className="mx-auto mt-10 flex max-w-[44rem] flex-wrap justify-center gap-x-6 gap-y-3 text-[0.92rem] font-bold text-sub">{PLATFORMS.map((p) => <span key={p.id}>{p.name}</span>)}</p>
-      </section>
-
-      <section className="mx-auto mt-28 max-w-[36rem] text-center sm:mt-36" aria-labelledby="try">
-        <h2 id="try" className="text-[1.3rem] font-bold tracking-[.06em]">まずは1商品、無料で診断</h2>
-        <form onSubmit={(e) => { e.preventDefault(); router.push(`/shindan/?url=${encodeURIComponent(url)}`); }} className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <label className="sr-only" htmlFor="u">商品ページのURL</label>
-          <input id="u" value={url} onChange={(e) => setUrl(e.target.value)} className="field num" inputMode="url" />
-          <button type="submit" className="btn btn-ai shrink-0 px-8">診断する</button>
-        </form>
-        <p className="mt-4 text-[0.82rem] text-sub">商品が多いときは <Link href="/shindan/?csv=1" className="text-ai underline underline-offset-4">CSVでまとめて診断</Link></p>
-        <p className="mt-12 text-[0.78rem] leading-[1.9] text-sub">数字は、架空のブランド {BRAND.name} での模擬の結果です。AIにすすめられることは保証できません。</p>
-      </section>
+        <section aria-labelledby="lose">
+          <div className="flex items-end justify-between"><h2 id="lose" className="text-[1.1rem] font-bold">負けている質問</h2><Link href="/hakaru/" className="flex items-center gap-1 text-[0.82rem] text-ai">測る画面へ<ArrowRight size={15} /></Link></div>
+          {lose.length ? (
+            <ul className="mt-5 border-t hair">
+              {lose.map((w) => (
+                <li key={w.q.id} className="border-b hair py-4">
+                  <p className="text-[0.92rem] leading-[1.7]">{w.q.text}</p>
+                  <p className="mt-1 text-[0.78rem] text-sub">いちばん：{w.top}・{BRAND.name}は <span className="num text-warn">{Math.round((w.me / w.max) * 100)}%</span></p>
+                </li>
+              ))}
+            </ul>
+          ) : <p className="mt-5 text-[0.9rem] text-sub">すべての質問で、いちばんすすめられています。</p>}
+        </section>
+      </div>
     </>
   );
 }
 
-export default function Page() { return <Shell><Ready><Home /></Ready></Shell>; }
+export default function Page() { return <Shell><Ready><Dashboard /></Ready></Shell>; }
