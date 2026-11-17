@@ -24,7 +24,8 @@ function useProgress<T extends HTMLElement>(mode: "pass" | "sticky" = "pass") {
     const tick = () => {
       raf = 0; const el = ref.current; if (!el) return;
       const r = el.getBoundingClientRect(), vh = window.innerHeight;
-      const v = mode === "sticky" ? -r.top / Math.max(1, r.height - vh) : (vh - r.top) / (vh + r.height);
+      const stick = (el.firstElementChild as HTMLElement | null)?.offsetHeight ?? vh;
+      const v = mode === "sticky" ? -r.top / Math.max(1, r.height - stick) : (vh - r.top) / (vh + r.height);
       setP(Math.min(1, Math.max(0, v)));
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(tick); };
@@ -141,7 +142,8 @@ function TenToThree() {
   const box = useRef<HTMLDivElement>(null), list = useRef<HTMLOListElement>(null);
   const [over, setOver] = useState(0);
   useEffect(() => {
-    const m = () => { if (box.current && list.current) setOver(Math.max(0, list.current.scrollHeight - box.current.clientHeight)); };
+    let w = 0;
+    const m = () => { if (window.innerWidth === w) return; w = window.innerWidth; if (box.current && list.current) setOver(Math.max(0, list.current.scrollHeight - box.current.clientHeight)); };
     m(); window.addEventListener("resize", m); return () => window.removeEventListener("resize", m);
   }, []);
   const k0 = Math.min(1, Math.max(0, (p - 0.04) / 0.2));
@@ -155,10 +157,10 @@ function TenToThree() {
 
         {/* 白い画面：はじめは検索結果ページ、AIの段階ではチャット画面 */}
         <div className="mt-4 w-full max-w-[34rem] overflow-hidden rounded-[22px] bg-white text-[#202124] shadow-[0_30px_80px_-30px_rgba(47,217,166,.35)] sm:mt-7">
-          <div className="relative h-[4.6rem] border-b border-black/[.06] sm:h-[5.2rem]">
+          <div className="relative h-[5.6rem] border-b border-black/[.06] sm:h-[5.4rem]">
             <div className={`absolute inset-0 px-4 pt-3 transition duration-700 ${stage === 0 ? "opacity-100" : "-translate-y-2 opacity-0"}`}>
               <div className="flex h-9 items-center gap-2.5 rounded-full border border-black/10 px-4 text-[0.85rem] shadow-[0_1px_4px_rgba(0,0,0,.08)]"><Search size={15} className="shrink-0 text-[#5f6368]" />敏感肌 化粧水 3000円</div>
-              <p className="mt-2 flex gap-4 px-1 text-[0.72rem] text-[#5f6368] sm:mt-3"><span className="border-b-2 border-[#1a73e8] pb-1 font-semibold text-[#1a73e8]">すべて</span><span>画像</span><span>ショッピング</span><span>ニュース</span></p>
+              <p className="mt-3 flex gap-4 px-1 text-[0.72rem] text-[#5f6368]"><span className="border-b-2 border-[#1a73e8] pb-1 font-semibold text-[#1a73e8]">すべて</span><span>画像</span><span>ショッピング</span><span>ニュース</span></p>
             </div>
             <div className={`absolute inset-0 flex flex-col justify-between px-4 pb-2.5 pt-2.5 transition duration-700 ${stage >= 1 ? "opacity-100" : "translate-y-2 opacity-0"}`}>
               <p className="flex items-center gap-1 text-[0.82rem] font-semibold text-[#0d0d0d]">AIアシスタント<ChevronRight size={14} className="rotate-90 text-[#8e8e8e]" /></p>
@@ -166,9 +168,9 @@ function TenToThree() {
             </div>
           </div>
 
-          <div ref={box} className="overflow-hidden transition-[height] duration-700" style={{ height: stage === 0 ? "min(52vh, 25rem)" : undefined }}>
+          <div ref={box} className="overflow-hidden transition-[height] duration-700 [--serp-h:19rem] sm:[--serp-h:25rem]" style={{ height: stage === 0 ? "var(--serp-h)" : undefined }}>
           {stage >= 1 && <p className="fade-in px-4 pt-3 text-[0.86rem] leading-[1.8] text-[#0d0d0d]">敏感肌でも使える3,000円台の化粧水なら、次の3つがおすすめです。</p>}
-          <ol ref={list} className="px-4 py-3 transition-transform duration-300 ease-out" style={{ transform: stage === 0 ? `translateY(-${over * k0}px)` : "none" }} aria-hidden>
+          <ol ref={list} className="px-4 py-3 will-change-transform" style={{ transform: stage === 0 ? `translate3d(0,-${Math.round(over * k0)}px,0)` : "none" }} aria-hidden>
             {SEARCH.map((r, i) => {
               const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
               return (
