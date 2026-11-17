@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Bot, Check, ChevronRight, Copy, FileSpreadsheet, Plug, Rss, X } from "lucide-react";
+import { ArrowRight, Bot, Check, ChevronRight, Copy, FileSpreadsheet, Plug, Rss, Search, X } from "lucide-react";
 import J from "@/components/J";
 import { Laptop, Phone } from "@/components/Devices";
 import { SAMPLE_URL } from "@/lib/check";
@@ -119,29 +119,69 @@ function Hero() {
   );
 }
 
-// ---------- 黒い場面：スクロールに合わせて「10件」が「3つ」に減る ----------
+// ---------- 黒い場面：スクロールに合わせて「検索の10件」が「AIの3つ」に変わる ----------
+// サイト名・ブランド名はすべて架空
+const SEARCH = [
+  { t: "敏感肌の化粧水おすすめ15選｜選び方も解説", u: "hada-guide.example" },
+  { t: "しずく舎 やさしい化粧水｜公式通販", u: "shizukusha.example" },
+  { t: "3,000円台の化粧水ランキング", u: "cosme-rank.example" },
+  { t: "Lunae バリアローション 150ml", u: "lunae.example" },
+  { t: "【口コミ】敏感肌でも使える化粧水まとめ", u: "kuchikomi.example" },
+  { t: "NORMA BASIC 化粧水｜公式", u: "normabasic.example" },
+  { t: "化粧水の選び方を皮膚科医に聞いた", u: "health-mag.example" },
+  { t: "あおば研究所 保湿ローション", u: "aoba-lab.example" },
+  { t: "アルコールフリー化粧水を比較", u: "hikaku.example" },
+  { t: "SORAE 化粧水 しっとり 150ml", u: "sorae-skin.example", me: true },
+];
+const PICKS = [{ b: "しずく舎　やさしい化粧水", w: "敏感肌向けと明記されている" }, { b: "Lunae　バリアローション", w: "皮膚科医と共同開発" }, { b: "NORMA BASIC　化粧水", w: "口コミが多く、手ごろ" }];
 function TenToThree() {
   const [ref, p] = useProgress<HTMLElement>("sticky");
   const stage = p < 0.3 ? 0 : p < 0.65 ? 1 : 2;
   const lines = ["検索なら、10件。", "AIなら、3つ。", "3つに入らなければ、ないのと同じ。"];
   return (
     <section ref={ref} className="relative h-[300vh] bg-black text-white" aria-label="検索とAIの違い">
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5">
-        <div className="relative h-[7.5rem] w-full max-w-[44rem] text-center sm:h-[8rem]">
-          {lines.map((t, i) => <h2 key={t} className={`lp-h absolute inset-0 grid place-items-center text-[1.9rem] transition duration-700 sm:text-[3.4rem] ${stage === i ? "translate-y-0 opacity-100" : stage > i ? "-translate-y-8 opacity-0" : "translate-y-8 opacity-0"} ${i === 2 ? "text-[#2fd9a6]" : ""}`}><J>{t}</J></h2>)}
+      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5 pt-12">
+        <div className="relative h-[5.5rem] w-full max-w-[44rem] text-center sm:h-[8rem]">
+          {lines.map((t, i) => <h2 key={t} className={`lp-h absolute inset-0 grid place-items-center text-[1.75rem] transition duration-700 sm:text-[3.4rem] ${stage === i ? "translate-y-0 opacity-100" : stage > i ? "-translate-y-8 opacity-0" : "translate-y-8 opacity-0"} ${i === 2 ? "text-[#2fd9a6]" : ""}`}><J>{t}</J></h2>)}
         </div>
-        <ol className="mt-8 w-full max-w-[26rem] sm:mt-10" aria-hidden>
-          {Array.from({ length: 10 }, (_, i) => {
-            const gone = stage >= 1 && i >= 3;
-            // 消える行は、場所ごと縮める（残った3つが真ん中に来る）
-            return (
-              <li key={i} className="flex items-center gap-3 overflow-hidden transition-all duration-700" style={{ opacity: gone ? 0 : 1, maxHeight: gone ? 0 : "3rem", marginTop: i && !gone ? "0.55rem" : 0, transform: gone ? "translateX(-24px)" : "none", transitionDelay: `${gone ? (i - 3) * 40 : (9 - i) * 30}ms` }}>
-                <span className="num w-5 text-right text-[0.8rem] text-white/40">{i + 1}</span>
-                <span className={`h-7 flex-1 rounded-xl sm:h-9 transition-colors duration-700 ${stage >= 1 && i < 3 ? "bg-white/20" : "bg-white/[.07]"}`} style={{ maxWidth: `${92 - (i % 4) * 9}%` }} />
-              </li>
-            );
-          })}
-        </ol>
+
+        <div className="mt-5 w-full max-w-[30rem] sm:mt-8">
+          {/* 上：検索窓 → AIへの質問 */}
+          <div className="relative h-11">
+            <div className={`absolute inset-0 flex items-center gap-2.5 rounded-full bg-white/10 px-4 text-[0.88rem] text-white/80 transition duration-700 ${stage === 0 ? "opacity-100" : "-translate-y-2 opacity-0"}`}><Search size={16} className="shrink-0 text-white/50" />敏感肌 化粧水 3000円</div>
+            <div className={`absolute inset-0 flex items-center justify-end transition duration-700 ${stage >= 1 ? "opacity-100" : "translate-y-2 opacity-0"}`}><span className="rounded-[18px] rounded-br-md bg-[#0a84ff] px-4 py-2 text-[0.86rem]">敏感肌でも使える、3,000円台の化粧水は？</span></div>
+          </div>
+
+          <ol className="mt-3" aria-hidden>
+            {SEARCH.map((r, i) => {
+              const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
+              return (
+                <li key={r.u} className="overflow-hidden transition-all duration-700" style={{ opacity: gone ? 0 : 1, maxHeight: gone ? 0 : ai ? "4.2rem" : "2.6rem", marginTop: i && !gone ? "0.4rem" : 0, transform: gone ? "translateX(-24px)" : "none", transitionDelay: `${gone ? (i - 3) * 40 : 0}ms` }}>
+                  {ai ? (
+                    <div className="fade-in flex items-center gap-3 rounded-2xl bg-white/[.1] px-3.5 py-2.5">
+                      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/15 text-[0.72rem] font-semibold">{i + 1}</span>
+                      <span className="min-w-0"><b className="block truncate text-[0.9rem]">{PICKS[i].b}</b><span className="block truncate text-[0.74rem] text-white/55">{PICKS[i].w}</span></span>
+                    </div>
+                  ) : (
+                    <div className={`flex h-[2.3rem] items-center gap-2.5 rounded-xl px-3 ${"me" in r ? "bg-[#2fd9a6]/15" : "bg-white/[.05]"}`}>
+                      <span className="num w-5 shrink-0 text-right text-[0.72rem] text-white/40">{i + 1}</span>
+                      <span className={`min-w-0 flex-1 truncate text-[0.8rem] ${"me" in r ? "font-semibold text-[#2fd9a6]" : "text-white/75"}`}>{r.t}</span>
+                      <span className="hidden shrink-0 text-[0.68rem] text-white/30 sm:inline">{r.u}</span>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+
+          {/* 最後：自分の商品は、AIの答えに入っていない */}
+          <div className={`overflow-hidden transition-all duration-700 ${stage === 2 ? "mt-4 max-h-24 opacity-100" : "mt-0 max-h-0 opacity-0"}`}>
+            <div className="flex items-center gap-3 rounded-2xl border border-dashed border-[#2fd9a6]/60 px-3.5 py-2.5">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-dashed border-[#2fd9a6]/70 text-[0.68rem] text-[#2fd9a6]">？</span>
+              <span className="min-w-0"><b className="block truncate text-[0.9rem] text-[#2fd9a6]">SORAE　化粧水 しっとり</b><span className="block text-[0.74rem] text-white/55">検索では10位。AIの答えには、入っていない</span></span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
