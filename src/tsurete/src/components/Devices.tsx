@@ -23,7 +23,11 @@ export function Phone({ children, src, alt = "" }: { children?: React.ReactNode;
           <span>9:41</span>
           <span className="flex items-end gap-[3%]" style={{ width: "16%" }} aria-hidden>
             {[0.4, 0.6, 0.8, 1].map((h) => <i key={h} className="flex-1 rounded-[1px] bg-[var(--sb)]" style={{ height: 10 * k * h }} />)}
-            <i className="ml-[8%] rounded-[2px] border border-[var(--sb)]" style={{ width: 22 * k, height: 11 * k }} />
+            <span className="ml-[8%] flex items-center" style={{ gap: 1 * k }}>
+              {/* 電池：8割ほど充電されている */}
+              <span className="relative rounded-[3px] border border-[var(--sb)]/45" style={{ width: 23 * k, height: 11.5 * k, padding: 1.4 * k }}><span className="block h-full rounded-[1.5px] bg-[var(--sb)]" style={{ width: "80%" }} /></span>
+              <span className="rounded-r-[1px] bg-[var(--sb)]/45" style={{ width: 1.6 * k, height: 4 * k }} />
+            </span>
           </span>
         </div>
         <div className="absolute left-1/2 top-[1.3%] z-20 -translate-x-1/2 rounded-full bg-black" style={{ width: "32%", height: "4.2%" }} aria-hidden />
