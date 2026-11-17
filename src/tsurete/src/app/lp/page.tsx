@@ -52,8 +52,8 @@ function ChatScreen({ after }: { after: boolean }) {
     <div className="flex h-full flex-col bg-white text-[#1d1d1f]">
       <div className="flex items-center justify-center gap-2 border-b border-black/5 py-3 text-[15px] font-semibold"><Bot size={18} className="text-[#00a37a]" />AIアシスタント</div>
       <div className="flex-1 space-y-4 px-4 pt-5">
-        <p className="ml-auto w-fit max-w-[80%] rounded-[20px] rounded-br-md bg-[#0a84ff] px-4 py-2.5 text-[16px] leading-[1.55] text-white">敏感肌でも使える、3,000円台の化粧水は？</p>
-        <p className="text-[15px] text-[#6e6e73]">おすすめを3つ選びました。</p>
+        <p className="ml-auto w-fit max-w-[80%] rounded-[20px] rounded-br-md bg-[#0a84ff] px-4 py-2.5 text-[16px] leading-[1.55] text-white"><J>敏感肌でも使える、3,000円台の化粧水は？</J></p>
+        <p className="text-[15px] text-[#6e6e73]"><J>おすすめを3つ選びました。</J></p>
         <ol key={String(after)} className="fade-in space-y-2.5">
           {list.map((x, i) => (
             <li key={x.b} className={`flex gap-3 rounded-2xl p-3.5 ${"me" in x ? "bg-[#e3f6ef] ring-2 ring-[#00a37a]" : "bg-[#f2f2f7]"}`}>
@@ -90,7 +90,7 @@ function Hero() {
             <p className="text-[1.5rem] font-bold leading-tight">{after ? "1位" : "圏外"}</p>
           </div>
           <div className="whitespace-nowrap rounded-2xl bg-white px-4 py-3 text-left shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] ring-1 ring-black/5 sm:absolute sm:-right-48 sm:bottom-36">
-            <p className="text-[0.7rem] text-[#6e6e73]">AIにすすめられた割合</p>
+            <p className="text-[0.7rem] text-[#6e6e73]"><J>AIにすすめられた割合</J></p>
             <p className="num text-[1.3rem] font-bold">10% <span className="text-[#86868b]">→</span> <span className="text-[#00a37a]">70%</span></p>
           </div>
         </div>
@@ -170,7 +170,7 @@ function TenToThree() {
           </div>
 
           <div ref={box} className="overflow-hidden transition-[height] duration-700 [--serp-h:19rem] sm:[--serp-h:25rem]" style={{ height: stage === 0 ? "var(--serp-h)" : undefined }}>
-          {stage >= 1 && <p className="fade-in px-4 pt-3 text-[0.86rem] leading-[1.8] text-[#0d0d0d]">敏感肌でも使える3,000円台の化粧水なら、次の3つがおすすめです。</p>}
+          {stage >= 1 && <p className="fade-in px-4 pt-3 text-[0.86rem] leading-[1.8] text-[#0d0d0d]"><J>敏感肌でも使える3,000円台の化粧水なら、次の3つがおすすめです。</J></p>}
           <ol ref={list} className="px-4 py-3" style={{ transform: stage === 0 && flow ? `translate3d(0,-${over}px,0)` : "translate3d(0,0,0)", transition: stage === 0 && flow ? "transform 2s cubic-bezier(.45,0,.25,1) .9s" : "none" }} aria-hidden>
             {SEARCH.map((r, i) => {
               const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
@@ -199,7 +199,7 @@ function TenToThree() {
             <li className={`overflow-hidden transition-all duration-700 ${stage === 2 ? "mt-3 max-h-24 opacity-100" : "mt-0 max-h-0 opacity-0"}`}>
               <div className="flex items-center gap-3 rounded-2xl border border-dashed border-[#00a37a]/60 bg-[#f3fbf8] px-3.5 py-2.5">
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-dashed border-[#00a37a]/70 text-[0.68rem] text-[#00a37a]">？</span>
-                <span className="min-w-0"><b className="block truncate text-[0.9rem] text-[#00805f]">SORAE　化粧水 しっとり</b><span className="block text-[0.74rem] text-[#6e6e73]">検索では10位。AIの答えには、入っていない</span></span>
+                <span className="min-w-0"><b className="block truncate text-[0.9rem] text-[#00805f]"><J>SORAE　化粧水 しっとり</J></b><span className="block text-[0.74rem] text-[#6e6e73]"><J>検索では10位。AIの答えには、入っていない</J></span></span>
               </div>
             </li>
           </ol>
@@ -239,7 +239,7 @@ function Showcase() {
   return (
     <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
       <Reveal className="text-center">
-        <h2 className="lp-h text-[2rem] sm:text-[3.4rem]">ひと目で、今週がわかる。</h2>
+        <h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>ひと目で、今週がわかる。</J></h2>
         <p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>開いたら、数字とやることだけ。パソコンでも、スマホでも。</J></p>
       </Reveal>
       <div ref={ref} className="relative mx-auto mt-16 max-w-[60rem] pr-[10%] sm:mt-24 sm:pr-[12%]">
@@ -273,7 +273,7 @@ function RankVisual() {
             <span className={`num text-right ${me ? "font-semibold text-[#00a37a]" : "text-[#6e6e73]"}`}>{v}%</span>
           </li>); })}
       </ul>
-      <p className="mt-6 rounded-2xl bg-[#f5f5f7] px-4 py-3 text-[0.84rem] leading-[1.7] text-[#424245]">いまは <b className="text-[#1d1d1f]">5位</b>。1位の店には、「だれ向けか」「よくある質問」が書かれています。</p>
+      <p className="mt-6 rounded-2xl bg-[#f5f5f7] px-4 py-3 text-[0.84rem] leading-[1.7] text-[#424245]">いまは <b className="text-[#1d1d1f]"><J>5位</J></b>。1位の店には、「だれ向けか」「よくある質問」が書かれています。</p>
     </Card></div>
   );
 }
@@ -284,7 +284,7 @@ function FixVisual() {
       <div className="flex gap-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/sakuapp/works/tsurete/img/products/lotion.webp?v=3" alt="" width={72} height={72} className="h-[4.5rem] w-[4.5rem] shrink-0 rounded-2xl object-cover" />
-        <div className="min-w-0"><b className="block text-[0.95rem]">SORAE 化粧水 しっとり</b><p className="mt-1 text-[0.82rem] leading-[1.7] text-[#86868b] line-through decoration-[#c7c7cc]">空のように澄んだ肌へ。毎日のうるおいに寄りそう、SORAEの化粧水。</p></div>
+        <div className="min-w-0"><b className="block text-[0.95rem]"><J>SORAE 化粧水 しっとり</J></b><p className="mt-1 text-[0.82rem] leading-[1.7] text-[#86868b] line-through decoration-[#c7c7cc]"><J>空のように澄んだ肌へ。毎日のうるおいに寄りそう、SORAEの化粧水。</J></p></div>
       </div>
       <div className={`mt-5 rounded-2xl p-4 transition-colors duration-500 ${used ? "bg-[#e3f6ef]" : "border border-dashed border-[#00a37a]/50"}`}>
         <p className="text-[0.75rem] font-semibold text-[#00a37a]">{used ? "書きかえました" : "AIの書き直し案"}</p>
@@ -328,7 +328,7 @@ function Bars() {
         <div key={x.t} className="flex flex-col rounded-[28px] bg-white p-8 sm:p-10">
           <p className={`text-[0.9rem] font-semibold ${i ? "text-[#00a37a]" : "text-[#6e6e73]"}`}>{x.t}</p>
           <p className={`mt-4 flex-1 text-[1.02rem] leading-[1.9] ${x.tone}`}><J>{x.d}</J></p>
-          <p className="mt-10 text-[0.85rem] text-[#6e6e73]">AIにすすめられた割合</p>
+          <p className="mt-10 text-[0.85rem] text-[#6e6e73]"><J>AIにすすめられた割合</J></p>
           <p className="mt-1 text-[3rem] font-bold leading-none" style={{ color: x.c }}>{on ? <Count to={x.v} suffix="%" /> : "0%"}</p>
           <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#e8e8ed]"><div className="h-full rounded-full transition-[width] duration-[1600ms] ease-out" style={{ width: on ? `${x.v}%` : 0, background: x.c, transitionDelay: `${i * 250}ms` }} /></div>
         </div>
@@ -362,7 +362,7 @@ function Pain() {
   return (
     <section className="bg-[#f5f5f7] px-5 py-24 sm:py-40">
       <div className="mx-auto max-w-[56rem]">
-        <Reveal><p className="text-[1rem] font-semibold text-[#86868b] sm:text-[1.15rem]">これまでの集客は、</p></Reveal>
+        <Reveal><p className="text-[1rem] font-semibold text-[#86868b] sm:text-[1.15rem]"><J>これまでの集客は、</J></p></Reveal>
         <ul className="mt-8 space-y-9 sm:mt-10 sm:space-y-12">
           <Strike t="広告を出しつづける。" d="同じ売上のために、かかるお金が年々ふえていく。" delay={0} />
           <Strike t="SNSを毎日更新する。" d="投稿に時間を取られて、本業が進まない。" delay={150} />
@@ -385,7 +385,7 @@ function Week() {
   ];
   return (
     <section className="px-5 py-24 sm:py-36">
-      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">お店の1週間は、こう変わる。</h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>やることは、週に一度の5分だけ。</J></p></Reveal>
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">お店の1週間は、</span><span className="inline-block">こう変わる。</span></h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>やることは、週に一度の5分だけ。</J></p></Reveal>
       <ol className="relative mx-auto mt-14 grid max-w-[64rem] gap-8 sm:mt-20 md:grid-cols-4 md:gap-6">
         <i className="absolute left-[1.35rem] top-2 hidden h-[calc(100%-1rem)] w-px bg-[#d2d2d7] max-md:block" aria-hidden />
         <i className="absolute left-[12%] right-[12%] top-[1.4rem] hidden h-px bg-[#d2d2d7] md:block" aria-hidden />
@@ -393,7 +393,7 @@ function Week() {
           <Reveal key={k} delay={i * 120}>
             <li className="relative flex gap-5 md:flex-col md:items-center md:text-center">
               <span className={`relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-full ${i === 2 ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-[#d2d2d7]"}`}><Icon size={19} /></span>
-              <span className="min-w-0 md:mt-5"><span className={`block text-[0.85rem] font-semibold ${i === 2 ? "text-[#00a37a]" : "text-[#86868b]"}`}>{k}</span><b className="mt-1 block text-[1.1rem]">{t}</b><span className="mt-1.5 block text-[0.9rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></span></span>
+              <span className="min-w-0 md:mt-5"><span className={`block text-[0.85rem] font-semibold ${i === 2 ? "text-[#00a37a]" : "text-[#86868b]"}`}>{k}</span><b className="mt-1 block text-[1.1rem]"><J>{t}</J></b><span className="mt-1.5 block text-[0.9rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></span></span>
             </li>
           </Reveal>
         ))}
@@ -411,10 +411,10 @@ function Safety() {
   ];
   return (
     <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
-      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">お店の大事なページだから。</h2></Reveal>
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>お店の大事なページだから。</J></h2></Reveal>
       <div className="mx-auto mt-14 grid max-w-[60rem] gap-4 sm:mt-16 sm:grid-cols-2">
         {items.map(({ icon: Icon, t, d }, i) => (
-          <Reveal key={t} delay={i * 90} className="h-full"><div className="flex h-full gap-5 rounded-[28px] bg-white p-7 sm:p-8"><Icon size={26} strokeWidth={1.7} className="mt-0.5 shrink-0 text-[#00a37a]" /><span className="min-w-0"><b className="block text-[1.1rem]">{t}</b><span className="mt-1.5 block text-[0.92rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></span></span></div></Reveal>
+          <Reveal key={t} delay={i * 90} className="h-full"><div className="flex h-full gap-5 rounded-[28px] bg-white p-7 sm:p-8"><Icon size={26} strokeWidth={1.7} className="mt-0.5 shrink-0 text-[#00a37a]" /><span className="min-w-0"><b className="block text-[1.1rem]"><J>{t}</J></b><span className="mt-1.5 block text-[0.92rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></span></span></div></Reveal>
         ))}
       </div>
     </section>
@@ -429,7 +429,7 @@ const PLANS = [
 function Pricing() {
   return (
     <section id="price" className="scroll-mt-12 px-5 py-24 sm:py-36">
-      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">料金</h2><p className="mt-4 text-[0.9rem] text-[#6e6e73]"><J>※デモ用の仮の料金です。実際の料金は決まっていません。</J></p></Reveal>
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>料金</J></h2><p className="mt-4 text-[0.9rem] text-[#6e6e73]"><J>※デモ用の仮の料金です。実際の料金は決まっていません。</J></p></Reveal>
       <div className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-3">
         {PLANS.map((x, i) => (
           <Reveal key={x.n} delay={i * 100} className="h-full">
@@ -454,10 +454,10 @@ function Start() {
   ];
   return (
     <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
-      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">はじめ方は、3つだけ。</h2></Reveal>
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>はじめ方は、3つだけ。</J></h2></Reveal>
       <ol className="mx-auto mt-14 grid max-w-[60rem] gap-10 sm:mt-16 md:grid-cols-3 md:gap-8">
         {steps.map((x, i) => (
-          <Reveal key={x.t} delay={i * 110}><li className="border-t border-[#d2d2d7] pt-6"><span className="num text-[2.4rem] font-bold leading-none text-[#00a37a]">{i + 1}</span><b className="mt-4 block text-[1.2rem]">{x.t}</b><span className="mt-2 block text-[0.95rem] leading-[1.8] text-[#6e6e73]"><J>{x.d}</J></span></li></Reveal>
+          <Reveal key={x.t} delay={i * 110}><li className="border-t border-[#d2d2d7] pt-6"><span className="num text-[2.4rem] font-bold leading-none text-[#00a37a]">{i + 1}</span><b className="mt-4 block text-[1.2rem]"><J>{x.t}</J></b><span className="mt-2 block text-[0.95rem] leading-[1.8] text-[#6e6e73]"><J>{x.d}</J></span></li></Reveal>
         ))}
       </ol>
     </section>
@@ -475,7 +475,7 @@ const FAQ = [
 function Faq() {
   return (
     <section id="faq" className="scroll-mt-12 px-5 py-24 sm:py-36">
-      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">よくある質問</h2></Reveal>
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>よくある質問</J></h2></Reveal>
       <div className="mx-auto mt-12 max-w-[46rem] sm:mt-16">
         {FAQ.map((x) => (
           <details key={x.q} className="group border-b border-[#d2d2d7]">
@@ -516,7 +516,7 @@ export default function Page() {
         {/* お客様は、もうAIに聞いて買っている */}
         <section className="px-5 pb-24 pt-14 sm:pb-36 sm:pt-24">
           <Reveal className="text-center">
-            <h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">お客様は、もう</span><span className="inline-block">「AIに聞いて」買っている。</span></h2>
+            <h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>お客様は、もう「AIに聞いて」買っている。</J></h2>
             <p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>検索して何ページも見くらべるより、AIに「おすすめは？」と聞くほうが早いから。</J></p>
           </Reveal>
           <Reveal className="mx-auto mt-14 max-w-[64rem]" delay={120}>
@@ -560,13 +560,13 @@ export default function Page() {
 
         {/* 書き直す前と後 */}
         <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
-          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">書き直すと、こう変わる。</h2><div className="mt-6 flex items-center justify-center gap-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/sakuapp/works/tsurete/img/products/lotion.webp?v=3" alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover" /><p className="text-left text-[0.88rem] leading-[1.6] text-[#6e6e73]">見本：SORAE 化粧水<br />（架空のブランド・模擬の結果）</p></div></Reveal>
+          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>書き直すと、こう変わる。</J></h2><div className="mt-6 flex items-center justify-center gap-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/sakuapp/works/tsurete/img/products/lotion.webp?v=3" alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover" /><p className="text-left text-[0.88rem] leading-[1.6] text-[#6e6e73]">見本：SORAE 化粧水<br />（架空のブランド・模擬の結果）</p></div></Reveal>
           <div className="mx-auto mt-16 max-w-[60rem]"><Bars /></div>
         </section>
 
         {/* 対応サイト */}
         <section id="sites" className="scroll-mt-12 px-5 py-24 sm:py-36">
-          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">どのサイトでも。</h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>測るのは、サイトに何も入れずに。直すときは、サイトに合わせて届け方を選べます。</J></p></Reveal>
+          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>どのサイトでも。</J></h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>測るのは、サイトに何も入れずに。直すときは、サイトに合わせて届け方を選べます。</J></p></Reveal>
           <div className="mx-auto mt-16 grid max-w-[60rem] gap-4 sm:grid-cols-2">
             {WAYS.map(({ m, icon: Icon, t, d }, i) => (
               <Reveal key={t} delay={i * 90} className="h-full">
@@ -574,7 +574,7 @@ export default function Page() {
                   <Icon size={30} strokeWidth={1.6} className="text-[#00a37a]" />
                   <b className="mt-6 text-[1.3rem]">{t}</b>
                   <p className="mt-1 text-[0.95rem] text-[#6e6e73]"><J>{d}</J></p>
-                  <p className="mt-6 text-[0.88rem] leading-[1.9] text-[#424245]">{(m === "feed" ? ["すべてのサイト"] : PLATFORMS.filter((p) => p.method === m).map((p) => p.name)).join("・")}</p>
+                  <p className="mt-6 text-[0.88rem] leading-[1.9] text-[#424245]">{(m === "feed" ? ["すべてのサイト"] : PLATFORMS.filter((p) => p.method === m).map((p) => p.name)).map((n, i) => <span key={n}>{i > 0 && "・"}<wbr /><span className="whitespace-nowrap">{n}</span></span>)}</p>
                 </div>
               </Reveal>
             ))}
@@ -589,9 +589,9 @@ export default function Page() {
               <img src={`${IMG}/owner.webp?v=3`} alt="自宅の作業机でネットショップを運営している人" width={1376} height={768} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
             </Reveal>
             <Reveal delay={150}>
-              <h2 className="lp-h text-[2rem] sm:text-[2.6rem] lg:text-[2.3rem]"><span className="inline-block">小さなネットショップの、</span><span className="inline-block">AI担当に。</span></h2>
+              <h2 className="lp-h text-[2rem] sm:text-[2.6rem] lg:text-[2.3rem]"><J>小さなネットショップの、AI担当に。</J></h2>
               <p className="mt-5 text-[1.02rem] leading-[1.95] text-[#6e6e73]"><J>大きな会社のように、AI対策の担当者は置けない。TSURETEが毎週自動ではかって、やることだけを届けます。</J></p>
-              <p className="mt-8 text-[0.85rem] font-semibold text-[#1d1d1f]">比べて選ばれる商品なら、ジャンルは問いません。</p>
+              <p className="mt-8 text-[0.85rem] font-semibold text-[#1d1d1f]"><J>比べて選ばれる商品なら、ジャンルは問いません。</J></p>
               <p className="mt-3 flex flex-wrap gap-2">{["スキンケア", "食品・お菓子", "雑貨・インテリア", "アパレル", "ハンドメイド", "ベビー用品", "ペット用品"].map((t) => <span key={t} className="rounded-full bg-white px-3.5 py-1.5 text-[0.85rem]">{t}</span>)}</p>
             </Reveal>
           </div>
@@ -601,7 +601,7 @@ export default function Page() {
         <section className="px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIに自分で聞くのと、</span><span className="inline-block">何が違う？</span></h2></Reveal>
           <div className="mx-auto mt-16 grid max-w-[52rem] gap-4 md:grid-cols-2">
-            <Reveal><div className="h-full rounded-[28px] bg-[#f5f5f7] p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]">AIに自分で聞く</p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない", "毎回、自分で聞きに行く"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
+            <Reveal><div className="h-full rounded-[28px] bg-[#f5f5f7] p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]"><J>AIに自分で聞く</J></p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない", "毎回、自分で聞きに行く"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
             <Reveal delay={150}><div className="h-full rounded-[28px] bg-[#1d1d1f] p-8 text-white sm:p-10"><p className="text-[1rem] font-semibold text-[#2fd9a6]">TSURETE</p><ul className="mt-6 space-y-4 text-[0.98rem]">{["4つのAIに、毎週自動で何百回も聞いて記録", "よくすすめられている店と比べて、差を出す", "全商品まとめて、サイトに合わせて届ける", "AI経由の売上で、効果を確かめる", "AIへの質問は、毎週ぜんぶ自動"].map((t) => <li key={t} className="flex gap-3"><Check size={18} className="mt-1 shrink-0 text-[#2fd9a6]" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
           </div>
         </section>
@@ -614,7 +614,7 @@ export default function Page() {
         {/* 無料診断 */}
         <section id="try" className="scroll-mt-12 bg-[#f5f5f7] px-5 py-28 text-center sm:py-40">
           <Reveal className="mx-auto max-w-[38rem]">
-            <h2 className="lp-h text-[2rem] sm:text-[3.4rem]">まずは1商品、無料で。</h2>
+            <h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>まずは1商品、無料で。</J></h2>
             <p className="mt-4 text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>商品ページのURLを入れると、AIに選ばれるために足りないところと、書き直し案をお出しします。</J></p>
             <form onSubmit={(e) => { e.preventDefault(); router.push(`/shindan/?url=${encodeURIComponent(url)}`); }} className="mt-10 flex flex-col gap-3 sm:flex-row">
               <label className="sr-only" htmlFor="u">商品ページのURL</label>

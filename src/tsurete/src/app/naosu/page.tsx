@@ -33,15 +33,15 @@ function Block({ id, label, before, after, gain, done }: { id: string; label: st
   if (done) return (
     <div className="fade-in rounded-lg border-l-[3px] border-[#10b981] bg-[#e9fbf3] px-3.5 py-3">
       <p className="flex items-center gap-1.5 text-[0.72rem] font-bold text-[#047857]"><Sparkles size={12} />{DONE[m]}<span className="font-normal text-[#6b7280]">｜{label}</span><button type="button" onClick={() => { apply([id], false); toast("もとに戻しました"); }} className="ml-auto flex items-center gap-1 font-normal text-[#6b7280] underline"><RotateCcw size={11} />戻す</button></p>
-      <p className="mt-1.5 whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#111827]">{after}</p>
+      <p className="mt-1.5 whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#111827]"><J>{after}</J></p>
     </div>
   );
   return (
     <div>
-      {before ? <p className="whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#374151]">{before}</p> : <p className="text-[0.82rem] text-[#9ca3af]">（{label}がありません）</p>}
+      {before ? <p className="whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#374151]"><J>{before}</J></p> : <p className="text-[0.82rem] text-[#9ca3af]">（{label}がありません）</p>}
       <div className="mt-2.5 rounded-xl border border-dashed border-[#10b981] bg-white p-3.5">
         <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.75rem]"><b className="flex items-center gap-1 text-[#047857]"><Wand2 size={13} />AIの書き直し案</b><span className="text-[#6b7280]"><J>{f.why}</J></span></p>
-        <p className="mt-2 whitespace-pre-line text-[0.88rem] leading-[1.8] text-[#111827]">{after}</p>
+        <p className="mt-2 whitespace-pre-line text-[0.88rem] leading-[1.8] text-[#111827]"><J>{after}</J></p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <button type="button" onClick={() => use([id], after)} className="btn min-h-[2.3rem] bg-[#10b981] px-4 text-[0.85rem] text-white hover:bg-[#059669]">{m === "copy" ? <Copy size={16} /> : <Check size={16} />}この案を使う</button>
           {gain > 0 && <span className="text-[0.78rem] font-bold text-[#047857]">AIに出る回数 +{fmt(gain)}回</span>}
@@ -62,7 +62,7 @@ function Outside({ f, done, gain }: { f: Fix; done: boolean; gain: number }) {
         <div className="min-w-0 flex-1">
           <b className="block text-[0.98rem] leading-[1.6]"><J>{f.title}</J></b>
           <p className="mt-1 text-[0.84rem] leading-[1.8] text-sub"><J>{f.why}</J></p>
-          <p className="mt-2 whitespace-pre-line rounded-xl bg-paper p-3 text-[0.85rem] leading-[1.8]">{f.after}</p>
+          <p className="mt-2 whitespace-pre-line rounded-xl bg-paper p-3 text-[0.85rem] leading-[1.8]"><J>{f.after}</J></p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {done ? <><span className="chip bg-ok text-[#03140f]"><Check size={13} />{f.id === "media" ? "依頼文を作りました" : "変えました"}</span><button type="button" onClick={() => apply([f.id], false)} className="text-[0.8rem] text-sub underline">戻す</button></>
               : <button type="button" onClick={() => { apply([f.id], true); toast("用意しました（デモ）"); }} className="btn btn-ai min-h-[2.4rem]">{f.id === "media" ? "依頼文を作る" : "この質問に変える"}</button>}
@@ -110,7 +110,7 @@ function Naosu() {
             <div className="min-w-0 flex-1">
               <SitePicker />
               <p className="mt-4 text-[0.9rem] font-bold">届け方：{METHOD[plat.method]}</p>
-              <p className="mt-1 text-[0.85rem] leading-[1.9] text-sub">{plat.note}<span className="block">デモでは、実際のサイトは変わりません。</span></p>
+              <p className="mt-1 text-[0.85rem] leading-[1.9] text-sub"><J>{plat.note}</J><span className="block">デモでは、実際のサイトは変わりません。</span></p>
             </div>
             <div className="flex flex-wrap gap-3">
               {left.length > 0 && <button type="button" onClick={useAll} className="btn btn-ai px-6"><Wand2 size={17} />{plat.method === "api" ? `すべて${plat.action}` : plat.method === "csv" ? "すべての案をCSVに入れる" : "すべての案をコピー"}</button>}
@@ -118,7 +118,7 @@ function Naosu() {
             </div>
           </div>
         ) : (
-          <div><p className="text-[1.05rem] font-bold">まず、お店のサイトを選んでください</p><p className="mt-1 text-[0.85rem] leading-[1.9] text-sub">選んだサイトに合わせて、書き直しの届け方（自動で書きかえ・CSV・コピー）が変わります。</p><div className="mt-6"><SiteGrid /></div></div>
+          <div><p className="text-[1.05rem] font-bold"><J>まず、お店のサイトを選んでください</J></p><p className="mt-1 text-[0.85rem] leading-[1.9] text-sub"><J>選んだサイトに合わせて、書き直しの届け方（自動で書きかえ・CSV・コピー）が変わります。</J></p><div className="mt-6"><SiteGrid /></div></div>
         )}
       </section>
 
@@ -142,7 +142,7 @@ function Naosu() {
             <div><p className="text-[0.75rem] tracking-[.2em] text-[#6b7280]">SORAE</p><h2 className="mt-1 text-[1.3rem] font-bold leading-[1.5]">{p.name}</h2><p className="num mt-1 text-[1.2rem] font-bold">{fmt(p.price)}円<span className="text-[0.75rem] font-normal text-[#6b7280]">（税込）</span></p></div>
             {blocks.map((b) => <div key={b.id}><p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]">{b.label}</p><Block id={b.id} label={b.label} before={b.t[0]} after={b.t[1]} gain={gain(b.id)} done={done(b.id)} /></div>)}
             <div>
-              <p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]">AIが読む商品データ（ページには表示されません）</p>
+              <p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]"><J>AIが読む商品データ（ページには表示されません）</J></p>
               <Block id="data" label="商品データ" before="" after={data} gain={gain("data")} done={done("data")} />
             </div>
           </div>
@@ -151,7 +151,7 @@ function Naosu() {
 
       <section className="mt-24" aria-labelledby="out">
         <h2 id="out" className="text-[1.2rem] font-bold tracking-[.04em]">ショップの外でやること</h2>
-        <p className="mt-1 text-[0.86rem] text-sub">AIは、口コミや外の記事も見ています。文章はAIが用意します。</p>
+        <p className="mt-1 text-[0.86rem] text-sub"><J>AIは、口コミや外の記事も見ています。文章はAIが用意します。</J></p>
         <ul className="mt-8 grid gap-5 md:grid-cols-2">{FIXES.filter((f) => f.id === "review" || f.id === "media").map((f) => <Outside key={f.id} f={f} done={done(f.id)} gain={gain(f.id)} />)}</ul>
       </section>
 
@@ -167,7 +167,7 @@ function Naosu() {
         ) : <button type="button" onClick={() => { update((x) => ({ ...x, feed: true })); toast("商品フィードを作りました（デモ）"); }} className="btn btn-ai mt-8 px-7"><Rss size={17} />商品フィードを作る</button>}
       </section>
 
-      <p className="mt-24 text-center text-[0.88rem] text-sub">ほかの商品も見る：<Link href="/shindan/" className="text-ai underline underline-offset-4">URLで診断</Link>　<Link href="/shindan/?csv=1" className="text-ai underline underline-offset-4">CSVでまとめて診断</Link></p>
+      <p className="mt-24 text-center text-[0.88rem] text-sub"><span className="block sm:inline">ほかの商品も見る：</span><Link href="/shindan/" className="mx-2 inline-block text-ai underline underline-offset-4">URLで診断</Link><Link href="/shindan/?csv=1" className="mx-2 inline-block text-ai underline underline-offset-4">CSVでまとめて診断</Link></p>
     </>
   );
 }

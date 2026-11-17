@@ -31,7 +31,7 @@ function How({ at }: { at: number }) {
       {STEPS.map((s, i) => (
         <li key={s.t} className={`border-t pt-4 transition ${at === i ? "border-ai" : at > i ? "border-ai/40" : "hair"}`}>
           <p className="flex items-center gap-2 text-[0.9rem] font-bold"><span className="num text-[0.75rem] text-ai">0{i + 1}</span>{s.t}{at === i && <Loader2 size={15} className="animate-spin text-ai" />}{at > i && <Check size={15} className="text-ai" />}</p>
-          <p className="mt-1 text-[0.82rem] leading-[1.8] text-sub">{s.d}</p>
+          <p className="mt-1 text-[0.82rem] leading-[1.8] text-sub"><J>{s.d}</J></p>
         </li>
       ))}
     </ol>

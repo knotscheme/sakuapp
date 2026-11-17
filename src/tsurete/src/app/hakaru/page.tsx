@@ -89,7 +89,7 @@ function Hakaru() {
         <ul className="mt-8 border-t hair">
           {win.map((r) => (
             <li key={r.q.id} className="grid gap-x-6 gap-y-1 border-b hair py-4 sm:grid-cols-[1fr_9rem_6rem] sm:items-center">
-              <span className="text-[0.92rem]">{r.q.text}</span>
+              <span className="text-[0.92rem]"><J>{r.q.text}</J></span>
               <span className="text-[0.8rem] text-sub">いちばん：<b className={r.top === BRAND.name ? "text-ai" : "text-ink"}>{r.top}</b></span>
               <span className={`num text-[0.85rem] sm:text-right ${r.me / r.max >= 0.5 ? "text-ai" : "text-warn"}`}>{BRAND.name} {Math.round((r.me / r.max) * 100)}%</span>
             </li>

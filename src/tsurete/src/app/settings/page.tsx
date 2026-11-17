@@ -8,6 +8,7 @@ import { askConfirm, toast } from "@/components/Confirm";
 import { MODELS, PNAME, saveAi, useAi, type Provider } from "@/lib/ai";
 import { resetDemo, update, useStore } from "@/lib/store";
 import { SiteGrid } from "@/components/SitePicker";
+import J from "@/components/J";
 
 function Settings() {
   const s = useStore();
@@ -24,11 +25,11 @@ function Settings() {
           <label className="text-[0.9rem] font-bold">商品の種類<input value={s.real.item} onChange={(e) => real({ item: e.target.value })} placeholder="例）敏感肌向けの化粧水" className="field mt-1" /></label>
           <label className="text-[0.9rem] font-bold">ジャンル<input value={s.real.kind} onChange={(e) => real({ kind: e.target.value })} placeholder="例）スキンケア" className="field mt-1" /></label>
         </div>
-        <p className="mt-2 text-[0.82rem] text-sub">入れると「測る」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</p>
+        <p className="mt-2 text-[0.82rem] text-sub"><J>入れると「測る」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</J></p>
       </section>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="site">
         <h2 id="site" className="text-[1.1rem] font-bold">お店のサイト</h2>
-        <p className="mt-1 text-[0.85rem] text-sub">選んだサイトに合わせて、「直す」の届け方が変わります。</p>
+        <p className="mt-1 text-[0.85rem] text-sub"><J>選んだサイトに合わせて、「直す」の届け方が変わります。</J></p>
         <div className="mt-4"><SiteGrid /></div>
       </section>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">

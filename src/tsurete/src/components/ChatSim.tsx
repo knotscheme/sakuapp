@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, Bot, RefreshCw, Search, ShoppingBag, X } from "lucide-react";
 import { toast } from "@/components/Confirm";
+import J from "@/components/J";
 import { AIS, BRAND, PRODUCTS, QUESTIONS, TRIES, answer, fmt, shown, type Ai, type Pick } from "@/lib/demo";
 import { aiReady, askProduct, useAi } from "@/lib/ai";
 import { uid, update, useStore } from "@/lib/store";
@@ -33,12 +34,12 @@ export function ChatSim() {
         <div className="card min-w-0 p-4 lg:col-start-2 lg:row-start-1">
           <div className="grid grid-cols-4 gap-1.5" role="group" aria-label="AI">{AIS.map((a) => <button key={a} type="button" aria-pressed={ai === a} onClick={() => { setAi(a); setT(0); }} className={`rounded-lg border px-1 py-1.5 text-[0.72rem] font-bold sm:text-[0.8rem] ${ai === a ? "border-ai text-ai" : "border-line text-sub"}`}>{a}</button>)}</div>
           <div className="mt-3 flex flex-wrap gap-1.5" role="group" aria-label="商品">{PRODUCTS.map((p) => <button key={p.id} type="button" aria-pressed={prod === p.id} onClick={() => { setProd(p.id); setQid(QUESTIONS.find((x) => x.product === p.id)!.id); setT(0); }} className={`chip py-1 ${prod === p.id ? "bg-ai text-[#03140f]" : "bg-deep text-sub"}`}>{p.short}</button>)}</div>
-          <ul className="mt-3 space-y-1.5">{qs.map((x) => <li key={x.id}><button type="button" aria-pressed={qid === x.id} onClick={() => { setQid(x.id); setT(0); }} className={`w-full rounded-lg border px-3 py-2 text-left text-[0.85rem] leading-[1.6] ${qid === x.id ? "border-ai bg-ai/10" : "border-line hover:border-ai/50"}`}>{x.text}</button></li>)}</ul>
+          <ul className="mt-3 space-y-1.5">{qs.map((x) => <li key={x.id}><button type="button" aria-pressed={qid === x.id} onClick={() => { setQid(x.id); setT(0); }} className={`w-full rounded-lg border px-3 py-2 text-left text-[0.85rem] leading-[1.6] ${qid === x.id ? "border-ai bg-ai/10" : "border-line hover:border-ai/50"}`}><J>{x.text}</J></button></li>)}</ul>
         </div>
         <div className="card min-w-0 overflow-hidden p-0 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:self-start" aria-label="AIとの会話">
           <div className="flex items-center gap-2 border-b border-line px-4 py-3 text-[0.85rem] text-sub"><Bot size={16} className="text-ai" />{ai}<span className="num ml-auto">{t + 1}回目</span></div>
           <div className="min-h-[22rem] space-y-3 p-4" aria-live="polite">
-            <p className="ml-auto w-fit max-w-[88%] rounded-2xl rounded-br-md bg-deep px-4 py-2.5 text-[0.95rem]">{q.text}</p>
+            <p className="ml-auto w-fit max-w-[88%] rounded-2xl rounded-br-md bg-deep px-4 py-2.5 text-[0.95rem]"><J>{q.text}</J></p>
             {busy ? <p className="pulse flex items-center gap-2 text-[0.85rem] text-sub"><Bot size={16} />考えています…</p> : (
               <div className="fade-in space-y-2">
                 <p className="text-[0.92rem]">おすすめを3つ選びました。</p>
