@@ -7,6 +7,7 @@ import { Camera, CreditCard, FileText, Landmark, Loader2, PencilLine, Sparkles }
 import Shell from "@/components/Shell";
 import Ready from "@/components/Ready";
 import Help from "@/components/Help";
+import ImportGuide from "@/components/ImportGuide";
 import { toast } from "@/components/Confirm";
 import { aiReady, readReceipt, useAi, type ReceiptRead } from "@/lib/ai";
 import { guess, parseStatement, type Kind } from "@/lib/importer";
@@ -96,6 +97,7 @@ function Torikomi() {
         銀行やカードの<b>明細</b>、<b>レシートの写真</b>を入れると、「何に使ったお金か」を自動で考えて、帳簿の下書きを作ります。<br />月に1回、まとめて取りこむのがおすすめです。{pending > 0 && <> いま<Link href="/kakunin/" className="font-bold underline">確認待ちが{pending}件</Link>あります。</>}
       </Help>
 
+      <ImportGuide />
       <div className="grid gap-4 md:grid-cols-2">
         <section className={box}>
           <Landmark size={36} className="text-ok" />
