@@ -113,7 +113,8 @@ function Torikomi() {
           <button type="button" onClick={() => take(SAMPLE_CARD_CSV, "card")} className="btn btn-sub mt-2 w-full">見本の明細で試す（11月分）</button>
           <input ref={card} type="file" accept=".csv,text/csv,text/plain" hidden onChange={(e) => { file(e.target.files?.[0], "card"); e.target.value = ""; }} />
         </section>
-        <section className={box}>
+        <section className={`${box} overflow-hidden`}>
+          <img src="/sakuapp/works/shinkoku/img/receipt.webp" alt="スマホでレシートを撮っているところ" width={800} height={800} loading="lazy" className="-mx-6 -mt-6 mb-4 aspect-[16/9] w-[calc(100%+3rem)] max-w-none object-cover object-[50%_45%]" />
           <Camera size={36} className="text-ok" />
           <h2 className="mt-3 text-[1.3rem] font-bold">レシート・領収書</h2>
           <p className="mt-1 flex-1 text-[1rem] text-sub">現金で払ったものは、レシートを撮ると、日付・金額・お店を読み取ります。写真はこの端末に保管します。</p>

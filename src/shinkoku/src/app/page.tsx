@@ -26,9 +26,14 @@ function Home() {
 
   return (
     <>
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div><p className="text-[1rem] text-sub">{YEAR_JA}（2026年）の申告</p><h1 className="text-[1.75rem] font-bold">{s.profile.name}さん、こんにちは</h1></div>
-        <Speak text={say} label="この画面を読み上げる" />
+      <div className="grid items-center gap-5 overflow-hidden rounded-3xl border-2 border-line bg-white md:grid-cols-[1fr_1.15fr]">
+        <div className="order-2 p-6 md:order-1 md:p-8">
+          <p className="text-[1rem] text-sub">{YEAR_JA}（2026年）の申告</p>
+          <h1 className="mt-1 text-[1.75rem] font-bold leading-[1.45]">{s.profile.name}さん、こんにちは</h1>
+          <p className="mt-2 text-[1.02rem] leading-[1.9] text-sub">明細を入れて、えらんでいくだけ。申告まで、ひとつずつご案内します。</p>
+          <div className="mt-4"><Speak text={say} label="この画面を読み上げる" /></div>
+        </div>
+        <img src="/sakuapp/works/shinkoku/img/home.webp" alt="自宅のテーブルで、笑顔でパソコンに向かって申告の作業をする女性" width={1376} height={768} className="order-1 aspect-[16/9] h-full w-full object-cover md:order-2 md:aspect-auto md:min-h-[260px]" />
       </div>
 
       {/* 今日やること */}
