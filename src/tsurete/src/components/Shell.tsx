@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Bot, CalendarClock, LayoutDashboard, Menu, Network, Settings, Sparkles, X } from "lucide-react";
+import { BookOpen, Bot, CalendarClock, LayoutDashboard, Menu, Network, Settings, Sparkles, X } from "lucide-react";
 
 export const NAV = [
   { href: "/", label: "概要", icon: LayoutDashboard, n: "" },
@@ -12,6 +12,7 @@ export const NAV = [
   { href: "/akiwaku/", label: "空きを自動で埋める", icon: CalendarClock, n: "3" },
   { href: "/machi/", label: "街ぐるみで送り合う", icon: Network, n: "4" },
   { href: "/settings/", label: "設定", icon: Settings, n: "" },
+  { href: "/guide/", label: "使い方ガイド", icon: BookOpen, n: "" },
 ];
 
 export function Logo({ light = false }: { light?: boolean }) {

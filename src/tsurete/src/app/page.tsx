@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Bot, CalendarClock, ChevronRight, Network, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Bot, CalendarClock, ChevronRight, Network, Sparkles } from "lucide-react";
 import Shell from "@/components/Shell";
 import Ready from "@/components/Ready";
 import { ACTIONS, PARTNERS, SHOP, simulate } from "@/lib/demo";
@@ -25,6 +25,12 @@ function Home() {
   ];
   return (
     <>
+      <Link href="/guide/" className="card mb-4 flex flex-col gap-3 border-ai/40 p-4 hover:border-ai sm:flex-row sm:items-center sm:gap-4">
+        <span className="flex items-center gap-3 sm:contents"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ai-2 text-ai"><BookOpen size={20} /></span>
+        <span className="min-w-0 flex-1"><b className="block text-[1rem] leading-[1.6]">はじめての方へ：これはお店の人が使うツールのデモです</b><span className="text-[0.86rem] leading-[1.7] text-sub">どこを押せばいいか、6つの順番で説明しています。</span></span></span>
+        <span className="btn btn-ai shrink-0">使い方ガイドを見る<ArrowRight size={18} /></span>
+      </Link>
+
       <section className="glow relative overflow-hidden rounded-[28px] px-6 py-10 text-white sm:px-10 sm:py-14">
         <p className="text-[0.85rem] tracking-[.2em] text-lime">AI時代の集客</p>
         <h1 className="mt-3 text-[2rem] font-bold leading-[1.35] sm:text-[2.8rem]"><span className="inline-block">AIが、</span><span className="inline-block">お客様をつれてくる。</span></h1>
