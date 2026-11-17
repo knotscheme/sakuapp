@@ -36,7 +36,7 @@ h1, h2, h3 { word-break: auto-phrase; text-wrap: pretty; }
 .field { width: 100%; min-height: 3rem; border-radius: 12px; border: 2px solid var(--color-line); background: #fff; padding: .45rem .8rem; font-size: 1rem; outline: none; }
 .field:focus { border-color: var(--color-ok); }
 }
-.num { font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+.num { font-variant-numeric: tabular-nums; letter-spacing: .01em; white-space: nowrap; }
 .fade-in { animation: fadeIn .35s ease both; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .fade-in { animation: none; } }

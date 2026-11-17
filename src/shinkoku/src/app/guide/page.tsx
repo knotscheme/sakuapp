@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, CalendarDays, Lightbulb, ShieldCheck } from "lucide-react";
+import { ArrowRight, CalendarDays, ChevronRight, Lightbulb, ShieldCheck } from "lucide-react";
 import Shell from "@/components/Shell";
 import Speak from "@/components/Speak";
 
@@ -62,16 +62,21 @@ function Guide() {
         むずかしい言葉は、なるべく使っていません。わからない言葉は、このページの下の「言葉の説明」を見てください。
       </div>
 
-      <nav aria-label="手順の目次" className="mt-5 flex flex-wrap gap-2">
-        {STEPS.map((s) => <a key={s.n} href={`#step${s.n}`} className="flex items-center gap-2 rounded-full border-2 border-line bg-white px-4 py-2 text-[0.95rem] font-bold hover:border-ink"><span className="grid h-6 w-6 place-items-center rounded-full bg-ink text-[0.8rem] text-white">{s.n}</span>{s.title}</a>)}
+      <nav aria-label="手順の目次" className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {STEPS.map((s) => <a key={s.n} href={`#step${s.n}`} className="flex min-h-[3.2rem] items-center gap-2 rounded-2xl border-2 border-line bg-white px-3 py-2 text-[1rem] font-bold leading-[1.4] hover:border-ink"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ink text-[0.85rem] text-white">{s.n}</span><span className="flex-1">{s.title}</span><ChevronRight size={20} className="shrink-0 text-sub" /></a>)}
       </nav>
 
       <ol className="mt-6 space-y-6">
         {STEPS.map((s) => (
           <li key={s.n} id={`step${s.n}`} className="card scroll-mt-24 overflow-hidden">
             <div className="grid gap-0 lg:grid-cols-[1.05fr_1fr]">
-              <div className="border-b-2 border-line bg-paper p-3 lg:border-b-0 lg:border-r-2">
-                <img src={`${IMG}/${s.img}`} alt={`「${s.title}」の画面`} width={1100} height={720} loading="lazy" className="w-full rounded-xl border-2 border-line bg-white" />
+              <div className="border-b-2 border-line bg-paper px-4 pb-0 pt-5 lg:border-b-0 lg:border-r-2 lg:p-3">
+                {/* スマホではスマホの画面、パソコンではパソコンの画面の写真を出す */}
+                <picture>
+                  <source media="(min-width: 1024px)" srcSet={`${IMG}/${s.img}`} />
+                  <img src={`${IMG}/${s.img.replace(".webp", "-sp.webp")}`} alt={`「${s.title}」の画面`} width={390} height={600} loading="lazy"
+                    className="mx-auto block w-full max-w-[17rem] rounded-t-[1.6rem] border-[5px] border-b-0 border-ink bg-white lg:max-w-none lg:rounded-xl lg:border-2 lg:border-b-2 lg:border-line" />
+                </picture>
               </div>
               <div className="p-5 sm:p-6">
                 <div className="flex items-center gap-3">
