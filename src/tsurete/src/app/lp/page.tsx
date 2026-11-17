@@ -1,6 +1,7 @@
 "use client";
 
 import ScrollNav from "@/components/ScrollNav";
+import LpVoice from "@/components/LpVoice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -113,6 +114,7 @@ function Hero() {
           <Link href="/" className="btn btn-ai px-7">デモを使ってみる</Link>
           <a href="#try" className="flex items-center text-[1.02rem] text-[#00a37a] hover:underline">無料で診断<ChevronRight size={18} /></a>
         </div>
+        <div className={`mt-5 transition duration-700 ${ready ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "950ms" }}><LpVoice /></div>
       </div>
 
       <div className={`relative mx-auto mt-14 w-[15.5rem] sm:mt-12 sm:w-[18rem] ${ready ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"}`} style={{ transition: "opacity 1.4s .5s, transform 1.4s .5s cubic-bezier(.2,.7,.2,1)" }}>

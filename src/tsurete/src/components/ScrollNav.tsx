@@ -32,7 +32,7 @@ export default function ScrollNav({ names, dark = [] }: { names: string[]; dark?
   return (
     <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 z-40 transition-[opacity,transform] duration-500"
       style={{ opacity: show ? 1 : 0, transform: show ? "none" : "translateY(8px)", paddingBottom: "env(safe-area-inset-bottom)" }}>
-      <div className="mx-auto flex max-w-[1000px] px-4 pb-2 text-[0.68rem] tracking-[.08em]">
+      <div className="tsr-navlabel mx-auto flex max-w-[1000px] px-4 pb-2 transition-opacity duration-300 text-[0.68rem] tracking-[.08em]">
         <div className={`flex items-center gap-2 rounded-full px-3 py-1 backdrop-blur-xl transition-colors duration-500 ${d ? "bg-black/55" : "bg-white/75 shadow-[0_1px_8px_rgba(0,0,0,.06)]"}`}>
         <span className={`num transition-colors duration-500 ${d ? "text-white/45" : "text-[#86868b]"}`}>{String(i + 1).padStart(2, "0")}<span className="mx-1 opacity-50">/</span>{String(names.length).padStart(2, "0")}</span>
         <span key={i} className={`lp-navname transition-colors duration-500 ${d ? "text-white/85" : "text-[#1d1d1f]"}`}>{names[i] ?? ""}</span>
