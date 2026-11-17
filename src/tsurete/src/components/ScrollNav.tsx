@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 // 画面の下の細いバー：読んだところまで線がのびて、いまのセクション名を小さく出す。
 // スクロール中はReactの再描画をせず、線の長さだけを直接動かす（iPhoneでもカクつかないように）
-export default function ScrollNav({ names, dark = [] }: { names: string[]; dark?: number[] }) {
+export default function ScrollNav({ names, dark = [], colors }: { names: string[]; dark?: number[]; colors?: string[] }) {
   const bar = useRef<HTMLSpanElement>(null);
   const [i, setI] = useState(-1);
   const [show, setShow] = useState(false);
@@ -28,6 +28,11 @@ export default function ScrollNav({ names, dark = [] }: { names: string[]; dark?
     addEventListener("scroll", on, { passive: true });
     return () => { removeEventListener("scroll", on); ro.disconnect(); cancelAnimationFrame(raf); };
   }, []);
+  // いまのセクションの色を、ページ全体の背景に（CSSの transition で、ゆっくりとけるように変わる）
+  useEffect(() => {
+    const root = document.querySelector<HTMLElement>(".lp-light");
+    if (root && colors) root.style.backgroundColor = colors[Math.max(0, i)] ?? "#fff";
+  }, [i, colors]);
   const d = dark.includes(i);
   return (
     <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 z-40 transition-[opacity,transform] duration-500"

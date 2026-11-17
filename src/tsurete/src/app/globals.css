@@ -52,7 +52,7 @@ p, li, dd, h1, h2, h3, button, a { word-break: auto-phrase; }
 .lp-light {
   --color-paper: #ffffff; --color-panel: #f5f5f7; --color-deep: #e8e8ed; --color-ink: #1d1d1f; --color-sub: #6e6e73;
   --color-line: #d2d2d7; --color-ai: #00a37a; --color-ai-2: #e3f6ef; --color-lime: #00a37a; --color-warn: #c2410c;
-  background: #fff; color: #1d1d1f;
+  background: #fff; color: #1d1d1f; transition: background-color 1.1s ease;
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", var(--font-noto), sans-serif;
   letter-spacing: .01em;
 }
