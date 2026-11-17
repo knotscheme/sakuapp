@@ -2,10 +2,13 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Headphones, Pause, Play, SkipForward, Square, Volume2 } from "lucide-react";
+import { asset } from "@/lib/asset";
 
-// 音声ガイド：端末の読み上げ機能（Web Speech API）で、ページを章ごとに読み上げる。追加の費用はかからない
+// 音声ガイド：章ごとに読み上げる
+// 日本語：VOICEVOX（No.7 アナウンス）で先に作った音声ファイルを再生（マナーモードでも、音量を上げれば聞こえる）
+// 音声ファイルが無い章（タイ語・英語）は、端末の読み上げ機能（Web Speech API）で読む
 // 章は id で指定。text が無いときは、その章の画面の文章を読む（data-nosay は読まない、data-say は置きかえて読む）
-export type VoiceSection = { id: string; title: string; text?: string };
+export type VoiceSection = { id: string; title: string; text?: string; audio?: string };
 type Lang = "ja" | "th" | "en";
 const LOCALE: Record<Lang, string> = { ja: "ja-JP", th: "th-TH", en: "en-US" };
 const T = {
@@ -50,6 +53,8 @@ export default function VoiceGuide({ sections, lang = "ja", dark = false }: { se
   const [one, setOne] = useState(false); // この章だけ
   const pos = useRef({ sec: 0, sent: 0 });
   const runId = useRef(0);
+  const audio = useRef<HTMLAudioElement | null>(null);
+  const hasAudio = sections.some((x) => x.audio);
 
   const highlight = (i: number | null) => {
     document.querySelectorAll("[data-voice-on]").forEach((x) => x.removeAttribute("data-voice-on"));
@@ -57,13 +62,30 @@ export default function VoiceGuide({ sections, lang = "ja", dark = false }: { se
     const el = document.getElementById(sections[i].id);
     if (el) { el.setAttribute("data-voice-on", ""); el.scrollIntoView({ behavior: "smooth", block: "start" }); }
   };
-  const stop = () => { runId.current++; speechSynthesis.cancel(); setCur(null); setPaused(false); highlight(null); };
-  useEffect(() => () => { runId.current++; if (typeof speechSynthesis !== "undefined") speechSynthesis.cancel(); document.querySelectorAll("[data-voice-on]").forEach((x) => x.removeAttribute("data-voice-on")); }, []);
+  const halt = () => { runId.current++; if (typeof speechSynthesis !== "undefined") speechSynthesis.cancel(); audio.current?.pause(); };
+  const stop = () => { halt(); setCur(null); setPaused(false); highlight(null); };
+  useEffect(() => () => { halt(); document.querySelectorAll("[data-voice-on]").forEach((x) => x.removeAttribute("data-voice-on")); }, []);
 
   // sec 章の sent 文から読み始める
   const play = (sec: number, sent = 0, onlyThis = one, r = rate) => {
     const id = ++runId.current;
-    speechSynthesis.cancel();
+    if (typeof speechSynthesis !== "undefined") speechSynthesis.cancel();
+    audio.current?.pause();
+    // 音声ファイルのある章：audio で再生（sent は再生位置の秒）
+    if (sections[sec]?.audio) {
+      const a = (audio.current ??= new Audio());
+      a.preload = "auto";
+      const src = asset(sections[sec].audio!);
+      if (!a.src.endsWith(src)) a.src = src;
+      a.playbackRate = r; (a as HTMLAudioElement & { preservesPitch?: boolean }).preservesPitch = true;
+      a.currentTime = sent;
+      a.onended = () => { if (id !== runId.current) return; if (onlyThis || sec + 1 >= sections.length) { setCur(null); highlight(null); } else play(sec + 1, 0, false, r); };
+      a.ontimeupdate = () => { if (id === runId.current) pos.current = { sec, sent: a.currentTime }; };
+      setCur(sec); highlight(sec); setPaused(false); setOne(onlyThis);
+      pos.current = { sec, sent };
+      a.play().catch(() => { setCur(null); highlight(null); });
+      return;
+    }
     const voice = pickVoice(lang);
     const run = (s: number, k: number) => {
       if (id !== runId.current) return;
@@ -82,9 +104,16 @@ export default function VoiceGuide({ sections, lang = "ja", dark = false }: { se
     run(sec, sent);
   };
   // 一時停止：iPhone の pause は不安定なので、止めて位置を覚えておく
-  const pause = () => { runId.current++; speechSynthesis.cancel(); setPaused(true); };
-  const resume = () => play(pos.current.sec, pos.current.sent);
-  const changeRate = (r: number) => { setRate(r); if (cur !== null && !paused) play(pos.current.sec, pos.current.sent, one, r); };
+  // 音声ファイルはそのまま止めて再開。読み上げは止めて位置を覚える（iPhone の pause は不安定なため）
+  const isAudio = cur !== null && !!sections[cur]?.audio;
+  const pause = () => { if (isAudio) audio.current?.pause(); else halt(); setPaused(true); };
+  const resume = () => { if (isAudio && audio.current) { audio.current.play(); setPaused(false); } else play(pos.current.sec, pos.current.sent); };
+  const changeRate = (r: number) => {
+    setRate(r);
+    if (cur === null || paused) return;
+    if (sections[cur]?.audio && audio.current) audio.current.playbackRate = r;
+    else play(pos.current.sec, pos.current.sent, one, r);
+  };
 
   // 各章の見出しに置く「この章を聞く」ボタン用に、外から呼べるようにする
   useEffect(() => {
@@ -93,7 +122,7 @@ export default function VoiceGuide({ sections, lang = "ja", dark = false }: { se
     return () => removeEventListener("voice-guide-play", on);
   });
 
-  if (!supported) return <p className="text-[12px] text-mute">{t.unsupported}</p>;
+  if (!supported && !hasAudio) return <p className="text-[12px] text-mute">{t.unsupported}</p>;
   const playing = cur !== null;
   const btn = dark ? "border-white/25 text-white hover:bg-white hover:text-ink" : "border-ink/20 hover:border-ink";
   return (
@@ -103,7 +132,7 @@ export default function VoiceGuide({ sections, lang = "ja", dark = false }: { se
         <button type="button" onClick={() => (playing ? stop() : play(0, 0, false))} className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[13px] transition ${btn}`}>
           {playing ? <Square size={14} /> : <Headphones size={15} />}{playing ? t.stop : `${t.listen}：${t.all}`}
         </button>
-        {!voiceCount && <span className={`text-[11.5px] ${dark ? "text-white/60" : "text-mute"}`}>{t.none}</span>}
+        {!voiceCount && !hasAudio && <span className={`text-[11.5px] ${dark ? "text-white/60" : "text-mute"}`}>{t.none}</span>}
       </div>
       <style>{`[data-voice-on]{outline:2px solid #b8860b;outline-offset:6px;border-radius:12px;scroll-margin-top:80px}`}</style>
 

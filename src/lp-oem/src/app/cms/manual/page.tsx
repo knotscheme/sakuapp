@@ -247,7 +247,7 @@ export default function Manual() {
               <div>
                 <p className="text-[15px] font-semibold">{role ? `あなたは「${role.name}」です` : "ようこそ"}</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-mute">まず「はじめに」と「全体の流れ」を読み、そのあと下の、あなたに関係する章を読んでください。</p>
-                <div className="mt-4"><VoiceGuide lang="ja" sections={[...CHAPTERS.map((c) => ({ id: c.id, title: c.title })), { id: "faq", title: "困ったとき", text: "困ったとき。" + FAQ.map((f) => `${f.q}。${f.a}`).join("") }, { id: "words", title: "言葉の説明" }]} /></div>
+                <div className="mt-4"><VoiceGuide lang="ja" sections={[...CHAPTERS.map((c) => ({ id: c.id, title: c.title })), { id: "faq", title: "困ったとき", text: "困ったとき。" + FAQ.map((f) => `${f.q}。${f.a}`).join("") }, { id: "words", title: "言葉の説明" }].map((x) => ({ ...x, audio: `/audio/manual-${x.id}.mp3` }))} /></div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {mine.map((c) => <a key={c.id} href={`#${c.id}`} className="rounded-full bg-[#f1f1f0] px-3.5 py-2.5 text-[12.5px] hover:bg-ink hover:text-white">{c.title.split("：")[0]}</a>)}
                 </div>

@@ -139,7 +139,7 @@ export default function Overview() {
           <a href={asset("/")} className="inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-[13px] tracking-[0.1em] text-white transition hover:bg-gold">LPを見る<ArrowUpRight size={15} /></a>
           <a href={asset("/cms/")} className="inline-flex items-center gap-2 border border-ink px-6 py-3.5 text-[13px] tracking-[0.1em] transition hover:bg-ink hover:text-white">管理画面を見る<ArrowUpRight size={15} /></a>
         </div>
-        <div className="mt-6"><VoiceGuide sections={VOICE} /></div>
+        <div className="mt-6"><VoiceGuide sections={VOICE.map((x) => ({ ...x, audio: `/audio/overview-${x.id}.mp3` }))} /></div>
         <p className="mt-6 text-[11.5px] text-mute"><NoOrphan text="※ポートフォリオ用の制作サンプルです。会社名・金額・データはすべて架空で、操作した内容は見ている人のブラウザにだけ保存されます。" /></p>
       </header>
 
