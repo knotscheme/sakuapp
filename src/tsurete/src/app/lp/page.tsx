@@ -136,7 +136,7 @@ const SEARCH = [
 const PICKS = [{ b: "しずく舎　やさしい化粧水", w: "敏感肌向けと明記されている" }, { b: "Lunae　バリアローション", w: "皮膚科医と共同開発" }, { b: "NORMA BASIC　化粧水", w: "口コミが多く、手ごろ" }];
 function TenToThree() {
   // 0：まだ手前、1：検索なら10件、2：AIなら3つ、3：ないのと同じ
-  const [ref, st] = useStage<HTMLElement>([0.02, 0.3, 0.65]);
+  const [ref, st] = useStage<HTMLElement>([0.01, 0.37, 0.68]);
   const stage = Math.max(0, st - 1);
   const flow = st >= 1; // 場面に入ったら、検索結果を自動で流す
   // 検索結果は、スクロールに合わせて下へ流れ、最後に10位（自分の商品）が見える
@@ -149,7 +149,7 @@ function TenToThree() {
   }, []);
   const lines = ["検索なら、10件。", "AIなら、3つ。", "3つに入らなければ、ないのと同じ。"];
   return (
-    <section ref={ref} className="relative h-[300vh] bg-black text-white" aria-label="検索とAIの違い">
+    <section ref={ref} className="relative h-[420vh] bg-black text-white" aria-label="検索とAIの違い">
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5 pt-12">
         <div className="relative h-[5.5rem] w-full max-w-[44rem] text-center sm:h-[8rem]">
           {lines.map((t, i) => <h2 key={t} className={`lp-h absolute inset-0 grid place-items-center text-[1.75rem] transition duration-700 sm:text-[3.4rem] ${stage === i ? "translate-y-0 opacity-100" : stage > i ? "-translate-y-8 opacity-0" : "translate-y-8 opacity-0"} ${i === 2 ? "text-[#2fd9a6]" : ""}`}><J>{t}</J></h2>)}
@@ -170,7 +170,7 @@ function TenToThree() {
 
           <div ref={box} className="overflow-hidden transition-[height] duration-700 [--serp-h:19rem] sm:[--serp-h:25rem]" style={{ height: stage === 0 ? "var(--serp-h)" : undefined }}>
           {stage >= 1 && <p className="fade-in px-4 pt-3 text-[0.86rem] leading-[1.8] text-[#0d0d0d]">敏感肌でも使える3,000円台の化粧水なら、次の3つがおすすめです。</p>}
-          <ol ref={list} className="px-4 py-3" style={{ transform: stage === 0 && flow ? `translate3d(0,-${over}px,0)` : "translate3d(0,0,0)", transition: stage === 0 ? "transform 2.6s cubic-bezier(.45,0,.25,1) .5s" : "none" }} aria-hidden>
+          <ol ref={list} className="px-4 py-3" style={{ transform: stage === 0 && flow ? `translate3d(0,-${over}px,0)` : "translate3d(0,0,0)", transition: stage === 0 ? "transform 1.6s cubic-bezier(.45,0,.25,1) .25s" : "none" }} aria-hidden>
             {SEARCH.map((r, i) => {
               const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
               return (
