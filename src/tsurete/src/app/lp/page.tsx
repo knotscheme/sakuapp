@@ -1,5 +1,6 @@
 "use client";
 
+import ScrollNav from "@/components/ScrollNav";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -551,6 +552,8 @@ function Faq() {
   );
 }
 
+const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","ぜんぶ自動","しくみ","お店の1週間","使う前と後","対応サイト","小さなお店へ","ほかとのちがい","安心","料金","はじめ方","よくある質問","無料診断"];
+
 export default function Page() {
   const router = useRouter();
   const [url, setUrl] = useState(SAMPLE_URL);
@@ -691,6 +694,7 @@ export default function Page() {
           </Reveal>
         </section>
       </main>
+      <ScrollNav names={NAV} dark={[3]} />
 
       <footer className="bg-[#f5f5f7] px-5 pb-10 text-[0.75rem] text-[#6e6e73]">
         <div className="mx-auto flex max-w-[1000px] flex-col gap-2 border-t border-[#d2d2d7] pt-6 sm:flex-row sm:justify-between">
