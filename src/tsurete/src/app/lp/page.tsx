@@ -622,7 +622,7 @@ export default function Page() {
 
         {/* 書き直す前と後 */}
         <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
-          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>書き直すと、こう変わる。</J></h2><div className="mt-6 flex items-center justify-center gap-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/sakuapp/works/tsurete/img/products/lotion.webp?v=3" alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover" /><p className="text-left text-[0.88rem] leading-[1.6] text-[#6e6e73]">見本：SORAE 化粧水<br />（架空のブランド・模擬の結果）</p></div></Reveal>
+          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">書き直すと、</span><span className="inline-block">こう変わる。</span></h2><div className="mt-6 flex items-center justify-center gap-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/sakuapp/works/tsurete/img/products/lotion.webp?v=3" alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover" /><p className="text-left text-[0.88rem] leading-[1.6] text-[#6e6e73]">見本：SORAE 化粧水<br />（架空のブランド・模擬の結果）</p></div></Reveal>
           <div className="mx-auto mt-16 max-w-[60rem]"><Bars /></div>
         </section>
 
