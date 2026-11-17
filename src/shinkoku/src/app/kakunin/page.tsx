@@ -64,6 +64,7 @@ function Card({ e, total, onDone }: { e: Entry; total: number; onDone: () => voi
         <p className={`num text-[2rem] font-bold ${income ? "text-ok" : ""}`}>{income ? "＋" : "−"}{yen(e.amount)}</p>
       </div>
       {img && <img src={img} alt="レシートの写真" className="mt-3 max-h-64 rounded-xl border-2 border-line" />}
+      {e.note && <p className="mt-3 rounded-2xl border-2 border-warn bg-warn-2 p-4 text-[1.02rem]"><b>家族からのメモ：</b>{e.note}</p>}
       {why && <p className="mt-3 flex items-start gap-2 text-[0.95rem] text-sub"><Info size={18} className="mt-1 shrink-0" />自動で考えたこと：{why}</p>}
 
       <h2 className="mt-6 text-[1.25rem] font-bold">{income ? "何のお金が入ってきましたか？" : "何に使ったお金ですか？"}</h2>

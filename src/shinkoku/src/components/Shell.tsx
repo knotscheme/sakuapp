@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookOpen, Calculator, CheckSquare, Download, Home, Menu, MessageCircle, PieChart, Send, Settings, Sparkles, X } from "lucide-react";
+import { BookOpen, Calculator, CheckSquare, Download, Home, Menu, MessageCircle, PieChart, Send, Settings, Sparkles, Users, X } from "lucide-react";
 import { useMounted, useStore } from "@/lib/store";
 
 export const NAV = [
@@ -15,6 +15,7 @@ export const NAV = [
   { href: "/kessan/", label: "1年のまとめ", icon: PieChart, step: 4 },
   { href: "/shinkoku/", label: "税金を計算する", icon: Calculator, step: 5 },
   { href: "/teishutsu/", label: "申告書を出す", icon: Send, step: 6 },
+  { href: "/kazoku/", label: "家族と一緒に", icon: Users, step: 0 },
   { href: "/soudan/", label: "わからないことを聞く", icon: MessageCircle, step: 0 },
   { href: "/settings/", label: "設定", icon: Settings, step: 0 },
 ];
@@ -27,7 +28,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const pending = m ? s.entries.filter((e) => e.status === "check" && !e.voided).length : 0;
   useEffect(() => { document.documentElement.style.overflow = open ? "hidden" : ""; }, [open]);
   useEffect(() => setOpen(false), [path]);
-  const isOn = (h: string) => (h === "/" ? path === "/" || path === "/sakuapp/works/shinkoku/" : path.includes(h));
+  const isOn = (h: string) => (h === "/" ? path === "/" || path === "/sakuapp/works/shinkoku/" : path.includes(h) && !(h === "/kazoku/" && path.includes("tetsudai")));
 
   const item = (n: (typeof NAV)[number], big = false) => {
     const Icon = n.icon; const on = isOn(n.href);

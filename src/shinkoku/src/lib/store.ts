@@ -24,6 +24,7 @@ export type Entry = {
   history: Change[];
   raw?: string; // 取り込んだ元の明細
   receipt?: string; // レシート画像のID
+  note?: string; // 家族からのメモ
 };
 export type Rule = { key: string; account: string; bizPct: number; personal: PersonalTag; taxRate: 10 | 8 | 0; partner?: string; invoice?: string };
 export type Asset = { id: string; name: string; date: string; price: number; kind: "pc" | "furniture" | "car"; method: "small" | "straight"; bizPct: number };

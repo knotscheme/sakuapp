@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AlertTriangle, ArrowRight, CalendarClock, CheckCircle2, ChevronRight, Sparkles, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, CalendarClock, CheckCircle2, ChevronRight, HeartHandshake, Sparkles, X } from "lucide-react";
 import Shell, { NAV } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import Speak from "@/components/Speak";
@@ -61,6 +61,13 @@ function Home() {
               <AlertTriangle size={34} className="shrink-0 text-warn" />
               <span className="flex-1"><b className="block text-[1.2rem]">確認してほしい明細が {pending}件 あります</b><span className="text-[0.95rem] text-sub">「何に使ったお金か」をえらぶだけです</span></span>
               <span className="btn btn-main hidden sm:inline-flex">確認する<ArrowRight size={20} /></span><ChevronRight size={28} className="sm:hidden" />
+            </Link>
+          ) : null}
+          {pending > 0 ? (
+            <Link href="/kazoku/" className="flex items-center gap-4 rounded-2xl border-2 border-line bg-white p-4 hover:bg-[#fbfaf6]">
+              <HeartHandshake size={30} className="shrink-0 text-ok" />
+              <span className="flex-1"><b className="block text-[1.08rem]">家族に手伝ってもらう</b><span className="text-[0.92rem] text-sub">LINEでお願いを送ると、家族のスマホで確認してもらえます</span></span>
+              <ChevronRight size={26} />
             </Link>
           ) : (
             <Link href="/torikomi/" className="flex items-center gap-4 rounded-2xl border-2 border-line bg-white p-5 hover:bg-[#fbfaf6]">
