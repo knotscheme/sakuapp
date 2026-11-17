@@ -134,8 +134,9 @@ function Naosu() {
       <section className="overflow-hidden rounded-[24px] ring-1 ring-white/[.06]" aria-label={`${p.short}の商品ページ`}>
         <div className="flex items-center gap-2 bg-deep px-4 py-2.5"><span className="flex gap-1.5" aria-hidden><i className="h-2.5 w-2.5 rounded-full bg-white/20" /><i className="h-2.5 w-2.5 rounded-full bg-white/20" /><i className="h-2.5 w-2.5 rounded-full bg-white/20" /></span><span className="num ml-2 min-w-0 truncate rounded-md bg-black/30 px-3 py-1 text-[0.75rem] text-sub">{BRAND.site}/products/{p.id}</span></div>
         <div className="grid bg-[#fafaf8] text-[#111827] md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <div className="grid min-h-[13rem] place-items-center bg-[radial-gradient(circle_at_50%_40%,#e8f3ef,#d9e6e1)] md:sticky md:top-4 md:m-5 md:h-[22rem] md:min-h-0 md:self-start md:rounded-xl">
-            <div className="text-center"><span className={`mx-auto block rounded-[12px_12px_8px_8px] border border-black/10 bg-gradient-to-b from-white to-[#e6efec] shadow-[0_18px_30px_-18px_rgba(0,0,0,.35)] ${pid === "serum" ? "h-24 w-10" : pid === "uv" ? "h-20 w-14 rounded-[8px]" : "h-32 w-14"}`} /><p className="mt-3 text-[0.72rem] tracking-[.3em] text-[#6b7280]">SORAE</p></div>
+          <div className="overflow-hidden bg-[#c7d0c3] md:sticky md:top-4 md:m-5 md:self-start md:rounded-xl">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/sakuapp/works/tsurete/img/products/${pid}.webp`} alt={p.name} width={600} height={600} className="block aspect-square h-auto w-full object-cover" />
           </div>
           <div className="min-w-0 space-y-8 p-6 sm:p-10">
             <div><p className="text-[0.75rem] tracking-[.2em] text-[#6b7280]">SORAE</p><h2 className="mt-1 text-[1.3rem] font-bold leading-[1.5]">{p.name}</h2><p className="num mt-1 text-[1.2rem] font-bold">{fmt(p.price)}円<span className="text-[0.75rem] font-normal text-[#6b7280]">（税込）</span></p></div>

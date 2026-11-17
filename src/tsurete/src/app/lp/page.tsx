@@ -230,6 +230,19 @@ export default function Page() {
 
       <main>
         <Hero />
+
+        {/* お客様は、もうAIに聞いて買っている */}
+        <section className="px-5 pb-24 pt-14 sm:pb-36 sm:pt-24">
+          <Reveal className="text-center">
+            <h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">お客様は、もう</span><span className="inline-block">「AIに聞いて」買っている。</span></h2>
+            <p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>検索して何ページも見くらべるより、AIに「おすすめは？」と聞くほうが早いから。</J></p>
+          </Reveal>
+          <Reveal className="mx-auto mt-14 max-w-[64rem]" delay={120}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`${IMG}/ask-ai.webp`} alt="ソファでスマホのAIに相談している人の手元" width={1264} height={848} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
+          </Reveal>
+        </section>
+
         <TenToThree />
         <Showcase />
 
@@ -262,7 +275,7 @@ export default function Page() {
 
         {/* 書き直す前と後 */}
         <section className="px-5 py-24 sm:py-36">
-          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">書き直すと、こう変わる。</h2><p className="mt-4 text-[0.9rem] text-[#6e6e73]"><J>見本：架空のブランド SORAE（模擬の結果です）</J></p></Reveal>
+          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">書き直すと、こう変わる。</h2><div className="mt-6 flex items-center justify-center gap-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/sakuapp/works/tsurete/img/products/lotion.webp" alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover" /><p className="text-left text-[0.88rem] leading-[1.6] text-[#6e6e73]">見本：SORAE 化粧水<br />（架空のブランド・模擬の結果）</p></div></Reveal>
           <div className="mx-auto mt-16 max-w-[60rem] rounded-[36px] bg-[#f5f5f7] p-3 sm:p-4"><Bars /></div>
         </section>
 
@@ -283,17 +296,33 @@ export default function Page() {
           </div>
         </section>
 
-        {/* AIに自分で聞くのと何が違う */}
+        {/* 小さなネットショップのために */}
         <section className="px-5 py-24 sm:py-36">
+          <div className="mx-auto grid max-w-[64rem] items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+            <Reveal>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`${IMG}/owner.webp`} alt="自宅の作業机でネットショップを運営している人" width={1376} height={768} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
+            </Reveal>
+            <Reveal delay={150}>
+              <h2 className="lp-h text-[2rem] sm:text-[2.6rem] lg:text-[2.3rem]"><span className="inline-block">小さなネットショップの、</span><span className="inline-block">AI担当に。</span></h2>
+              <p className="mt-5 text-[1.02rem] leading-[1.95] text-[#6e6e73]"><J>大きな会社のように、AI対策の担当者は置けない。TSURETEが毎週はかって、やることだけを届けます。</J></p>
+              <p className="mt-8 text-[0.85rem] font-semibold text-[#1d1d1f]">比べて選ばれる商品なら、ジャンルは問いません。</p>
+              <p className="mt-3 flex flex-wrap gap-2">{["スキンケア", "食品・お菓子", "雑貨・インテリア", "アパレル", "ハンドメイド", "ベビー用品", "ペット用品"].map((t) => <span key={t} className="rounded-full bg-[#f5f5f7] px-3.5 py-1.5 text-[0.85rem]">{t}</span>)}</p>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* AIに自分で聞くのと何が違う */}
+        <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIに自分で聞くのと、</span><span className="inline-block">何が違う？</span></h2></Reveal>
           <div className="mx-auto mt-16 grid max-w-[52rem] gap-4 md:grid-cols-2">
-            <Reveal><div className="h-full rounded-[28px] bg-[#f5f5f7] p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]">AIに自分で聞く</p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
+            <Reveal><div className="h-full rounded-[28px] bg-white p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]">AIに自分で聞く</p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
             <Reveal delay={150}><div className="h-full rounded-[28px] bg-[#1d1d1f] p-8 text-white sm:p-10"><p className="text-[1rem] font-semibold text-[#2fd9a6]">TSURETE</p><ul className="mt-6 space-y-4 text-[0.98rem]">{["4つのAIに、毎週何百回も聞いて記録", "よくすすめられている店と比べて、差を出す", "全商品まとめて、サイトに合わせて届ける", "AI経由の売上で、効果を確かめる"].map((t) => <li key={t} className="flex gap-3"><Check size={18} className="mt-1 shrink-0 text-[#2fd9a6]" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
           </div>
         </section>
 
         {/* 無料診断 */}
-        <section id="try" className="scroll-mt-12 bg-[#f5f5f7] px-5 py-28 text-center sm:py-40">
+        <section id="try" className="scroll-mt-12 px-5 py-28 text-center sm:py-40">
           <Reveal className="mx-auto max-w-[38rem]">
             <h2 className="lp-h text-[2rem] sm:text-[3.4rem]">まずは1商品、無料で。</h2>
             <p className="mt-4 text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>商品ページのURLを入れると、AIに選ばれるために足りないところと、書き直し案をお出しします。</J></p>
