@@ -640,7 +640,12 @@ export default function Page() {
                   <Icon size={30} strokeWidth={1.6} className="text-[#00a37a]" />
                   <b className="mt-6 text-[1.3rem]">{t}</b>
                   <p className="mt-1 text-[0.95rem] text-[#6e6e73]"><J>{d}</J></p>
-                  <p className="mt-6 text-[0.88rem] leading-[1.9] text-[#424245]">{(m === "feed" ? ["すべてのサイト"] : PLATFORMS.filter((p) => p.method === m).map((p) => p.name)).map((n, i) => <span key={n}>{i > 0 && "・"}<wbr /><span className="whitespace-nowrap">{n}</span></span>)}</p>
+                  <ul className="mt-auto flex flex-wrap gap-2 pt-7" aria-label="対応するサイト">
+                    {(m === "feed" ? ["すべてのサイト"] : PLATFORMS.filter((p) => p.method === m).map((p) => p.name)).map((n) => {
+                      const [main, sub] = n.split("（");
+                      return <li key={n} className="whitespace-nowrap rounded-full bg-white px-3.5 py-1.5 text-[0.82rem] font-semibold text-[#1d1d1f] shadow-[0_1px_2px_rgba(0,0,0,.04)]">{main}{sub && <span className="ml-1.5 font-normal text-[#86868b]">{sub.replace("）", "")}</span>}</li>;
+                    })}
+                  </ul>
                 </div>
               </Reveal>
             ))}
