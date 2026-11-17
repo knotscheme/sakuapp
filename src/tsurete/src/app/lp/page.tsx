@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Bot, CalendarClock, Check, ChevronRight, Copy, FileSpreadsheet, KeyRound, Mail, Megaphone, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, SearchX, ShieldCheck, Smartphone, TrendingUp, X } from "lucide-react";
+import { ArrowRight, Bot, CalendarClock, Check, ChevronRight, Copy, FileSpreadsheet, KeyRound, Mail, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, ShieldCheck, TrendingUp, X } from "lucide-react";
 import J from "@/components/J";
 import { Laptop, Phone } from "@/components/Devices";
 import { SAMPLE_URL } from "@/lib/check";
@@ -345,21 +345,33 @@ const WAYS: { m: Method | "feed"; icon: typeof Plug; t: string; d: string }[] = 
 ];
 
 // ---------- 足した場面：悩み・1週間の流れ・安心・料金・はじめ方・よくある質問 ----------
-function Pain() {
-  const items = [
-    { icon: Megaphone, t: "広告費は、上がりつづける", d: "同じ売上のために、毎年かかるお金が増えていく。" },
-    { icon: Smartphone, t: "SNSは、続けるのが大変", d: "毎日の投稿に時間を取られて、本業が進まない。" },
-    { icon: SearchX, t: "検索の順位も、見られなくなる", d: "お客様は検索より先に、AIに聞きはじめている。" },
-  ];
+// これまでの集客に、1行ずつ取り消し線が引かれていく
+function Strike({ t, d, delay }: { t: string; d: string; delay: number }) {
+  const [ref, on] = useInView<HTMLLIElement>();
   return (
-    <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
-      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">集客の入口が、</span><span className="inline-block">変わりはじめている。</span></h2></Reveal>
-      <div className="mx-auto mt-14 grid max-w-[60rem] gap-4 sm:mt-16 md:grid-cols-3">
-        {items.map(({ icon: Icon, t, d }, i) => (
-          <Reveal key={t} delay={i * 100} className="h-full"><div className="h-full rounded-[28px] bg-white p-8"><Icon size={28} strokeWidth={1.6} className="text-[#86868b]" /><b className="mt-6 block text-[1.15rem] leading-[1.6]"><J>{t}</J></b><p className="mt-2 text-[0.95rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></p></div></Reveal>
-        ))}
+    <li ref={ref} className={`transition duration-700 ${on ? "opacity-100" : "translate-y-6 opacity-0"}`} style={{ transitionDelay: `${delay}ms` }}>
+      <p className="relative inline-block whitespace-nowrap text-[1.9rem] font-bold leading-[1.35] tracking-[-.01em] text-[#1d1d1f] sm:text-[3.6rem]">
+        <span className={`transition-colors duration-700 ${on ? "text-[#b0b0b5]" : ""}`} style={{ transitionDelay: `${delay + 700}ms` }}>{t}</span>
+        <span className="absolute left-0 top-[54%] h-[3px] rounded-full bg-[#1d1d1f] transition-[width] duration-700 ease-out sm:h-[5px]" style={{ width: on ? "100%" : "0%", transitionDelay: `${delay + 500}ms` }} aria-hidden />
+      </p>
+      <p className={`mt-2 text-[0.92rem] text-[#86868b] transition-opacity duration-700 sm:text-[1.05rem] ${on ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: `${delay + 900}ms` }}><J>{d}</J></p>
+    </li>
+  );
+}
+function Pain() {
+  return (
+    <section className="bg-[#f5f5f7] px-5 py-24 sm:py-40">
+      <div className="mx-auto max-w-[56rem]">
+        <Reveal><p className="text-[1rem] font-semibold text-[#86868b] sm:text-[1.15rem]">これまでの集客は、</p></Reveal>
+        <ul className="mt-8 space-y-9 sm:mt-10 sm:space-y-12">
+          <Strike t="広告を出しつづける。" d="同じ売上のために、かかるお金が年々ふえていく。" delay={0} />
+          <Strike t="SNSを毎日更新する。" d="投稿に時間を取られて、本業が進まない。" delay={150} />
+          <Strike t="検索の順位を追う。" d="お客様は検索より先に、AIに聞きはじめている。" delay={300} />
+        </ul>
+        <Reveal className="mt-16 sm:mt-24" delay={200}>
+          <p className="text-[2.1rem] font-bold leading-[1.3] tracking-[-.01em] sm:text-[4.2rem]"><span className="inline-block">これからは、</span><span className="inline-block text-[#00a37a]">AIに選ばれる。</span></p>
+        </Reveal>
       </div>
-      <Reveal className="mt-14 text-center"><p className="lp-h text-[1.5rem] sm:text-[2.2rem]">次の入口は、<span className="text-[#00a37a]">AI</span>です。</p></Reveal>
     </section>
   );
 }
