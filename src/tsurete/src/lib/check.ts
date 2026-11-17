@@ -2,14 +2,21 @@
 import { PAGES } from "./demo";
 
 export type CheckKey = "title" | "target" | "ingredient" | "spec" | "faq" | "amount" | "data";
-export const CHECKS: Record<CheckKey, { label: string; ok: string; ng: string }> = {
-  title: { label: "商品名", ok: "商品の種類と容量が入っています", ng: "商品の種類か容量が、商品名から分かりません" },
-  target: { label: "だれ向けか", ok: "どんな人に向いているかが書かれています", ng: "「敏感肌の方」のような、向いている人が書かれていません" },
-  ingredient: { label: "成分・入っていないもの", ok: "成分や「入っていないもの」が書かれています", ng: "成分や「無香料」などが書かれていません" },
-  spec: { label: "容量・使える期間", ok: "容量や使える期間が書かれています", ng: "説明の中に、容量や使える期間がありません" },
-  faq: { label: "よくある質問", ok: "質問と答えの形の文章があります", ng: "よくある質問がありません" },
-  amount: { label: "説明の量", ok: "AIが読むのに十分な量です", ng: "説明が短すぎます（120文字未満）" },
-  data: { label: "AIが読む商品データ", ok: "商品データ（構造化データ）が入っています", ng: "AIが読む商品データが入っていません" },
+export const CHECKS: Record<CheckKey, { label: string; ok: string; ng: string; how: string; why: string; fix: "target" | "ingredient" | "spec" | "faq" | null }> = {
+  title: { label: "商品名", ok: "商品の種類と容量が入っています", ng: "商品名から、容量が分かりません", fix: null,
+    how: "商品名に「150ml」「50g」のような容量が入っているかを見ました。", why: "AIは商品名をそのまま答えに使います。容量がないと、ほかの商品と比べにくくなります。" },
+  target: { label: "だれ向けか", ok: "どんな人に向いているかが書かれています", ng: "どんな人に向いているかが、書かれていません", fix: "target",
+    how: "「敏感肌の方」「〇〇向け」「お子さま」のような、使う人を表す言葉を探しました。", why: "お客様は「敏感肌でも使える化粧水は？」のように、自分に合うかでAIに聞きます。" },
+  ingredient: { label: "成分", ok: "成分や「入っていないもの」が書かれています", ng: "成分や「無香料」などが、書かれていません", fix: "ingredient",
+    how: "「成分」「配合」「無香料」「〇〇フリー」などの言葉を探しました。", why: "「アルコールが入っていない化粧水は？」と聞かれたとき、書いていないと候補に入りません。" },
+  spec: { label: "容量・使える期間", ok: "容量や使える期間が書かれています", ng: "説明の中に、容量や使える期間がありません", fix: "spec",
+    how: "説明の中に「150ml」「約2か月」「1日あたり」のような数字があるかを見ました。", why: "「3,000円台」「長く使える」と聞かれたとき、AIは数字で比べます。" },
+  faq: { label: "よくある質問", ok: "質問と答えの形の文章があります", ng: "よくある質問がありません", fix: "faq",
+    how: "「Q.」や「よくある質問」という形の文章があるかを見ました。", why: "AIは、質問と答えの形の文章を、そのまま答えに引用しやすいからです。" },
+  amount: { label: "説明の量", ok: "AIが読むのに十分な量です", ng: "説明が短すぎます（120文字未満）", fix: "target",
+    how: "商品説明の文字数を数えました（120文字以上でOK）。", why: "情報が少ない商品は、AIがほかの商品を選びます。" },
+  data: { label: "AIが読む商品データ", ok: "商品データが入っています", ng: "AIが読む商品データが入っていません", fix: null,
+    how: "ページの裏側に、商品名・値段・口コミ点数をまとめたデータ（構造化データ）があるかを見ました。", why: "GoogleやAIは、このデータを読んで商品を正しく理解します。「書き直す」の画面で自動で入れられます。" },
 };
 export type Check = { key: CheckKey; ok: boolean | null };
 export type Rewrite = { target: string; spec: string; ingredient: string; faq: string };

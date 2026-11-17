@@ -17,23 +17,23 @@
   --font-mono: var(--font-jbm), ui-monospace, monospace;
 }
 html, body { overflow-x: clip; }
-body { background-color: var(--color-paper); background-image: linear-gradient(rgba(16,217,160,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(16,217,160,.035) 1px, transparent 1px); background-size: 44px 44px; background-attachment: fixed; color: var(--color-ink); font-family: var(--font-sans); line-height: 1.75; -webkit-font-smoothing: antialiased; line-break: strict; }
+body { background-color: var(--color-paper); background-image: radial-gradient(70% 40% at 50% -10%, rgba(16,217,160,.07), transparent 70%); color: var(--color-ink); font-family: var(--font-sans); line-height: 1.9; letter-spacing: .03em; font-feature-settings: "palt" 0; -webkit-font-smoothing: antialiased; line-break: strict; }
 h1, h2, h3 { word-break: auto-phrase; text-wrap: pretty; }
 :focus-visible { outline: 3px solid var(--color-ai); outline-offset: 2px; }
 @layer components {
-  .card { background: color-mix(in srgb, var(--color-panel) 92%, transparent); border: 1px solid var(--color-line); border-radius: 16px; }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5em; white-space: nowrap; min-height: 2.75rem; padding: .5rem 1.15rem; border-radius: 10px; font-weight: 700; font-size: .95rem; transition: transform .12s, background .2s, opacity .2s; -webkit-tap-highlight-color: transparent; }
+  .card { background: var(--color-panel); border: 1px solid rgba(255,255,255,.05); border-radius: 20px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5em; white-space: nowrap; min-height: 3rem; padding: .55rem 1.4rem; border-radius: 999px; font-weight: 700; font-size: .95rem; letter-spacing: .04em; transition: transform .12s, background .2s, opacity .2s; -webkit-tap-highlight-color: transparent; }
   .btn:active { transform: scale(.97); }
   .btn:disabled { opacity: .45; pointer-events: none; }
   .btn-ai { background: var(--color-ai); color: #03140f; } .btn-ai:hover { background: #3ff2c4; box-shadow: 0 0 24px -6px rgba(16,217,160,.7); }
   .btn-ink { background: var(--color-deep); color: var(--color-ink); border: 1px solid #24365a; } .btn-ink:hover { border-color: var(--color-ai); }
   .btn-line { background: transparent; color: var(--color-ink); border: 1px solid #24365a; } .btn-line:hover { border-color: var(--color-ai); color: var(--color-ai); }
-  .field { width: 100%; min-height: 2.75rem; border-radius: 10px; border: 1px solid #24365a; background: #070f20; color: var(--color-ink); padding: .45rem .75rem; font-size: .95rem; outline: none; }
+  .field { width: 100%; min-height: 3.25rem; border-radius: 14px; border: 1px solid #24365a; background: #070f20; color: var(--color-ink); padding: .55rem 1rem; font-size: 1rem; outline: none; transition: border-color .2s; }
   .field:focus { border-color: var(--color-ai); }
   .chip { display: inline-flex; align-items: center; gap: .35em; border-radius: 999px; padding: .15rem .65rem; font-size: .78rem; font-weight: 700; white-space: nowrap; }
 }
 .num { font-family: var(--font-mono); letter-spacing: -.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.glow { background: radial-gradient(60% 80% at 85% 0%, rgba(16,217,160,.16), transparent 70%), radial-gradient(50% 60% at 0% 100%, rgba(34,211,238,.08), transparent 70%), linear-gradient(rgba(16,217,160,.05) 1px, transparent 1px) 0 0/28px 28px, linear-gradient(90deg, rgba(16,217,160,.05) 1px, transparent 1px) 0 0/28px 28px, #050a16; }
+.glow { background: radial-gradient(60% 80% at 85% 0%, rgba(16,217,160,.14), transparent 70%), radial-gradient(50% 60% at 0% 100%, rgba(34,211,238,.06), transparent 70%), #050a16; }
 .fade-in { animation: fadeIn .35s ease both; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .pulse { animation: pulse 2s ease-in-out infinite; }
@@ -42,3 +42,5 @@ h1, h2, h3 { word-break: auto-phrase; text-wrap: pretty; }
 
 ::selection { background: rgba(16,217,160,.35); }
 .field::placeholder { color: #4d5d7a; }
+.eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .24em; color: var(--color-ai); }
+.hair { border-color: rgba(255,255,255,.06); }

@@ -2,16 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { BookOpen, LayoutDashboard, Menu, ScanSearch, Settings, TrendingUp, Wand2, X } from "lucide-react";
+import { BookOpen, Home, ScanSearch, Settings, TrendingUp, Wand2 } from "lucide-react";
 
 export const NAV = [
-  { href: "/", label: "概要", icon: LayoutDashboard, n: "" },
-  { href: "/shindan/", label: "診断する", icon: ScanSearch, n: "1" },
-  { href: "/naosu/", label: "商品ページを書き直す", icon: Wand2, n: "2" },
-  { href: "/kouka/", label: "効果", icon: TrendingUp, n: "3" },
-  { href: "/settings/", label: "設定", icon: Settings, n: "" },
-  { href: "/guide/", label: "使い方ガイド", icon: BookOpen, n: "" },
+  { href: "/", label: "ホーム", short: "ホーム", icon: Home, n: "" },
+  { href: "/shindan/", label: "診断する", short: "診断", icon: ScanSearch, n: "1" },
+  { href: "/naosu/", label: "書き直す", short: "書き直す", icon: Wand2, n: "2" },
+  { href: "/kouka/", label: "効果を見る", short: "効果", icon: TrendingUp, n: "3" },
 ];
 
 export function Logo({ light = false }: { light?: boolean }) {
@@ -25,47 +22,45 @@ export function Logo({ light = false }: { light?: boolean }) {
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname() ?? "/";
-  const [open, setOpen] = useState(false);
-  useEffect(() => setOpen(false), [path]);
-  useEffect(() => { document.documentElement.style.overflow = open ? "hidden" : ""; }, [open]);
   const on = (h: string) => (h === "/" ? path === "/" || path.endsWith("/tsurete/") : path.includes(h));
-  const items = (
-    <div className="space-y-1">
-      {NAV.map(({ href, label, icon: Icon, n }) => (
-        <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`flex min-h-[2.9rem] items-center gap-3 rounded-xl px-3.5 text-[0.95rem] font-bold transition ${on(href) ? "bg-white/12 text-white" : "text-white/65 hover:bg-white/6 hover:text-white"}`}>
-          <Icon size={19} className={on(href) ? "text-lime" : ""} /><span className="flex-1 whitespace-nowrap">{label}</span>{n && <span className="num text-[0.75rem] text-white/40">0{n}</span>}
-        </Link>
-      ))}
-    </div>
-  );
+  const sub = [{ href: "/guide/", label: "使い方", icon: BookOpen }, { href: "/settings/", label: "設定", icon: Settings }];
   return (
-    <div className="min-h-screen lg:flex">
-      <aside className="glow sticky top-0 hidden h-screen w-[272px] shrink-0 flex-col p-5 lg:flex">
-        <Logo light />
-        <nav aria-label="メニュー" className="mt-8 flex-1">{items}</nav>
-        <p className="text-[0.75rem] leading-[1.8] text-white/45">架空のスキンケアブランド「SORAE」で動くデモです。数字は模擬の結果です。</p>
-      </aside>
-      <header className="glow sticky top-0 z-40 flex h-14 items-center justify-between px-4 lg:hidden">
-        <Logo light />
-        <button type="button" onClick={() => setOpen(true)} className="btn min-h-[2.4rem] bg-white/10 px-3 text-white" aria-expanded={open}><Menu size={20} />メニュー</button>
-      </header>
-      {open && (
-        <div className="glow fixed inset-0 z-50 overflow-y-auto p-5 lg:hidden" role="dialog" aria-modal="true" aria-label="メニュー">
-          <div className="mb-6 flex items-center justify-between"><Logo light /><button type="button" onClick={() => setOpen(false)} className="btn min-h-[2.4rem] bg-white/10 px-3 text-white"><X size={20} />とじる</button></div>
-          {items}
+    <div className="min-h-screen">
+      <header className="sticky top-0 z-40 border-b hair bg-paper/85 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-[1080px] items-center gap-6 px-5 sm:px-8">
+          <Logo />
+          <nav aria-label="メニュー" className="hidden flex-1 items-center justify-center gap-1 md:flex">
+            {NAV.map(({ href, label, n }) => (
+              <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`relative flex items-center gap-1.5 rounded-full px-4 py-2 text-[0.9rem] font-bold transition ${on(href) ? "bg-white/[.06] text-ink" : "text-sub hover:text-ink"}`}>
+                {n && <span className={`num grid h-5 w-5 place-items-center rounded-full text-[0.68rem] ${on(href) ? "bg-ai text-[#03140f]" : "bg-white/[.06]"}`}>{n}</span>}{label}
+              </Link>
+            ))}
+          </nav>
+          <div className="ml-auto flex items-center gap-1 md:ml-0">
+            {sub.map(({ href, label, icon: Icon }) => <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`flex items-center gap-1.5 rounded-full px-3 py-2 text-[0.82rem] font-bold ${on(href) ? "text-ai" : "text-sub hover:text-ink"}`}><Icon size={17} /><span className="hidden sm:inline">{label}</span></Link>)}
+          </div>
         </div>
-      )}
-      <main className="min-w-0 flex-1 px-4 pb-24 pt-6 sm:px-8 sm:pt-8"><div className="mx-auto max-w-[1100px]">{children}</div></main>
+      </header>
+      <main className="mx-auto max-w-[1080px] px-5 pb-36 pt-10 sm:px-8 sm:pt-16 md:pb-28">{children}</main>
+      <footer className="mx-auto hidden max-w-[1080px] px-8 pb-12 text-[0.75rem] text-sub/70 md:block">架空のスキンケアブランド「SORAE」で動くデモです。数字は模擬の結果です。</footer>
+      {/* スマホは、親指で押しやすい下のタブ */}
+      <nav aria-label="メニュー" className="fixed inset-x-0 bottom-0 z-40 border-t hair bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden">
+        <div className="grid grid-cols-4">
+          {NAV.map(({ href, short, icon: Icon }) => (
+            <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`flex flex-col items-center gap-0.5 py-2.5 text-[0.68rem] font-bold ${on(href) ? "text-ai" : "text-sub"}`}><Icon size={21} />{short}</Link>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }
 
 export function Title({ n, title, lead }: { n?: string; title: string; lead: React.ReactNode }) {
   return (
-    <div className="mb-6">
-      {n && <p className="num text-[0.8rem] font-bold tracking-[.2em] text-ai">0{n}</p>}
-      <h1 className="mt-1 text-[1.7rem] font-bold leading-[1.4] sm:text-[2rem]">{title}</h1>
-      <p className="mt-2 max-w-[46em] text-[0.98rem] leading-[1.9] text-sub">{lead}</p>
+    <div className="mb-10 sm:mb-14">
+      {n && <p className="eyebrow">STEP {n}</p>}
+      <h1 className="mt-2 text-[1.6rem] font-bold leading-[1.5] tracking-[.04em] sm:text-[2rem]">{title}</h1>
+      <p className="mt-3 max-w-[38em] text-[0.95rem] leading-[2] text-sub">{lead}</p>
     </div>
   );
 }

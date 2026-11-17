@@ -101,7 +101,7 @@ function Guide() {
         </div>
       </section>
 
-      <p className="mt-6 flex gap-2 text-[0.85rem] leading-[1.8] text-sub"><MonitorSmartphone size={18} className="mt-[0.15rem] shrink-0" /><span className="min-w-0">スマホでは、右上の「メニュー」から各画面に移れます。</span></p>
+      <p className="mt-6 flex gap-2 text-[0.85rem] leading-[1.8] text-sub"><MonitorSmartphone size={18} className="mt-[0.15rem] shrink-0" /><span className="min-w-0">スマホでは、画面の下のボタン（ホーム・診断・書き直す・効果）で移れます。</span></p>
       <div className="mt-6"><Link href="/" className="btn btn-ai">さっそく試す（概要へ）<ArrowRight size={18} /></Link></div>
     </>
   );

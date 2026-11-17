@@ -28,10 +28,10 @@ function ChatSim() {
   const buy = () => { update((x) => ({ ...x, orders: [{ id: uid(), product: product.id, ai, price: product.price, at: new Date().toISOString() }, ...x.orders] })); setOpen(null); toast(`${ai}経由で「${product.short}」が売れました（デモ）`); };
 
   return (
-    <section className="mt-8" aria-labelledby="chat">
-      <h2 id="chat" className="text-[1.15rem] font-bold">お客様がAIに聞くと</h2>
+    <section className="mt-24" aria-labelledby="chat">
+      <h2 id="chat" className="text-[1.2rem] font-bold tracking-[.04em]">お客様がAIに聞くと</h2>
       <p className="mt-1 text-[0.86rem] text-sub">いまの商品ページの状態で、AIがどう答えるかを再現しています。</p>
-      <div className="mt-3 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,21rem)] lg:gap-5">
+      <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,21rem)] lg:gap-5">
         <div className="card min-w-0 p-4 lg:col-start-2 lg:row-start-1">
           <div className="flex flex-wrap gap-1.5" role="group" aria-label="AI">{AIS.map((a) => <button key={a} type="button" aria-pressed={ai === a} onClick={() => { setAi(a); setT(0); }} className={`rounded-lg border px-2.5 py-1 text-[0.8rem] font-bold ${ai === a ? "border-ai text-ai" : "border-line text-sub"}`}>{a}</button>)}</div>
           <div className="mt-3 flex flex-wrap gap-1.5" role="group" aria-label="商品">{PRODUCTS.map((p) => <button key={p.id} type="button" aria-pressed={prod === p.id} onClick={() => { setProd(p.id); setQid(QUESTIONS.find((x) => x.product === p.id)!.id); setT(0); }} className={`chip py-1 ${prod === p.id ? "bg-ai text-[#03140f]" : "bg-deep text-sub"}`}>{p.short}</button>)}</div>
@@ -83,7 +83,7 @@ function Real() {
   const [res, setRes] = useState(""), [err, setErr] = useState(""), [busy, setBusy] = useState(false);
   const hit = res && res.toLowerCase().includes(brand.toLowerCase());
   return (
-    <section className="card mt-6 p-5" aria-labelledby="real">
+    <section className="card mt-5 p-7" aria-labelledby="real">
       <h2 id="real" className="flex items-center gap-2 text-[1.05rem] font-bold"><Search size={18} className="text-ai" />本物のAIに聞いてみる</h2>
       <p className="mt-1 text-[0.85rem] text-sub">「設定」でAIのキーとブランド名を入れると、自分の商品で試せます（ネット検索なしの答えです）。</p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
@@ -106,24 +106,24 @@ function Kouka() {
     <>
       <Title n="3" title="効果" lead="書き直す前と後で、AIのおすすめと売上がどう変わったかを見ます。" />
 
-      <div className="grid gap-3 md:grid-cols-[1.3fr_1fr_1fr]">
-        <div className="glow rounded-2xl p-5 text-white">
-          <p className="text-[0.85rem] text-white/60">AIのおすすめに出る割合</p>
-          <p className="mt-2 flex items-baseline gap-3"><span className="num text-[1.4rem] text-white/45">{base.pct}%</span><ArrowRight size={20} className="text-white/45" /><b className="num text-[2.8rem] leading-none text-lime">{sh.pct}%</b></p>
-          <p className="mt-2 text-[0.78rem] text-white/55">{QUESTIONS.length}個の質問を4つのAIに20回ずつ（{fmt(sh.max)}回）聞いた結果</p>
+      <div className="grid gap-5 md:grid-cols-3">
+        <div className="card p-7">
+          <p className="text-[0.85rem] text-sub">AIのおすすめに出る割合</p>
+          <p className="mt-2 flex items-baseline gap-3"><span className="num text-[1.4rem] text-sub">{base.pct}%</span><ArrowRight size={20} className="text-sub" /><b className="num text-[2.8rem] leading-none text-lime">{sh.pct}%</b></p>
+          <p className="mt-3 text-[0.78rem] leading-[1.8] text-sub">{QUESTIONS.length}個の質問を4つのAIに20回ずつ（{fmt(sh.max)}回）聞いた結果</p>
         </div>
-        <div className="card p-5"><p className="text-[0.85rem] text-sub">AI経由の売上（今月の見込み）</p><p className="num mt-1 text-[1.8rem] font-bold">{fmt(m.yen + extra)}円</p><p className={`num text-[0.82rem] ${m.yen + extra > m0.yen ? "text-ai" : "text-sub"}`}>{m.yen + extra > m0.yen ? `書き直す前より +${fmt(m.yen + extra - m0.yen)}円` : "書き直す前と同じ"}</p></div>
-        <div className="card p-5"><p className="text-[0.85rem] text-sub">AIから来たお客様</p><p className="num mt-1 text-[1.8rem] font-bold">{fmt(m.visits)}人</p><p className="num text-[0.82rem] text-sub">注文 {m.orders + s.orders.length}件</p></div>
+        <div className="card p-7"><p className="text-[0.85rem] text-sub">AI経由の売上（今月の見込み）</p><p className="num mt-1 text-[1.8rem] font-bold">{fmt(m.yen + extra)}円</p><p className={`num text-[0.82rem] ${m.yen + extra > m0.yen ? "text-ai" : "text-sub"}`}>{m.yen + extra > m0.yen ? `書き直す前より +${fmt(m.yen + extra - m0.yen)}円` : "書き直す前と同じ"}</p></div>
+        <div className="card p-7"><p className="text-[0.85rem] text-sub">AIから来たお客様</p><p className="num mt-1 text-[1.8rem] font-bold">{fmt(m.visits)}人</p><p className="num text-[0.82rem] text-sub">注文 {m.orders + s.orders.length}件</p></div>
       </div>
 
       <ChatSim />
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-2">
-        <section className="card p-5" aria-labelledby="riv">
+      <div className="mt-24 grid gap-5 lg:grid-cols-2">
+        <section className="card p-7" aria-labelledby="riv">
           <h2 id="riv" className="text-[1.05rem] font-bold">AIのおすすめに出ているブランド</h2>
           <ul className="mt-3 space-y-2">{rivals.map((r) => <li key={r.name} className="flex items-center gap-3 text-[0.88rem]"><span className={`w-[7.5em] shrink-0 truncate ${"me" in r ? "font-bold text-ai" : ""}`}>{r.name}</span><span className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-deep"><span className={`block h-full rounded-full transition-all duration-700 ${"me" in r ? "bg-ai" : "bg-[#2a3b5c]"}`} style={{ width: `${Math.round((r.n / (sh.max / 3)) * 100)}%` }} /></span><span className="num w-12 text-right text-sub">{fmt(r.n)}</span></li>)}</ul>
         </section>
-        <section className="card p-5" aria-labelledby="by">
+        <section className="card p-7" aria-labelledby="by">
           <h2 id="by" className="text-[1.05rem] font-bold">AIごとの出る割合</h2>
           <ul className="mt-3 space-y-2">{sh.byAi.map((x, i) => { const p = Math.round((x.n / x.max) * 100), p0 = Math.round((base.byAi[i].n / x.max) * 100); return <li key={x.ai} className="flex items-center gap-3 text-[0.88rem]"><span className="w-[6.5em] shrink-0">{x.ai}</span><span className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-deep"><span className="block h-full rounded-full bg-ai transition-all duration-700" style={{ width: `${p}%` }} /></span><span className="num w-20 text-right">{p0 !== p && <span className="text-sub">{p0}→</span>}{p}%</span></li>; })}</ul>
         </section>

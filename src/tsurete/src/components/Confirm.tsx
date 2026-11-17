@@ -43,7 +43,7 @@ export default function ConfirmHost() {
           </div>
         </div>
       )}
-      <div aria-live="polite" className={`pointer-events-none fixed bottom-[calc(20px+env(safe-area-inset-bottom))] left-1/2 z-[110] -translate-x-1/2 rounded-full bg-deep px-5 py-2.5 text-[13px] text-white shadow-lg transition ${msg ? "opacity-100" : "translate-y-3 opacity-0"}`}>{msg}</div>
+      <div aria-live="polite" className={`pointer-events-none fixed bottom-[calc(84px+env(safe-area-inset-bottom))] md:bottom-[calc(24px+env(safe-area-inset-bottom))] left-1/2 z-[110] -translate-x-1/2 rounded-full bg-deep px-5 py-2.5 text-[13px] text-white shadow-lg transition ${msg ? "opacity-100" : "translate-y-3 opacity-0"}`}>{msg}</div>
     </>
   );
 }
