@@ -2,7 +2,7 @@
 
 import { ChevronDown, Plus, X } from "lucide-react";
 import { stageIndex, tierInfo, type Deal } from "@/lib/cms";
-import { MIN_LOT } from "@/lib/models";
+import { usePricing } from "@/lib/pricing";
 import { updateDeal } from "@/components/cms/store";
 import { useCatalog } from "@/components/cms/catalog";
 import { askConfirm } from "@/components/cms/Confirm";
@@ -10,6 +10,7 @@ import { Dot } from "../products/variants";
 
 // カラーごとの数量：合計の数で数量割引（30・50・100・300個以上）が決まり、見積にそのまま反映される
 export function ItemsEditor({ d, canEdit }: { d: Deal; canEdit: boolean }) {
+  const { minLot: MIN_LOT } = usePricing();
   const { colors } = useCatalog();
   const items = d.items?.length ? d.items : [{ color: d.color, qty: d.lot }];
   const editable = canEdit && stageIndex(d.stage) <= 1; // 見積を送るまで変えられる

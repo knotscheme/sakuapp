@@ -1,3 +1,4 @@
+import { DEFAULT_PRICING, getPricing, rateFor } from "./pricing";
 // ベースモデルと価格の計算ロジック（デモ版の数値）
 
 export type ModelId = "long" | "bifold" | "trifold" | "fragment" | "tote" | "phone";
@@ -22,7 +23,6 @@ export const CATEGORIES = [
   { id: "bag", name: "バッグ" },
 ] as const;
 export const COLORS = "ブラック・ダークブラウン・キャメル・ネイビー";
-export const MIN_LOT = 30;
 
 // モデルを増やすときは、ここに1件足すだけ（カード・シミュレーター・フォームに自動で出ます）
 export const ALL_MODELS: BaseModel[] = [
@@ -37,18 +37,17 @@ export const ALL_MODELS: BaseModel[] = [
 // 表示するモデル（写真がそろったものだけ）
 export const MODELS: BaseModel[] = ALL_MODELS.filter((m) => !m.soon);
 
-export const LOTS = [30, 50, 100, 300] as const;
-export type Lot = (typeof LOTS)[number];
-
-// ロットが増えるほど単価を割り引く
-export const LOT_DISCOUNT: Record<Lot, number> = { 30: 0, 50: 0.04, 100: 0.08, 300: 0.14 };
+// ロット数と割引率・版代・最小ロットは、管理画面の「価格と割引」で変えられる（lib/pricing.ts）
+export type Lot = number;
 
 export const PRICE_MIN = 8000;
 export const PRICE_MAX = 35000;
 export const PRICE_STEP = 500;
 export const PRICE_DEFAULT = 18000;
 export const NORMAL_DIE_COST = 300000; // 通常のフルオーダー時の型代（目安）
-export const PLATE_COST = 10000; // ロゴの版代（初回のみ・1デザインにつき）
+// 版代・最小ロットの初期値（実際の値は getPricing() で読む）
+export const PLATE_COST = DEFAULT_PRICING.plate;
+export const MIN_LOT = DEFAULT_PRICING.minLot;
 
 export function getModel(id: ModelId): BaseModel {
   return ALL_MODELS.find((m) => m.id === id) ?? MODELS[0];
@@ -56,13 +55,14 @@ export function getModel(id: ModelId): BaseModel {
 
 export function calcProfit(id: ModelId, lot: Lot, sellPrice: number) {
   const base = getModel(id).unitPrice;
-  const unit = Math.round((base * (1 - LOT_DISCOUNT[lot])) / 10) * 10;
+  const rate = rateFor(lot);
+  const unit = Math.round((base * (1 - rate)) / 10) * 10;
   const total = unit * lot;
   const grossPerItem = sellPrice - unit;
   const margin = sellPrice > 0 ? grossPerItem / sellPrice : 0;
   // 手元に残る利益＝粗利の合計から、初回の版代を引いたもの
-  const grossTotal = grossPerItem * lot - PLATE_COST;
-  return { unit, total, grossPerItem, margin, grossTotal, discount: LOT_DISCOUNT[lot] };
+  const grossTotal = grossPerItem * lot - getPricing().plate;
+  return { unit, total, grossPerItem, margin, grossTotal, discount: rate };
 }
 
 export const yen = (n: number) => `${Math.round(n).toLocaleString("ja-JP")}円`;

@@ -2,9 +2,9 @@
 
 // デモ用のデータ置き場（ブラウザの localStorage に保存）
 import { useSyncExternalStore } from "react";
-import { DOCS, DRAFT_LABEL, RATE, STAGES, STAGE_DRAFT, amounts, makeDraft, seedDeals, stageIndex, today, unitPriceOf, yenOf, type Deal, type Draft, type DraftKind, type Log, type Msg, type StageId } from "@/lib/cms";
+import { priceLock, DOCS, DRAFT_LABEL, RATE, STAGES, STAGE_DRAFT, amounts, makeDraft, seedDeals, stageIndex, today, unitPriceOf, yenOf, type Deal, type Draft, type DraftKind, type Log, type Msg, type StageId } from "@/lib/cms";
 
-const KEY = "craft-oem-cms-v5";
+const KEY = "craft-oem-cms-v6";
 let cache: Deal[] | null = null;
 const subs = new Set<() => void>();
 
@@ -47,6 +47,8 @@ export function advance(id: string, who = "佐藤") {
     if (i >= STAGES.length - 1) return d;
     const next = STAGES[i + 1].id as StageId;
     let x: Deal = { ...d, stage: next };
+    // 見積を送るときに、その時点の価格を固定する
+    if (next === "quote" && !x.lock) x.lock = priceLock(x);
     // この段階で送るはずだった下書きは、対応済み（ボタンで直接進めたとき）
     const k = STAGE_DRAFT[d.stage];
     if (k) x.drafts = x.drafts?.map((dr) => (dr.kind === k && dr.status === "draft" ? { ...dr, status: "sent", sentBy: who, sentAt: today() } : dr));
@@ -79,6 +81,7 @@ export function revert(id: string, who = "佐藤") {
     if (i <= 0) return d;
     const prev = STAGES[i - 1].id as StageId;
     let x: Deal = { ...d, stage: prev };
+    if (prev === "inquiry") x.lock = undefined; // 見積の前に戻したら、価格の固定も外す
     if (prev === "production") x.prodStep = 4;
     x = addLog(x, who, `「${STAGES[i].ja}」から「${STAGES[i - 1].ja}」に戻しました`, "system");
     return x;

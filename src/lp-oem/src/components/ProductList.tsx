@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { ArrowRight, Images, Play } from "lucide-react";
-import { ALL_MODELS, COLORS, MIN_LOT, PLATE_COST, yen } from "@/lib/models";
+import { ALL_MODELS, COLORS, yen } from "@/lib/models";
+import { usePricing } from "@/lib/pricing";
 import { imgSrc, swatchOf, useCatalog, type ColorDef } from "./cms/catalog";
 import NoOrphan from "./NoOrphan";
 import Gallery from "./Gallery";
@@ -50,6 +51,7 @@ function ColorPick({ m, colors, value, onChange }: { m: Product; colors: ColorDe
 }
 
 export default function ProductList() {
+  const { minLot: MIN_LOT, plate: PLATE_COST } = usePricing();
   // 管理画面の「商品管理」で登録・公開した商品を表示する
   const { cats, products, colors } = useCatalog();
   const [picked, setPicked] = useState<Record<string, string | undefined>>({});

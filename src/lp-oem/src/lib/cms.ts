@@ -1,6 +1,7 @@
 // CRAFT OEM の管理画面（CMS）のデモ用データと仕組み
 // ※すべて架空のデータです。操作した内容は、見ている人のブラウザ（localStorage）にだけ保存されます。
-import { ALL_MODELS, LOT_DISCOUNT, PLATE_COST, type Lot, type ModelId } from "./models";
+import { ALL_MODELS, type ModelId } from "./models";
+import { allTiers, getPricing, rateFor } from "./pricing";
 
 export const STAGES = [
   { id: "inquiry", ja: "問い合わせ", en: "Inquiry", next: "見積を作成して送る" },
@@ -77,6 +78,7 @@ export type Deal = {
   items?: { color: string; qty: number }[]; // カラーごとの数量（合計が lot。合計で数量割引が決まる）
   drafts?: Draft[]; // 自動で作った下書き（人が確認して送る）
   paid?: { at: string; amount: number; via: string }; // 前金の入金（自動で確認）
+  lock?: { base: number; unit: number; plate: number; rate: number }; // 見積を送った時点の価格（固定）
   proofOk?: boolean; // お客様がロゴ配置を承認した
   logs: Log[];
 };
@@ -93,14 +95,15 @@ const d = (offset: number) => {
 
 export function unitPriceOf(model: ModelId, lot: number) {
   const base = ALL_MODELS.find((m) => m.id === model)?.unitPrice ?? 0;
-  const key = ([300, 100, 50, 30] as Lot[]).find((l) => lot >= l) ?? 30;
-  return Math.round((base * (1 - LOT_DISCOUNT[key])) / 10) * 10;
+  return Math.round((base * (1 - rateFor(lot))) / 10) * 10;
 }
-export function amounts(x: Pick<Deal, "model" | "lot">) {
-  const unit = unitPriceOf(x.model, x.lot);
-  const sub = unit * x.lot + PLATE_COST;
+export function amounts(x: Pick<Deal, "model" | "lot"> & { lock?: Deal["lock"] }) {
+  // 見積を送ったあとは、そのときの単価・版代で固定（あとで割引率を変えても変わらない）
+  const unit = x.lock?.unit ?? unitPriceOf(x.model, x.lot);
+  const plate = x.lock?.plate ?? getPricing().plate;
+  const sub = unit * x.lot + plate;
   const tax = Math.round(sub * 0.1);
-  return { unit, items: unit * x.lot, plate: PLATE_COST, sub, tax, total: sub + tax, deposit: Math.round((sub + tax) * 0.5) };
+  return { unit, items: unit * x.lot, plate, sub, tax, total: sub + tax, deposit: Math.round((sub + tax) * 0.5) };
 }
 
 type Seed = [string, string, ModelId, number, Deal["finish"], string, StageId, number, number];
@@ -176,6 +179,7 @@ export function seedDeals(): Deal[] {
     } as Deal;
   }).map((x) => {
     const si = stageIndex(x.stage);
+    if (si >= 1) x.lock = priceLock(x);
     if (x.paid) x.paid.amount = amounts(x).deposit;
     const pending: DraftKind | undefined = x.stage === "inquiry" ? "reply" : x.stage === "order" && x.paid ? "proof" : x.stage === "proof" && x.proofOk ? "factory" : undefined;
     const sent: DraftKind[] = (["reply", "proof", "factory"] as DraftKind[]).filter((k) => stageIndex(k === "reply" ? "quote" : k === "proof" ? "proof" : "production") <= si);
@@ -192,20 +196,20 @@ export const colorLines = (d: Pick<Deal, "items" | "color" | "lot">) => (d.items
 export const colorText = (d: Pick<Deal, "items" | "color" | "lot">) => colorLines(d).map((x) => (d.items?.length ? `${x.color} ${x.qty}個` : x.color)).join("・");
 // 数量割引：合計の数で段階が決まる（30・50・100・300個以上）
 export function tierInfo(total: number) {
-  const tiers = ([30, 50, 100, 300] as Lot[]).map((at) => ({ at, rate: LOT_DISCOUNT[at] }));
+  const tiers = allTiers();
   const cur = [...tiers].reverse().find((t) => total >= t.at);
   const next = tiers.find((t) => total < t.at && t.rate > (cur?.rate ?? -1));
   return { cur, next, need: next ? next.at - total : 0 };
 }
 
 // 見積の明細：カラーごとの行（通常の単価）と、合計の数で決まる数量割引の行。合計は amounts().items と同じ
-export function quoteLines(d: Pick<Deal, "items" | "color" | "lot" | "model">) {
-  const base = unitPriceOf(d.model, 30);
-  const unit = unitPriceOf(d.model, d.lot);
+export function quoteLines(d: Pick<Deal, "items" | "color" | "lot" | "model"> & { lock?: Deal["lock"] }) {
+  const base = d.lock?.base ?? unitPriceOf(d.model, 0);
+  const unit = d.lock?.unit ?? unitPriceOf(d.model, d.lot);
   const lines = colorLines(d).map((x) => ({ color: x.color, qty: x.qty, unit: base, sum: base * x.qty }));
   const t = tierInfo(d.lot);
   const off = (base - unit) * d.lot;
-  return { base, unit, lines, discount: off > 0 ? { rate: t.cur?.rate ?? 0, at: t.cur?.at ?? 0, amount: off } : null, tier: t };
+  return { base, unit, lines, discount: off > 0 ? { rate: d.lock?.rate ?? t.cur?.rate ?? 0, at: t.cur?.at ?? 0, amount: off } : null, tier: t };
 }
 
 export const yenOf = (n: number) => `${Math.round(n).toLocaleString("ja-JP")}円`;
@@ -329,4 +333,9 @@ CRAFT OEM` };
 すでにお支払い済みの場合は、行き違いですのでご容赦ください。
 
 ${link}${sign}` };
+}
+
+// 見積を送る時点の価格を固定する
+export function priceLock(d: Pick<Deal, "model" | "lot">) {
+  return { base: unitPriceOf(d.model, 0), unit: unitPriceOf(d.model, d.lot), plate: getPricing().plate, rate: rateFor(d.lot) };
 }

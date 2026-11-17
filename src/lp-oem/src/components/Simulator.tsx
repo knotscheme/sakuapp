@@ -1,13 +1,15 @@
 "use client";
 
 import { ArrowRight, Info } from "lucide-react";
-import { LOTS, MODELS, NORMAL_DIE_COST, PLATE_COST, PRICE_MAX, PRICE_MIN, PRICE_STEP, calcProfit, getModel, yen } from "@/lib/models";
+import { lotChoices, usePricing } from "@/lib/pricing";
+import { MODELS, NORMAL_DIE_COST, PRICE_MAX, PRICE_MIN, PRICE_STEP, calcProfit, getModel, yen } from "@/lib/models";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { useCountUp } from "./useCountUp";
 
 export default function Simulator() {
+  const pr = usePricing(); // 価格と割引の設定（管理画面で変えると、ここにも反映）
   const { model, lot, price, setModel, setLot, setPrice, sendToContact } = useLp();
   const r = calcProfit(model, lot, price);
   const m = getModel(model);
@@ -46,8 +48,8 @@ export default function Simulator() {
 
             <fieldset>
               <legend className="flex items-center gap-2 text-sm font-bold"><span className="font-num font-medium text-gold">02</span>発注ロット数</legend>
-              <div className="mt-4 grid grid-cols-4 gap-2">
-                {LOTS.map((l) => (
+              <div className="mt-4 grid gap-2 [grid-template-columns:repeat(auto-fit,minmax(4.2rem,1fr))]">
+                {lotChoices(pr).map((l) => (
                   <button
                     key={l}
                     type="button"
@@ -97,7 +99,7 @@ export default function Simulator() {
                 </div>
                 <div className="mt-2 flex items-center justify-between text-[13px]">
                   <span className="text-mute">ロゴの版代（初回のみ）</span>
-                  <span className="font-bold tabular-nums">{yen(PLATE_COST)}</span>
+                  <span className="font-bold tabular-nums">{yen(pr.plate)}</span>
                 </div>
               </div>
 

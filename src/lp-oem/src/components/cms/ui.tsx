@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
-import { X, ScanSearch, LogOut, Inbox, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
+import { X, Percent, ScanSearch, LogOut, Inbox, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
 import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
 import { resetDemo, unreadOf, useDeals } from "./store";
@@ -30,6 +30,7 @@ const NAV: { href: string; label: NavKey; icon: typeof LayoutGrid; perm?: Perm }
   { href: "/cms/deals/", label: "deals", icon: KanbanSquare, perm: "deals.view" },
   { href: "/cms/messages/", label: "msgs", icon: MessageCircle, perm: "deals.view" },
   { href: "/cms/products/", label: "products", icon: Package, perm: "products.edit" },
+  { href: "/cms/pricing/", label: "pricing", icon: Percent, perm: "money.view" },
   { href: "/cms/analytics/", label: "analytics", icon: BarChart3, perm: "analytics.view" },
   { href: "/cms/factory/", label: "factory", icon: Factory, perm: "factory.use" },
   { href: "/cms/inspect/", label: "inspect", icon: ClipboardCheck, perm: "inspect.use" },

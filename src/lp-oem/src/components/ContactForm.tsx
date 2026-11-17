@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { CheckCircle2, Paperclip, Send, X } from "lucide-react";
-import { LOTS, MODELS, getModel, yen, type ModelId } from "@/lib/models";
+import { MODELS, getModel, yen, type ModelId } from "@/lib/models";
+import { lotChoices, usePricing } from "@/lib/pricing";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
 import { useCatalog } from "./cms/catalog";
-import { PLATE_COST, MIN_LOT, ALL_MODELS } from "@/lib/models";
+import { ALL_MODELS } from "@/lib/models";
 import { tierInfo, unitPriceOf } from "@/lib/cms";
 import { toLogoMask } from "./cms/Proof";
 
@@ -17,6 +18,8 @@ const MAX_FILE = 10 * 1024 * 1024;
 const OK_EXT = /\.(ai|pdf|svg|png|jpe?g|eps)$/i;
 
 export default function ContactForm() {
+  const pr = usePricing();
+  const MIN_LOT = pr.minLot;
   const { prefill } = useLp();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -151,8 +154,8 @@ export default function ContactForm() {
             <fieldset className="min-w-0 text-sm font-bold md:col-span-2" aria-invalid={!!errors.lot} aria-describedby="err-lot">
               <legend>希望ロット数<span className="ml-1 text-xs text-gold">必須</span></legend>
               {total > 0 && <p className="mt-2 text-[12px] font-normal text-mute">下のカラーごとの数量（合計{total}個）で見積もります</p>}
-              <div className={`mt-3 grid grid-cols-5 gap-2 ${total > 0 ? "pointer-events-none opacity-35" : ""}`}>
-                {[...LOTS.map((l) => [String(l), `${l}個`]), ["more", "未定"]].map(([v, t]) => (
+              <div className={`mt-3 grid gap-2 [grid-template-columns:repeat(auto-fit,minmax(4.2rem,1fr))] ${total > 0 ? "pointer-events-none opacity-35" : ""}`}>
+                {[...lotChoices(pr).map((l) => [String(l), `${l}個`]), ["more", "未定"]].map(([v, t]) => (
                   <label key={v} className={`cursor-pointer border py-3 text-center text-[13px] font-medium transition ${lot === v ? "border-ink bg-ink text-white" : errors.lot ? "border-red-300" : "border-line hover:border-mute"}`}>
                     <input type="radio" name="cf-lot" value={v} checked={lot === v} onChange={() => setLot(v)} className="sr-only" />
                     {t}
@@ -229,6 +232,7 @@ export default function ContactForm() {
 
 // 概算の見積もり：合計の数で単価が下がる（数量割引）。あと何個で次の割引かも出す
 function Estimate({ model, total, show }: { model: ModelId; total: number; show: boolean }) {
+  const { minLot: MIN_LOT, plate: PLATE_COST } = usePricing();
   const t = tierInfo(total);
   if (total < MIN_LOT) return <p className="mt-3 text-[12.5px] text-red-600">合計{MIN_LOT}個から承ります（いま{total}個）</p>;
   if (!show) return <p className="mt-3 text-[12.5px] text-mute">合計{total}個。お見積もりは担当者からお送りします。</p>;
