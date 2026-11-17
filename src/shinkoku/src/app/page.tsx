@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { AlertTriangle, ArrowRight, CalendarClock, CheckCircle2, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AlertTriangle, ArrowRight, CalendarClock, CheckCircle2, ChevronRight, Sparkles, X } from "lucide-react";
 import Shell, { NAV } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import Speak from "@/components/Speak";
@@ -16,6 +16,9 @@ const days = (d: string) => Math.round((new Date(d).getTime() - new Date(TODAY).
 function Home() {
   const s = useStore();
   const [proj, setProj] = useState(true);
+  const [first, setFirst] = useState(false);
+  useEffect(() => { try { setFirst(!localStorage.getItem("jbs-guide-seen")); } catch {} }, []);
+  const closeFirst = () => { setFirst(false); try { localStorage.setItem("jbs-guide-seen", "1"); } catch {} };
   const c = compute(s, { project: proj });
   const ct = consumption(s, { project: proj });
   const ctax = s.profile.ctax === "exempt" ? 0 : s.profile.ctax === "twoWari" ? ct.twoWari.total : s.profile.ctax === "simple" ? ct.simple.total : ct.general.total;
@@ -35,6 +38,17 @@ function Home() {
         </div>
         <img src="/sakuapp/works/shinkoku/img/home.webp" alt="自宅のテーブルで、笑顔でパソコンに向かって申告の作業をする女性" width={1376} height={768} className="order-1 aspect-[16/9] h-full w-full object-cover md:order-2 md:aspect-auto md:min-h-[260px]" />
       </div>
+
+      {first && (
+        <div className="mt-5 flex flex-wrap items-center gap-4 rounded-2xl border-2 border-ok bg-ok-2 p-5">
+          <Sparkles size={34} className="shrink-0 text-ok" />
+          <p className="min-w-0 flex-1 text-[1.05rem]"><b className="block text-[1.2rem]">はじめての方は、かんたんガイドをどうぞ</b>6つの手順を、画面の写真といっしょに説明しています（読み上げもできます）。</p>
+          <div className="flex gap-2">
+            <Link href="/guide/" onClick={closeFirst} className="btn btn-main">ガイドを見る<ArrowRight size={20} /></Link>
+            <button type="button" onClick={closeFirst} className="btn btn-sub px-3" aria-label="この案内を閉じる"><X size={20} /></button>
+          </div>
+        </div>
+      )}
 
       {/* 今日やること */}
       <section className="mt-6" aria-labelledby="todo">

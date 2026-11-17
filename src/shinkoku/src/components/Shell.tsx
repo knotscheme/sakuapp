@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookOpen, Calculator, CheckSquare, Download, Home, Menu, MessageCircle, PieChart, Send, Settings, X } from "lucide-react";
+import { BookOpen, Calculator, CheckSquare, Download, Home, Menu, MessageCircle, PieChart, Send, Settings, Sparkles, X } from "lucide-react";
 import { useMounted, useStore } from "@/lib/store";
 
 export const NAV = [
   { href: "/", label: "ホーム", icon: Home, step: 0 },
+  { href: "/guide/", label: "かんたんガイド", icon: Sparkles, step: 0 },
   { href: "/torikomi/", label: "明細を取りこむ", icon: Download, step: 1 },
   { href: "/kakunin/", label: "内容を確認する", icon: CheckSquare, step: 2 },
   { href: "/chobo/", label: "帳簿を見る", icon: BookOpen, step: 3 },
