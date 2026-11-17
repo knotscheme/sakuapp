@@ -13,9 +13,11 @@ export type State = {
   sent: string[]; // 「この案を使う」で、サイトへ届けたもの（商品ID:項目）
   feed: boolean; // 商品フィードを作ったか
   measure: { ais: string[]; tries: number }; // 測る設定：使うAIと、1つの質問を聞く回数
+  tag: "" | "ok"; // 計測タグが届いているか（デモ）
+  csv: boolean; // 注文CSVを取りこんだか（タグを貼れないサイト）
 };
 const KEY = "tsr-state-v2";
-export const SEED: State = { v: 2, applied: [], orders: [], real: { brand: "", item: "", kind: "" }, site: "", sent: [], feed: false, measure: { ais: ["ChatGPT", "Gemini", "Claude", "Perplexity"], tries: 5 } };
+export const SEED: State = { v: 2, applied: [], orders: [], real: { brand: "", item: "", kind: "" }, site: "", sent: [], feed: false, measure: { ais: ["ChatGPT", "Gemini", "Claude", "Perplexity"], tries: 5 }, tag: "", csv: false };
 let st: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {

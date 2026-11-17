@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, EyeOff, RotateCcw, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, Copy, Eye, EyeOff, FileUp, RotateCcw, ShieldCheck } from "lucide-react";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import { askConfirm, toast } from "@/components/Confirm";
@@ -10,6 +11,8 @@ import { resetDemo, update, useStore } from "@/lib/store";
 import { SiteGrid } from "@/components/SitePicker";
 import { AIS, QUESTIONS } from "@/lib/demo";
 import J from "@/components/J";
+import { platformOf } from "@/lib/platforms";
+import { PRIVACY, SNIPPET, tagKind } from "@/lib/tag";
 
 // 測る設定：AIの利用料は、お店のAIのキーで各社に直接払う。回数を決めると、月に何回質問するかが分かる
 function Measure() {
@@ -34,6 +37,59 @@ function Measure() {
   );
 }
 
+// コードを見せて、押すとコピーできる箱
+function Code({ text, label }: { text: string; label: string }) {
+  const copy = async () => { try { await navigator.clipboard.writeText(text); toast(`${label}をコピーしました`); } catch { toast("コピーできませんでした。選んでコピーしてください"); } };
+  return (
+    <div className="relative mt-2">
+      <pre className="max-h-64 overflow-auto rounded-2xl bg-paper p-4 pt-12 font-mono text-[0.72rem] leading-[1.7] text-ink/90 whitespace-pre">{text}</pre>
+      <button type="button" onClick={copy} aria-label={`${label}をコピー`} className="absolute right-2 top-2 grid h-9 w-9 place-items-center rounded-full bg-white/[.06] text-sub hover:text-ink"><Copy size={16} /></button>
+    </div>
+  );
+}
+
+// 計測タグ：AIから来たお客様と売上を、推測ではなく実際の来店で数える
+function Tag() {
+  const s = useStore();
+  const [busy, setBusy] = useState(false);
+  const p = platformOf(s.site);
+  const kind = tagKind(s.site);
+  const check = () => { setBusy(true); setTimeout(() => { setBusy(false); update((x) => ({ ...x, tag: "ok" })); toast("タグから記録が届きました（デモ）"); }, 1200); };
+  return (
+    <section className="card mt-5 p-5 sm:p-6" aria-labelledby="tg">
+      <h2 id="tg" className="text-[1.1rem] font-bold">計測タグ</h2>
+      <p className="mt-1 text-[0.85rem] leading-[1.8] text-sub"><J>お店のサイトにタグを貼ると、ChatGPTなどのAIから来たお客様と、その売上を数えます。推測ではなく、実際の来店と注文です。Googleアナリティクスなどを通さないので、ほかの会社の審査はいりません。</J></p>
+      {!p ? (
+        <p className="mt-4 text-[0.88rem] text-sub"><J>先に、上の「お店のサイト」を選んでください。サイトに合わせた貼り方を出します。</J></p>
+      ) : kind === "csv" ? (
+        <div className="mt-4">
+          <p className="text-[0.9rem] leading-[1.8]"><J>{`${p.name}は、お店が自由にタグを入れられないため、注文のCSVを取りこんで確かめます。`}</J></p>
+          <p className="mt-2 text-[0.82rem] leading-[1.8] text-sub"><J>モールでは、どの注文がAIから来たかを1件ずつは見分けられません。直した商品の売上が、直す前とくらべてどう変わったかで確かめます（目安）。</J></p>
+          <button type="button" onClick={() => { update((x) => ({ ...x, csv: true })); toast("注文CSVを取りこみました（デモ）"); }} className={`btn mt-4 ${s.csv ? "btn-line" : "btn-ai"}`}>{s.csv ? <><CheckCircle2 size={18} className="text-ai" />取りこみ済み（デモ）</> : <><FileUp size={18} />注文CSVを取りこむ（デモ）</>}</button>
+        </div>
+      ) : (
+        <div className="mt-4">
+          <p className="text-[0.88rem] font-bold">{p.name}での貼り方</p>
+          <ol className="mt-2 space-y-1.5 text-[0.86rem] leading-[1.8]">{SNIPPET[kind].steps.map((t, i) => <li key={t} className="flex gap-2"><span className="num text-ai">{i + 1}.</span><span className="min-w-0"><J>{t}</J></span></li>)}</ol>
+          <Code text={SNIPPET[kind].code} label="タグ" />
+          {SNIPPET[kind].buy && <><p className="mt-4 text-[0.86rem] font-bold">購入のタグ（注文が終わったページだけ）</p><Code text={SNIPPET[kind].buy!} label="購入のタグ" /></>}
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            {s.tag === "ok"
+              ? <p className="flex items-center gap-2 text-[0.9rem] text-ai"><CheckCircle2 size={18} />タグから記録が届いています（デモ）</p>
+              : <button type="button" onClick={check} disabled={busy} className="btn btn-ai">{busy ? "確認しています…" : "貼ったので確認する"}</button>}
+            {s.tag === "ok" && <Link href="/kouka/" className="text-[0.86rem] text-ai underline underline-offset-4">売上の画面で見る</Link>}
+          </div>
+        </div>
+      )}
+      <details className="mt-5 rounded-2xl bg-paper p-4">
+        <summary className="cursor-pointer text-[0.88rem] font-bold"><J>プライバシーポリシーに足す文（ひな形）</J></summary>
+        <p className="mt-2 text-[0.82rem] leading-[1.8] text-sub"><J>サイトの訪問者の情報を外の会社に送るときは、そのことをサイトで知らせる決まりがあります。下の文を、お店のプライバシーポリシーに足してください。</J></p>
+        <Code text={PRIVACY} label="文" />
+      </details>
+    </section>
+  );
+}
+
 function Settings() {
   const s = useStore();
   const ai = useAi();
@@ -41,7 +97,7 @@ function Settings() {
   const real = (p: Partial<typeof s.real>) => update((x) => ({ ...x, real: { ...x.real, ...p } }));
   return (
     <>
-      <Title title="設定" lead="お店のサイト、測る設定、お店のAIのキーを入れます。" />
+      <Title title="設定" lead="お店のサイト、計測タグ、測る設定、お店のAIのキーを入れます。" />
       <section className="card p-5 sm:p-6" aria-labelledby="sh">
         <h2 id="sh" className="text-[1.1rem] font-bold">自分のブランド</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
@@ -56,6 +112,7 @@ function Settings() {
         <p className="mt-1 text-[0.85rem] text-sub"><J>選んだサイトに合わせて、「直す」の届け方が変わります。</J></p>
         <div className="mt-4"><SiteGrid /></div>
       </section>
+      <Tag />
       <Measure />
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">
         <h2 id="ak" className="text-[1.1rem] font-bold">お店のAIのキー</h2>
@@ -71,7 +128,7 @@ function Settings() {
       </section>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="dm">
         <h2 id="dm" className="text-[1.1rem] font-bold">デモ</h2>
-        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "使った書き直し案・選んだサイト・デモの注文が消えます。", ok: "戻す", danger: true })) { resetDemo(); toast("最初の状態に戻しました"); } }} className="btn btn-line mt-3"><RotateCcw size={18} />最初の状態に戻す</button>
+        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "使った書き直し案・選んだサイト・計測タグ・デモの注文が消えます。", ok: "戻す", danger: true })) { resetDemo(); toast("最初の状態に戻しました"); } }} className="btn btn-line mt-3"><RotateCcw size={18} />最初の状態に戻す</button>
       </section>
     </>
   );
