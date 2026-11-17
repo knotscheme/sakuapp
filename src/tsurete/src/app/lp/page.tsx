@@ -160,22 +160,23 @@ function TenToThree() {
               <div className="flex h-9 items-center gap-2.5 rounded-full border border-black/10 px-4 text-[0.85rem] shadow-[0_1px_4px_rgba(0,0,0,.08)]"><Search size={15} className="shrink-0 text-[#5f6368]" />敏感肌 化粧水 3000円</div>
               <p className="mt-2 flex gap-4 px-1 text-[0.72rem] text-[#5f6368] sm:mt-3"><span className="border-b-2 border-[#1a73e8] pb-1 font-semibold text-[#1a73e8]">すべて</span><span>画像</span><span>ショッピング</span><span>ニュース</span></p>
             </div>
-            <div className={`absolute inset-0 flex flex-col justify-center gap-1.5 px-4 transition duration-700 ${stage >= 1 ? "opacity-100" : "translate-y-2 opacity-0"}`}>
-              <p className="flex items-center gap-1.5 text-[0.75rem] font-semibold text-[#5f6368]"><Bot size={14} className="text-[#00a37a]" />AIアシスタント</p>
-              <span className="ml-auto rounded-[18px] rounded-br-md bg-[#0a84ff] px-3.5 py-1.5 text-[0.82rem] text-white">敏感肌でも使える、3,000円台の化粧水は？</span>
+            <div className={`absolute inset-0 flex flex-col justify-between px-4 pb-2.5 pt-2.5 transition duration-700 ${stage >= 1 ? "opacity-100" : "translate-y-2 opacity-0"}`}>
+              <p className="flex items-center gap-1 text-[0.82rem] font-semibold text-[#0d0d0d]">AIアシスタント<ChevronRight size={14} className="rotate-90 text-[#8e8e8e]" /></p>
+              <span className="ml-auto rounded-[20px] bg-[#f4f4f4] px-3.5 py-1.5 text-[0.84rem] text-[#0d0d0d]">敏感肌でも使える、3,000円台の化粧水は？</span>
             </div>
           </div>
 
           <div ref={box} className="overflow-hidden transition-[height] duration-700" style={{ height: stage === 0 ? "min(52vh, 25rem)" : undefined }}>
+          {stage >= 1 && <p className="fade-in px-4 pt-3 text-[0.86rem] leading-[1.8] text-[#0d0d0d]">敏感肌でも使える3,000円台の化粧水なら、次の3つがおすすめです。</p>}
           <ol ref={list} className="px-4 py-3 transition-transform duration-300 ease-out" style={{ transform: stage === 0 ? `translateY(-${over * k0}px)` : "none" }} aria-hidden>
             {SEARCH.map((r, i) => {
               const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
               return (
-                <li key={r.u} className="overflow-hidden transition-all duration-700" style={{ opacity: gone ? 0 : 1, maxHeight: gone ? 0 : ai ? "4.2rem" : "4.6rem", marginTop: i && !gone ? (ai ? "0.45rem" : "0.15rem") : 0, transform: gone ? "translateX(-24px)" : "none", transitionDelay: `${gone ? (i - 3) * 40 : 0}ms` }}>
+                <li key={r.u} className="overflow-hidden transition-all duration-700" style={{ opacity: gone ? 0 : 1, maxHeight: gone ? 0 : ai ? "4rem" : "4.6rem", marginTop: i && !gone ? (ai ? "0.55rem" : "0.15rem") : 0, transform: gone ? "translateX(-24px)" : "none", transitionDelay: `${gone ? (i - 3) * 40 : 0}ms` }}>
                   {ai ? (
-                    <div className="fade-in flex items-center gap-3 rounded-2xl bg-[#f2f2f7] px-3.5 py-2.5">
-                      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white text-[0.72rem] font-semibold text-[#6e6e73]">{i + 1}</span>
-                      <span className="min-w-0"><b className="block truncate text-[0.9rem]">{PICKS[i].b}</b><span className="block truncate text-[0.74rem] text-[#6e6e73]">{PICKS[i].w}</span></span>
+                    <div className="fade-in flex gap-2 text-[0.86rem] leading-[1.7] text-[#0d0d0d]">
+                      <span className="w-4 shrink-0 text-right">{i + 1}.</span>
+                      <span className="min-w-0"><b className="font-semibold">{PICKS[i].b.replace("　", " ")}</b><span className="block text-[0.8rem] text-[#5d5d5d]">{PICKS[i].w}</span></span>
                     </div>
                   ) : (
                     <div className={`rounded-xl px-2 py-1.5 sm:py-2 ${"me" in r ? "bg-[#e6f6f0] ring-1 ring-[#00a37a]/40" : ""}`}>
@@ -193,12 +194,19 @@ function TenToThree() {
 
             {/* 最後：自分の商品は、AIの答えに入っていない */}
             <li className={`overflow-hidden transition-all duration-700 ${stage === 2 ? "mt-3 max-h-24 opacity-100" : "mt-0 max-h-0 opacity-0"}`}>
-              <div className="flex items-center gap-3 rounded-2xl border border-dashed border-[#00a37a]/60 px-3.5 py-2.5">
+              <div className="flex items-center gap-3 rounded-2xl border border-dashed border-[#00a37a]/60 bg-[#f3fbf8] px-3.5 py-2.5">
                 <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-dashed border-[#00a37a]/70 text-[0.68rem] text-[#00a37a]">？</span>
                 <span className="min-w-0"><b className="block truncate text-[0.9rem] text-[#00805f]">SORAE　化粧水 しっとり</b><span className="block text-[0.74rem] text-[#6e6e73]">検索では10位。AIの答えには、入っていない</span></span>
               </div>
             </li>
           </ol>
+          </div>
+          <div className={`overflow-hidden transition-all duration-700 ${stage >= 1 ? "max-h-20 opacity-100" : "max-h-0 opacity-0"}`}>
+            <div className="mx-3 mb-3 flex items-center gap-2 rounded-full border border-black/10 py-1.5 pl-3 pr-1.5 shadow-[0_2px_8px_rgba(0,0,0,.06)]">
+              <span className="text-[1.1rem] leading-none text-[#5d5d5d]">＋</span>
+              <span className="flex-1 text-[0.82rem] text-[#8e8e8e]">何でも聞いてください</span>
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#0d0d0d] text-white"><ArrowRight size={14} className="-rotate-90" /></span>
+            </div>
           </div>
         </div>
       </div>
