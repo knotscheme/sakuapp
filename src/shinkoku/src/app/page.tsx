@@ -114,7 +114,7 @@ function Home() {
             return (
               <li key={n.href}>
                 <Link href={n.href} className={`flex h-full items-center gap-3 rounded-2xl border-2 p-4 transition hover:bg-white ${st === "now" ? "border-warn bg-warn-2" : "border-line bg-[#fbfaf6]"}`}>
-                  <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-[1.1rem] font-bold ${st === "ok" ? "bg-ok text-white" : "bg-ink text-white"}`}>{st === "ok" ? "✓" : n.step}</span>
+                  <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-[1.1rem] font-bold ${st === "ok" ? "bg-ok text-white" : "bg-ink text-white"}`}>{st === "ok" ? <CheckCircle2 size={22} /> : n.step}</span>
                   <span className="flex-1 text-[1.05rem] font-bold">{n.label}</span><ChevronRight size={22} />
                 </Link>
               </li>

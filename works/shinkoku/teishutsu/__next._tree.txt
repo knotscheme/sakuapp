@@ -3,4 +3,4 @@
 :HL["/sakuapp/works/shinkoku/_next/static/media/6d74e39191e78e88-s.p.0fhiaplbf_4wa.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"teishutsu","h":96,"c":"$Q2"}]]
-0:{"b":"YZu4QjBFfrUZcxx2g9dxo","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"dy7IqWHN7yHfnrWdQkG2i","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

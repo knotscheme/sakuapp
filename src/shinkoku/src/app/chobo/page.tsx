@@ -8,6 +8,7 @@ import Ready from "@/components/Ready";
 import Help from "@/components/Help";
 import { toast } from "@/components/Confirm";
 import { acc } from "@/lib/accounts";
+import AccIcon from "@/components/AccIcon";
 import { balances, yen } from "@/lib/books";
 import { validT } from "@/lib/seed";
 import { editEntry, useStore, type Entry } from "@/lib/store";
@@ -21,7 +22,7 @@ function Row({ e, onOpen }: { e: Entry; onOpen: () => void }) {
     <li>
       <button type="button" onClick={onOpen} className={`flex w-full items-center gap-3 border-b-2 border-line px-2 py-3.5 text-left hover:bg-[#fbfaf6] ${e.voided ? "opacity-50" : ""}`}>
         <span className="num w-14 shrink-0 text-[0.95rem] text-sub">{d(e.date)}</span>
-        <span className="text-[1.3rem]" aria-hidden>{use.icon}</span>
+        <AccIcon id={use.id} />
         <span className="min-w-0 flex-1"><b className={`block truncate text-[1rem] ${e.voided ? "line-through" : ""}`}>{e.partner || e.memo}</b><span className="block truncate text-[0.85rem] text-sub">{use.plain}{e.bizPct < 100 && e.bizPct > 0 ? `（仕事${e.bizPct}%）` : ""}{e.voided ? "・取り消し" : ""}{e.status === "check" ? "・確認待ち" : ""}</span></span>
         <b className={`num shrink-0 text-[1.05rem] ${income ? "text-ok" : ""}`}>{income ? "＋" : ""}{yen(e.amount)}</b>
       </button>
@@ -89,7 +90,7 @@ function Chobo() {
         <ul className="grid gap-2 sm:grid-cols-2">
           {bal.map(({ a, v }) => (
             <li key={a.id}><button type="button" onClick={() => { setAccId(a.id); setTab("list"); }} className="flex w-full items-center gap-3 rounded-2xl border-2 border-line bg-white p-4 text-left hover:border-ink">
-              <span className="text-[1.4rem]" aria-hidden>{a.icon}</span><span className="min-w-0 flex-1"><b className="block text-[1rem]">{a.plain}</b><span className="text-[0.85rem] text-sub">{a.name}</span></span><b className="num text-[1.05rem]">{yen(v)}</b>
+              <AccIcon id={a.id} size={24} /><span className="min-w-0 flex-1"><b className="block text-[1rem]">{a.plain}</b><span className="text-[0.85rem] text-sub">{a.name}</span></span><b className="num text-[1.05rem]">{yen(v)}</b>
             </button></li>
           ))}
         </ul>
@@ -108,7 +109,7 @@ function Chobo() {
             </div>
             {searching && <button type="button" onClick={() => { setQ({ text: "", from: "", to: "", min: "", max: "" }); setAccId(""); }} className="btn btn-sub mt-3">条件を消す</button>}
           </details>
-          {accId && <p className="mb-2 text-[1.05rem] font-bold">{acc(accId).icon} {acc(accId).plain} だけを表示中 <button type="button" onClick={() => setAccId("")} className="ml-2 underline">すべて表示</button></p>}
+          {accId && <p className="mb-2 flex flex-wrap items-center gap-2 text-[1.05rem] font-bold"><AccIcon id={accId} />{acc(accId).plain} だけを表示中 <button type="button" onClick={() => setAccId("")} className="ml-2 underline">すべて表示</button></p>}
           <p className="mb-1 text-[0.95rem] text-sub">{list.length}件</p>
           <ul className="card overflow-hidden px-3">{list.slice(0, 300).map((e) => <Row key={e.id} e={e} onOpen={() => setOpen(e)} />)}</ul>
           {list.length === 0 && <p className="py-8 text-center text-[1rem] text-sub">見つかりませんでした</p>}

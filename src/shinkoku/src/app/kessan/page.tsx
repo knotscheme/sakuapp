@@ -8,6 +8,7 @@ import Ready from "@/components/Ready";
 import Help from "@/components/Help";
 import { askConfirm, toast } from "@/components/Confirm";
 import { ACCOUNTS, acc } from "@/lib/accounts";
+import AccIcon from "@/components/AccIcon";
 import { balances, compute, depreciation, live, yen } from "@/lib/books";
 import { update, uid, useStore, type Asset } from "@/lib/store";
 
@@ -85,7 +86,7 @@ function Kessan() {
         <h2 id="sp" className="text-[1.3rem] font-bold">③ 家と仕事の両方で使ったもの（家事按分）</h2>
         <p className="mt-1 text-[1rem] text-sub">「確認する」でえらんだ割合で、仕事の分だけを経費にしています。割合は、使った時間や広さなど、説明できる決め方にしておきましょう。</p>
         <ul className="mt-3">
-          {Object.entries(split).map(([id, v]) => <li key={id} className={rowc}><span>{acc(id).icon} {acc(id).plain}</span><span className="num text-right">払った {yen(v.all)} → <b>経費 {yen(v.biz)}</b></span></li>)}
+          {Object.entries(split).map(([id, v]) => <li key={id} className={rowc}><span className="flex items-center gap-2"><AccIcon id={id} size={20} />{acc(id).plain}</span><span className="num text-right">払った {yen(v.all)} → <b>経費 {yen(v.biz)}</b></span></li>)}
         </ul>
       </section>
 

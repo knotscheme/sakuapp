@@ -8,6 +8,7 @@ import Ready from "@/components/Ready";
 import Help from "@/components/Help";
 import { askConfirm, toast } from "@/components/Confirm";
 import { EXPENSES, PERSONAL, acc, type PersonalTag } from "@/lib/accounts";
+import AccIcon from "@/components/AccIcon";
 import { yen } from "@/lib/books";
 import { norm } from "@/lib/importer";
 import { validT } from "@/lib/seed";
@@ -43,10 +44,10 @@ function Card({ e, total, onDone }: { e: Entry; total: number; onDone: () => voi
     onDone();
   };
 
-  const opt = (id: string, icon: string, label: string) => (
+  const opt = (id: string, label: string) => (
     <button key={id} type="button" aria-pressed={account === id} onClick={() => { setAccount(id); if (id === "ownerOut" && !personal) setPersonal("living"); }}
       className={`flex min-h-[3.6rem] items-center gap-3 rounded-2xl border-2 px-4 py-2 text-left text-[1rem] font-bold transition ${account === id ? "border-ok bg-ok-2 ring-2 ring-ok" : "border-line bg-white hover:border-ink"}`}>
-      <span className="text-[1.4rem]" aria-hidden>{icon}</span><span className="flex-1">{label}</span>{account === id && <Check size={22} className="text-ok" />}
+      <AccIcon id={id} size={24} /><span className="flex-1">{label}</span>{account === id && <Check size={22} className="text-ok" />}
     </button>
   );
   const top = ["travel", "comm", "supplies", "meeting", "software", "books", "utility", "rent"];
@@ -67,8 +68,8 @@ function Card({ e, total, onDone }: { e: Entry; total: number; onDone: () => voi
 
       <h2 className="mt-6 text-[1.25rem] font-bold">{income ? "何のお金が入ってきましたか？" : "何に使ったお金ですか？"}</h2>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
-        {income ? <>{opt("sales", "💰", "仕事の売上")}{opt("misc_income", "🪙", "そのほかの仕事の収入")}{opt("ownerIn", "👛", "仕事と関係ないお金（自分のお金を入れた など）")}</>
-          : <>{shown.map((a) => opt(a.id, a.icon, a.plain))}{opt("ownerOut", "🏠", "仕事以外（生活費・保険・年金など）")}</>}
+        {income ? <>{opt("sales", "仕事の売上")}{opt("misc_income", "そのほかの仕事の収入")}{opt("ownerIn", "仕事と関係ないお金（自分のお金を入れた など）")}</>
+          : <>{shown.map((a) => opt(a.id, a.plain))}{opt("ownerOut", "仕事以外（生活費・保険・年金など）")}</>}
       </div>
       {!income && !more && <button type="button" onClick={() => setMore(true)} className="mt-2 text-[1rem] font-bold underline underline-offset-4">ほかの使い道を見る</button>}
 
