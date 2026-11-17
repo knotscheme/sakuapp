@@ -1,0 +1,5 @@
+:HL["/sakuapp/works/lp-builder/_next/static/chunks/1c38i6y1jh-xn.css","style"]
+:HL["/sakuapp/works/lp-builder/_next/static/chunks/1jhrpj737n0zz.css","style"]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
+0:{"b":"UzxZksU3p5U2e6S-gs-io","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
