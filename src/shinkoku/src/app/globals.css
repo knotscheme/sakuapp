@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f6f4ee;
+  --color-ink: #1f2a37;
+  --color-sub: #4a5563;
+  --color-line: #d8d3c6;
+  --color-ok: #0f6b4f;
+  --color-ok-2: #e3f1ea;
+  --color-warn: #a45a00;
+  --color-warn-2: #fdf1dc;
+  --color-ng: #b42318;
+  --color-ng-2: #fdeceb;
+  --font-sans: var(--font-noto), "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+}
+
+/* 文字の大きさ（設定で切りかえ）。すべて rem で作っているので、ここを変えると全体が大きくなる */
+html { font-size: 17px; }
+html[data-fs="2"] { font-size: 19px; }
+html[data-fs="3"] { font-size: 21.5px; }
+html, body { overflow-x: clip; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); line-height: 1.8; -webkit-font-smoothing: antialiased; line-break: strict; }
+h1, h2, h3 { word-break: auto-phrase; text-wrap: pretty; }
+:focus-visible { outline: 3px solid #2563eb; outline-offset: 2px; }
+/* 部品の見た目（@layer に入れて、Tailwind の hidden などで上書きできるようにする） */
+@layer components {
+.card { background: #fff; border: 1.5px solid var(--color-line); border-radius: 18px; }
+.btn { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: .5em; min-height: 3.1rem; padding: .5rem 1.4rem; border-radius: 14px; font-weight: 700; font-size: 1rem; transition: transform .12s, background .2s, box-shadow .2s; -webkit-tap-highlight-color: transparent; }
+.btn:active { transform: scale(.97); }
+.btn:disabled { opacity: .45; pointer-events: none; }
+.btn-main { background: var(--color-ok); color: #fff; box-shadow: 0 4px 0 #0a4a37; }
+.btn-main:hover { background: #0c5a42; }
+.btn-ink { background: var(--color-ink); color: #fff; }
+.btn-sub { background: #fff; border: 2px solid var(--color-ink); color: var(--color-ink); }
+.btn-sub:hover { background: #f0ede4; }
+.field { width: 100%; min-height: 3rem; border-radius: 12px; border: 2px solid var(--color-line); background: #fff; padding: .45rem .8rem; font-size: 1rem; outline: none; }
+.field:focus { border-color: var(--color-ok); }
+}
+.num { font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+.fade-in { animation: fadeIn .35s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fade-in { animation: none; } }
