@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { Suspense, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, Check, ChevronDown, Copy, Download, FileSpreadsheet, Link2, Loader2, Minus, ScanSearch, Upload, Wand2, X } from "lucide-react";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
@@ -201,7 +202,9 @@ function ByCsv() {
 }
 
 function Shindan() {
-  const [tab, setTab] = useState<"url" | "csv">(() => (typeof window !== "undefined" && location.search.includes("csv") ? "csv" : "url"));
+  const sp = useSearchParams();
+  const [pick, setTab] = useState<"url" | "csv" | null>(null);
+  const tab = pick ?? (sp.get("csv") ? "csv" : "url");
   return (
     <>
       <Title n="1" title="診断する" lead="商品ページのURLか、商品一覧のCSVを入れると、AIに選ばれるために足りないものと、書き直し案を出します。" />
@@ -216,4 +219,4 @@ function Shindan() {
   );
 }
 
-export default function Page() { return <Shell><Ready><Shindan /></Ready></Shell>; }
+export default function Page() { return <Shell><Ready><Suspense><Shindan /></Suspense></Ready></Shell>; }
