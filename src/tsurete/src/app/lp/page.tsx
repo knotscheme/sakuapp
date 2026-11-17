@@ -32,16 +32,16 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
   return <div ref={ref} style={{ transitionDelay: `${delay}ms` }} className={`transition duration-[900ms] ease-[cubic-bezier(.2,.7,.2,1)] ${on ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"} ${className}`}>{children}</div>;
 }
 // 数字が数えあがる
-function Count({ to, suffix = "", from = 0 }: { to: number; suffix?: string; from?: number }) {
+function Count({ to, suffix = "", from = 0, dec = 0 }: { to: number; suffix?: string; from?: number; dec?: number }) {
   const [ref, on] = useInView<HTMLSpanElement>();
   const [v, setV] = useState(from);
   useEffect(() => {
     if (!on) return;
     let raf = 0; const t0 = performance.now();
-    const step = (t: number) => { const k = Math.min(1, (t - t0) / 1400); setV(Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)))); if (k < 1) raf = requestAnimationFrame(step); };
+    const step = (t: number) => { const k = Math.min(1, (t - t0) / 1400); const x = from + (to - from) * (1 - Math.pow(1 - k, 3)); setV(Math.round(x * 10 ** dec) / 10 ** dec); if (k < 1) raf = requestAnimationFrame(step); };
     raf = requestAnimationFrame(step); return () => cancelAnimationFrame(raf);
-  }, [on, to, from]);
-  return <span ref={ref} className="num">{v.toLocaleString("ja-JP")}{suffix}</span>;
+  }, [on, to, from, dec]);
+  return <span ref={ref} className="num">{v.toLocaleString("ja-JP", { minimumFractionDigits: dec, maximumFractionDigits: dec })}{suffix}</span>;
 }
 
 // ---------- ヒーローのスマホ：AIの答えが「直す前 → 直した後」で入れかわる ----------
@@ -555,6 +555,13 @@ function Faq() {
 
 const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","ぜんぶ自動","しくみ","お店の1週間","使う前と後","対応サイト","小さなお店へ","ほかとのちがい","安心","料金","はじめ方","よくある質問","無料診断"];
 
+// LPに出す数字（各社の公開調査。数字を変えるときは、出典も必ず一緒に直す）
+const STATS = [
+  { v: 24.6, dec: 1, s: "%", l: "日本で、買い物に生成AIを使う人", src: "博報堂の調査（2026年）", href: "https://www.itmedia.co.jp/aiplus/article/2606/02/2000000046/" },
+  { v: 41.5, dec: 1, s: "%", l: "アメリカで、商品を調べるのにAIを使った人（直近3か月）", src: "Product.aiの調査（2026年10月）", href: "https://product.ai/research/trust-in-ai-commerce-report/" },
+  { v: 1.5, dec: 1, s: "倍", l: "AIから来たお客様の、買う割合（AI以外から来た人とくらべて）", src: "Adobeの調査（アメリカ、2026年5月）", href: "https://business.adobe.com/resources/sdk/.q3-ai-traffic-trends-report/q3-2026-ai-sourced-traffic-insights.pdf" },
+];
+
 export default function Page() {
   const router = useRouter();
   const [url, setUrl] = useState(SAMPLE_URL);
@@ -590,6 +597,17 @@ export default function Page() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={`${IMG}/ask-ai.webp?v=3`} alt="ソファでスマホのAIに相談している人" width={1264} height={848} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
           </Reveal>
+          {/* 数字で見る：AIで買い物をする人（各社の調査） */}
+          <div className="mx-auto mt-16 grid max-w-[56rem] gap-10 text-center sm:mt-24 sm:grid-cols-3 sm:gap-6">
+            {STATS.map((x, i) => (
+              <Reveal key={x.l} delay={i * 100}>
+                <p className="text-[3rem] font-bold leading-none tracking-[-.02em] sm:text-[3.4rem]"><Count to={x.v} dec={x.dec} /><span className="ml-1 text-[1.2rem] font-semibold">{x.s}</span></p>
+                <p className="mx-auto mt-3 max-w-[16em] text-[0.92rem] leading-[1.7] text-[#1d1d1f]"><J>{x.l}</J></p>
+                <p className="mt-1.5 text-[0.75rem] text-[#86868b]"><a href={x.href} target="_blank" rel="noopener noreferrer" className="underline decoration-black/20 underline-offset-4 hover:text-[#1d1d1f]">{x.src}</a></p>
+              </Reveal>
+            ))}
+          </div>
+          <p className="mx-auto mt-10 max-w-[40em] text-center text-[0.72rem] leading-[1.8] text-[#86868b]"><J>各社の公開調査より。調査ごとに、対象や聞き方が異なります。</J></p>
         </section>
 
         <Pain />
