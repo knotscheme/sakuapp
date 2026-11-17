@@ -112,7 +112,7 @@ function ByUrl({ initial }: { initial?: string }) {
       else if (paste.trim()) text = paste;
       else {
         try { const r = await fetch(u, { mode: "cors" }); if (!r.ok) throw 0; html = await r.text(); }
-        catch { if (aiReady()) { try { text = await aiReadUrl(u); } catch (e) { setNeedPaste(true); throw e; } } else { setNeedPaste(true); throw new Error("このお店のページは、ブラウザから直接読み取れませんでした。下の欄に、商品ページの文章を貼りつけてください。"); } }
+        catch { if (aiReady()) { try { text = await aiReadUrl(u); } catch (e) { setNeedPaste(true); throw e; } } else { setNeedPaste(true); throw new Error("デモ版では、ほかのお店のページを直接読み取れません（ブラウザの安全のための決まりです）。下の欄に、商品ページの文章を貼りつけてください。本番では、URLを入れるだけで読み取れるようにします。"); } }
       }
       const title = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] ?? "").replace(/<[^>]+>/g, "").trim() || text.split("\n")[0]?.slice(0, 60) || "商品";
       const body = html ? strip(html.replace(/<h1[\s\S]*?<\/h1>/i, "")) : text;
