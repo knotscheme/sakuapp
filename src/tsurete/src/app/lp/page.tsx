@@ -14,25 +14,25 @@ const IMG = "/sakuapp/works/tsurete/img/lp";
 // ---------- 動きのための小さな道具 ----------
 const reduced = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// 要素が画面のどこにあるか（0：画面の下から入りはじめ → 1：画面の上から出きる）
-function useProgress<T extends HTMLElement>(mode: "pass" | "sticky" = "pass") {
+// 張りつく場面の「段階」だけを知らせる（スクロールのたびに画面を作り直さない）
+function useStage<T extends HTMLElement>(cuts: number[]) {
   const ref = useRef<T>(null);
-  const [p, setP] = useState(0);
+  const [stage, setStage] = useState(0);
   useEffect(() => {
-    if (reduced()) { setP(mode === "sticky" ? 1 : 0.5); return; }
-    let raf = 0;
+    if (reduced()) { setStage(cuts.length); return; }
+    let raf = 0, last = -1;
     const tick = () => {
       raf = 0; const el = ref.current; if (!el) return;
-      const r = el.getBoundingClientRect(), vh = window.innerHeight;
-      const stick = (el.firstElementChild as HTMLElement | null)?.offsetHeight ?? vh;
-      const v = mode === "sticky" ? -r.top / Math.max(1, r.height - stick) : (vh - r.top) / (vh + r.height);
-      setP(Math.min(1, Math.max(0, v)));
+      const r = el.getBoundingClientRect(), stick = (el.firstElementChild as HTMLElement | null)?.offsetHeight ?? window.innerHeight;
+      const v = -r.top / Math.max(1, r.height - stick);
+      const st = cuts.filter((c) => v >= c).length;
+      if (st !== last) { last = st; setStage(st); }
     };
     const on = () => { if (!raf) raf = requestAnimationFrame(tick); };
-    tick(); window.addEventListener("scroll", on, { passive: true }); window.addEventListener("resize", on);
-    return () => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); cancelAnimationFrame(raf); };
-  }, [mode]);
-  return [ref, p] as const;
+    tick(); window.addEventListener("scroll", on, { passive: true });
+    return () => { window.removeEventListener("scroll", on); cancelAnimationFrame(raf); };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return [ref, stage] as const;
 }
 // 一度だけ「画面に入った」を知らせる
 function useInView<T extends HTMLElement>() {
@@ -89,7 +89,6 @@ function ChatScreen({ after }: { after: boolean }) {
 }
 function Hero() {
   const [after, setAfter] = useState(false);
-  const [ref, p] = useProgress<HTMLDivElement>();
   const [ready, setReady] = useState(false);
   useEffect(() => { const t = setTimeout(() => setReady(true), 60); const id = setInterval(() => setAfter((a) => !a), 3600); return () => { clearTimeout(t); clearInterval(id); }; }, []);
   return (
@@ -103,7 +102,7 @@ function Hero() {
           <a href="#try" className="flex items-center text-[1.02rem] text-[#00a37a] hover:underline">無料で診断<ChevronRight size={18} /></a>
         </div>
       </div>
-      <div ref={ref} className={`relative mx-auto mt-16 w-[15.5rem] transition-opacity duration-[1400ms] sm:mt-20 sm:w-[18rem] ${ready ? "opacity-100" : "opacity-0"}`} style={{ transform: `translateY(${ready ? (0.5 - p) * 60 : 80}px)`, transition: "opacity 1.4s, transform .9s cubic-bezier(.2,.7,.2,1)" }}>
+      <div className={`relative mx-auto mt-16 w-[15.5rem] sm:mt-20 sm:w-[18rem] ${ready ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"}`} style={{ transition: "opacity 1.4s, transform 1.4s cubic-bezier(.2,.7,.2,1)" }}>
         <Phone><ChatScreen after={after} /></Phone>
         <div className="mt-6 flex justify-center gap-3 sm:contents">
           <div className={`whitespace-nowrap rounded-2xl px-4 py-3 text-left shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] transition duration-500 sm:absolute sm:-left-44 sm:top-48 ${after ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-black/5"}`}>
@@ -136,8 +135,10 @@ const SEARCH = [
 ];
 const PICKS = [{ b: "しずく舎　やさしい化粧水", w: "敏感肌向けと明記されている" }, { b: "Lunae　バリアローション", w: "皮膚科医と共同開発" }, { b: "NORMA BASIC　化粧水", w: "口コミが多く、手ごろ" }];
 function TenToThree() {
-  const [ref, p] = useProgress<HTMLElement>("sticky");
-  const stage = p < 0.3 ? 0 : p < 0.65 ? 1 : 2;
+  // 0：まだ手前、1：検索なら10件、2：AIなら3つ、3：ないのと同じ
+  const [ref, st] = useStage<HTMLElement>([0.02, 0.3, 0.65]);
+  const stage = Math.max(0, st - 1);
+  const flow = st >= 1; // 場面に入ったら、検索結果を自動で流す
   // 検索結果は、スクロールに合わせて下へ流れ、最後に10位（自分の商品）が見える
   const box = useRef<HTMLDivElement>(null), list = useRef<HTMLOListElement>(null);
   const [over, setOver] = useState(0);
@@ -146,7 +147,6 @@ function TenToThree() {
     const m = () => { if (window.innerWidth === w) return; w = window.innerWidth; if (box.current && list.current) setOver(Math.max(0, list.current.scrollHeight - box.current.clientHeight)); };
     m(); window.addEventListener("resize", m); return () => window.removeEventListener("resize", m);
   }, []);
-  const k0 = Math.min(1, Math.max(0, (p - 0.04) / 0.2));
   const lines = ["検索なら、10件。", "AIなら、3つ。", "3つに入らなければ、ないのと同じ。"];
   return (
     <section ref={ref} className="relative h-[300vh] bg-black text-white" aria-label="検索とAIの違い">
@@ -170,7 +170,7 @@ function TenToThree() {
 
           <div ref={box} className="overflow-hidden transition-[height] duration-700 [--serp-h:19rem] sm:[--serp-h:25rem]" style={{ height: stage === 0 ? "var(--serp-h)" : undefined }}>
           {stage >= 1 && <p className="fade-in px-4 pt-3 text-[0.86rem] leading-[1.8] text-[#0d0d0d]">敏感肌でも使える3,000円台の化粧水なら、次の3つがおすすめです。</p>}
-          <ol ref={list} className="px-4 py-3 will-change-transform" style={{ transform: stage === 0 ? `translate3d(0,-${Math.round(over * k0)}px,0)` : "none" }} aria-hidden>
+          <ol ref={list} className="px-4 py-3" style={{ transform: stage === 0 && flow ? `translate3d(0,-${over}px,0)` : "translate3d(0,0,0)", transition: stage === 0 ? "transform 2.6s cubic-bezier(.45,0,.25,1) .5s" : "none" }} aria-hidden>
             {SEARCH.map((r, i) => {
               const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
               return (
@@ -218,8 +218,8 @@ function TenToThree() {
 
 // ---------- ノートパソコンが大きくなり、iPhoneが横から入る ----------
 function Showcase() {
-  const [ref, p] = useProgress<HTMLDivElement>();
-  const k = Math.min(1, Math.max(0, (p - 0.1) / 0.4)); // 0 → 1
+  const [ref, on] = useInView<HTMLDivElement>();
+  const k = on ? 1 : 0;
   return (
     <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
       <Reveal className="text-center">
@@ -227,8 +227,8 @@ function Showcase() {
         <p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>開いたら、数字とやることだけ。パソコンでも、スマホでも。</J></p>
       </Reveal>
       <div ref={ref} className="relative mx-auto mt-16 max-w-[60rem] pr-[10%] sm:mt-24 sm:pr-[12%]">
-        <div style={{ transform: `scale(${0.86 + 0.14 * k})`, transformOrigin: "50% 100%" }}><Laptop silver src={`${IMG}/dash-pc.webp?v=3`} alt="パソコンで見たTSURETEのホーム画面" /></div>
-        <div className="absolute bottom-[-2%] right-0 w-[22%]" style={{ transform: `translateX(${(1 - k) * 60}%)`, opacity: 0.2 + 0.8 * k }}><Phone src={`${IMG}/dash-phone.webp?v=3`} alt="スマホで見たTSURETEのホーム画面" /></div>
+        <div style={{ transform: `scale(${0.86 + 0.14 * k})`, transformOrigin: "50% 100%", transition: "transform 1.6s cubic-bezier(.2,.7,.2,1)" }}><Laptop silver src={`${IMG}/dash-pc.webp?v=3`} alt="パソコンで見たTSURETEのホーム画面" /></div>
+        <div className="absolute bottom-[-2%] right-0 w-[22%]" style={{ transform: `translateX(${(1 - k) * 60}%)`, opacity: k, transition: "transform 1.4s cubic-bezier(.2,.7,.2,1) .35s, opacity 1s .35s" }}><Phone src={`${IMG}/dash-phone.webp?v=3`} alt="スマホで見たTSURETEのホーム画面" /></div>
       </div>
     </section>
   );
