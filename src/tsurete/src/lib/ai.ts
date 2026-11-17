@@ -69,6 +69,6 @@ async function call(prompt: string, image?: { b64: string; mime: string }, json 
 }
 
 // 自分の店が、AIのおすすめに出てくるかを本当に聞いてみる
-export async function askRecommend(area: string, kind: string) {
-  return call(`${area}で、おすすめの${kind}を3つ教えてください。お店の名前と、おすすめの理由を1行ずつ、短く答えてください。`);
+export async function askProduct(question: string) {
+  return call(`${question}\nおすすめの商品を3つ選んでください。ブランド名・商品名・おすすめの理由を、1つにつき1行で短く答えてください。`);
 }

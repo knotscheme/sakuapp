@@ -9,8 +9,8 @@ const jbm = JetBrains_Mono({ subsets: ["latin"], weight: ["500", "700"], variabl
 const outfit = Outfit({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-outfit", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "TSURETE｜AIが、お客様をつれてくる（デモ版）",
-  description: "AIに選ばれ、AIに予約され、空きは街ぐるみで埋まる。地域のお店のための、AI時代の集客ツール。※デモ版です。",
+  title: "TSURETE｜AIに聞かれたら、うちの商品が出てくる（デモ版）",
+  description: "ChatGPTなどのAIに商品を聞かれたとき、自分の商品がすすめられ、そのまま買われるようにする、ネットショップのためのAI集客ツール。※デモ版です。",
   robots: { index: false },
 };
 export const viewport: Viewport = { themeColor: "#060b18", viewportFit: "cover" };

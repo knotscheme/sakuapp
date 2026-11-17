@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookOpen, Bot, CalendarClock, LayoutDashboard, Menu, Network, Settings, Sparkles, X } from "lucide-react";
+import { BookOpen, LayoutDashboard, Menu, MessageSquare, ScanSearch, Settings, TrendingUp, Wrench, X } from "lucide-react";
 
 export const NAV = [
   { href: "/", label: "概要", icon: LayoutDashboard, n: "" },
-  { href: "/erabareru/", label: "AIに選ばれる", icon: Sparkles, n: "1" },
-  { href: "/yoyaku/", label: "AIが予約できる", icon: Bot, n: "2" },
-  { href: "/akiwaku/", label: "空きを自動で埋める", icon: CalendarClock, n: "3" },
-  { href: "/machi/", label: "街ぐるみで送り合う", icon: Network, n: "4" },
+  { href: "/ai/", label: "お客様のAI画面", icon: MessageSquare, n: "1" },
+  { href: "/tana/", label: "棚チェック", icon: ScanSearch, n: "2" },
+  { href: "/naosu/", label: "直す", icon: Wrench, n: "3" },
+  { href: "/uriage/", label: "売れたか", icon: TrendingUp, n: "4" },
   { href: "/settings/", label: "設定", icon: Settings, n: "" },
   { href: "/guide/", label: "使い方ガイド", icon: BookOpen, n: "" },
 ];
@@ -44,7 +44,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       <aside className="glow sticky top-0 hidden h-screen w-[272px] shrink-0 flex-col p-5 lg:flex">
         <Logo light />
         <nav aria-label="メニュー" className="mt-8 flex-1">{items}</nav>
-        <p className="text-[0.75rem] leading-[1.8] text-white/45">架空の整体院「ほぐし処 そよかぜ」で動くデモです。数字は模擬の結果です。</p>
+        <p className="text-[0.75rem] leading-[1.8] text-white/45">架空のスキンケアブランド「SORAE」で動くデモです。数字は模擬の結果です。</p>
       </aside>
       <header className="glow sticky top-0 z-40 flex h-14 items-center justify-between px-4 lg:hidden">
         <Logo light />

@@ -15,14 +15,15 @@ function Settings() {
   const real = (p: Partial<typeof s.real>) => update((x) => ({ ...x, real: { ...x.real, ...p } }));
   return (
     <>
-      <Title title="設定" lead="自分のお店で「AIのおすすめに出るか」を本当に試すための情報と、AIのキーを入れます。" />
+      <Title title="設定" lead="自分のブランドで本当に試すための情報と、AIのキーを入れます。" />
       <section className="card p-5 sm:p-6" aria-labelledby="sh">
-        <h2 id="sh" className="text-[1.1rem] font-bold">自分のお店</h2>
+        <h2 id="sh" className="text-[1.1rem] font-bold">自分のブランド</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          <label className="text-[0.9rem] font-bold">お店の名前<input value={s.real.name} onChange={(e) => real({ name: e.target.value })} placeholder="例）○○整体院" className="field mt-1" /></label>
-          <label className="text-[0.9rem] font-bold">地域・駅<input value={s.real.area} onChange={(e) => real({ area: e.target.value })} placeholder="例）吉祥寺駅" className="field mt-1" /></label>
-          <label className="text-[0.9rem] font-bold">業種<input value={s.real.kind} onChange={(e) => real({ kind: e.target.value })} placeholder="例）整体院" className="field mt-1" /></label>
+          <label className="text-[0.9rem] font-bold">ブランド名<input value={s.real.brand} onChange={(e) => real({ brand: e.target.value })} placeholder="例）SORAE" className="field mt-1" /></label>
+          <label className="text-[0.9rem] font-bold">商品の種類<input value={s.real.item} onChange={(e) => real({ item: e.target.value })} placeholder="例）敏感肌向けの化粧水" className="field mt-1" /></label>
+          <label className="text-[0.9rem] font-bold">ジャンル<input value={s.real.kind} onChange={(e) => real({ kind: e.target.value })} placeholder="例）スキンケア" className="field mt-1" /></label>
         </div>
+        <p className="mt-2 text-[0.82rem] text-sub">入れると「棚チェック」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</p>
       </section>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">
         <h2 id="ak" className="text-[1.1rem] font-bold">AIのキー</h2>
@@ -38,7 +39,7 @@ function Settings() {
       </section>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="dm">
         <h2 id="dm" className="text-[1.1rem] font-bold">デモ</h2>
-        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "入れた改善・予約・呼びかけ・提携の状態が消えます。", ok: "戻す", danger: true })) { resetDemo(); toast("最初の状態に戻しました"); } }} className="btn btn-line mt-3"><RotateCcw size={18} />最初の状態に戻す</button>
+        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "反映した「直す」と、デモの注文が消えます。", ok: "戻す", danger: true })) { resetDemo(); toast("最初の状態に戻しました"); } }} className="btn btn-line mt-3"><RotateCcw size={18} />最初の状態に戻す</button>
       </section>
     </>
   );

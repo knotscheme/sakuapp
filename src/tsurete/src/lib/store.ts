@@ -3,25 +3,15 @@
 // デモの状態は、このブラウザの中だけに保存する
 import { useSyncExternalStore } from "react";
 
-export type Booking = { id: string; day: string; hour: number; menu: string; who: string; via: string; at: string };
+export type Order = { id: string; product: string; ai: string; price: number; at: string };
 export type State = {
-  v: 1;
-  applied: string[]; // ①で入れた改善
-  history: { week: string; share: number }[]; // AI推薦シェアの記録
-  windowOn: boolean; // ②AI窓口を公開しているか
-  bookings: Booking[]; // ②AIからの予約
-  autoMode: "auto" | "approve"; // ③空き枠の呼びかけ：自動か、承認してからか
-  campaigns: Record<string, "pending" | "sent" | "skip">; // ③呼びかけの状態（キー：日付-時）
-  partners: Record<string, "on" | "ask" | "suggest" | "no">; // ④提携の状態
-  real: { name: string; area: string; kind: string }; // 自分の店で本当に試すとき
+  v: 2;
+  applied: string[]; // 「直す」で反映したもの
+  orders: Order[]; // デモの中で、AIの画面から買われた注文
+  real: { brand: string; item: string; kind: string }; // 自分の商品で本当に試すとき
 };
-const KEY = "tsr-state-v1";
-export const SEED: State = {
-  v: 1, applied: [],
-  history: [{ week: "10/14", share: 19 }, { week: "10/21", share: 17 }, { week: "10/28", share: 20 }, { week: "11/4", share: 19 }, { week: "11/11", share: 18 }],
-  windowOn: false, bookings: [], autoMode: "approve", campaigns: {}, partners: {},
-  real: { name: "", area: "", kind: "" },
-};
+const KEY = "tsr-state-v2";
+export const SEED: State = { v: 2, applied: [], orders: [], real: { brand: "", item: "", kind: "" } };
 let st: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {
