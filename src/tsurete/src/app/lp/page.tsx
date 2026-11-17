@@ -225,25 +225,78 @@ function Showcase() {
         <p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>開いたら、数字とやることだけ。パソコンでも、スマホでも。</J></p>
       </Reveal>
       <div ref={ref} className="relative mx-auto mt-16 max-w-[60rem] pr-[10%] sm:mt-24 sm:pr-[12%]">
-        <div style={{ transform: `scale(${0.86 + 0.14 * k})`, transformOrigin: "50% 100%" }}><Laptop silver src={`${IMG}/dash-pc.webp`} alt="パソコンで見たTSURETEのホーム画面" /></div>
-        <div className="absolute bottom-[-2%] right-0 w-[22%]" style={{ transform: `translateX(${(1 - k) * 60}%)`, opacity: 0.2 + 0.8 * k }}><Phone src={`${IMG}/dash-phone.webp`} alt="スマホで見たTSURETEのホーム画面" /></div>
+        <div style={{ transform: `scale(${0.86 + 0.14 * k})`, transformOrigin: "50% 100%" }}><Laptop silver src={`${IMG}/dash-pc.webp?v=3`} alt="パソコンで見たTSURETEのホーム画面" /></div>
+        <div className="absolute bottom-[-2%] right-0 w-[22%]" style={{ transform: `translateX(${(1 - k) * 60}%)`, opacity: 0.2 + 0.8 * k }}><Phone src={`${IMG}/dash-phone.webp?v=3`} alt="スマホで見たTSURETEのホーム画面" /></div>
       </div>
     </section>
   );
 }
 
-function Shot({ src, alt, w, h }: { src: string; alt: string; w: number; h: number }) {
+// しくみの3つの見本（写真ではなく部品で描くので、スマホでも欠けない）
+function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-[22px] bg-[#0b1426] shadow-[0_30px_60px_-30px_rgba(0,0,0,.35)] ring-1 ring-black/5">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`${IMG}/${src}`} alt={alt} width={w} height={h} loading="lazy" className="block h-auto w-full" />
+    <div className="rounded-[28px] bg-white p-6 shadow-[0_30px_60px_-36px_rgba(0,0,0,.28)] ring-1 ring-black/[.04] sm:p-8">
+      <p className="text-[0.95rem] font-semibold">{title}</p>
+      <div className="mt-5">{children}</div>
     </div>
   );
 }
+function RankVisual() {
+  const [ref, on] = useInView<HTMLDivElement>();
+  const rows = [["NORMA BASIC", 71], ["しずく舎", 70], ["Lunae", 68], ["あおば研究所", 51], ["SORAE", 10]] as const;
+  return (
+    <div ref={ref}><Card title="AIの売り場での順位">
+      <ul className="space-y-3.5">
+        {rows.map(([n, v], i) => { const me = n === "SORAE"; return (
+          <li key={n} className="grid grid-cols-[1.2rem_6.8rem_1fr_2.6rem] items-center gap-3 text-[0.9rem]">
+            <span className={`num ${me ? "text-[#00a37a]" : "text-[#86868b]"}`}>{i + 1}</span>
+            <b className={`truncate font-semibold ${me ? "text-[#00a37a]" : ""}`}>{n}</b>
+            <span className="h-2 overflow-hidden rounded-full bg-[#ececf0]"><span className={`block h-full rounded-full transition-[width] duration-[1200ms] ease-out ${me ? "bg-[#00a37a]" : "bg-[#c7c7cc]"}`} style={{ width: on ? `${v}%` : 0, transitionDelay: `${i * 90}ms` }} /></span>
+            <span className={`num text-right ${me ? "font-semibold text-[#00a37a]" : "text-[#6e6e73]"}`}>{v}%</span>
+          </li>); })}
+      </ul>
+      <p className="mt-6 rounded-2xl bg-[#f5f5f7] px-4 py-3 text-[0.84rem] leading-[1.7] text-[#424245]">いまは <b className="text-[#1d1d1f]">5位</b>。1位の店には、「だれ向けか」「よくある質問」が書かれています。</p>
+    </Card></div>
+  );
+}
+function FixVisual() {
+  const [used, setUsed] = useState(false);
+  return (
+    <Card title="商品ページの書き直し案">
+      <div className="flex gap-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/sakuapp/works/tsurete/img/products/lotion.webp?v=3" alt="" width={72} height={72} className="h-[4.5rem] w-[4.5rem] shrink-0 rounded-2xl object-cover" />
+        <div className="min-w-0"><b className="block text-[0.95rem]">SORAE 化粧水 しっとり</b><p className="mt-1 text-[0.82rem] leading-[1.7] text-[#86868b] line-through decoration-[#c7c7cc]">空のように澄んだ肌へ。毎日のうるおいに寄りそう、SORAEの化粧水。</p></div>
+      </div>
+      <div className={`mt-5 rounded-2xl p-4 transition-colors duration-500 ${used ? "bg-[#e3f6ef]" : "border border-dashed border-[#00a37a]/50"}`}>
+        <p className="text-[0.75rem] font-semibold text-[#00a37a]">{used ? "書きかえました" : "AIの書き直し案"}</p>
+        <p className="mt-1.5 text-[0.9rem] leading-[1.8]"><J>敏感肌・乾燥肌の方のために作った化粧水です。香料・アルコールは入っていません。</J></p>
+      </div>
+      <button type="button" onClick={() => setUsed(!used)} className={`mt-4 rounded-full px-5 py-2 text-[0.86rem] font-semibold transition-colors ${used ? "bg-[#f5f5f7] text-[#424245]" : "bg-[#1d1d1f] text-white"}`}>{used ? "もとに戻す" : "この案を使う"}</button>
+    </Card>
+  );
+}
+function SalesVisual() {
+  const [ref, on] = useInView<HTMLDivElement>();
+  const w = [2, 1, 3, 2, 2, 3, 2, 3, 6], lab = ["9/22", "", "10/6", "", "10/20", "", "11/3", "", "今週"];
+  return (
+    <div ref={ref}><Card title="AI経由の注文">
+      <p><b className="text-[2.2rem] font-bold leading-none">{on ? <Count to={64100} /> : 0}</b><span className="ml-1 text-[0.9rem] text-[#6e6e73]">円</span><span className="ml-2 text-[0.85rem] font-semibold text-[#00a37a]">直す前より増えた売上</span></p>
+      <div className="mt-6 flex h-32 items-end gap-2">
+        {w.map((v, i) => <div key={i} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
+          <span className={`w-full rounded-full transition-[height] duration-[1000ms] ease-out ${i === w.length - 1 ? "bg-[#00a37a]" : "bg-[#d9d9de]"}`} style={{ height: on ? `${(v / 6) * 100}%` : "4%", transitionDelay: `${i * 70}ms` }} />
+          <span className={`h-3 text-[0.62rem] ${i === w.length - 1 ? "font-semibold text-[#00a37a]" : "text-[#86868b]"}`}>{lab[i]}</span>
+        </div>)}
+      </div>
+    </Card></div>
+  );
+}
+const VISUALS = [RankVisual, FixVisual, SalesVisual];
+
 const STEPS = [
-  { n: "測る", h: "AIの中での順位を、毎週。", d: "お客様が聞きそうな質問を、TSURETEが毎週自動で、ChatGPTなど4つのAIに何百回も聞いて、すすめられた回数と順位を記録します。", img: ["rank.webp", 1000, 738] },
-  { n: "直す", h: "足りないものを、AIが書き直す。", d: "よくすすめられている店との差を、AIが商品ページの書き直し案にします。押すだけで、お店のサイトに合った方法で届けます。", img: ["naosu.webp", 1000, 965] },
-  { n: "売上", h: "効いたかどうかは、お金で。", d: "AIにすすめられて来たお客様と、その売上を数えます。直した効果を、はっきり確かめられます。", img: ["sales.webp", 1000, 572] },
+  { n: "測る", h: "AIの中での順位を、毎週。", d: "お客様が聞きそうな質問を、TSURETEが毎週自動で、ChatGPTなど4つのAIに何百回も聞いて、すすめられた回数と順位を記録します。", img: ["rank.webp?v=3", 1000, 738] },
+  { n: "直す", h: "足りないものを、AIが書き直す。", d: "よくすすめられている店との差を、AIが商品ページの書き直し案にします。押すだけで、お店のサイトに合った方法で届けます。", img: ["naosu.webp?v=3", 1000, 965] },
+  { n: "売上", h: "効いたかどうかは、お金で。", d: "AIにすすめられて来たお客様と、その売上を数えます。直した効果を、はっきり確かめられます。", img: ["sales.webp?v=3", 1000, 572] },
 ] as const;
 
 function Bars() {
@@ -306,7 +359,7 @@ export default function Page() {
           </Reveal>
           <Reveal className="mx-auto mt-14 max-w-[64rem]" delay={120}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/ask-ai.webp`} alt="ソファでスマホのAIに相談している人" width={1264} height={848} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
+            <img src={`${IMG}/ask-ai.webp?v=3`} alt="ソファでスマホのAIに相談している人" width={1264} height={848} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
           </Reveal>
         </section>
 
@@ -324,7 +377,7 @@ export default function Page() {
         </section>
 
         {/* しくみ */}
-        <section id="how" className="scroll-mt-12 bg-[#f5f5f7] px-5 py-24 sm:py-36">
+        <section id="how" className="scroll-mt-12 bg-[#f5f5f7] px-5 pb-20 pt-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">測る。直す。</span><span className="inline-block">売上で確かめる。</span></h2></Reveal>
           <div className="mx-auto mt-14 max-w-[62rem] space-y-20 sm:mt-20 sm:space-y-40">
             {STEPS.map((s, i) => (
@@ -334,7 +387,7 @@ export default function Page() {
                   <h3 className="lp-h mt-2 text-[1.8rem] sm:text-[2.4rem]"><J>{s.h}</J></h3>
                   <p className="mt-5 text-[1.02rem] leading-[1.95] text-[#6e6e73]"><J>{s.d}</J></p>
                 </Reveal>
-                <Reveal className={i % 2 ? "lg:order-1" : ""} delay={150}><Shot src={s.img[0]} alt={`「${s.n}」の画面`} w={s.img[1]} h={s.img[2]} /></Reveal>
+                <Reveal className={i % 2 ? "lg:order-1" : ""} delay={150}>{(() => { const V = VISUALS[i]; return <V />; })()}</Reveal>
               </div>
             ))}
           </div>
@@ -342,7 +395,7 @@ export default function Page() {
 
         {/* 書き直す前と後 */}
         <section className="px-5 py-24 sm:py-36">
-          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">書き直すと、こう変わる。</h2><div className="mt-6 flex items-center justify-center gap-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/sakuapp/works/tsurete/img/products/lotion.webp" alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover" /><p className="text-left text-[0.88rem] leading-[1.6] text-[#6e6e73]">見本：SORAE 化粧水<br />（架空のブランド・模擬の結果）</p></div></Reveal>
+          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">書き直すと、こう変わる。</h2><div className="mt-6 flex items-center justify-center gap-3">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/sakuapp/works/tsurete/img/products/lotion.webp?v=3" alt="" width={56} height={56} className="h-14 w-14 rounded-2xl object-cover" /><p className="text-left text-[0.88rem] leading-[1.6] text-[#6e6e73]">見本：SORAE 化粧水<br />（架空のブランド・模擬の結果）</p></div></Reveal>
           <div className="mx-auto mt-16 max-w-[60rem] rounded-[36px] bg-[#f5f5f7] p-3 sm:p-4"><Bars /></div>
         </section>
 
@@ -368,7 +421,7 @@ export default function Page() {
           <div className="mx-auto grid max-w-[64rem] items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
             <Reveal>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${IMG}/owner.webp`} alt="自宅の作業机でネットショップを運営している人" width={1376} height={768} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
+              <img src={`${IMG}/owner.webp?v=3`} alt="自宅の作業机でネットショップを運営している人" width={1376} height={768} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
             </Reveal>
             <Reveal delay={150}>
               <h2 className="lp-h text-[2rem] sm:text-[2.6rem] lg:text-[2.3rem]"><span className="inline-block">小さなネットショップの、</span><span className="inline-block">AI担当に。</span></h2>
