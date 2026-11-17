@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AlertTriangle, ArrowLeft, Check, Code2, Copy, Download, FileArchive, Globe, Loader2, ShoppingBag } from "lucide-react";
 import { toast } from "@/components/Confirm";
+import OrderCta from "@/components/OrderCta";
 import { buildZip, download, wpSnippet, zipName, type Format } from "@/lib/export";
 import { exportImages, useProject } from "@/lib/project";
 import { SAMPLES } from "@/lib/samples";
@@ -88,6 +89,7 @@ export default function StepDownload({ onBack }: { onBack: () => void }) {
         <button type="button" disabled={!!busy} onClick={() => go("all")} className="btn btn-accent px-6 py-3 text-[14px]">{busy === "all" ? <Loader2 size={15} className="spin" /> : <Download size={15} />}まとめてダウンロード</button>
       </section>
 
+      <div className="mt-10"><OrderCta from="download" /></div>
       <div className="mt-8"><button type="button" onClick={onBack} className="btn btn-line px-5 py-3 text-[14px]"><ArrowLeft size={16} />プレビューに戻る</button></div>
     </div>
   );

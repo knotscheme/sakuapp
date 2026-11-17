@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, FileUp, Loader2, RotateCcw } from "lucide-react";
 import Frame from "@/components/Frame";
+import OrderCta from "@/components/OrderCta";
 import { askConfirm, toast } from "@/components/Confirm";
 import { readZip } from "@/lib/export";
 import { importProject, newProject, useProject } from "@/lib/project";
@@ -85,6 +86,7 @@ export default function StepTemplate({ initial, onDone }: { initial: string | nu
         {p && p.tpl !== pick && <button type="button" disabled={busy} onClick={changeTpl} className="btn btn-line px-5 py-3 text-[14px]">いまのLPの型を変える</button>}
         <button type="button" disabled={busy} onClick={start} className="btn btn-accent px-7 py-3 text-[14px]">{busy ? <Loader2 size={16} className="spin" /> : null}{p ? "新しく作る" : "この型で作る"}<ArrowRight size={16} /></button>
       </div>
+      <div className="mt-12"><OrderCta from="build" /></div>
     </div>
   );
 }

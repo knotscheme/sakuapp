@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Maximize2, Monitor, Smartphone } from "lucide-react";
 import FullView from "@/components/FullView";
+import OrderCta from "@/components/OrderCta";
 import Header from "@/components/Header";
 import Frame from "@/components/Frame";
 import { askConfirm } from "@/components/Confirm";
@@ -83,6 +84,7 @@ function Works() {
               <Link href={`/build/?tpl=${t.id}`} className="btn btn-line mt-2 w-full py-3 text-[13.5px]">この型で、新しく作る</Link>
             </div>
             <p className="px-1 text-[12px] leading-[1.9] text-mute">見本から作ると、文章と写真がそのまま入った状態で始まります。写真と文章を自分のものに入れかえてください。</p>
+            <OrderCta variant="card" from="preview" />
           </aside>
         </div>
       </main>

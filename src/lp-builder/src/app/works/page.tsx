@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Eye, Monitor, Smartphone } from "lucide-react";
 import Header from "@/components/Header";
 import ShotPair from "@/components/ShotPair";
+import OrderCta from "@/components/OrderCta";
 import { SAMPLES } from "@/lib/samples";
 import { getTemplate } from "@/lib/templates";
 
@@ -39,6 +40,7 @@ export default function Works() {
             );
           })}
         </div>
+        <div className="mt-20"><OrderCta from="works" /></div>
       </main>
     </>
   );

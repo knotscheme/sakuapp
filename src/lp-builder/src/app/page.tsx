@@ -6,6 +6,7 @@ import { ArrowRight, Check, Download, Eye, ImagePlus, KeyRound, LayoutTemplate, 
 import Header from "@/components/Header";
 import Frame from "@/components/Frame";
 import ShotPair from "@/components/ShotPair";
+import OrderCta from "@/components/OrderCta";
 import { SAMPLES } from "@/lib/samples";
 import { sampleDoc } from "@/lib/sampleDoc";
 import { getTemplate } from "@/lib/templates";
@@ -114,8 +115,9 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="mx-auto max-w-[1280px] px-4 pt-16 sm:px-6"><OrderCta from="top" /></div>
         <section className="mx-auto max-w-[1280px] px-4 py-16 text-center sm:px-6">
-          <h2 className="text-[24px] font-bold sm:text-[28px]">さっそく、作ってみる</h2>
+          <h2 className="text-[24px] font-bold sm:text-[28px]">自分で、さっそく作ってみる</h2>
           <p className="mt-3 text-[14px] text-mute">見本の文章から始めるので、白紙で悩むことはありません。</p>
           <Link href="/build/" className="btn btn-accent mt-7 px-8 py-3.5 text-[15px]">LPを作りはじめる<ArrowRight size={17} /></Link>
         </section>
