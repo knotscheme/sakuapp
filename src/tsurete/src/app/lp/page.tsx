@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Bot, Check, Copy, FileSpreadsheet, Plug, Rss, Search, User, X } from "lucide-react";
 import { Logo } from "@/components/Shell";
 import J from "@/components/J";
+import { Laptop, Phone } from "@/components/Devices";
 import { SAMPLE_URL } from "@/lib/check";
 import { PLATFORMS, type Method } from "@/lib/platforms";
 
@@ -31,30 +32,32 @@ function HeroPhone() {
   useEffect(() => { const id = setInterval(() => setAfter((a) => !a), 3600); return () => clearInterval(id); }, []);
   const list = after ? AFTER : BEFORE;
   return (
-    <div className="relative mx-auto w-full max-w-[20rem]">
-      <div className="rounded-[2.6rem] bg-[#0d1830] p-2.5 shadow-[0_40px_80px_-30px_rgba(16,217,160,.35)] ring-1 ring-white/10">
-        <div className="overflow-hidden rounded-[2.1rem] bg-[#070d1c]">
-          <div className="flex items-center gap-2 border-b border-white/5 px-5 py-3.5 text-[0.75rem] text-sub"><Bot size={14} className="text-ai" />AIアシスタント</div>
-          <div className="space-y-3 p-4">
-            <p className="ml-auto w-fit max-w-[90%] rounded-2xl rounded-br-md bg-white/10 px-3.5 py-2 text-[0.82rem] leading-[1.7]">敏感肌でも使える、3,000円台の化粧水は？</p>
-            <p className="text-[0.78rem] text-sub">おすすめを3つ選びました。</p>
-            <ol key={String(after)} className="fade-in space-y-2">
+    <div className="relative mx-auto w-[15.5rem] sm:w-[17.5rem]">
+      <Phone>
+        {/* iPhoneの実際の大きさ（幅390px）で作った、AIアシスタントの画面 */}
+        <div className="flex h-full flex-col bg-[#070d1c] text-ink">
+          <div className="flex items-center justify-center gap-2 border-b border-white/5 py-3 text-[15px] font-bold"><Bot size={18} className="text-ai" />AIアシスタント</div>
+          <div className="flex-1 space-y-4 px-4 pt-5">
+            <p className="ml-auto w-fit max-w-[80%] rounded-[20px] rounded-br-md bg-[#1f6feb] px-4 py-2.5 text-[16px] leading-[1.55] text-white">敏感肌でも使える、3,000円台の化粧水は？</p>
+            <p className="text-[15px] text-sub">おすすめを3つ選びました。</p>
+            <ol key={String(after)} className="fade-in space-y-2.5">
               {list.map((x, i) => (
-                <li key={x.b} className={`flex gap-2.5 rounded-xl p-2.5 ${"me" in x ? "bg-ai/15 ring-1 ring-ai" : "bg-white/[.04]"}`}>
-                  <span className={`num grid h-5 w-5 shrink-0 place-items-center rounded-full text-[0.65rem] ${"me" in x ? "bg-ai text-[#03140f]" : "bg-white/10"}`}>{i + 1}</span>
-                  <span className="min-w-0"><b className={`block text-[0.8rem] ${"me" in x ? "text-lime" : ""}`}>{x.b}　{x.i}</b><span className="block text-[0.68rem] leading-[1.6] text-sub">{x.w}</span></span>
+                <li key={x.b} className={`flex gap-3 rounded-2xl p-3.5 ${"me" in x ? "bg-ai/15 ring-1 ring-ai" : "bg-white/[.05]"}`}>
+                  <span className={`num grid h-6 w-6 shrink-0 place-items-center rounded-full text-[12px] ${"me" in x ? "bg-ai text-[#03140f]" : "bg-white/10"}`}>{i + 1}</span>
+                  <span className="min-w-0"><b className={`block text-[15px] leading-[1.5] ${"me" in x ? "text-lime" : ""}`}>{x.b}　{x.i}</b><span className="mt-0.5 block text-[13px] leading-[1.6] text-sub">{x.w}</span></span>
                 </li>
               ))}
             </ol>
           </div>
+          <div className="mx-4 mb-9 mt-4 flex items-center rounded-full bg-white/[.06] px-4 py-3 text-[15px] text-sub/70">メッセージを入力</div>
         </div>
-      </div>
-      <div className="mt-5 flex justify-center gap-3 sm:contents">
-      <div className={`rounded-2xl px-3.5 py-2.5 shadow-xl ring-1 transition sm:absolute sm:-left-16 sm:top-24 ${after ? "bg-ai text-[#03140f] ring-ai" : "bg-panel text-ink ring-white/10"}`}>
+      </Phone>
+      <div className="mt-6 flex justify-center gap-3 sm:contents">
+      <div className={`rounded-2xl px-3.5 py-2.5 shadow-xl ring-1 transition whitespace-nowrap sm:absolute sm:-left-36 sm:top-44 ${after ? "bg-ai text-[#03140f] ring-ai" : "bg-panel text-ink ring-white/10"}`}>
         <p className="text-[0.62rem] font-bold opacity-70">{after ? "TSURETEで直した後" : "直す前"}</p>
         <p className="num text-[1.3rem] font-bold leading-tight">{after ? "1位" : "圏外"}</p>
       </div>
-      <div className="rounded-2xl bg-panel px-3.5 py-2.5 shadow-xl ring-1 ring-white/10 sm:absolute sm:-right-14 sm:bottom-10">
+      <div className="whitespace-nowrap rounded-2xl bg-panel px-3.5 py-2.5 shadow-xl ring-1 ring-white/10 sm:absolute sm:-right-28 sm:bottom-28">
         <p className="text-[0.62rem] text-sub">AIにすすめられた割合</p>
         <p className="num text-[1.15rem] font-bold">10% <span className="text-sub">→</span> <span className="text-ai">70%</span></p>
       </div>
@@ -132,12 +135,13 @@ export default function Page() {
         {/* 画面 */}
         <section className="mx-auto max-w-[1120px] px-5 py-24 sm:px-8 sm:py-32">
           <Reveal><h2 className="text-center text-[1.5rem] font-bold tracking-[.05em] sm:text-[2rem]">ひと目で、今週の状況がわかる</h2><p className="mt-4 text-center text-[0.92rem] text-sub"><J>開いたら、数字とやることだけ。</J></p></Reveal>
-          <Reveal className="relative mx-auto mt-16 max-w-[58rem] pb-10 sm:pb-0" delay={100}>
-            <Frame src="dash.webp" alt="TSURETEのホーム画面" w={1400} h={972} />
-            <div className="absolute -bottom-2 right-2 w-[34%] max-w-[12rem] overflow-hidden rounded-[1.6rem] bg-[#0d1830] p-1.5 shadow-2xl ring-1 ring-white/10 sm:-bottom-10 sm:-right-8">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${IMG}/dash-sp.webp`} alt="スマホで見たホーム画面" width={585} height={996} loading="lazy" className="block h-auto w-full rounded-[1.25rem]" />
+          <Reveal className="mx-auto mt-16 max-w-[60rem]" delay={100}>
+            {/* 13インチのノートパソコンとiPhoneを、実物と同じ大きさの比率で並べる（スマホの幅＝画面の幅の約4分の1） */}
+            <div className="relative pr-[10%] sm:pr-[12%]">
+              <Laptop src={`${IMG}/dash-pc.webp`} alt="パソコンで見たTSURETEのホーム画面" />
+              <div className="absolute bottom-[-2%] right-0 w-[22%]"><Phone src={`${IMG}/dash-phone.webp`} alt="スマホで見たTSURETEのホーム画面" /></div>
             </div>
+            <p className="mt-10 text-center text-[0.8rem] text-sub">パソコンでもスマホでも、同じように使えます。</p>
           </Reveal>
         </section>
 
