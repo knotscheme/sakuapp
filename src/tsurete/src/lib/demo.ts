@@ -175,3 +175,23 @@ export const PAGES: Record<string, PageText> = {
     faq: ["", "Q. 石けんで落とせますか？\nA. はい、ふだんの洗顔料や石けんで落とせます。\nQ. 子どもにも使えますか？\nA. 1歳ごろから使えます。\nQ. 白くなりませんか？\nA. 透明なジェルなので、白くなりにくいです。"],
   },
 };
+
+// 毎週の測定の記録（今週は、いまの状態から計算する）
+export const WEEKS = [{ w: "9/29", p: 9 }, { w: "10/6", p: 11 }, { w: "10/13", p: 10 }, { w: "10/20", p: 9 }, { w: "10/27", p: 11 }, { w: "11/3", p: 10 }, { w: "11/10", p: 10 }];
+
+// よくすすめられているブランドのページに、何が書かれているか（測定のとき、AIが参考にしたページを読んで調べた想定）
+export const RIVAL_HAS: Record<string, Sig[]> = {
+  "しずく舎": ["target", "ingredient", "faq", "review", "data"],
+  "NORMA BASIC": ["spec", "review", "data", "faq"],
+  "Lunae": ["target", "media", "review", "data"],
+};
+
+// 質問ごとに、いちばんよくすすめられたブランド
+export function winners(applied: string[]) {
+  return QUESTIONS.map((q) => {
+    const c: Record<string, number> = {};
+    for (const a of AIS) for (let t = 0; t < TRIES; t++) for (const x of answer(q, a, applied, t)) c[x.brand] = (c[x.brand] ?? 0) + 1;
+    const top = Object.entries(c).sort((a, b) => b[1] - a[1])[0];
+    return { q, top: top[0], me: c[BRAND.name] ?? 0, max: AIS.length * TRIES };
+  });
+}

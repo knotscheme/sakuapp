@@ -7,6 +7,7 @@ import Ready from "@/components/Ready";
 import { askConfirm, toast } from "@/components/Confirm";
 import { MODELS, PNAME, saveAi, useAi, type Provider } from "@/lib/ai";
 import { resetDemo, update, useStore } from "@/lib/store";
+import { SiteGrid } from "@/components/SitePicker";
 
 function Settings() {
   const s = useStore();
@@ -23,7 +24,12 @@ function Settings() {
           <label className="text-[0.9rem] font-bold">商品の種類<input value={s.real.item} onChange={(e) => real({ item: e.target.value })} placeholder="例）敏感肌向けの化粧水" className="field mt-1" /></label>
           <label className="text-[0.9rem] font-bold">ジャンル<input value={s.real.kind} onChange={(e) => real({ kind: e.target.value })} placeholder="例）スキンケア" className="field mt-1" /></label>
         </div>
-        <p className="mt-2 text-[0.82rem] text-sub">入れると「効果」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</p>
+        <p className="mt-2 text-[0.82rem] text-sub">入れると「測る」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</p>
+      </section>
+      <section className="card mt-5 p-5 sm:p-6" aria-labelledby="site">
+        <h2 id="site" className="text-[1.1rem] font-bold">お店のサイト</h2>
+        <p className="mt-1 text-[0.85rem] text-sub">選んだサイトに合わせて、「直す」の届け方が変わります。</p>
+        <div className="mt-4"><SiteGrid /></div>
       </section>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">
         <h2 id="ak" className="text-[1.1rem] font-bold">AIのキー</h2>
@@ -39,7 +45,7 @@ function Settings() {
       </section>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="dm">
         <h2 id="dm" className="text-[1.1rem] font-bold">デモ</h2>
-        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "反映した「直す」と、デモの注文が消えます。", ok: "戻す", danger: true })) { resetDemo(); toast("最初の状態に戻しました"); } }} className="btn btn-line mt-3"><RotateCcw size={18} />最初の状態に戻す</button>
+        <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "使った書き直し案・選んだサイト・デモの注文が消えます。", ok: "戻す", danger: true })) { resetDemo(); toast("最初の状態に戻しました"); } }} className="btn btn-line mt-3"><RotateCcw size={18} />最初の状態に戻す</button>
       </section>
     </>
   );

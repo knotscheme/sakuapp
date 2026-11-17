@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Home, ScanSearch, Settings, TrendingUp, Wand2 } from "lucide-react";
+import { BookOpen, Home, ScanSearch, Search, Settings, TrendingUp, Wand2 } from "lucide-react";
 
 export const NAV = [
   { href: "/", label: "ホーム", short: "ホーム", icon: Home, n: "" },
-  { href: "/shindan/", label: "診断する", short: "診断", icon: ScanSearch, n: "1" },
-  { href: "/naosu/", label: "書き直す", short: "書き直す", icon: Wand2, n: "2" },
-  { href: "/kouka/", label: "効果を見る", short: "効果", icon: TrendingUp, n: "3" },
+  { href: "/hakaru/", label: "測る", short: "測る", icon: ScanSearch, n: "1" },
+  { href: "/naosu/", label: "直す", short: "直す", icon: Wand2, n: "2" },
+  { href: "/kouka/", label: "売上", short: "売上", icon: TrendingUp, n: "3" },
 ];
 
 export function Logo({ light = false }: { light?: boolean }) {
@@ -23,7 +23,7 @@ export function Logo({ light = false }: { light?: boolean }) {
 export default function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname() ?? "/";
   const on = (h: string) => (h === "/" ? path === "/" || path.endsWith("/tsurete/") : path.includes(h));
-  const sub = [{ href: "/guide/", label: "使い方", icon: BookOpen }, { href: "/settings/", label: "設定", icon: Settings }];
+  const sub = [{ href: "/shindan/", label: "無料診断", icon: Search }, { href: "/guide/", label: "使い方", icon: BookOpen }, { href: "/settings/", label: "設定", icon: Settings }];
   return (
     <div className="min-h-screen">
       <header className="sticky top-0 z-40 border-b hair bg-paper/85 backdrop-blur-md">

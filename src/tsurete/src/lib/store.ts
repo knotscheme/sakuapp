@@ -9,9 +9,12 @@ export type State = {
   applied: string[]; // 「直す」で反映したもの
   orders: Order[]; // デモの中で、AIの画面から買われた注文
   real: { brand: string; item: string; kind: string }; // 自分の商品で本当に試すとき
+  site: string; // お店のサイトの種類（Shopify・楽天など）
+  sent: string[]; // 「この案を使う」で、サイトへ届けたもの（商品ID:項目）
+  feed: boolean; // 商品フィードを作ったか
 };
 const KEY = "tsr-state-v2";
-export const SEED: State = { v: 2, applied: [], orders: [], real: { brand: "", item: "", kind: "" } };
+export const SEED: State = { v: 2, applied: [], orders: [], real: { brand: "", item: "", kind: "" }, site: "", sent: [], feed: false };
 let st: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {

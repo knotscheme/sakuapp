@@ -9,6 +9,8 @@ import Ready from "@/components/Ready";
 import { toast } from "@/components/Confirm";
 import { CHECKS, SAMPLE_CSV, SAMPLE_HTML, SAMPLE_REWRITES, SAMPLE_URL, diagnose, download, parseCsv, readProducts, strip, template, toCsv, type Check as Ck, type Item } from "@/lib/check";
 import { PNAME, aiReadUrl, aiReady, aiRewrite, useAi } from "@/lib/ai";
+import { platformCsv, platformOf } from "@/lib/platforms";
+import { useStore } from "@/lib/store";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const STEPS = [
@@ -167,6 +169,9 @@ function ByCsv() {
   const sorted = [...items].sort((a, b) => a.score - b.score);
   const avg = items.length ? Math.round(items.reduce((a, x) => a + x.score, 0) / items.length) : 0;
   const ng = (Object.keys(CHECKS) as (keyof typeof CHECKS)[]).map((k) => ({ k, n: items.filter((x) => x.checks.find((c) => c.key === k)?.ok === false).length })).filter((x) => x.n).sort((a, b) => b.n - a.n);
+  const site = useStore().site;
+  const plat = platformOf(site);
+  const saveSite = () => download(`tsurete-${plat!.id}.csv`, platformCsv(plat!.id, sorted.map((x) => ({ id: x.id, title: x.title, desc: [x.rewrite?.target, x.rewrite?.spec, x.rewrite?.ingredient].filter(Boolean).join("\n"), faq: x.rewrite?.faq ?? "" }))));
   const save = () => download("tsurete-書き直し案.csv", toCsv([["Handle", "商品名", "点数", "足りないもの", "新しい商品説明", "容量と値段", "成分", "よくある質問"], ...sorted.map((x) => [x.id, x.title, String(x.score), x.checks.filter((c) => c.ok === false).map((c) => CHECKS[c.key].label).join("・"), x.rewrite?.target ?? "", x.rewrite?.spec ?? "", x.rewrite?.ingredient ?? "", x.rewrite?.faq ?? ""])]));
 
   return (
@@ -207,7 +212,7 @@ function ByCsv() {
           </div>
 
           <section aria-labelledby="list">
-            <div className="flex flex-wrap items-end justify-between gap-4"><h2 id="list" className="text-[1.15rem] font-bold">点数の低い順</h2><button type="button" onClick={save} className="btn btn-ai px-6"><Download size={17} />書き直し案をCSVで保存</button></div>
+            <div className="flex flex-wrap items-end justify-between gap-4"><h2 id="list" className="text-[1.15rem] font-bold">点数の低い順</h2><div className="flex flex-wrap gap-3">{plat?.method === "csv" && <button type="button" onClick={saveSite} className="btn btn-ai px-6"><Download size={17} />{plat.action}</button>}<button type="button" onClick={save} className={`btn px-6 ${plat?.method === "csv" ? "btn-line" : "btn-ai"}`}><Download size={17} />書き直し案をCSVで保存</button></div></div>
             <ul className="mt-6 border-t hair">
               {sorted.map((x) => (
                 <li key={x.id} className="border-b hair">
@@ -238,7 +243,7 @@ function Shindan() {
   const tab = pick ?? (sp.get("csv") ? "csv" : "url");
   return (
     <>
-      <Title n="1" title="診断する" lead="商品ページのURLか、商品一覧のCSVを入れてください。AIに選ばれるために足りないところと、書き直し案を出します。" />
+      <Title title="無料診断" lead="商品ページのURLか、商品一覧のCSVを入れてください。AIに選ばれるために足りないところと、書き直し案を出します。どのサイトの商品でも使えます。" />
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div className="flex rounded-full bg-white/[.04] p-1" role="tablist" aria-label="診断のしかた">
           {([["url", "URLで1商品", Link2], ["csv", "CSVでまとめて", FileSpreadsheet]] as const).map(([v, l, I]) => <button key={v} type="button" role="tab" aria-selected={tab === v} onClick={() => setTab(v)} className={`flex items-center gap-1.5 rounded-full px-5 py-2 text-[0.88rem] font-bold transition ${tab === v ? "bg-ai text-[#03140f]" : "text-sub"}`}><I size={16} />{l}</button>)}
