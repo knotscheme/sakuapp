@@ -35,14 +35,14 @@ function Hakaru() {
   const win = winners(s.applied);
   return (
     <>
-      <Title n="1" title="測る" lead="お客様が聞きそうな質問を、4つのAIに毎週何度も聞いて、あなたの商品が何回すすめられたかを記録します。" />
+      <Title n="1" title="測る" lead="お客様が聞きそうな質問を、TSURETEが毎週自動で4つのAIに何度も聞いて、あなたの商品が何回すすめられたかを記録します。" />
 
       <section aria-label="今週の結果" className="grid gap-12 md:grid-cols-[auto_1fr] md:gap-16">
         <div>
           <p className="text-[0.85rem] text-sub">今週、AIにすすめられた割合</p>
           <p className="mt-2"><b className="num text-[4.2rem] leading-none text-ai">{sh.pct}</b><span className="ml-1 text-[1.2rem] text-sub">%</span></p>
           <p className={`num mt-3 text-[0.88rem] ${diff > 0 ? "text-ai" : "text-sub"}`}>{diff > 0 ? `先週より +${diff}ポイント` : diff < 0 ? `先週より ${diff}ポイント` : "先週と同じ"}</p>
-          <p className="mt-6 text-[0.8rem] leading-[1.9] text-sub">{QUESTIONS.length}個の質問 × {AIS.length}つのAI × 20回<br />＝ {fmt(sh.max)}回聞いて、{fmt(sh.total)}回<br />次の測定：11月24日（月）</p>
+          <p className="mt-6 text-[0.8rem] leading-[1.9] text-sub">{QUESTIONS.length}個の質問 × {AIS.length}つのAI × 20回<br />＝ {fmt(sh.max)}回聞いて、{fmt(sh.total)}回<br />次の自動測定：11月24日（月）</p>
         </div>
         <div className="min-w-0"><div className="hidden sm:block"><Trend data={data} /></div><div className="sm:hidden"><Trend data={data} W={360} H={200} fs={12} /></div></div>
       </section>

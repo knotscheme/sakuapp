@@ -29,7 +29,7 @@ function Dashboard() {
     <>
       <div className="mb-10 flex flex-wrap items-end justify-between gap-3 sm:mb-14">
         <div><p className="text-[0.82rem] text-sub">11月18日（火）の状況</p><h1 className="mt-1 text-[1.5rem] font-bold tracking-[.04em] sm:text-[1.8rem]">{BRAND.name} の今週</h1></div>
-        <p className="text-[0.8rem] text-sub">次の測定：11月24日（月）{plat ? `・サイト：${plat.name}` : ""}</p>
+        <p className="text-[0.8rem] text-sub">次の自動測定：11月24日（月）{plat ? `・サイト：${plat.name}` : ""}</p>
       </div>
 
       <section className="grid grid-cols-3 gap-2 sm:gap-4" aria-label="今週の数字">

@@ -96,7 +96,7 @@ function Hero() {
       <div className={`transition duration-[1100ms] ease-[cubic-bezier(.2,.7,.2,1)] ${ready ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}>
         <p className="text-[1.05rem] font-semibold text-[#00a37a] sm:text-[1.2rem]">TSURETE</p>
         <h1 className="lp-h mx-auto mt-3 max-w-[14em] text-[2.4rem] sm:text-[4.2rem]"><span className="inline-block">AIの売り場で、</span><span className="inline-block">あなたの商品は</span><span className="inline-block">何番目？</span></h1>
-        <p className="mx-auto mt-5 max-w-[30em] text-[1.05rem] leading-[1.8] text-[#6e6e73] sm:text-[1.3rem]"><J>AIにすすめられる回数を毎週はかって、全商品の商品ページをまとめて直す。</J></p>
+        <p className="mx-auto mt-5 max-w-[30em] text-[1.05rem] leading-[1.8] text-[#6e6e73] sm:text-[1.3rem]"><J>AIにすすめられる回数を、毎週自動ではかる。全商品の商品ページを、まとめて直す。</J></p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
           <Link href="/" className="btn btn-ai px-7">デモを使ってみる</Link>
           <a href="#try" className="flex items-center text-[1.02rem] text-[#00a37a] hover:underline">無料で診断<ChevronRight size={18} /></a>
@@ -214,7 +214,7 @@ function Shot({ src, alt, w, h }: { src: string; alt: string; w: number; h: numb
   );
 }
 const STEPS = [
-  { n: "測る", h: "AIの中での順位を、毎週。", d: "お客様が聞きそうな質問を、ChatGPTなど4つのAIに毎週何百回も聞いて、すすめられた回数と順位を記録します。", img: ["rank.webp", 1000, 738] },
+  { n: "測る", h: "AIの中での順位を、毎週。", d: "お客様が聞きそうな質問を、TSURETEが毎週自動で、ChatGPTなど4つのAIに何百回も聞いて、すすめられた回数と順位を記録します。", img: ["rank.webp", 1000, 738] },
   { n: "直す", h: "足りないものを、AIが書き直す。", d: "よくすすめられている店との差を、AIが商品ページの書き直し案にします。押すだけで、お店のサイトに合った方法で届けます。", img: ["naosu.webp", 1000, 965] },
   { n: "売上", h: "効いたかどうかは、お金で。", d: "AIにすすめられて来たお客様と、その売上を数えます。直した効果を、はっきり確かめられます。", img: ["sales.webp", 1000, 572] },
 ] as const;
@@ -288,9 +288,9 @@ export default function Page() {
 
         {/* 数字 */}
         <section className="px-5 py-24 sm:py-36">
-          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]">毎週、AIに聞きつづける。</h2></Reveal>
+          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIへの質問は、</span><span className="inline-block">ぜんぶ自動。</span></h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>お店の人がAIに聞く必要はありません。TSURETEが毎週決まった日に聞いて、結果とやることを届けます。</J></p></Reveal>
           <div className="mx-auto mt-16 grid max-w-[56rem] grid-cols-2 gap-y-12 text-center sm:grid-cols-4">
-            {[{ v: 960, s: "回", l: "毎週AIに聞く回数" }, { v: 4, s: "つ", l: "調べるAI" }, { v: 7, s: "項目", l: "点検する情報" }, { v: 9, s: "種類", l: "対応するサイト" }].map((x) => (
+            {[{ v: 960, s: "回", l: "毎週、自動で聞く回数" }, { v: 4, s: "つ", l: "自動で調べるAI" }, { v: 7, s: "項目", l: "点検する情報" }, { v: 9, s: "種類", l: "対応するサイト" }].map((x) => (
               <Reveal key={x.l}><p className="text-[2.6rem] font-bold leading-none sm:text-[3.4rem]"><Count to={x.v} /><span className="ml-1 text-[1.2rem] font-semibold">{x.s}</span></p><p className="mt-3 text-[0.88rem] text-[#6e6e73]">{x.l}</p></Reveal>
             ))}
           </div>
@@ -345,7 +345,7 @@ export default function Page() {
             </Reveal>
             <Reveal delay={150}>
               <h2 className="lp-h text-[2rem] sm:text-[2.6rem] lg:text-[2.3rem]"><span className="inline-block">小さなネットショップの、</span><span className="inline-block">AI担当に。</span></h2>
-              <p className="mt-5 text-[1.02rem] leading-[1.95] text-[#6e6e73]"><J>大きな会社のように、AI対策の担当者は置けない。TSURETEが毎週はかって、やることだけを届けます。</J></p>
+              <p className="mt-5 text-[1.02rem] leading-[1.95] text-[#6e6e73]"><J>大きな会社のように、AI対策の担当者は置けない。TSURETEが毎週自動ではかって、やることだけを届けます。</J></p>
               <p className="mt-8 text-[0.85rem] font-semibold text-[#1d1d1f]">比べて選ばれる商品なら、ジャンルは問いません。</p>
               <p className="mt-3 flex flex-wrap gap-2">{["スキンケア", "食品・お菓子", "雑貨・インテリア", "アパレル", "ハンドメイド", "ベビー用品", "ペット用品"].map((t) => <span key={t} className="rounded-full bg-[#f5f5f7] px-3.5 py-1.5 text-[0.85rem]">{t}</span>)}</p>
             </Reveal>
@@ -356,8 +356,8 @@ export default function Page() {
         <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIに自分で聞くのと、</span><span className="inline-block">何が違う？</span></h2></Reveal>
           <div className="mx-auto mt-16 grid max-w-[52rem] gap-4 md:grid-cols-2">
-            <Reveal><div className="h-full rounded-[28px] bg-white p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]">AIに自分で聞く</p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
-            <Reveal delay={150}><div className="h-full rounded-[28px] bg-[#1d1d1f] p-8 text-white sm:p-10"><p className="text-[1rem] font-semibold text-[#2fd9a6]">TSURETE</p><ul className="mt-6 space-y-4 text-[0.98rem]">{["4つのAIに、毎週何百回も聞いて記録", "よくすすめられている店と比べて、差を出す", "全商品まとめて、サイトに合わせて届ける", "AI経由の売上で、効果を確かめる"].map((t) => <li key={t} className="flex gap-3"><Check size={18} className="mt-1 shrink-0 text-[#2fd9a6]" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
+            <Reveal><div className="h-full rounded-[28px] bg-white p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]">AIに自分で聞く</p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない", "毎回、自分で聞きに行く"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
+            <Reveal delay={150}><div className="h-full rounded-[28px] bg-[#1d1d1f] p-8 text-white sm:p-10"><p className="text-[1rem] font-semibold text-[#2fd9a6]">TSURETE</p><ul className="mt-6 space-y-4 text-[0.98rem]">{["4つのAIに、毎週自動で何百回も聞いて記録", "よくすすめられている店と比べて、差を出す", "全商品まとめて、サイトに合わせて届ける", "AI経由の売上で、効果を確かめる", "AIへの質問は、毎週ぜんぶ自動"].map((t) => <li key={t} className="flex gap-3"><Check size={18} className="mt-1 shrink-0 text-[#2fd9a6]" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
           </div>
         </section>
 
