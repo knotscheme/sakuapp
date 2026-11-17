@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Image as ImageIcon, Monitor, MousePointerClick, Palette, RotateCcw, Smartphone, Type, X } from "lucide-react";
+import { ArrowRight, Image as ImageIcon, Maximize2, Monitor, MousePointerClick, Palette, RotateCcw, Smartphone, Type, X } from "lucide-react";
 import Frame from "@/components/Frame";
-import { colorVars, placeholder, previewDoc, safeUrl } from "@/lib/render";
+import FullView from "@/components/FullView";
+import { colorVars, placeholder, previewDoc, safeUrl, viewDoc } from "@/lib/render";
 import { getProject, resetColors, setColor, setField, useProject } from "@/lib/project";
 import { SAMPLES } from "@/lib/samples";
 import { getTemplate, isDark } from "@/lib/templates";
@@ -22,6 +23,7 @@ export default function StepFinish({ onNext }: { onNext: () => void }) {
   const [tab, setTab] = useState<"text" | "color" | "img">("text");
   const [doc, setDoc] = useState("");
   const [slot, setSlot] = useState<string | null>(null);
+  const [full, setFull] = useState("");
   const frame = useRef<HTMLIFrameElement>(null);
   const sample = SAMPLES.find((s) => s.tpl === t.id)!;
   // 「任意」の写真を入れた・外したときは、表示を作り直す（その写真の場所ごと出し入れするため）
@@ -83,11 +85,14 @@ export default function StepFinish({ onNext }: { onNext: () => void }) {
       <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_380px]">
         <div className="card overflow-hidden">
           <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
-            <span className="text-[12.5px] text-mute">{view === "pc" ? "パソコン（横1280px）" : "スマホ（横390px）"}</span>
+            <span className="hidden text-[12.5px] text-mute sm:inline">{view === "pc" ? "パソコン（横1280px）" : "スマホ（横390px）"}</span>
+            <div className="flex items-center gap-2">
+            <button type="button" onClick={() => setFull(viewDoc(t, p!, srcFor(t, p!, urls)))} title="動きも含めて、完成した状態を画面いっぱいで見ます" className="tap flex items-center gap-1.5 rounded-full bg-ink px-3 py-1.5 text-[12.5px] text-white hover:bg-black"><Maximize2 size={13} />全画面で見る</button>
             <div className="flex rounded-full bg-paper p-1">
               {([["pc", Monitor, "パソコン"], ["sp", Smartphone, "スマホ"]] as const).map(([v, Icon, l]) => (
                 <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v} className={`tap flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] ${view === v ? "bg-white shadow-sm" : "text-mute"}`}><Icon size={14} />{l}</button>
               ))}
+            </div>
             </div>
           </div>
           <div className={`checker ${view === "sp" ? "py-5" : ""}`}>
@@ -151,6 +156,7 @@ export default function StepFinish({ onNext }: { onNext: () => void }) {
         </aside>
       </div>
 
+      {full && <FullView html={full} title="完成イメージ" onClose={() => setFull("")} />}
       {slot && (
         <div className="fixed inset-0 z-[80] grid place-items-center bg-black/45 p-3 backdrop-blur-[2px]" onClick={() => setSlot(null)}>
           <div ref={(el) => el?.focus()} tabIndex={-1} className="fade-in max-h-[92vh] w-full max-w-[620px] overflow-y-auto rounded-2xl bg-white outline-none" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="写真を入れかえる">

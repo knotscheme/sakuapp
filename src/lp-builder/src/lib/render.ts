@@ -111,7 +111,7 @@ P.postMessage({lpb:'ready'},'*')})();`;
 // 作品例の表示用（編集なし・動きあり）
 export function viewDoc(t: Template, p: Project, src: ImgSrc) {
   const { css, body, fonts, js } = buildParts(t, p, src, "export");
-  return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${fonts}"><style>html{scroll-behavior:smooth}body{margin:0}${css}</style><script>document.addEventListener('click',function(e){var a=e.target.closest('a');if(a&&!/^#/.test(a.getAttribute('href')||''))e.preventDefault()})</script></head><body>${body}${js}</body></html>`;
+  return `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="${fonts}"><style>html{scroll-behavior:smooth}body{margin:0}${css}</style><script>document.addEventListener('click',function(e){var a=e.target.closest('a');if(a&&!/^#/.test(a.getAttribute('href')||''))e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='Escape')parent.postMessage({lpb:'esc'},'*')})</script></head><body>${body}${js}</body></html>`;
 }
 
 // 単体で動くHTML（index.html）

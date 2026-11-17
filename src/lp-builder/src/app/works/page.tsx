@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { ArrowRight, Monitor, Smartphone } from "lucide-react";
+import { ArrowRight, Maximize2, Monitor, Smartphone } from "lucide-react";
+import FullView from "@/components/FullView";
 import Header from "@/components/Header";
 import Frame from "@/components/Frame";
 import { askConfirm } from "@/components/Confirm";
@@ -18,6 +19,7 @@ function Works() {
   const [view, setView] = useState<"pc" | "sp">("pc");
   const [doc, setDoc] = useState("");
   const [busy, setBusy] = useState(false);
+  const [full, setFull] = useState(false);
   useEffect(() => {
     const q = new URLSearchParams(location.search).get("id");
     if (q && SAMPLES.some((s) => s.id === q)) setId(q);
@@ -50,11 +52,14 @@ function Works() {
         <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_300px]">
           <div className="card overflow-hidden">
             <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
-              <span className="text-[12.5px] text-mute">{view === "pc" ? "パソコンでの見え方" : "スマホでの見え方"}（スクロールできます）</span>
+              <span className="hidden text-[12.5px] text-mute sm:inline">{view === "pc" ? "パソコンでの見え方" : "スマホでの見え方"}（スクロールできます）</span>
+              <div className="flex items-center gap-2">
+              <button type="button" onClick={() => setFull(true)} className="tap flex items-center gap-1.5 rounded-full bg-ink px-3 py-1.5 text-[12.5px] text-white hover:bg-black"><Maximize2 size={13} />全画面で見る</button>
               <div className="flex rounded-full bg-paper p-1">
                 {([["pc", Monitor, "パソコン"], ["sp", Smartphone, "スマホ"]] as const).map(([v, Icon, l]) => (
                   <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v} className={`tap flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] ${view === v ? "bg-white shadow-sm" : "text-mute"}`}><Icon size={14} />{l}</button>
                 ))}
+              </div>
               </div>
             </div>
             <div className={`checker ${view === "sp" ? "py-5" : ""}`}>
@@ -80,6 +85,7 @@ function Works() {
           </aside>
         </div>
       </main>
+      {full && doc && <FullView html={doc} title={s.title} onClose={() => setFull(false)} />}
     </>
   );
 }
