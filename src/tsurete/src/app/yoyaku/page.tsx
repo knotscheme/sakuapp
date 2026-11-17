@@ -80,12 +80,12 @@ function Yoyaku() {
   }
 
   const bubble = (m: Msg, i: number) => {
-    if (m.who === "user") return <div key={i} className="flex justify-end"><p className="max-w-[85%] rounded-2xl rounded-br-md bg-ink px-4 py-2.5 text-[0.95rem] text-white">{m.text}</p></div>;
-    if (m.who === "ai") return <div key={i} className="flex gap-2"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ai text-white"><Bot size={17} /></span><p className="max-w-[85%] rounded-2xl rounded-tl-md bg-white px-4 py-2.5 text-[0.95rem] shadow-sm">{m.text}</p></div>;
+    if (m.who === "user") return <div key={i} className="flex justify-end"><p className="max-w-[85%] rounded-2xl rounded-br-md bg-deep px-4 py-2.5 text-[0.95rem] text-white">{m.text}</p></div>;
+    if (m.who === "ai") return <div key={i} className="flex gap-2"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ai text-[#03140f]"><Bot size={17} /></span><p className="max-w-[85%] rounded-2xl rounded-tl-md bg-deep px-4 py-2.5 text-[0.95rem] shadow-sm">{m.text}</p></div>;
     return (
       <div key={i} className="ml-10 flex min-w-0 items-start gap-2 text-[0.8rem]">
         {m.who === "tool" ? <Wrench size={14} className="mt-1 shrink-0 text-ai" /> : <Store size={14} className="mt-1 shrink-0 text-ok" />}
-        <code className={`min-w-0 whitespace-pre-wrap break-all rounded-lg px-2.5 py-1.5 font-mono ${m.who === "tool" ? "bg-ai-2 text-ai" : "bg-[#e7f6ee] text-ok"}`}>{m.who === "tool" ? `→ 窓口へ：${m.text}` : `← 窓口から：${m.text}`}</code>
+        <code className={`min-w-0 whitespace-pre-wrap break-all rounded-lg px-2.5 py-1.5 font-mono ${m.who === "tool" ? "bg-ai-2 text-ai" : "bg-ok/10 text-ok"}`}>{m.who === "tool" ? `→ 窓口へ：${m.text}` : `← 窓口から：${m.text}`}</code>
       </div>
     );
   };
@@ -95,7 +95,7 @@ function Yoyaku() {
       <Title n="2" title="AIが予約できる" lead={<>これからは、お客様の代わりに<b className="text-ink">AIが空きを確かめて、予約までする</b>ようになります。お店の空き状況とメニューを、AIが直接読み書きできる「AI予約窓口」として公開します（MCPという、AIとつなぐ共通の仕組みを使います）。</>} />
 
       <section className={`card flex flex-col gap-4 p-5 sm:flex-row sm:items-center ${s.windowOn ? "border-ok/50" : ""}`}>
-        <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${s.windowOn ? "bg-ok text-white" : "bg-paper text-sub"}`}><Plug size={24} /></span>
+        <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${s.windowOn ? "bg-ok text-[#03140f]" : "bg-paper text-sub"}`}><Plug size={24} /></span>
         <div className="min-w-0 flex-1"><b className="text-[1.1rem]">AI予約窓口：{s.windowOn ? <span className="text-ok">公開中</span> : <span className="text-sub">非公開</span>}</b>
           <p className="text-[0.9rem] text-sub">{s.windowOn ? "ChatGPT・Gemini・Claude などのAIが、空きの確認と予約をできます。" : "公開すると、AIに聞いたお客様がそのまま予約できるようになります。"}</p></div>
         <button type="button" onClick={() => update((x) => ({ ...x, windowOn: !x.windowOn, applied: !x.windowOn && !x.applied.includes("today") ? [...x.applied, "today"] : x.applied }))} className={`btn shrink-0 ${s.windowOn ? "btn-line" : "btn-ai"}`}>{s.windowOn ? "非公開にする" : "公開する"}</button>
@@ -113,7 +113,7 @@ function Yoyaku() {
             <div ref={end} />
           </div>
           <div className="border-t border-line p-3">
-            <div className="flex flex-wrap gap-1.5">{SCENES.map((q) => <button key={q} type="button" disabled={busy} onClick={() => run(q)} className="chip bg-ai-2 py-1.5 text-ai hover:bg-[#e2d9ff]">{q}</button>)}</div>
+            <div className="flex flex-wrap gap-1.5">{SCENES.map((q) => <button key={q} type="button" disabled={busy} onClick={() => run(q)} className="chip bg-ai-2 py-1.5 text-ai hover:bg-ai/20">{q}</button>)}</div>
             <form className="mt-2 flex gap-2" onSubmit={(e) => { e.preventDefault(); run(text); }}>
               <input value={text} onChange={(e) => setText(e.target.value)} placeholder={`${agent}に話しかける（例：金曜の20時あいてる？）`} className="field" />
               <button type="submit" disabled={busy || !text.trim()} className="btn btn-ink px-3" aria-label="送る"><Send size={18} /></button>
@@ -133,7 +133,7 @@ function Yoyaku() {
           <section className="card p-5" aria-labelledby="pub">
             <h2 id="pub" className="text-[1.05rem] font-bold">AIに渡している情報</h2>
             <p className="mt-1 text-[0.82rem] text-sub">お客様の名前や電話番号は、予約のときだけ受け取ります。</p>
-            <pre className="mt-3 max-h-[300px] overflow-auto rounded-xl bg-ink p-3 text-[0.72rem] leading-[1.6] text-[#d7d3ff]">{JSON.stringify(info, null, 2)}</pre>
+            <pre className="mt-3 max-h-[300px] overflow-auto rounded-xl bg-deep p-3 text-[0.72rem] leading-[1.6] text-[#9ff5d9]">{JSON.stringify(info, null, 2)}</pre>
           </section>
         </div>
       </div>

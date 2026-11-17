@@ -36,7 +36,7 @@ function Home() {
         <h1 className="mt-3 text-[2rem] font-bold leading-[1.35] sm:text-[2.8rem]"><span className="inline-block">AIが、</span><span className="inline-block">お客様をつれてくる。</span></h1>
         <p className="mt-4 max-w-[38em] text-[1rem] leading-[1.95] text-white/75">お客様は、お店を「検索」ではなく<b className="text-white">「AIに聞いて」</b>探しはじめています。TSURETEは、AIに選ばれ、AIに予約され、空いた時間は街ぐるみで埋める。地域のお店のための、新しい集客の仕組みです。</p>
         <div className="mt-7 flex flex-wrap gap-3">
-          <Link href="/erabareru/" className="btn bg-lime px-6 text-ink hover:brightness-95">AI推薦シェアを見る<ArrowRight size={18} /></Link>
+          <Link href="/erabareru/" className="btn bg-lime px-6 text-[#03140f] hover:brightness-95">AI推薦シェアを見る<ArrowRight size={18} /></Link>
           <Link href="/yoyaku/" className="btn bg-white/10 px-5 text-white hover:bg-white/15">AIが予約するところを見る</Link>
         </div>
         <p className="mt-6 text-[0.8rem] text-white/45">デモ：架空の町「みなと台」の整体院「{SHOP.name}」（店長 {SHOP.owner}さん）。数字は模擬の結果です。</p>
@@ -47,8 +47,8 @@ function Home() {
           <h2 id="td" className="text-[1.2rem] font-bold">今週やること</h2>
           <ul className="mt-3 space-y-2">
             {todo.map((x, i) => (
-              <li key={x.t}><Link href={x.href} className="card flex items-center gap-4 p-4 hover:border-ink">
-                <span className="num grid h-9 w-9 shrink-0 place-items-center rounded-full bg-ai text-white">{i + 1}</span>
+              <li key={x.t}><Link href={x.href} className="card flex items-center gap-4 p-4 hover:border-ai">
+                <span className="num grid h-9 w-9 shrink-0 place-items-center rounded-full bg-ai text-[#03140f]">{i + 1}</span>
                 <span className="min-w-0 flex-1"><b className="block text-[0.98rem] leading-[1.6]">{x.t}</b><span className="text-[0.85rem] text-sub">{x.n}</span></span><ChevronRight size={20} className="shrink-0 text-sub" />
               </Link></li>
             ))}
@@ -81,7 +81,7 @@ function Home() {
         </div>
         <ul className="space-y-2 text-[0.92rem]">
           {[["検索・マップの順位を上げる", "AIの「おすすめ」に入る"], ["人が見て、人が予約する", "AIが空きを確かめて予約する"], ["毎日同じように投稿する", "空いている時間だけ狙って呼ぶ"], ["1軒で戦う", "近所のお店と組んで送り合う"]].map(([a, b]) => (
-            <li key={a} className="grid grid-cols-[1fr_auto_1fr] items-center gap-2"><span className="text-sub line-through decoration-[#c9c7bf]">{a}</span><ArrowRight size={16} className="text-ai" /><b>{b}</b></li>
+            <li key={a} className="grid grid-cols-[1fr_auto_1fr] items-center gap-2"><span className="text-sub line-through decoration-[#3a4b6c]">{a}</span><ArrowRight size={16} className="text-ai" /><b>{b}</b></li>
           ))}
         </ul>
       </section>

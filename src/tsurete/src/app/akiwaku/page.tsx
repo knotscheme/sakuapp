@@ -47,7 +47,7 @@ function Akiwaku() {
   const sent = bl.filter((b) => stOf(b.key) === "sent");
   const filled = sent.reduce((a, b) => a + fill(b), 0);
   const setC = (k: string, v: "sent" | "skip") => { update((x) => ({ ...x, campaigns: { ...x.campaigns, [k]: v } })); if (v === "sent") toast("呼びかけを出しました（デモ）"); };
-  const color = (p: number) => (p >= 75 ? "bg-[#d8d3ff]" : p >= 55 ? "bg-[#ebe8ff]" : p >= LOW ? "bg-[#f4f3ef]" : "bg-[#fff1df]");
+  const color = (p: number) => (p >= 75 ? "bg-ai/40" : p >= 55 ? "bg-ai/22" : p >= LOW ? "bg-ai/8" : "bg-warn/15");
 
   return (
     <>
@@ -61,14 +61,14 @@ function Akiwaku() {
 
       <section className="card mt-5 p-4 sm:p-5" aria-labelledby="hm">
         <div className="flex flex-wrap items-center justify-between gap-2"><h2 id="hm" className="text-[1.05rem] font-bold">埋まり具合の予測（1週間）</h2>
-          <p className="flex flex-wrap gap-3 text-[0.78rem] text-sub"><span className="flex items-center gap-1"><i className="h-3 w-3 rounded bg-ink" />予約あり</span><span className="flex items-center gap-1"><i className="h-3 w-3 rounded bg-[#d8d3ff]" />混みそう</span><span className="flex items-center gap-1"><i className="h-3 w-3 rounded bg-[#fff1df] ring-1 ring-warn" />埋めたい</span></p></div>
+          <p className="flex flex-wrap gap-3 text-[0.78rem] text-sub"><span className="flex items-center gap-1"><i className="h-3 w-3 rounded bg-deep" />予約あり</span><span className="flex items-center gap-1"><i className="h-3 w-3 rounded bg-ai/40" />混みそう</span><span className="flex items-center gap-1"><i className="h-3 w-3 rounded bg-warn/15 ring-1 ring-warn" />埋めたい</span></p></div>
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[620px] border-separate border-spacing-1 text-center text-[0.75rem]">
             <thead><tr><th className="w-12" />{DAYS.map((d) => { const W = WI[WEATHER[d].icon]; return <th key={d} className="font-medium"><span className="block text-[0.8rem]">{dayLabel(d)}</span><span className="flex items-center justify-center gap-1 text-sub"><W size={13} />{WEATHER[d].w}</span></th>; })}</tr></thead>
             <tbody>
               {HOURS.map((h) => (
                 <tr key={h}><th className="num pr-1 text-right font-medium text-sub">{h}:00</th>
-                  {DAYS.map((d) => { const b = isBooked(d, h), p = forecast(d, h), low = !b && p < LOW; return <td key={d} className={`h-8 rounded-md ${b ? "bg-ink text-white/80" : color(p)} ${low ? "ring-1 ring-warn" : ""}`} title={`${dayLabel(d)} ${h}時：${b ? "予約あり" : `埋まる予測 ${p}%`}`}>{b ? "予約" : `${p}%`}</td>; })}
+                  {DAYS.map((d) => { const b = isBooked(d, h), p = forecast(d, h), low = !b && p < LOW; return <td key={d} className={`h-8 rounded-md ${b ? "bg-deep text-sub" : color(p)} ${low ? "ring-1 ring-warn" : ""}`} title={`${dayLabel(d)} ${h}時：${b ? "予約あり" : `埋まる予測 ${p}%`}`}>{b ? "予約" : `${p}%`}</td>; })}
                 </tr>
               ))}
             </tbody>
@@ -80,8 +80,8 @@ function Akiwaku() {
       <section className="mt-6" aria-labelledby="cp">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2 id="cp" className="flex items-center gap-2 text-[1.25rem] font-bold"><Zap size={22} className="text-ai" />埋めたい時間への呼びかけ</h2>
-          <div className="flex rounded-xl border border-line bg-white p-1" role="group" aria-label="出し方">
-            {([["approve", "承認してから出す"], ["auto", "自動で出す"]] as const).map(([v, l]) => <button key={v} type="button" aria-pressed={s.autoMode === v} onClick={() => update((x) => ({ ...x, autoMode: v }))} className={`rounded-lg px-3 py-1.5 text-[0.85rem] font-bold ${s.autoMode === v ? "bg-ink text-white" : "text-sub"}`}>{l}</button>)}
+          <div className="flex rounded-xl border border-line bg-panel p-1" role="group" aria-label="出し方">
+            {([["approve", "承認してから出す"], ["auto", "自動で出す"]] as const).map(([v, l]) => <button key={v} type="button" aria-pressed={s.autoMode === v} onClick={() => update((x) => ({ ...x, autoMode: v }))} className={`rounded-lg px-3 py-1.5 text-[0.85rem] font-bold ${s.autoMode === v ? "bg-ai text-[#03140f]" : "text-sub"}`}>{l}</button>)}
           </div>
         </div>
         <p className="mt-1 text-[0.9rem] text-sub">{s.autoMode === "auto" ? "埋めたい時間の前の日の夕方に、自動で出します（同じ人には週に1回まで）。" : "AIが文章と出し先を用意します。「出す」を押したものだけを出します。"}</p>
@@ -92,11 +92,11 @@ function Akiwaku() {
               <li key={b.key} className={`card flex flex-col p-5 ${st === "sent" ? "border-ok/50" : st === "skip" ? "opacity-55" : ""}`}>
                 <div className="flex items-start justify-between gap-2">
                   <div><b className="text-[1.05rem]">{dayLabel(b.day)} {b.from}:00〜{b.to}:00</b><p className="text-[0.82rem] text-sub">空き {b.slots}枠・埋まる予測 {b.f}%・{WEATHER[b.day].w}</p></div>
-                  {st === "sent" && <span className="chip bg-ok text-white"><Check size={13} />出しました</span>}
+                  {st === "sent" && <span className="chip bg-ok text-[#03140f]"><Check size={13} />出しました</span>}
                 </div>
                 <div className="mt-3 rounded-2xl bg-paper p-3">
                   <p className="text-[0.9rem] leading-[1.75]">{m.text}</p>
-                  {m.perk && <p className="mt-2"><span className="chip bg-[#fff1df] text-warn">{m.perk}</span></p>}
+                  {m.perk && <p className="mt-2"><span className="chip bg-warn/15 text-warn">{m.perk}</span></p>}
                 </div>
                 <p className="mt-2 flex flex-wrap gap-1.5 text-[0.75rem]">
                   <span className="chip bg-ai-2 text-ai"><MapPin size={12} />Googleマップの投稿</span>

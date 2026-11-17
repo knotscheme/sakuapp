@@ -39,19 +39,19 @@ function Machi() {
         <section className="card overflow-hidden p-0" aria-labelledby="mp">
           <h2 id="mp" className="px-5 pt-4 text-[1.05rem] font-bold">みなと台の地図（イメージ）</h2>
           <svg viewBox="0 0 100 100" className="block w-full" role="img" aria-label="近所の提携店の地図">
-            <rect width="100" height="100" fill="#f4f3ee" />
-            {[18, 46, 74].map((y) => <rect key={`h${y}`} x="0" y={y} width="100" height="4" fill="#e6e3da" />)}
-            {[14, 44, 66, 90].map((x) => <rect key={`v${x}`} x={x} y="0" width="4" height="100" fill="#e6e3da" />)}
-            <rect x="0" y="58" width="100" height="1.4" fill="#cfd9e6" /><text x="2" y="57" fontSize="2.6" fill="#8a96a8">みなと台駅前通り</text>
-            {list.map((p) => p.st === "on" && <line key={`l${p.id}`} x1={ME_POS.x} y1={ME_POS.y} x2={p.x} y2={p.y} stroke="#6d4aff" strokeWidth={0.4 + (p.inN + p.outN) / 10} strokeOpacity=".55" strokeDasharray="1.5 1" />)}
+            <rect width="100" height="100" fill="#08111f" />
+            {[18, 46, 74].map((y) => <rect key={`h${y}`} x="0" y={y} width="100" height="4" fill="#14213a" />)}
+            {[14, 44, 66, 90].map((x) => <rect key={`v${x}`} x={x} y="0" width="4" height="100" fill="#14213a" />)}
+            <rect x="0" y="58" width="100" height="1.4" fill="#1f3a5a" /><text x="2" y="57" fontSize="2.6" fill="#5f7090">みなと台駅前通り</text>
+            {list.map((p) => p.st === "on" && <line key={`l${p.id}`} x1={ME_POS.x} y1={ME_POS.y} x2={p.x} y2={p.y} stroke="#10d9a0" strokeWidth={0.4 + (p.inN + p.outN) / 10} strokeOpacity=".55" strokeDasharray="1.5 1" />)}
             {list.map((p) => (
               <g key={p.id}>
-                <circle cx={p.x} cy={p.y} r="4.2" fill={p.st === "on" ? "#6d4aff" : p.st === "ask" ? "#b25e00" : "#fff"} stroke={p.st === "suggest" ? "#6d4aff" : "#fff"} strokeWidth="0.8" strokeDasharray={p.st === "suggest" ? "1 0.8" : ""} />
-                <text x={p.x} y={p.y + 8} fontSize="2.8" textAnchor="middle" fill="#0e0f1a" fontWeight="700">{p.name}</text>
+                <circle cx={p.x} cy={p.y} r="4.2" fill={p.st === "on" ? "#10d9a0" : p.st === "ask" ? "#f2b84b" : "#0b1426"} stroke={p.st === "suggest" ? "#10d9a0" : "#060b18"} strokeWidth="0.8" strokeDasharray={p.st === "suggest" ? "1 0.8" : ""} />
+                <text x={p.x} y={p.y + 8} fontSize="2.8" textAnchor="middle" fill="#c9d6ea" fontWeight="700">{p.name}</text>
               </g>
             ))}
-            <circle cx={ME_POS.x} cy={ME_POS.y} r="6" fill="#b8f34a" stroke="#0e0f1a" strokeWidth="0.8" />
-            <text x={ME_POS.x} y={ME_POS.y + 1} fontSize="2.8" textAnchor="middle" fontWeight="700">そよかぜ</text>
+            <circle cx={ME_POS.x} cy={ME_POS.y} r="6" fill="#3ff2c4" stroke="#060b18" strokeWidth="0.8" />
+            <text x={ME_POS.x} y={ME_POS.y + 1} fontSize="2.8" textAnchor="middle" fontWeight="700" fill="#03140f">そよかぜ</text>
           </svg>
           <p className="flex flex-wrap gap-3 px-5 py-3 text-[0.78rem] text-sub"><span className="flex items-center gap-1"><i className="h-3 w-3 rounded-full bg-ai" />提携中</span><span className="flex items-center gap-1"><i className="h-3 w-3 rounded-full bg-warn" />お願い中</span><span className="flex items-center gap-1"><i className="h-3 w-3 rounded-full border border-dashed border-ai" />AIのおすすめ</span><span>線の太さ＝紹介の多さ</span></p>
         </section>

@@ -19,7 +19,7 @@ const STEPS = [
   { n: 3, href: "/yoyaku/", title: "AIが予約できる", img: "3.webp",
     what: "お客様のAIが、空いている時間を確かめて、そのまま予約まで取れる「AI予約窓口」です。",
     try: ["「公開する」を押して、窓口を開けます。", "「今日の16時、肩こりで空いてる？」などの例を押すと、お客様とAIのやりとりが流れます。下の入力欄に自分で書いてもかまいません。", "最後に、取れた予約が「予約表」に入っているのを確かめてください。"],
-    point: "満席のときは、AIが同じ日の別の時間をすすめます。紫の小さい吹き出しは、AIとお店の窓口のあいだのやりとりです。" },
+    point: "満席のときは、AIが同じ日の別の時間をすすめます。緑色の小さい吹き出しは、AIとお店の窓口のあいだのやりとりです。" },
   { n: 4, href: "/akiwaku/", title: "空きを自動で埋める", img: "4.webp",
     what: "この先1週間で、予約が入りにくそうな時間を色で出します。オレンジのわくが「埋めたい時間」です。",
     try: ["下の呼びかけのカードで「出す」を押します。", "上の「呼びかけで埋まる見込み」の数字が増えます。", "「自動で出す」に切りかえると、押さなくても全部出るようになります。"],
@@ -61,12 +61,12 @@ function Guide() {
         ))}
       </section>
 
-      <div className="mt-4 rounded-2xl border border-line bg-white p-5 text-[0.95rem] leading-[1.95]">
+      <div className="mt-4 rounded-2xl border border-line bg-panel p-5 text-[0.95rem] leading-[1.95]">
         <b>TSURETEとは：</b>お客様がお店を「検索」ではなく「AIに聞いて」探す時代に、<b>AIにおすすめしてもらい、AIに予約まで取ってもらう</b>ための集客ツールです。下の6つの順番に触ると、5分ほどで全体がわかります。
       </div>
 
       <nav aria-label="手順の目次" className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-        {STEPS.map((s) => <a key={s.n} href={`#step${s.n}`} className="flex min-h-[3.2rem] items-center gap-2 rounded-2xl border border-line bg-white px-3 py-2 text-[0.98rem] font-bold leading-[1.4] hover:border-ink"><span className="num grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ink text-[0.85rem] text-white">{s.n}</span><span className="flex-1">{s.title}</span><ChevronRight size={18} className="shrink-0 text-sub" /></a>)}
+        {STEPS.map((s) => <a key={s.n} href={`#step${s.n}`} className="flex min-h-[3.2rem] items-center gap-2 rounded-2xl border border-line bg-panel px-3 py-2 text-[0.98rem] font-bold leading-[1.4] hover:border-ai"><span className="num grid h-7 w-7 shrink-0 place-items-center rounded-full bg-deep text-[0.85rem] text-white">{s.n}</span><span className="flex-1">{s.title}</span><ChevronRight size={18} className="shrink-0 text-sub" /></a>)}
       </nav>
 
       <ol className="mt-6 space-y-6">
@@ -78,17 +78,17 @@ function Guide() {
                 <picture>
                   <source media="(min-width: 1024px)" srcSet={`${IMG}/${s.img}`} />
                   <img src={`${IMG}/${s.img.replace(".webp", "-sp.webp")}`} alt={`「${s.title}」の画面`} width={390} height={600} loading="lazy"
-                    className="mx-auto block w-full max-w-[16rem] rounded-t-[1.6rem] border-[5px] border-b-0 border-ink bg-white lg:max-w-none lg:rounded-xl lg:border lg:border-line" />
+                    className="mx-auto block w-full max-w-[16rem] rounded-t-[1.6rem] border-[5px] border-b-0 border-deep bg-panel lg:max-w-none lg:rounded-xl lg:border lg:border-line" />
                 </picture>
               </div>
               <div className="p-5 sm:p-6">
-                <p className="flex items-center gap-2"><span className="num grid h-8 w-8 place-items-center rounded-full bg-ai text-white">{s.n}</span><b className="text-[1.25rem]">{s.title}</b></p>
+                <p className="flex items-center gap-2"><span className="num grid h-8 w-8 place-items-center rounded-full bg-ai text-[#03140f]">{s.n}</span><b className="text-[1.25rem]">{s.title}</b></p>
                 <p className="mt-3 text-[0.95rem] leading-[1.9]">{s.what}</p>
                 <p className="mt-4 text-[0.85rem] font-bold text-ai">押してみよう</p>
                 <ol className="mt-1 space-y-1.5">
                   {s.try.map((t, i) => <li key={t} className="flex gap-2 text-[0.93rem] leading-[1.8]"><span className="num mt-[0.2rem] grid h-5 w-5 shrink-0 place-items-center rounded-full border border-ai text-[0.7rem] text-ai">{i + 1}</span><span className="min-w-0">{t}</span></li>)}
                 </ol>
-                <p className="mt-4 flex gap-2 rounded-xl bg-[#fff8e6] p-3 text-[0.86rem] leading-[1.8]"><Lightbulb size={18} className="mt-[0.15rem] shrink-0 text-warn" /><span className="min-w-0">{s.point}</span></p>
+                <p className="mt-4 flex gap-2 rounded-xl bg-warn/10 p-3 text-[0.86rem] leading-[1.8]"><Lightbulb size={18} className="mt-[0.15rem] shrink-0 text-warn" /><span className="min-w-0">{s.point}</span></p>
                 <Link href={s.href} className="btn btn-ai mt-4 w-full sm:w-auto">この画面を開く<ArrowRight size={18} /></Link>
               </div>
             </div>

@@ -19,11 +19,11 @@ function Chart({ data }: { data: { week: string; share: number }[] }) {
   const d = data.map((p, i) => `${i ? "L" : "M"}${x(i)},${y(p.share)}`).join(" ");
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={`AI推薦シェアの変化。いまは${data[data.length - 1].share}%`}>
-      {[0, 25, 50, 75, 100].map((v) => <g key={v}><line x1={P} x2={W - P} y1={y(v)} y2={y(v)} stroke="#e3e2dc" strokeDasharray={v ? "3 4" : ""} /><text x={4} y={y(v) + 4} fontSize="10" fill="#8a8c99">{v}%</text></g>)}
+      {[0, 25, 50, 75, 100].map((v) => <g key={v}><line x1={P} x2={W - P} y1={y(v)} y2={y(v)} stroke="#1a2a45" strokeDasharray={v ? "3 4" : ""} /><text x={4} y={y(v) + 4} fontSize="10" fill="#6b7b98">{v}%</text></g>)}
       <path d={`${d} L${x(data.length - 1)},${H - P} L${x(0)},${H - P} Z`} fill="url(#g)" opacity=".5" />
-      <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#6d4aff" stopOpacity=".35" /><stop offset="1" stopColor="#6d4aff" stopOpacity="0" /></linearGradient></defs>
-      <path d={d} fill="none" stroke="#6d4aff" strokeWidth="3" strokeLinejoin="round" />
-      {data.map((p, i) => <g key={i}><circle cx={x(i)} cy={y(p.share)} r={i === data.length - 1 ? 6 : 4} fill={i === data.length - 1 ? "#6d4aff" : "#fff"} stroke="#6d4aff" strokeWidth="2" /><text x={x(i)} y={H - 8} fontSize="10" fill="#8a8c99" textAnchor="middle">{p.week}</text></g>)}
+      <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#10d9a0" stopOpacity=".35" /><stop offset="1" stopColor="#10d9a0" stopOpacity="0" /></linearGradient></defs>
+      <path d={d} fill="none" stroke="#10d9a0" strokeWidth="3" strokeLinejoin="round" />
+      {data.map((p, i) => <g key={i}><circle cx={x(i)} cy={y(p.share)} r={i === data.length - 1 ? 6 : 4} fill={i === data.length - 1 ? "#10d9a0" : "#0b1426"} stroke="#10d9a0" strokeWidth="2" /><text x={x(i)} y={H - 8} fontSize="10" fill="#6b7b98" textAnchor="middle">{p.week}</text></g>)}
     </svg>
   );
 }
@@ -76,7 +76,7 @@ function Erabareru() {
           <ul className="mt-2 space-y-1.5">
             {[{ name: SHOP.name, share: sim.share, me: true }, ...sim.rival].sort((a, b) => b.share - a.share).map((r) => (
               <li key={r.name} className="flex items-center gap-3 text-[0.9rem]"><span className={`w-[9em] shrink-0 truncate ${"me" in r ? "font-bold text-ai" : ""}`}>{r.name}</span>
-                <span className="h-2.5 flex-1 overflow-hidden rounded-full bg-paper"><span className={`block h-full rounded-full transition-all duration-700 ${"me" in r ? "bg-ai" : "bg-[#c9c7bf]"}`} style={{ width: `${r.share}%` }} /></span><span className="num w-10 text-right">{r.share}%</span></li>
+                <span className="h-2.5 flex-1 overflow-hidden rounded-full bg-paper"><span className={`block h-full rounded-full transition-all duration-700 ${"me" in r ? "bg-ai" : "bg-[#2a3b5c]"}`} style={{ width: `${r.share}%` }} /></span><span className="num w-10 text-right">{r.share}%</span></li>
             ))}
           </ul>
         </section>
@@ -88,7 +88,7 @@ function Erabareru() {
         <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {sim.weak.filter((w) => w.miss).slice(0, 6).map((w) => (
             <li key={w.k} className="card p-4">
-              <div className="flex items-center justify-between"><b className="text-[1rem]">{w.label}</b><span className="chip bg-[#fff1e3] text-warn">{w.miss}/{w.total} 外れ</span></div>
+              <div className="flex items-center justify-between"><b className="text-[1rem]">{w.label}</b><span className="chip bg-warn/15 text-warn">{w.miss}/{w.total} 外れ</span></div>
               <p className="mt-1 text-[0.85rem] text-sub">{w.win ? `代わりに「${w.win}」が選ばれています` : ""}</p>
               <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-paper"><div className="h-full rounded-full bg-ai" style={{ width: `${Math.round((sim.me[w.k] ?? 0) * 100)}%` }} /></div>
               <p className="mt-1 text-[0.75rem] text-sub">AIへの伝わり方 {Math.round((sim.me[w.k] ?? 0) * 100)}%</p>
@@ -106,13 +106,13 @@ function Erabareru() {
             const done = s.applied.includes(a.id);
             const gain = done ? 0 : simulate([...s.applied, a.id]).share - sim.share;
             return (
-              <li key={a.id} className={`card flex flex-col gap-3 p-5 sm:flex-row sm:items-center ${done ? "border-ok/40 bg-[#f4fbf7]" : ""}`}>
+              <li key={a.id} className={`card flex flex-col gap-3 p-5 sm:flex-row sm:items-center ${done ? "border-ok/40 bg-ok/5" : ""}`}>
                 <div className="min-w-0 flex-1">
                   <b className="block text-[1.02rem] leading-[1.6]">{a.title}</b>
                   <p className="mt-1 text-[0.88rem] leading-[1.8] text-sub">{a.why}</p>
                   <p className="mt-1.5 flex flex-wrap gap-1.5"><span className="chip bg-paper text-sub">手間：{a.effort}</span>{Object.keys(a.up).map((k) => <span key={k} className="chip bg-ai-2 text-ai">{SIGNALS[k]}</span>)}</p>
                 </div>
-                {done ? <span className="chip shrink-0 bg-ok text-white"><Check size={14} />入れました</span>
+                {done ? <span className="chip shrink-0 bg-ok text-[#03140f]"><Check size={14} />入れました</span>
                   : <button type="button" onClick={() => apply(a.id)} className="btn btn-ai shrink-0">{gain > 0 ? `入れる（+${gain}ポイント）` : "入れる"}</button>}
               </li>
             );
@@ -132,7 +132,7 @@ function Erabareru() {
             <tbody className="divide-y divide-line">
               {qs.map((q) => (
                 <tr key={q}><td className="px-4 py-2.5">{q}</td>
-                  {AIS.map((a) => { const r = rows.find((x) => x.q === q && x.ai === a)!; return <td key={a} className="px-2 py-2.5 text-center">{r.mine ? <span className="chip bg-ai text-white">{r.mine}位</span> : <span className="text-[0.8rem] text-sub" title={`1位：${r.top[0]}`}>外</span>}</td>; })}
+                  {AIS.map((a) => { const r = rows.find((x) => x.q === q && x.ai === a)!; return <td key={a} className="px-2 py-2.5 text-center">{r.mine ? <span className="chip bg-ai text-[#03140f]">{r.mine}位</span> : <span className="text-[0.8rem] text-sub" title={`1位：${r.top[0]}`}>外</span>}</td>; })}
                 </tr>
               ))}
             </tbody>
