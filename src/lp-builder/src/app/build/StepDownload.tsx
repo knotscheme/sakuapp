@@ -22,7 +22,7 @@ export default function StepDownload({ onBack }: { onBack: () => void }) {
   const [wp, setWp] = useState("");
   const sample = SAMPLES.find((s) => s.tpl === t.id)!;
 
-  const missing = t.slots.filter((s) => !p!.imgs[s.id]);
+  const missing = t.slots.filter((s) => !s.optional && !p!.imgs[s.id]);
   const sampleImgs = t.slots.filter((s) => p!.imgs[s.id]?.source === "sample");
   const sampleText = t.fields.filter((f) => !f.url && f.id !== "brand" && p!.fields[f.id] && p!.fields[f.id] === sample.fields[f.id]);
   const noUrl = !p!.fields.ctaUrl || p!.fields.ctaUrl.trim() === "#";

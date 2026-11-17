@@ -32,7 +32,7 @@ function Builder() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const t = p ? getTemplate(p.tpl) : null;
-  const done = (n: number) => !!p && (n === 1 || (n === 2 && !!p.info.product) || (n === 3 && t!.slots.every((s) => p.imgs[s.id])));
+  const done = (n: number) => !!p && (n === 1 || (n === 2 && !!p.info.product) || (n === 3 && t!.slots.every((s) => s.optional || p.imgs[s.id])));
 
   return (
     <>

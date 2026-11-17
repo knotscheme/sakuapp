@@ -64,7 +64,7 @@ export default function SlotCard({ slot, index, compact = false }: { slot: Slot;
         <div className="min-w-0 p-4 sm:p-5">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <h3 className="flex items-center gap-2 text-[15px] font-bold"><span className="grid h-5 w-5 place-items-center rounded-full bg-ink text-[11px] text-white">{index + 1}</span>{slot.label}</h3>
+              <h3 className="flex items-center gap-2 text-[15px] font-bold"><span className="grid h-5 w-5 place-items-center rounded-full bg-ink text-[11px] text-white">{index + 1}</span>{slot.label}{slot.optional && <span className="rounded-full bg-paper px-2 py-0.5 text-[11px] font-normal text-mute">任意</span>}</h3>
               <p className="mt-0.5 text-[12px] text-mute">使う場所：{slot.where}</p>
             </div>
             {meta && <button type="button" onClick={del} aria-label="画像を外す" className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-mute hover:bg-paper hover:text-red-600"><Trash2 size={15} /></button>}

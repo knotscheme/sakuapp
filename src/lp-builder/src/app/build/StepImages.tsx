@@ -15,8 +15,9 @@ export default function StepImages({ onNext, onBack }: { onNext: () => void; onB
   const { p } = useProject();
   const ai = useAi();
   const t = getTemplate(p!.tpl);
-  const filled = t.slots.filter((s) => p!.imgs[s.id]).length;
-  const empty = t.slots.filter((s) => !p!.imgs[s.id]);
+  const req = t.slots.filter((s) => !s.optional);
+  const filled = req.filter((s) => p!.imgs[s.id]).length;
+  const empty = req.filter((s) => !p!.imgs[s.id]);
   const multi = useRef<HTMLInputElement>(null);
   const [over, setOver] = useState(false);
   const [job, setJob] = useState("");
@@ -48,12 +49,12 @@ export default function StepImages({ onNext, onBack }: { onNext: () => void; onB
     <div className="fade-in">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-[22px] font-bold sm:text-[26px]">必要な写真（{t.slots.length}枚）</h1>
+          <h1 className="text-[22px] font-bold sm:text-[26px]">必要な写真（{req.length}枚{req.length < t.slots.length ? `＋任意${t.slots.length - req.length}枚` : ""}）</h1>
           <p className="mt-2 text-[14px] leading-[1.9] text-mute">撮った写真でも、AIで作った画像でもOK。入れた画像は、枠の形に合わせて自動で切り抜き・軽くします。</p>
         </div>
         <div className="w-full max-w-[260px]">
-          <div className="flex justify-between text-[12px]"><span>入っている写真</span><b>{filled} / {t.slots.length}</b></div>
-          <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-line"><div className="h-full rounded-full bg-ok transition-all" style={{ width: `${(filled / t.slots.length) * 100}%` }} /></div>
+          <div className="flex justify-between text-[12px]"><span>入っている写真</span><b>{filled} / {req.length}</b></div>
+          <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-line"><div className="h-full rounded-full bg-ok transition-all" style={{ width: `${(filled / req.length) * 100}%` }} /></div>
         </div>
       </div>
 

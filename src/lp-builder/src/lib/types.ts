@@ -10,6 +10,7 @@ export type Slot = {
   prompt: string; // 画像生成AIに渡す指示（{brand}{product} は基本情報に置き換え）
   tips: string; // 自分で撮るときのコツ
   where: string; // LPのどこに使うか
+  optional?: boolean; // 無くてもよい（無ければ、その画像は出さない）
 };
 
 export type Field = {
@@ -36,6 +37,8 @@ export type Ctx = {
   when: (ids: string[], html: string) => string;
   /** 項目の値（エスケープ済み・改行なし） */
   v: (id: string) => string;
+  /** 画像が入っているか */
+  has: (slot: string) => boolean;
 };
 
 export type Template = {
@@ -49,6 +52,7 @@ export type Template = {
   fields: Field[];
   slots: Slot[];
   css: string; // .lpb から始まるセレクタだけで書く（ほかのサイトに貼っても崩さないため）
+  js?: string; // 動き（root にこの型の .lpb 要素が入る）。無くても文章と写真は表示される
   render: (c: Ctx) => string;
 };
 

@@ -58,29 +58,31 @@ ${wpBase ? `   ※ダウンロードのときに「${wpBase}」を入れたの�
 
 export function buildZip(t: Template, p: Project, imgs: ImgFiles, f: Format, wpBase = "") {
   const files: Zippable = {};
+  const opt = (slot: string) => !imgs[slot] && !!t.slots.find((s) => s.id === slot)?.optional;
   const name = (slot: string) => {
     const im = imgs[slot];
-    return `${slot}.${im ? im.ext : "svg"}`;
+    return opt(slot) ? "" : `${slot}.${im ? im.ext : "svg"}`;
   };
+  const slots = t.slots.filter((s) => !opt(s.id));
   const data = (slot: string) => imgs[slot]?.data ?? strToU8(placeholderSvg(t, slot));
   const want = (x: Format) => f === "all" || f === x;
   const pre = (x: string) => (f === "all" ? `${x}/` : "");
 
   if (want("html")) {
-    const doc = standaloneDoc(t, p, (s) => `images/${name(s)}`, `images/${name(t.slots[0].id)}`);
+    const doc = standaloneDoc(t, p, (s) => (name(s) ? `images/${name(s)}` : ""), `images/${name(t.slots[0].id)}`);
     files[`${pre("html")}index.html`] = strToU8(doc);
-    for (const s of t.slots) files[`${pre("html")}images/${name(s.id)}`] = [data(s.id), { level: 0 }];
+    for (const s of slots) files[`${pre("html")}images/${name(s.id)}`] = [data(s.id), { level: 0 }];
   }
   if (want("wordpress")) {
     const base = wpBase.trim() ? wpBase.trim().replace(/\/?$/, "/") : "__IMAGE_BASE__/";
-    const file = (s: string) => `lpb-${t.id}-${name(s)}`;
-    files[`${pre("wordpress")}lp-snippet.html`] = strToU8(snippetHtml(t, p, (s) => `${base}${file(s)}`));
-    for (const s of t.slots) files[`${pre("wordpress")}images/${file(s.id)}`] = [data(s.id), { level: 0 }];
+    const file = (s: string) => (name(s) ? `lpb-${t.id}-${name(s)}` : "");
+    files[`${pre("wordpress")}lp-snippet.html`] = strToU8(snippetHtml(t, p, (s) => (file(s) ? `${base}${file(s)}` : "")));
+    for (const s of slots) files[`${pre("wordpress")}images/${file(s.id)}`] = [data(s.id), { level: 0 }];
   }
   if (want("shopify")) {
-    const file = (s: string) => `lpb-${t.id}-${name(s)}`;
+    const file = (s: string) => (name(s) ? `lpb-${t.id}-${name(s)}` : "");
     files[`${pre("shopify")}sections/lp-${t.id}.liquid`] = strToU8(shopifySection(t, p, file));
-    for (const s of t.slots) files[`${pre("shopify")}assets/${file(s.id)}`] = [data(s.id), { level: 0 }];
+    for (const s of slots) files[`${pre("shopify")}assets/${file(s.id)}`] = [data(s.id), { level: 0 }];
   }
   files["project.json"] = strToU8(JSON.stringify({ app: "lp-builder", ...p }, null, 2));
   files["README.txt"] = strToU8(README(t, p, wpBase.trim()));
@@ -89,7 +91,7 @@ export function buildZip(t: Template, p: Project, imgs: ImgFiles, f: Format, wpB
 
 export function wpSnippet(t: Template, p: Project, imgs: ImgFiles, wpBase: string) {
   const base = wpBase.trim() ? wpBase.trim().replace(/\/?$/, "/") : "__IMAGE_BASE__/";
-  return snippetHtml(t, p, (s) => `${base}lpb-${t.id}-${s}.${imgs[s]?.ext ?? "svg"}`);
+  return snippetHtml(t, p, (s) => (!imgs[s] && t.slots.find((x) => x.id === s)?.optional ? "" : `${base}lpb-${t.id}-${s}.${imgs[s]?.ext ?? "svg"}`));
 }
 
 export function download(bytes: Uint8Array | string, filename: string, type = "application/zip") {

@@ -12,7 +12,7 @@ import SlotCard from "./SlotCard";
 
 const srcFor = (t: Template, p: Project, urls: Record<string, string>) => (slot: string) => {
   const s = t.slots.find((x) => x.id === slot)!;
-  return urls[slot] ?? placeholder(s.label, s.ratio, isDark(t));
+  return urls[slot] ?? (s.optional ? "" : placeholder(s.label, s.ratio, isDark(t)));
 };
 
 export default function StepFinish({ onNext }: { onNext: () => void }) {
@@ -24,6 +24,8 @@ export default function StepFinish({ onNext }: { onNext: () => void }) {
   const [slot, setSlot] = useState<string | null>(null);
   const frame = useRef<HTMLIFrameElement>(null);
   const sample = SAMPLES.find((s) => s.tpl === t.id)!;
+  // 「任意」の写真を入れた・外したときは、表示を作り直す（その写真の場所ごと出し入れするため）
+  const optKey = t.slots.filter((s) => s.optional && urls[s.id]).map((s) => s.id).join(",");
 
   useEffect(() => { if (innerWidth < 640) setView("sp"); }, []);
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function StepFinish({ onNext }: { onNext: () => void }) {
     const cur = getProject()!;
     setDoc(previewDoc(t, cur, srcFor(t, cur, urls)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t.id, view]);
+  }, [t.id, view, optKey]);
   const post = (m: Record<string, unknown>) => frame.current?.contentWindow?.postMessage({ ...m }, "*");
 
   // プレビューの中で直した文字・押した画像
@@ -138,8 +140,8 @@ export default function StepFinish({ onNext }: { onNext: () => void }) {
                   <li key={s.id}>
                     <button type="button" onClick={() => { setSlot(s.id); post({ lpb: "scroll", id: s.id }); }} className="tap block w-full text-left">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={srcFor(t, p!, urls)(s.id)} alt="" className="w-full rounded-lg object-cover ring-1 ring-line" style={{ aspectRatio: `${s.ratio[0]} / ${s.ratio[1]}` }} />
-                      <span className="mt-1 block truncate text-[12px]">{s.label}</span>
+                      <img src={srcFor(t, p!, urls)(s.id) || placeholder(s.label, s.ratio, isDark(t))} alt="" className="w-full rounded-lg object-cover ring-1 ring-line" style={{ aspectRatio: `${s.ratio[0]} / ${s.ratio[1]}` }} />
+                      <span className="mt-1 block truncate text-[12px]">{s.label}{s.optional && <span className="text-mute">（任意）</span>}</span>
                     </button>
                   </li>
                 ))}

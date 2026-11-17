@@ -9,5 +9,5 @@ export function sampleDoc(id: string) {
   const t = getTemplate(s.tpl);
   const p: Project = { v: 1, tpl: t.id, info: s.info, fields: s.fields, colors: { ...Object.fromEntries(t.colors.map((c) => [c.id, c.value])), ...s.colors }, imgs: {}, updated: 0 };
   const origin = typeof location !== "undefined" ? location.origin : "";
-  return viewDoc(t, p, (slot) => `${origin}${sampleImgUrl(s.imgs[slot] ?? "")}`);
+  return viewDoc(t, p, (slot) => (s.imgs[slot] ? `${origin}${sampleImgUrl(s.imgs[slot])}` : ""));
 }
