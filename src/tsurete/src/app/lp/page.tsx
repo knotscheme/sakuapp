@@ -40,7 +40,7 @@ function useInView<T extends HTMLElement>() {
   useEffect(() => {
     const el = ref.current; if (!el) return;
     if (reduced()) { setOn(true); return; }
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setOn(true); io.disconnect(); } }, { rootMargin: "0px 0px -12% 0px" });
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setOn(true); io.disconnect(); } }, { rootMargin: "0px 0px -4% 0px" });
     io.observe(el); return () => io.disconnect();
   }, []);
   return [ref, on] as const;
@@ -174,9 +174,9 @@ function Shot({ src, alt, w, h }: { src: string; alt: string; w: number; h: numb
   );
 }
 const STEPS = [
-  { n: "測る", h: "AIの中での順位を、毎週。", d: "お客様が聞きそうな質問を、ChatGPTなど4つのAIに毎週何百回も聞いて、すすめられた回数と順位を記録します。", img: ["rank.webp", 1000, 644] },
-  { n: "直す", h: "足りないものを、AIが書き直す。", d: "よくすすめられている店との差を、AIが商品ページの書き直し案にします。押すだけで、お店のサイトに合った方法で届けます。", img: ["naosu.webp", 1000, 925] },
-  { n: "売上", h: "効いたかどうかは、お金で。", d: "AIにすすめられて来たお客様と、その売上を数えます。直した効果を、はっきり確かめられます。", img: ["sales.webp", 1000, 468] },
+  { n: "測る", h: "AIの中での順位を、毎週。", d: "お客様が聞きそうな質問を、ChatGPTなど4つのAIに毎週何百回も聞いて、すすめられた回数と順位を記録します。", img: ["rank.webp", 1000, 738] },
+  { n: "直す", h: "足りないものを、AIが書き直す。", d: "よくすすめられている店との差を、AIが商品ページの書き直し案にします。押すだけで、お店のサイトに合った方法で届けます。", img: ["naosu.webp", 1000, 965] },
+  { n: "売上", h: "効いたかどうかは、お金で。", d: "AIにすすめられて来たお客様と、その売上を数えます。直した効果を、はっきり確かめられます。", img: ["sales.webp", 1000, 572] },
 ] as const;
 
 function Bars() {
@@ -239,7 +239,7 @@ export default function Page() {
           </Reveal>
           <Reveal className="mx-auto mt-14 max-w-[64rem]" delay={120}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${IMG}/ask-ai.webp`} alt="ソファでスマホのAIに相談している人の手元" width={1264} height={848} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
+            <img src={`${IMG}/ask-ai.webp`} alt="ソファでスマホのAIに相談している人" width={1264} height={848} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
           </Reveal>
         </section>
 
@@ -259,9 +259,9 @@ export default function Page() {
         {/* しくみ */}
         <section id="how" className="scroll-mt-12 bg-[#f5f5f7] px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">測る。直す。</span><span className="inline-block">売上で確かめる。</span></h2></Reveal>
-          <div className="mx-auto mt-20 max-w-[62rem] space-y-28 sm:space-y-40">
+          <div className="mx-auto mt-14 max-w-[62rem] space-y-20 sm:mt-20 sm:space-y-40">
             {STEPS.map((s, i) => (
-              <div key={s.n} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <div key={s.n} className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
                 <Reveal className={i % 2 ? "lg:order-2" : ""}>
                   <p className="text-[1rem] font-semibold text-[#00a37a]">{s.n}</p>
                   <h3 className="lp-h mt-2 text-[1.8rem] sm:text-[2.4rem]"><J>{s.h}</J></h3>
