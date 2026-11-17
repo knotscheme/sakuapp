@@ -726,6 +726,7 @@ export default function Page() {
         <div className="mx-auto flex max-w-[1000px] flex-col gap-2 border-t border-[#d2d2d7] pt-6 sm:flex-row sm:justify-between">
           <span>TSURETE（デモ）</span><span><J>数字は架空のブランドでの模擬の結果です。AIにすすめられることは保証できません。</J></span>
         </div>
+        <p className="mx-auto mt-3 max-w-[1000px]">音声ガイド：VOICEVOX:九州そら</p>
         <Link href="/" className="mx-auto mt-4 flex max-w-[1000px] items-center gap-1 text-[#00a37a]">ツールを開く<ArrowRight size={14} /></Link>
       </footer>
     </div>
