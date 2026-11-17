@@ -75,3 +75,11 @@ p, li, dd, h1, h2, h3, button, a { word-break: auto-phrase; }
 @keyframes lp-in { from { transform: translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
 .lp-shine { background: linear-gradient(90deg,#00a37a,#2fd9a6,#0a84ff,#00a37a); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: lp-shine 4s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .lp-shine, [class*="lp-anim"] { animation: none !important; } }
+
+/* 読みこみ画面 */
+html[data-splash="skip"] .tsr-splash { display: none; }
+@keyframes sp-ripple { from { transform: scale(1); opacity: .9; } to { transform: scale(4); opacity: 0; } }
+@keyframes sp-dot { from { transform: scale(0); } 70% { transform: scale(1.3); } to { transform: scale(1); } }
+@keyframes sp-letter { from { opacity: 0; filter: blur(8px); transform: translateY(10px); } to { opacity: 1; filter: blur(0); transform: none; } }
+@keyframes sp-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sp-bar { from { width: 0; } to { width: 100%; } }

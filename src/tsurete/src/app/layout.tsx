@@ -3,6 +3,8 @@ import { JetBrains_Mono, Noto_Sans_JP, Outfit } from "next/font/google";
 import "./globals.css";
 import UpdateCheck from "@/components/UpdateCheck";
 import ConfirmHost from "@/components/Confirm";
+import Splash from "@/components/Splash";
+import { SPLASH_SKIP } from "@/lib/splash";
 
 const noto = Noto_Sans_JP({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-noto", display: "swap" });
 const jbm = JetBrains_Mono({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-jbm", display: "swap" });
@@ -19,8 +21,8 @@ const FRAMED = `if(window.self!==window.top)document.documentElement.classList.a
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja" className={`${noto.variable} ${outfit.variable} ${jbm.variable}`}>
-      <head><script dangerouslySetInnerHTML={{ __html: FRAMED }} /><script src="/sakuapp/works/tsurete/pf-back.js" defer /></head>
-      <body>{children}<ConfirmHost /><UpdateCheck /></body>
+      <head><script dangerouslySetInnerHTML={{ __html: FRAMED + SPLASH_SKIP }} /><script src="/sakuapp/works/tsurete/pf-back.js" defer /></head>
+      <body><Splash />{children}<ConfirmHost /><UpdateCheck /></body>
     </html>
   );
 }
