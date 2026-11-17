@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Check, Download, Eye, ImagePlus, KeyRound, LayoutTemplate, ListChecks, ShieldCheck, Sparkles, Wallet } from "lucide-react";
 import Header from "@/components/Header";
 import Frame from "@/components/Frame";
+import ShotPair from "@/components/ShotPair";
 import { SAMPLES } from "@/lib/samples";
 import { sampleDoc } from "@/lib/sampleDoc";
 import { getTemplate } from "@/lib/templates";
@@ -42,7 +43,7 @@ export default function Home() {
             {/* 作品例を重ねて見せる */}
             <div className="relative h-[380px] sm:h-[460px]">
               {SAMPLES.map((s, i) => (
-                <Link key={s.id} href={`/works/?id=${s.id}`} aria-label={`作品例：${s.title}`}
+                <Link key={s.id} href={`/works/view/?id=${s.id}`} aria-label={`作品例：${s.title}`}
                   className="group absolute overflow-hidden rounded-xl bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,.35)] ring-1 ring-black/5 transition duration-500 hover:z-10 hover:-translate-y-2"
                   style={{ width: "72%", left: `${i * 14}%`, top: `${i * 12}%`, zIndex: 3 - i }}>
                   <div className="flex h-6 items-center gap-1 border-b border-line bg-[#fafaf8] px-2.5">{[0, 1, 2].map((d) => <span key={d} className="h-1.5 w-1.5 rounded-full bg-line" />)}</div>
@@ -79,8 +80,8 @@ export default function Home() {
             {SAMPLES.map((s) => {
               const t = getTemplate(s.tpl);
               return (
-                <Link key={s.id} href={`/works/?id=${s.id}`} className="group card overflow-hidden transition hover:-translate-y-1 hover:shadow-[0_20px_50px_-30px_rgba(0,0,0,.4)]">
-                  <div className="aspect-[4/3] overflow-hidden border-b border-line">{docs[s.id] && <Frame html={docs[s.id]} className="h-full w-full transition duration-700 group-hover:scale-[1.02]" title={s.title} />}</div>
+                <Link key={s.id} href={`/works/view/?id=${s.id}`} className="group card overflow-hidden transition hover:-translate-y-1 hover:shadow-[0_20px_50px_-30px_rgba(0,0,0,.4)]">
+                  <div className="border-b border-line bg-paper p-5"><ShotPair id={s.id} title={s.title} size="sm" /></div>
                   <div className="p-5">
                     <p className="text-[11.5px] font-medium tracking-wider text-accent">{t.name}｜{t.kind}</p>
                     <h3 className="mt-1 text-[16px] font-bold">{s.title}</h3>

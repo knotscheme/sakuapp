@@ -120,9 +120,27 @@ export const craft: Template = {
 .lpb-craft .btn:hover{background:var(--gold)}.lpb-craft .btn:hover::after{transform:translateX(4px)}
 .lpb-craft .ul{display:inline-block;border-bottom:1px solid color-mix(in srgb,var(--ink) 40%,transparent);padding-bottom:2px;font-size:13px;letter-spacing:.08em;transition:color .3s,border-color .3s}
 .lpb-craft .ul:hover{color:var(--gold);border-color:var(--gold)}
-.lpb-craft .hd{position:absolute;top:0;left:0;right:0;z-index:10;padding:20px 24px}
-.lpb-craft .hd .w{display:flex;justify-content:space-between;align-items:center;padding:0}
+.lpb-craft .hd{position:absolute;top:0;left:0;right:0;z-index:60;color:#fff;mix-blend-mode:difference;transition:transform .5s ease-out,background-color .5s,color .5s}
+.lpb-craft .hd.fx{position:fixed}
+.lpb-craft .hd.sc{mix-blend-mode:normal;color:var(--ink);background:rgba(255,255,255,.8);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5)}
+.lpb-craft .hd.hide{transform:translateY(-100%)}
+.lpb-craft .hd.open{mix-blend-mode:normal;color:var(--ink);background:transparent;border-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transform:none}
+.lpb-craft .hd .w{display:flex;height:64px;justify-content:space-between;align-items:center}
+.lpb-craft .hd .logo{font:500 15px var(--en);letter-spacing:.45em}
 .lpb-craft .logo{font:600 15px var(--en);letter-spacing:.3em}
+.lpb-craft .mb{display:flex;align-items:center;padding:8px;margin-right:-8px;border:0;background:none;color:inherit;cursor:pointer}
+.lpb-craft .mb span{position:relative;display:block;height:8px;width:24px}
+.lpb-craft .mb i{position:absolute;left:0;height:1px;background:currentColor;transition:all .5s}
+.lpb-craft .mb i:first-child{top:0;width:100%}.lpb-craft .mb i:last-child{top:100%;width:66%}
+.lpb-craft .mb:hover i:last-child{width:100%}
+.lpb-craft .hd.open .mb i:first-child{top:50%;transform:rotate(20deg)}.lpb-craft .hd.open .mb i:last-child{top:50%;width:100%;transform:rotate(-20deg)}
+.lpb-craft .menu{position:fixed;inset:0;z-index:55;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.45);backdrop-filter:blur(40px) saturate(1.5);-webkit-backdrop-filter:blur(40px) saturate(1.5);transition:opacity .5s,visibility .5s;opacity:0;visibility:hidden}
+.lpb-craft .menu.open{opacity:1;visibility:visible}
+.lpb-craft .menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center}
+.lpb-craft .menu a{display:block;font-size:15px;letter-spacing:.14em;color:var(--ink);transition:all .7s,color .3s;opacity:0;transform:translateY(8px)}
+.lpb-craft .menu.open a{opacity:1;transform:none}
+.lpb-craft .menu a:hover{color:var(--gold)}
+@media (min-width:768px){.lpb-craft .hd .w{height:80px;padding:0 32px}.lpb-craft .menu a{font-size:16px}.lpb-craft .menu ul{gap:32px}}
 .lpb-craft .hero{position:relative;height:100svh;min-height:600px;background:#fff}
 .lpb-craft .hero .in{position:relative;height:100%;overflow:hidden}
 .lpb-craft .photo{position:absolute;left:0;right:0;top:0;height:62svh;overflow:hidden}
@@ -266,10 +284,10 @@ export const craft: Template = {
 .lpb-craft .ob small{display:block;font-size:12px;letter-spacing:.1em;color:var(--mute)}
 .lpb-craft .ob b{display:block;margin-top:4px;font-size:15px;font-weight:500}
 .lpb-craft .ob span{display:block;margin-top:4px;font-size:13px;line-height:1.7;color:var(--mute)}
-.lpb-craft .sp{max-width:672px;margin:96px auto 0;border-top:1px solid var(--line);padding-top:40px;text-align:center}
-.lpb-craft .sp small{font-size:12px;letter-spacing:.1em;color:var(--mute)}
-.lpb-craft .sp b{display:block;margin-top:12px;font-size:17px;font-weight:500}
-.lpb-craft .sp p{margin-top:12px;font-size:13.5px;line-height:2;color:var(--mute)}
+.lpb-craft .spo{max-width:672px;margin:96px auto 0;border-top:1px solid var(--line);padding-top:40px;text-align:center}
+.lpb-craft .spo small{font-size:12px;letter-spacing:.1em;color:var(--mute)}
+.lpb-craft .spo b{display:block;margin-top:12px;font-size:17px;font-weight:500}
+.lpb-craft .spo p{margin-top:12px;font-size:13.5px;line-height:2;color:var(--mute)}
 .lpb-craft .flow{list-style:none;padding:0;margin:0;display:grid;gap:48px}
 @media (min-width:768px){.lpb-craft .flow{grid-template-columns:repeat(3,1fr)}}
 .lpb-craft .flow .hd2{display:flex;align-items:center;gap:16px}
@@ -304,7 +322,8 @@ export const craft: Template = {
     const sp = has("heroSp");
     const model = (n: number) => `<article class="model rv"><span class="ph">${img(`m${n}`)}</span><p class="mn">MODEL 0${n}</p>${f(`m${n}N`, "h3")}${f(`m${n}F`, "p", "f")}${when([`m${n}S`], f(`m${n}S`, "p", "sz"))}<p class="pr">参考価格${f(`m${n}P`, "b")}</p></article>`;
     return `
-<header class="hd"><div class="w">${f("brand", "span", "logo")}</div></header>
+<header class="hd"><div class="w">${f("word", "a", "logo")}<button type="button" class="mb" aria-label="メニューを開く" aria-expanded="false"><span><i></i><i></i></span></button></div></header>
+<nav class="menu" aria-hidden="true"><ul>${[["#craft-why", v("whyTitle") || "選ばれる理由"], ["#craft-models", v("mTitle") || "商品一覧"], ["#craft-finish", v("opTitle") || "仕上げ"], ["#craft-flow", v("flowTitle") || "ご注文の流れ"], ["#craft-contact", v("contactTitle") || "お問い合わせ"]].map(([h, l]) => `<li><a href="${h}" tabindex="-1">${l}</a></li>`).join("")}</ul></nav>
 <section class="hero"><div class="in">
  <div class="photo${sp ? "" : " nosp"}">
   <div class="stage"><div class="zoom">
@@ -340,7 +359,7 @@ export const craft: Template = {
  <ol class="pains">${[1, 2, 3].map((n) => `<li class="rv"><span class="n num">0${n}</span>${f(`pain${n}`, "p")}</li>`).join("")}</ol>
  ${f("painEnd", "p", "pend rv")}
 </div></section>
-<section class="s bgp"><div class="w">
+<section class="s bgp" id="craft-why"><div class="w">
  <div class="st rv"><p class="elbl">Why us</p>${f("whyTitle", "h2")}</div>
  <div class="why">${[1, 2, 3].map((n) => `<article class="rv"><p class="n num">0${n}</p>${f(`why${n}T`, "h3")}${f(`why${n}B`, "p")}</article>`).join("")}</div>
 </div></section>
@@ -349,7 +368,7 @@ export const craft: Template = {
  <div class="models">${model(1)}${model(2)}${model(3)}${[4, 5, 6].map((n) => (has(`m${n}`) ? model(n) : "")).join("")}</div>
  ${when(["mNote"], f("mNote", "p", "mnote"))}
 </div></section>
-<section class="s bgp"><div class="w">
+<section class="s bgp" id="craft-finish"><div class="w">
  <div class="st rv"><p class="elbl">Finish</p>${f("opTitle", "h2")}${f("opSub", "p", "sub")}</div>
  <div class="opt">
   <div class="pics rv">${img("op1", "now")}${img("op2")}${img("op3")}<span class="sweep"></span></div>
@@ -359,9 +378,9 @@ export const craft: Template = {
    ${has("opt") ? `<div class="ob">${img("opt")}<div><small>OPTION</small>${f("optT", "b")}${f("optB", "span")}</div></div>` : ""}
   </div>
  </div>
- ${when(["spT"], `<div class="sp rv"><small>SPECIAL ORDER</small>${f("spT", "b")}${f("spB", "p")}</div>`)}
+ ${when(["spT"], `<div class="spo rv"><small>SPECIAL ORDER</small>${f("spT", "b")}${f("spB", "p")}</div>`)}
 </div></section>
-<section class="s"><div class="w">
+<section class="s" id="craft-flow"><div class="w">
  <div class="st rv"><p class="elbl">Flow</p>${f("flowTitle", "h2")}</div>
  <ol class="flow">${[1, 2, 3].map((n) => `<li class="rv"><div class="hd2"><b class="num">${n}</b><i></i></div>${f(`f${n}T`, "h3")}${f(`f${n}B`, "p")}</li>`).join("")}</ol>
  ${when(["q1Q", "q2Q", "q3Q", "q4Q"], `<div style="margin-top:128px"><div class="st rv"><p class="elbl">FAQ</p><h2>よくある質問</h2></div>
@@ -380,6 +399,14 @@ var hc=Q(".hero .hc");if(hc&&!EDIT){hc.outerHTML=hc.innerHTML.split(/<br\\s*\\/?
 var st=Q(".stmt .lines");
 if(st&&!EDIT){var ci=0,rnd=function(n){var x=Math.sin(n*12.9898)*43758.5453;return x-Math.floor(x)};
  st.innerHTML=st.innerHTML.split(/<br\\s*\\/?>/i).map(function(line){return '<p>'+line.split(/\\s+/).filter(Boolean).map(function(w){var ac=/<em>/.test(w);var d=document.createElement("div");d.innerHTML=w;return '<span class="wd'+(ac?" ac":"")+'">'+d.textContent.split("").map(function(ch){ci++;var a=rnd(ci)*6.283,R=40+rnd(ci+99)*120;return '<span class="c" style="--dx:'+(Math.cos(a)*R).toFixed(0)+'px;--dy:'+(Math.sin(a)*R+40).toFixed(0)+'px;--d:'+(ci*.05+rnd(ci+7)*.45).toFixed(2)+'s">'+es(ch)+'</span>'}).join("")+'</span>'}).join("")+'</p>'}).join("")}
+// ヘッダー：LPの中では上に固定。下へスクロール中は隠し、上へ戻すと出す。メニューは全画面
+var hd=Q(".hd"),mb=Q(".mb"),menu=Q(".menu"),last=0;
+function setMenu(o){if(!hd||!menu)return;hd.classList.toggle("open",o);menu.classList.toggle("open",o);menu.setAttribute("aria-hidden",o?"false":"true");mb.setAttribute("aria-expanded",o?"true":"false");mb.setAttribute("aria-label",o?"メニューを閉じる":"メニューを開く");QA(".menu a").forEach(function(a,i){a.tabIndex=o?0:-1;a.style.transitionDelay=o?(.1+i*.05)+"s":"0s"});document.documentElement.style.overflow=o?"hidden":""}
+if(mb)mb.addEventListener("click",function(){setMenu(!hd.classList.contains("open"))});
+if(menu){menu.addEventListener("click",function(e){if(e.target===menu||e.target.closest("a"))setMenu(false)})}
+addEventListener("keydown",function(e){if(e.key==="Escape")setMenu(false)});
+function hsc(){if(!hd)return;var r=root.getBoundingClientRect(),y=-r.top;hd.classList.toggle("fx",y>0&&r.bottom>80);hd.classList.toggle("sc",y>40);if(Math.abs(y-last)>6){hd.classList.toggle("hide",y>last&&y>120);last=y}}
+addEventListener("scroll",hsc,{passive:true});hsc();
 var tabs=QA(".tabs button"),pics=QA(".opt .pics img"),ods=QA(".opd"),sw=Q(".sweep");
 tabs.forEach(function(b,i){b.addEventListener("click",function(){tabs.forEach(function(x,k){x.classList.toggle("now",k===i)});pics.forEach(function(x,k){x.classList.toggle("now",k===i)});ods.forEach(function(x,k){x.classList.toggle("now",k===i)});if(sw){sw.classList.remove("go");void sw.offsetWidth;if(i>0)sw.classList.add("go")}})});
 if(!EDIT){

@@ -115,6 +115,7 @@ export const abyssia: Template = {
 .lpb-abyssia .mn{position:relative;z-index:2}
 .lpb-abyssia .w{max-width:1160px;margin:0 auto;padding:0 32px}
 .lpb-abyssia .hd{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:22px 32px}
+.lpb-abyssia .hd.fx{position:fixed}
 .lpb-abyssia .logo{font:300 18px var(--serif);letter-spacing:.5em}
 .lpb-abyssia .hd nav{display:flex;gap:28px;font-size:11px;letter-spacing:.24em;color:var(--ink2)}
 .lpb-abyssia .hd nav a:hover{color:var(--ink)}
@@ -254,7 +255,7 @@ export const abyssia: Template = {
     return `
 <div class="fxl" aria-hidden="true"><canvas></canvas><div class="depth"><span>DEPTH</span><div class="bar"><i></i></div><b class="dp">0</b><span>m</span></div></div>
 <div class="mn">
-<header class="hd">${f("brand", "span", "logo")}<nav><a href="#abyssia-zones">EXHIBITS</a><a href="#abyssia-ticket">TICKETS</a><a href="#abyssia-access">ACCESS</a></nav></header>
+<header class="hd">${f("brand", "span", "logo")}<nav><a href="#abyssia-zones">EXHIBITS</a><a href="#abyssia-night">NIGHT</a><a href="#abyssia-ticket">TICKETS</a><a href="#abyssia-access">ACCESS</a></nav></header>
 <section class="hero">
  <div class="jf" aria-hidden="true">${img("hero")}</div>
  <div class="tx">${f("kick", "p", "k")}${f("brand", "h1")}${f("heroSub", "p", "sub")}</div>
@@ -264,7 +265,7 @@ export const abyssia: Template = {
 ${mq.length ? `<div class="mq" aria-hidden="true"><div>${mqHtml}</div></div>` : ""}
 <section id="abyssia-zones"><div class="w zones">${zone(1, false)}${zone(2, true)}${zone(3, false)}</div></section>
 <section class="full"><div class="bg">${img("full")}</div><div class="cap rv"><p class="lbl" style="margin-bottom:18px">${f("fullNo", "b")}${f("fullEn")}</p>${f("fullT", "p", "big")}</div></section>
-<section><div class="w night">
+<section id="abyssia-night"><div class="w night">
  <div class="tx rv"><p class="lbl">${f("nightNo", "b")}${f("nightEn")}</p>${f("nightT", "h2")}${f("nightB", "p", "lead")}
   ${when(["t1L", "t2L", "t3L"], `<div class="time">${when(["t1L"], `<div>${f("t1L")}${f("t1V", "b")}</div>`)}${when(["t2L"], `<div>${f("t2L")}${f("t2V", "b")}</div>`)}${when(["t3L"], `<div>${f("t3L")}${f("t3V", "b")}</div>`)}</div>`)}</div>
  <div class="nimg"${has("cocktail") ? "" : ' style="padding-bottom:0"'}><figure class="ph rv">${img("bar")}</figure>${has("cocktail") ? `<figure class="ph ck rv">${img("cocktail")}${when(["ckCap"], f("ckCap", "figcaption"))}</figure>` : ""}</div>
@@ -302,6 +303,7 @@ if(!EDIT){
   var io3=new IntersectionObserver(function(x){if(x[0].isIntersecting){Q(".intro").classList.add("on");io3.disconnect()}},{threshold:.45});io3.observe(st)}
 }
 var mob=matchMedia("(max-width:860px)").matches,fxl=Q(".fxl"),dp=Q(".dp"),dpi=Q(".depth .bar i"),zones=Q("#abyssia-zones");
+var hd=Q(".hd");function hfx(){var r=root.getBoundingClientRect();if(hd)hd.classList.toggle("fx",r.top<0&&r.bottom>80)}addEventListener("scroll",hfx,{passive:true});hfx();
 var cs=getComputedStyle(root),hex=function(h){h=h.trim().replace("#","");if(h.length===3)h=h.split("").map(function(c){return c+c}).join("");var n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]};
 function sc(){var r=root.getBoundingClientRect(),H=root.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,-r.top/Math.max(1,H)));
  var dep=p<.9?Math.round(p/.9*1000):Math.round(1000-(p-.9)/.1*1000);if(dp)dp.textContent=dep;if(dpi)dpi.style.top=(Math.min(p/.9,1)*96)+"%";

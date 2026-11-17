@@ -34,3 +34,6 @@ body { line-break: strict; background: var(--color-paper); color: var(--color-in
 .spin { animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .checker { background-color: #f1f0ec; background-image: linear-gradient(45deg,#e7e5df 25%,transparent 25%,transparent 75%,#e7e5df 75%),linear-gradient(45deg,#e7e5df 25%,transparent 25%,transparent 75%,#e7e5df 75%); background-size: 16px 16px; background-position: 0 0, 8px 8px; }
+
+/* スマホの見え方：本物のスマホ（390×844）と同じ縦横比の枠に、縮めて表示する */
+.phone { width: min(100%, calc(min(80vh, 800px) * 390 / 844)); aspect-ratio: 390 / 844; }

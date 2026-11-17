@@ -112,6 +112,8 @@ export const sorae: Template = {
 .lpb-sorae .hd{position:absolute;top:28px;left:0;right:0;z-index:5}
 .lpb-sorae .hd .w{display:flex;justify-content:space-between;align-items:center;max-width:none;padding:0 44px}
 .lpb-sorae .logo{font:300 20px var(--en);letter-spacing:.5em}
+.lpb-sorae .hd nav{display:flex;gap:30px;font-size:11.5px;color:var(--ink2);text-transform:capitalize}
+.lpb-sorae .hd nav a{transition:color .3s}.lpb-sorae .hd nav a:hover{color:var(--ink)}
 .lpb-sorae .btn{display:inline-flex;align-items:center;gap:14px;border-radius:999px;padding:17px 36px;font-size:13.5px;letter-spacing:.14em;background:var(--ink);color:#fff;transition:transform .4s,box-shadow .4s}
 .lpb-sorae .btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(42,50,67,.5)}
 .lpb-sorae .btn::after{content:"→"}
@@ -283,7 +285,7 @@ export const sorae: Template = {
 @media (prefers-reduced-motion:reduce){.lpb-sorae *{animation:none!important}.lpb-sorae.lpb-js .rv,.lpb-sorae.lpb-js .ch,.lpb-sorae.lpb-js .hero .lead,.lpb-sorae.lpb-js .hero .cta,.lpb-sorae.lpb-js .bwrap .btl,.lpb-sorae.lpb-js .fg span{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}.lpb-sorae.lpb-js h2{clip-path:none!important;transform:none!important}}
 @media (max-width:860px){
 .lpb-sorae .hero h1{font-size:clamp(26px,7.9vw,34px);letter-spacing:.08em}
-.lpb-sorae .w{padding:0 24px}.lpb-sorae .hd .w{padding:0 24px}.lpb-sorae .hd .btn{display:none}
+.lpb-sorae .w{padding:0 24px}.lpb-sorae .hd .w{padding:0 24px}.lpb-sorae .hd nav{display:none}
 .lpb-sorae .hero .w{grid-template-columns:1fr;text-align:center;padding-top:100px;padding-bottom:70px}
 .lpb-sorae .hero .lead{margin-left:auto;margin-right:auto}.lpb-sorae .hero .cta{justify-content:center}
 .lpb-sorae .bwrap{order:-1;margin-bottom:10px}.lpb-sorae .bwrap .btl{height:min(52vh,380px);width:auto}
@@ -306,7 +308,7 @@ export const sorae: Template = {
     const free = split(v("freeList")).slice(0, 8);
     const pct = Math.max(0, Math.min(100, Number(v("ringNum").replace(/[^\d.]/g, "")) || 0));
     return `
-<header class="hd"><div class="w">${f("brand", "span", "logo")}${link("ctaLabel", "ctaUrl", "btn")}</div></header>
+<header class="hd"><div class="w">${f("brand", "span", "logo")}<nav><a href="#sorae-key">${v("keyLabel") || "Feature"}</a><a href="#sorae-ig">Ingredients</a><a href="#sorae-free">${v("freeLabel") || "Free"}</a><a href="#price">Price</a></nav></div></header>
 <section class="hero" style="padding:0">
  <div class="aura" aria-hidden="true"><i></i><i></i><i></i></div>
  <div class="ripple" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -334,7 +336,7 @@ ${mq.length ? `<div class="mq" aria-hidden="true"><div>${mqHtml}</div></div>` : 
   <div><span class="n">03</span>${f("for3T", "b")}${f("for3B", "p")}</div>
  </div>
 </div></section>
-<section class="cr"><div class="w">
+<section class="cr" id="sorae-key"><div class="w">
  <div class="ring rv" data-pct="${pct}">
   <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="88" fill="none" stroke="#e4e8f1" stroke-width="1"/><circle class="arc" cx="100" cy="100" r="88" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="${(553 * (1 - pct / 100)).toFixed(1)}" transform="rotate(-90 100 100)"/></svg>
   <div class="c"><div><b><span class="cnt">${f("ringNum")}</span><small>${f("ringUnit")}</small></b>${f("ringCap", "span", "cap")}</div></div>
@@ -346,7 +348,7 @@ ${mq.length ? `<div class="mq" aria-hidden="true"><div>${mqHtml}</div></div>` : 
   <div class="duo"><div>${f("duo1T", "b")}${f("duo1B", "small")}</div><div>${f("duo2T", "b")}${f("duo2B", "small")}</div></div>
  </div>
 </div></section>
-<section class="hzs"><div class="pin"><div class="w">
+<section class="hzs" id="sorae-ig"><div class="pin"><div class="w">
  <div class="sh rv"><span class="en">INGREDIENTS</span>${f("igTitle", "h2")}</div></div>
  <div class="ig">
   <div class="ic rv" style="--c:var(--mint)">${f("ig1E", "span", "en")}${f("ig1T", "h3")}${f("ig1B", "p")}</div>
@@ -355,7 +357,7 @@ ${mq.length ? `<div class="mq" aria-hidden="true"><div>${mqHtml}</div></div>` : 
  </div>
  <div class="prog"><i></i></div>
 </div></section>
-<section class="fr"><div class="w">
+<section class="fr" id="sorae-free"><div class="w">
  <div class="sh rv">${f("freeLabel", "span", "en")}${f("freeTitle", "h2")}${f("freeSub", "p")}</div>
  ${free.length ? `<div class="fg">${free.map((x) => `<span>${x}</span>`).join("")}</div>` : ""}
  <figure class="qc rv"><div class="qci">${img("qc")}</div><figcaption><span class="en">QUALITY CHECK</span>${f("qcTitle", "b")}${f("qcBody", "p")}</figcaption></figure>

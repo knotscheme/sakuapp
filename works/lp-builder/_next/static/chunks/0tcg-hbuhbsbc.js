@@ -79,6 +79,8 @@ ${c}
 .lpb-sorae .hd{position:absolute;top:28px;left:0;right:0;z-index:5}
 .lpb-sorae .hd .w{display:flex;justify-content:space-between;align-items:center;max-width:none;padding:0 44px}
 .lpb-sorae .logo{font:300 20px var(--en);letter-spacing:.5em}
+.lpb-sorae .hd nav{display:flex;gap:30px;font-size:11.5px;color:var(--ink2);text-transform:capitalize}
+.lpb-sorae .hd nav a{transition:color .3s}.lpb-sorae .hd nav a:hover{color:var(--ink)}
 .lpb-sorae .btn{display:inline-flex;align-items:center;gap:14px;border-radius:999px;padding:17px 36px;font-size:13.5px;letter-spacing:.14em;background:var(--ink);color:#fff;transition:transform .4s,box-shadow .4s}
 .lpb-sorae .btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(42,50,67,.5)}
 .lpb-sorae .btn::after{content:"→"}
@@ -250,7 +252,7 @@ ${c}
 @media (prefers-reduced-motion:reduce){.lpb-sorae *{animation:none!important}.lpb-sorae.lpb-js .rv,.lpb-sorae.lpb-js .ch,.lpb-sorae.lpb-js .hero .lead,.lpb-sorae.lpb-js .hero .cta,.lpb-sorae.lpb-js .bwrap .btl,.lpb-sorae.lpb-js .fg span{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}.lpb-sorae.lpb-js h2{clip-path:none!important;transform:none!important}}
 @media (max-width:860px){
 .lpb-sorae .hero h1{font-size:clamp(26px,7.9vw,34px);letter-spacing:.08em}
-.lpb-sorae .w{padding:0 24px}.lpb-sorae .hd .w{padding:0 24px}.lpb-sorae .hd .btn{display:none}
+.lpb-sorae .w{padding:0 24px}.lpb-sorae .hd .w{padding:0 24px}.lpb-sorae .hd nav{display:none}
 .lpb-sorae .hero .w{grid-template-columns:1fr;text-align:center;padding-top:100px;padding-bottom:70px}
 .lpb-sorae .hero .lead{margin-left:auto;margin-right:auto}.lpb-sorae .hero .cta{justify-content:center}
 .lpb-sorae .bwrap{order:-1;margin-bottom:10px}.lpb-sorae .bwrap .btl{height:min(52vh,380px);width:auto}
@@ -267,7 +269,7 @@ ${c}
 .lpb-sorae .pr{padding:44px 24px;border-radius:28px}.lpb-sorae .pr .yen{font-size:52px}
 .lpb-sorae .guar{flex-direction:column;text-align:center;gap:8px}
 .lpb-sorae .sbg img{left:0;right:auto;top:-4%;width:100%;height:108%;object-fit:cover;object-position:50% 58%;-webkit-mask-image:none;mask-image:none}}`,render:({f:a,img:e,link:i,when:r,v:o})=>{let l=t(o("marquee")),s=[...l,...l].map(a=>`<span>${a}</span><span>✦</span>`).join(""),n=t(o("freeList")).slice(0,8),p=Math.max(0,Math.min(100,Number(o("ringNum").replace(/[^\d.]/g,""))||0));return`
-<header class="hd"><div class="w">${a("brand","span","logo")}${i("ctaLabel","ctaUrl","btn")}</div></header>
+<header class="hd"><div class="w">${a("brand","span","logo")}<nav><a href="#sorae-key">${o("keyLabel")||"Feature"}</a><a href="#sorae-ig">Ingredients</a><a href="#sorae-free">${o("freeLabel")||"Free"}</a><a href="#price">Price</a></nav></div></header>
 <section class="hero" style="padding:0">
  <div class="aura" aria-hidden="true"><i></i><i></i><i></i></div>
  <div class="ripple" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -295,7 +297,7 @@ ${l.length?`<div class="mq" aria-hidden="true"><div>${s}</div></div>`:""}
   <div><span class="n">03</span>${a("for3T","b")}${a("for3B","p")}</div>
  </div>
 </div></section>
-<section class="cr"><div class="w">
+<section class="cr" id="sorae-key"><div class="w">
  <div class="ring rv" data-pct="${p}">
   <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="88" fill="none" stroke="#e4e8f1" stroke-width="1"/><circle class="arc" cx="100" cy="100" r="88" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="${(553*(1-p/100)).toFixed(1)}" transform="rotate(-90 100 100)"/></svg>
   <div class="c"><div><b><span class="cnt">${a("ringNum")}</span><small>${a("ringUnit")}</small></b>${a("ringCap","span","cap")}</div></div>
@@ -307,7 +309,7 @@ ${l.length?`<div class="mq" aria-hidden="true"><div>${s}</div></div>`:""}
   <div class="duo"><div>${a("duo1T","b")}${a("duo1B","small")}</div><div>${a("duo2T","b")}${a("duo2B","small")}</div></div>
  </div>
 </div></section>
-<section class="hzs"><div class="pin"><div class="w">
+<section class="hzs" id="sorae-ig"><div class="pin"><div class="w">
  <div class="sh rv"><span class="en">INGREDIENTS</span>${a("igTitle","h2")}</div></div>
  <div class="ig">
   <div class="ic rv" style="--c:var(--mint)">${a("ig1E","span","en")}${a("ig1T","h3")}${a("ig1B","p")}</div>
@@ -316,7 +318,7 @@ ${l.length?`<div class="mq" aria-hidden="true"><div>${s}</div></div>`:""}
  </div>
  <div class="prog"><i></i></div>
 </div></section>
-<section class="fr"><div class="w">
+<section class="fr" id="sorae-free"><div class="w">
  <div class="sh rv">${a("freeLabel","span","en")}${a("freeTitle","h2")}${a("freeSub","p")}</div>
  ${n.length?`<div class="fg">${n.map(a=>`<span>${a}</span>`).join("")}</div>`:""}
  <figure class="qc rv"><div class="qci">${e("qc")}</div><figcaption><span class="en">QUALITY CHECK</span>${a("qcTitle","b")}${a("qcBody","p")}</figcaption></figure>
@@ -382,9 +384,27 @@ if(!EDIT){
 .lpb-craft .btn:hover{background:var(--gold)}.lpb-craft .btn:hover::after{transform:translateX(4px)}
 .lpb-craft .ul{display:inline-block;border-bottom:1px solid color-mix(in srgb,var(--ink) 40%,transparent);padding-bottom:2px;font-size:13px;letter-spacing:.08em;transition:color .3s,border-color .3s}
 .lpb-craft .ul:hover{color:var(--gold);border-color:var(--gold)}
-.lpb-craft .hd{position:absolute;top:0;left:0;right:0;z-index:10;padding:20px 24px}
-.lpb-craft .hd .w{display:flex;justify-content:space-between;align-items:center;padding:0}
+.lpb-craft .hd{position:absolute;top:0;left:0;right:0;z-index:60;color:#fff;mix-blend-mode:difference;transition:transform .5s ease-out,background-color .5s,color .5s}
+.lpb-craft .hd.fx{position:fixed}
+.lpb-craft .hd.sc{mix-blend-mode:normal;color:var(--ink);background:rgba(255,255,255,.8);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5)}
+.lpb-craft .hd.hide{transform:translateY(-100%)}
+.lpb-craft .hd.open{mix-blend-mode:normal;color:var(--ink);background:transparent;border-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transform:none}
+.lpb-craft .hd .w{display:flex;height:64px;justify-content:space-between;align-items:center}
+.lpb-craft .hd .logo{font:500 15px var(--en);letter-spacing:.45em}
 .lpb-craft .logo{font:600 15px var(--en);letter-spacing:.3em}
+.lpb-craft .mb{display:flex;align-items:center;padding:8px;margin-right:-8px;border:0;background:none;color:inherit;cursor:pointer}
+.lpb-craft .mb span{position:relative;display:block;height:8px;width:24px}
+.lpb-craft .mb i{position:absolute;left:0;height:1px;background:currentColor;transition:all .5s}
+.lpb-craft .mb i:first-child{top:0;width:100%}.lpb-craft .mb i:last-child{top:100%;width:66%}
+.lpb-craft .mb:hover i:last-child{width:100%}
+.lpb-craft .hd.open .mb i:first-child{top:50%;transform:rotate(20deg)}.lpb-craft .hd.open .mb i:last-child{top:50%;width:100%;transform:rotate(-20deg)}
+.lpb-craft .menu{position:fixed;inset:0;z-index:55;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.45);backdrop-filter:blur(40px) saturate(1.5);-webkit-backdrop-filter:blur(40px) saturate(1.5);transition:opacity .5s,visibility .5s;opacity:0;visibility:hidden}
+.lpb-craft .menu.open{opacity:1;visibility:visible}
+.lpb-craft .menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center}
+.lpb-craft .menu a{display:block;font-size:15px;letter-spacing:.14em;color:var(--ink);transition:all .7s,color .3s;opacity:0;transform:translateY(8px)}
+.lpb-craft .menu.open a{opacity:1;transform:none}
+.lpb-craft .menu a:hover{color:var(--gold)}
+@media (min-width:768px){.lpb-craft .hd .w{height:80px;padding:0 32px}.lpb-craft .menu a{font-size:16px}.lpb-craft .menu ul{gap:32px}}
 .lpb-craft .hero{position:relative;height:100svh;min-height:600px;background:#fff}
 .lpb-craft .hero .in{position:relative;height:100%;overflow:hidden}
 .lpb-craft .photo{position:absolute;left:0;right:0;top:0;height:62svh;overflow:hidden}
@@ -528,10 +548,10 @@ if(!EDIT){
 .lpb-craft .ob small{display:block;font-size:12px;letter-spacing:.1em;color:var(--mute)}
 .lpb-craft .ob b{display:block;margin-top:4px;font-size:15px;font-weight:500}
 .lpb-craft .ob span{display:block;margin-top:4px;font-size:13px;line-height:1.7;color:var(--mute)}
-.lpb-craft .sp{max-width:672px;margin:96px auto 0;border-top:1px solid var(--line);padding-top:40px;text-align:center}
-.lpb-craft .sp small{font-size:12px;letter-spacing:.1em;color:var(--mute)}
-.lpb-craft .sp b{display:block;margin-top:12px;font-size:17px;font-weight:500}
-.lpb-craft .sp p{margin-top:12px;font-size:13.5px;line-height:2;color:var(--mute)}
+.lpb-craft .spo{max-width:672px;margin:96px auto 0;border-top:1px solid var(--line);padding-top:40px;text-align:center}
+.lpb-craft .spo small{font-size:12px;letter-spacing:.1em;color:var(--mute)}
+.lpb-craft .spo b{display:block;margin-top:12px;font-size:17px;font-weight:500}
+.lpb-craft .spo p{margin-top:12px;font-size:13.5px;line-height:2;color:var(--mute)}
 .lpb-craft .flow{list-style:none;padding:0;margin:0;display:grid;gap:48px}
 @media (min-width:768px){.lpb-craft .flow{grid-template-columns:repeat(3,1fr)}}
 .lpb-craft .flow .hd2{display:flex;align-items:center;gap:16px}
@@ -561,7 +581,8 @@ if(!EDIT){
 .lpb-craft .fb:hover{background:var(--ink);color:#fff}
 @media (min-width:768px){.lpb-craft .fb{right:32px;bottom:32px}}
 @media (prefers-reduced-motion:reduce){.lpb-craft *{animation:none!important}.lpb-craft.lpb-js .rv,.lpb-craft.lpb-js .stmt .c{opacity:1!important;transform:none!important;filter:none!important}}`,render:({f:a,img:t,link:e,when:i,v:r,has:o})=>{let l=r("badges").split(/[|｜]/).map(a=>a.trim()).filter(Boolean),s=o("heroSp"),n=e=>`<article class="model rv"><span class="ph">${t(`m${e}`)}</span><p class="mn">MODEL 0${e}</p>${a(`m${e}N`,"h3")}${a(`m${e}F`,"p","f")}${i([`m${e}S`],a(`m${e}S`,"p","sz"))}<p class="pr">参考価格${a(`m${e}P`,"b")}</p></article>`;return`
-<header class="hd"><div class="w">${a("brand","span","logo")}</div></header>
+<header class="hd"><div class="w">${a("word","a","logo")}<button type="button" class="mb" aria-label="メニューを開く" aria-expanded="false"><span><i></i><i></i></span></button></div></header>
+<nav class="menu" aria-hidden="true"><ul>${[["#craft-why",r("whyTitle")||"選ばれる理由"],["#craft-models",r("mTitle")||"商品一覧"],["#craft-finish",r("opTitle")||"仕上げ"],["#craft-flow",r("flowTitle")||"ご注文の流れ"],["#craft-contact",r("contactTitle")||"お問い合わせ"]].map(([a,t])=>`<li><a href="${a}" tabindex="-1">${t}</a></li>`).join("")}</ul></nav>
 <section class="hero"><div class="in">
  <div class="photo${s?"":" nosp"}">
   <div class="stage"><div class="zoom">
@@ -597,7 +618,7 @@ if(!EDIT){
  <ol class="pains">${[1,2,3].map(t=>`<li class="rv"><span class="n num">0${t}</span>${a(`pain${t}`,"p")}</li>`).join("")}</ol>
  ${a("painEnd","p","pend rv")}
 </div></section>
-<section class="s bgp"><div class="w">
+<section class="s bgp" id="craft-why"><div class="w">
  <div class="st rv"><p class="elbl">Why us</p>${a("whyTitle","h2")}</div>
  <div class="why">${[1,2,3].map(t=>`<article class="rv"><p class="n num">0${t}</p>${a(`why${t}T`,"h3")}${a(`why${t}B`,"p")}</article>`).join("")}</div>
 </div></section>
@@ -606,7 +627,7 @@ if(!EDIT){
  <div class="models">${n(1)}${n(2)}${n(3)}${[4,5,6].map(a=>o(`m${a}`)?n(a):"").join("")}</div>
  ${i(["mNote"],a("mNote","p","mnote"))}
 </div></section>
-<section class="s bgp"><div class="w">
+<section class="s bgp" id="craft-finish"><div class="w">
  <div class="st rv"><p class="elbl">Finish</p>${a("opTitle","h2")}${a("opSub","p","sub")}</div>
  <div class="opt">
   <div class="pics rv">${t("op1","now")}${t("op2")}${t("op3")}<span class="sweep"></span></div>
@@ -616,9 +637,9 @@ if(!EDIT){
    ${o("opt")?`<div class="ob">${t("opt")}<div><small>OPTION</small>${a("optT","b")}${a("optB","span")}</div></div>`:""}
   </div>
  </div>
- ${i(["spT"],`<div class="sp rv"><small>SPECIAL ORDER</small>${a("spT","b")}${a("spB","p")}</div>`)}
+ ${i(["spT"],`<div class="spo rv"><small>SPECIAL ORDER</small>${a("spT","b")}${a("spB","p")}</div>`)}
 </div></section>
-<section class="s"><div class="w">
+<section class="s" id="craft-flow"><div class="w">
  <div class="st rv"><p class="elbl">Flow</p>${a("flowTitle","h2")}</div>
  <ol class="flow">${[1,2,3].map(t=>`<li class="rv"><div class="hd2"><b class="num">${t}</b><i></i></div>${a(`f${t}T`,"h3")}${a(`f${t}B`,"p")}</li>`).join("")}</ol>
  ${i(["q1Q","q2Q","q3Q","q4Q"],`<div style="margin-top:128px"><div class="st rv"><p class="elbl">FAQ</p><h2>よくある質問</h2></div>
@@ -635,6 +656,14 @@ var hc=Q(".hero .hc");if(hc&&!EDIT){hc.outerHTML=hc.innerHTML.split(/<br\\s*\\/?
 var st=Q(".stmt .lines");
 if(st&&!EDIT){var ci=0,rnd=function(n){var x=Math.sin(n*12.9898)*43758.5453;return x-Math.floor(x)};
  st.innerHTML=st.innerHTML.split(/<br\\s*\\/?>/i).map(function(line){return '<p>'+line.split(/\\s+/).filter(Boolean).map(function(w){var ac=/<em>/.test(w);var d=document.createElement("div");d.innerHTML=w;return '<span class="wd'+(ac?" ac":"")+'">'+d.textContent.split("").map(function(ch){ci++;var a=rnd(ci)*6.283,R=40+rnd(ci+99)*120;return '<span class="c" style="--dx:'+(Math.cos(a)*R).toFixed(0)+'px;--dy:'+(Math.sin(a)*R+40).toFixed(0)+'px;--d:'+(ci*.05+rnd(ci+7)*.45).toFixed(2)+'s">'+es(ch)+'</span>'}).join("")+'</span>'}).join("")+'</p>'}).join("")}
+// ヘッダー：LPの中では上に固定。下へスクロール中は隠し、上へ戻すと出す。メニューは全画面
+var hd=Q(".hd"),mb=Q(".mb"),menu=Q(".menu"),last=0;
+function setMenu(o){if(!hd||!menu)return;hd.classList.toggle("open",o);menu.classList.toggle("open",o);menu.setAttribute("aria-hidden",o?"false":"true");mb.setAttribute("aria-expanded",o?"true":"false");mb.setAttribute("aria-label",o?"メニューを閉じる":"メニューを開く");QA(".menu a").forEach(function(a,i){a.tabIndex=o?0:-1;a.style.transitionDelay=o?(.1+i*.05)+"s":"0s"});document.documentElement.style.overflow=o?"hidden":""}
+if(mb)mb.addEventListener("click",function(){setMenu(!hd.classList.contains("open"))});
+if(menu){menu.addEventListener("click",function(e){if(e.target===menu||e.target.closest("a"))setMenu(false)})}
+addEventListener("keydown",function(e){if(e.key==="Escape")setMenu(false)});
+function hsc(){if(!hd)return;var r=root.getBoundingClientRect(),y=-r.top;hd.classList.toggle("fx",y>0&&r.bottom>80);hd.classList.toggle("sc",y>40);if(Math.abs(y-last)>6){hd.classList.toggle("hide",y>last&&y>120);last=y}}
+addEventListener("scroll",hsc,{passive:true});hsc();
 var tabs=QA(".tabs button"),pics=QA(".opt .pics img"),ods=QA(".opd"),sw=Q(".sweep");
 tabs.forEach(function(b,i){b.addEventListener("click",function(){tabs.forEach(function(x,k){x.classList.toggle("now",k===i)});pics.forEach(function(x,k){x.classList.toggle("now",k===i)});ods.forEach(function(x,k){x.classList.toggle("now",k===i)});if(sw){sw.classList.remove("go");void sw.offsetWidth;if(i>0)sw.classList.add("go")}})});
 if(!EDIT){
@@ -656,6 +685,7 @@ if(!EDIT){
 .lpb-abyssia .mn{position:relative;z-index:2}
 .lpb-abyssia .w{max-width:1160px;margin:0 auto;padding:0 32px}
 .lpb-abyssia .hd{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:22px 32px}
+.lpb-abyssia .hd.fx{position:fixed}
 .lpb-abyssia .logo{font:300 18px var(--serif);letter-spacing:.5em}
 .lpb-abyssia .hd nav{display:flex;gap:28px;font-size:11px;letter-spacing:.24em;color:var(--ink2)}
 .lpb-abyssia .hd nav a:hover{color:var(--ink)}
@@ -790,7 +820,7 @@ if(!EDIT){
  </div>`;return`
 <div class="fxl" aria-hidden="true"><canvas></canvas><div class="depth"><span>DEPTH</span><div class="bar"><i></i></div><b class="dp">0</b><span>m</span></div></div>
 <div class="mn">
-<header class="hd">${a("brand","span","logo")}<nav><a href="#abyssia-zones">EXHIBITS</a><a href="#abyssia-ticket">TICKETS</a><a href="#abyssia-access">ACCESS</a></nav></header>
+<header class="hd">${a("brand","span","logo")}<nav><a href="#abyssia-zones">EXHIBITS</a><a href="#abyssia-night">NIGHT</a><a href="#abyssia-ticket">TICKETS</a><a href="#abyssia-access">ACCESS</a></nav></header>
 <section class="hero">
  <div class="jf" aria-hidden="true">${t("hero")}</div>
  <div class="tx">${a("kick","p","k")}${a("brand","h1")}${a("heroSub","p","sub")}</div>
@@ -800,7 +830,7 @@ if(!EDIT){
 ${l.length?`<div class="mq" aria-hidden="true"><div>${s}</div></div>`:""}
 <section id="abyssia-zones"><div class="w zones">${n(1,!1)}${n(2,!0)}${n(3,!1)}</div></section>
 <section class="full"><div class="bg">${t("full")}</div><div class="cap rv"><p class="lbl" style="margin-bottom:18px">${a("fullNo","b")}${a("fullEn")}</p>${a("fullT","p","big")}</div></section>
-<section><div class="w night">
+<section id="abyssia-night"><div class="w night">
  <div class="tx rv"><p class="lbl">${a("nightNo","b")}${a("nightEn")}</p>${a("nightT","h2")}${a("nightB","p","lead")}
   ${i(["t1L","t2L","t3L"],`<div class="time">${i(["t1L"],`<div>${a("t1L")}${a("t1V","b")}</div>`)}${i(["t2L"],`<div>${a("t2L")}${a("t2V","b")}</div>`)}${i(["t3L"],`<div>${a("t3L")}${a("t3V","b")}</div>`)}</div>`)}</div>
  <div class="nimg"${o("cocktail")?"":' style="padding-bottom:0"'}><figure class="ph rv">${t("bar")}</figure>${o("cocktail")?`<figure class="ph ck rv">${t("cocktail")}${i(["ckCap"],a("ckCap","figcaption"))}</figure>`:""}</div>
@@ -836,6 +866,7 @@ if(!EDIT){
   var io3=new IntersectionObserver(function(x){if(x[0].isIntersecting){Q(".intro").classList.add("on");io3.disconnect()}},{threshold:.45});io3.observe(st)}
 }
 var mob=matchMedia("(max-width:860px)").matches,fxl=Q(".fxl"),dp=Q(".dp"),dpi=Q(".depth .bar i"),zones=Q("#abyssia-zones");
+var hd=Q(".hd");function hfx(){var r=root.getBoundingClientRect();if(hd)hd.classList.toggle("fx",r.top<0&&r.bottom>80)}addEventListener("scroll",hfx,{passive:true});hfx();
 var cs=getComputedStyle(root),hex=function(h){h=h.trim().replace("#","");if(h.length===3)h=h.split("").map(function(c){return c+c}).join("");var n=parseInt(h,16);return [n>>16&255,n>>8&255,n&255]};
 function sc(){var r=root.getBoundingClientRect(),H=root.offsetHeight-innerHeight,p=Math.min(1,Math.max(0,-r.top/Math.max(1,H)));
  var dep=p<.9?Math.round(p/.9*1000):Math.round(1000-(p-.9)/.1*1000);if(dp)dp.textContent=dep;if(dpi)dpi.style.top=(Math.min(p/.9,1)*96)+"%";

@@ -98,7 +98,7 @@ export default function StepFinish({ onNext }: { onNext: () => void }) {
           <div className={`checker ${view === "sp" ? "py-5" : ""}`}>
             {doc && (view === "pc"
               ? <Frame key="pc" html={doc} width={1280} frameRef={frame} interactive className="h-[72vh] min-h-[480px] w-full" />
-              : <div className="mx-auto w-[min(390px,100%)] overflow-hidden rounded-[28px] bg-white shadow-xl ring-[6px] ring-ink"><Frame key="sp" html={doc} width={390} frameRef={frame} interactive className="h-[72vh] min-h-[540px] w-full" /></div>)}
+              : <div className="phone mx-auto overflow-hidden rounded-[30px] bg-white shadow-xl ring-[6px] ring-ink"><Frame key="sp" html={doc} width={390} frameRef={frame} interactive className="h-full w-full" /></div>)}
           </div>
         </div>
 
