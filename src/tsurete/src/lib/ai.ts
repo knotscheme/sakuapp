@@ -72,3 +72,36 @@ async function call(prompt: string, image?: { b64: string; mime: string }, json 
 export async function askProduct(question: string) {
   return call(`${question}\nおすすめの商品を3つ選んでください。ブランド名・商品名・おすすめの理由を、1つにつき1行で短く答えてください。`);
 }
+
+// 商品ページを読んで、AIに選ばれるための書き直し案を作る（分からない事実は【】で空ける）
+export type AiRewrite = { target: string; spec: string; ingredient: string; faq: string; note: string };
+export async function aiRewrite(title: string, body: string, price: string): Promise<AiRewrite> {
+  const prompt = `あなたは、ネットショップの商品ページを、ChatGPTなどのAIアシスタントにおすすめされやすくする専門家です。
+次の商品ページを読み、AIが商品を選ぶときに見る情報（だれ向けか・成分や入っていないもの・容量と使える期間・よくある質問）がそろうように、書き直し案を作ってください。
+ページに書かれていない事実（成分・使える期間など）は、作り話をせず【】で空欄にしてください。
+JSONだけで答えてください：{"note":"いちばん足りないものを1文で","target":"新しい商品説明（120〜200字）","spec":"容量・値段・使える期間の書き方","ingredient":"成分と入っていないものの書き方","faq":"Q. と A. の形で3つ（改行区切り）"}
+
+商品名：${title}
+値段：${price || "不明"}円
+商品ページの文章：
+${body.slice(0, 4000)}`;
+  const raw = await call(prompt, undefined, true);
+  const m = raw.match(/\{[\s\S]*\}/);
+  if (!m) throw new Error("AIの答えを読み取れませんでした。もう一度お試しください");
+  const j = JSON.parse(m[0]);
+  const s = (v: unknown) => (typeof v === "string" ? v : Array.isArray(v) ? v.join("\n") : "");
+  return { note: s(j.note), target: s(j.target), spec: s(j.spec), ingredient: s(j.ingredient), faq: s(j.faq) };
+}
+
+// ブラウザから直接読めないページを、Geminiに読んでもらう（Geminiのキーのときだけ）
+export async function aiReadUrl(url: string): Promise<string> {
+  const c = get();
+  if (c.provider !== "gemini") throw new Error("このページはブラウザから直接読み取れませんでした。商品ページの文章を貼りつけてください（Geminiのキーなら、URLのままでも読めます）");
+  let r: Response;
+  try {
+    r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(c.model || MODELS.gemini)}:generateContent`, { method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": c.key }, body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: `次のURLの商品ページを読み、商品名・値段・商品説明・成分・よくある質問など、ページに書かれている文章をそのまま書き出してください。書かれていないことは書かないでください。\n${url}` }] }], tools: [{ url_context: {} }] }) });
+  } catch { throw new Error(friendly(0)); }
+  if (!r.ok) throw new Error(friendly(r.status));
+  const j = await r.json();
+  return (j.candidates?.[0]?.content?.parts ?? []).map((p: { text?: string }) => p.text ?? "").join("");
+}

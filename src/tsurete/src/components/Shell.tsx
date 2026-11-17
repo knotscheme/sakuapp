@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookOpen, LayoutDashboard, Menu, Settings, TrendingUp, Wand2, X } from "lucide-react";
+import { BookOpen, LayoutDashboard, Menu, ScanSearch, Settings, TrendingUp, Wand2, X } from "lucide-react";
 
 export const NAV = [
   { href: "/", label: "概要", icon: LayoutDashboard, n: "" },
-  { href: "/naosu/", label: "商品ページを書き直す", icon: Wand2, n: "1" },
-  { href: "/kouka/", label: "効果", icon: TrendingUp, n: "2" },
+  { href: "/shindan/", label: "診断する", icon: ScanSearch, n: "1" },
+  { href: "/naosu/", label: "商品ページを書き直す", icon: Wand2, n: "2" },
+  { href: "/kouka/", label: "効果", icon: TrendingUp, n: "3" },
   { href: "/settings/", label: "設定", icon: Settings, n: "" },
   { href: "/guide/", label: "使い方ガイド", icon: BookOpen, n: "" },
 ];

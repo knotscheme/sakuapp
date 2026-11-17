@@ -78,7 +78,7 @@ function Naosu() {
 
   return (
     <>
-      <Title n="1" title="商品ページを書き直す" lead="AIにすすめられるように、AIが商品ページを書き直します。案を見て「反映する」を押すだけです。" />
+      <Title n="2" title="商品ページを書き直す" lead="AIにすすめられるように、AIが商品ページを書き直します。案を見て「反映する」を押すだけです。" />
 
       <div className="card mb-5 flex flex-wrap items-center gap-x-5 gap-y-3 p-4 sm:p-5">
         <div className="flex flex-wrap gap-1.5" role="group" aria-label="商品">

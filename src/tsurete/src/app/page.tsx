@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BookOpen, Check, TrendingUp, Wand2, X } from "lucide-react";
+import { ArrowRight, BookOpen, Check, FileSpreadsheet, ScanSearch, TrendingUp, Wand2, X } from "lucide-react";
 import Shell from "@/components/Shell";
 import Ready from "@/components/Ready";
 import { BRAND, FIXES, PAGES, fmt, sales, shelf } from "@/lib/demo";
@@ -28,8 +28,8 @@ function Home() {
           <div className="min-w-0 self-center">
             <p className="text-[0.85rem] font-bold tracking-[.06em] text-lime">ネットショップのための AI集客ツール</p>
             <h1 className="mt-3 text-[1.85rem] font-bold leading-[1.4] sm:text-[2.5rem]"><span className="inline-block">AIにすすめられる</span><span className="inline-block">商品ページに、</span><span className="inline-block">AIが書き直す。</span></h1>
-            <p className="mt-4 text-[0.98rem] leading-[1.95] text-white/75">お客様は、ChatGPTなどに「おすすめの化粧水は？」と聞いて買い物をし始めています。TSURETEは、<b className="text-white">あなたの商品ページを、AIに選ばれる形に書き直す</b>ツールです。案を見て、押すだけでショップに反映されます。</p>
-            <Link href="/naosu/" className="btn mt-6 bg-lime px-6 text-[#03140f] hover:brightness-95"><Wand2 size={18} />商品ページを書き直す</Link>
+            <p className="mt-4 text-[0.98rem] leading-[1.95] text-white/75">お客様は、ChatGPTなどに「おすすめの化粧水は？」と聞いて買い物をし始めています。TSURETEは、<b className="text-white">あなたの商品ページを、AIに選ばれる形に書き直す</b>ツールです。URLやCSVを入れるだけで、足りないものと書き直し案を出します。</p>
+            <div className="mt-6 flex flex-wrap gap-3"><Link href="/shindan/" className="btn bg-lime px-6 text-[#03140f] hover:brightness-95"><ScanSearch size={18} />URLで診断する</Link><Link href="/shindan/?csv=1" className="btn bg-white/10 px-5 text-white hover:bg-white/15"><FileSpreadsheet size={18} />CSVでまとめて診断</Link></div>
           </div>
 
           {/* 書き直す前と後の商品ページを並べる */}
@@ -59,10 +59,15 @@ function Home() {
       </section>
 
       <section className="mt-8" aria-labelledby="st">
-        <h2 id="st" className="text-[1.15rem] font-bold">使い方は2つだけ</h2>
-        <ol className="mt-3 grid gap-3 md:grid-cols-2">
-          <li><Link href="/naosu/" className="card group flex h-full items-start gap-4 p-5 hover:border-ai"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-ai text-[#03140f]"><Wand2 size={22} /></span><span className="min-w-0 flex-1"><b className="block text-[1.05rem]">1. 商品ページを書き直す</b><span className="mt-1 block text-[0.88rem] leading-[1.75] text-sub">AIが書き直し案を出します。見て「反映する」を押すと、ネットショップの商品ページが書きかわります。</span></span><ArrowRight size={18} className="mt-1 shrink-0 text-ai transition group-hover:translate-x-1" /></Link></li>
-          <li><Link href="/kouka/" className="card group flex h-full items-start gap-4 p-5 hover:border-ai"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-ai-2 text-ai"><TrendingUp size={22} /></span><span className="min-w-0 flex-1"><b className="block text-[1.05rem]">2. 効果を見る</b><span className="mt-1 block text-[0.88rem] leading-[1.75] text-sub">お客様がAIに聞いたときに、商品がすすめられるようになったか。売上がどう変わったか。</span></span><ArrowRight size={18} className="mt-1 shrink-0 text-ai transition group-hover:translate-x-1" /></Link></li>
+        <h2 id="st" className="text-[1.15rem] font-bold">使い方は3つ</h2>
+        <ol className="mt-3 grid gap-3 md:grid-cols-3">
+          {[
+            { href: "/shindan/", icon: ScanSearch, t: "1. 診断する", b: "商品ページのURLか、商品一覧のCSVを入れます。AIに選ばれるために足りないものを点検します。", main: true },
+            { href: "/naosu/", icon: Wand2, t: "2. 書き直す", b: "AIが書き直し案を出します。見て「反映する」を押すと、商品ページが書きかわります。" },
+            { href: "/kouka/", icon: TrendingUp, t: "3. 効果を見る", b: "お客様がAIに聞いたとき、すすめられるようになったか。売上がどう変わったか。" },
+          ].map(({ href, icon: Icon, t, b, main }) => (
+            <li key={href}><Link href={href} className="card group flex h-full flex-col p-5 hover:border-ai"><span className={`grid h-11 w-11 place-items-center rounded-xl ${main ? "bg-ai text-[#03140f]" : "bg-ai-2 text-ai"}`}><Icon size={22} /></span><b className="mt-3 text-[1.05rem]">{t}</b><span className="mt-1 flex-1 text-[0.88rem] leading-[1.75] text-sub">{b}</span><ArrowRight size={18} className="mt-3 text-ai transition group-hover:translate-x-1" /></Link></li>
+          ))}
         </ol>
       </section>
       <p className="mt-6 text-[0.78rem] leading-[1.9] text-sub">※架空のブランド「{BRAND.name}」（代表 {BRAND.owner}さん）のデモです。数字は模擬の結果です。AIにすすめられることは保証できません。</p>

@@ -104,7 +104,7 @@ function Kouka() {
   const rivals = [...sh.rivals.slice(0, 4), { name: BRAND.name, n: sh.total, me: true }].sort((a, b) => b.n - a.n);
   return (
     <>
-      <Title n="2" title="効果" lead="書き直す前と後で、AIのおすすめと売上がどう変わったかを見ます。" />
+      <Title n="3" title="効果" lead="書き直す前と後で、AIのおすすめと売上がどう変わったかを見ます。" />
 
       <div className="grid gap-3 md:grid-cols-[1.3fr_1fr_1fr]">
         <div className="glow rounded-2xl p-5 text-white">
