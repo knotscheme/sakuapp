@@ -122,21 +122,29 @@ function Hero() {
 // ---------- 黒い場面：スクロールに合わせて「検索の10件」が「AIの3つ」に変わる ----------
 // サイト名・ブランド名はすべて架空
 const SEARCH = [
-  { t: "敏感肌の化粧水おすすめ15選｜選び方も解説", u: "hada-guide.example" },
-  { t: "しずく舎 やさしい化粧水｜公式通販", u: "shizukusha.example" },
-  { t: "3,000円台の化粧水ランキング", u: "cosme-rank.example" },
-  { t: "Lunae バリアローション 150ml", u: "lunae.example" },
-  { t: "【口コミ】敏感肌でも使える化粧水まとめ", u: "kuchikomi.example" },
-  { t: "NORMA BASIC 化粧水｜公式", u: "normabasic.example" },
-  { t: "化粧水の選び方を皮膚科医に聞いた", u: "health-mag.example" },
-  { t: "あおば研究所 保湿ローション", u: "aoba-lab.example" },
-  { t: "アルコールフリー化粧水を比較", u: "hikaku.example" },
-  { t: "SORAE 化粧水 しっとり 150ml", u: "sorae-skin.example", me: true },
+  { t: "敏感肌の化粧水おすすめ15選｜選び方も解説", u: "hada-guide.example", n: "はだガイド", d: "敏感肌でも使いやすい化粧水を、成分・価格・口コミで比べました。" },
+  { t: "しずく舎 やさしい化粧水｜公式通販", u: "shizukusha.example", n: "しずく舎", d: "敏感肌のために作った、無香料・アルコールフリーの化粧水。" },
+  { t: "3,000円台の化粧水ランキング", u: "cosme-rank.example", n: "コスメランク", d: "3,000円台で買える化粧水を、人気順に紹介します。" },
+  { t: "Lunae バリアローション 150ml", u: "lunae.example", n: "Lunae", d: "皮膚科医と共同開発したローション。" },
+  { t: "【口コミ】敏感肌でも使える化粧水まとめ", u: "kuchikomi.example", n: "くちコミ広場", d: "実際に使った人の声を集めました。" },
+  { t: "NORMA BASIC 化粧水｜公式", u: "normabasic.example", n: "NORMA BASIC", d: "毎日たっぷり使える、手ごろな化粧水。" },
+  { t: "化粧水の選び方を皮膚科医に聞いた", u: "health-mag.example", n: "ヘルスマガジン", d: "肌タイプ別の選び方を解説。" },
+  { t: "あおば研究所 保湿ローション", u: "aoba-lab.example", n: "あおば研究所", d: "セラミド配合の保湿ローション。" },
+  { t: "アルコールフリー化粧水を比較", u: "hikaku.example", n: "ひかくナビ", d: "アルコールが入っていない化粧水を比べました。" },
+  { t: "SORAE 化粧水 しっとり 150ml", u: "sorae-skin.example", n: "SORAE", d: "空のように澄んだ肌へ。毎日のうるおいに。", me: true },
 ];
 const PICKS = [{ b: "しずく舎　やさしい化粧水", w: "敏感肌向けと明記されている" }, { b: "Lunae　バリアローション", w: "皮膚科医と共同開発" }, { b: "NORMA BASIC　化粧水", w: "口コミが多く、手ごろ" }];
 function TenToThree() {
   const [ref, p] = useProgress<HTMLElement>("sticky");
   const stage = p < 0.3 ? 0 : p < 0.65 ? 1 : 2;
+  // 検索結果は、スクロールに合わせて下へ流れ、最後に10位（自分の商品）が見える
+  const box = useRef<HTMLDivElement>(null), list = useRef<HTMLOListElement>(null);
+  const [over, setOver] = useState(0);
+  useEffect(() => {
+    const m = () => { if (box.current && list.current) setOver(Math.max(0, list.current.scrollHeight - box.current.clientHeight)); };
+    m(); window.addEventListener("resize", m); return () => window.removeEventListener("resize", m);
+  }, []);
+  const k0 = Math.min(1, Math.max(0, (p - 0.04) / 0.2));
   const lines = ["検索なら、10件。", "AIなら、3つ。", "3つに入らなければ、ないのと同じ。"];
   return (
     <section ref={ref} className="relative h-[300vh] bg-black text-white" aria-label="検索とAIの違い">
@@ -145,41 +153,52 @@ function TenToThree() {
           {lines.map((t, i) => <h2 key={t} className={`lp-h absolute inset-0 grid place-items-center text-[1.75rem] transition duration-700 sm:text-[3.4rem] ${stage === i ? "translate-y-0 opacity-100" : stage > i ? "-translate-y-8 opacity-0" : "translate-y-8 opacity-0"} ${i === 2 ? "text-[#2fd9a6]" : ""}`}><J>{t}</J></h2>)}
         </div>
 
-        <div className="mt-5 w-full max-w-[30rem] sm:mt-8">
-          {/* 上：検索窓 → AIへの質問 */}
-          <div className="relative h-11">
-            <div className={`absolute inset-0 flex items-center gap-2.5 rounded-full bg-white/10 px-4 text-[0.88rem] text-white/80 transition duration-700 ${stage === 0 ? "opacity-100" : "-translate-y-2 opacity-0"}`}><Search size={16} className="shrink-0 text-white/50" />敏感肌 化粧水 3000円</div>
-            <div className={`absolute inset-0 flex items-center justify-end transition duration-700 ${stage >= 1 ? "opacity-100" : "translate-y-2 opacity-0"}`}><span className="rounded-[18px] rounded-br-md bg-[#0a84ff] px-4 py-2 text-[0.86rem]">敏感肌でも使える、3,000円台の化粧水は？</span></div>
+        {/* 白い画面：はじめは検索結果ページ、AIの段階ではチャット画面 */}
+        <div className="mt-4 w-full max-w-[34rem] overflow-hidden rounded-[22px] bg-white text-[#202124] shadow-[0_30px_80px_-30px_rgba(47,217,166,.35)] sm:mt-7">
+          <div className="relative h-[4.6rem] border-b border-black/[.06] sm:h-[5.2rem]">
+            <div className={`absolute inset-0 px-4 pt-3 transition duration-700 ${stage === 0 ? "opacity-100" : "-translate-y-2 opacity-0"}`}>
+              <div className="flex h-9 items-center gap-2.5 rounded-full border border-black/10 px-4 text-[0.85rem] shadow-[0_1px_4px_rgba(0,0,0,.08)]"><Search size={15} className="shrink-0 text-[#5f6368]" />敏感肌 化粧水 3000円</div>
+              <p className="mt-2 flex gap-4 px-1 text-[0.72rem] text-[#5f6368] sm:mt-3"><span className="border-b-2 border-[#1a73e8] pb-1 font-semibold text-[#1a73e8]">すべて</span><span>画像</span><span>ショッピング</span><span>ニュース</span></p>
+            </div>
+            <div className={`absolute inset-0 flex flex-col justify-center gap-1.5 px-4 transition duration-700 ${stage >= 1 ? "opacity-100" : "translate-y-2 opacity-0"}`}>
+              <p className="flex items-center gap-1.5 text-[0.75rem] font-semibold text-[#5f6368]"><Bot size={14} className="text-[#00a37a]" />AIアシスタント</p>
+              <span className="ml-auto rounded-[18px] rounded-br-md bg-[#0a84ff] px-3.5 py-1.5 text-[0.82rem] text-white">敏感肌でも使える、3,000円台の化粧水は？</span>
+            </div>
           </div>
 
-          <ol className="mt-3" aria-hidden>
+          <div ref={box} className="overflow-hidden transition-[height] duration-700" style={{ height: stage === 0 ? "min(52vh, 25rem)" : undefined }}>
+          <ol ref={list} className="px-4 py-3 transition-transform duration-300 ease-out" style={{ transform: stage === 0 ? `translateY(-${over * k0}px)` : "none" }} aria-hidden>
             {SEARCH.map((r, i) => {
               const ai = stage >= 1 && i < 3, gone = stage >= 1 && i >= 3;
               return (
-                <li key={r.u} className="overflow-hidden transition-all duration-700" style={{ opacity: gone ? 0 : 1, maxHeight: gone ? 0 : ai ? "4.2rem" : "2.6rem", marginTop: i && !gone ? "0.4rem" : 0, transform: gone ? "translateX(-24px)" : "none", transitionDelay: `${gone ? (i - 3) * 40 : 0}ms` }}>
+                <li key={r.u} className="overflow-hidden transition-all duration-700" style={{ opacity: gone ? 0 : 1, maxHeight: gone ? 0 : ai ? "4.2rem" : "4.6rem", marginTop: i && !gone ? (ai ? "0.45rem" : "0.15rem") : 0, transform: gone ? "translateX(-24px)" : "none", transitionDelay: `${gone ? (i - 3) * 40 : 0}ms` }}>
                   {ai ? (
-                    <div className="fade-in flex items-center gap-3 rounded-2xl bg-white/[.1] px-3.5 py-2.5">
-                      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white/15 text-[0.72rem] font-semibold">{i + 1}</span>
-                      <span className="min-w-0"><b className="block truncate text-[0.9rem]">{PICKS[i].b}</b><span className="block truncate text-[0.74rem] text-white/55">{PICKS[i].w}</span></span>
+                    <div className="fade-in flex items-center gap-3 rounded-2xl bg-[#f2f2f7] px-3.5 py-2.5">
+                      <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white text-[0.72rem] font-semibold text-[#6e6e73]">{i + 1}</span>
+                      <span className="min-w-0"><b className="block truncate text-[0.9rem]">{PICKS[i].b}</b><span className="block truncate text-[0.74rem] text-[#6e6e73]">{PICKS[i].w}</span></span>
                     </div>
                   ) : (
-                    <div className={`flex h-[2.3rem] items-center gap-2.5 rounded-xl px-3 ${"me" in r ? "bg-[#2fd9a6]/15" : "bg-white/[.05]"}`}>
-                      <span className="num w-5 shrink-0 text-right text-[0.72rem] text-white/40">{i + 1}</span>
-                      <span className={`min-w-0 flex-1 truncate text-[0.8rem] ${"me" in r ? "font-semibold text-[#2fd9a6]" : "text-white/75"}`}>{r.t}</span>
-                      <span className="hidden shrink-0 text-[0.68rem] text-white/30 sm:inline">{r.u}</span>
+                    <div className={`rounded-xl px-2 py-1.5 sm:py-2 ${"me" in r ? "bg-[#e6f6f0] ring-1 ring-[#00a37a]/40" : ""}`}>
+                      <p className="flex items-center gap-2 text-[0.68rem] leading-tight">
+                        <span className={`grid h-4 w-4 shrink-0 place-items-center rounded-full text-[0.55rem] font-bold text-white ${"me" in r ? "bg-[#00a37a]" : "bg-[#9aa0a6]"}`}>{r.n.slice(0, 1)}</span>
+                        <span className="truncate text-[#202124]">{r.n}</span><span className="hidden truncate text-[#5f6368] sm:inline">https://{r.u}</span>
+                      </p>
+                      <p className={`mt-0.5 truncate text-[0.86rem] leading-snug sm:text-[0.95rem] ${"me" in r ? "font-semibold text-[#00805f]" : "text-[#1a0dab]"}`}>{r.t}</p>
+                      <p className="hidden truncate text-[0.74rem] text-[#4d5156] sm:block">{r.d}</p>
                     </div>
                   )}
                 </li>
               );
             })}
-          </ol>
 
-          {/* 最後：自分の商品は、AIの答えに入っていない */}
-          <div className={`overflow-hidden transition-all duration-700 ${stage === 2 ? "mt-4 max-h-24 opacity-100" : "mt-0 max-h-0 opacity-0"}`}>
-            <div className="flex items-center gap-3 rounded-2xl border border-dashed border-[#2fd9a6]/60 px-3.5 py-2.5">
-              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-dashed border-[#2fd9a6]/70 text-[0.68rem] text-[#2fd9a6]">？</span>
-              <span className="min-w-0"><b className="block truncate text-[0.9rem] text-[#2fd9a6]">SORAE　化粧水 しっとり</b><span className="block text-[0.74rem] text-white/55">検索では10位。AIの答えには、入っていない</span></span>
-            </div>
+            {/* 最後：自分の商品は、AIの答えに入っていない */}
+            <li className={`overflow-hidden transition-all duration-700 ${stage === 2 ? "mt-3 max-h-24 opacity-100" : "mt-0 max-h-0 opacity-0"}`}>
+              <div className="flex items-center gap-3 rounded-2xl border border-dashed border-[#00a37a]/60 px-3.5 py-2.5">
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-dashed border-[#00a37a]/70 text-[0.68rem] text-[#00a37a]">？</span>
+                <span className="min-w-0"><b className="block truncate text-[0.9rem] text-[#00805f]">SORAE　化粧水 しっとり</b><span className="block text-[0.74rem] text-[#6e6e73]">検索では10位。AIの答えには、入っていない</span></span>
+              </div>
+            </li>
+          </ol>
           </div>
         </div>
       </div>
