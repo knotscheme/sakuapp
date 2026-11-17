@@ -469,7 +469,7 @@ function Safety() {
     { icon: ShieldCheck, t: "勝手に書きかえない", d: "サイトが変わるのは、お店の人が「この案を使う」を押したものだけ。" },
     { icon: RotateCcw, t: "いつでも、元に戻せる", d: "書きかえる前の文章を残しておくので、ひと押しで戻せます。" },
     { icon: PenLine, t: "分からない事実は、作らない", d: "成分や使える期間など、ページにないことは【】で空けてお店に確かめます。" },
-    { icon: KeyRound, t: "パスワードは預からない", d: "ShopifyやBASEなど、各サイトの公式のつなぎ方だけを使います。" },
+    { icon: KeyRound, t: "パスワードは預からない", d: "サイトとは公式のつなぎ方だけ。AIのキーは暗号化して保管し、測る以外には使いません。" },
   ];
   return (
     <section className="bg-[#f5f5f7] px-5 py-24 sm:py-36">
@@ -491,7 +491,7 @@ const PLANS = [
 function Pricing() {
   return (
     <section id="price" className="scroll-mt-12 px-5 py-24 sm:py-36">
-      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>料金</J></h2><p className="mt-4 text-[0.9rem] text-[#6e6e73]"><J>※デモ用の仮の料金です。実際の料金は決まっていません。</J></p></Reveal>
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>料金</J></h2><p className="mx-auto mt-5 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>AIの利用料は含みません。お店のAIのキーを使い、利用料は各社からお店に直接請求されます。聞く回数は、設定で調整できます。</J></p><p className="mt-3 text-[0.85rem] text-[#86868b]"><J>※デモ用の仮の料金です。実際の料金は決まっていません。</J></p></Reveal>
       <div className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-3">
         {PLANS.map((x, i) => (
           <Reveal key={x.n} delay={i * 100} className="h-full">
@@ -511,7 +511,7 @@ function Pricing() {
 function Start() {
   const steps = [
     { t: "URLを入れる", d: "まずは1商品、無料で診断。登録はいりません。" },
-    { t: "お店のサイトを選ぶ", d: "Shopify・楽天・BASEなど。サイトに合った届け方になります。" },
+    { t: "サイトとAIのキーを設定", d: "Shopify・楽天などのサイトを選び、お店のAIのキーを入れます。" },
     { t: "毎週、届くのを待つ", d: "あとはTSURETEが自動で測って、やることを届けます。" },
   ];
   return (
@@ -531,6 +531,7 @@ const FAQ = [
   { q: "どのAIで測りますか？", a: "ChatGPT・Gemini・Claude・Perplexityの4つで測る予定です。お客様がよく使うAIが変われば、測るAIも見直します。" },
   { q: "お店の作業は、どれくらいですか？", a: "AIに質問して記録するのは、すべて自動です。お店の人は、毎週届く「やること」を読んで、使う案のボタンを押すだけです。目安は週に5分ほどです。" },
   { q: "サイトの文章が、勝手に変わることはありますか？", a: "ありません。サイトが変わるのは、お店の人が「この案を使う」を押したものだけです。書きかえる前の文章は残しておくので、いつでも戻せます。" },
+  { q: "AIの利用料はかかりますか？", a: "かかります。お店のAIのキーを使って質問するので、利用料は各社からお店に直接請求されます。TSURETEの料金には含みません。聞く回数を減らせば安くなり、設定画面で回数と月の質問数を確かめられます。" },
   { q: "化粧品以外でも使えますか？", a: "使えます。食品・雑貨・アパレル・ハンドメイドなど、お客様が比べて選ぶ商品に向いています。" },
   { q: "解約はいつでもできますか？", a: "いつでもできるようにする予定です。料金や契約の決まりは、正式に決まりしだいお知らせします。" },
 ];

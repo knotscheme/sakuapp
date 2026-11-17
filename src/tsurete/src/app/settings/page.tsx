@@ -8,7 +8,31 @@ import { askConfirm, toast } from "@/components/Confirm";
 import { MODELS, PNAME, saveAi, useAi, type Provider } from "@/lib/ai";
 import { resetDemo, update, useStore } from "@/lib/store";
 import { SiteGrid } from "@/components/SitePicker";
+import { AIS, QUESTIONS } from "@/lib/demo";
 import J from "@/components/J";
+
+// 測る設定：AIの利用料は、お店のAIのキーで各社に直接払う。回数を決めると、月に何回質問するかが分かる
+function Measure() {
+  const s = useStore();
+  const m = s.measure ?? { ais: [...AIS], tries: 5 };
+  const set = (x: Partial<typeof m>) => update((st) => ({ ...st, measure: { ...m, ...x } }));
+  const perWeek = QUESTIONS.length * m.ais.length * m.tries;
+  return (
+    <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ms">
+      <h2 id="ms" className="text-[1.1rem] font-bold">測る設定</h2>
+      <p className="mt-1 text-[0.85rem] leading-[1.8] text-sub"><J>AIの利用料は、TSURETEの料金には含みません。お店のAIのキーを使い、各社からお店に直接請求されます。</J></p>
+      <p className="mt-4 text-[0.88rem] font-bold">使うAI</p>
+      <div className="mt-2 flex flex-wrap gap-2">{AIS.map((a) => { const on = m.ais.includes(a); return <button key={a} type="button" aria-pressed={on} onClick={() => set({ ais: on ? m.ais.filter((x) => x !== a) : [...m.ais, a] })} className={`btn min-h-[2.5rem] px-4 ${on ? "btn-ai" : "btn-line opacity-60"}`}>{a}</button>; })}</div>
+      <p className="mt-4 text-[0.88rem] font-bold">1つの質問を、毎週何回聞くか</p>
+      <div className="mt-2 grid max-w-[22rem] grid-cols-4 gap-2">{[3, 5, 10, 20].map((n) => <button key={n} type="button" aria-pressed={m.tries === n} onClick={() => set({ tries: n })} className={`btn min-h-[2.5rem] px-2 ${m.tries === n ? "btn-ai" : "btn-line"}`}>{n}回</button>)}</div>
+      <div className="mt-5 rounded-2xl bg-paper p-4">
+        <p className="text-[0.85rem] text-sub">AIへの質問の回数</p>
+        <p className="mt-1"><b className="num text-[1.6rem]">{perWeek.toLocaleString("ja-JP")}</b><span className="text-sub"> 回／週</span><span className="ml-3 text-[0.9rem] text-sub">（月に約 <span className="num">{Math.round(perWeek * 4.3).toLocaleString("ja-JP")}</span> 回）</span></p>
+        <p className="mt-1 text-[0.8rem] leading-[1.8] text-sub"><J>{`質問${QUESTIONS.length}個 × AI${m.ais.length}つ × ${m.tries}回。回数を減らすと利用料は安くなりますが、数字のぶれが大きくなります。`}</J></p>
+      </div>
+    </section>
+  );
+}
 
 function Settings() {
   const s = useStore();
@@ -17,7 +41,7 @@ function Settings() {
   const real = (p: Partial<typeof s.real>) => update((x) => ({ ...x, real: { ...x.real, ...p } }));
   return (
     <>
-      <Title title="設定" lead="自分のブランドで本当に試すための情報と、AIのキーを入れます。" />
+      <Title title="設定" lead="お店のサイト、測る設定、お店のAIのキーを入れます。" />
       <section className="card p-5 sm:p-6" aria-labelledby="sh">
         <h2 id="sh" className="text-[1.1rem] font-bold">自分のブランド</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
@@ -32,9 +56,10 @@ function Settings() {
         <p className="mt-1 text-[0.85rem] text-sub"><J>選んだサイトに合わせて、「直す」の届け方が変わります。</J></p>
         <div className="mt-4"><SiteGrid /></div>
       </section>
+      <Measure />
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">
-        <h2 id="ak" className="text-[1.1rem] font-bold">AIのキー</h2>
-        <p className="mt-1 flex gap-2 text-[0.9rem] text-sub"><ShieldCheck size={20} className="mt-0.5 shrink-0 text-ok" /><span>キーは、この端末の中だけに保存し、AIへは端末から直接送ります。TSURETEの運営者には届きません。費用は、キーの持ち主に各社から請求されます。</span></p>
+        <h2 id="ak" className="text-[1.1rem] font-bold">お店のAIのキー</h2>
+        <p className="mt-1 flex gap-2 text-[0.9rem] text-sub"><ShieldCheck size={20} className="mt-0.5 shrink-0 text-ok" /><span className="min-w-0"><J>デモでは、キーはこの端末の中だけに保存し、AIへは端末から直接送ります。本番では、毎週の自動測定のために暗号化して保管し、測る以外には使いません。利用料は、キーの持ち主（お店）に各社から請求されます。</J></span></p>
         <div className="mt-3 flex flex-wrap gap-2">{(["gemini", "anthropic", "openai"] as Provider[]).map((p) => <button key={p} type="button" aria-pressed={ai.provider === p} onClick={() => saveAi({ ...ai, provider: p, model: "" })} className={`btn ${ai.provider === p ? "btn-ink" : "btn-line"}`}>{PNAME[p]}</button>)}</div>
         {ai.provider && (
           <>
