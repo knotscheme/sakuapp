@@ -40,11 +40,13 @@ function Home() {
       </div>
 
       {first && (
-        <div className="mt-5 flex flex-wrap items-center gap-4 rounded-2xl border-2 border-ok bg-ok-2 p-5">
-          <Sparkles size={34} className="shrink-0 text-ok" />
-          <p className="min-w-0 flex-1 text-[1.05rem]"><b className="block text-[1.2rem]">はじめての方は、かんたんガイドをどうぞ</b>6つの手順を、画面の写真といっしょに説明しています（読み上げもできます）。</p>
-          <div className="flex gap-2">
-            <Link href="/guide/" onClick={closeFirst} className="btn btn-main">ガイドを見る<ArrowRight size={20} /></Link>
+        <div className="mt-5 flex flex-col gap-4 rounded-2xl border-2 border-ok bg-ok-2 p-5 md:flex-row md:items-center">
+          <div className="flex items-start gap-3 md:flex-1">
+            <Sparkles size={30} className="mt-1 shrink-0 text-ok" />
+            <p className="text-[1.05rem] leading-[1.85]"><b className="block text-[1.2rem]">はじめての方は、かんたんガイドをどうぞ</b>6つの手順を、画面の写真といっしょに説明しています（読み上げもできます）。</p>
+          </div>
+          <div className="flex shrink-0 gap-2">
+            <Link href="/guide/" onClick={closeFirst} className="btn btn-main flex-1 md:flex-none">ガイドを見る<ArrowRight size={20} /></Link>
             <button type="button" onClick={closeFirst} className="btn btn-sub px-3" aria-label="この案内を閉じる"><X size={20} /></button>
           </div>
         </div>

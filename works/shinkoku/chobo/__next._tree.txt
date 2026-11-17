@@ -1,6 +1,6 @@
 :HL["/sakuapp/works/shinkoku/_next/static/chunks/1c38i6y1jh-xn.css","style"]
-:HL["/sakuapp/works/shinkoku/_next/static/chunks/30p4jbxa_i2rb.css","style"]
+:HL["/sakuapp/works/shinkoku/_next/static/chunks/2d-w-7cuft-df.css","style"]
 :HL["/sakuapp/works/shinkoku/_next/static/media/6d74e39191e78e88-s.p.0fhiaplbf_4wa.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"chobo","h":96,"c":"$Q2"}]]
-0:{"b":"dy7IqWHN7yHfnrWdQkG2i","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"sKHUEK-ARKtyd8gZn0bMD","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
