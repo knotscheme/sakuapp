@@ -33,14 +33,14 @@ export default function Shell({ children }: { children: React.ReactNode }) {
     <div className="space-y-1">
       {NAV.map(({ href, label, icon: Icon, n }) => (
         <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`flex min-h-[2.9rem] items-center gap-3 rounded-xl px-3.5 text-[0.95rem] font-bold transition ${on(href) ? "bg-white/12 text-white" : "text-white/65 hover:bg-white/6 hover:text-white"}`}>
-          <Icon size={19} className={on(href) ? "text-lime" : ""} /><span className="flex-1">{label}</span>{n && <span className="num text-[0.75rem] text-white/40">0{n}</span>}
+          <Icon size={19} className={on(href) ? "text-lime" : ""} /><span className="flex-1 whitespace-nowrap">{label}</span>{n && <span className="num text-[0.75rem] text-white/40">0{n}</span>}
         </Link>
       ))}
     </div>
   );
   return (
     <div className="min-h-screen lg:flex">
-      <aside className="glow sticky top-0 hidden h-screen w-[250px] shrink-0 flex-col p-5 lg:flex">
+      <aside className="glow sticky top-0 hidden h-screen w-[272px] shrink-0 flex-col p-5 lg:flex">
         <Logo light />
         <nav aria-label="メニュー" className="mt-8 flex-1">{items}</nav>
         <p className="text-[0.75rem] leading-[1.8] text-white/45">架空の整体院「ほぐし処 そよかぜ」で動くデモです。数字は模擬の結果です。</p>
