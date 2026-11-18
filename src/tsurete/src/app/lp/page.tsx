@@ -2,6 +2,7 @@
 
 import ScrollNav from "@/components/ScrollNav";
 import LpVoice from "@/components/LpVoice";
+import LineChart from "@/components/LineChart";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -369,16 +370,11 @@ function FixVisual() {
 }
 function SalesVisual() {
   const [ref, on] = useInView<HTMLDivElement>();
-  const w = [2, 1, 3, 2, 2, 3, 2, 3, 6], lab = ["9/22", "", "10/6", "", "10/20", "", "11/3", "", "今週"];
+  const lab = ["9/22", "", "10/6", "", "10/20", "", "11/3", "", "今週"];
   return (
     <div ref={ref}><Card title="AI経由の注文">
       <p><b className="text-[2.2rem] font-bold leading-none">{on ? <Count to={64100} /> : 0}</b><span className="ml-1 text-[0.9rem] text-[#6e6e73]">円</span><span className="ml-2 text-[0.85rem] font-semibold text-[#00a37a]">直す前より増えた売上</span></p>
-      <div className="mt-6 flex h-32 items-end gap-2">
-        {w.map((v, i) => <div key={i} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
-          <span className={`w-full rounded-full transition-[height] duration-[1000ms] ease-out ${i === w.length - 1 ? "bg-[#00a37a]" : "bg-[#d9d9de]"}`} style={{ height: on ? `${(v / 6) * 100}%` : "4%", transitionDelay: `${i * 70}ms` }} />
-          <span className={`h-3 text-[0.62rem] ${i === w.length - 1 ? "font-semibold text-[#00a37a]" : "text-[#86868b]"}`}>{lab[i]}</span>
-        </div>)}
-      </div>
+      <div className="mt-6"><LineChart data={[2, 1, 3, 2, 2, 3, 2, 3, 6]} labels={lab} on={on} /></div>
     </Card></div>
   );
 }

@@ -1,8 +1,8 @@
 :HL["/sakuapp/works/tsurete/_next/static/chunks/1c38i6y1jh-xn.css","style"]
-:HL["/sakuapp/works/tsurete/_next/static/chunks/1yb4x-mr4tuu1.css","style"]
+:HL["/sakuapp/works/tsurete/_next/static/chunks/0zknpml7bm3r6.css","style"]
 :HL["/sakuapp/works/tsurete/_next/static/media/6d74e39191e78e88-s.p.0fhiaplbf_4wa.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/sakuapp/works/tsurete/_next/static/media/9a321a2c78eff0b5-s.p.1bkzbscqrt8rl.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/sakuapp/works/tsurete/_next/static/media/c0680f1bdb3a2e90-s.p.1gsd1jahc5dg_.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"kouka","h":96,"c":"$Q2"}]]
-0:{"b":"juxxNgja0tcDd_vY-LrYr","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"dIcL6q7URIPM_WIjYjJ2x","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

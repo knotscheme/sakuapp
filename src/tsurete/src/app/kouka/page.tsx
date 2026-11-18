@@ -8,6 +8,7 @@ import J from "@/components/J";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import Fold from "@/components/Fold";
+import LineChart from "@/components/LineChart";
 import { PAST, PRODUCTS, fmt, sales, shelf } from "@/lib/demo";
 import { useStore } from "@/lib/store";
 
@@ -17,7 +18,6 @@ function Uriage() {
   const m = sales(sh.pct), m0 = sales(base.pct);
   const extra = s.orders.reduce((a, o) => a + o.price, 0);
   const weeks = [...PAST, { w: "今週", o: Math.round(m.orders / 4) + s.orders.length, now: true }];
-  const top = Math.max(...weeks.map((w) => w.o), 4);
   const tot = sh.byAi.reduce((a, x) => a + x.n, 0) || 1;
   const yen = m.yen + extra;
   const plat = platformOf(s.site), kind = tagKind(s.site);
@@ -46,15 +46,8 @@ function Uriage() {
 
       <section className="mt-24" aria-labelledby="wk">
         <h2 id="wk" className="text-[1.2rem] font-bold tracking-[.04em]">週ごとの注文（AI経由）</h2>
-        <div className="mt-10 flex h-48 items-end gap-2 sm:gap-4" role="img" aria-label="週ごとの注文数のグラフ">
-          {weeks.map((w, i) => (
-            <div key={w.w} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-2">
-              <span className="num text-[0.75rem] text-sub">{w.o}</span>
-              <span className={`w-full max-w-[2.2rem] rounded-full transition-all duration-700 ${"now" in w ? "bg-ai" : "bg-white/[.08]"}`} style={{ height: `${(w.o / top) * 100}%` }} />
-              <span className={`whitespace-nowrap text-[0.62rem] sm:text-[0.68rem] ${"now" in w ? "font-bold text-ai" : "text-sub"} ${!("now" in w) && i % 2 ? "max-sm:invisible" : ""}`}>{w.w}</span>
-            </div>
-          ))}
-        </div>
+        <div className="mt-10 sm:hidden"><LineChart data={weeks.map((w) => w.o)} labels={weeks.map((w) => w.w)} color="#10d9a0" grid="rgba(255,255,255,.07)" sub="#6b7b98" W={320} H={130} head={1.8} sparse /></div>
+        <div className="mt-10 hidden sm:block"><LineChart data={weeks.map((w) => w.o)} labels={weeks.map((w) => w.w)} color="#10d9a0" grid="rgba(255,255,255,.07)" sub="#6b7b98" W={900} H={220} head={1.6} /></div>
       </section>
 
       <div className="mt-20" />
