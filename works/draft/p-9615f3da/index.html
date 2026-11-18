@@ -10,9 +10,9 @@ header{background:#0f2747;color:#fff;height:68px}.hin{max-width:1180px;margin:0 
 nav{margin-left:auto;display:flex;gap:26px;font-size:14px;color:#dbe4f2}
 .hcta{background:#ef7d1a;color:#fff;font-weight:700;font-size:14px;padding:11px 20px;border-radius:6px}
 .fv{background:linear-gradient(180deg,#f3f7fc 0%,#fff 100%)}
-.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 56px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;position:relative}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 56px;display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"head photo" "body photo";column-gap:40px;align-items:center;position:relative}.head{grid-area:head;align-self:end}.body{grid-area:body;align-self:start}
 .in{position:relative}
-.photo{border-radius:18px;height:520px;background:url(hero.webp) 74% center/cover no-repeat;box-shadow:0 30px 60px -34px rgba(15,39,71,.45)}
+.photo{grid-area:photo;border-radius:18px;height:520px;background:url(hero.webp) 74% center/cover no-repeat;box-shadow:0 30px 60px -34px rgba(15,39,71,.45)}
 .badges{display:flex;gap:10px;flex-wrap:wrap}
 .bd{font-size:12.5px;font-weight:700;color:#0f2747;border:1.5px solid #0f2747;border-radius:4px;padding:5px 10px;background:#fff}
 .bd.fill{background:#0f2747;color:#fff}
@@ -33,8 +33,12 @@ h1 em{font-style:normal;color:#1b5fbf;background:linear-gradient(transparent 70%
 .note{max-width:1180px;margin:-40px auto 0;padding:0 24px 24px;text-align:right;font-size:11px;color:#7a8aa6}
 @media(max-width:700px){
  header{height:56px}nav{display:none}.hcta{margin-left:auto;font-size:12px;padding:9px 12px}.logo i{width:90px;height:26px}
- .hin{padding:0 16px}.wrap{grid-template-columns:1fr;padding:0 0 30px;gap:0}.photo{order:-1;height:270px;border-radius:0;box-shadow:none;background-size:205% auto;background-position:84% 22%}
- .in{padding:24px 18px 4px}
+ .hin{padding:0 16px}.wrap{grid-template-columns:1fr;grid-template-areas:"hero" "body";padding:0 0 30px;gap:0}
+ .photo{grid-area:hero;height:470px;border-radius:0;box-shadow:none;background:linear-gradient(to top,rgba(11,29,56,.92) 0%,rgba(11,29,56,.72) 30%,rgba(11,29,56,.15) 58%,rgba(11,29,56,0) 72%),url(hero.webp) 84% 12%/215% auto no-repeat}
+ .head{grid-area:hero;align-self:end;position:relative;z-index:1;padding:0 18px 24px}
+ .head .bd{background:transparent;color:#fff;border-color:rgba(255,255,255,.8)}.head .bd.fill{background:#fff;color:#0f2747;border-color:#fff}
+ .head .lead0{color:#dbe4f2}.head h1{color:#fff}.head h1 em{color:#ffb36b;background:none}
+ .body{padding:22px 18px 4px}
  .lead0{font-size:14px;margin-top:16px}h1{font-size:30px}.sub{font-size:14.5px}
  .nums{gap:8px}.n{min-width:0;flex:1;padding:10px 8px;text-align:center}.n b{font-size:20px}.n b span{font-size:11px}.n.sp b{font-size:17px}.n.sp b span{font-size:10px}.n small,.n i{font-size:10.5px}
  .free{font-size:12.5px;padding:7px 12px}.free b{font-size:15px}
@@ -46,10 +50,12 @@ h1 em{font-style:normal;color:#1b5fbf;background:linear-gradient(transparent 70%
 <header><div class="hin"><div class="logo"><i>（貴社ロゴ）</i></div><nav><span>サービス内容</span><span>料金プラン</span><span>導入の流れ</span><span>よくある質問</span></nav><span class="hcta">無料で相談する</span></div></header>
 <section class="fv">
  <div class="wrap">
- <div class="in">
+ <div class="head">
   <div class="badges"><span class="bd fill">給与計算代行</span><span class="bd">マネーフォワード クラウド 公認メンバー</span></div>
   <p class="lead0">毎月の給与計算に、貴重な時間を奪われていませんか？</p>
   <h1><span class="ib">給与計算業務から</span><span class="ib"><em>解放</em>されて、</span><br><span class="ib">本来の事業成長へ。</span></h1>
+ </div>
+ <div class="body">
   <p class="sub"><span class="ib">勤怠を締めて、変更点を共有いただくだけ。</span><span class="ib">給与計算からWeb明細の発行まで、</span><span class="ib">貴社の運用に合わせて代行します。</span></p>
   <div class="nums">
    <div class="n"><small>初期費用</small><b>3<span>万円</span></b><i>＋設定 1名1,000円</i></div>
