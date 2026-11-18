@@ -9,10 +9,10 @@ header{background:#0f2747;color:#fff;height:68px}.hin{max-width:1180px;margin:0 
 .logo i{width:110px;height:30px;border:1.5px dashed #5f7aa3;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:11px;color:#9fb2d1}
 nav{margin-left:auto;display:flex;gap:26px;font-size:14px;color:#dbe4f2}
 .hcta{background:#ef7d1a;color:#fff;font-weight:700;font-size:14px;padding:11px 20px;border-radius:6px}
-.fv{background:linear-gradient(180deg,#f3f7fc 0%,#fff 100%)}
-.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 56px;display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"head photo" "body photo";column-gap:40px;align-items:center;position:relative}.head{grid-area:head;align-self:end}.body{grid-area:body;align-self:start}
+.fv{background:linear-gradient(180deg,#f3f7fc 0%,#fff 100%);position:relative}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 56px;display:grid;grid-template-columns:1.05fr .95fr;grid-template-areas:"head ." "body .";column-gap:40px;align-items:center;min-height:600px}.head{grid-area:head;align-self:end}.body{grid-area:body;align-self:start}
 .in{position:relative}
-.photo{grid-area:photo;border-radius:18px;height:520px;background:url(hero.webp) 74% center/cover no-repeat;box-shadow:0 30px 60px -34px rgba(15,39,71,.45)}
+.photo{position:absolute;top:0;bottom:0;left:52%;right:0;background:url(hero.webp) 72% center/cover no-repeat}
 .badges{display:flex;gap:10px;flex-wrap:wrap}
 .bd{font-size:12.5px;font-weight:700;color:#0f2747;border:1.5px solid #0f2747;border-radius:4px;padding:5px 10px;background:#fff}
 .bd.fill{background:#0f2747;color:#fff}
@@ -30,11 +30,11 @@ h1 em{font-style:normal;color:#1b5fbf;background:linear-gradient(transparent 70%
 .ctas{margin-top:26px;display:flex;align-items:center;gap:20px}
 .cta{background:#ef7d1a;color:#fff;font-weight:800;font-size:17px;padding:18px 34px;border-radius:8px;box-shadow:0 10px 22px -10px rgba(239,125,26,.8)}
 .cta2{color:#1b5fbf;font-weight:700;font-size:15px}
-.note{max-width:1180px;margin:-40px auto 0;padding:0 24px 24px;text-align:right;font-size:11px;color:#7a8aa6}
+.note{max-width:1180px;margin:-44px auto 0;padding:0 24px 22px;text-align:left;font-size:11px;color:#7a8aa6;position:relative}.note .ib{max-width:none}
 @media(max-width:700px){
  header{height:56px}nav{display:none}.hcta{margin-left:auto;font-size:12px;padding:9px 12px}.logo i{width:90px;height:26px}
- .hin{padding:0 16px}.wrap{grid-template-columns:1fr;grid-template-areas:"hero" "body";padding:0 0 30px;gap:0}
- .photo{grid-area:hero;height:470px;border-radius:0;box-shadow:none;background:linear-gradient(to top,rgba(11,29,56,.92) 0%,rgba(11,29,56,.72) 30%,rgba(11,29,56,.15) 58%,rgba(11,29,56,0) 72%),url(hero.webp) 84% 12%/215% auto no-repeat}
+ .hin{padding:0 16px}.wrap{grid-template-columns:1fr;grid-template-areas:"hero" "body";padding:0 0 30px;gap:0;min-height:0}
+ .photo{position:static;grid-area:hero;height:470px;border-radius:0;box-shadow:none;background:linear-gradient(to top,rgba(11,29,56,.92) 0%,rgba(11,29,56,.72) 30%,rgba(11,29,56,.15) 58%,rgba(11,29,56,0) 72%),url(hero.webp) 84% 12%/215% auto no-repeat}
  .head{grid-area:hero;align-self:end;position:relative;z-index:1;padding:0 18px 24px}
  .head .bd{background:transparent;color:#fff;border-color:rgba(255,255,255,.8)}.head .bd.fill{background:#fff;color:#0f2747;border-color:#fff}
  .sbr{display:inline}
