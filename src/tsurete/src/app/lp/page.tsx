@@ -5,7 +5,7 @@ import LpVoice from "@/components/LpVoice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Bot, CalendarClock, Check, ChevronRight, Copy, FileSpreadsheet, KeyRound, Mail, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, ShieldCheck, TrendingUp, X } from "lucide-react";
+import { ArrowRight, Bot, CalendarClock, Check, Minus, ChevronRight, Copy, FileSpreadsheet, KeyRound, Mail, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, ShieldCheck, TrendingUp, X } from "lucide-react";
 import J from "@/components/J";
 import { Laptop, Phone } from "@/components/Devices";
 import { SAMPLE_URL } from "@/lib/check";
@@ -475,6 +475,64 @@ function Week() {
   );
 }
 
+// ほかとのちがい：選ばれる理由と、よくある方法との比較（特定の会社名は出さない）
+const PILLARS = [
+  { icon: CalendarClock, t: "全商品を、毎週、自動で。", d: "AIに頼むことすら要りません。全商品のページを毎週点検して、やることだけを届けます。" },
+  { icon: FileSpreadsheet, t: "楽天・Amazonにも、そのまま。", d: "Shopifyへの反映、楽天・Amazon・Yahoo!の取りこみ用CSVなど、サイトに合わせた形で届けます。" },
+  { icon: TrendingUp, t: "使うほど、処方箋が賢くなる。", d: "どの直し方で、AIからのお客様と売上が増えたかを学び、ジャンルごとに効く案を出せるようにしていきます。" },
+];
+const COLS = ["TSURETE", "AIに\n自分で頼む", "SEO\nツール", "海外の\nAI対策ツール", "1つの作業\nだけのアプリ"];
+const COLS_SP = ["TSURETE", "AIに\n頼む", "SEO\nツール", "海外の\nツール", "単機能\nアプリ"];
+const ROWS: [string, number[]][] = [
+  ["全商品を、毎週自動で点検", [2, 0, 1, 1, 0]],
+  ["AIに選ばれる項目で点検", [2, 1, 0, 1, 0]],
+  ["直す文章まで出す", [2, 1, 0, 1, 1]],
+  ["楽天・Amazonにも届ける", [2, 0, 0, 0, 1]],
+  ["効果を売上で確かめる", [2, 0, 1, 1, 0]],
+  ["やさしい日本語で使える", [2, 2, 1, 0, 1]],
+];
+function Mark({ v, me }: { v: number; me?: boolean }) {
+  if (v === 2) return <Check size={18} strokeWidth={2.4} className={`mx-auto ${me ? "text-[#2fd9a6]" : "text-[#00a37a]"}`} aria-label="できる" />;
+  if (v === 1) return <span className="mx-auto block h-3 w-3 rounded-full border-[1.5px] border-[#86868b]" aria-label="一部できる" />;
+  return <Minus size={16} className="mx-auto text-[#c7c7cc]" aria-label="できない" />;
+}
+function Compare() {
+  return (
+    <section className="px-5 py-24 sm:py-36">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>TSURETEを選ぶ理由。</J></h2></Reveal>
+      <div className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-3">
+        {PILLARS.map(({ icon: Icon, t, d }, i) => (
+          <Reveal key={t} delay={i * 100} className="h-full"><div className="h-full rounded-[28px] bg-white/75 p-7 sm:p-8"><Icon size={26} strokeWidth={1.7} className="text-[#00a37a]" /><b className="mt-5 block text-[1.15rem] leading-[1.5]"><J>{t}</J></b><p className="mt-2 text-[0.92rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></p></div></Reveal>
+        ))}
+      </div>
+
+      <Reveal className="mx-auto mt-20 max-w-[56rem]">
+        <p className="text-center text-[1.15rem] font-semibold sm:text-[1.4rem]"><J>よくある方法と、くらべると。</J></p>
+        <div className="mt-8 overflow-hidden rounded-[24px] bg-white/75">
+          <table className="w-full table-fixed text-[0.8rem] sm:text-[0.92rem]">
+            <thead>
+              <tr>
+                <th className="w-[30%] p-3 sm:p-4" />
+                {COLS.map((c, i) => <th key={c} className={`whitespace-pre-line px-0.5 py-3 text-center font-semibold leading-[1.35] sm:px-2 sm:text-[0.78rem] ${i === 0 ? "bg-[#1d1d1f] text-[0.55rem] tracking-[-.02em] text-[#2fd9a6]" : "text-[0.62rem] text-[#6e6e73]"}`}><span className="sm:hidden">{COLS_SP[i]}</span><span className="hidden sm:inline">{c}</span></th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {ROWS.map(([t, v]) => (
+                <tr key={t} className="border-t border-black/[.05]">
+                  <td className="p-3 leading-[1.5] sm:p-4"><J>{t}</J></td>
+                  {v.map((x, i) => <td key={i} className={`py-3 ${i === 0 ? "bg-[#1d1d1f]" : ""}`}><Mark v={x} me={i === 0} /></td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[0.75rem] text-[#86868b]"><span className="flex items-center gap-1"><Check size={13} className="text-[#00a37a]" />できる</span><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full border-[1.5px] border-[#86868b]" />一部できる</span><span className="flex items-center gap-1"><Minus size={13} />できない</span></p>
+        <p className="mt-2 text-center text-[0.72rem] leading-[1.8] text-[#86868b]"><J>一般的な特徴をもとにした比較です。ツールや使い方によって異なります。</J><span className="block sm:hidden"><J>海外のツール＝海外のAI対策ツール、単機能アプリ＝1つの作業だけのアプリ</J></span></p>
+      </Reveal>
+    </section>
+  );
+}
+
 function Safety() {
   const items = [
     { icon: ShieldCheck, t: "勝手に書きかえない", d: "サイトが変わるのは、お店の人が「この案を使う」を押したものだけ。" },
@@ -566,7 +624,7 @@ function Faq() {
 // セクションごとの背景の色（スクロールに合わせて、となりの色へとけるように変わる）
 // 黒い場面（4番目）は、その場面だけ黒。ページ全体まで黒にすると、手前の文字が読めなくなるため
 const BG = ["#ffffff", "#eaf3fd", "#f8f3ea", "#f8f3ea", "#f0eefa", "#e8f6ef", "#eaf3fd", "#fdf0ea", "#f2f2f5", "#e8f6ef", "#f8f3ea", "#f0eefa", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#ffffff", "#e8f6ef"];
-const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","点検は自動","しくみ","お店の1週間","使う前と後","対応サイト","小さなお店へ","ほかとのちがい","安心","料金","はじめ方","よくある質問","無料診断"];
+const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","点検は自動","しくみ","お店の1週間","使う前と後","対応サイト","小さなお店へ","選ばれる理由","安心","料金","はじめ方","よくある質問","無料診断"];
 
 // LPに出す数字（各社の公開調査。数字を変えるときは、出典も必ず一緒に直す）
 const STATS = [
@@ -700,14 +758,7 @@ export default function Page() {
           </div>
         </section>
 
-        {/* AIに自分で聞くのと何が違う */}
-        <section className="px-5 py-24 sm:py-36">
-          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIに自分で聞くのと、</span><span className="inline-block">何が違う？</span></h2></Reveal>
-          <div className="mx-auto mt-16 grid max-w-[52rem] gap-4 md:grid-cols-2">
-            <Reveal><div className="h-full rounded-[28px] bg-white/75 p-8 sm:p-10"><p className="text-[1rem] font-semibold text-[#6e6e73]"><J>AIに自分で聞く</J></p><ul className="mt-6 space-y-4 text-[0.98rem] text-[#6e6e73]">{["1回聞いた答えだけ（答えは毎回変わる）", "自分の商品だけを見る", "1商品ずつコピペ", "効いたか分からない", "毎回、自分で聞きに行く"].map((t) => <li key={t} className="flex gap-3"><X size={18} className="mt-1 shrink-0 opacity-50" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
-            <Reveal delay={150}><div className="h-full rounded-[28px] bg-[#1d1d1f] p-8 text-white sm:p-10"><p className="text-[1rem] font-semibold text-[#2fd9a6]">TSURETE</p><ul className="mt-6 space-y-4 text-[0.98rem]">{["全商品のページを、毎週自動で点検", "足りないところを、書き直し案と貼るコードに", "全商品まとめて、サイトに合わせて届ける", "実際の来店と売上で、効果を確かめる", "お店が払うAIの利用料は0円"].map((t) => <li key={t} className="flex gap-3"><Check size={18} className="mt-1 shrink-0 text-[#2fd9a6]" /><span className="min-w-0"><J>{t}</J></span></li>)}</ul></div></Reveal>
-          </div>
-        </section>
+        <Compare />
 
         <Safety />
         <Pricing />
