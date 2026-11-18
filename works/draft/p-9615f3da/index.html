@@ -10,12 +10,11 @@ header{background:#0f2747;color:#fff;height:68px}.hin{max-width:1180px;margin:0 
 nav{margin-left:auto;display:flex;gap:26px;font-size:14px;color:#dbe4f2}
 .hcta{background:#ef7d1a;color:#fff;font-weight:700;font-size:14px;padding:11px 20px;border-radius:6px}
 .fv{background:#f4f6f9;position:relative;overflow:hidden}
-.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 56px;display:grid;grid-template-columns:560px 1fr;grid-template-areas:"head ." "body .";column-gap:40px;align-items:center;min-height:640px;position:relative;z-index:1}.head{grid-area:head;align-self:end}.body{grid-area:body;align-self:start}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 56px;display:grid;grid-template-columns:560px 1fr;grid-template-areas:"head ." "body .";column-gap:40px;align-items:center;min-height:640px;position:relative}.head,.body{position:relative;z-index:1}.head{grid-area:head;align-self:end}.body{grid-area:body;align-self:start}
 .in{position:relative}
-.photo{position:absolute;inset:0;z-index:0;background:url(hero.webp) no-repeat;background-size:auto 100%;background-position:right center}
-@media(min-width:1500px){.photo{background-position:calc(50% + 330px) center}}
-.photo::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f4f6f9 0%,#f4f6f9 calc(50% - 40px),rgba(244,246,249,.85) calc(50% + 10px),rgba(244,246,249,0) calc(50% + 110px))}
-@media(min-width:701px) and (max-width:1199px){.wrap{grid-template-columns:480px 1fr}h1{font-size:40px}.photo{background-position:right center}.photo::before{background:linear-gradient(90deg,#f4f6f9 0%,#f4f6f9 500px,rgba(244,246,249,.85) 540px,rgba(244,246,249,0) 620px)}}
+.photo{position:absolute;inset:0;z-index:0;background:url(hero.webp) no-repeat right center;background-size:auto 100%}
+.photo::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f4f6f9 0%,#f4f6f9 580px,rgba(244,246,249,.85) 620px,rgba(244,246,249,0) 720px),linear-gradient(270deg,#f4f6f9 0%,rgba(244,246,249,0) 50px)}
+@media(min-width:701px) and (max-width:1199px){.wrap{grid-template-columns:480px 1fr}h1{font-size:40px}.photo::before{background:linear-gradient(90deg,#f4f6f9 0%,#f4f6f9 500px,rgba(244,246,249,.85) 540px,rgba(244,246,249,0) 620px)}}
 .badges{display:flex;gap:10px;flex-wrap:wrap}
 .bd{font-size:12.5px;font-weight:700;color:#0f2747;border:1.5px solid #0f2747;border-radius:4px;padding:5px 10px;background:#fff}
 .bd.fill{background:#0f2747;color:#fff}
@@ -57,8 +56,8 @@ h1 em{font-style:normal;color:#1b5fbf;background:linear-gradient(transparent 70%
 </style></head><body>
 <header><div class="hin"><div class="logo"><i>（貴社ロゴ）</i></div><nav><span>サービス内容</span><span>料金プラン</span><span>導入の流れ</span><span>よくある質問</span></nav><span class="hcta">無料で相談する</span></div></header>
 <section class="fv">
- <div class="photo"></div>
  <div class="wrap">
+ <div class="photo"></div>
  <div class="head">
   <div class="badges"><span class="bd fill">給与計算代行</span><span class="bd">マネーフォワード クラウド 公認メンバー</span></div>
   <p class="lead0"><span class="ib">毎月の給与計算に、</span><span class="ib">貴重な時間を奪われていませんか？</span></p>
