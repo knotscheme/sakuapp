@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import J from "@/components/J";
+import { FIXES } from "@/lib/demo";
+import { useMounted, useStore } from "@/lib/store";
 import { BookOpen, Home, Settings, Stethoscope, TrendingUp, Wand2 } from "lucide-react";
 
 export const NAV = [
@@ -23,6 +25,10 @@ export function Logo({ href = "/" }: { href?: string }) {
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const path = usePathname() ?? "/";
+  // 「直す」に、まだ使っていない対策案の件数を赤い丸で出す
+  const st = useStore(), mounted = useMounted();
+  const left = mounted ? FIXES.filter((f) => !st.applied.includes(f.id)).length : 0;
+  const badge = (href: string, cls: string) => (href === "/naosu/" && left > 0 ? <span className={`grid h-[1.1rem] min-w-[1.1rem] place-items-center rounded-full bg-[#ef4444] px-1 text-[0.62rem] font-bold leading-none text-white ${cls}`} aria-label={`対策案 ${left}件`}>{left}</span> : null);
   const on = (h: string) => (h === "/" ? path === "/" || path.endsWith("/tsurete/") : path.includes(h));
   const icon = (href: string, label: string, Icon: typeof Home) => <Link href={href} aria-label={label} title={label} aria-current={on(href) ? "page" : undefined} className={`grid h-9 w-9 place-items-center rounded-full ${on(href) ? "text-ai" : "text-sub hover:text-ink"}`}><Icon size={18} strokeWidth={1.8} /></Link>;
   return (
@@ -32,7 +38,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-3"><Logo /><span className="rounded-full bg-white/[.06] px-2 py-0.5 text-[0.65rem] text-sub">デモ</span></div>
           <nav aria-label="メニュー" className="hidden items-center gap-8 md:flex">
             {NAV.map(({ href, label, n }) => (
-              <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`relative py-2 text-[0.86rem] transition ${on(href) ? "font-bold text-ink after:absolute after:inset-x-0 after:-bottom-[0.6rem] after:h-[2px] after:rounded-full after:bg-ai" : "text-sub hover:text-ink"}`}>{label}{n === "プロ" && <span className="ml-1.5 rounded-full bg-ai/15 px-1.5 py-px text-[0.6rem] font-bold text-ai">PRO</span>}</Link>
+              <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`relative py-2 text-[0.86rem] transition ${on(href) ? "font-bold text-ink after:absolute after:inset-x-0 after:-bottom-[0.6rem] after:h-[2px] after:rounded-full after:bg-ai" : "text-sub hover:text-ink"}`}>{label}{badge(href, "absolute -right-4 top-0")}{n === "プロ" && <span className="ml-1.5 rounded-full bg-ai/15 px-1.5 py-px text-[0.6rem] font-bold text-ai">PRO</span>}</Link>
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-1">
@@ -46,7 +52,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       <nav aria-label="メニュー" className="fixed inset-x-0 bottom-0 z-40 border-t hair bg-paper/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden">
         <div className="grid grid-cols-4">
           {NAV.map(({ href, short, icon: Icon }) => (
-            <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`flex flex-col items-center gap-1 py-3 text-[0.66rem] ${on(href) ? "font-bold text-ai" : "text-sub"}`}><Icon size={20} strokeWidth={on(href) ? 2.2 : 1.6} />{short}</Link>
+            <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`flex flex-col items-center gap-1 py-3 text-[0.66rem] ${on(href) ? "font-bold text-ai" : "text-sub"}`}><span className="relative"><Icon size={20} strokeWidth={on(href) ? 2.2 : 1.6} />{badge(href, "absolute -right-2.5 -top-1.5 ring-2 ring-paper")}</span>{short}</Link>
           ))}
         </div>
       </nav>
