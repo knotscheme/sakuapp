@@ -83,6 +83,13 @@ function Uriage() {
         </section>
       )}
 
+      <section className="mt-24" aria-labelledby="gsc">
+        <h2 id="gsc" className="text-[1.2rem] font-bold tracking-[.04em]">あわせて見たい、無料の公式ツール</h2>
+        <p className="mt-2 max-w-[40em] text-[0.86rem] leading-[1.9] text-sub"><J>Googleの「Search Console」を使うと、お店のサイトがGoogleの検索とAIによる概要に何回出て、何回押されたかが無料で分かります。TSURETEの計測タグとあわせて見ると、「出ている回数」と「来た人・売上」の両方がそろいます。</J></p>
+        <ol className="mt-6 space-y-2 text-[0.88rem] leading-[1.9]">{["Search Consoleを開き、お店のサイトを登録する（無料）", "「検索パフォーマンス」で、表示回数とクリック数を見る", "直した商品のページが、直す前より出ているかを確かめる"].map((t, i) => <li key={t} className="flex gap-3"><span className="num text-ai">0{i + 1}</span><span className="min-w-0"><J>{t}</J></span></li>)}</ol>
+        <p className="mt-4 text-[0.78rem] leading-[1.8] text-sub"><J>AIによる概要からの分は、ほかの検索と分けて見られないことがあります。</J></p>
+      </section>
+
       <section className="mt-24" aria-labelledby="od">
         <h2 id="od" className="text-[1.2rem] font-bold tracking-[.04em]">デモの中で買われた注文</h2>
         {s.orders.length === 0 ? <p className="mt-4 text-[0.9rem] leading-[1.9] text-sub">まだありません。<span className="whitespace-nowrap">「<Link href="/hakaru/" className="text-ai underline underline-offset-4">測る</Link>」の</span><J>「お客様がAIに聞くと」で、SORAEの「商品を見る」→「買う」を押すと、ここに入ります。</J></p> : (

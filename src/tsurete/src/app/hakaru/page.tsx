@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Check, Minus } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Check, ExternalLink, Mail, Minus, NotebookPen, Plus } from "lucide-react";
+import { toast } from "@/components/Confirm";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import { ChatSim, Real } from "@/components/ChatSim";
 import { AIS, BRAND, PRODUCTS, QUESTIONS, RIVAL_HAS, SIGNALS, WEEKS, fmt, shelf, signals, winners, type Sig } from "@/lib/demo";
-import { useStore } from "@/lib/store";
+import { uid, update, useStore } from "@/lib/store";
 import J from "@/components/J";
 
 // 週ごとの推薦率の折れ線
@@ -23,6 +25,66 @@ function Trend({ data, W = 640, H = 180, fs = 10 }: { data: { w: string; p: numb
   );
 }
 
+// AIが答えの根拠にしたサイト（共有の測定で集めた、架空のデータ）
+const SOURCES = [
+  { name: "はだガイド", title: "敏感肌の化粧水おすすめ15選", kind: "比較記事", n: 38 },
+  { name: "コスメランク", title: "3,000円台の化粧水ランキング", kind: "ランキング", n: 27 },
+  { name: "くちコミ広場", title: "敏感肌でも使える化粧水まとめ", kind: "口コミ", n: 21 },
+  { name: "ヘルスマガジン", title: "化粧水の選び方を皮膚科医に聞いた", kind: "専門家の記事", n: 14 },
+];
+function Sources() {
+  const s = useStore();
+  const asked = s.applied.includes("media");
+  return (
+    <section className="mt-24" aria-labelledby="src">
+      <h2 id="src" className="text-[1.2rem] font-bold tracking-[.04em]">AIが根拠にしたサイト</h2>
+      <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>AIがおすすめを答えるときに、よく参考にしていたページです。ここに載ると、すすめられやすくなります。</J></p>
+      <ul className="mt-8 border-t hair">
+        {SOURCES.map((x) => (
+          <li key={x.name} className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b hair py-4 text-[0.9rem]">
+            <span className="min-w-0 flex-1"><b className="block"><J>{x.title}</J></b><span className="text-[0.78rem] text-sub"><J>{`${x.name}・${x.kind}`}</J></span></span>
+            <span className="num shrink-0 text-[0.82rem] text-sub">根拠に {x.n}回</span>
+            <span className="shrink-0 text-[0.78rem] font-bold text-warn">SORAEは未掲載</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        {asked ? <p className="flex items-center gap-2 text-[0.88rem] text-ai"><Check size={17} />掲載をお願いする文を作りました。送るかどうかは、お店で決めます。</p>
+          : <button type="button" onClick={() => { update((x) => ({ ...x, applied: [...new Set([...x.applied, "media"])] })); toast("依頼文を作りました（デモ）"); }} className="btn btn-ai px-6"><Mail size={17} />掲載をお願いする文を作る</button>}
+        <span className="flex items-center gap-1 text-[0.78rem] text-sub"><ExternalLink size={13} />載るかどうかは、相手しだいです</span>
+      </div>
+    </section>
+  );
+}
+
+// 自分でAIに聞いた結果を記録する（おまけ）
+const RANKS = [{ v: 1, l: "1位" }, { v: 2, l: "2位" }, { v: 3, l: "3位" }, { v: 4, l: "4位以下" }, { v: 0, l: "出なかった" }];
+function SelfLog() {
+  const s = useStore();
+  const log = s.log ?? [];
+  const [q, setQ] = useState(QUESTIONS[0].text), [ai, setAi] = useState<string>(AIS[0]), [rank, setRank] = useState(0);
+  const add = () => { update((x) => ({ ...x, log: [{ id: uid(), q, ai, rank, at: new Date().toISOString() }, ...(x.log ?? [])].slice(0, 50) })); toast("記録しました"); };
+  const top3 = log.filter((x) => x.rank >= 1 && x.rank <= 3).length;
+  return (
+    <section className="mt-24" aria-labelledby="log">
+      <h2 id="log" className="flex items-center gap-2 text-[1.2rem] font-bold tracking-[.04em]"><NotebookPen size={20} className="text-ai" />自分で聞いた結果の記録</h2>
+      <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>ふだん使っているAIに自分で聞いてみた結果も、ここに残せます。答えは人によって変わるので、目安として使ってください。</J></p>
+      <div className="card mt-6 grid gap-3 p-5 sm:grid-cols-[1fr_9rem_9rem_auto] sm:items-end">
+        <label className="text-[0.82rem] font-bold">聞いた質問<select value={q} onChange={(e) => setQ(e.target.value)} className="field mt-1">{QUESTIONS.map((x) => <option key={x.id}>{x.text}</option>)}</select></label>
+        <label className="text-[0.82rem] font-bold">AI<select value={ai} onChange={(e) => setAi(e.target.value)} className="field mt-1">{AIS.map((x) => <option key={x}>{x}</option>)}</select></label>
+        <label className="text-[0.82rem] font-bold">SORAEは<select value={rank} onChange={(e) => setRank(Number(e.target.value))} className="field mt-1">{RANKS.map((x) => <option key={x.v} value={x.v}>{x.l}</option>)}</select></label>
+        <button type="button" onClick={add} className="btn btn-ai"><Plus size={17} />記録する</button>
+      </div>
+      {log.length > 0 && (
+        <>
+          <p className="mt-6 text-[0.86rem] text-sub">記録 <b className="num text-ink">{log.length}</b>件・3位以内 <b className="num text-ai">{top3}</b>件</p>
+          <ul className="mt-3 border-t hair">{log.slice(0, 8).map((x) => <li key={x.id} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b hair py-3 text-[0.86rem]"><span className="min-w-0 flex-1"><J>{x.q}</J></span><span className="text-sub">{x.ai}</span><b className={x.rank >= 1 && x.rank <= 3 ? "text-ai" : "text-warn"}>{RANKS.find((r) => r.v === x.rank)?.l}</b></li>)}</ul>
+        </>
+      )}
+    </section>
+  );
+}
+
 function Hakaru() {
   const s = useStore();
   const sh = shelf(s.applied);
@@ -35,14 +97,14 @@ function Hakaru() {
   const win = winners(s.applied);
   return (
     <>
-      <Title n="1" title="測る" lead="お客様が聞きそうな質問を、TSURETEが毎週自動で4つのAIに何度も聞いて、あなたの商品が何回すすめられたかを記録します。" />
+      <Title n="PRO" title="測る" lead="同じジャンルのお店とまとめてAIに聞いた結果を、共有して見る画面です（プロプラン）。どの質問で、どの店に負けているかが分かります。お店がAIの利用料を払う必要はありません。数字は目安です。" />
 
       <section aria-label="今週の結果" className="grid gap-12 md:grid-cols-[auto_1fr] md:gap-16">
         <div>
           <p className="text-[0.85rem] text-sub">今週、AIにすすめられた割合</p>
           <p className="mt-2"><b className="num text-[4.2rem] leading-none text-ai">{sh.pct}</b><span className="ml-1 text-[1.2rem] text-sub">%</span></p>
           <p className={`num mt-3 text-[0.88rem] ${diff > 0 ? "text-ai" : "text-sub"}`}>{diff > 0 ? `先週より +${diff}ポイント` : diff < 0 ? `先週より ${diff}ポイント` : "先週と同じ"}</p>
-          <p className="mt-6 text-[0.8rem] leading-[1.9] text-sub">{QUESTIONS.length}個の質問 × {AIS.length}つのAI × 20回<br />＝ {fmt(sh.max)}回聞いて、{fmt(sh.total)}回<br />次の自動測定：11月24日（月）</p>
+          <p className="mt-6 text-[0.8rem] leading-[1.9] text-sub">ジャンル「スキンケア」の共有の測定<br />{QUESTIONS.length}個の質問 × {AIS.length}つのAI × 20回<br />次の測定：11月24日（月）</p>
         </div>
         <div className="min-w-0"><div className="hidden sm:block"><Trend data={data} /></div><div className="sm:hidden"><Trend data={data} W={360} H={200} fs={12} /></div></div>
       </section>
@@ -96,6 +158,9 @@ function Hakaru() {
           ))}
         </ul>
       </section>
+
+      <Sources />
+      <SelfLog />
 
       <ChatSim />
       <Real />

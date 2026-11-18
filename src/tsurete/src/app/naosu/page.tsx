@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Check, Clock, Copy, Download, Mail, RotateCcw, Rss, Sparkles, Star, Wand2 } from "lucide-react";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import { toast } from "@/components/Confirm";
-import { BRAND, FIXES, PAGES, PRODUCTS, fmt, shelf, type Fix } from "@/lib/demo";
+import { BRAND, FIXES, PAGES, PRODUCTS, fmt, type Fix } from "@/lib/demo";
+import { healthGain } from "@/lib/health";
 import { getState, update, useStore } from "@/lib/store";
 import J from "@/components/J";
 import { download } from "@/lib/check";
@@ -27,24 +28,24 @@ async function use(ids: string[], text: string) {
 }
 
 // 商品ページの1つのかたまり。未反映ならAIの書き直し案を、反映済みなら書き直した文章を出す
-function Block({ id, label, before, after, gain, done }: { id: string; label: string; before: string; after: string; gain: number; done: boolean }) {
+function Block({ id, label, before, after, gain, done, code }: { id: string; label: string; before: string; after: string; gain: number; done: boolean; code?: boolean }) {
   const f = fixOf(id);
   const m = platformOf(useStore().site)?.method ?? "copy";
   if (done) return (
     <div className="fade-in rounded-lg border-l-[3px] border-[#10b981] bg-[#e9fbf3] px-3.5 py-3">
       <p className="flex items-center gap-1.5 text-[0.72rem] font-bold text-[#047857]"><Sparkles size={12} />{DONE[m]}<span className="font-normal text-[#6b7280]">｜{label}</span><button type="button" onClick={() => { apply([id], false); toast("もとに戻しました"); }} className="ml-auto flex items-center gap-1 font-normal text-[#6b7280] underline"><RotateCcw size={11} />戻す</button></p>
-      <p className="mt-1.5 whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#111827]"><J>{after}</J></p>
+      {code ? <pre className="mt-1.5 overflow-x-auto whitespace-pre rounded-lg bg-white/70 p-3 font-mono text-[0.72rem] leading-[1.6] text-[#111827]">{after}</pre> : <p className="mt-1.5 whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#111827]"><J>{after}</J></p>}
     </div>
   );
   return (
     <div>
       {before ? <p className="whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#374151]"><J>{before}</J></p> : <p className="text-[0.82rem] text-[#9ca3af]">（{label}がありません）</p>}
       <div className="mt-2.5 rounded-xl border border-dashed border-[#10b981] bg-white p-3.5">
-        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.75rem]"><b className="flex items-center gap-1 text-[#047857]"><Wand2 size={13} />AIの書き直し案</b><span className="text-[#6b7280]"><J>{f.why}</J></span></p>
-        <p className="mt-2 whitespace-pre-line text-[0.88rem] leading-[1.8] text-[#111827]"><J>{after}</J></p>
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.75rem]"><b className="flex items-center gap-1 text-[#047857]"><Wand2 size={13} />{code ? "貼るコード" : "書き直し案（処方箋）"}</b><span className="text-[#6b7280]"><J>{f.why}</J></span></p>
+        {code ? <pre className="mt-2 overflow-x-auto whitespace-pre rounded-lg bg-[#f3f4f6] p-3 font-mono text-[0.72rem] leading-[1.6] text-[#111827]">{after}</pre> : <p className="mt-2 whitespace-pre-line text-[0.88rem] leading-[1.8] text-[#111827]"><J>{after}</J></p>}
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <button type="button" onClick={() => use([id], after)} className="btn min-h-[2.3rem] bg-[#10b981] px-4 text-[0.85rem] text-white hover:bg-[#059669]">{m === "copy" ? <Copy size={16} /> : <Check size={16} />}この案を使う</button>
-          {gain > 0 && <span className="text-[0.78rem] font-bold text-[#047857]">AIに出る回数 +{fmt(gain)}回</span>}
+          {gain > 0 && <span className="text-[0.78rem] font-bold text-[#047857]">健康スコア +{gain}点</span>}
           {f.note && <span className="text-[0.75rem] text-[#b45309]">※{f.note}</span>}
         </div>
       </div>
@@ -66,7 +67,7 @@ function Outside({ f, done, gain }: { f: Fix; done: boolean; gain: number }) {
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {done ? <><span className="chip bg-ok text-[#03140f]"><Check size={13} />{f.id === "media" ? "依頼文を作りました" : "変えました"}</span><button type="button" onClick={() => apply([f.id], false)} className="text-[0.8rem] text-sub underline">戻す</button></>
               : <button type="button" onClick={() => { apply([f.id], true); toast("用意しました（デモ）"); }} className="btn btn-ai min-h-[2.4rem]">{f.id === "media" ? "依頼文を作る" : "この質問に変える"}</button>}
-            {!done && gain > 0 && <span className="chip bg-ai/15 text-ai">出る回数 +{fmt(gain)}回</span>}
+            {!done && gain > 0 && <span className="chip bg-ai/15 text-ai">健康スコア +{gain}点</span>}
             {f.note && <span className="chip bg-warn/15 text-warn"><Clock size={12} />{f.note}</span>}
           </div>
         </div>
@@ -78,16 +79,19 @@ function Outside({ f, done, gain }: { f: Fix; done: boolean; gain: number }) {
 function Naosu() {
   const s = useStore();
   const [pid, setPid] = useState(PRODUCTS[0].id);
+  // 診断の画面から来たときは、その商品を開く
+  useEffect(() => { const q = new URLSearchParams(location.search).get("p"); if (q && PRODUCTS.some((x) => x.id === q)) setPid(q); }, []);
   const p = PRODUCTS.find((x) => x.id === pid)!, pg = PAGES[pid];
-  const now = shelf(s.applied);
-  const gain = (id: string) => (s.applied.includes(id) ? 0 : shelf([...s.applied, id]).total - now.total);
+  const gain = (id: string) => healthGain(id, s.applied);
   const done = (id: string) => s.applied.includes(id);
   const left = FIXES.filter((f) => !done(f.id));
   const blocks = [
     { id: "target", label: "商品説明", t: pg.target },
     { id: "spec", label: "容量と値段", t: pg.spec },
     { id: "ingredient", label: "成分", t: pg.ingredient },
+    { id: "compare", label: "商品の比較表", t: ["", fixOf("compare").after] as [string, string] },
     { id: "faq", label: "よくある質問", t: pg.faq },
+    { id: "glossary", label: "用語の説明", t: ["", fixOf("glossary").after] as [string, string] },
   ] as const;
   const plat = platformOf(s.site);
   const rowsFor = (all: boolean) => PRODUCTS.map((x) => { const g = PAGES[x.id], on = (k: string) => all || s.applied.includes(k); return { id: x.id, title: x.name, desc: [on("target") ? g.target[1] : g.target[0], on("spec") ? g.spec[1] : g.spec[0], on("ingredient") ? g.ingredient[1] : ""].filter(Boolean).join("\n"), faq: on("faq") ? g.faq[1] : "" }; });
@@ -98,11 +102,14 @@ function Naosu() {
     else if (plat?.method === "csv") { apply(ids, true); toast(`CSVに入れました。「${plat.action}」から保存できます`); }
     else { apply(ids, true); toast(`${plat?.name}の3商品を書きかえました（デモのため、実際のサイトは変わりません）`); }
   };
-  const data = `商品名：${p.name}\n値段：${fmt(p.price)}円（在庫あり）\n口コミ：4.6点（120件）\n${done("target") ? "向いている人：敏感肌・乾燥肌\n" : ""}${done("ingredient") ? "入っていないもの：香料・アルコール\n" : ""}→ 商品ページと、Googleショッピングの商品一覧に入れます`;
+  // 構造化データ（JSON-LD）：AIや検索エンジンが読む、決まった形の商品情報。ページの <head> に貼る
+  const data = `<script type="application/ld+json">
+${JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: p.name, brand: { "@type": "Brand", name: BRAND.name }, description: pg.target[1].split("\n")[0], offers: { "@type": "Offer", price: p.price, priceCurrency: "JPY", availability: "https://schema.org/InStock" }, aggregateRating: { "@type": "AggregateRating", ratingValue: 4.6, reviewCount: 120 } }, null, 2)}
+</script>`;
 
   return (
     <>
-      <Title n="2" title="直す" lead="「測る」で見つかった差を、AIが商品ページの書き直し案にしました。「この案を使う」を押すと、お店のサイトに合った方法で届けます。" />
+      <Title n="2" title="直す" lead="診断で足りなかったところの、処方箋（書き直し案と貼るコード）です。基本はコピーして貼るだけ。お店の人が確認したものだけが、サイトに反映されます。" />
 
       <section className="mb-14 rounded-[24px] bg-white/[.03] p-6 sm:p-8" aria-label="届け方">
         {plat ? (
@@ -127,7 +134,7 @@ function Naosu() {
           {PRODUCTS.map((x) => <button key={x.id} type="button" aria-pressed={pid === x.id} onClick={() => setPid(x.id)} className={`rounded-full px-4 py-1.5 text-[0.86rem] font-bold transition ${pid === x.id ? "bg-ai text-[#03140f]" : "text-sub"}`}>{x.short}</button>)}
         </div>
         <p className="text-[0.9rem]"><b className="num text-[1.4rem] text-ai">{FIXES.length - left.length}</b><span className="text-sub"> / {FIXES.length} 使った案</span></p>
-        <Link href="/hakaru/" className="ml-auto flex items-center gap-1 text-[0.88rem] font-bold text-ai">測った結果を見る<ArrowRight size={16} /></Link>
+        <Link href="/kenko/" className="ml-auto flex items-center gap-1 text-[0.88rem] font-bold text-ai">診断の結果を見る<ArrowRight size={16} /></Link>
       </div>
 
       {/* お店のネットショップの商品ページ（明るい画面で、本物のページらしく見せる） */}
@@ -142,8 +149,8 @@ function Naosu() {
             <div><p className="text-[0.75rem] tracking-[.2em] text-[#6b7280]">SORAE</p><h2 className="mt-1 text-[1.3rem] font-bold leading-[1.5]"><J>{p.name}</J></h2><p className="num mt-1 text-[1.2rem] font-bold">{fmt(p.price)}円<span className="whitespace-nowrap text-[0.75rem] font-normal text-[#6b7280]">（税込）</span></p></div>
             {blocks.map((b) => <div key={b.id}><p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]">{b.label}</p><Block id={b.id} label={b.label} before={b.t[0]} after={b.t[1]} gain={gain(b.id)} done={done(b.id)} /></div>)}
             <div>
-              <p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]"><J>AIが読む商品データ（ページには表示されません）</J></p>
-              <Block id="data" label="商品データ" before="" after={data} gain={gain("data")} done={done("data")} />
+              <p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]"><J>構造化データ（AIが読む商品情報。ページには表示されません）</J></p>
+              <Block id="data" label="構造化データ" before="" after={data} gain={gain("data")} done={done("data")} code />
             </div>
           </div>
         </div>
@@ -151,7 +158,7 @@ function Naosu() {
 
       <section className="mt-24" aria-labelledby="out">
         <h2 id="out" className="text-[1.2rem] font-bold tracking-[.04em]">ショップの外でやること</h2>
-        <p className="mt-1 text-[0.86rem] text-sub"><J>AIは、口コミや外の記事も見ています。文章はAIが用意します。</J></p>
+        <p className="mt-1 text-[0.86rem] text-sub"><J>AIは、口コミや外の記事も見ています。依頼の文章はTSURETEが用意します。</J></p>
         <ul className="mt-8 grid gap-5 md:grid-cols-2">{FIXES.filter((f) => f.id === "review" || f.id === "media").map((f) => <Outside key={f.id} f={f} done={done(f.id)} gain={gain(f.id)} />)}</ul>
       </section>
 

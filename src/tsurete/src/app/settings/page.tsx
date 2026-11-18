@@ -97,7 +97,7 @@ function Settings() {
   const real = (p: Partial<typeof s.real>) => update((x) => ({ ...x, real: { ...x.real, ...p } }));
   return (
     <>
-      <Title title="設定" lead="お店のサイト、計測タグ、測る設定、お店のAIのキーを入れます。" />
+      <Title title="設定" lead="お店のサイトと計測タグを設定します。" />
       <section className="card p-5 sm:p-6" aria-labelledby="sh">
         <h2 id="sh" className="text-[1.1rem] font-bold">自分のブランド</h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
@@ -113,6 +113,9 @@ function Settings() {
         <div className="mt-4"><SiteGrid /></div>
       </section>
       <Tag />
+      <details className="card group mt-5 p-0">
+        <summary className="flex cursor-pointer list-none items-center gap-3 p-5 sm:p-6"><span className="min-w-0 flex-1"><b className="block text-[1.05rem]">詳しく測りたい人向け（任意）</b><span className="text-[0.82rem] text-sub"><J>お店のAIのキーで、自分で回数を決めて測ります。AIの利用料は、各社からお店に直接請求されます。</J></span></span><span className="text-[0.8rem] text-sub group-open:hidden">開く</span></summary>
+        <div className="px-5 pb-5 sm:px-6 sm:pb-6">
       <Measure />
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">
         <h2 id="ak" className="text-[1.1rem] font-bold">お店のAIのキー</h2>
@@ -126,6 +129,8 @@ function Settings() {
           </>
         )}
       </section>
+        </div>
+      </details>
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="dm">
         <h2 id="dm" className="text-[1.1rem] font-bold">デモ</h2>
         <button type="button" onClick={async () => { if (await askConfirm({ title: "デモを最初の状態に戻しますか？", body: "使った書き直し案・選んだサイト・計測タグ・デモの注文が消えます。", ok: "戻す", danger: true })) { resetDemo(); toast("最初の状態に戻しました"); } }} className="btn btn-line mt-3"><RotateCcw size={18} />最初の状態に戻す</button>
