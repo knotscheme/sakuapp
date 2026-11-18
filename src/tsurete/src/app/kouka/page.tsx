@@ -39,19 +39,19 @@ function Uriage() {
       )}
 
       <section className="grid grid-cols-3 gap-2 sm:gap-4" aria-label="今月">
-        <div className="card min-w-0 p-3.5 sm:p-7"><p className="text-[0.68rem] leading-[1.5] text-sub sm:text-[0.82rem]">AI経由の売上</p><p className="num mt-2 whitespace-nowrap text-[1.02rem] font-bold leading-none min-[360px]:text-[1.2rem] sm:mt-3 sm:text-[2.4rem]">{fmt(yen)}<span className="ml-0.5 text-[0.75rem] font-normal text-sub sm:ml-1 sm:text-base">円</span></p><p className={`num mt-2 text-[0.66rem] leading-[1.5] sm:mt-3 sm:text-[0.8rem] ${yen > m0.yen ? "text-ai" : "text-sub"}`}>{yen > m0.yen ? `直す前より +${fmt(yen - m0.yen)}円` : "直す前と同じ"}</p></div>
-        <div className="card min-w-0 p-3.5 sm:p-7"><p className="text-[0.68rem] leading-[1.5] text-sub sm:text-[0.82rem]">AIから来たお客様</p><p className="num mt-2 whitespace-nowrap text-[1.02rem] font-bold leading-none min-[360px]:text-[1.2rem] sm:mt-3 sm:text-[2.4rem]">{fmt(m.visits)}<span className="ml-0.5 text-[0.75rem] font-normal text-sub sm:ml-1 sm:text-base">人</span></p></div>
-        <div className="card min-w-0 p-3.5 sm:p-7"><p className="text-[0.68rem] leading-[1.5] text-sub sm:text-[0.82rem]">注文</p><p className="num mt-2 whitespace-nowrap text-[1.02rem] font-bold leading-none min-[360px]:text-[1.2rem] sm:mt-3 sm:text-[2.4rem]">{m.orders + s.orders.length}<span className="ml-0.5 text-[0.75rem] font-normal text-sub sm:ml-1 sm:text-base">件</span></p></div>
+        <div className="card min-w-0 p-3 min-[360px]:p-3.5 sm:p-7"><p className="text-[0.68rem] leading-[1.5] text-sub sm:text-[0.82rem]">AI経由の売上</p><p className="num mt-2 whitespace-nowrap text-[0.8rem] font-bold leading-none min-[360px]:text-[0.92rem] min-[400px]:text-[1.2rem] sm:mt-3 sm:text-[2.4rem]">{fmt(yen)}<span className="ml-0.5 text-[0.75rem] font-normal text-sub sm:ml-1 sm:text-base">円</span></p><p className={`mt-2 text-[0.66rem] leading-[1.5] sm:mt-3 sm:text-[0.8rem] ${yen > m0.yen ? "text-ai" : "text-sub"}`}>{yen > m0.yen ? <>直す前より<br />+{fmt(yen - m0.yen)}円</> : "直す前と同じ"}</p></div>
+        <div className="card min-w-0 p-3 min-[360px]:p-3.5 sm:p-7"><p className="text-[0.68rem] leading-[1.5] text-sub sm:text-[0.82rem]">AIから来たお客様</p><p className="num mt-2 whitespace-nowrap text-[0.8rem] font-bold leading-none min-[360px]:text-[0.92rem] min-[400px]:text-[1.2rem] sm:mt-3 sm:text-[2.4rem]">{fmt(m.visits)}<span className="ml-0.5 text-[0.75rem] font-normal text-sub sm:ml-1 sm:text-base">人</span></p></div>
+        <div className="card min-w-0 p-3 min-[360px]:p-3.5 sm:p-7"><p className="text-[0.68rem] leading-[1.5] text-sub sm:text-[0.82rem]">注文</p><p className="num mt-2 whitespace-nowrap text-[0.8rem] font-bold leading-none min-[360px]:text-[0.92rem] min-[400px]:text-[1.2rem] sm:mt-3 sm:text-[2.4rem]">{m.orders + s.orders.length}<span className="ml-0.5 text-[0.75rem] font-normal text-sub sm:ml-1 sm:text-base">件</span></p></div>
       </section>
 
       <section className="mt-24" aria-labelledby="wk">
         <h2 id="wk" className="text-[1.2rem] font-bold tracking-[.04em]">週ごとの注文（AI経由）</h2>
         <div className="mt-10 flex h-48 items-end gap-2 sm:gap-4" role="img" aria-label="週ごとの注文数のグラフ">
-          {weeks.map((w) => (
+          {weeks.map((w, i) => (
             <div key={w.w} className="flex h-full min-w-0 flex-1 flex-col items-center justify-end gap-2">
               <span className="num text-[0.75rem] text-sub">{w.o}</span>
               <span className={`w-full max-w-[2.2rem] rounded-full transition-all duration-700 ${"now" in w ? "bg-ai" : "bg-white/[.08]"}`} style={{ height: `${(w.o / top) * 100}%` }} />
-              <span className={`text-[0.68rem] ${"now" in w ? "font-bold text-ai" : "text-sub"}`}>{w.w}</span>
+              <span className={`whitespace-nowrap text-[0.62rem] sm:text-[0.68rem] ${"now" in w ? "font-bold text-ai" : "text-sub"} ${!("now" in w) && i % 2 ? "max-sm:invisible" : ""}`}>{w.w}</span>
             </div>
           ))}
         </div>

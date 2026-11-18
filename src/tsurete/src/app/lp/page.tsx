@@ -421,7 +421,7 @@ function Strike({ t, d, delay }: { t: string; d: string; delay: number }) {
   const [ref, on] = useInView<HTMLLIElement>();
   return (
     <li ref={ref} className={`transition duration-700 ${on ? "opacity-100" : "translate-y-6 opacity-0"}`} style={{ transitionDelay: `${delay}ms` }}>
-      <p className="relative inline-block whitespace-nowrap text-[1.9rem] font-bold leading-[1.35] tracking-[-.01em] text-[#1d1d1f] sm:text-[3.6rem]">
+      <p className="relative inline-block whitespace-nowrap text-[1.55rem] font-bold min-[360px]:text-[1.9rem] leading-[1.35] tracking-[-.01em] text-[#1d1d1f] sm:text-[3.6rem]">
         <span className={`transition-colors duration-700 ${on ? "text-[#b0b0b5]" : ""}`} style={{ transitionDelay: `${delay + 700}ms` }}>{t}</span>
         <span className="absolute left-0 top-[54%] h-[3px] rounded-full bg-[#1d1d1f] transition-[width] duration-700 ease-out sm:h-[5px]" style={{ width: on ? "100%" : "0%", transitionDelay: `${delay + 500}ms` }} aria-hidden />
       </p>

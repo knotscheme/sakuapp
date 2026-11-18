@@ -28,10 +28,11 @@ export function phrases(text: string) {
   return out;
 }
 // iPhoneのSafariは、かっこの直後や句読点の前でも改行してしまうことがある。
-// 短い文節は丸ごと改行させず、長い文節も、かっこと次の文字・前の文字と句読点を離さない
+// 5文字までの短い文節は丸ごと改行させない。それより長い文節は、かっこと次の文字・前の文字と句読点だけを離さない
+// （長い文節まで丸ごと改行させないと、細い枠の中ではみ出すため）
 const GLUE = /([「『（(【〈《“][^「『（(【〈《“]|[^、。」』）)】〉》”！？][、。」』）)】〉》”！？]+)/g;
 function Chunk({ text }: { text: string }) {
-  if (text.length <= 10) return <span className="whitespace-nowrap">{text}</span>;
+  if (text.length <= 5) return <span className="whitespace-nowrap">{text}</span>;
   const bits = text.split(GLUE);
   return <>{bits.map((b, i) => (i % 2 ? <span key={i} className="whitespace-nowrap">{b}</span> : b))}</>;
 }

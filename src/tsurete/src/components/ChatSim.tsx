@@ -31,7 +31,7 @@ export function ChatSim() {
       <p className="mt-1 text-[0.86rem] text-sub"><J>いまの商品ページの状態で、AIがどう答えるかを再現しています。</J></p>
       <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,21rem)] lg:gap-5">
         <div className="card min-w-0 p-4 lg:col-start-2 lg:row-start-1">
-          <div className="grid grid-cols-4 gap-1.5" role="group" aria-label="AI">{AIS.map((a) => <button key={a} type="button" aria-pressed={ai === a} onClick={() => { setAi(a); setT(0); }} className={`rounded-lg border px-1 py-1.5 text-[0.72rem] font-bold sm:text-[0.8rem] ${ai === a ? "border-ai text-ai" : "border-line text-sub"}`}>{a}</button>)}</div>
+          <div className="grid grid-cols-2 gap-1.5" role="group" aria-label="AI">{AIS.map((a) => <button key={a} type="button" aria-pressed={ai === a} onClick={() => { setAi(a); setT(0); }} className={`rounded-lg border px-1 py-1.5 text-[0.72rem] font-bold sm:text-[0.8rem] ${ai === a ? "border-ai text-ai" : "border-line text-sub"}`}>{a}</button>)}</div>
           <div className="mt-3 flex flex-wrap gap-1.5" role="group" aria-label="商品">{PRODUCTS.map((p) => <button key={p.id} type="button" aria-pressed={prod === p.id} onClick={() => { setProd(p.id); setQid(QUESTIONS.find((x) => x.product === p.id)!.id); setT(0); }} className={`chip py-1 ${prod === p.id ? "bg-ai text-[#03140f]" : "bg-deep text-sub"}`}>{p.short}</button>)}</div>
           <ul className="mt-3 space-y-1.5">{qs.map((x) => <li key={x.id}><button type="button" aria-pressed={qid === x.id} onClick={() => { setQid(x.id); setT(0); }} className={`w-full rounded-lg border px-3 py-2 text-left text-[0.85rem] leading-[1.6] ${qid === x.id ? "border-ai bg-ai/10" : "border-line hover:border-ai/50"}`}><J>{x.text}</J></button></li>)}</ul>
         </div>

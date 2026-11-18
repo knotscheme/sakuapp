@@ -100,7 +100,7 @@ function Naosu() {
           {s.feed ? (
             <div className="fade-in">
               <p className="text-[0.8rem] text-sub">フィードのURL（デモ）</p>
-              <p className="num mt-1 break-all text-[0.86rem] text-ai">https://feed.tsurete.example/sorae/products.xml</p>
+              <p className="mt-1 text-[0.86rem] text-ai [overflow-wrap:anywhere]">https://feed.tsurete.example/sorae/products.xml</p>
               <button type="button" onClick={async () => { try { await navigator.clipboard.writeText("https://feed.tsurete.example/sorae/products.xml"); toast("コピーしました"); } catch {} }} className="mt-2 flex items-center gap-1 text-[0.84rem] text-sub"><Copy size={14} />コピー</button>
               <ol className="mt-5 space-y-2 text-[0.88rem] leading-[1.9]">{["Googleマーチャントセンターに、お店を登録する（無料）", "「商品フィードを追加」で、上のURLを登録する", "あとはTSURETEが、書き直すたびに自動で新しくします"].map((t, i) => <li key={t} className="flex gap-3"><span className="num text-ai">{i + 1}.</span><span className="min-w-0"><J>{t}</J></span></li>)}</ol>
             </div>

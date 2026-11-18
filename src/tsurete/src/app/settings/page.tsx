@@ -121,7 +121,7 @@ function Settings() {
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">
         <h2 id="ak" className="text-[1.1rem] font-bold">お店のAIのキー</h2>
         <p className="mt-1 flex gap-2 text-[0.9rem] text-sub"><ShieldCheck size={20} className="mt-0.5 shrink-0 text-ok" /><span className="min-w-0"><J>デモでは、キーはこの端末の中だけに保存し、AIへは端末から直接送ります。本番では、毎週の自動測定のために暗号化して保管し、測る以外には使いません。利用料は、キーの持ち主（お店）に各社から請求されます。</J></span></p>
-        <div className="mt-3 flex flex-wrap gap-2">{(["gemini", "anthropic", "openai"] as Provider[]).map((p) => <button key={p} type="button" aria-pressed={ai.provider === p} onClick={() => saveAi({ ...ai, provider: p, model: "" })} className={`btn ${ai.provider === p ? "btn-ink" : "btn-line"}`}>{PNAME[p]}</button>)}</div>
+        <div className="mt-3 flex flex-wrap gap-2">{(["gemini", "anthropic", "openai"] as Provider[]).map((p) => <button key={p} type="button" aria-pressed={ai.provider === p} onClick={() => saveAi({ ...ai, provider: p, model: "" })} className={`btn whitespace-normal text-left ${ai.provider === p ? "btn-ink" : "btn-line"}`}>{PNAME[p]}</button>)}</div>
         {ai.provider && (
           <>
             <label className="mt-3 block text-[0.9rem] font-bold">APIキー<span className="mt-1 flex gap-2"><input type={show ? "text" : "password"} autoComplete="off" value={ai.key} onChange={(e) => saveAi({ ...ai, key: e.target.value.trim() })} className="field font-mono" placeholder="ここに貼り付け" /><button type="button" onClick={() => setShow(!show)} className="btn btn-line px-3" aria-label={show ? "キーを隠す" : "キーを表示"}>{show ? <EyeOff size={18} /> : <Eye size={18} />}</button></span></label>
