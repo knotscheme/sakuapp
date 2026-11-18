@@ -28,8 +28,9 @@ function Dashboard() {
   ];
   return (
     <>
-      <p className="text-[0.82rem] text-sub">11月18日（火）</p>
-      <h1 className="mt-1 text-[1.5rem] font-bold tracking-[.04em] sm:text-[1.8rem]">{BRAND.name} の今週</h1>
+      <p className="text-[0.82rem] text-sub">{BRAND.name}・11月18日（火）</p>
+      <h1 className="mt-1 text-[1.6rem] font-bold tracking-[.04em] sm:text-[2rem]">今週のAI対策</h1>
+      <p className="mt-2 text-[0.92rem] text-sub">{todo.length ? <>やることは、あと<b className="num text-ai">{todo.length}</b>つです。</> : "今週のやることは、すべて終わりました。"}</p>
 
       {/* 数字は3つだけ */}
       <section className="mt-8 grid grid-cols-3 gap-2 sm:gap-4" aria-label="今週の数字">

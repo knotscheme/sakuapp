@@ -307,8 +307,8 @@ function Showcase() {
         <p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>開いたら、数字とやることだけ。パソコンでも、スマホでも。</J></p>
       </Reveal>
       <div ref={ref} className="relative mx-auto mt-16 max-w-[60rem] pr-[10%] sm:mt-24 sm:pr-[12%]">
-        <div style={{ transform: `translateY(${(1 - k) * 40}px) scale(${0.8 + 0.2 * k})`, opacity: 0.35 + 0.65 * k, transformOrigin: "50% 100%", transition: "transform 1.8s cubic-bezier(.2,.7,.2,1), opacity 1.2s" }}><Laptop silver src={`${IMG}/dash-pc.webp?v=5`} alt="パソコンで見たTSURETEのホーム画面" /></div>
-        <div className="absolute bottom-[-2%] right-0 w-[22%]" style={{ transform: `translateX(${(1 - k) * 90}%) rotate(${(1 - k) * 6}deg)`, opacity: k, transition: "transform 1.5s cubic-bezier(.2,.7,.2,1) .7s, opacity 1s .7s" }}><Phone src={`${IMG}/dash-phone.webp?v=5`} alt="スマホで見たTSURETEのホーム画面" /></div>
+        <div style={{ transform: `translateY(${(1 - k) * 40}px) scale(${0.8 + 0.2 * k})`, opacity: 0.35 + 0.65 * k, transformOrigin: "50% 100%", transition: "transform 1.8s cubic-bezier(.2,.7,.2,1), opacity 1.2s" }}><Laptop silver src={`${IMG}/dash-pc.webp?v=6`} alt="パソコンで見たTSURETEのホーム画面" /></div>
+        <div className="absolute bottom-[-2%] right-0 w-[22%]" style={{ transform: `translateX(${(1 - k) * 90}%) rotate(${(1 - k) * 6}deg)`, opacity: k, transition: "transform 1.5s cubic-bezier(.2,.7,.2,1) .7s, opacity 1s .7s" }}><Phone src={`${IMG}/dash-phone.webp?v=6`} alt="スマホで見たTSURETEのホーム画面" /></div>
       </div>
       {/* 画面が小さくて見えにくいときに、すぐ実物を開けるように */}
       <p className="mt-10 text-center sm:mt-14"><Link href="/" className="inline-flex items-center gap-1 text-[0.88rem] text-[#00a37a] hover:underline">実際の画面をデモで見る<ChevronRight size={16} /></Link></p>
