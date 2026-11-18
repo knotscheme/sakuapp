@@ -98,16 +98,8 @@ function Settings() {
   return (
     <>
       <Title title="設定" lead="お店のサイトと計測タグを設定します。" />
-      <section className="card p-5 sm:p-6" aria-labelledby="sh">
-        <h2 id="sh" className="text-[1.1rem] font-bold">自分のブランド</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          <label className="text-[0.9rem] font-bold">ブランド名<input value={s.real.brand} onChange={(e) => real({ brand: e.target.value })} placeholder="例）SORAE" className="field mt-1" /></label>
-          <label className="text-[0.9rem] font-bold">商品の種類<input value={s.real.item} onChange={(e) => real({ item: e.target.value })} placeholder="例）敏感肌向けの化粧水" className="field mt-1" /></label>
-          <label className="text-[0.9rem] font-bold">ジャンル<input value={s.real.kind} onChange={(e) => real({ kind: e.target.value })} placeholder="例）スキンケア" className="field mt-1" /></label>
-        </div>
-        <p className="mt-2 text-[0.82rem] text-sub"><J>入れると「測る」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</J></p>
-      </section>
-      <section className="card mt-5 p-5 sm:p-6" aria-labelledby="site">
+
+      <section className="card p-5 sm:p-6" aria-labelledby="site">
         <h2 id="site" className="text-[1.1rem] font-bold">お店のサイト</h2>
         <p className="mt-1 text-[0.85rem] text-sub"><J>選んだサイトに合わせて、「直す」の届け方が変わります。</J></p>
         <div className="mt-4"><SiteGrid /></div>
@@ -116,6 +108,15 @@ function Settings() {
       <details className="card group mt-5 p-0">
         <summary className="flex cursor-pointer list-none items-center gap-3 p-5 sm:p-6"><span className="min-w-0 flex-1"><b className="block text-[1.05rem]">詳しく測りたい人向け（任意）</b><span className="text-[0.82rem] text-sub"><J>お店のAIのキーで、自分で回数を決めて測ります。AIの利用料は、各社からお店に直接請求されます。</J></span></span><span className="text-[0.8rem] text-sub group-open:hidden">開く</span></summary>
         <div className="px-5 pb-5 sm:px-6 sm:pb-6">
+      <section className="card mt-5 p-5 sm:p-6" aria-labelledby="sh">
+        <h2 id="sh" className="text-[1.1rem] font-bold">自分のブランド</h2>
+        <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <label className="text-[0.9rem] font-bold">ブランド名<input value={s.real.brand} onChange={(e) => real({ brand: e.target.value })} placeholder="例）SORAE" className="field mt-1" /></label>
+          <label className="text-[0.9rem] font-bold">商品の種類<input value={s.real.item} onChange={(e) => real({ item: e.target.value })} placeholder="例）敏感肌向けの化粧水" className="field mt-1" /></label>
+          <label className="text-[0.9rem] font-bold">ジャンル<input value={s.real.kind} onChange={(e) => real({ kind: e.target.value })} placeholder="例）スキンケア" className="field mt-1" /></label>
+        </div>
+        <p className="mt-2 text-[0.82rem] text-sub"><J>入れると「測る」の「本物のAIに聞いてみる」で、自分のブランドが出るかを確かめられます。</J></p>
+      </section>
       <Measure />
       <section className="card mt-5 p-5 sm:p-6" aria-labelledby="ak">
         <h2 id="ak" className="text-[1.1rem] font-bold">お店のAIのキー</h2>

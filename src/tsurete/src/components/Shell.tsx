@@ -3,14 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import J from "@/components/J";
-import { BookOpen, Home, ScanSearch, Settings, Stethoscope, TrendingUp, Wand2 } from "lucide-react";
+import { BookOpen, Home, Settings, Stethoscope, TrendingUp, Wand2 } from "lucide-react";
 
 export const NAV = [
   { href: "/", label: "ホーム", short: "ホーム", icon: Home, n: "" },
   { href: "/kenko/", label: "診断", short: "診断", icon: Stethoscope, n: "1" },
   { href: "/naosu/", label: "直す", short: "直す", icon: Wand2, n: "2" },
   { href: "/kouka/", label: "売上", short: "売上", icon: TrendingUp, n: "3" },
-  { href: "/hakaru/", label: "測る", short: "測る", icon: ScanSearch, n: "プロ" },
 ];
 
 export function Logo({ href = "/" }: { href?: string }) {
@@ -45,7 +44,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       <main className="mx-auto w-full max-w-[1080px] px-5 pb-[calc(7rem+env(safe-area-inset-bottom))] pt-10 sm:px-8 sm:pt-14 md:pb-24">{children}</main>
       {/* スマホは、親指で押しやすい下のタブ */}
       <nav aria-label="メニュー" className="fixed inset-x-0 bottom-0 z-40 border-t hair bg-paper/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden">
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-4">
           {NAV.map(({ href, short, icon: Icon }) => (
             <Link key={href} href={href} aria-current={on(href) ? "page" : undefined} className={`flex flex-col items-center gap-1 py-3 text-[0.66rem] ${on(href) ? "font-bold text-ai" : "text-sub"}`}><Icon size={20} strokeWidth={on(href) ? 2.2 : 1.6} />{short}</Link>
           ))}

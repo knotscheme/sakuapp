@@ -11,11 +11,11 @@ const IMG = "/sakuapp/works/tsurete/img/guide";
 const STEPS = [
   { n: 1, href: "/kenko/", title: "診断", img: "1.webp",
     what: "全商品のページを、AIに選ばれるための8つの項目（向いている人、比較表、よくある質問、構造化データなど）で点検した画面です。AIは使わないので、AIの利用料はかかりません。",
-    try: ["いちばん上の「ページの健康スコア」を見ます。", "商品ごとの結果で、×がついた項目（足りないところ）を確かめます。", "「処方箋を見る」を押すと、その商品の「直す」に移ります。"],
+    try: ["いちばん上の点数（ページの健康スコア）を見ます。", "商品の行を押すと、×がついた項目（足りないところ）が開きます。", "「直す」を押すと、その商品の処方箋に移ります。"],
     point: "まだ登録していない商品は、下の「URLで診断」「CSVでまとめて診断」から点検できます。" },
   { n: 2, href: "/naosu/", title: "直す", img: "2.webp",
     what: "診断で足りなかったところの、処方箋（書き直し案と貼るコード）の画面です。お店のサイトを選ぶと、届け方（コピー・CSV・自動で書きかえ）が変わります。",
-    try: ["はじめに「お店のサイト」を選びます（例：Shopify、楽天市場）。", "点線の枠の「この案を使う」を押します。まとめて使うときは、上の大きなボタンを押します。", "いちばん下の「構造化データ」は、ページに貼るコードです。"],
+    try: ["はじめに「お店のサイト」を選びます（例：Shopify、楽天市場）。", "「案を見る」で書き直し案を確かめます。", "「コピーする」（サイトによっては「反映する」）を押します。"],
     point: "反映されるのは、お店の人が「この案を使う」を押したものだけです。デモでは、実際のサイトは変わりません。" },
   { n: 3, href: "/kouka/", title: "売上", img: "3.webp",
     what: "お店のサイトに貼った計測タグで、AIから来たお客様と、その売上を数える画面です。推測ではなく、実際の来店と注文です。",
@@ -71,8 +71,8 @@ function Guide() {
               <div className="border-b border-line bg-paper px-4 pt-5 lg:border-b-0 lg:border-r lg:p-4">
                 {/* スマホではスマホの画面、パソコンではパソコンの画面の写真を出す */}
                 <picture>
-                  <source media="(min-width: 1024px)" srcSet={`${IMG}/${s.img}?v=4`} />
-                  <img src={`${IMG}/${s.img.replace(".webp", "-sp.webp")}?v=4`} alt={`「${s.title}」の画面`} width={390} height={600} loading="lazy"
+                  <source media="(min-width: 1024px)" srcSet={`${IMG}/${s.img}?v=5`} />
+                  <img src={`${IMG}/${s.img.replace(".webp", "-sp.webp")}?v=5`} alt={`「${s.title}」の画面`} width={390} height={600} loading="lazy"
                     className="mx-auto block w-full max-w-[16rem] rounded-t-[1.6rem] border-[5px] border-b-0 border-deep bg-panel lg:max-w-none lg:rounded-xl lg:border lg:border-line" />
                 </picture>
               </div>
@@ -103,7 +103,7 @@ function Guide() {
         </div>
       </section>
 
-      <p className="mt-6 flex gap-2 text-[0.85rem] leading-[1.8] text-sub"><MonitorSmartphone size={18} className="mt-[0.15rem] shrink-0" /><span className="min-w-0">スマホでは、画面の下のボタン（ホーム・診断・直す・売上・測る）で移れます。</span></p>
+      <p className="mt-6 flex gap-2 text-[0.85rem] leading-[1.8] text-sub"><MonitorSmartphone size={18} className="mt-[0.15rem] shrink-0" /><span className="min-w-0">スマホでは、画面の下のボタン（ホーム・診断・直す・売上）で移れます。「測る」は、ホームと売上の画面の下から開けます。</span></p>
       <div className="mt-6"><Link href="/" className="btn btn-ai">さっそく試す（概要へ）<ArrowRight size={18} /></Link></div>
     </>
   );

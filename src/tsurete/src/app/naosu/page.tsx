@@ -2,73 +2,62 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowRight, Check, Clock, Copy, Download, Mail, RotateCcw, Rss, Sparkles, Star, Wand2 } from "lucide-react";
+import { Check, ChevronDown, Copy, Download, RotateCcw, Rss, Wand2 } from "lucide-react";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
+import Fold from "@/components/Fold";
 import { toast } from "@/components/Confirm";
-import { BRAND, FIXES, PAGES, PRODUCTS, fmt, type Fix } from "@/lib/demo";
-import { healthGain } from "@/lib/health";
+import { BRAND, FIXES, PAGES, PRODUCTS, type Fix } from "@/lib/demo";
 import { getState, update, useStore } from "@/lib/store";
 import J from "@/components/J";
 import { download } from "@/lib/check";
 import { METHOD, platformCsv, platformOf } from "@/lib/platforms";
-import SitePicker, { SiteGrid } from "@/components/SitePicker";
+import SitePicker from "@/components/SitePicker";
+import { healthGain } from "@/lib/health";
 
-const fixOf = (id: string) => FIXES.find((f) => f.id === id)!;
 const apply = (ids: string[], on: boolean) => update((x) => ({ ...x, applied: on ? [...new Set([...x.applied, ...ids])] : x.applied.filter((y) => !ids.includes(y)) }));
 
 // 案を使う：選んだサイトに合わせて届ける（デモでは実際のサイトは変わらない）
-const DONE = { api: "書きかえました", csv: "CSVに入れました", copy: "コピーしました" };
 async function use(ids: string[], text: string) {
   const p = platformOf(getState().site), m = p?.method ?? "copy";
   apply(ids, true);
   if (m === "copy") { try { await navigator.clipboard.writeText(text); } catch {} toast("コピーしました。サイトの編集画面に貼りつけてください"); }
-  else if (m === "csv") toast(`CSVに入れました。上の「${p!.action}」から保存できます`);
-  else toast(`${p!.name}の商品ページを書きかえました（デモのため、実際のサイトは変わりません）`);
+  else if (m === "csv") toast("CSVに入れました。下の「CSVを保存」から受け取れます");
+  else toast(`${p!.name}に反映しました（デモのため、実際のサイトは変わりません）`);
 }
 
-// 商品ページの1つのかたまり。未反映ならAIの書き直し案を、反映済みなら書き直した文章を出す
-function Block({ id, label, before, after, gain, done, code }: { id: string; label: string; before: string; after: string; gain: number; done: boolean; code?: boolean }) {
-  const f = fixOf(id);
-  const m = platformOf(useStore().site)?.method ?? "copy";
-  if (done) return (
-    <div className="fade-in rounded-lg border-l-[3px] border-[#10b981] bg-[#e9fbf3] px-3.5 py-3">
-      <p className="flex items-center gap-1.5 text-[0.72rem] font-bold text-[#047857]"><Sparkles size={12} />{DONE[m]}<span className="font-normal text-[#6b7280]">｜{label}</span><button type="button" onClick={() => { apply([id], false); toast("もとに戻しました"); }} className="ml-auto flex items-center gap-1 font-normal text-[#6b7280] underline"><RotateCcw size={11} />戻す</button></p>
-      {code ? <pre className="mt-1.5 overflow-x-auto whitespace-pre rounded-lg bg-white/70 p-3 font-mono text-[0.72rem] leading-[1.6] text-[#111827]">{after}</pre> : <p className="mt-1.5 whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#111827]"><J>{after}</J></p>}
-    </div>
-  );
-  return (
-    <div>
-      {before ? <p className="whitespace-pre-line text-[0.9rem] leading-[1.85] text-[#374151]"><J>{before}</J></p> : <p className="text-[0.82rem] text-[#9ca3af]">（{label}がありません）</p>}
-      <div className="mt-2.5 rounded-xl border border-dashed border-[#10b981] bg-white p-3.5">
-        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.75rem]"><b className="flex items-center gap-1 text-[#047857]"><Wand2 size={13} />{code ? "貼るコード" : "書き直し案（処方箋）"}</b><span className="text-[#6b7280]"><J>{f.why}</J></span></p>
-        {code ? <pre className="mt-2 overflow-x-auto whitespace-pre rounded-lg bg-[#f3f4f6] p-3 font-mono text-[0.72rem] leading-[1.6] text-[#111827]">{after}</pre> : <p className="mt-2 whitespace-pre-line text-[0.88rem] leading-[1.8] text-[#111827]"><J>{after}</J></p>}
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <button type="button" onClick={() => use([id], after)} className="btn min-h-[2.3rem] bg-[#10b981] px-4 text-[0.85rem] text-white hover:bg-[#059669]">{m === "copy" ? <Copy size={16} /> : <Check size={16} />}この案を使う</button>
-          {gain > 0 && <span className="text-[0.78rem] font-bold text-[#047857]">健康スコア +{gain}点</span>}
-          {f.note && <span className="text-[0.75rem] text-[#b45309]">※{f.note}</span>}
-        </div>
-      </div>
-    </div>
-  );
+// 商品ごとの案の文章
+function textOf(f: Fix, pid: string) {
+  const p = PRODUCTS.find((x) => x.id === pid)!, pg = PAGES[pid];
+  if (f.id === "target" || f.id === "spec" || f.id === "ingredient" || f.id === "faq") return pg[f.id][1];
+  if (f.id === "data") return `<script type="application/ld+json">\n${JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: p.name, brand: { "@type": "Brand", name: BRAND.name }, description: pg.target[1].split("\n")[0], offers: { "@type": "Offer", price: p.price, priceCurrency: "JPY", availability: "https://schema.org/InStock" }, aggregateRating: { "@type": "AggregateRating", ratingValue: 4.6, reviewCount: 120 } }, null, 2)}\n</script>`;
+  return f.after;
 }
 
-// ショップの外でやること（レビュー依頼・記事への紹介）
-function Outside({ f, done, gain }: { f: Fix; done: boolean; gain: number }) {
-  const Icon = f.id === "media" ? Mail : Star;
+// 処方箋1つ：タイトル・理由・案（押すと開く）・ボタン1つ
+function Rx({ f, pid, n }: { f: Fix; pid: string; n: number }) {
+  const s = useStore();
+  const [open, setOpen] = useState(false);
+  const done = s.applied.includes(f.id);
+  const m = platformOf(s.site)?.method ?? "copy";
+  const gain = healthGain(f.id, s.applied);
+  const text = textOf(f, pid);
+  const label = m === "copy" ? "コピーする" : m === "csv" ? "CSVに入れる" : "反映する";
   return (
-    <li className={`card p-6 sm:p-7 ${done ? "ring-1 ring-ok/40" : ""}`}>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-3">
-        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ai-2 text-ai"><Icon size={19} /></span>
+    <li className="border-b hair py-5">
+      <div className="flex items-start gap-4">
+        <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-[0.8rem] font-bold ${done ? "bg-ai text-[#03140f]" : "bg-white/[.06] text-sub"}`}>{done ? <Check size={16} /> : n}</span>
         <div className="min-w-0 flex-1">
-          <b className="block text-[0.98rem] leading-[1.6]"><J>{f.title}</J></b>
-          <p className="mt-1 text-[0.84rem] leading-[1.8] text-sub"><J>{f.why}</J></p>
-          <p className="mt-2 whitespace-pre-line rounded-xl bg-paper p-3 text-[0.85rem] leading-[1.8]"><J>{f.after}</J></p>
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            {done ? <><span className="chip bg-ok text-[#03140f]"><Check size={13} />{f.id === "media" ? "依頼文を作りました" : "変えました"}</span><button type="button" onClick={() => apply([f.id], false)} className="text-[0.8rem] text-sub underline">戻す</button></>
-              : <button type="button" onClick={() => { apply([f.id], true); toast("用意しました（デモ）"); }} className="btn btn-ai min-h-[2.4rem]">{f.id === "media" ? "依頼文を作る" : "この質問に変える"}</button>}
-            {!done && gain > 0 && <span className="chip bg-ai/15 text-ai">健康スコア +{gain}点</span>}
-            {f.note && <span className="chip bg-warn/15 text-warn"><Clock size={12} />{f.note}</span>}
+          <p className="flex flex-wrap items-baseline gap-x-3"><b className={`text-[1rem] leading-[1.6] ${done ? "text-sub" : ""}`}><J>{f.title}</J></b>{!done && gain > 0 && <span className="num text-[0.8rem] text-ai">+{gain}点</span>}</p>
+          <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className="mt-2 flex items-center gap-1 text-[0.84rem] text-ai">{open ? "案をとじる" : "案を見る"}<ChevronDown size={15} className={`transition ${open ? "rotate-180" : ""}`} /></button>
+          {open && <p className="fade-in mt-2 text-[0.84rem] leading-[1.8] text-sub"><J>{f.why}</J></p>}
+          {open && (f.id === "data"
+            ? <pre className="fade-in mt-3 overflow-x-auto whitespace-pre rounded-2xl bg-paper p-4 font-mono text-[0.72rem] leading-[1.6]">{text}</pre>
+            : <p className="fade-in mt-3 whitespace-pre-line rounded-2xl bg-paper p-4 text-[0.9rem] leading-[1.9]"><J>{text}</J></p>)}
+          <div className="mt-4">
+            {done
+              ? <button type="button" onClick={() => { apply([f.id], false); toast("もとに戻しました"); }} className="flex items-center gap-1.5 text-[0.84rem] text-sub underline underline-offset-4"><RotateCcw size={14} />もとに戻す</button>
+              : <button type="button" onClick={() => use([f.id], text)} className="btn btn-ai min-h-[2.6rem] px-5 text-[0.9rem]">{m === "copy" ? <Copy size={16} /> : <Check size={16} />}{label}</button>}
           </div>
         </div>
       </div>
@@ -81,100 +70,47 @@ function Naosu() {
   const [pid, setPid] = useState(PRODUCTS[0].id);
   // 診断の画面から来たときは、その商品を開く
   useEffect(() => { const q = new URLSearchParams(location.search).get("p"); if (q && PRODUCTS.some((x) => x.id === q)) setPid(q); }, []);
-  const p = PRODUCTS.find((x) => x.id === pid)!, pg = PAGES[pid];
-  const gain = (id: string) => healthGain(id, s.applied);
-  const done = (id: string) => s.applied.includes(id);
-  const left = FIXES.filter((f) => !done(f.id));
-  const blocks = [
-    { id: "target", label: "商品説明", t: pg.target },
-    { id: "spec", label: "容量と値段", t: pg.spec },
-    { id: "ingredient", label: "成分", t: pg.ingredient },
-    { id: "compare", label: "商品の比較表", t: ["", fixOf("compare").after] as [string, string] },
-    { id: "faq", label: "よくある質問", t: pg.faq },
-    { id: "glossary", label: "用語の説明", t: ["", fixOf("glossary").after] as [string, string] },
-  ] as const;
   const plat = platformOf(s.site);
-  const rowsFor = (all: boolean) => PRODUCTS.map((x) => { const g = PAGES[x.id], on = (k: string) => all || s.applied.includes(k); return { id: x.id, title: x.name, desc: [on("target") ? g.target[1] : g.target[0], on("spec") ? g.spec[1] : g.spec[0], on("ingredient") ? g.ingredient[1] : ""].filter(Boolean).join("\n"), faq: on("faq") ? g.faq[1] : "" }; });
-  const saveCsv = () => download(`tsurete-${plat?.id}.csv`, platformCsv(plat!.id, rowsFor(false)));
-  const useAll = async () => {
-    const ids = left.map((f) => f.id);
-    if (plat?.method === "copy") { const t = rowsFor(true).map((r) => `■${r.title}\n${r.desc}\n${r.faq}`).join("\n\n"); apply(ids, true); try { await navigator.clipboard.writeText(t); } catch {} toast("3商品ぶんの案をコピーしました"); }
-    else if (plat?.method === "csv") { apply(ids, true); toast(`CSVに入れました。「${plat.action}」から保存できます`); }
-    else { apply(ids, true); toast(`${plat?.name}の3商品を書きかえました（デモのため、実際のサイトは変わりません）`); }
-  };
-  // 構造化データ（JSON-LD）：AIや検索エンジンが読む、決まった形の商品情報。ページの <head> に貼る
-  const data = `<script type="application/ld+json">
-${JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: p.name, brand: { "@type": "Brand", name: BRAND.name }, description: pg.target[1].split("\n")[0], offers: { "@type": "Offer", price: p.price, priceCurrency: "JPY", availability: "https://schema.org/InStock" }, aggregateRating: { "@type": "AggregateRating", ratingValue: 4.6, reviewCount: 120 } }, null, 2)}
-</script>`;
-
+  const list = [...FIXES].sort((a, b) => Number(s.applied.includes(a.id)) - Number(s.applied.includes(b.id)) || healthGain(b.id, s.applied) - healthGain(a.id, s.applied));
+  const doneN = FIXES.filter((f) => s.applied.includes(f.id)).length;
+  const rows = () => PRODUCTS.map((x) => { const g = PAGES[x.id], on = (k: string) => s.applied.includes(k); return { id: x.id, title: x.name, desc: [on("target") ? g.target[1] : g.target[0], on("spec") ? g.spec[1] : g.spec[0], on("ingredient") ? g.ingredient[1] : ""].filter(Boolean).join("\n"), faq: on("faq") ? g.faq[1] : "" }; });
   return (
     <>
-      <Title n="2" title="直す" lead="診断で足りなかったところの、処方箋（書き直し案と貼るコード）です。基本はコピーして貼るだけ。お店の人が確認したものだけが、サイトに反映されます。" />
+      <Title n="2" title="直す" lead="足りないところの書き直し案（処方箋）です。上から順に、案を見て、ボタンを押すだけ。" />
 
-      <section className="mb-14 rounded-[24px] bg-white/[.03] p-6 sm:p-8" aria-label="届け方">
-        {plat ? (
-          <div className="flex flex-col gap-5 md:flex-row md:items-center">
-            <div className="min-w-0 flex-1">
-              <SitePicker />
-              <p className="mt-4 text-[0.9rem] font-bold">届け方：{METHOD[plat.method]}</p>
-              <p className="mt-1 text-[0.85rem] leading-[1.9] text-sub"><J>{plat.note}</J><span className="block">デモでは、実際のサイトは変わりません。</span></p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {left.length > 0 && <button type="button" onClick={useAll} className="btn btn-ai px-6"><Wand2 size={17} />{plat.method === "api" ? `すべて${plat.action}` : plat.method === "csv" ? "すべての案をCSVに入れる" : "すべての案をコピー"}</button>}
-              {plat.method === "csv" && s.applied.length > 0 && <button type="button" onClick={saveCsv} className="btn btn-line px-6"><Download size={17} />{plat.action}</button>}
-            </div>
-          </div>
-        ) : (
-          <div><p className="text-[1.05rem] font-bold"><J>まず、お店のサイトを選んでください</J></p><p className="mt-1 text-[0.85rem] leading-[1.9] text-sub"><J>選んだサイトに合わせて、書き直しの届け方（自動で書きかえ・CSV・コピー）が変わります。</J></p><div className="mt-6"><SiteGrid /></div></div>
-        )}
-      </section>
-
-      <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-4">
-        <div className="flex rounded-full bg-white/[.04] p-1" role="group" aria-label="商品">
-          {PRODUCTS.map((x) => <button key={x.id} type="button" aria-pressed={pid === x.id} onClick={() => setPid(x.id)} className={`rounded-full px-4 py-1.5 text-[0.86rem] font-bold transition ${pid === x.id ? "bg-ai text-[#03140f]" : "text-sub"}`}>{x.short}</button>)}
-        </div>
-        <p className="text-[0.9rem]"><b className="num text-[1.4rem] text-ai">{FIXES.length - left.length}</b><span className="text-sub"> / {FIXES.length} 使った案</span></p>
-        <Link href="/kenko/" className="ml-auto flex items-center gap-1 text-[0.88rem] font-bold text-ai">診断の結果を見る<ArrowRight size={16} /></Link>
+      {/* 進み具合と、届け方 */}
+      <div className="mb-8">
+        <div className="flex items-center gap-3"><span className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/[.06]"><span className="block h-full rounded-full bg-ai transition-all duration-700" style={{ width: `${(doneN / FIXES.length) * 100}%` }} /></span><span className="num shrink-0 text-[0.85rem] text-sub">{doneN} / {FIXES.length} 完了</span></div>
+        <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.86rem] text-sub">届け方：<b className="text-ink">{plat ? METHOD[plat.method] : "コピーして貼る"}</b><SitePicker compact /></div>
       </div>
 
-      {/* お店のネットショップの商品ページ（明るい画面で、本物のページらしく見せる） */}
-      <section className="overflow-hidden rounded-[24px] ring-1 ring-white/[.06]" aria-label={`${p.short}の商品ページ`}>
-        <div className="flex items-center gap-2 bg-deep px-4 py-2.5"><span className="flex gap-1.5" aria-hidden><i className="h-2.5 w-2.5 rounded-full bg-white/20" /><i className="h-2.5 w-2.5 rounded-full bg-white/20" /><i className="h-2.5 w-2.5 rounded-full bg-white/20" /></span><span className="num ml-2 min-w-0 truncate rounded-md bg-black/30 px-3 py-1 text-[0.75rem] text-sub">{BRAND.site}/products/{p.id}</span></div>
-        <div className="grid bg-[#fafaf8] text-[#111827] md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <div className="overflow-hidden bg-[#c7d0c3] md:sticky md:top-4 md:m-5 md:self-start md:rounded-xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`/sakuapp/works/tsurete/img/products/${pid}.webp`} alt={p.name} width={600} height={600} className="block aspect-square h-auto w-full object-cover" />
-          </div>
-          <div className="min-w-0 space-y-8 p-6 sm:p-10">
-            <div><p className="text-[0.75rem] tracking-[.2em] text-[#6b7280]">SORAE</p><h2 className="mt-1 text-[1.3rem] font-bold leading-[1.5]"><J>{p.name}</J></h2><p className="num mt-1 text-[1.2rem] font-bold">{fmt(p.price)}円<span className="whitespace-nowrap text-[0.75rem] font-normal text-[#6b7280]">（税込）</span></p></div>
-            {blocks.map((b) => <div key={b.id}><p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]">{b.label}</p><Block id={b.id} label={b.label} before={b.t[0]} after={b.t[1]} gain={gain(b.id)} done={done(b.id)} /></div>)}
-            <div>
-              <p className="mb-1.5 text-[0.72rem] font-bold tracking-[.12em] text-[#6b7280]"><J>構造化データ（AIが読む商品情報。ページには表示されません）</J></p>
-              <Block id="data" label="構造化データ" before="" after={data} gain={gain("data")} done={done("data")} code />
+      <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="商品">
+        {PRODUCTS.map((x) => <button key={x.id} type="button" aria-pressed={pid === x.id} onClick={() => setPid(x.id)} className={`shrink-0 rounded-full px-4 py-2 text-[0.88rem] font-bold transition ${pid === x.id ? "bg-ai text-[#03140f]" : "bg-white/[.05] text-sub"}`}>{x.short}</button>)}
+      </div>
+
+      <ol className="mt-4 border-t hair">{list.map((f, i) => <Rx key={f.id} f={f} pid={pid} n={i + 1} />)}</ol>
+
+      <div className="mt-14">
+        {plat?.method === "csv" && (
+          <Fold title={`${plat.name}用のCSVを保存`} sub="使った案を、取りこみ用のCSVにまとめます">
+            <button type="button" onClick={() => download(`tsurete-${plat.id}.csv`, platformCsv(plat.id, rows()))} className="btn btn-line"><Download size={17} />CSVを保存</button>
+          </Fold>
+        )}
+        <Fold title="商品フィードを作る" sub="サイトの外から、AIに商品を届けます">
+          {s.feed ? (
+            <div className="fade-in">
+              <p className="text-[0.8rem] text-sub">フィードのURL（デモ）</p>
+              <p className="num mt-1 break-all text-[0.86rem] text-ai">https://feed.tsurete.example/sorae/products.xml</p>
+              <button type="button" onClick={async () => { try { await navigator.clipboard.writeText("https://feed.tsurete.example/sorae/products.xml"); toast("コピーしました"); } catch {} }} className="mt-2 flex items-center gap-1 text-[0.84rem] text-sub"><Copy size={14} />コピー</button>
+              <ol className="mt-5 space-y-2 text-[0.88rem] leading-[1.9]">{["Googleマーチャントセンターに、お店を登録する（無料）", "「商品フィードを追加」で、上のURLを登録する", "あとはTSURETEが、書き直すたびに自動で新しくします"].map((t, i) => <li key={t} className="flex gap-3"><span className="num text-ai">{i + 1}.</span><span className="min-w-0"><J>{t}</J></span></li>)}</ol>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mt-24" aria-labelledby="out">
-        <h2 id="out" className="text-[1.2rem] font-bold tracking-[.04em]">ショップの外でやること</h2>
-        <p className="mt-1 text-[0.86rem] text-sub"><J>AIは、口コミや外の記事も見ています。依頼の文章はTSURETEが用意します。</J></p>
-        <ul className="mt-8 grid gap-5 md:grid-cols-2">{FIXES.filter((f) => f.id === "review" || f.id === "media").map((f) => <Outside key={f.id} f={f} done={done(f.id)} gain={gain(f.id)} />)}</ul>
-      </section>
-
-      <section className="mt-24" aria-labelledby="feed">
-        <h2 id="feed" className="flex items-center gap-2 text-[1.2rem] font-bold tracking-[.04em]"><Rss size={20} className="text-ai" />商品フィード（どのサイトでも）</h2>
-        <p className="mt-2 max-w-[40em] text-[0.88rem] leading-[1.95] text-sub"><J>商品名・値段・特徴をまとめた一覧のファイルを、TSURETEが作ってネット上に置きます。Googleショッピングなど、AIが商品を探すときに読む場所に登録すると、サイトの種類に関係なく、書き直した内容が届きます。</J></p>
-        {s.feed ? (
-          <div className="fade-in mt-8 rounded-[24px] bg-white/[.03] p-6 sm:p-8">
-            <p className="text-[0.78rem] font-bold text-sub">フィードのURL（デモ）</p>
-            <div className="mt-2 flex flex-wrap items-center gap-3"><code className="num min-w-0 break-all text-[0.9rem] text-ai">https://feed.tsurete.example/sorae/products.xml</code><button type="button" onClick={async () => { try { await navigator.clipboard.writeText("https://feed.tsurete.example/sorae/products.xml"); toast("コピーしました"); } catch {} }} className="flex items-center gap-1 text-[0.8rem] font-bold text-sub hover:text-ai"><Copy size={14} />コピー</button></div>
-            <ol className="mt-6 space-y-2 text-[0.88rem] leading-[1.9]">{["Googleマーチャントセンターに、お店を登録する（無料）", "「商品フィードを追加」で、上のURLを登録する", "あとはTSURETEが、書き直すたびにフィードを自動で新しくします"].map((t, i) => <li key={t} className="flex gap-3"><span className="num text-ai">0{i + 1}</span>{t}</li>)}</ol>
-          </div>
-        ) : <button type="button" onClick={() => { update((x) => ({ ...x, feed: true })); toast("商品フィードを作りました（デモ）"); }} className="btn btn-ai mt-8 px-7"><Rss size={17} />商品フィードを作る</button>}
-      </section>
-
-      <p className="mt-24 text-center text-[0.88rem] text-sub"><span className="block sm:inline">ほかの商品も見る：</span><Link href="/shindan/" className="mx-2 inline-block text-ai underline underline-offset-4">URLで診断</Link><Link href="/shindan/?csv=1" className="mx-2 inline-block text-ai underline underline-offset-4">CSVでまとめて診断</Link></p>
+          ) : <button type="button" onClick={() => { update((x) => ({ ...x, feed: true })); toast("商品フィードを作りました（デモ）"); }} className="btn btn-line"><Rss size={17} />作る</button>}
+        </Fold>
+        <Fold title="ほかの商品を診断する" sub="URLやCSVで、まだ登録していない商品も">
+          <div className="flex flex-wrap gap-3"><Link href="/shindan/" className="btn btn-line">URLで診断</Link><Link href="/shindan/?csv=1" className="btn btn-line">CSVでまとめて</Link></div>
+        </Fold>
+      </div>
+      <p className="mt-6 flex items-start gap-2 text-[0.78rem] leading-[1.8] text-sub"><Wand2 size={15} className="mt-1 shrink-0" /><span className="min-w-0"><J>サイトが変わるのは、ボタンを押した案だけです。デモでは、実際のサイトは変わりません。</J></span></p>
     </>
   );
 }

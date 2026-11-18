@@ -27,8 +27,7 @@ export function ChatSim() {
   const buy = () => { update((x) => ({ ...x, orders: [{ id: uid(), product: product.id, ai, price: product.price, at: new Date().toISOString() }, ...x.orders] })); setOpen(null); toast(`${ai}経由で「${product.short}」が売れました（デモ）`); };
 
   return (
-    <section className="mt-24" aria-labelledby="chat">
-      <h2 id="chat" className="text-[1.2rem] font-bold tracking-[.04em]">お客様がAIに聞くと</h2>
+    <section aria-label="お客様がAIに聞くと">
       <p className="mt-1 text-[0.86rem] text-sub"><J>いまの商品ページの状態で、AIがどう答えるかを再現しています。</J></p>
       <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,21rem)] lg:gap-5">
         <div className="card min-w-0 p-4 lg:col-start-2 lg:row-start-1">

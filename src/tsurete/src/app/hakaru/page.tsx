@@ -6,6 +6,7 @@ import { ArrowRight, Check, ExternalLink, Mail, Minus, NotebookPen, Plus } from 
 import { toast } from "@/components/Confirm";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
+import Fold from "@/components/Fold";
 import { ChatSim, Real } from "@/components/ChatSim";
 import { AIS, BRAND, PRODUCTS, QUESTIONS, RIVAL_HAS, SIGNALS, WEEKS, fmt, shelf, signals, winners, type Sig } from "@/lib/demo";
 import { uid, update, useStore } from "@/lib/store";
@@ -36,8 +37,7 @@ function Sources() {
   const s = useStore();
   const asked = s.applied.includes("media");
   return (
-    <section className="mt-24" aria-labelledby="src">
-      <h2 id="src" className="text-[1.2rem] font-bold tracking-[.04em]">AIが根拠にしたサイト</h2>
+    <div>
       <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>AIがおすすめを答えるときに、よく参考にしていたページです。ここに載ると、すすめられやすくなります。</J></p>
       <ul className="mt-8 border-t hair">
         {SOURCES.map((x) => (
@@ -53,7 +53,7 @@ function Sources() {
           : <button type="button" onClick={() => { update((x) => ({ ...x, applied: [...new Set([...x.applied, "media"])] })); toast("依頼文を作りました（デモ）"); }} className="btn btn-ai px-6"><Mail size={17} />掲載をお願いする文を作る</button>}
         <span className="flex items-center gap-1 text-[0.78rem] text-sub"><ExternalLink size={13} />載るかどうかは、相手しだいです</span>
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -66,8 +66,7 @@ function SelfLog() {
   const add = () => { update((x) => ({ ...x, log: [{ id: uid(), q, ai, rank, at: new Date().toISOString() }, ...(x.log ?? [])].slice(0, 50) })); toast("記録しました"); };
   const top3 = log.filter((x) => x.rank >= 1 && x.rank <= 3).length;
   return (
-    <section className="mt-24" aria-labelledby="log">
-      <h2 id="log" className="flex items-center gap-2 text-[1.2rem] font-bold tracking-[.04em]"><NotebookPen size={20} className="text-ai" />自分で聞いた結果の記録</h2>
+    <div>
       <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>ふだん使っているAIに自分で聞いてみた結果も、ここに残せます。答えは人によって変わるので、目安として使ってください。</J></p>
       <div className="card mt-6 grid gap-3 p-5 sm:grid-cols-[1fr_9rem_9rem_auto] sm:items-end">
         <label className="text-[0.82rem] font-bold">聞いた質問<select value={q} onChange={(e) => setQ(e.target.value)} className="field mt-1">{QUESTIONS.map((x) => <option key={x.id}>{x.text}</option>)}</select></label>
@@ -81,7 +80,7 @@ function SelfLog() {
           <ul className="mt-3 border-t hair">{log.slice(0, 8).map((x) => <li key={x.id} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b hair py-3 text-[0.86rem]"><span className="min-w-0 flex-1"><J>{x.q}</J></span><span className="text-sub">{x.ai}</span><b className={x.rank >= 1 && x.rank <= 3 ? "text-ai" : "text-warn"}>{RANKS.find((r) => r.v === x.rank)?.l}</b></li>)}</ul>
         </>
       )}
-    </section>
+    </div>
   );
 }
 
@@ -127,8 +126,8 @@ function Hakaru() {
         </ol>
       </section>
 
-      <section className="mt-24" aria-labelledby="gap">
-        <h2 id="gap" className="text-[1.2rem] font-bold tracking-[.04em]">よくすすめられている店との差</h2>
+      <div className="mt-20" />
+      <Fold title="よくすすめられている店との差" sub="ページに書かれていることの比較">
         <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>AIが答えるときに参考にしたページを読んで、書かれていることを比べました。</J></p>
         <div className="mt-8">
           <table className="w-full table-fixed text-[0.8rem] sm:text-[0.88rem]">
@@ -144,10 +143,9 @@ function Hakaru() {
           </table>
         </div>
         <Link href="/naosu/" className="btn btn-ai mt-10 px-7">この差を直す<ArrowRight size={18} /></Link>
-      </section>
+      </Fold>
 
-      <section className="mt-24" aria-labelledby="qs">
-        <h2 id="qs" className="text-[1.2rem] font-bold tracking-[.04em]">質問ごとの結果</h2>
+      <Fold title="質問ごとの結果" sub="どの質問で、どの店がいちばんか">
         <ul className="mt-8 border-t hair">
           {win.map((r) => (
             <li key={r.q.id} className="grid gap-x-6 gap-y-1 border-b hair py-4 sm:grid-cols-[1fr_9rem_6rem] sm:items-center">
@@ -157,13 +155,11 @@ function Hakaru() {
             </li>
           ))}
         </ul>
-      </section>
+      </Fold>
 
-      <Sources />
-      <SelfLog />
-
-      <ChatSim />
-      <Real />
+      <Fold title="AIが根拠にしたサイト" sub="ここに載ると、すすめられやすくなる"><Sources /></Fold>
+      <Fold title="お客様がAIに聞くと" sub="いまのページで、AIがどう答えるかの再現"><ChatSim /><Real /></Fold>
+      <Fold title="自分で聞いた結果を記録する" sub="ふだん使うAIで試した結果を残す"><SelfLog /></Fold>
     </>
   );
 }

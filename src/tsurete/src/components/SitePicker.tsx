@@ -28,15 +28,17 @@ export function SiteGrid({ onPick }: { onPick?: () => void }) {
   );
 }
 
-export default function SitePicker() {
+export default function SitePicker({ compact = false }: { compact?: boolean }) {
   const s = useStore();
   const [open, setOpen] = useState(false);
   const p = platformOf(s.site);
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className={`flex items-center gap-2 rounded-full px-4 py-2 text-[0.86rem] font-bold ${p ? "bg-white/[.05]" : "bg-ai text-[#03140f]"}`}>
-        <Store size={16} />{p ? <>お店のサイト：{p.name}</> : "お店のサイトを選ぶ"}<ChevronDown size={15} />
-      </button>
+      {compact
+        ? <button type="button" onClick={() => setOpen(true)} className="text-ai underline underline-offset-4">{p ? `${p.name}・変える` : "サイトを選ぶ"}</button>
+        : <button type="button" onClick={() => setOpen(true)} className={`flex items-center gap-2 rounded-full px-4 py-2 text-[0.86rem] font-bold ${p ? "bg-white/[.05]" : "bg-ai text-[#03140f]"}`}>
+            <Store size={16} />{p ? <>お店のサイト：{p.name}</> : "お店のサイトを選ぶ"}<ChevronDown size={15} />
+          </button>}
       {open && (
         <div className="fixed inset-0 z-[90] grid place-items-end bg-black/60 sm:place-items-center sm:p-4" role="dialog" aria-modal="true" aria-label="お店のサイトを選ぶ" onClick={() => setOpen(false)}>
           <div className="fade-in max-h-[88vh] w-full overflow-y-auto rounded-t-[28px] bg-panel p-6 sm:max-w-[34rem] sm:rounded-[28px] sm:p-8" onClick={(e) => e.stopPropagation()}>
