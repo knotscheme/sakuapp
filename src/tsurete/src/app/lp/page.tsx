@@ -105,7 +105,7 @@ function Hero() {
         <h1 className="lp-h mx-auto mt-3 max-w-[14em] text-[2.5rem] sm:text-[4.4rem]">
           {lines.map((l, i) => (
             <span key={l.t} className="inline-block overflow-hidden pb-[.08em] align-bottom">
-              <span className={`lp-anim inline-block whitespace-nowrap ${l.c}`} style={{ animation: ready ? `lp-rise .9s ${0.1 + i * 0.16}s cubic-bezier(.2,.7,.2,1) both${l.c ? ", lp-shine 4s linear infinite" : ""}` : "none", transform: ready ? undefined : "translateY(105%)" }}>{l.t.replace(/[、。]$/, "")}{/[、。]$/.test(l.t) && <span className="-mr-[0.5em]">{l.t.slice(-1)}</span>}</span>
+              <span className={`lp-anim inline-block whitespace-nowrap ${l.c}`} style={{ animation: ready ? `lp-rise .9s ${0.1 + i * 0.16}s cubic-bezier(.2,.7,.2,1) both${l.c ? ", lp-shine 4s linear infinite" : ""}` : "none", transform: ready ? undefined : "translateY(105%)" }}>{l.t.replace(/[、。]$/, "")}{/[、。]$/.test(l.t) && <span className="-mr-[0.08em]">{l.t.slice(-1)}</span>}</span>
             </span>
           ))}
         </h1>

@@ -91,3 +91,6 @@ html[data-splash="short"] .tsr-splash .sp-q { animation-duration: .35s !importan
 
 /* 音声ガイドの再生中は、下のセクション名を隠す */
 html[data-voice] .tsr-navlabel { opacity: 0; }
+
+/* 見出しと太字は、「、」「。」かっこの空きを詰める（カーニング） */
+:is(h1, h2, h3, b, strong, .font-bold, .font-semibold, .lp-h) { font-feature-settings: "palt"; }
