@@ -91,7 +91,7 @@ function Hero() {
   const [after, setAfter] = useState(false);
   const [ready, setReady] = useState(false);
   useEffect(() => { const t = setTimeout(() => setReady(true), 60); const id = setInterval(() => setAfter((a) => !a), 4200); return () => { clearTimeout(t); clearInterval(id); }; }, []);
-  const lines = [{ t: "AIの売り場で、", c: "" }, { t: "あなたの商品は", c: "" }, { t: "何番目？", c: "lp-shine" }];
+  const lines = [{ t: "AIに、", c: "" }, { t: "おすすめされる", c: "lp-shine" }, { t: "商品ページへ。", c: "" }];
   return (
     <section className="relative overflow-hidden px-5 pb-16 pt-14 text-center sm:pb-24 sm:pt-16">
       {/* 後ろの光：ゆっくり漂う */}
@@ -105,11 +105,11 @@ function Hero() {
         <h1 className="lp-h mx-auto mt-3 max-w-[14em] text-[2.5rem] sm:text-[4.4rem]">
           {lines.map((l, i) => (
             <span key={l.t} className="inline-block overflow-hidden pb-[.08em] align-bottom">
-              <span className={`lp-anim inline-block ${l.c}`} style={{ animation: ready ? `lp-rise .9s ${0.1 + i * 0.16}s cubic-bezier(.2,.7,.2,1) both${l.c ? ", lp-shine 4s linear infinite" : ""}` : "none", transform: ready ? undefined : "translateY(105%)" }}>{l.t}</span>
+              <span className={`lp-anim inline-block whitespace-nowrap ${l.c}`} style={{ animation: ready ? `lp-rise .9s ${0.1 + i * 0.16}s cubic-bezier(.2,.7,.2,1) both${l.c ? ", lp-shine 4s linear infinite" : ""}` : "none", transform: ready ? undefined : "translateY(105%)" }}>{l.t.replace(/[、。]$/, "")}{/[、。]$/.test(l.t) && <span className="-mr-[0.5em]">{l.t.slice(-1)}</span>}</span>
             </span>
           ))}
         </h1>
-        <p className={`mx-auto mt-5 max-w-[30em] text-[1.05rem] leading-[1.8] text-[#6e6e73] transition duration-700 sm:text-[1.3rem] ${ready ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`} style={{ transitionDelay: "600ms" }}><J>商品ページを健康診断して、AIに選ばれるための処方箋を出す。効いたかは、実際の来店と売上で確かめる。</J></p>
+        <p className={`mx-auto mt-5 max-w-[30em] text-[1.05rem] leading-[1.8] text-[#6e6e73] transition duration-700 sm:text-[1.3rem] ${ready ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`} style={{ transitionDelay: "600ms" }}><span className="inline-block">AIに選ばれるために</span><span className="inline-block">足りないところを見つけて、</span><span className="inline-block">直す文章まで用意します。</span><span className="block"><span className="inline-block">毎週、自動で。</span><span className="inline-block">お店の作業は5分だけ。</span></span></p>
         <div className={`mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 transition duration-700 ${ready ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "800ms" }}>
           <Link href="/" className="btn btn-ai px-7">デモを使ってみる</Link>
           <a href="#try" className="flex items-center text-[1.02rem] text-[#00a37a] hover:underline">無料で診断<ChevronRight size={18} /></a>
