@@ -4,19 +4,20 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Hiragino Sans","Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#13294b;background:#fff;font-feature-settings:"palt";letter-spacing:.02em}
 .ib{display:inline-block}
-header{background:#0f2747;color:#fff;display:flex;align-items:center;gap:28px;padding:0 48px;height:68px}
+header{background:#0f2747;color:#fff;height:68px}.hin{max-width:1180px;margin:0 auto;height:100%;display:flex;align-items:center;gap:28px;padding:0 24px}
 .logo{display:flex;align-items:center;gap:10px;font-size:13px;color:#b9c6dc}
 .logo i{width:110px;height:30px;border:1.5px dashed #5f7aa3;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:11px;color:#9fb2d1}
 nav{margin-left:auto;display:flex;gap:26px;font-size:14px;color:#dbe4f2}
 .hcta{background:#ef7d1a;color:#fff;font-weight:700;font-size:14px;padding:11px 20px;border-radius:6px}
-.fv{position:relative;min-height:640px;background:url(hero.webp) right center/cover no-repeat;display:flex;align-items:center}
-.fv::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.96) 36%,rgba(255,255,255,.55) 52%,rgba(255,255,255,0) 66%)}
-.in{position:relative;padding:48px 48px 56px;max-width:720px}
+.fv{background:linear-gradient(180deg,#f3f7fc 0%,#fff 100%)}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 56px;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;position:relative}
+.in{position:relative}
+.photo{border-radius:18px;height:520px;background:url(hero.webp) 74% center/cover no-repeat;box-shadow:0 30px 60px -34px rgba(15,39,71,.45)}
 .badges{display:flex;gap:10px;flex-wrap:wrap}
 .bd{font-size:12.5px;font-weight:700;color:#0f2747;border:1.5px solid #0f2747;border-radius:4px;padding:5px 10px;background:#fff}
 .bd.fill{background:#0f2747;color:#fff}
 .lead0{margin-top:22px;font-size:17px;font-weight:700;color:#3a4f73}
-h1{margin-top:10px;font-size:52px;line-height:1.3;font-weight:800;letter-spacing:.01em}
+h1{margin-top:10px;font-size:46px;line-height:1.3;font-weight:800;letter-spacing:.01em}
 h1 em{font-style:normal;color:#1b5fbf;background:linear-gradient(transparent 70%,#ffe1c4 70%)}
 .sub{margin-top:18px;font-size:16.5px;line-height:1.9;color:#33476b}
 .nums{display:flex;gap:12px;margin-top:26px}
@@ -29,23 +30,22 @@ h1 em{font-style:normal;color:#1b5fbf;background:linear-gradient(transparent 70%
 .ctas{margin-top:26px;display:flex;align-items:center;gap:20px}
 .cta{background:#ef7d1a;color:#fff;font-weight:800;font-size:17px;padding:18px 34px;border-radius:8px;box-shadow:0 10px 22px -10px rgba(239,125,26,.8)}
 .cta2{color:#1b5fbf;font-weight:700;font-size:15px}
-.note{position:absolute;right:16px;bottom:12px;font-size:11px;color:#fff;background:rgba(15,39,71,.6);padding:4px 10px;border-radius:4px}
+.note{max-width:1180px;margin:-40px auto 0;padding:0 24px 24px;text-align:right;font-size:11px;color:#7a8aa6}
 @media(max-width:700px){
- header{padding:0 16px;height:56px}nav{display:none}.hcta{margin-left:auto;font-size:12px;padding:9px 12px}.logo i{width:90px;height:26px}
- .fv{display:block;min-height:0;background:none}.fv::before{display:none}
- .photo{height:230px;background:url(hero.webp) 78% center/cover no-repeat;position:relative}
- .in{padding:24px 18px 34px}
+ header{height:56px}nav{display:none}.hcta{margin-left:auto;font-size:12px;padding:9px 12px}.logo i{width:90px;height:26px}
+ .hin{padding:0 16px}.wrap{grid-template-columns:1fr;padding:0 0 30px;gap:0}.photo{order:-1;height:230px;border-radius:0;box-shadow:none;background-position:78% center}
+ .in{padding:24px 18px 4px}
  .lead0{font-size:14px;margin-top:16px}h1{font-size:30px}.sub{font-size:14.5px}
  .nums{gap:8px}.n{min-width:0;flex:1;padding:10px 8px;text-align:center}.n b{font-size:20px}.n b span{font-size:11px}.n.sp b{font-size:17px}.n.sp b span{font-size:10px}.n small,.n i{font-size:10.5px}
  .free{font-size:12.5px;padding:7px 12px}.free b{font-size:15px}
  .ctas{flex-direction:column;align-items:stretch;gap:12px}.cta{text-align:center;font-size:16px;padding:16px}.cta2{text-align:center}
- .note{position:static;display:block;margin:0 18px 18px;background:#eef2f8;color:#5a6d8f}
+ .note{margin:0;padding:0 18px 18px;text-align:left}
 }
-@media(min-width:701px){.photo{display:none}}
+
 </style></head><body>
-<header><div class="logo"><i>（貴社ロゴ）</i></div><nav><span>サービス内容</span><span>料金プラン</span><span>導入の流れ</span><span>よくある質問</span></nav><span class="hcta">無料で相談する</span></header>
+<header><div class="hin"><div class="logo"><i>（貴社ロゴ）</i></div><nav><span>サービス内容</span><span>料金プラン</span><span>導入の流れ</span><span>よくある質問</span></nav><span class="hcta">無料で相談する</span></div></header>
 <section class="fv">
- <div class="photo"></div>
+ <div class="wrap">
  <div class="in">
   <div class="badges"><span class="bd fill">給与計算代行</span><span class="bd">マネーフォワード クラウド 公認メンバー</span></div>
   <p class="lead0">毎月の給与計算に、貴重な時間を奪われていませんか？</p>
@@ -58,6 +58,8 @@ h1 em{font-style:normal;color:#1b5fbf;background:linear-gradient(transparent 70%
   </div>
   <p class="free">従業員50名以下なら、マネーフォワード給与の利用料 <b>0円</b></p>
   <div class="ctas"><span class="cta">無料で相談・見積もりを依頼する</span><span class="cta2">料金プランを見る ›</span></div>
+ </div>
+ <div class="photo"></div>
  </div>
  <p class="note">※提案用のたたき台です。写真はイメージで、本番は貴社の写真を使用します</p>
 </section>
