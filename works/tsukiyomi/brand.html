@@ -188,48 +188,83 @@ svg.mk{display:block}
 .lines p{font-size:13px;color:var(--sub)}
 .lines b{display:block;color:var(--cream);font-weight:500;font-size:14px;letter-spacing:.12em;margin-bottom:4px}
 
-/* 08 使用例 */
+/* 08 使用例：暗いテーブルにスポットライト、紙の質感と金の箔押し */
 .apps{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.ap{background:var(--navy2);border:1px solid rgba(201,162,90,.15);padding:40px 24px 20px;display:flex;flex-direction:column;align-items:center;gap:22px;min-width:0}
-.ap .t{align-self:stretch;font-size:12px;letter-spacing:.16em;color:var(--sub);border-top:1px solid rgba(201,162,90,.12);padding-top:14px}
-.ap .t b{display:block;color:var(--cream);font-weight:500;font-size:13px}
-.a1{grid-column:span 3}.a2{grid-column:span 3}.a3{grid-column:span 2}.a4{grid-column:span 2}.a5{grid-column:span 2}
-.stage{flex:1;display:grid;place-items:center;width:100%;min-height:220px}
+.ap{min-width:0}
+.ap .t{font-size:12px;letter-spacing:.14em;color:var(--sub);padding-top:14px;line-height:1.8}
+.ap .t b{display:block;color:var(--cream);font-weight:500;font-size:13px;letter-spacing:.16em}
+.a1{grid-column:span 4}.a2{grid-column:span 2}.a3,.a4,.a5{grid-column:span 2}
+.stage{position:relative;height:360px;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,162,90,.12);
+ background:radial-gradient(ellipse 60% 55% at 50% 42%,rgba(226,196,138,.13),transparent 70%),radial-gradient(ellipse at 50% 120%,rgba(0,0,0,.5),transparent 60%),linear-gradient(180deg,#0f192d,#0a1222)}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:var(--grain);opacity:.18;mix-blend-mode:overlay}
+.r2 .stage{height:400px}
+:root{--grain:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ --sh:0 1px 1px rgba(0,0,0,.25),0 4px 8px rgba(0,0,0,.22),0 18px 30px -8px rgba(0,0,0,.45),0 40px 70px -20px rgba(0,0,0,.6)}
+/* 金の箔押し（ゆっくり光が流れる） */
+.foil{background:linear-gradient(110deg,#94702f 0%,#e9cd8e 22%,#b28a43 40%,#f7e4b0 52%,#a98340 66%,#e2c48a 84%,#94702f 100%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
+@keyframes sheen{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.paper{position:relative;background:#f1e9d8;color:#1a2238}
+.paper::after,.navyp::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.35;mix-blend-mode:multiply;pointer-events:none;border-radius:inherit}
+.navyp{position:relative;background:linear-gradient(150deg,#1b2a47 0%,#121d33 55%,#0e1729 100%);color:var(--cream)}
+.navyp::after{opacity:.22;mix-blend-mode:overlay}
+
 /* ショップカード */
-.cards{position:relative;width:min(100%,340px);height:230px}
-.bc{position:absolute;width:250px;aspect-ratio:91/55;box-shadow:0 20px 40px rgba(0,0,0,.45);border-radius:2px;padding:18px 20px}
-.bc.f{background:var(--navy3);left:0;top:0;transform:rotate(-6deg);display:grid;place-items:center;background-image:radial-gradient(circle at 80% 20%,rgba(226,196,138,.12),transparent 50%)}
-.bc.b{background:var(--cream);color:var(--navy);right:0;bottom:0;transform:rotate(4deg);font-size:9px;line-height:1.7;letter-spacing:.08em}
-.bc.b .lk b{font-size:13px}
-.bc.b .lk{gap:7px;margin-bottom:10px}
-.bc.b p{color:#5d5648}
-/* メニュー表 */
-.mn{width:200px;aspect-ratio:1/1.414;background:var(--cream);color:var(--navy);padding:22px 20px;box-shadow:0 20px 40px rgba(0,0,0,.45);transform:rotate(-2deg);font-size:8px;letter-spacing:.06em}
-.mn .hh{text-align:center;border-bottom:1px solid #c9a25a;padding-bottom:10px;margin-bottom:10px}
-.mn .hh .lk{justify-content:center;gap:6px}
-.mn .hh .lk b{font-size:11px}
-.mn .hh small{display:block;font-family:"Cormorant Garamond",serif;letter-spacing:.3em;font-size:8px;color:#8b7148;margin-top:4px}
-.mn h5{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:9px;letter-spacing:.3em;color:#8b7148;margin:9px 0 4px}
-.mn li{list-style:none;display:flex;justify-content:space-between;font-family:"Shippori Mincho",serif;line-height:1.9}
-.mn li span:last-child{font-family:"Cormorant Garamond",serif}
+.bcs{position:relative;width:520px;height:300px;flex:none}
+.bc{position:absolute;width:300px;height:182px;border-radius:3px;box-shadow:var(--sh);overflow:hidden}
+.bc.b{left:8px;top:22px;transform:rotate(-7deg);padding:22px 24px;display:grid;grid-template-columns:1fr auto;gap:0 18px}
+.bc.f{right:8px;bottom:18px;transform:rotate(5deg);display:grid;place-items:center;text-align:center}
+.bc.f::before{content:"";position:absolute;inset:10px;border:1px solid rgba(226,196,138,.28)}
+.bc.f .wm{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:15px;letter-spacing:.42em;margin:12px -.42em 0 0}
+.bc.f .sb{font-size:7px;letter-spacing:.5em;margin-right:-.5em;color:rgba(226,196,138,.6);margin-top:6px;font-family:"Cormorant Garamond",serif}
+.bc.b .lk2{display:flex;align-items:center;gap:7px;font-family:"Cormorant Garamond",serif;font-weight:600;font-size:12px;letter-spacing:.34em}
+.bc.b .inf{align-self:end;font-size:8.5px;line-height:1.85;letter-spacing:.06em;color:#4e4a42}
+.bc.b .inf i{display:block;width:22px;height:1px;background:#b8955a;margin:0 0 10px}
+.bc.b .inf .en{font-size:9.5px;letter-spacing:.12em;color:#1a2238}
+.bc.b .vt{grid-row:1/3;grid-column:2;writing-mode:vertical-rl;font-family:"Shippori Mincho",serif;font-weight:600;font-size:11px;letter-spacing:.4em;color:#1a2238;border-left:1px solid rgba(184,149,90,.5);padding-left:12px}
+
 /* カップ */
-.cup{width:118px;height:150px;position:relative}
-.cup .bd{position:absolute;inset:16px 0 0;background:var(--cream);clip-path:polygon(0 0,100% 0,88% 100%,12% 100%);display:grid;place-items:center}
-.cup .sl{position:absolute;left:5%;right:5%;top:56px;height:52px;background:var(--navy3);clip-path:polygon(0 0,100% 0,96% 100%,4% 100%);display:grid;place-items:center}
-.cup .lid{position:absolute;left:-4px;right:-4px;top:4px;height:16px;background:#1d2a44;border-radius:4px 4px 2px 2px}
-.cup .lid::before{content:"";position:absolute;left:12px;right:12px;top:-6px;height:8px;background:#26365a;border-radius:4px 4px 0 0}
+.cup{width:170px;filter:drop-shadow(0 30px 24px rgba(0,0,0,.55))}
+.cup svg{display:block;width:100%;height:auto}
+
+/* メニュー表 */
+.mn{flex:none;width:236px;transform:rotate(-3deg);box-shadow:var(--sh);padding:26px 24px 20px;border-radius:2px}
+.mn .hh{text-align:center}
+.mn .hh svg{margin:0 auto}
+.mn .hh .t1{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:12px;letter-spacing:.42em;margin:8px -.42em 0 0}
+.mn .hh .t2{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:10px;color:#9a7a44;letter-spacing:.1em;margin-top:2px}
+.mn .rule{height:1px;background:linear-gradient(90deg,transparent,#b8955a 20%,#b8955a 80%,transparent);margin:12px 0 4px}
+.mn h5{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:8.5px;letter-spacing:.42em;color:#9a7a44;margin:12px 0 5px;text-align:center}
+.mn ul{list-style:none}
+.mn li{display:flex;align-items:baseline;gap:6px;font-family:"Shippori Mincho",serif;font-size:9px;line-height:1.95;letter-spacing:.06em}
+.mn li::after{content:"";order:2;flex:1;border-bottom:1px dotted rgba(26,34,56,.25);transform:translateY(-3px)}
+.mn li span:last-child{order:3;font-family:"Cormorant Garamond",serif;font-size:10px;font-weight:600;letter-spacing:.04em}
+.mn .ft2{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-size:7px;letter-spacing:.3em;color:#9a7a44;font-family:"Cormorant Garamond",serif}
+
 /* スタンプカード */
-.st{width:220px;aspect-ratio:91/55;background:var(--navy3);border:1px solid var(--line);padding:14px 16px;box-shadow:0 20px 40px rgba(0,0,0,.45)}
-.st .r1{display:flex;justify-content:space-between;align-items:center;font-size:8px;letter-spacing:.2em;color:var(--gold2)}
-.st .r1 .lk b{font-size:10px}
-.st .r1 .lk{gap:5px}
-.st .dts{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:14px}
-.st .dts svg{width:100%;aspect-ratio:1}
+.stc{position:relative;width:340px;height:206px;flex:none;transform:scale(.86)}
+.stc .card{position:absolute;inset:0;border-radius:4px;box-shadow:var(--sh);overflow:hidden;transform:rotate(-3deg);padding:20px 24px}
+.stc .card::before{content:"";position:absolute;inset:9px;border:1px solid rgba(226,196,138,.22);border-radius:2px}
+.stc .r1{display:flex;justify-content:space-between;align-items:center;position:relative}
+.stc .r1 .w{display:flex;align-items:center;gap:6px;font-family:"Cormorant Garamond",serif;font-weight:600;font-size:11px;letter-spacing:.34em}
+.stc .r1 .k{font-family:"Cormorant Garamond",serif;font-size:9px;letter-spacing:.34em;color:rgba(226,196,138,.75)}
+.stc .dts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 14px;margin:18px 6px 0;position:relative}
+.stc .dts div{display:grid;justify-items:center;gap:3px}
+.stc .dts svg{width:30px;height:30px}
+.stc .dts small{font-family:"Cormorant Garamond",serif;font-size:7.5px;color:rgba(239,230,210,.4);letter-spacing:.1em}
+.stc .msg{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-family:"Shippori Mincho",serif;font-size:9.5px;letter-spacing:.24em;color:rgba(239,230,210,.75)}
+
 /* 看板 */
-.sg{width:84px;height:200px;background:#141f35;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;box-shadow:0 0 50px rgba(226,196,138,.12),0 20px 40px rgba(0,0,0,.4);position:relative}
-.sg::before{content:"";position:absolute;top:-14px;left:50%;width:1px;height:14px;background:var(--line)}
-.sg .vt{writing-mode:vertical-rl;font-family:"Shippori Mincho",serif;font-size:12px;letter-spacing:.4em;color:var(--cream)}
-.sg .op{font-family:"Cormorant Garamond",serif;font-size:9px;letter-spacing:.2em;color:var(--gold2)}
+.sgn{position:relative;width:200px;height:350px;flex:none}
+.sgn .wall{position:absolute;left:0;top:0;width:8px;height:80px;background:linear-gradient(90deg,#1a1e26,#2c313b);border-radius:2px}
+.sgn .arm{position:absolute;left:6px;top:30px;width:150px;height:4px;background:linear-gradient(#3a3f48,#1b1f27);border-radius:2px;box-shadow:0 3px 6px rgba(0,0,0,.5)}
+.sgn .arm::after{content:"";position:absolute;left:0;top:4px;width:60px;height:2px;background:#22262e;transform-origin:left;transform:rotate(28deg)}
+.sgn .ch1,.sgn .ch2{position:absolute;top:33px;width:1px;height:26px;background:repeating-linear-gradient(#7a7f88 0 3px,#3a3f48 3px 5px)}
+.sgn .ch1{left:68px}.sgn .ch2{left:136px}
+.sgn .bd{position:absolute;left:58px;top:58px;width:88px;height:270px;border-radius:3px;box-shadow:var(--sh),0 0 80px rgba(226,196,138,.12);display:flex;flex-direction:column;align-items:center;padding:24px 0 18px;gap:16px}
+.sgn .bd::before{content:"";position:absolute;inset:7px;border:1px solid rgba(226,196,138,.3);border-radius:1px}
+.sgn .vt2{writing-mode:vertical-rl;font-family:"Shippori Mincho",serif;font-weight:600;font-size:13px;letter-spacing:.3em;flex:1;white-space:nowrap}
+.sgn .op{font-family:"Cormorant Garamond",serif;font-size:9px;letter-spacing:.32em;margin-right:-.32em;color:rgba(226,196,138,.8)}
+@media(prefers-reduced-motion:reduce){.foil{animation:none}}
 
 /* 下部 */
 footer{border-top:1px solid rgba(201,162,90,.12);padding:56px 24px 64px;text-align:center}
@@ -282,14 +317,19 @@ footer p{margin-top:24px;font-size:11.5px;color:var(--sub);line-height:1.9}
  .moons{grid-template-columns:1fr 1fr}
  .lines{grid-template-columns:1fr}
  .lines div{flex-direction:column;align-items:flex-start;gap:16px}
- .apps{grid-template-columns:1fr 1fr}
- .a1,.a2,.a4{grid-column:1/-1}.a3,.a5{grid-column:span 1;order:1}.a4{order:2}
- .ap{padding:32px 14px 16px}
- .cards{height:200px;width:300px;transform:scale(.92)}
- .bc{width:220px;padding:14px 16px}
+ .apps{grid-template-columns:1fr 1fr;gap:20px 12px}
+ .a1,.a3,.a4{grid-column:1/-1}.a2,.a5{grid-column:span 1;order:1}.a3,.a4{order:2}
+ .stage,.r2 .stage{height:auto}
+ .a1 .stage{height:250px}.a2 .stage,.a5 .stage{height:250px}.a3 .stage{height:380px}.a4 .stage{height:260px}
+ .bcs{transform:scale(.66)}
+ .cup{width:118px}
+ .sgn{transform:scale(.68)}
+ .stc{transform:scale(.9)}
+ .a2 .stage,.a5 .stage{height:270px}
+ .ap .t{font-size:11.5px}
  .ratio .lbl{font-size:10px}
 }
-@media(max-width:380px){.cards{transform:scale(.82)}.st{width:190px}}
+@media(max-width:380px){.bcs{transform:scale(.6)}.stc{transform:scale(.82)}}
 </style>
 </head><body>
 <canvas id="sky" aria-hidden="true"></canvas>
@@ -460,26 +500,39 @@ footer p{margin-top:24px;font-size:11.5px;color:var(--sub);line-height:1.9}
 <!-- 08 使用例 -->
 <section class="ch" id="apps"><div class="wrap">
  <div class="hd rv"><span class="no">08</span><div class="ttl"><p class="e">APPLICATIONS</p><h2><span class="ib">店のすみずみまで、</span><span class="ib">同じ夜を。</span></h2></div></div>
+ <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="fl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b7535"/><stop offset=".32" stop-color="#f4dfa8"/><stop offset=".55" stop-color="#b38b44"/><stop offset=".8" stop-color="#ebcf92"/><stop offset="1" stop-color="#a47e3c"/></linearGradient></defs></svg>
  <div class="apps">
-  <div class="ap a1 rv"><div class="stage"><div class="cards">
-   <div class="bc f"><div class="lk"><svg class="mk" viewBox="0 0 32 32" width="20" height="20" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg><b style="font-size:14px">TSUKIYOMI</b></div></div>
-   <div class="bc b"><div class="lk"><svg class="mk" viewBox="0 0 32 32" width="12" height="12" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#0b1322"/></svg><b>TSUKIYOMI</b></div><p>月と本の夜カフェ</p><p>18:00 – 25:00｜月曜定休</p><p>月見町 1-2-3 つきあかりビル 2F</p></div>
-  </div></div><p class="t"><b>ショップカード</b>表は紺に金のロゴだけ。裏はクリームに情報を。</p></div>
-  <div class="ap a2 rv"><div class="stage"><div class="mn">
-   <div class="hh"><div class="lk"><svg class="mk" viewBox="0 0 32 32" width="10" height="10" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg><b>TSUKIYOMI</b></div><small>MENU</small></div>
-   <h5>COFFEE</h5><ul><li><span>夜更けのハンドドリップ</span><span>¥720</span></li><li><span>サイフォン珈琲</span><span>¥820</span></li><li><span>月見カフェオレ</span><span>¥780</span></li></ul>
-   <h5>SWEETS</h5><ul><li><span>三日月の夜パフェ</span><span>¥1,680</span></li><li><span>満月のプリン</span><span>¥680</span></li></ul>
-   <h5>DRINK</h5><ul><li><span>月夜のソーダ</span><span>¥980</span></li></ul>
-  </div></div><p class="t"><b>メニュー表</b>クリームの紙に紺の文字。値段は英字の書体で。</p></div>
-  <div class="ap a3 rv"><div class="stage"><div class="cup"><div class="lid"></div><div class="bd"></div><div class="sl"><svg class="mk" viewBox="0 0 32 32" width="20" height="20" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg></div></div></div><p class="t"><b>カップ</b>小さな面はマークだけ。</p></div>
-  <div class="ap a4 rv"><div class="stage"><div class="st">
-   <div class="r1"><div class="lk"><svg class="mk" viewBox="0 0 32 32" width="9" height="9" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg><b>TSUKIYOMI</b></div><span>MOON CARD</span></div>
-   <div class="dts" aria-hidden="true">
-    <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#e2c48a"/></svg><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#e2c48a"/></svg><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#e2c48a"/></svg><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0b1322" stroke="#e2c48a" stroke-opacity=".4"/><path d="M28 6a22 22 0 0 1 0 44a14 22 0 0 0 0-44z" fill="#e2c48a" opacity=".35"/></svg><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0b1322" stroke="#e2c48a" stroke-opacity=".4"/></svg>
-    <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0b1322" stroke="#e2c48a" stroke-opacity=".4"/></svg><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0b1322" stroke="#e2c48a" stroke-opacity=".4"/></svg><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0b1322" stroke="#e2c48a" stroke-opacity=".4"/></svg><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0b1322" stroke="#e2c48a" stroke-opacity=".4"/></svg><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0b1322" stroke="#e2c48a" stroke-opacity=".4"/></svg>
-   </div>
-  </div></div><p class="t"><b>スタンプカード</b>来るたびに、月が満ちていく。</p></div>
-  <div class="ap a5 rv"><div class="stage"><div class="sg"><svg class="mk" viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#e2c48a"/></svg><span class="vt">月と本の夜カフェ</span><span class="op">OPEN</span></div></div><p class="t"><b>店の看板</b>縦長で、灯りがにじむように。</p></div>
+  <div class="ap a1 rv"><div class="stage"><div class="bcs">
+   <div class="bc b paper"><div class="lk2"><svg viewBox="0 0 32 32" width="13" height="13" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#1a2238"/></svg>TSUKIYOMI</div><p class="vt">月と本の夜カフェ</p><div class="inf"><i></i><p class="en">18:00 — 25:00 ／ Closed Mon.</p><p>月見町 1-2-3 つきあかりビル 2F</p><p>tsukiyomi-cafe.example</p></div></div>
+   <div class="bc f navyp"><div><svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="url(#fl)"/></svg><p class="wm foil">TSUKIYOMI</p><p class="sb">BOOKS &amp; COFFEE</p></div></div>
+  </div></div><p class="t"><b>ショップカード</b>表は紺に金の箔押し。裏は紙の色に、縦書きの店名。</p></div>
+  <div class="ap a2 rv"><div class="stage"><div class="cup"><svg viewBox="0 0 170 232" aria-hidden="true">
+ <defs><linearGradient id="cb" x1="0" x2="1"><stop offset="0" stop-color="#cbbfa8"/><stop offset=".35" stop-color="#f6eedf"/><stop offset=".7" stop-color="#e7dcc7"/><stop offset="1" stop-color="#bfb39b"/></linearGradient>
+ <linearGradient id="cs" x1="0" x2="1"><stop offset="0" stop-color="#0d1628"/><stop offset=".38" stop-color="#22345a"/><stop offset=".72" stop-color="#16233d"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
+ <linearGradient id="cl" x1="0" x2="1"><stop offset="0" stop-color="#121b2e"/><stop offset=".4" stop-color="#2d3c5c"/><stop offset="1" stop-color="#0f1626"/></linearGradient></defs>
+ <path d="M20 36L150 36L134 222Q85 229 36 222Z" fill="url(#cb)"/>
+ <path d="M44 40L52 40L44 218L38 217Z" fill="#fff" opacity=".18"/>
+ <path d="M24.8 92L145.2 92L139 164L31 164Z" fill="url(#cs)"/>
+ <path d="M25.3 98L144.7 98M30.5 158L139.5 158" stroke="url(#fl)" stroke-width=".8" opacity=".7"/>
+ <path transform="translate(73 113) scale(.8)" d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="url(#fl)"/>
+ <path d="M26 22Q31 7 85 6Q139 7 144 22Z" fill="url(#cl)"/>
+ <rect x="13" y="21" width="144" height="15" rx="5" fill="url(#cl)"/>
+ <path d="M18 24H152" stroke="#fff" stroke-opacity=".12"/>
+</svg></div></div><p class="t"><b>カップ</b>紺の帯に、金のマーク。</p></div>
+  <div class="ap a3 r2 rv"><div class="stage"><div class="mn paper">
+   <div class="hh"><svg viewBox="0 0 32 32" width="18" height="18" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#b8955a"/></svg><p class="t1">TSUKIYOMI</p><p class="t2">Menu for the night</p></div><div class="rule"></div>
+   <h5>COFFEE</h5><ul><li><span>夜更けのハンドドリップ</span><span>720</span></li><li><span>サイフォン珈琲</span><span>820</span></li><li><span>月見カフェオレ</span><span>780</span></li></ul>
+   <h5>SWEETS</h5><ul><li><span>三日月の夜パフェ</span><span>1,680</span></li><li><span>満月のとろけるプリン</span><span>680</span></li></ul>
+   <h5>DRINK</h5><ul><li><span>月夜のソーダ</span><span>980</span></li></ul>
+  </div></div><p class="t"><b>メニュー表</b>紙の色に紺の文字。値段は英字の書体で。</p></div>
+  <div class="ap a4 r2 rv"><div class="stage"><div class="stc"><div class="card navyp">
+   <div class="r1"><span class="w"><svg viewBox="0 0 32 32" width="11" height="11" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="url(#fl)"/></svg><span class="foil">TSUKIYOMI</span></span><span class="k">MOON CARD</span></div>
+   <div class="dts" aria-hidden="true"><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/></svg><small>1</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44a14 22 0 0 0 0-44z" fill="url(#fl)"/></svg><small>2</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44z" fill="url(#fl)"/></svg><small>3</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44a12 22 0 0 1 0-44z" fill="url(#fl)"/></svg><small>4</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="url(#fl)"/></svg><small>5</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/></svg><small>6</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>7</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>8</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>9</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>10</small></div></div>
+   <p class="msg">満月がふたつ満ちたら、一杯ごちそうします。</p>
+  </div></div></div><p class="t"><b>スタンプカード</b>来るたびに、月が満ちていく。</p></div>
+  <div class="ap a5 r2 rv"><div class="stage"><div class="sgn"><span class="wall"></span><span class="arm"></span><span class="ch1"></span><span class="ch2"></span>
+   <div class="bd navyp"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="url(#fl)"/></svg><span class="vt2 foil">月と本の夜カフェ</span><span class="op">OPEN</span></div>
+  </div></div><p class="t"><b>店の看板</b>壁から下げる看板。</p></div>
  </div>
 </div></section>
 </main>
