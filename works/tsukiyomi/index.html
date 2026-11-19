@@ -14,20 +14,20 @@
 <main>
 <section class="story" id="top" aria-label="TSUKIYOMI">
  <div class="stg">
-  <div class="sc s1" aria-hidden="true"><div class="img" style="background-image:url(img/hero.webp)"></div></div>
-  <div class="sc s2" aria-hidden="true"><video class="vid" src="img/pour.mp4" poster="img/pour-poster.webp" muted loop playsinline preload="metadata"></video></div>
+  <div class="sc s1" aria-hidden="true"><video class="vid" src="img/pour.mp4" poster="img/pour-poster.webp" muted loop playsinline autoplay preload="auto"></video></div>
+  <div class="sc s2" aria-hidden="true"><div class="img" style="background-image:url(img/hero.webp)"></div></div>
   <div class="sc s3" aria-hidden="true"><div class="rmoon"></div><div class="rays"></div></div>
   <div class="veil" aria-hidden="true"></div>
 
-  <div class="t t1">
+  <div class="tx t1">
    <svg class="m" viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#e2c48a"/></svg>
    <h1 class="tate"><span>月がのぼったら、</span><span>ひらく店。</span></h1>
    <p class="sub en">TSUKIYOMI — Books, Coffee &amp; Moonlight</p>
   </div>
-  <div class="t t2 tate" aria-label="本を一冊、珈琲を一杯。今日をそっと閉じて、月のあかりで、もういちど開く。">
+  <div class="tx t2 tate" aria-label="本を一冊、珈琲を一杯。今日をそっと閉じて、月のあかりで、もういちど開く。">
    <p>本を一冊、</p><p>珈琲を一杯。</p><p>今日をそっと閉じて、</p><p>月のあかりで、</p><p>もういちど開く。</p>
   </div>
-  <div class="t t3">
+  <div class="tx t3">
    <p class="word en" aria-label="TSUKIYOMI">TSUKIYOMI</p>
    <p class="jp">月と本の夜カフェ</p>
    <p class="hr en">OPEN 18:00 — CLOSE 25:00</p>
@@ -173,7 +173,7 @@ const icon=k=>{const g='#e2c48a',d='#24324f';
  if(k==='full')return `<svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="${g}"/></svg>`;
  if(k==='cres')return `<svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="${d}"/><path d="M28 6a22 22 0 0 1 0 44a14 22 0 0 0 0-44z" fill="${g}"/></svg>`;
  return `<svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="${d}"/><path d="M28 6a22 22 0 0 0 0 44z" fill="${g}"/></svg>`;};
-document.getElementById('phases').innerHTML=P.map((p,i)=>`<div class="ph rv ${i===idx?'now':''}" style="transition-delay:${i*.1}s">${icon(p.k)}<p class="nm">${p.nm}</p><p class="it">${p.it.split('|').map(x=>`<span class="ib">${x}</span>`).join('')}</p></div>`).join('');
+document.getElementById('phases').innerHTML=P.map((p,i)=>`<div class="ph rv ${i===idx?'now':''}" style="transition-delay:${i*.1}s"><div class="phimg"><img src="img/m-${p.k}.webp" alt="${p.it.replace('|','')}" loading="lazy" width="720" height="720"></div><div class="phcap">${icon(p.k)}<p class="nm">${p.nm}</p><p class="it">${p.it.split('|').map(x=>`<span class="ib">${x}</span>`).join('')}</p></div></div>`).join('');
 document.getElementById('today').innerHTML=`今夜の月齢は <b>${age.toFixed(1)}</b>。限定メニューは「<b>${P[idx].it.replace('|','')}</b>」です。`;
 document.querySelectorAll('#phases .rv').forEach(el=>io.observe(el));
 </script>
