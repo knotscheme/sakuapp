@@ -21,14 +21,14 @@ const cv=document.getElementById('sky');
 if(cv){const x=cv.getContext('2d');let W,H,dpr=Math.min(devicePixelRatio||1,2),stars=[],dust=[];
   const mobile=innerWidth<860;
   const init=()=>{W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr;
-    stars=Array.from({length:mobile?60:120},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.1+.3)*dpr,p:Math.random()*6.28,s:.6+Math.random()*1.4}));
-    dust=Array.from({length:mobile?22:45},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.8+.6)*dpr,v:(.15+Math.random()*.35)*dpr,a:Math.random()*6.28,w:.3+Math.random()*.7}))};
-  init();addEventListener('resize',init);
+    stars=Array.from({length:mobile?40:90},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.1+.3)*dpr,p:Math.random()*6.28,s:.6+Math.random()*1.4}));
+    dust=Array.from({length:mobile?7:16},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*.8+.4)*dpr,v:(.06+Math.random()*.12)*dpr,a:Math.random()*6.28,w:.2+Math.random()*.4}))};
+  let lw=innerWidth;init();addEventListener('resize',()=>{if(innerWidth!==lw){lw=innerWidth;init()}});
   let run=true;document.addEventListener('visibilitychange',()=>{run=!document.hidden;if(run)requestAnimationFrame(t)});
   const t=ts=>{if(!run)return;x.clearRect(0,0,W,H);const k=ts/1000;
-    for(const s of stars){const a=.25+.55*(.5+.5*Math.sin(k*s.s+s.p));x.fillStyle=`rgba(230,225,210,${a})`;x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill()}
+    for(const s of stars){const a=.15+.4*(.5+.5*Math.sin(k*s.s+s.p));x.fillStyle=`rgba(230,225,210,${a})`;x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill()}
     for(const d of dust){d.y-=d.v;d.a+=.01;d.x+=Math.sin(d.a)*d.w*dpr*.3;if(d.y<-10){d.y=H+10;d.x=Math.random()*W}
-      const g=x.createRadialGradient(d.x,d.y,0,d.x,d.y,d.r*4);g.addColorStop(0,'rgba(240,210,150,.85)');g.addColorStop(1,'rgba(240,210,150,0)');x.fillStyle=g;x.beginPath();x.arc(d.x,d.y,d.r*4,0,6.28);x.fill()}
+      const g=x.createRadialGradient(d.x,d.y,0,d.x,d.y,d.r*3);g.addColorStop(0,'rgba(240,210,150,.4)');g.addColorStop(1,'rgba(240,210,150,0)');x.fillStyle=g;x.beginPath();x.arc(d.x,d.y,d.r*3,0,6.28);x.fill()}
     requestAnimationFrame(t)};requestAnimationFrame(t)}
 // 写真のゆっくりした視差（見えている間だけ）
 const par=[...document.querySelectorAll('.par')];let tick=0;
