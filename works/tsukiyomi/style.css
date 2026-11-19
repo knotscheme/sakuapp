@@ -52,7 +52,7 @@ h2{font-family:"Shippori Mincho",serif;font-weight:600;font-size:clamp(26px,3.4v
 .two b{font-family:"Shippori Mincho",serif;font-size:17px;color:var(--gold2);letter-spacing:.12em}
 .two p{font-size:13px;color:var(--sub);margin-top:6px;line-height:2}
 /* signature */
-.sig{background:var(--navy2)}
+.sig{background:rgba(17,28,49,.45)}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
 .card img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform 1.2s}
 .card .pic{overflow:hidden}
@@ -79,7 +79,7 @@ h2{font-family:"Shippori Mincho",serif;font-weight:600;font-size:clamp(26px,3.4v
 .seats b{font-family:"Shippori Mincho",serif;font-size:17px;letter-spacing:.12em}
 .seats p{font-size:13px;color:var(--sub);line-height:2;margin-top:4px}
 /* stamp */
-.stamp{background:var(--navy2)}
+.stamp{background:rgba(17,28,49,.45)}
 .stamp .grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
 .cardui{background:linear-gradient(145deg,#1d2c4a,#101a2e);border:1px solid var(--line);padding:30px;aspect-ratio:1.6;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 40px 80px -40px #000}
 .cardui .top{display:flex;justify-content:space-between;align-items:center}
@@ -114,7 +114,7 @@ footer .logo{justify-content:center;margin-bottom:12px}
 .note{color:#7c869a;font-size:11px}
 /* sub pages */
 .phead{padding:170px 0 80px;text-align:center;background:linear-gradient(180deg,rgba(11,19,34,.55),var(--navy)),url(img/shelf.webp) center 30%/cover}
-.mtabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px;position:sticky;top:60px;z-index:5;background:var(--navy);padding:14px 0;border-bottom:1px solid var(--line)}
+.mtabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px;position:sticky;top:60px;z-index:5;background:rgba(11,19,34,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 0;border-bottom:1px solid var(--line)}
 .mtabs a{font-size:13px;padding:6px 16px;border:1px solid var(--line);color:var(--sub)}
 .mtabs a:hover{border-color:var(--gold);color:var(--gold2)}
 .mcat{padding:80px 0 20px;scroll-margin-top:140px}
@@ -326,3 +326,20 @@ main,footer{position:relative}
 /* 場面3：月とロゴが重ならないように、月を上に寄せて小さめに */
 .story[data-s="2"] .rmoon{transform:translate(-50%,-92%) scale(.9)}
 @media(max-width:860px){.rmoon{width:min(58vw,300px)}.story[data-s="2"] .rmoon{transform:translate(-50%,-112%) scale(1)}}
+
+/* ===== 背景：まだらなネイビーのグラデーション（うっすら、ゆっくり漂う） ===== */
+body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+ background:
+  radial-gradient(38% 30% at 18% 22%,rgba(46,72,128,.38),transparent 70%),
+  radial-gradient(30% 26% at 82% 18%,rgba(70,58,120,.26),transparent 70%),
+  radial-gradient(42% 34% at 70% 68%,rgba(30,64,110,.34),transparent 72%),
+  radial-gradient(34% 28% at 24% 80%,rgba(92,74,48,.16),transparent 70%),
+  radial-gradient(26% 22% at 52% 46%,rgba(38,56,96,.22),transparent 70%),
+  var(--navy);
+ animation:mottle 46s ease-in-out infinite alternate}
+@keyframes mottle{0%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-4%,3%,0) rotate(4deg)}100%{transform:translate3d(3%,-3%,0) rotate(-3deg)}}
+body{background:var(--navy)}
+main,footer,header{position:relative}
+.cta::after{background:linear-gradient(180deg,rgba(11,19,34,.85) 0%,rgba(11,19,34,.55) 40%,rgba(11,19,34,.85) 100%)}
+.moonsec{background:radial-gradient(ellipse at 50% 30%,rgba(27,42,72,.7) 0%,transparent 65%)}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}
