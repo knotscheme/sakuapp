@@ -4,6 +4,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b1322'/%3E%3Cpath d='M20 6a11 11 0 1 0 6 18A9 9 0 0 1 20 6z' fill='%23c9a25a'/%3E%3C/svg%3E">
 </head><body>
+<canvas id="sky" aria-hidden="true"></canvas><div class="glow" aria-hidden="true"></div>
 <header><div class="hin">
  <a class="logo" href="index.html" aria-label="TSUKIYOMI トップへ"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg><b>TSUKIYOMI</b></a>
  <nav aria-label="メニュー"><a href="index.html#concept">Concept</a><a href="menu.html">Menu</a><a href="index.html#moon">Moon</a><a href="index.html#space">Space</a><a href="index.html#access">Access</a></nav>
@@ -11,7 +12,7 @@
  <button class="menu-t" aria-label="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16M4 16h16"/></svg></button>
 </div></header>
 <main>
-<div class="phead"><p class="eb">RESERVATION</p><h2 style="margin-top:8px">席を予約する</h2><p class="lead" style="margin-top:10px"><span class="ib">見本のフォームです。</span><span class="ib">送信しても、実際には予約されません。</span></p></div>
+<div class="phead"><p class="eb">RESERVATION</p><h2 class="split" style="margin-top:8px">席を予約する</h2><p class="lead" style="margin-top:10px"><span class="ib">見本のフォームです。</span><span class="ib">送信しても、実際には予約されません。</span></p></div>
 <section style="padding-top:60px">
  <div class="wrap">
  <form class="form" id="rf" novalidate>
@@ -31,7 +32,7 @@
  </form>
  <div class="done" id="done" role="status">
   <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#e2c48a"/></svg>
-  <h2>ご予約を承りました（見本）</h2>
+  <h2 class="split">ご予約を承りました（見本）</h2>
   <p class="lead" id="doneTxt"></p>
   <p style="margin-top:30px"><a class="btn" href="index.html">トップへ戻る</a></p>
  </div>
@@ -44,7 +45,7 @@
  <p class="note">※ このサイトは制作サンプルです。店名・住所・メニュー・料金はすべて架空のものです。写真は生成AIによるイメージです。</p>
  <p class="note">© TSUKIYOMI（Sample）</p>
 </footer>
-<script src="common.js"></script>
+<script src="common.js"></script><script src="fx.js"></script>
 <script>
 const $=s=>document.querySelector(s),f=$('#rf');
 const T=['18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30'];

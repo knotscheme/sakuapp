@@ -4,6 +4,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b1322'/%3E%3Cpath d='M20 6a11 11 0 1 0 6 18A9 9 0 0 1 20 6z' fill='%23c9a25a'/%3E%3C/svg%3E">
 </head><body>
+<canvas id="sky" aria-hidden="true"></canvas><div class="glow" aria-hidden="true"></div>
 <header><div class="hin">
  <a class="logo" href="index.html" aria-label="TSUKIYOMI トップへ"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg><b>TSUKIYOMI</b></a>
  <nav aria-label="メニュー"><a href="index.html#concept">Concept</a><a href="menu.html">Menu</a><a href="index.html#moon">Moon</a><a href="index.html#space">Space</a><a href="index.html#access">Access</a></nav>
@@ -11,31 +12,31 @@
  <button class="menu-t" aria-label="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16M4 16h16"/></svg></button>
 </div></header>
 <main>
-<div class="phead"><p class="eb">MENU</p><h2 style="margin-top:8px">お品書き</h2><p class="lead" style="margin-top:10px">価格はすべて税込です（架空）</p></div>
+<div class="phead"><p class="eb">MENU</p><h2 class="split" style="margin-top:8px">お品書き</h2><p class="lead" style="margin-top:10px">価格はすべて税込です（架空）</p></div>
 <div class="mtabs"><a href="#sweets">夜パフェ・甘いもの</a><a href="#coffee">コーヒー・お茶</a><a href="#drink">夜のドリンク</a><a href="#moon">月の限定</a></div>
 <div class="wrap">
- <section class="mcat" id="sweets"><h2>夜パフェ・甘いもの<span class="en">SWEETS</span></h2>
+ <section class="mcat" id="sweets"><h2 class="split">夜パフェ・甘いもの<span class="en">SWEETS</span></h2>
   <div class="mlist">
    <div class="mi"><img src="img/parfait.webp" alt="" loading="lazy"><div class="t"><div class="row"><b>三日月の夜パフェ<span class="tag">人気</span></b><span class="pr">¥1,680</span></div><p>カシスのジュレ、バニラアイス、焼きたての三日月クッキー。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>ほうじ茶と黒蜜の夜パフェ</b><span class="pr">¥1,580</span></div><p>香ばしいほうじ茶のアイスに、黒蜜とわらび餅。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>焼きたてのフィナンシェ</b><span class="pr">¥420</span></div><p>注文を受けてから焼き上げます。ふたつからどうぞ。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>夜更けのチーズケーキ</b><span class="pr">¥680</span></div><p>深煎りのコーヒーに合わせた、濃いめのベイクド。</p></div></div>
   </div></section>
- <section class="mcat" id="coffee"><h2>コーヒー・お茶<span class="en">COFFEE &amp; TEA</span></h2>
+ <section class="mcat" id="coffee"><h2 class="split">コーヒー・お茶<span class="en">COFFEE &amp; TEA</span></h2>
   <div class="mlist">
    <div class="mi"><img src="img/coffee.webp" alt="" loading="lazy"><div class="t"><div class="row"><b>夜更けのハンドドリップ</b><span class="pr">¥720</span></div><p>夜に合わせた深煎り。カフェインレスに変更できます（+¥0）。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>月見ラテ</b><span class="pr">¥780</span></div><p>はちみつとシナモンを少し。やさしい甘さのカフェラテ。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>カモミールとレモングラス</b><span class="pr">¥680</span></div><p>眠る前にも安心な、カフェインのないハーブティー。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>和紅茶</b><span class="pr">¥680</span></div><p>国産の茶葉で淹れる、渋みの少ない紅茶。</p></div></div>
   </div></section>
- <section class="mcat" id="drink"><h2>夜のドリンク<span class="en">NIGHT DRINKS</span></h2>
+ <section class="mcat" id="drink"><h2 class="split">夜のドリンク<span class="en">NIGHT DRINKS</span></h2>
   <div class="mlist">
    <div class="mi"><img src="img/drink.webp" alt="" loading="lazy"><div class="t"><div class="row"><b>月夜のソーダ<span class="tag">ノンアル</span></b><span class="pr">¥980</span></div><p>青から金へ、夜空のように色が変わるソーダ。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>星屑のレモネード<span class="tag">ノンアル</span></b><span class="pr">¥880</span></div><p>金箔をひとつまみ。グラスの中で星がゆれます。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>ホットワイン</b><span class="pr">¥980</span></div><p>スパイスとオレンジで温めた、寒い夜のための一杯。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>クラフトビール</b><span class="pr">¥900</span></div><p>本のおともに。季節で銘柄が変わります。</p></div></div>
   </div></section>
- <section class="mcat" id="moon" style="padding-bottom:110px"><h2>月の限定<span class="en">MOON LIMITED</span></h2>
+ <section class="mcat" id="moon" style="padding-bottom:110px"><h2 class="split">月の限定<span class="en">MOON LIMITED</span></h2>
   <div class="mlist">
    <div class="mi"><div class="t"><div class="row"><b>新月のガトーショコラ</b><span class="pr">¥780</span></div><p>新月の頃だけ。黒く深い、濃厚なショコラ。</p></div></div>
    <div class="mi"><div class="t"><div class="row"><b>三日月のレモンタルト</b><span class="pr">¥760</span></div><p>三日月の頃だけ。細く切った、さわやかなタルト。</p></div></div>
@@ -51,5 +52,5 @@
  <p class="note">※ このサイトは制作サンプルです。店名・住所・メニュー・料金はすべて架空のものです。写真は生成AIによるイメージです。</p>
  <p class="note">© TSUKIYOMI（Sample）</p>
 </footer>
-<script src="common.js"></script>
+<script src="common.js"></script><script src="fx.js"></script>
 </body></html>
