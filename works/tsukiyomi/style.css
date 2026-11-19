@@ -339,7 +339,7 @@ body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none
  animation:mottle 46s ease-in-out infinite alternate}
 @keyframes mottle{0%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-4%,3%,0) rotate(4deg)}100%{transform:translate3d(3%,-3%,0) rotate(-3deg)}}
 body{background:var(--navy)}
-main,footer,header{position:relative}
+main,footer{position:relative}
 .cta::after{background:linear-gradient(180deg,rgba(11,19,34,.85) 0%,rgba(11,19,34,.55) 40%,rgba(11,19,34,.85) 100%)}
 .moonsec{background:radial-gradient(ellipse at 50% 30%,rgba(27,42,72,.7) 0%,transparent 65%)}
 @media(prefers-reduced-motion:reduce){body::before{animation:none}}
