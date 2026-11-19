@@ -237,9 +237,11 @@ main,footer{position:relative}
 .veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(11,19,34,.9),transparent 60%),linear-gradient(180deg,rgba(5,8,15,.55),rgba(5,8,15,.15) 35%,rgba(5,8,15,.55));pointer-events:none}
 /* 場面3：月がのぼる */
 .s3{background:radial-gradient(ellipse at 50% 100%,#1a2846 0%,#070b16 70%)}
-.rmoon{position:absolute;left:50%;top:50%;width:min(62vw,420px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,40%) scale(.7);transition:transform 2.6s cubic-bezier(.2,.7,.2,1),opacity 2s;opacity:0;
- background:radial-gradient(circle at 38% 36%,#fff8e6 0%,#f1dcaa 32%,#d6b26c 62%,#a9823f 100%);box-shadow:0 0 80px 20px rgba(241,210,150,.45),0 0 240px 80px rgba(226,196,138,.18)}
-.rmoon::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 60%,rgba(120,90,40,.25) 0 9%,transparent 10%),radial-gradient(circle at 62% 38%,rgba(120,90,40,.2) 0 7%,transparent 8%),radial-gradient(circle at 55% 70%,rgba(120,90,40,.16) 0 5%,transparent 6%)}
+.rmoon{position:absolute;left:50%;top:50%;width:min(66vw,440px);aspect-ratio:1;transform:translate(-50%,40%) scale(.8);transition:transform 3s cubic-bezier(.2,.7,.2,1),opacity 2.4s;opacity:0;
+ background:url(img/moon.webp) center/cover}
+.rmoon::before{content:"";position:absolute;inset:-35%;border-radius:50%;background:radial-gradient(circle,rgba(241,222,180,.22) 0%,rgba(241,222,180,.07) 35%,transparent 62%);animation:halo 6s ease-in-out infinite alternate;pointer-events:none}
+@keyframes halo{to{transform:scale(1.08);opacity:.75}}
+.story[data-s="2"] .t3 .word{text-shadow:0 0 24px rgba(5,8,15,.9),0 0 50px rgba(241,210,150,.35)}
 .story[data-s="2"] .rmoon{opacity:1;transform:translate(-50%,-78%) scale(1)}
 .rays{position:absolute;inset:-50%;background:conic-gradient(from 0deg at 50% 45%,transparent 0 8deg,rgba(241,210,150,.06) 10deg,transparent 14deg 40deg,rgba(241,210,150,.05) 44deg,transparent 48deg 80deg,rgba(241,210,150,.06) 84deg,transparent 88deg);animation:spin 80s linear infinite;opacity:.0;transition:opacity 3s}
 .story[data-s="2"] .rays{opacity:1}
