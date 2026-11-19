@@ -330,6 +330,43 @@ footer p{margin-top:24px;font-size:11.5px;color:var(--sub);line-height:1.9}
  .ratio .lbl{font-size:10px}
 }
 @media(max-width:380px){.bcs{transform:scale(.6)}.stc{transform:scale(.82)}}
+
+/* ===== モダンでシンプルに：グラデーションと囲みを減らし、細い線と余白で組む ===== */
+:root{--surf:#0f192b}
+body::before{display:none}
+.ch{border-top:1px solid rgba(239,230,210,.08)}
+/* 囲みの箱をやめ、上の細い線だけに */
+.kw{background:none;border:none;gap:40px}
+.kw div{background:none;padding:28px 0 0;border-top:1px solid rgba(239,230,210,.14)}
+.who div{border-left:none;border-top:1px solid rgba(239,230,210,.14);padding:20px 0 0}
+.ft{background:none;border:none;border-top:1px solid rgba(239,230,210,.14);padding:36px 0 40px}
+.fonts{gap:0}
+.tate{background:none;border:none;border-top:1px solid rgba(239,230,210,.14);padding:40px 0 0}
+.tone{gap:40px}
+.tone div{background:none;border:none;border-top:1px solid rgba(239,230,210,.14);padding:24px 0 0}
+.moons{gap:12px}
+.moons div{background:var(--surf);border:none}
+.lines{gap:40px}
+.lines div{background:none;border:none;border-top:1px solid rgba(239,230,210,.14);padding:24px 0 0}
+.scale div,.prl div{border-top-color:rgba(239,230,210,.14)}
+.ex{background:rgba(239,230,210,.08);border:none;border-top:1px solid rgba(239,230,210,.14);border-bottom:1px solid rgba(239,230,210,.14)}
+.ex .r>*:first-child{padding-left:0}
+/* ロゴ・使い方の見本は、平らな面に */
+.lgs .bx,.rules .bx,.dont figure{background:var(--surf);border:none}
+.dont figcaption{border-top:none;padding:12px 0 0;background:var(--navy)}
+.rules .bx{padding:32px}
+.clear{border-color:rgba(226,196,138,.35)}
+/* 色：大きな色面と文字だけ */
+.cols{gap:28px 16px}
+.cl{background:none;border:none;padding:0}
+.cl .sw{aspect-ratio:4/3}
+.cl .in3{padding:14px 0 0}
+.cl .cp{top:10px;right:10px;background:rgba(11,19,34,.6);border:none}
+.ratio .bar{height:10px;border:none;gap:3px}
+.ratio .bar i:first-child{box-shadow:inset 0 0 0 1px rgba(239,230,210,.15)}
+/* 使用例：スポットライトのグラデーションをやめ、平らな面と影だけ */
+.stage{background:var(--surf);border:none}
+.stage::after{display:none}
 </style>
 </head><body>
 <canvas id="sky" aria-hidden="true"></canvas>
@@ -415,7 +452,6 @@ footer p{margin-top:24px;font-size:11.5px;color:var(--sub);line-height:1.9}
   <div class="bar"><i style="flex:70;background:#0b1322"></i><i style="flex:15;background:#18263f"></i><i style="flex:10;background:#efe6d2"></i><i style="flex:5;background:#c9a25a"></i></div>
   <div class="lbl"><span style="flex:70">夜空の紺 70%</span><span style="flex:15">15%</span><span style="flex:10">10%</span><span style="flex:5">5%</span></div>
  </div>
- <div class="grad rv"><span>ヒーロー動画の色合い（紺から金へ）</span></div>
 </div></section>
 
 <!-- 04 文字 -->
