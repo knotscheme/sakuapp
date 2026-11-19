@@ -222,3 +222,68 @@ main,footer{position:relative}
 .card:hover .pic::after{transform:translateX(120%)}
 @media(max-width:860px){.scroll{display:none}.steam{left:50%;top:auto;bottom:18%;width:160px}.cup{height:auto;min-height:0;padding:120px 0 52vh}.cup .bgimg{inset:0;background-position:60% 80%}.cup::after{background:linear-gradient(180deg,var(--navy) 0%,rgba(11,19,34,.7) 40%,rgba(11,19,34,0) 70%,var(--navy) 100%)}.bigmoon{width:360px;height:360px;top:-120px}.glow{display:none}}
 @media(prefers-reduced-motion:reduce){#sky,.glow{display:none}.ch{opacity:1;filter:none;transform:none}.wipe{clip-path:none}}
+
+/* ===== ヒーロー：3場面のスクロール物語 ===== */
+.story{height:380vh;padding:0;position:relative}
+.stg{position:sticky;top:0;height:100svh;overflow:hidden;background:#05080f}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease,filter 1.6s ease}
+.sc .img{position:absolute;inset:-4%;background:center/cover no-repeat;animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.14) translate(-2%,-1.5%)}}
+.s2 .img{animation-duration:26s;background-position:60% 60%}
+.story[data-s="0"] .s1{opacity:1}
+.story[data-s="1"] .s1{opacity:.0}
+.story[data-s="1"] .s2{opacity:1;filter:blur(7px) brightness(.55)}
+.story[data-s="2"] .s3{opacity:1}
+.veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(11,19,34,.9),transparent 60%),linear-gradient(180deg,rgba(5,8,15,.55),rgba(5,8,15,.15) 35%,rgba(5,8,15,.55));pointer-events:none}
+/* 場面3：月がのぼる */
+.s3{background:radial-gradient(ellipse at 50% 100%,#1a2846 0%,#070b16 70%)}
+.rmoon{position:absolute;left:50%;top:50%;width:min(62vw,420px);aspect-ratio:1;border-radius:50%;transform:translate(-50%,40%) scale(.7);transition:transform 2.6s cubic-bezier(.2,.7,.2,1),opacity 2s;opacity:0;
+ background:radial-gradient(circle at 38% 36%,#fff8e6 0%,#f1dcaa 32%,#d6b26c 62%,#a9823f 100%);box-shadow:0 0 80px 20px rgba(241,210,150,.45),0 0 240px 80px rgba(226,196,138,.18)}
+.rmoon::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 60%,rgba(120,90,40,.25) 0 9%,transparent 10%),radial-gradient(circle at 62% 38%,rgba(120,90,40,.2) 0 7%,transparent 8%),radial-gradient(circle at 55% 70%,rgba(120,90,40,.16) 0 5%,transparent 6%)}
+.story[data-s="2"] .rmoon{opacity:1;transform:translate(-50%,-78%) scale(1)}
+.rays{position:absolute;inset:-50%;background:conic-gradient(from 0deg at 50% 45%,transparent 0 8deg,rgba(241,210,150,.06) 10deg,transparent 14deg 40deg,rgba(241,210,150,.05) 44deg,transparent 48deg 80deg,rgba(241,210,150,.06) 84deg,transparent 88deg);animation:spin 80s linear infinite;opacity:.0;transition:opacity 3s}
+.story[data-s="2"] .rays{opacity:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* 文字 */
+.t{position:absolute;z-index:3;pointer-events:none}
+.t .btn,.t a{pointer-events:auto}
+.tate{writing-mode:vertical-rl;text-orientation:upright;font-family:"Shippori Mincho",serif;font-feature-settings:normal}
+.t1{right:max(8vw,40px);top:calc(50% + 30px);transform:translateY(-50%);writing-mode:vertical-rl;display:flex;align-items:flex-start;gap:26px}
+.t1 .m{width:44px;height:44px;animation:moonp 5s ease-in-out infinite}
+.t1 h1{font-size:clamp(30px,min(4.2vw,6.2vh),56px);font-weight:600;letter-spacing:.28em;line-height:1.7;text-shadow:0 2px 30px rgba(0,0,0,.6)}
+.t1 h1 span{display:block;white-space:nowrap;opacity:0;filter:blur(12px);transform:translateY(-.6em);transition:opacity 1.6s,filter 1.6s,transform 1.6s cubic-bezier(.2,.7,.2,1)}
+.t1 h1 span:nth-child(2){transition-delay:.45s}
+.t1 .sub{writing-mode:vertical-rl;font-size:13px;color:rgba(239,230,210,.7);letter-spacing:.3em;margin-top:8px;opacity:0;transition:opacity 1.6s 1s}
+.story[data-s="0"] .t1 h1 span,.story[data-s="0"] .t1 .sub{opacity:1;filter:none;transform:none}
+.story:not([data-s="0"]) .t1{opacity:0;transition:opacity .8s}
+.t2{left:50%;top:calc(50% + 24px);transform:translate(-50%,-50%);font-size:clamp(18px,min(2.1vw,3.4vh),26px);letter-spacing:.3em;line-height:2.5}
+.t2 p{white-space:nowrap;opacity:0;filter:blur(10px);transform:translateY(-14px);transition:opacity 1.4s,filter 1.4s,transform 1.4s cubic-bezier(.2,.7,.2,1);text-shadow:0 2px 20px rgba(0,0,0,.8)}
+.story[data-s="1"] .t2 p{opacity:1;filter:none;transform:none}
+.t2 p:nth-child(2){transition-delay:.35s}.t2 p:nth-child(3){transition-delay:.8s}.t2 p:nth-child(4){transition-delay:1.25s}.t2 p:nth-child(5){transition-delay:1.6s;color:var(--gold2)}
+.t3{left:0;right:0;bottom:12vh;text-align:center}
+.t3 .word{font-size:clamp(40px,8vw,104px);letter-spacing:.4em;padding-left:.4em;font-weight:500;color:#f6ead0;text-shadow:0 0 40px rgba(241,210,150,.5);opacity:0;filter:blur(16px);transform:scale(1.08);transition:opacity 2s .6s,filter 2s .6s,transform 2.4s .6s}
+.t3 .jp{font-family:"Shippori Mincho",serif;letter-spacing:.5em;font-size:15px;margin-top:6px;opacity:0;transition:opacity 1.6s 1.4s}
+.t3 .hr{font-size:13px;color:var(--gold2);letter-spacing:.3em;margin-top:14px;opacity:0;transition:opacity 1.6s 1.7s}
+.t3 .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;opacity:0;transform:translateY(12px);transition:opacity 1.4s 2s,transform 1.4s 2s}
+.story[data-s="2"] .t3 .word,.story[data-s="2"] .t3 .jp,.story[data-s="2"] .t3 .hr,.story[data-s="2"] .t3 .ctas{opacity:1;filter:none;transform:none}
+.story:not([data-s="2"]) .t3 .ctas a{pointer-events:none}
+/* 縦のスクロール目印 */
+.ind{position:absolute;z-index:3;left:max(4vw,20px);bottom:7vh;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:11px;color:rgba(239,230,210,.7)}
+.ind span:first-child{writing-mode:vertical-rl;letter-spacing:.3em}
+.ind i{display:block;width:1px;height:90px;background:rgba(239,230,210,.2);position:relative;overflow:hidden}
+.ind i b{position:absolute;left:0;top:0;width:1px;height:100%;background:var(--gold2);transform-origin:top;transform:scaleY(var(--p,0));transition:transform .5s}
+.ind .num em{font-style:normal;color:var(--gold2)}
+/* スマホ：下のメニュー */
+.tab{display:none}
+@media(max-width:860px){
+ .t1{right:22px;gap:14px}.t1 h1{font-size:clamp(28px,min(8.4vw,5.6vh),38px);letter-spacing:.22em}.t1 .m{width:30px;height:30px}.t1 .sub{display:none}
+ .t2{font-size:clamp(15px,4.4vw,18px);letter-spacing:.22em;line-height:2.3}
+ .t3{bottom:calc(16vh + 60px)}.t3 .word{letter-spacing:.24em;padding-left:.24em}
+ .ind{bottom:calc(5vh + 60px)}
+ .tab{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(9,14,26,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+ .tab a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 8px;font-size:10px;color:var(--sub);letter-spacing:.06em}
+ .tab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+ .tab a.rs{color:var(--gold2)}
+ footer{padding-bottom:110px}
+}
+@media(prefers-reduced-motion:reduce){.story{height:auto}.stg{position:relative}.story .s1{opacity:1}.story .t1 h1 span,.story .t1 .sub{opacity:1;filter:none;transform:none}.t2,.t3,.ind{display:none}}

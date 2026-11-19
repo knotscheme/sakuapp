@@ -12,16 +12,30 @@
  <button class="menu-t" aria-label="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16M4 16h16"/></svg></button>
 </div></header>
 <main>
-<section class="hero" style="padding:0">
- <div class="bg" aria-hidden="true"></div><div class="haze" aria-hidden="true"></div>
- <div class="in">
-  <svg class="moon rise" viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#e2c48a"/></svg>
-  <h1 class="split"><span class="ib">月がのぼったら、</span><br><span class="ib">ひらく店。</span></h1>
-  <p class="rise" style="animation-delay:.5s"><span class="ib">本とコーヒーと、夜のパフェ。</span><span class="ib">今日を静かに終えるための、夜カフェです。</span></p>
-  <div class="ctas rise" style="animation-delay:.8s"><a class="btn fill" href="reserve.html">席を予約する</a><a class="btn" href="menu.html">メニューを見る</a></div>
+<section class="story" id="top" aria-label="TSUKIYOMI">
+ <div class="stg">
+  <div class="sc s1" aria-hidden="true"><div class="img" style="background-image:url(img/hero.webp)"></div></div>
+  <div class="sc s2" aria-hidden="true"><div class="img" style="background-image:url(img/coffee-zoom.webp)"></div></div>
+  <div class="sc s3" aria-hidden="true"><div class="rmoon"></div><div class="rays"></div></div>
+  <div class="veil" aria-hidden="true"></div>
+
+  <div class="t t1">
+   <svg class="m" viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#e2c48a"/></svg>
+   <h1 class="tate"><span>月がのぼったら、</span><span>ひらく店。</span></h1>
+   <p class="sub en">TSUKIYOMI — Books, Coffee &amp; Moonlight</p>
+  </div>
+  <div class="t t2 tate" aria-label="本を一冊、珈琲を一杯。今日をそっと閉じて、月のあかりで、もういちど開く。">
+   <p>本を一冊、</p><p>珈琲を一杯。</p><p>今日をそっと閉じて、</p><p>月のあかりで、</p><p>もういちど開く。</p>
+  </div>
+  <div class="t t3">
+   <p class="word en" aria-label="TSUKIYOMI">TSUKIYOMI</p>
+   <p class="jp">月と本の夜カフェ</p>
+   <p class="hr en">OPEN 18:00 — CLOSE 25:00</p>
+   <div class="ctas"><a class="btn fill" href="reserve.html">今夜の席を予約する</a><a class="btn" href="menu.html">メニュー</a></div>
+  </div>
+
+  <div class="ind" aria-hidden="true"><span class="en">Scroll</span><i><b></b></i><span class="en num"><em>1</em>/3</span></div>
  </div>
- <p class="hours rise" style="animation-delay:1s"><b class="en">18:00 – 25:00</b>月曜定休・L.O. 24:30</p>
- <p class="scroll" aria-hidden="true">SCROLL<i></i></p>
 </section>
 <div class="mq" aria-hidden="true"><div>Books<span>✦</span>Coffee<span>✦</span>Moonlight<span>✦</span>Night Parfait<span>✦</span>Quiet Hours<span>✦</span>Books<span>✦</span>Coffee<span>✦</span>Moonlight<span>✦</span>Night Parfait<span>✦</span>Quiet Hours<span>✦</span></div></div>
 
@@ -129,13 +143,20 @@
  </div>
 </section>
 </main>
+<nav class="tab" aria-label="すぐに使うメニュー">
+ <a href="menu.html"><svg viewBox="0 0 24 24"><path d="M5 9h12v4a6 6 0 0 1-12 0zM17 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3"/></svg>メニュー</a>
+ <a href="#moon"><svg viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A7 7 0 0 1 15 3z"/></svg>今夜の月</a>
+ <a href="#space"><svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-.8 3 15.6-3.5.8z"/></svg>空間</a>
+ <a href="#access"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>アクセス</a>
+ <a href="reserve.html" class="rs"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>予約</a>
+</nav>
 <footer>
  <a class="logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true" width="22" height="22"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg><b style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:19px;letter-spacing:.32em">TSUKIYOMI</b></a>
  <p>月と本の夜カフェ｜18:00 – 25:00（L.O. 24:30）｜月曜定休</p>
  <p class="note">※ このサイトは制作サンプルです。店名・住所・メニュー・料金はすべて架空のものです。写真は生成AIによるイメージです。</p>
  <p class="note">© TSUKIYOMI（Sample）</p>
 </footer>
-<script src="common.js"></script><script src="fx.js"></script>
+<script src="common.js"></script><script src="fx.js"></script><script src="story.js"></script>
 <script>
 // 月の満ち欠け：基準の新月（2000/1/6 18:14 UTC）から、今日の月齢を計算する
 const SYN=29.530588853, base=Date.UTC(2000,0,6,18,14);
