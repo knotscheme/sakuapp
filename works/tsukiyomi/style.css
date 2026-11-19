@@ -169,7 +169,7 @@ input.f:focus,select.f:focus,textarea.f:focus{outline:none;border-color:var(--go
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.rise{opacity:1;transform:none}}
 
 /* ===== 幻想的な演出 ===== */
-#sky{position:fixed;left:0;top:0;width:100vw;height:100lvh;z-index:2;pointer-events:none;mix-blend-mode:screen}
+#sky{position:fixed;left:0;top:0;width:100vw;height:100lvh;z-index:2;pointer-events:none}
 main,footer{position:relative}
 .glow{position:fixed;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(226,196,138,.10),transparent 65%);transform:translate(-50%,-50%);transition:opacity .6s;opacity:0}
 /* 文字が1文字ずつ浮かび上がる */
@@ -226,13 +226,13 @@ main,footer{position:relative}
 /* ===== ヒーロー：3場面のスクロール物語 ===== */
 .story{height:380vh;padding:0;position:relative}
 .stg{position:sticky;top:0;height:100svh;overflow:hidden;background:#05080f}
-.sc{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease,filter 1.6s ease}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;will-change:opacity}
 .sc .img{position:absolute;inset:-4%;background:center/cover no-repeat;animation:kb 22s ease-in-out infinite alternate}
 @keyframes kb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.14) translate(-2%,-1.5%)}}
-.s1 .vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%;animation:kb 26s ease-in-out infinite alternate}
+.s1 .vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%}
 .story[data-s="0"] .s1{opacity:1}
 .story[data-s="1"] .s1{opacity:.0}
-.story[data-s="1"] .s2{opacity:1;filter:blur(3px) brightness(.5)}
+.story[data-s="1"] .s2{opacity:1}.s2::after{content:"";position:absolute;inset:0;background:rgba(5,8,15,.5)}
 .story[data-s="2"] .s3{opacity:1}
 .veil{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(11,19,34,.9),transparent 60%),linear-gradient(180deg,rgba(5,8,15,.55),rgba(5,8,15,.15) 35%,rgba(5,8,15,.55));pointer-events:none}
 /* 場面3：月がのぼる */
@@ -296,6 +296,5 @@ main,footer{position:relative}
 .phcap{padding:16px 10px 18px;position:relative}
 .phcap svg{width:30px;height:30px;margin:-34px auto 0;position:relative;filter:drop-shadow(0 0 8px rgba(0,0,0,.8))}
 .ph .nm{margin-top:8px}
-.ph.now{transform:none}
-@media(min-width:861px){.ph.now{transform:translateY(-12px)}}
+.ph.now .phimg{box-shadow:0 0 0 1px var(--gold)}
 @media(min-width:861px){.t1{right:auto;left:max(9vw,60px)}}
