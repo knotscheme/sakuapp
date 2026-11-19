@@ -253,17 +253,15 @@ svg.mk{display:block}
 .stc .dts small{font-family:"Cormorant Garamond",serif;font-size:7.5px;color:rgba(239,230,210,.4);letter-spacing:.1em}
 .stc .msg{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-family:"Shippori Mincho",serif;font-size:9.5px;letter-spacing:.24em;color:rgba(239,230,210,.75)}
 
-/* 看板 */
-.sgn{position:relative;width:200px;height:350px;flex:none}
-.sgn .wall{position:absolute;left:0;top:0;width:8px;height:80px;background:linear-gradient(90deg,#1a1e26,#2c313b);border-radius:2px}
-.sgn .arm{position:absolute;left:6px;top:30px;width:150px;height:4px;background:linear-gradient(#3a3f48,#1b1f27);border-radius:2px;box-shadow:0 3px 6px rgba(0,0,0,.5)}
-.sgn .arm::after{content:"";position:absolute;left:0;top:4px;width:60px;height:2px;background:#22262e;transform-origin:left;transform:rotate(28deg)}
-.sgn .ch1,.sgn .ch2{position:absolute;top:33px;width:1px;height:26px;background:repeating-linear-gradient(#7a7f88 0 3px,#3a3f48 3px 5px)}
-.sgn .ch1{left:68px}.sgn .ch2{left:136px}
-.sgn .bd{position:absolute;left:58px;top:58px;width:88px;height:270px;border-radius:3px;box-shadow:var(--sh),0 0 80px rgba(226,196,138,.12);display:flex;flex-direction:column;align-items:center;padding:24px 0 18px;gap:16px}
-.sgn .bd::before{content:"";position:absolute;inset:7px;border:1px solid rgba(226,196,138,.3);border-radius:1px}
-.sgn .vt2{writing-mode:vertical-rl;font-family:"Shippori Mincho",serif;font-weight:600;font-size:13px;letter-spacing:.3em;flex:1;white-space:nowrap}
-.sgn .op{font-family:"Cormorant Garamond",serif;font-size:9px;letter-spacing:.32em;margin-right:-.32em;color:rgba(226,196,138,.8)}
+/* 看板（丸い突き出し看板） */
+.sgn{position:relative;width:220px;height:250px;flex:none}
+.sgn .wall{position:absolute;left:20px;top:30px;width:6px;height:56px;background:#1c2536;border-radius:1px}
+.sgn .rod{position:absolute;left:26px;top:52px;width:150px;height:3px;background:#222c3e}
+.sgn .hk{position:absolute;top:55px;width:1px;height:20px;background:#3a4558}
+.sgn .h1{left:76px}.sgn .h2{left:156px}
+.sgn .disc{position:absolute;left:56px;top:74px;width:130px;height:130px;border-radius:50%;background:#1a2742;box-shadow:0 24px 40px -14px rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.sgn .disc::before{content:"";position:absolute;inset:8px;border-radius:50%;border:1px solid rgba(212,178,111,.35)}
+.sgn .wm2{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:10px;letter-spacing:.36em;margin-right:-.36em;color:#d4b26f}
 @media(prefers-reduced-motion:reduce){.foil{animation:none}}
 
 /* 下部 */
@@ -323,7 +321,7 @@ footer p{margin-top:24px;font-size:11.5px;color:var(--sub);line-height:1.9}
  .a1 .stage{height:250px}.a2 .stage,.a5 .stage{height:250px}.a3 .stage{height:380px}.a4 .stage{height:260px}
  .bcs{transform:scale(.66)}
  .cup{width:118px}
- .sgn{transform:scale(.68)}
+ .sgn{transform:scale(.82)}
  .stc{transform:scale(.9)}
  .a2 .stage,.a5 .stage{height:270px}
  .ap .t{font-size:11.5px}
@@ -367,6 +365,9 @@ body::before{display:none}
 /* 使用例：スポットライトのグラデーションをやめ、平らな面と影だけ */
 .stage{background:var(--surf);border:none}
 .stage::after{display:none}
+.foil{background:none;color:#d4b26f;-webkit-background-clip:border-box;background-clip:border-box;animation:none}
+.navyp{background:#1a2742}
+.navyp::after{display:none}
 </style>
 </head><body>
 <canvas id="sky" aria-hidden="true"></canvas>
@@ -536,25 +537,20 @@ body::before{display:none}
 <!-- 08 使用例 -->
 <section class="ch" id="apps"><div class="wrap">
  <div class="hd rv"><span class="no">08</span><div class="ttl"><p class="e">APPLICATIONS</p><h2><span class="ib">店のすみずみまで、</span><span class="ib">同じ夜を。</span></h2></div></div>
- <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="fl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9b7535"/><stop offset=".32" stop-color="#f4dfa8"/><stop offset=".55" stop-color="#b38b44"/><stop offset=".8" stop-color="#ebcf92"/><stop offset="1" stop-color="#a47e3c"/></linearGradient></defs></svg>
  <div class="apps">
   <div class="ap a1 rv"><div class="stage"><div class="bcs">
    <div class="bc b paper"><div class="lk2"><svg viewBox="0 0 32 32" width="13" height="13" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#1a2238"/></svg>TSUKIYOMI</div><p class="vt">月と本の夜カフェ</p><div class="inf"><i></i><p class="en">18:00 — 25:00 ／ Closed Mon.</p><p>月見町 1-2-3 つきあかりビル 2F</p><p>tsukiyomi-cafe.example</p></div></div>
-   <div class="bc f navyp"><div><svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="url(#fl)"/></svg><p class="wm foil">TSUKIYOMI</p><p class="sb">BOOKS &amp; COFFEE</p></div></div>
+   <div class="bc f navyp"><div><svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#d4b26f"/></svg><p class="wm foil">TSUKIYOMI</p><p class="sb">BOOKS &amp; COFFEE</p></div></div>
   </div></div><p class="t"><b>ショップカード</b>表は紺に金の箔押し。裏は紙の色に、縦書きの店名。</p></div>
   <div class="ap a2 rv"><div class="stage"><div class="cup"><svg viewBox="0 0 170 232" aria-hidden="true">
- <defs><linearGradient id="cb" x1="0" x2="1"><stop offset="0" stop-color="#cbbfa8"/><stop offset=".35" stop-color="#f6eedf"/><stop offset=".7" stop-color="#e7dcc7"/><stop offset="1" stop-color="#bfb39b"/></linearGradient>
- <linearGradient id="cs" x1="0" x2="1"><stop offset="0" stop-color="#0d1628"/><stop offset=".38" stop-color="#22345a"/><stop offset=".72" stop-color="#16233d"/><stop offset="1" stop-color="#0b1322"/></linearGradient>
- <linearGradient id="cl" x1="0" x2="1"><stop offset="0" stop-color="#121b2e"/><stop offset=".4" stop-color="#2d3c5c"/><stop offset="1" stop-color="#0f1626"/></linearGradient></defs>
- <path d="M20 36L150 36L134 222Q85 229 36 222Z" fill="url(#cb)"/>
- <path d="M44 40L52 40L44 218L38 217Z" fill="#fff" opacity=".18"/>
- <path d="M24.8 92L145.2 92L139 164L31 164Z" fill="url(#cs)"/>
- <path d="M25.3 98L144.7 98M30.5 158L139.5 158" stroke="url(#fl)" stroke-width=".8" opacity=".7"/>
- <path transform="translate(73 113) scale(.8)" d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="url(#fl)"/>
- <path d="M26 22Q31 7 85 6Q139 7 144 22Z" fill="url(#cl)"/>
- <rect x="13" y="21" width="144" height="15" rx="5" fill="url(#cl)"/>
- <path d="M18 24H152" stroke="#fff" stroke-opacity=".12"/>
-</svg></div></div><p class="t"><b>カップ</b>紺の帯に、金のマーク。</p></div>
+ <path d="M22 42H148L134.5 222H35.5Z" fill="#ece3d1"/>
+ <path d="M122 42H148L134.5 222H116Z" fill="#000" opacity=".045"/>
+ <rect x="15" y="28" width="140" height="14" rx="2" fill="#101a2c"/>
+ <path d="M30 28L36 15H134L140 28Z" fill="#141f34"/>
+ <path transform="translate(72.5 92) scale(.78)" d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#1a2742"/>
+ <text x="85" y="140" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8.5" font-weight="600" letter-spacing="3.6" fill="#1a2742">TSUKIYOMI</text>
+ <text x="85" y="154" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="5.5" letter-spacing="2.6" fill="#1a2742" opacity=".6">BOOKS &amp; COFFEE</text>
+</svg></div></div><p class="t"><b>カップ</b>紙の色に、紺のマーク。</p></div>
   <div class="ap a3 r2 rv"><div class="stage"><div class="mn paper">
    <div class="hh"><svg viewBox="0 0 32 32" width="18" height="18" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#b8955a"/></svg><p class="t1">TSUKIYOMI</p><p class="t2">Menu for the night</p></div><div class="rule"></div>
    <h5>COFFEE</h5><ul><li><span>夜更けのハンドドリップ</span><span>720</span></li><li><span>サイフォン珈琲</span><span>820</span></li><li><span>月見カフェオレ</span><span>780</span></li></ul>
@@ -562,13 +558,13 @@ body::before{display:none}
    <h5>DRINK</h5><ul><li><span>月夜のソーダ</span><span>980</span></li></ul>
   </div></div><p class="t"><b>メニュー表</b>紙の色に紺の文字。値段は英字の書体で。</p></div>
   <div class="ap a4 r2 rv"><div class="stage"><div class="stc"><div class="card navyp">
-   <div class="r1"><span class="w"><svg viewBox="0 0 32 32" width="11" height="11" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="url(#fl)"/></svg><span class="foil">TSUKIYOMI</span></span><span class="k">MOON CARD</span></div>
-   <div class="dts" aria-hidden="true"><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/></svg><small>1</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44a14 22 0 0 0 0-44z" fill="url(#fl)"/></svg><small>2</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44z" fill="url(#fl)"/></svg><small>3</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44a12 22 0 0 1 0-44z" fill="url(#fl)"/></svg><small>4</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="url(#fl)"/></svg><small>5</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="url(#fl)" stroke-width="1.2"/></svg><small>6</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>7</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>8</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>9</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>10</small></div></div>
+   <div class="r1"><span class="w"><svg viewBox="0 0 32 32" width="11" height="11" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#d4b26f"/></svg><span class="foil">TSUKIYOMI</span></span><span class="k">MOON CARD</span></div>
+   <div class="dts" aria-hidden="true"><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="#d4b26f" stroke-width="1.2"/></svg><small>1</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="#d4b26f" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44a14 22 0 0 0 0-44z" fill="#d4b26f"/></svg><small>2</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="#d4b26f" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44z" fill="#d4b26f"/></svg><small>3</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="#d4b26f" stroke-width="1.2"/><path d="M28 6a22 22 0 0 1 0 44a12 22 0 0 1 0-44z" fill="#d4b26f"/></svg><small>4</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#d4b26f"/></svg><small>5</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="#0c1526" stroke="#d4b26f" stroke-width="1.2"/></svg><small>6</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>7</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>8</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>9</small></div><div><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="21" fill="none" stroke="rgba(226,196,138,.28)" stroke-width="1" stroke-dasharray="2 3"/></svg><small>10</small></div></div>
    <p class="msg">満月がふたつ満ちたら、一杯ごちそうします。</p>
   </div></div></div><p class="t"><b>スタンプカード</b>来るたびに、月が満ちていく。</p></div>
-  <div class="ap a5 r2 rv"><div class="stage"><div class="sgn"><span class="wall"></span><span class="arm"></span><span class="ch1"></span><span class="ch2"></span>
-   <div class="bd navyp"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="url(#fl)"/></svg><span class="vt2 foil">月と本の夜カフェ</span><span class="op">OPEN</span></div>
-  </div></div><p class="t"><b>店の看板</b>壁から下げる看板。</p></div>
+  <div class="ap a5 r2 rv"><div class="stage"><div class="sgn"><span class="wall"></span><span class="rod"></span><span class="hk h1"></span><span class="hk h2"></span>
+   <div class="disc"><svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#d4b26f"/></svg><span class="wm2">TSUKIYOMI</span></div>
+  </div></div><p class="t"><b>店の看板</b>壁から出す、丸い看板。</p></div>
  </div>
 </div></section>
 </main>
