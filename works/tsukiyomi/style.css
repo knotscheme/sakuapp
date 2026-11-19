@@ -300,3 +300,29 @@ main,footer{position:relative}
 .ph .nm{margin-top:8px}
 .ph.now .phimg{box-shadow:0 0 0 1px var(--gold)}
 @media(min-width:861px){.t1{right:auto;left:max(9vw,60px)}}
+
+/* ===== 場面の切り替えで文字が重ならないように =====
+   消えるときは0.35秒ですぐ消し、出るときは前の文字が消えてから（0.5秒あと）出す */
+.story .t1 h1 span,.story .t1 .sub,.story .t1 .m,.story .t2 p,.story .t3 .word,.story .t3 .jp,.story .t3 .hr,.story .t3 .ctas{transition-duration:.35s!important;transition-delay:0s!important}
+.story .t1{transition:opacity .35s}
+.story[data-s="0"] .t1 h1 span{transition-duration:1.4s!important;transition-delay:.5s!important}
+.story[data-s="0"] .t1 h1 span:nth-child(2){transition-delay:.9s!important}
+.story[data-s="0"] .t1 .sub{transition-duration:1.4s!important;transition-delay:1.3s!important}
+.story[data-s="1"] .t2 p{transition-duration:1.3s!important}
+.story[data-s="1"] .t2 p:nth-child(1){transition-delay:.5s!important}
+.story[data-s="1"] .t2 p:nth-child(2){transition-delay:.85s!important}
+.story[data-s="1"] .t2 p:nth-child(3){transition-delay:1.25s!important}
+.story[data-s="1"] .t2 p:nth-child(4){transition-delay:1.65s!important}
+.story[data-s="1"] .t2 p:nth-child(5){transition-delay:2s!important}
+.story[data-s="2"] .t3 .word{transition-duration:1.8s!important;transition-delay:.7s!important}
+.story[data-s="2"] .t3 .jp{transition-duration:1.4s!important;transition-delay:1.4s!important}
+.story[data-s="2"] .t3 .hr{transition-duration:1.4s!important;transition-delay:1.7s!important}
+.story[data-s="2"] .t3 .ctas{transition-duration:1.2s!important;transition-delay:2s!important}
+/* 背景も、文字が消えてから入れかえる */
+.sc{transition:opacity 1.2s ease .25s}
+/* 場面1：見出しの後ろを暗くして、注ぐ流れや湯気と重なっても読めるように */
+.s1::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(5,8,15,.75) 0%,rgba(5,8,15,.35) 32%,transparent 55%)}
+@media(min-width:861px){.s1::after{background:linear-gradient(90deg,rgba(5,8,15,.8) 0%,rgba(5,8,15,.35) 30%,transparent 50%)}}
+/* 場面3：月とロゴが重ならないように、月を上に寄せて小さめに */
+.story[data-s="2"] .rmoon{transform:translate(-50%,-92%) scale(.9)}
+@media(max-width:860px){.rmoon{width:min(58vw,300px)}.story[data-s="2"] .rmoon{transform:translate(-50%,-112%) scale(1)}}
