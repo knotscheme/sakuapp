@@ -1,0 +1,67 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>席を予約する｜TSUKIYOMI</title><meta name="description" content="月がのぼったら、ひらく店。本とコーヒーと夜パフェの、月と本の夜カフェ TSUKIYOMI（架空のブランド・制作サンプル）">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Shippori+Mincho:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b1322'/%3E%3Cpath d='M20 6a11 11 0 1 0 6 18A9 9 0 0 1 20 6z' fill='%23c9a25a'/%3E%3C/svg%3E">
+</head><body>
+<header><div class="hin">
+ <a class="logo" href="index.html" aria-label="TSUKIYOMI トップへ"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg><b>TSUKIYOMI</b></a>
+ <nav aria-label="メニュー"><a href="index.html#concept">Concept</a><a href="menu.html">Menu</a><a href="index.html#moon">Moon</a><a href="index.html#space">Space</a><a href="index.html#access">Access</a></nav>
+ <a class="btn fill hbtn" href="reserve.html">席を予約する</a>
+ <button class="menu-t" aria-label="メニューを開く" aria-expanded="false"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16M4 16h16"/></svg></button>
+</div></header>
+<main>
+<div class="phead"><p class="eb">RESERVATION</p><h2 style="margin-top:8px">席を予約する</h2><p class="lead" style="margin-top:10px"><span class="ib">見本のフォームです。</span><span class="ib">送信しても、実際には予約されません。</span></p></div>
+<section style="padding-top:60px">
+ <div class="wrap">
+ <form class="form" id="rf" novalidate>
+  <div class="fg"><p class="l">席のタイプ</p><div class="opts o3" role="radiogroup">
+   <label class="opt"><input type="radio" name="seat" value="窓辺のひとり席" checked><span>窓辺のひとり席<small>1名</small></span></label>
+   <label class="opt"><input type="radio" name="seat" value="ランプのふたり席"><span>ランプのふたり席<small>1〜2名</small></span></label>
+   <label class="opt"><input type="radio" name="seat" value="本棚の前のソファ"><span>本棚の前のソファ<small>3〜4名</small></span></label>
+  </div></div>
+  <div class="fg" id="g-date"><label for="date">日付</label><input class="f" type="date" id="date" name="date" required><p class="err">月曜日は定休日です。別の日を選んでください。</p></div>
+  <div class="fg"><p class="l">時間</p><div class="opts o4" id="times"></div></div>
+  <div class="fg"><label for="ppl">人数</label><select class="f" id="ppl" name="ppl"></select></div>
+  <div class="fg" id="g-name"><label for="name">お名前</label><input class="f" id="name" name="name" autocomplete="name" placeholder="月見 しずく"><p class="err">お名前を入れてください。</p></div>
+  <div class="fg" id="g-tel"><label for="tel">電話番号</label><input class="f" id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="090-0000-0000"><p class="err">電話番号を正しく入れてください。</p></div>
+  <div class="fg"><label for="memo">ご要望（任意）</label><textarea class="f" id="memo" name="memo" rows="3" placeholder="記念日なので、デザートにメッセージを入れたい など"></textarea></div>
+  <div class="sum" id="sum"></div>
+  <p style="margin-top:30px;text-align:center"><button class="btn fill" type="submit" style="border:0;cursor:pointer;font-family:inherit;width:100%;max-width:360px;padding:16px">この内容で予約する（見本）</button></p>
+ </form>
+ <div class="done" id="done" role="status">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#e2c48a"/></svg>
+  <h2>ご予約を承りました（見本）</h2>
+  <p class="lead" id="doneTxt"></p>
+  <p style="margin-top:30px"><a class="btn" href="index.html">トップへ戻る</a></p>
+ </div>
+ </div>
+</section>
+</main>
+<footer>
+ <a class="logo" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true" width="22" height="22"><path d="M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z" fill="#c9a25a"/></svg><b style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:19px;letter-spacing:.32em">TSUKIYOMI</b></a>
+ <p>月と本の夜カフェ｜18:00 – 25:00（L.O. 24:30）｜月曜定休</p>
+ <p class="note">※ このサイトは制作サンプルです。店名・住所・メニュー・料金はすべて架空のものです。写真は生成AIによるイメージです。</p>
+ <p class="note">© TSUKIYOMI（Sample）</p>
+</footer>
+<script src="common.js"></script>
+<script>
+const $=s=>document.querySelector(s),f=$('#rf');
+const T=['18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30','23:00','23:30'];
+$('#times').innerHTML=T.map((t,i)=>`<label class="opt"><input type="radio" name="time" value="${t}" ${i===4?'checked':''}><span>${t}</span></label>`).join('');
+const d=new Date();d.setDate(d.getDate()+(d.getDay()===1?1:0));const iso=x=>new Date(x-x.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+$('#date').value=iso(d);$('#date').min=iso(new Date());
+const MAX={'窓辺のひとり席':1,'ランプのふたり席':2,'本棚の前のソファ':4},MIN={'窓辺のひとり席':1,'ランプのふたり席':1,'本棚の前のソファ':3};
+const ppl=()=>{const s=f.seat.value,c=+$('#ppl').value||MIN[s];$('#ppl').innerHTML=Array.from({length:MAX[s]-MIN[s]+1},(_,i)=>MIN[s]+i).map(n=>`<option ${n===Math.min(Math.max(c,MIN[s]),MAX[s])?'selected':''}>${n}</option>`).join('')};
+const fmt=v=>{if(!v)return'';const x=new Date(v+'T00:00');return `${x.getMonth()+1}月${x.getDate()}日（${'日月火水木金土'[x.getDay()]}）`};
+const mon=()=>$('#date').value&&new Date($('#date').value+'T00:00').getDay()===1;
+const sum=()=>{$('#sum').innerHTML=`ご予約内容：<b>${fmt($('#date').value)} ${f.time.value}〜</b>　${f.seat.value}・<b>${$('#ppl').value}名</b>`;$('#g-date').classList.toggle('bad',!!mon())};
+f.addEventListener('change',e=>{if(e.target.name==='seat')ppl();sum()});ppl();sum();
+f.addEventListener('submit',e=>{e.preventDefault();
+ const bad=[];if(mon())bad.push('#g-date');if(!$('#name').value.trim())bad.push('#g-name');if(!/^[0-9０-９\-－ ]{10,14}$/.test($('#tel').value.trim()))bad.push('#g-tel');
+ ['#g-date','#g-name','#g-tel'].forEach(g=>$(g).classList.toggle('bad',bad.includes(g)));
+ if(bad.length){$(bad[0]).scrollIntoView({behavior:'smooth',block:'center'});return}
+ $('#doneTxt').innerHTML=`<span class="ib">${fmt($('#date').value)} ${f.time.value}〜、</span><span class="ib">${f.seat.value}（${$('#ppl').value}名）。</span><br><span class="ib">${$('#name').value.trim()} さま、</span><span class="ib">月がのぼる頃にお待ちしています。</span>`;
+ f.style.display='none';$('#done').style.display='block';scrollTo({top:0,behavior:'smooth'});});
+</script>
+</body></html>
