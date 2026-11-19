@@ -344,12 +344,9 @@ main,footer{position:relative}
 .moonsec{background:radial-gradient(ellipse at 50% 30%,rgba(27,42,72,.7) 0%,transparent 65%)}
 @media(prefers-reduced-motion:reduce){body::before{animation:none}}
 
-/* ヒーローの動画：サイトの色（紺と金）のグラデーションを乗算で重ねる */
+/* ヒーローの動画：紺と金の色合いは動画そのものに焼き込み済み（iPhoneは動画の上の乗算が黒くなるため） */
 .s1 .vid{object-position:42% 50%}
-.mul{position:absolute;inset:0;mix-blend-mode:multiply;pointer-events:none;
- background:linear-gradient(160deg,#6f86bd 0%,#93a6d2 38%,#d9b57a 75%,#f1d39b 100%)}
-.mul::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 55% 60%,transparent 45%,rgba(30,40,70,.5) 100%)}
-@media(max-width:860px){.s1 .vid{object-position:50% 50%}.mul{background:linear-gradient(180deg,#6f86bd 0%,#93a6d2 40%,#d9b57a 78%,#ecc98c 100%)}}
+@media(max-width:860px){.s1 .vid{object-position:50% 50%}}
 
 /* ヒーロー最後の場面：ボタンはミニマルな文字リンクに */
 .t3 .ctas{gap:34px;margin-top:30px}

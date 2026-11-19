@@ -2,7 +2,7 @@
 (function(){
 const st=document.querySelector('.story');if(!st)return;
 // 画面の向きに合わせて、横長（PC）か縦長（スマホ）の動画を選ぶ
-const hv=st.querySelector('.s1 .vid');if(hv){hv.src=innerWidth<861?'img/hero-sp.mp4':'img/hero-pc.mp4';hv.play&&hv.play().catch(()=>{})}
+const hv=st.querySelector('.s1 .vid');if(hv){const sp=innerWidth<861;hv.poster=sp?'img/hero-poster-sp.webp':'img/hero-poster.webp';hv.src=sp?'img/hero-sp.mp4?v=2':'img/hero-pc.mp4?v=2';hv.play&&hv.play().catch(()=>{})}
 const ind=st.querySelector('.ind'),num=ind&&ind.querySelector('em');
 let cur=-1,raf=0;
 const set=()=>{raf=0;const r=st.getBoundingClientRect(),h=innerHeight,len=r.height-h;
