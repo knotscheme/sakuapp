@@ -350,3 +350,12 @@ main,footer,header{position:relative}
  background:linear-gradient(160deg,#6f86bd 0%,#93a6d2 38%,#d9b57a 75%,#f1d39b 100%)}
 .mul::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 55% 60%,transparent 45%,rgba(30,40,70,.5) 100%)}
 @media(max-width:860px){.s1 .vid{object-position:50% 50%}.mul{background:linear-gradient(180deg,#6f86bd 0%,#93a6d2 40%,#d9b57a 78%,#ecc98c 100%)}}
+
+/* ヒーロー最後の場面：ボタンはミニマルな文字リンクに */
+.t3 .ctas{gap:34px;margin-top:30px}
+.lnk{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.24em;color:var(--cream);padding:6px 0;position:relative}
+.lnk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;opacity:.5;transform-origin:left;transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .3s}
+.lnk span{transition:transform .4s}
+.lnk:hover::after{opacity:1}.lnk:hover span{transform:translateX(4px)}
+.lnk.gold{color:var(--gold2)}
+@media(max-width:860px){.t3 .ctas{gap:28px}.lnk{font-size:12.5px}.ind i{height:60px}}
