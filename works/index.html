@@ -46,7 +46,7 @@ header nav{margin-left:auto;display:flex;align-items:center;gap:32px;font:400 13
 .av{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
 .av>span{font:400 12.5px var(--en);border:1px solid var(--ink);border-radius:99px;padding:6px 16px}
 .av>span i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#2f9e5b;margin-right:8px;vertical-align:1px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:72px;border-top:1px solid var(--ink)}
+.stats{display:grid;grid-template-columns:1fr;margin-top:72px;border-top:1px solid var(--ink)}
 .stats div{padding:22px 24px 0 0}
 .stats b{display:block;font:300 clamp(28px,3.2vw,44px)/1.1 var(--en);letter-spacing:-.01em}
 .stats small{display:block;margin-top:8px;font-size:12.5px;color:var(--ink2)}
@@ -123,7 +123,7 @@ footer .tt:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 @media (max-width:960px){
  .w{padding:0 24px}header .w{height:64px}header nav{gap:18px;font-size:12px}
- .hero{padding:110px 0 48px}.stats{grid-template-columns:repeat(3,1fr);margin-top:48px}.stats div{padding:18px 12px 0 0}
+ .hero{padding:110px 0 48px}.stats{grid-template-columns:1fr;margin-top:48px}.stats div{padding:18px 12px 0 0}
  section{padding:96px 0}.sh{flex-direction:column;margin-bottom:48px}
  .cs{padding-bottom:96px}.ch{grid-template-columns:1fr;gap:6px}.pic{aspect-ratio:16/10}
  .cb{grid-template-columns:1fr;gap:12px;margin-top:32px}.kpi{gap:28px}.kpi b{font-size:28px}
@@ -261,7 +261,7 @@ body.lbo header{visibility:hidden}
 .hero>.w a,.hero>.w button,.hero>.w .av,.hero>.w .stats{pointer-events:auto}
 .htx{display:flex;flex-direction:column;justify-content:flex-start}
 .hero{min-height:100svh!important}
-.kp{padding:56px 0 0}.kp .av{margin-top:0}
+.kp{padding:56px 0 0}.kp .stats{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-top:0!important}.kp .stats>div{padding:22px 0 0}.kp .av{margin-top:0;flex-shrink:0;white-space:nowrap}
 .htx>*{width:fit-content;max-width:100%}
 .fld{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
 @media (hover:none){.fl span{display:none!important}}
@@ -398,11 +398,9 @@ body.lbo .fm{opacity:0;pointer-events:none}
 </div>
 </section>
 <section class="kp"><div class="w">
- <div class="av rv"><span><span class="ja">愛知県 名古屋</span><span class="en">Nagoya, Japan</span></span></div>
  <div class="stats rv">
-  <div><b>¥20M+</b><small><span class="ja">クラファンの<span class="nw">累計支援額</span></span><span class="en">Total raised in crowdfunding</span></small></div>
-  <div><b>¥8M</b><small><span class="ja">楽天店舗の<span class="nw">月間売上</span></span><span class="en">Monthly sales on Rakuten</span></small></div>
   <div><b>100+</b><small><span class="ja">AIで開発した<span class="nw">サービス・ツール</span></span><span class="en">Products and tools built with AI</span></small></div>
+  <div class="av"><span><span class="ja">愛知県 名古屋</span><span class="en">Nagoya, Japan</span></span></div>
  </div>
 </div></section>
 
