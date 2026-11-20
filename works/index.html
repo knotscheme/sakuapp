@@ -434,28 +434,29 @@ body.lbo .fm{opacity:0;pointer-events:none}
    </div>
   </article>
   <article class="cs rv">
-   <div class="ch"><p class="no">01.2</p><h3>Mailer AI</h3><p class="cat"><span class="ja">問い合わせ対応の業務自動化</span><span class="en">Customer-support automation</span></p></div>
-   <div class="pic zm"><img src="img/t-mailer.webp" alt="" width="1200" height="750" loading="lazy"><span class="mk"><span class="ja">画面はイメージ</span><span class="en">Illustrative screen</span></span></div>
+   <div class="ch"><p class="no">01.2</p><h3>TSURETE</h3><p class="cat"><span class="ja">AI検索時代の集客ツール（SaaS・デモ）</span><span class="en">Get your products recommended by AI (SaaS, demo)</span></p></div>
+   <a class="pic" href="tsurete/lp/" target="_blank" rel="noopener"><img src="img/tsurete-pc.webp" alt="" width="1200" height="750" loading="lazy"></a>
    <div class="cb2">
-    <p class="sum"><span class="ja">楽天・Yahoo!・自社サイトの問い合わせを1つにまとめ、AIが仕分けと返信の下書きまで。</span><span class="en">One inbox for Rakuten, Yahoo! and site inquiries — AI sorts them and drafts the replies.</span></p>
-    <div class="row"><div></div></div>
+    <p class="sum"><span class="ja">ChatGPTなどのAIに、自分のお店の商品をおすすめしてもらうための対策を、毎週まとめて提案。お店の作業は5分だけ。</span><span class="en">Weekly, ready-to-use fixes so AI assistants like ChatGPT recommend your products — about five minutes of work for the shop.</span></p>
+    <div class="row"><div class="kpi"><div><b>8</b><small><span class="ja">項目で商品ページを診断</span><span class="en">checks per page</span></small></div><div><b>3</b><small><span class="ja">ステップ（診断・直す・売上）</span><span class="en">steps</span></small></div><div><b><span class="ja">5分</span><span class="en">5 min</span></b><small><span class="ja">週の作業（目安）</span><span class="en">weekly work (est.)</span></small></div></div><a class="go" href="tsurete/" target="_blank" rel="noopener">Try the demo <span>→</span></a></div>
     <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
      <div class="mb">
-      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">自社サイト・楽天・Yahoo!ショッピングに届く問い合わせを、担当者が別々の画面で確認していた。迷惑メールの仕分けや定型の返信に時間を取られていました。</span><span class="en">Support staff checked inquiries from the company site, Rakuten and Yahoo! Shopping on separate screens, losing time to spam and repetitive replies.</span></p>
-      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
-      <p class="h">Stack</p><p class="tx st">Next.js · Supabase · PostgreSQL (pgvector) · AWS Lambda · SES · OpenAI</p></div>
-      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">各チャネルの問い合わせを1つの受信箱に集約（メールの取り込み・APIの定期取得）</span><span class="en">Unified inbox for every channel (email ingestion and scheduled API polling)</span></li><li><span class="ja">AIが迷惑メールの除外・分類・返信の下書きまでを自動で行い、人が確認して送信</span><span class="en">AI filters spam, categorizes and drafts replies; a person reviews and sends</span></li><li><span class="ja">過去の対応事例を検索して下書きに使う仕組みと、承認の流れ・要注意メールの通知</span><span class="en">Retrieval of past cases for drafts, an approval queue and alerts for risky messages</span></li></ul></div>
+      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">買い物の相談相手がAIに変わり始め、検索の上位をねらう対策だけでは届かなくなってきた。小さなお店でも、AIに選ばれる商品ページに毎週少しずつ近づけられる仕組みを作りました。</span><span class="en">Shoppers are starting to ask AI instead of search engines. I built a way for small shops to make their pages a little more AI-friendly every week.</span></p>
+      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・設計・LP・アプリ・デモまで一人で</span><span class="en">Planning, design, landing page, app and demo (solo)</span></p>
+      <p class="h">Stack</p><p class="tx st">Next.js · TypeScript · Gemini / Claude API · Measurement tag · VOICEVOX</p></div>
+      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">商品ページをAIに選ばれるための8項目で点検し、足りない所の書き直し案（処方箋）をそのまま出す</span><span class="en">Scores each product page on eight checks and drafts the exact fixes</span></li><li><span class="ja">高い外部APIで調べる代わりに、お店のサイトに貼る計測タグで「AIから来たお客様と売上」を数える設計</span><span class="en">Counts visitors and sales from AI with a simple tag instead of costly API polling</span></li><li><span class="ja">「今週のAI対策」に絞ったミニマルな画面と、ページごとに読み上げる音声ガイド</span><span class="en">A minimal weekly to-do view and a per-section voice guide</span></li></ul></div>
      </div>
     </details>
    </div>
   </article>
   <div class="og">
+   <a href="lp-builder/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lpb.webp" alt="" width="1200" height="750" loading="lazy"></span><b>LP BUILDER</b><small><span class="ja">型を選んで写真を入れるだけのLP作成ツール</span><span class="en">Build a landing page from templates and photos</span></small></a>
+   <a href="shinkoku/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/jbs.webp" alt="" width="1200" height="750" loading="lazy"></span><b>じぶん申告</b><small><span class="ja">明細を入れるだけの、やさしい確定申告（デモ版）</span><span class="en">Easy self-filing tax return (demo)</span></small></a>
    <div class="oc rv zm"><span class="im"><img src="img/t-yuitto.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Yuitto</b><small><span class="ja">PR案件マッチング</span><span class="en">PR campaign matching</span></small></div>
    <a href="https://knotscheme.github.io/musou-ec/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/musou-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>MUSOU-EC</b><small><span class="ja">EC支援ツール集（無料）</span><span class="en">Free e-commerce toolkit</span></small></a>
    <div class="oc rv zm"><span class="im"><img src="img/t-sayatori.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Sayatori AI</b><small><span class="ja">トレンド通知（LINE）</span><span class="en">Trend alerts on LINE</span></small></div>
    <div class="oc rv zm"><span class="im"><img src="img/t-concierge.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Instant Concierge</b><small><span class="ja">ShopifyのAIコンサルタント</span><span class="en">AI advisor for Shopify</span></small></div>
    <div class="oc rv zm"><span class="im"><img src="img/t-wishlist.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Wishlist</b><small><span class="ja">Shopifyアプリ</span><span class="en">Shopify app</span></small></div>
-   <div class="oc rv zm"><span class="im"><img src="img/t-b2b.webp" alt="" width="1200" height="750" loading="lazy"></span><b>B2B Ordering</b><small><span class="ja">受発注システム（社内向け）</span><span class="en">Internal ordering system</span></small></div>
    <a href="../line/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/line-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>LINE Mini App</b><small><span class="ja">LINEの中で動く<span class="nw">お店のアプリ</span></span><span class="en">Shop apps that run inside LINE</span></small></a>
   </div>
 </div></section>
@@ -494,7 +495,23 @@ body.lbo .fm{opacity:0;pointer-events:none}
    </div>
   </article>
   <article class="cs rv">
-   <div class="ch"><p class="no">02.3</p><h3>LP Layer Studio</h3><p class="cat"><span class="ja">LP画像を、編集できるデータに分解するツール（デモ）</span><span class="en">Turns a flat LP image into editable layers (demo)</span></p></div>
+   <div class="ch"><p class="no">02.3</p><h3>Mailer AI</h3><p class="cat"><span class="ja">問い合わせ対応の業務自動化</span><span class="en">Customer-support automation</span></p></div>
+   <div class="pic zm"><img src="img/t-mailer.webp" alt="" width="1200" height="750" loading="lazy"><span class="mk"><span class="ja">画面はイメージ</span><span class="en">Illustrative screen</span></span></div>
+   <div class="cb2">
+    <p class="sum"><span class="ja">楽天・Yahoo!・自社サイトの問い合わせを1つにまとめ、AIが仕分けと返信の下書きまで。</span><span class="en">One inbox for Rakuten, Yahoo! and site inquiries — AI sorts them and drafts the replies.</span></p>
+    <div class="row"><div></div></div>
+    <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
+     <div class="mb">
+      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">自社サイト・楽天・Yahoo!ショッピングに届く問い合わせを、担当者が別々の画面で確認していた。迷惑メールの仕分けや定型の返信に時間を取られていました。</span><span class="en">Support staff checked inquiries from the company site, Rakuten and Yahoo! Shopping on separate screens, losing time to spam and repetitive replies.</span></p>
+      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
+      <p class="h">Stack</p><p class="tx st">Next.js · Supabase · PostgreSQL (pgvector) · AWS Lambda · SES · OpenAI</p></div>
+      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">各チャネルの問い合わせを1つの受信箱に集約（メールの取り込み・APIの定期取得）</span><span class="en">Unified inbox for every channel (email ingestion and scheduled API polling)</span></li><li><span class="ja">AIが迷惑メールの除外・分類・返信の下書きまでを自動で行い、人が確認して送信</span><span class="en">AI filters spam, categorizes and drafts replies; a person reviews and sends</span></li><li><span class="ja">過去の対応事例を検索して下書きに使う仕組みと、承認の流れ・要注意メールの通知</span><span class="en">Retrieval of past cases for drafts, an approval queue and alerts for risky messages</span></li></ul></div>
+     </div>
+    </details>
+   </div>
+  </article>
+  <article class="cs rv">
+   <div class="ch"><p class="no">02.4</p><h3>LP Layer Studio</h3><p class="cat"><span class="ja">LP画像を、編集できるデータに分解するツール（デモ）</span><span class="en">Turns a flat LP image into editable layers (demo)</span></p></div>
    <a class="pic" href="lp-layer/" target="_blank" rel="noopener"><img src="img/lp-layer.webp" alt="" width="1200" height="750" loading="lazy"></a>
    <div class="cb2">
     <p class="sum"><span class="ja">1枚のLP画像を、AIが「背景」「写真や商品のパーツ」「打ち直せる文字」に分解。隠れて欠けた部分もAIで描き足し、あとから自由に動かして書き出せます。</span><span class="en">AI splits one LP image into a background, cut-out photo parts and real, editable text — fills in hidden areas, then lets you rearrange and export.</span></p>
@@ -516,12 +533,10 @@ body.lbo .fm{opacity:0;pointer-events:none}
    <div class="oc rv zm"><span class="im"><img src="img/t-board.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Task Board</b><small><span class="ja">暗号化された業務ボード</span><span class="en">Encrypted task board</span></small></div>
    <div class="oc rv zm"><span class="im"><img src="img/t-csvsync.webp" alt="" width="1200" height="750" loading="lazy"></span><b>EC CSV Sync</b><small><span class="ja">商品CSVのAI変換</span><span class="en">AI product CSV conversion</span></small></div>
    <a href="lp-oem/overview/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/oem-overview.webp" alt="" width="1200" height="750" loading="lazy"></span><b>CRAFT OEM System</b><small><span class="ja">LP・見積・管理画面・工場とのやり取りまで（制作サンプル）</span><span class="en">LP, quotes, admin and factory chat in one (sample)</span></small></a>
-   <a href="lp-builder/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lpb.webp" alt="" width="1200" height="750" loading="lazy"></span><b>LP BUILDER</b><small><span class="ja">型を選んで写真を入れるだけのLP作成ツール</span><span class="en">Build a landing page from templates and photos</span></small></a>
-   <a href="shinkoku/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/jbs.webp" alt="" width="1200" height="750" loading="lazy"></span><b>じぶん申告</b><small><span class="ja">明細を入れるだけの、やさしい確定申告（デモ版）</span><span class="en">Easy self-filing tax return (demo)</span></small></a>
-   <a href="tsurete/lp/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/tsurete.webp" alt="" width="1200" height="750" loading="lazy"></span><b>TSURETE</b><small><span class="ja">AIにすすめられる回数を毎週はかり、全商品をまとめて直す集客ツール（デモ版）</span><span class="en">Tracks and improves how often AI assistants recommend your products (demo)</span></small></a>
    <a href="https://web-template-studio.knotscheme.workers.dev/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/splicer-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Splicer</b><small><span class="ja">Shopify<span class="nw">テンプレートツール</span></span><span class="en">Shopify template tool</span></small></a>
    <a href="../menu/mx27/?shop=%E9%A3%9F%E5%A0%82%20%E3%81%A8%E3%82%82%E3%81%97%E3%81%B3" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/deck-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Proposal Deck</b><small><span class="ja">店ごとに変わる提案書</span><span class="en">Per-shop proposal deck</span></small></a>
    <a href="../templates/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/tpl-pc.webp" alt="" width="1200" height="750" loading="lazy"></span><b>App Templates</b><small><span class="ja">触れるアプリの見本12種</span><span class="en">12 interactive app templates</span></small></a>
+   <div class="oc rv zm"><span class="im"><img src="img/t-b2b.webp" alt="" width="1200" height="750" loading="lazy"></span><b>B2B Ordering</b><small><span class="ja">受発注システム（社内向け）</span><span class="en">Internal ordering system</span></small></div>
   </div>
 </div></section>
 <section id="lp" class="cat-s"><div class="w">
