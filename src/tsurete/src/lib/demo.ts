@@ -3,7 +3,7 @@
 
 export const BRAND = { name: "SORAE", owner: "佐藤", kind: "スキンケア", site: "sorae-skin.example" };
 
-export const AIS = ["ChatGPT", "Gemini", "Claude", "Perplexity"] as const;
+export const AIS = ["ChatGPT", "Gemini", "AIモード", "Copilot", "Claude", "Perplexity"] as const;
 export type Ai = (typeof AIS)[number];
 export const TRIES = 20; // 1つの質問を、1つのAIに何回聞くか
 
@@ -98,7 +98,7 @@ export const FIXES: Fix[] = [
 
 // AIごとのくせ（どの情報を重く見るか）
 const AI_BIAS: Record<Ai, Partial<Record<Sig, number>>> = {
-  ChatGPT: { data: 0.06, review: 0.03 }, Gemini: { data: 0.08, spec: 0.03 }, Claude: { ingredient: 0.05, faq: 0.04 }, Perplexity: { media: 0.09, review: 0.04 },
+  ChatGPT: { data: 0.06, review: 0.03 }, Gemini: { data: 0.08, spec: 0.03 }, "AIモード": { data: 0.07, media: 0.04 }, Copilot: { data: 0.05, spec: 0.04 }, Claude: { ingredient: 0.05, faq: 0.04 }, Perplexity: { media: 0.09, review: 0.04 },
 };
 
 export function hash(s: string) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return ((h >>> 0) % 10000) / 10000; }
@@ -201,3 +201,49 @@ export function winners(applied: string[]) {
     return { q, top: top[0], me: c[BRAND.name] ?? 0, max: AIS.length * TRIES };
   });
 }
+
+// ---------- 3つの数字（すすめられた割合・1位の割合・自分のサイトが根拠になった割合） ----------
+export function metrics(applied: string[]) {
+  let n = 0, shownN = 0, top1 = 0, rankSum = 0, cited = 0;
+  const byAi = AIS.map((ai) => {
+    let a = 0, t1 = 0;
+    for (const q of QUESTIONS) {
+      const s = signals(q.product, applied);
+      for (let t = 0; t < TRIES; t++) {
+        n++;
+        const ans = answer(q, ai, applied, t), i = ans.findIndex((x) => x.me);
+        if (i < 0) continue;
+        a++; shownN++; rankSum += i + 1; if (i === 0) { t1++; top1++; }
+        // 自分のサイトが根拠に使われたか：AIが読める商品データとよくある質問がそろうほど使われやすい
+        if (hash(`cite|${q.id}|${ai}|${t}`) < 0.15 + s.data * 0.5 + s.faq * 0.35) cited++;
+      }
+    }
+    return { ai, pct: Math.round((a / (QUESTIONS.length * TRIES)) * 100), top1: Math.round((t1 / (QUESTIONS.length * TRIES)) * 100) };
+  });
+  return {
+    pct: Math.round((shownN / n) * 100),
+    top1: Math.round((top1 / n) * 100),
+    cite: shownN ? Math.round((cited / shownN) * 100) : 0,
+    avg: shownN ? Math.round((rankSum / shownN) * 10) / 10 : 0,
+    byAi,
+  };
+}
+
+// ---------- AIが答える前に、裏で調べたキーワード ----------
+// AIは質問をいくつかの検索に分けて調べてから答える。そのキーワードに、ページが答えられているかを見る
+export const FANOUT: Record<string, { k: string; sig: Sig | null }[]> = {
+  l1: [{ k: "敏感肌 化粧水 アルコールフリー", sig: "ingredient" }, { k: "化粧水 3000円台 比較", sig: "spec" }, { k: "敏感肌 化粧水 口コミ", sig: "review" }, { k: "敏感肌向け 化粧水 選び方", sig: "target" }],
+  l2: [{ k: "乾燥肌 化粧水 詰め替え", sig: "spec" }, { k: "化粧水 大容量 1日あたり", sig: "spec" }, { k: "乾燥肌 化粧水 よくある質問", sig: "faq" }],
+  l3: [{ k: "無香料 化粧水 成分", sig: "ingredient" }, { k: "アルコールフリー 化粧水 一覧", sig: "data" }, { k: "エタノール 入っていない 化粧水", sig: "ingredient" }],
+  l4: [{ k: "化粧水 ギフト 30代", sig: "media" }, { k: "プチギフト スキンケア 人気", sig: "media" }, { k: "化粧水 プレゼント 口コミ", sig: "review" }],
+  s1: [{ k: "ナイアシンアミド 美容液 濃度", sig: "ingredient" }, { k: "毛穴 美容液 向いている人", sig: "target" }, { k: "ナイアシンアミド 美容液 口コミ", sig: "review" }],
+  s2: [{ k: "美容液 初めて 刺激", sig: "target" }, { k: "美容液 パッチテスト済み", sig: "faq" }, { k: "低刺激 美容液 成分", sig: "ingredient" }],
+  s3: [{ k: "美容液 5000円以下 比較", sig: "spec" }, { k: "美容液 比較表", sig: "data" }, { k: "美容液 ランキング", sig: "media" }],
+  s4: [{ k: "美容液 朝 夜 使い方", sig: "faq" }, { k: "美容液 使う順番", sig: "faq" }, { k: "美容液 毎日 口コミ", sig: "review" }],
+  u1: [{ k: "日焼け止め 白くならない 顔", sig: "review" }, { k: "日焼け止め ジェル 使用感", sig: "target" }, { k: "日焼け止め SPF50 顔用", sig: "data" }],
+  u2: [{ k: "日焼け止め 石けんで落ちる", sig: "faq" }, { k: "ノンケミカル 日焼け止め", sig: "ingredient" }, { k: "日焼け止め 落とし方", sig: "faq" }],
+  u3: [{ k: "日焼け止め 子ども 一緒に", sig: "target" }, { k: "紫外線吸収剤不使用 日焼け止め", sig: "ingredient" }, { k: "子ども 日焼け止め 何歳から", sig: "faq" }],
+  u4: [{ k: "日焼け止め 3000円以下", sig: "spec" }, { k: "日焼け止め 1日あたり 値段", sig: "spec" }, { k: "日焼け止め 毎日 人気", sig: "media" }],
+};
+// そのキーワードに、自分のページが答えられているか
+export function covers(product: string, sig: Sig | null, applied: string[]) { return sig ? signals(product, applied)[sig] >= 0.4 : false; }

@@ -6,7 +6,7 @@ import LineChart from "@/components/LineChart";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Bot, CalendarClock, Check, Minus, ChevronRight, Copy, FileSpreadsheet, KeyRound, Mail, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, ShieldCheck, TrendingUp, X } from "lucide-react";
+import { ArrowRight, BarChart3, Bot, CalendarClock, Check, Download, Minus, ChevronRight, Copy, FileSpreadsheet, KeyRound, Link2, Mail, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, ShieldCheck, Stethoscope, Swords, TrendingUp, X } from "lucide-react";
 import J from "@/components/J";
 import { Laptop, Phone } from "@/components/Devices";
 import { SAMPLE_URL } from "@/lib/check";
@@ -116,6 +116,10 @@ function Hero() {
           <a href="#try" className="flex items-center text-[1.02rem] text-[#00a37a] hover:underline">無料で診断<ChevronRight size={18} /></a>
         </div>
         <div className={`mt-5 transition duration-700 ${ready ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "950ms" }}><LpVoice /></div>
+        <div className={`mx-auto mt-7 flex max-w-[34rem] flex-wrap items-center justify-center gap-x-2 gap-y-2 transition duration-700 ${ready ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "1100ms" }}>
+          <span className="w-full text-[0.75rem] text-[#86868b]">6つのAIの答えを測る</span>
+          {AI6.map((a) => <span key={a} className="rounded-full bg-white/80 px-3 py-1 text-[0.78rem] font-semibold text-[#424245] ring-1 ring-black/5">{a}</span>)}
+        </div>
       </div>
 
       <div className={`relative mx-auto mt-14 w-[15.5rem] sm:mt-12 sm:w-[18rem] ${ready ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"}`} style={{ transition: "opacity 1.4s .5s, transform 1.4s .5s cubic-bezier(.2,.7,.2,1)" }}>
@@ -139,6 +143,8 @@ function Hero() {
     </section>
   );
 }
+
+const AI6 = ["ChatGPT", "Gemini", "AIモード", "Copilot", "Claude", "Perplexity"];
 
 // ---------- 黒い場面：スクロールに合わせて「検索の10件」が「AIの3つ」に変わる ----------
 // サイト名・ブランド名はすべて架空
@@ -471,21 +477,86 @@ function Week() {
   );
 }
 
+// ---------- 測る：AIの答えを4つの数字で（AI計測ツールと同じことを、小さなお店の料金で） ----------
+const AIBARS = [["ChatGPT", 31], ["Gemini", 24], ["AIモード", 27], ["Copilot", 18], ["Claude", 22], ["Perplexity", 35]] as const;
+const KW = [["敏感肌 化粧水 アルコールフリー", true], ["化粧水 3000円台 比較", true], ["敏感肌 化粧水 口コミ", false], ["敏感肌向け 化粧水 選び方", true]] as const;
+function Measure() {
+  const [ref, on] = useInView<HTMLDivElement>();
+  const nums = [{ l: "すすめられた割合", v: 28, u: "%" }, { l: "1位の割合", v: 9, u: "%" }, { l: "自分のサイトが根拠に", v: 46, u: "%" }, { l: "平均の順位", v: 2.1, u: "位", dec: 1 }];
+  return (
+    <section id="measure" className="scroll-mt-12 px-5 py-24 sm:py-36">
+      <Reveal className="text-center">
+        <p className="text-[1rem] font-semibold text-[#00a37a]">測る</p>
+        <h2 className="lp-h mt-2 text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIの答えを、</span><span className="inline-block">4つの数字で。</span></h2>
+        <p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>お客様が聞きそうな質問を、6つのAIにくり返し聞いて数えます。名前が出たか、何番目か、自分のサイトが根拠になったか。</J></p>
+      </Reveal>
+      <div ref={ref} className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-20 lg:grid-cols-[1.1fr_1fr]">
+        <Reveal className="h-full"><div className="h-full rounded-[28px] bg-white p-6 shadow-[0_30px_60px_-36px_rgba(0,0,0,.28)] sm:p-8">
+          <div className="grid grid-cols-2 gap-3">
+            {nums.map((x) => <div key={x.l} className="rounded-2xl bg-[#f5f5f7] p-4"><p className="text-[0.78rem] text-[#6e6e73]"><J>{x.l}</J></p><p className="mt-1.5"><b className="text-[2rem] font-bold leading-none text-[#00a37a]">{on ? <Count to={x.v} dec={x.dec ?? 0} /> : 0}</b><span className="ml-1 text-[0.85rem] text-[#6e6e73]">{x.u}</span></p></div>)}
+          </div>
+          <p className="mt-7 text-[0.9rem] font-semibold">AIごとの、すすめられた割合</p>
+          <ul className="mt-3 space-y-2.5">
+            {AIBARS.map(([a, v], i) => <li key={a} className="grid grid-cols-[5.6rem_1fr_2.6rem] items-center gap-3 text-[0.84rem]"><span className="truncate font-semibold">{a}</span><span className="h-2 overflow-hidden rounded-full bg-[#ececf0]"><span className="block h-full rounded-full bg-[#00a37a] transition-[width] duration-[1200ms] ease-out" style={{ width: on ? `${v * 2}%` : 0, transitionDelay: `${200 + i * 80}ms` }} /></span><span className="num text-right text-[#6e6e73]">{v}%</span></li>)}
+          </ul>
+        </div></Reveal>
+        <Reveal className="h-full" delay={150}><div className="h-full rounded-[28px] bg-white p-6 shadow-[0_30px_60px_-36px_rgba(0,0,0,.28)] sm:p-8">
+          <p className="text-[0.9rem] font-semibold">AIが裏で調べたキーワード</p>
+          <p className="mt-1 text-[0.8rem] leading-[1.7] text-[#6e6e73]"><J>質問「敏感肌でも使える、3,000円台の化粧水は？」のとき</J></p>
+          <ul className="mt-4 divide-y divide-black/[.06]">
+            {KW.map(([k, ok], i) => <li key={k} className="flex items-center gap-3 py-3 text-[0.86rem] transition-all duration-500" style={{ opacity: on ? 1 : 0, transform: on ? "none" : "translateY(6px)", transitionDelay: `${300 + i * 90}ms` }}><Search size={14} className="shrink-0 text-[#86868b]" /><span className="min-w-0 flex-1"><J>{k}</J></span>{ok ? <span className="flex shrink-0 items-center gap-1 text-[0.75rem] font-semibold text-[#00a37a]"><Check size={14} />答えあり</span> : <span className="flex shrink-0 items-center gap-1 text-[0.75rem] font-semibold text-[#c2410c]"><X size={14} />答えなし</span>}</li>)}
+          </ul>
+          <p className="mt-5 rounded-2xl bg-[#fdf0ea] px-4 py-3 text-[0.84rem] leading-[1.7] text-[#7c2d12]"><J>「口コミ」で調べられているのに、ページに答えがない。→ 処方箋：レビュー依頼の質問を変える</J></p>
+        </div></Reveal>
+      </div>
+      <Reveal className="mx-auto mt-10 max-w-[40rem] text-center" delay={200}>
+        <p className="text-[1.05rem] leading-[1.9] text-[#424245] sm:text-[1.2rem]"><J>測って終わりにしない。足りないところは、そのまま「直す」へ。</J></p>
+        <p className="mt-3 text-[0.72rem] text-[#86868b]"><J>数字は架空のブランドでの模擬の結果です。</J></p>
+      </Reveal>
+    </section>
+  );
+}
+
+const FEATURES = [
+  { icon: CalendarClock, t: "全商品を毎週点検", d: "8つの項目で、全商品のページを自動で点検。" },
+  { icon: Stethoscope, t: "処方箋", d: "書き直し案・よくある質問・構造化データのコード。" },
+  { icon: Plug, t: "サイトに反映", d: "Shopifyは押すだけ。楽天・Amazon・Yahoo!はCSVで。" },
+  { icon: BarChart3, t: "6つのAIで測る", d: "すすめられた割合・1位・根拠・平均の順位。" },
+  { icon: Search, t: "AIが調べたキーワード", d: "質問の裏の検索に、ページが答えられているか。" },
+  { icon: Swords, t: "よく選ばれる店との差", d: "どの質問で、どの店に、何が足りなくて負けているか。" },
+  { icon: Link2, t: "AIが根拠にしたサイト", d: "載ると有利な記事と、掲載をお願いする文。" },
+  { icon: TrendingUp, t: "売上で確かめる", d: "計測タグで、AIから来たお客様と売上を数える。" },
+  { icon: Download, t: "CSVで書き出し", d: "結果を、Excelでそのまま開ける形で。" },
+];
+function Features() {
+  return (
+    <section id="features" className="scroll-mt-12 px-5 py-24 sm:py-36">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">測るから、売上まで。</span><span className="inline-block">ぜんぶ、ひとつで。</span></h2><p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>測るだけのツール、直すだけのアプリ、売上を見る道具。別々に入れていたものを、TSURETEひとつに。</J></p></Reveal>
+      <ol className="mx-auto mt-14 grid max-w-[64rem] gap-3 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+        {FEATURES.map(({ icon: Icon, t, d }, i) => (
+          <Reveal key={t} delay={(i % 3) * 90} className="h-full"><li className="flex h-full gap-4 rounded-[24px] bg-white/80 p-6"><span className="num w-7 shrink-0 pt-0.5 text-[0.85rem] font-semibold text-[#86868b]">{String(i + 1).padStart(2, "0")}</span><span className="min-w-0"><Icon size={22} strokeWidth={1.7} className="text-[#00a37a]" /><b className="mt-3 block text-[1.05rem]"><J>{t}</J></b><span className="mt-1 block text-[0.88rem] leading-[1.75] text-[#6e6e73]"><J>{d}</J></span></span></li></Reveal>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
 // ほかとのちがい：選ばれる理由と、よくある方法との比較（特定の会社名は出さない）
 const PILLARS = [
   { icon: CalendarClock, t: "全商品を、毎週、自動で。", d: "AIに頼むことすら要りません。全商品のページを毎週点検して、やることだけを届けます。" },
   { icon: FileSpreadsheet, t: "楽天・Amazonにも、そのまま。", d: "Shopifyへの反映、楽天・Amazon・Yahoo!の取りこみ用CSVなど、サイトに合わせた形で届けます。" },
   { icon: TrendingUp, t: "使うほど、処方箋が賢くなる。", d: "どの直し方で、AIからのお客様と売上が増えたかを学び、ジャンルごとに効く案を出せるようにしていきます。" },
 ];
-const COLS = ["TSURETE", "AIに\n自分で頼む", "SEO\nツール", "海外の\nAI対策ツール", "1つの作業\nだけのアプリ"];
-const COLS_SP = ["TSURETE", "AIに\n頼む", "SEO\nツール", "海外の\nツール", "単機能\nアプリ"];
+const COLS = ["TSURETE", "AIに\n自分で頼む", "SEO\nツール", "AI計測ツール\n（月数万円〜）", "1つの作業\nだけのアプリ"];
+const COLS_SP = ["TSURETE", "AIに\n頼む", "SEO\nツール", "AI計測\nツール", "単機能\nアプリ"];
 const ROWS: [string, number[]][] = [
-  ["全商品を、毎週自動で点検", [2, 0, 1, 1, 0]],
-  ["AIに選ばれる項目で点検", [2, 1, 0, 1, 0]],
-  ["直す文章まで出す", [2, 1, 0, 1, 1]],
-  ["楽天・Amazonにも届ける", [2, 0, 0, 0, 1]],
+  ["いくつものAIの答えを数える", [2, 0, 1, 2, 0]],
+  ["AIが調べたキーワードを見る", [2, 0, 0, 2, 0]],
+  ["全商品のページを、毎週自動で点検", [2, 0, 1, 0, 0]],
+  ["直す文章とコードまで出す", [2, 1, 0, 1, 1]],
+  ["ショップに反映（Shopify・楽天CSV）", [2, 0, 0, 0, 1]],
   ["効果を売上で確かめる", [2, 0, 1, 1, 0]],
-  ["やさしい日本語で使える", [2, 2, 1, 0, 1]],
+  ["小さなお店が続けられる料金", [2, 2, 1, 0, 1]],
 ];
 function Mark({ v, me }: { v: number; me?: boolean }) {
   if (v === 2) return <Check size={18} strokeWidth={2.4} className={`mx-auto ${me ? "text-[#2fd9a6]" : "text-[#00a37a]"}`} aria-label="できる" />;
@@ -523,7 +594,7 @@ function Compare() {
           </table>
         </div>
         <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[0.75rem] text-[#86868b]"><span className="flex items-center gap-1"><Check size={13} className="text-[#00a37a]" />できる</span><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full border-[1.5px] border-[#86868b]" />一部できる</span><span className="flex items-center gap-1"><Minus size={13} />できない</span></p>
-        <p className="mt-2 text-center text-[0.72rem] leading-[1.8] text-[#86868b]"><J>一般的な特徴をもとにした比較です。ツールや使い方によって異なります。</J><span className="block sm:hidden"><J>海外のツール＝海外のAI対策ツール、単機能アプリ＝1つの作業だけのアプリ</J></span></p>
+        <p className="mt-2 text-center text-[0.72rem] leading-[1.8] text-[#86868b]"><J>一般的な特徴をもとにした比較です。特定の会社のサービスではありません。ツールや使い方によって異なります。</J><span className="block sm:hidden"><J>AI計測ツール＝AIの答えを測るツール（月数万円〜）、単機能アプリ＝1つの作業だけのアプリ</J></span></p>
       </Reveal>
     </section>
   );
@@ -551,13 +622,14 @@ function Safety() {
 const PLANS = [
   { n: "フリー", p: "0", u: "円", d: "まず試したい", f: ["1商品の診断", "足りないところの処方箋", "URL・CSVでの無料診断"] },
   { n: "スタンダード", p: "2,980", u: "円／月", d: "はじめての店に", f: ["50商品まで", "毎週の自動の点検", "処方箋と構造化データのコード", "計測タグで来店と売上を確かめる"], hi: true },
-  { n: "プロ", p: "9,800", u: "円／月", d: "商品が多い店に", f: ["500商品まで", "同じジャンルの共有の測定", "AIが根拠にしたサイトの調べ", "Shopifyなどへ自動で書きかえ"] },
+  { n: "プロ", p: "9,800", u: "円／月", d: "商品が多い店に", f: ["500商品まで", "6つのAIで測る（4つの数字）", "AIが調べたキーワード・よく選ばれる店との差", "AIが根拠にしたサイトと掲載の依頼文", "Shopifyなどへ自動で書きかえ・CSVの書き出し"] },
+  { n: "制作会社・代理店", p: "29,800", u: "円／月〜", d: "いくつものお店を見る方に", f: ["10店舗まで（追加できます）", "プロのすべての機能", "お店ごとのレポートを書き出し", "お店の人を招待して一緒に使う"] },
 ];
 function Pricing() {
   return (
     <section id="price" className="scroll-mt-12 px-5 py-24 sm:py-36">
-      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>料金</J></h2><p className="mx-auto mt-5 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>お店がAIの利用料を払う必要はありません。点検と処方箋づくりの費用は、料金に含みます。</J></p><p className="mt-3 text-[0.85rem] text-[#86868b]"><J>※デモ用の仮の料金です。実際の料金は決まっていません。</J></p></Reveal>
-      <div className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-3">
+      <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>料金</J></h2><p className="mx-auto mt-5 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>お店がAIの利用料を払う必要はありません。点検と処方箋づくりの費用は、料金に含みます。</J></p><p className="mt-3 text-[0.85rem] text-[#86868b]"><J>どのプランも、はじめの14日間は無料。カードの登録はいりません。</J></p><p className="mt-1 text-[0.8rem] text-[#86868b]"><J>※デモ用の仮の料金です。実際の料金は決まっていません。</J></p></Reveal>
+      <div className="mx-auto mt-14 grid max-w-[72rem] gap-4 sm:mt-16 md:grid-cols-2 xl:grid-cols-4">
         {PLANS.map((x, i) => (
           <Reveal key={x.n} delay={i * 100} className="h-full">
             <div className={`flex h-full flex-col rounded-[28px] p-8 ${x.hi ? "bg-[#1d1d1f] text-white" : "bg-white/75"}`}>
@@ -594,6 +666,7 @@ function Start() {
 const FAQ = [
   { q: "必ずAIにすすめられるようになりますか？", a: "いいえ、保証はできません。AIの答えは、AIを作っている会社のしくみで決まります。TSURETEは、AIが読み取りやすいページになるよう材料をそろえ、効いたかどうかを実際の来店と売上で確かめます。" },
   { q: "AIの答えは、人によって変わるのでは？", a: "変わります。だからTSURETEは、AIの答えを当てにいくのではなく、AIが読み取りやすいページかを点検して直します。効いたかどうかは、計測タグで実際の来店と売上を見て確かめます。どの質問で負けているかは、プロプランの共有の測定で目安を出します。" },
+  { q: "AIの答えを測るツールとは、何が違いますか？", a: "測るツールは、AIにどれだけ名前が出ているかを教えてくれます。TSURETEも同じように6つのAIで測りますが、そこで終わりません。足りないところを商品ページごとに見つけて、直す文章とコードを出し、ショップに反映し、AIから来たお客様と売上まで確かめます。料金も、小さなお店が続けられる額にしています。" },
   { q: "ハックや裏技は使いますか？", a: "使いません。AIをだます方法は、見つかると逆に外されるおそれがあります。TSURETEは、比較表やよくある質問、構造化データなど、AIにも人にも分かりやすいページにする、まっとうな方法だけを使います。" },
   { q: "お店の作業は、どれくらいですか？", a: "点検は、すべて自動です。お店の人は、毎週届く処方箋を読んで、コピーして貼るか、使う案のボタンを押すだけです。目安は週に5分ほどです。" },
   { q: "サイトの文章が、勝手に変わることはありますか？", a: "ありません。サイトが変わるのは、お店の人が「この案を使う」を押したものだけです。書きかえる前の文章は残しておくので、いつでも戻せます。" },
@@ -619,8 +692,8 @@ function Faq() {
 
 // セクションごとの背景の色（スクロールに合わせて、となりの色へとけるように変わる）
 // 黒い場面（4番目）は、その場面だけ黒。ページ全体まで黒にすると、手前の文字が読めなくなるため
-const BG = ["#ffffff", "#eaf3fd", "#f8f3ea", "#f8f3ea", "#f0eefa", "#e8f6ef", "#eaf3fd", "#fdf0ea", "#f2f2f5", "#e8f6ef", "#f8f3ea", "#f0eefa", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#ffffff", "#e8f6ef"];
-const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","点検は自動","しくみ","お店の1週間","使う前と後","対応サイト","小さなお店へ","選ばれる理由","安心","料金","はじめ方","よくある質問","無料診断"];
+const BG = ["#ffffff", "#eaf3fd", "#f8f3ea", "#f8f3ea", "#f0eefa", "#e8f6ef", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#f2f2f5", "#e8f6ef", "#f8f3ea", "#f0eefa", "#e8f6ef", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#ffffff", "#e8f6ef"];
+const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","点検は自動","しくみ","測る","お店の1週間","使う前と後","対応サイト","小さなお店へ","機能","選ばれる理由","安心","料金","はじめ方","よくある質問","無料診断"];
 
 // LPに出す数字（各社の公開調査。数字を変えるときは、出典も必ず一緒に直す）
 const STATS = [
@@ -646,7 +719,7 @@ export default function Page() {
       <header className={`sticky top-0 z-40 border-b backdrop-blur-xl transition-colors duration-500 ${dark ? "border-white/10 bg-black/70 text-white" : "border-black/5 bg-white/75"}`}>
         <div className="mx-auto flex h-12 max-w-[1000px] items-center gap-8 px-5 text-[0.8rem]">
           <Link href="/lp/" className="flex items-center gap-1.5 font-semibold tracking-[.18em]"><span className="h-1.5 w-1.5 rounded-full bg-[#00a37a]" />TSURETE</Link>
-          <nav className={`hidden gap-7 sm:flex ${dark ? "text-white/70" : "text-[#424245]"}`}><a href="#how" className="hover:text-black">しくみ</a><a href="#sites" className="hover:text-black">対応サイト</a><a href="#price" className="hover:text-black">料金</a><a href="#faq" className="hover:text-black">よくある質問</a><a href="#try" className="hover:text-black">無料診断</a></nav>
+          <nav className={`hidden gap-7 sm:flex ${dark ? "text-white/70" : "text-[#424245]"}`}><a href="#how" className="hover:text-black">しくみ</a><a href="#measure" className="hover:text-black">測る</a><a href="#features" className="hover:text-black">機能</a><a href="#sites" className="hover:text-black">対応サイト</a><a href="#price" className="hover:text-black">料金</a><a href="#faq" className="hover:text-black">よくある質問</a><a href="#try" className="hover:text-black">無料診断</a></nav>
           <Link href="/" className={`ml-auto rounded-full px-3.5 py-1 text-[0.78rem] font-semibold transition-colors ${dark ? "bg-white text-black" : "bg-[#1d1d1f] text-white"}`}>デモを使う</Link>
         </div>
       </header>
@@ -685,7 +758,7 @@ export default function Page() {
         <section className="px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">点検は、</span><span className="inline-block">ぜんぶ自動。</span></h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>お店の人は、何もしなくて大丈夫。TSURETEが毎週、全商品のページを点検して、処方箋を届けます。</J></p></Reveal>
           <div className="mx-auto mt-16 grid max-w-[56rem] grid-cols-2 gap-y-12 text-center sm:grid-cols-4">
-            {[{ v: 8, s: "項目", l: "点検する情報" }, { v: 0, s: "円", l: "お店が払うAIの利用料" }, { v: 9, s: "種類", l: "対応するサイト" }, { v: 5, s: "分", l: "1週間の作業の目安" }].map((x) => (
+            {[{ v: 8, s: "項目", l: "点検する情報" }, { v: 6, s: "つ", l: "答えを測るAI" }, { v: 9, s: "種類", l: "対応するサイト" }, { v: 5, s: "分", l: "1週間の作業の目安" }].map((x) => (
               <Reveal key={x.l}><p className="text-[2.6rem] font-bold leading-none sm:text-[3.4rem]"><Count to={x.v} /><span className="ml-1 text-[1.2rem] font-semibold">{x.s}</span></p><p className="mt-3 text-[0.88rem] text-[#6e6e73]">{x.l}</p></Reveal>
             ))}
           </div>
@@ -693,7 +766,7 @@ export default function Page() {
 
         {/* しくみ */}
         <section id="how" className="scroll-mt-12 px-5 pb-20 pt-24 sm:py-36">
-          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">測る。直す。</span><span className="inline-block">売上で確かめる。</span></h2></Reveal>
+          <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">点検する。直す。</span><span className="inline-block">売上で確かめる。</span></h2></Reveal>
           <div className="mx-auto mt-14 max-w-[62rem] space-y-20 sm:mt-20 sm:space-y-40">
             {STEPS.map((s, i) => (
               <div key={s.n} className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
@@ -708,6 +781,7 @@ export default function Page() {
           </div>
         </section>
 
+        <Measure />
         <Week />
 
         {/* 書き直す前と後 */}
@@ -754,6 +828,7 @@ export default function Page() {
           </div>
         </section>
 
+        <Features />
         <Compare />
 
         <Safety />

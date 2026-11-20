@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRight, Check, ExternalLink, Mail, Minus, NotebookPen, Plus } from "lucide-react";
+import { ArrowRight, Check, Download, ExternalLink, Mail, Minus, NotebookPen, Plus, Search, X } from "lucide-react";
 import { toast } from "@/components/Confirm";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import Fold from "@/components/Fold";
 import { ChatSim, Real } from "@/components/ChatSim";
-import { AIS, BRAND, PRODUCTS, QUESTIONS, RIVAL_HAS, SIGNALS, WEEKS, fmt, shelf, signals, winners, type Sig } from "@/lib/demo";
+import { AIS, BRAND, FANOUT, PRODUCTS, QUESTIONS, RIVAL_HAS, SIGNALS, TRIES, WEEKS, covers, fmt, metrics, shelf, shown, signals, winners, type Sig } from "@/lib/demo";
 import { uid, update, useStore } from "@/lib/store";
 import J from "@/components/J";
 
@@ -84,6 +84,81 @@ function SelfLog() {
   );
 }
 
+// 3つの数字と、AIごとの結果
+function Metrics() {
+  const s = useStore();
+  const m = metrics(s.applied);
+  const cards = [
+    { l: "すすめられた割合", v: m.pct, u: "%", d: "答えの上位3つに、SORAEが入った割合" },
+    { l: "1位の割合", v: m.top1, u: "%", d: "いちばん最初にすすめられた割合" },
+    { l: "自分のサイトが根拠に", v: m.cite, u: "%", d: "すすめられたとき、SORAEのページが参考にされた割合" },
+    { l: "平均の順位", v: m.avg, u: "位", d: "すすめられたときの、平均の順番" },
+  ];
+  return (
+    <section className="mt-20" aria-labelledby="mt">
+      <h2 id="mt" className="text-[1.2rem] font-bold tracking-[.04em]">4つの数字</h2>
+      <p className="mt-2 text-[0.88rem] text-sub"><J>名前が出たか、何番目か、自分のサイトが根拠になったか。</J></p>
+      <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        {cards.map((c) => (
+          <div key={c.l} className="card p-5">
+            <p className="text-[0.8rem] text-sub"><J>{c.l}</J></p>
+            <p className="mt-2"><b className="num text-[2.2rem] leading-none text-ai">{c.v}</b><span className="ml-1 text-[0.9rem] text-sub">{c.u}</span></p>
+            <p className="mt-2 text-[0.75rem] leading-[1.7] text-sub"><J>{c.d}</J></p>
+          </div>
+        ))}
+      </div>
+      <h3 className="mt-14 text-[1rem] font-bold">AIごとの結果</h3>
+      <ul className="mt-5 border-t hair">
+        {m.byAi.map((a) => (
+          <li key={a.ai} className="grid grid-cols-[6.5rem_1fr_3.2rem] items-center gap-4 border-b hair py-3.5 text-[0.9rem] sm:grid-cols-[8rem_1fr_4rem_5rem]">
+            <b className="truncate">{a.ai}</b>
+            <span className="h-1.5 overflow-hidden rounded-full bg-white/[.06]"><span className="block h-full rounded-full bg-ai transition-all duration-700" style={{ width: `${Math.max(2, a.pct)}%` }} /></span>
+            <span className="num text-right">{a.pct}%</span>
+            <span className="num hidden text-right text-[0.8rem] text-sub sm:block">1位 {a.top1}%</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+// AIが答える前に調べたキーワードと、ページが答えられているか
+function Fanout() {
+  const s = useStore();
+  const [qid, setQid] = useState(QUESTIONS[0].id);
+  const q = QUESTIONS.find((x) => x.id === qid)!;
+  const ks = FANOUT[qid] ?? [];
+  const miss = ks.filter((k) => !covers(q.product, k.sig, s.applied)).length;
+  return (
+    <div>
+      <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>AIは、お客様の質問をいくつかのキーワードに分けて調べてから答えます。そのキーワードに、SORAEのページが答えられているかを見ます。</J></p>
+      <label className="mt-6 block text-[0.82rem] font-bold">お客様の質問<select value={qid} onChange={(e) => setQid(e.target.value)} className="field mt-1">{QUESTIONS.map((x) => <option key={x.id} value={x.id}>{x.text}</option>)}</select></label>
+      <ul className="mt-6 border-t hair">
+        {ks.map((k) => { const ok = covers(q.product, k.sig, s.applied); return (
+          <li key={k.k} className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b hair py-3.5 text-[0.9rem]">
+            <Search size={15} className="shrink-0 text-sub" /><span className="min-w-0 flex-1"><J>{k.k}</J></span>
+            {ok ? <span className="flex items-center gap-1 text-[0.8rem] font-bold text-ai"><Check size={15} />ページに答えがある</span> : <span className="flex items-center gap-1 text-[0.8rem] font-bold text-warn"><X size={15} />{k.sig ? `「${SIGNALS[k.sig]}」がない` : "答えがない"}</span>}
+          </li>
+        ); })}
+      </ul>
+      {miss > 0 ? <Link href="/naosu/" className="btn btn-ai mt-8 px-7">足りない{miss}つを直す<ArrowRight size={18} /></Link> : <p className="mt-6 flex items-center gap-2 text-[0.88rem] text-ai"><Check size={17} />この質問のキーワードには、すべて答えられています。</p>}
+    </div>
+  );
+}
+
+// 結果をCSVで書き出す（Excelでそのまま開ける形）
+function exportCsv(applied: string[]) {
+  const head = ["質問", "商品", ...AIS.map((a) => `${a}（${TRIES}回中）`), "合計"];
+  const rows = QUESTIONS.map((q) => { const by = AIS.map((a) => shown(q, a, applied)); return [q.text, PRODUCTS.find((p) => p.id === q.product)!.short, ...by, by.reduce((x, y) => x + y, 0)]; });
+  const esc = (v: string | number) => { const t = String(v); return /[",\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t; };
+  const csv = "\ufeff" + [head, ...rows].map((r) => r.map(esc).join(",")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+  a.download = `tsurete-ai-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  toast("CSVを書き出しました");
+}
+
 function Hakaru() {
   const s = useStore();
   const sh = shelf(s.applied);
@@ -103,10 +178,12 @@ function Hakaru() {
           <p className="text-[0.85rem] text-sub">今週、AIにすすめられた割合</p>
           <p className="mt-2"><b className="num text-[4.2rem] leading-none text-ai">{sh.pct}</b><span className="ml-1 text-[1.2rem] text-sub">%</span></p>
           <p className={`num mt-3 text-[0.88rem] ${diff > 0 ? "text-ai" : "text-sub"}`}>{diff > 0 ? `先週より +${diff}ポイント` : diff < 0 ? `先週より ${diff}ポイント` : "先週と同じ"}</p>
-          <p className="mt-6 text-[0.8rem] leading-[1.9] text-sub">ジャンル「スキンケア」の共有の測定<br />{QUESTIONS.length}個の質問 × {AIS.length}つのAI × 20回<br />次の測定：11月24日（月）</p>
+          <p className="mt-6 text-[0.8rem] leading-[1.9] text-sub">ジャンル「スキンケア」の共有の測定<br />{QUESTIONS.length}個の質問 × {AIS.length}つのAI × {TRIES}回<br />次の測定：11月24日（月）</p>
         </div>
         <div className="min-w-0"><div className="hidden sm:block"><Trend data={data} /></div><div className="sm:hidden"><Trend data={data} W={360} H={200} fs={12} /></div></div>
       </section>
+
+      <Metrics />
 
       <section className="mt-24" aria-labelledby="rk">
         <h2 id="rk" className="text-[1.2rem] font-bold tracking-[.04em]">AIの売り場での順位</h2>
@@ -157,9 +234,11 @@ function Hakaru() {
         </ul>
       </Fold>
 
+      <Fold title="AIが調べたキーワード" sub="質問の裏で、AIが検索した言葉"><Fanout /></Fold>
       <Fold title="AIが根拠にしたサイト" sub="ここに載ると、すすめられやすくなる"><Sources /></Fold>
       <Fold title="お客様がAIに聞くと" sub="いまのページで、AIがどう答えるかの再現"><ChatSim /><Real /></Fold>
       <Fold title="自分で聞いた結果を記録する" sub="ふだん使うAIで試した結果を残す"><SelfLog /></Fold>
+      <div className="mt-14 flex flex-wrap items-center gap-4"><button type="button" onClick={() => exportCsv(s.applied)} className="btn px-6 ring-1 ring-white/15"><Download size={17} />結果をCSVで書き出す</button><span className="text-[0.78rem] text-sub"><J>質問ごと・AIごとの回数。Excelで開けます。</J></span></div>
     </>
   );
 }
