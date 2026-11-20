@@ -481,6 +481,12 @@ function Week() {
 // ---------- 測る：AIの答えを4つの数字で（AI計測ツールと同じことを、小さなお店の料金で） ----------
 const AIBARS = [["ChatGPT", 31], ["Gemini", 24], ["AIモード", 27], ["Copilot", 18], ["Claude", 22], ["Perplexity", 35]] as const;
 const KW = [["敏感肌 化粧水 アルコールフリー", true], ["化粧水 3000円台 比較", true], ["敏感肌 化粧水 口コミ", false], ["敏感肌向け 化粧水 選び方", true]] as const;
+const MTOOLS = [
+  { icon: TrendingUp, t: "毎日の推移と前の期間との比較", d: "7日・28日・90日で、上がったか下がったかを。" },
+  { icon: BarChart3, t: "質問 × AI の一覧", d: "どの質問を、どのAIに聞いたときに出たかを色で。" },
+  { icon: Swords, t: "ほかのブランドとの比較", d: "すすめられた割合・1位・根拠・平均の順位を並べて。" },
+  { icon: Bot, t: "気づきと、データへの質問", d: "数字が動いた理由と次の一手。「負けている質問は？」と聞くだけ。" },
+];
 function Measure() {
   const [ref, on] = useInView<HTMLDivElement>();
   const nums = [{ l: "すすめられた割合", v: 28, u: "%" }, { l: "1位の割合", v: 9, u: "%" }, { l: "自分のサイトが根拠に", v: 46, u: "%" }, { l: "平均の順位", v: 2.1, u: "位", dec: 1 }];
@@ -489,7 +495,7 @@ function Measure() {
       <Reveal className="text-center">
         <p className="text-[1rem] font-semibold text-[#00a37a]">測る</p>
         <h2 className="lp-h mt-2 text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIの答えを、</span><span className="inline-block">4つの数字で。</span></h2>
-        <p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>お客様が聞きそうな質問を、6つのAIにくり返し聞いて数えます。名前が出たか、何番目か、自分のサイトが根拠になったか。</J></p>
+        <p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>お客様が聞きそうな質問を、6つのAIに毎日くり返し聞いて数えます。名前が出たか、何番目か、自分のサイトが根拠になったか。前の期間とくらべて、上がったか下がったかまで。</J></p>
       </Reveal>
       <div ref={ref} className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-20 lg:grid-cols-[1.1fr_1fr]">
         <Reveal className="h-full"><div className="h-full rounded-[28px] bg-white p-6 shadow-[0_30px_60px_-36px_rgba(0,0,0,.28)] sm:p-8">
@@ -510,6 +516,9 @@ function Measure() {
           <p className="mt-5 rounded-2xl bg-[#fdf0ea] px-4 py-3 text-[0.84rem] leading-[1.7] text-[#7c2d12]"><J>「口コミ」で調べられているのに、ページに答えがない。→ 処方箋：レビュー依頼の質問を変える</J></p>
         </div></Reveal>
       </div>
+      <div className="mx-auto mt-4 grid max-w-[64rem] gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {MTOOLS.map(({ icon: Icon, t, d }, i) => <Reveal key={t} delay={i * 80} className="h-full"><div className="h-full rounded-[22px] bg-white/80 p-5"><Icon size={20} strokeWidth={1.8} className="text-[#00a37a]" /><b className="mt-3 block text-[0.98rem]"><J>{t}</J></b><p className="mt-1 text-[0.84rem] leading-[1.75] text-[#6e6e73]"><J>{d}</J></p></div></Reveal>)}
+      </div>
       <Reveal className="mx-auto mt-10 max-w-[40rem] text-center" delay={200}>
         <p className="text-[1.05rem] leading-[1.9] text-[#424245] sm:text-[1.2rem]"><J>測って終わりにしない。足りないところは、そのまま「直す」へ。</J></p>
         <p className="mt-3 text-[0.72rem] text-[#86868b]"><J>数字は架空のブランドでの模擬の結果です。</J></p>
@@ -522,9 +531,10 @@ const FEATURES = [
   { icon: CalendarClock, t: "全商品を毎週点検", d: "8つの項目で、全商品のページを自動で点検。" },
   { icon: Stethoscope, t: "処方箋", d: "書き直し案・よくある質問・構造化データのコード。" },
   { icon: Plug, t: "サイトに反映", d: "Shopifyは押すだけ。楽天・Amazon・Yahoo!はCSVで。" },
-  { icon: BarChart3, t: "6つのAIで測る", d: "すすめられた割合・1位・根拠・平均の順位。" },
+  { icon: BarChart3, t: "6つのAIで毎日測る", d: "4つの数字を、前の期間とくらべて。今すぐ測ることも。" },
   { icon: Search, t: "AIが調べたキーワード", d: "質問の裏の検索に、ページが答えられているか。" },
-  { icon: Swords, t: "よく選ばれる店との差", d: "どの質問で、どの店に、何が足りなくて負けているか。" },
+  { icon: Swords, t: "ほかのブランドとの比較", d: "数字の比較と、ページに書かれていることの差。" },
+  { icon: Bot, t: "データに質問", d: "「負けている質問は？」と聞くと、数字から答える。" },
   { icon: Link2, t: "AIが根拠にしたサイト", d: "載ると有利な記事と、掲載をお願いする文。" },
   { icon: TrendingUp, t: "売上で確かめる", d: "計測タグで、AIから来たお客様と売上を数える。" },
   { icon: Download, t: "CSVで書き出し", d: "結果を、Excelでそのまま開ける形で。" },
@@ -579,7 +589,9 @@ const PILLARS = [
 const COLS = ["TSURETE", "AIに\n自分で頼む", "SEO\nツール", "AI計測ツール\n（月数万円〜）", "1つの作業\nだけのアプリ"];
 const COLS_SP = ["TSURETE", "AIに\n頼む", "SEO\nツール", "AI計測\nツール", "単機能\nアプリ"];
 const ROWS: [string, number[]][] = [
-  ["いくつものAIの答えを数える", [2, 0, 1, 2, 0]],
+  ["いくつものAIの答えを、毎日数える", [2, 0, 1, 2, 0]],
+  ["ほかのブランドと、数字でくらべる", [2, 0, 1, 2, 0]],
+  ["数字の理由と、次の一手を出す", [2, 1, 0, 1, 0]],
   ["AIが調べたキーワードを見る", [2, 0, 0, 2, 0]],
   ["全商品のページを、毎週自動で点検", [2, 0, 1, 0, 0]],
   ["直す文章とコードまで出す", [2, 1, 0, 1, 1]],
@@ -651,7 +663,7 @@ function Safety() {
 const PLANS = [
   { n: "フリー", p: "0", u: "円", d: "まず試したい", f: ["1商品の診断", "足りないところの処方箋", "URL・CSVでの無料診断"] },
   { n: "スタンダード", p: "2,980", u: "円／月", d: "はじめての店に", f: ["50商品まで", "毎週の自動の点検", "処方箋と構造化データのコード", "計測タグで来店と売上を確かめる"], hi: true },
-  { n: "プロ", p: "9,800", u: "円／月", d: "商品が多い店に", f: ["500商品まで", "6つのAIで測る（4つの数字）", "AIが調べたキーワード・よく選ばれる店との差", "AIが根拠にしたサイトと掲載の依頼文", "Shopifyなどへ自動で書きかえ・CSVの書き出し"] },
+  { n: "プロ", p: "9,800", u: "円／月", d: "商品が多い店に", f: ["500商品まで", "6つのAIで毎日測る（4つの数字・前の期間との比較）", "ほかのブランドとの比較・データに質問", "AIが調べたキーワード・よく選ばれる店との差", "AIが根拠にしたサイトと掲載の依頼文", "Shopifyなどへ自動で書きかえ・CSVの書き出し"] },
   { n: "制作会社・代理店", p: "29,800", u: "円／月〜", d: "いくつものお店を見る方に", f: ["10店舗まで（追加できます）", "プロのすべての機能", "お店ごとのレポートを書き出し", "お店の人を招待して一緒に使う"] },
 ];
 function Pricing() {

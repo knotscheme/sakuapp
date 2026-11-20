@@ -247,3 +247,42 @@ export const FANOUT: Record<string, { k: string; sig: Sig | null }[]> = {
 };
 // そのキーワードに、自分のページが答えられているか
 export function covers(product: string, sig: Sig | null, applied: string[]) { return sig ? signals(product, applied)[sig] >= 0.4 : false; }
+
+// ---------- 毎日の測定（直近の推移） ----------
+// 直す前の状態から、直した分だけ最近の数日で上がっていく。数字は架空
+let baseCache: ReturnType<typeof metrics> | null = null;
+const baseM = () => (baseCache ??= metrics([]));
+export type Day = { d: string; pct: number; cite: number; top1: number };
+export function daily(applied: string[], days: number): Day[] {
+  const b = baseM(), c = applied.length ? metrics(applied) : b;
+  const end = new Date(2026, 10, 18);
+  const out: Day[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const dt = new Date(end); dt.setDate(end.getDate() - i);
+    const k = i < 6 ? (6 - i) / 6 : 0; // 直したのはここ6日ほど、という想定
+    const n = (key: string, amp: number) => Math.round((hash(`${key}|${days}|${i}`) - 0.5) * amp);
+    out.push({ d: `${dt.getMonth() + 1}/${dt.getDate()}`, pct: Math.max(0, Math.round(b.pct + (c.pct - b.pct) * k) + n("p", 4)), cite: Math.max(0, Math.round(b.cite + (c.cite - b.cite) * k) + n("c", 6)), top1: Math.max(0, Math.round(b.top1 + (c.top1 - b.top1) * k) + n("t", 2)) });
+  }
+  return out;
+}
+export const avgOf = (xs: Day[], k: keyof Omit<Day, "d">) => (xs.length ? Math.round((xs.reduce((a, x) => a + x[k], 0) / xs.length) * 10) / 10 : 0);
+
+// ---------- 質問 × AI の結果（何回中何回すすめられたか） ----------
+export function grid(applied: string[]) { return QUESTIONS.map((q) => ({ q, by: AIS.map((a) => shown(q, a, applied) / TRIES) })); }
+
+// ---------- ブランドどうしの比較 ----------
+export function brands(applied: string[]) {
+  const c: Record<string, { n: number; top1: number; rank: number }> = {};
+  let total = 0;
+  for (const q of QUESTIONS) for (const a of AIS) for (let t = 0; t < TRIES; t++) {
+    total++;
+    answer(q, a, applied, t).forEach((x, i) => { const r = (c[x.brand] ??= { n: 0, top1: 0, rank: 0 }); r.n++; r.rank += i + 1; if (i === 0) r.top1++; });
+  }
+  const m = metrics(applied);
+  return Object.entries(c).map(([name, r]) => {
+    const me = name === BRAND.name;
+    const has = RIVAL_HAS[name] ?? [];
+    const cite = me ? m.cite : Math.round(30 + (has.includes("data") ? 18 : 0) + (has.includes("faq") ? 12 : 0) + hash(`cite|${name}`) * 10);
+    return { name, me, pct: Math.round((r.n / total) * 100), top1: Math.round((r.top1 / total) * 100), avg: Math.round((r.rank / r.n) * 10) / 10, cite };
+  }).sort((a, b) => b.pct - a.pct);
+}

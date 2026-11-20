@@ -2,29 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRight, Check, Download, ExternalLink, Mail, Minus, NotebookPen, Plus, Search, X } from "lucide-react";
+import { ArrowRight, Check, Download, ExternalLink, Lightbulb, Mail, MessageSquare, Minus, NotebookPen, Plus, RefreshCw, Search, Send, TrendingDown, TrendingUp, X } from "lucide-react";
 import { toast } from "@/components/Confirm";
 import Shell, { Title } from "@/components/Shell";
 import Ready from "@/components/Ready";
 import Fold from "@/components/Fold";
 import { ChatSim, Real } from "@/components/ChatSim";
-import { AIS, BRAND, FANOUT, PRODUCTS, QUESTIONS, RIVAL_HAS, SIGNALS, TRIES, WEEKS, covers, fmt, metrics, shelf, shown, signals, winners, type Sig } from "@/lib/demo";
+import { AIS, BRAND, FANOUT, FIXES, avgOf, brands, daily, grid, type Day, PRODUCTS, QUESTIONS, RIVAL_HAS, SIGNALS, TRIES, covers, metrics, shown, signals, winners, type Sig } from "@/lib/demo";
 import { uid, update, useStore } from "@/lib/store";
 import J from "@/components/J";
-
-// 週ごとの推薦率の折れ線
-function Trend({ data, W = 640, H = 180, fs = 10 }: { data: { w: string; p: number }[]; W?: number; H?: number; fs?: number }) {
-  const P = 28, max = 80;
-  const x = (i: number) => P + (i * (W - P * 2)) / (data.length - 1), y = (v: number) => H - P - (v / max) * (H - P * 2);
-  const d = data.map((p, i) => `${i ? "L" : "M"}${x(i)},${y(p.p)}`).join(" ");
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="週ごとのAI推薦率のグラフ">
-      {[0, 40, 80].map((v) => <g key={v}><line x1={P} x2={W - P} y1={y(v)} y2={y(v)} stroke="rgba(255,255,255,.06)" /><text x={0} y={y(v) + 4} fontSize={fs} fill="#6b7b98">{v}%</text></g>)}
-      <path d={d} fill="none" stroke="#10d9a0" strokeWidth="2.5" strokeLinejoin="round" />
-      {data.map((p, i) => <g key={p.w}><circle cx={x(i)} cy={y(p.p)} r={i === data.length - 1 ? 5 : 3} fill={i === data.length - 1 ? "#10d9a0" : "#0b1426"} stroke="#10d9a0" strokeWidth="2" />{(W > 400 || i % 2 === 0 || i === data.length - 1) && <text x={x(i)} y={H - 6} fontSize={fs} fill={i === data.length - 1 ? "#10d9a0" : "#6b7b98"} textAnchor="middle">{p.w}</text>}</g>)}
-    </svg>
-  );
-}
 
 // AIが答えの根拠にしたサイト（共有の測定で集めた、架空のデータ）
 const SOURCES = [
@@ -159,49 +145,179 @@ function exportCsv(applied: string[]) {
   toast("CSVを書き出しました");
 }
 
+// ---------- 毎日の推移：期間を選び、前の期間とくらべる ----------
+const LINES: { k: keyof Omit<Day, "d">; l: string; c: string }[] = [
+  { k: "pct", l: "すすめられた割合", c: "#10d9a0" },
+  { k: "cite", l: "自分のサイトが根拠に", c: "#38bdf8" },
+  { k: "top1", l: "1位の割合", c: "#f2b84b" },
+];
+function DailyChart({ data, W = 680, H = 210, fs = 10 }: { data: Day[]; W?: number; H?: number; fs?: number }) {
+  const P = 30, max = Math.max(20, ...data.flatMap((d) => LINES.map((l) => d[l.k]))) * 1.15;
+  const x = (i: number) => P + (i * (W - P * 2)) / Math.max(1, data.length - 1), y = (v: number) => H - P - (v / max) * (H - P * 2);
+  const step = Math.ceil(data.length / 7);
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="毎日の推移のグラフ">
+      {[0, 0.5, 1].map((f) => <g key={f}><line x1={P} x2={W - P} y1={y(max * f)} y2={y(max * f)} stroke="rgba(255,255,255,.06)" /><text x={0} y={y(max * f) + 4} fontSize={fs} fill="#6b7b98">{Math.round(max * f)}%</text></g>)}
+      {LINES.map((l) => <path key={l.k} d={data.map((p, i) => `${i ? "L" : "M"}${x(i)},${y(p[l.k])}`).join(" ")} fill="none" stroke={l.c} strokeWidth="2.2" strokeLinejoin="round" />)}
+      {data.map((p, i) => (i % step === 0 || i === data.length - 1) && <text key={p.d} x={x(i)} y={H - 8} fontSize={fs} fill="#6b7b98" textAnchor="middle">{p.d}</text>)}
+    </svg>
+  );
+}
+function Daily() {
+  const s = useStore();
+  const [days, setDays] = useState(28);
+  const [now, setNow] = useState<null | "run" | "done">(null);
+  const [prog, setProg] = useState(0);
+  const all = daily(s.applied, days * 2), cur = all.slice(days), prev = all.slice(0, days);
+  const run = () => {
+    setNow("run"); setProg(0);
+    AIS.forEach((_, i) => setTimeout(() => setProg(i + 1), 350 * (i + 1)));
+    setTimeout(() => { setNow("done"); toast("いまの状態で測りなおしました"); }, 350 * AIS.length + 250);
+  };
+  return (
+    <section aria-label="毎日の推移">
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex rounded-full bg-white/[.05] p-1 text-[0.8rem]" role="tablist" aria-label="期間">
+          {[7, 28, 90].map((d) => <button key={d} type="button" role="tab" aria-selected={days === d} onClick={() => setDays(d)} className={`rounded-full px-3.5 py-1.5 ${days === d ? "bg-ai font-bold text-paper" : "text-sub"}`}>{d}日</button>)}
+        </div>
+        <button type="button" onClick={run} disabled={now === "run"} className="btn ml-auto px-5 ring-1 ring-white/15 disabled:opacity-60"><RefreshCw size={16} className={now === "run" ? "animate-spin" : ""} />{now === "run" ? `測っています（${prog}/${AIS.length}）` : "今すぐ測る"}</button>
+      </div>
+      <p className="mt-3 text-[0.78rem] text-sub">毎日の自動の測定（毎朝6時）{now === "done" ? "・いま測りなおしました" : "・最後の測定：今日 6:00"}</p>
+      <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-3">
+        {LINES.map((l) => {
+          const a = avgOf(cur, l.k), b = avgOf(prev, l.k), d = Math.round((a - b) * 10) / 10;
+          return (
+            <div key={l.k} className="card min-w-0 p-3 sm:p-5">
+              <p className="flex items-center gap-1.5 text-[0.7rem] leading-[1.4] text-sub sm:text-[0.8rem]"><i className="h-2 w-2 shrink-0 rounded-full" style={{ background: l.c }} /><J>{l.l}</J></p>
+              <p className="mt-2"><b className="num text-[1.4rem] leading-none sm:text-[2rem]">{a}</b><span className="ml-0.5 text-[0.75rem] text-sub">%</span></p>
+              <p className={`num mt-2 flex items-center gap-1 text-[0.72rem] sm:text-[0.8rem] ${d > 0 ? "text-ai" : d < 0 ? "text-warn" : "text-sub"}`}>{d > 0 ? <TrendingUp size={13} /> : d < 0 ? <TrendingDown size={13} /> : null}{d > 0 ? "+" : ""}{d}pt<span className="hidden text-sub sm:inline">（前の{days}日）</span></p>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-6"><div className="hidden sm:block"><DailyChart data={cur} /></div><div className="sm:hidden"><DailyChart data={cur} W={360} H={220} fs={12} /></div></div>
+    </section>
+  );
+}
+
+// ---------- 気づき：数字が動いた理由と、次の一手 ----------
+function Insights() {
+  const s = useStore();
+  const g = grid(s.applied), m = metrics(s.applied), w = winners(s.applied);
+  const weakQ = [...g].sort((a, b) => a.by.reduce((x, y) => x + y, 0) - b.by.reduce((x, y) => x + y, 0))[0];
+  const weakWin = w.find((r) => r.q.id === weakQ.q.id)!;
+  const weakAi = [...m.byAi].sort((a, b) => a.pct - b.pct)[0];
+  const done = FIXES.filter((f) => s.applied.includes(f.id));
+  const next = FIXES.find((f) => !s.applied.includes(f.id));
+  const miss = (FANOUT[weakQ.q.id] ?? []).filter((k) => !covers(weakQ.q.product, k.sig, s.applied));
+  const items = [
+    done.length ? { t: `直した${done.length}件が効きはじめています`, d: `「${done[done.length - 1].title}」などを反映したあとの数日で、すすめられた割合が上がっています。`, good: true } : { t: "まだ、何も直していません", d: "いまの数字は、直す前の状態です。下の「次の一手」から始めましょう。", good: false },
+    { t: `いちばん負けている質問：「${weakQ.q.text}」`, d: `この質問では「${weakWin.top}」がよくすすめられています。${miss.length ? `AIが調べた「${miss[0].k}」に、SORAEのページが答えられていません。` : ""}`, good: false },
+    { t: `いちばん弱いAI：${weakAi.ai}（${weakAi.pct}%）`, d: weakAi.ai === "Perplexity" ? "Perplexityは、外の記事を根拠にしやすいAIです。比較記事への掲載が効きます。" : "このAIは、AIが読める商品データ（構造化データ）をよく見ます。", good: false },
+  ];
+  return (
+    <section className="mt-20" aria-labelledby="ins">
+      <h2 id="ins" className="flex items-center gap-2 text-[1.2rem] font-bold tracking-[.04em]"><Lightbulb size={20} className="text-ai" />気づきと、次の一手</h2>
+      <ul className="mt-6 space-y-3">{items.map((x) => <li key={x.t} className="card p-5"><b className={`block text-[0.95rem] leading-[1.6] ${x.good ? "text-ai" : ""}`}><J>{x.t}</J></b><p className="mt-1.5 text-[0.86rem] leading-[1.85] text-sub"><J>{x.d}</J></p></li>)}</ul>
+      {next && <Link href="/naosu/" className="btn btn-ai mt-6 h-auto max-w-full whitespace-normal px-6 py-3 text-left leading-[1.6]"><span className="min-w-0">次の一手：<J>{next.title}</J></span><ArrowRight size={18} className="shrink-0" /></Link>}
+    </section>
+  );
+}
+
+// ---------- 質問 × AI の一覧（色の濃さ＝すすめられた割合） ----------
+function Heat() {
+  const s = useStore();
+  const g = grid(s.applied);
+  const col = (v: number) => v === 0 ? "rgba(255,255,255,.05)" : `rgba(16,217,160,${0.18 + v * 0.82})`;
+  return (
+    <section className="mt-20" aria-labelledby="ht">
+      <h2 id="ht" className="text-[1.2rem] font-bold tracking-[.04em]">質問 × AI</h2>
+      <p className="mt-2 text-[0.88rem] text-sub"><J>どの質問を、どのAIに聞いたときに、すすめられたか。色が濃いほど、よくすすめられています。</J></p>
+      <div className="mt-6 overflow-x-auto">
+        <table className="w-full min-w-[46rem] table-fixed text-[0.78rem]">
+          <thead><tr className="text-sub"><th className="w-[42%] py-2 text-left font-medium">質問</th>{AIS.map((a) => <th key={a} className="px-1 py-2 text-center font-medium">{a}</th>)}</tr></thead>
+          <tbody>{g.map((r) => <tr key={r.q.id} className="border-t hair"><td className="py-2.5 pr-2 leading-[1.5]"><J>{r.q.text}</J></td>{r.by.map((v, i) => <td key={i} className="p-1"><span className="num block rounded-md py-2 text-center text-[0.72rem]" style={{ background: col(v), color: v > 0.45 ? "#03140f" : "#9fb0c8" }}>{Math.round(v * 100)}</span></td>)}</tr>)}</tbody>
+        </table>
+      </div>
+      <p className="mt-2 text-[0.72rem] text-sub">数字は、{TRIES}回聞いたうちの割合（%）です。</p>
+    </section>
+  );
+}
+
+// ---------- ブランドどうしの比較 ----------
+function Brands() {
+  const s = useStore();
+  const b = brands(s.applied);
+  return (
+    <section className="mt-20" aria-labelledby="br">
+      <h2 id="br" className="text-[1.2rem] font-bold tracking-[.04em]">ほかのブランドとの比較</h2>
+      <p className="mt-2 text-[0.88rem] text-sub"><J>同じ質問で、どのブランドが、どれくらい、何番目にすすめられたか。</J></p>
+      <div className="mt-6 overflow-x-auto">
+        <table className="w-full min-w-[32rem] text-[0.86rem]">
+          <thead><tr className="border-b hair text-[0.75rem] text-sub"><th className="py-2.5 text-left font-medium">ブランド</th><th className="py-2.5 text-right font-medium">すすめられた</th><th className="py-2.5 text-right font-medium">1位</th><th className="py-2.5 text-right font-medium">根拠に</th><th className="py-2.5 text-right font-medium">平均の順位</th></tr></thead>
+          <tbody>{b.map((r, i) => <tr key={r.name} className={`border-b hair ${r.me ? "text-ai" : ""}`}><td className="py-3"><span className="num mr-3 text-sub">{i + 1}</span><b>{r.name}</b></td><td className="num text-right">{r.pct}%</td><td className="num text-right">{r.top1}%</td><td className="num text-right">{r.cite}%</td><td className="num text-right">{r.avg}位</td></tr>)}</tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+// ---------- データに質問する（決まった質問に、測った結果から答える） ----------
+const ASKS = ["負けている質問は？", "いちばん弱いAIは？", "次に何を直せばいい？", "ほかのブランドとの差は？"];
+function Ask() {
+  const s = useStore();
+  const [log, setLog] = useState<{ q: string; a: string }[]>([]);
+  const [text, setText] = useState("");
+  const reply = (q: string) => {
+    const g = grid(s.applied), m = metrics(s.applied), b = brands(s.applied), w = winners(s.applied);
+    const t = q.replace(/\s/g, "");
+    let a = "";
+    if (/負け|弱い質問|質問/.test(t) && !/AI/.test(t)) {
+      const lose = w.filter((r) => r.top !== BRAND.name).sort((x, y) => x.me - y.me).slice(0, 3);
+      a = `いちばん負けているのは、次の${lose.length}つです。\n` + lose.map((r, i) => `${i + 1}. 「${r.q.text}」：いちばんは${r.top}、SORAEは${Math.round((r.me / r.max) * 100)}%`).join("\n");
+    } else if (/AI/.test(t)) {
+      const o = [...m.byAi].sort((x, y) => x.pct - y.pct);
+      a = `いちばん弱いのは${o[0].ai}（${o[0].pct}%）、いちばん強いのは${o[o.length - 1].ai}（${o[o.length - 1].pct}%）です。`;
+    } else if (/直|次|やる/.test(t)) {
+      const n = FIXES.filter((f) => !s.applied.includes(f.id)).slice(0, 2);
+      a = n.length ? `次は「${n[0].title}」がおすすめです（目安${n[0].effort}）。${n[1] ? `そのあと「${n[1].title}」。` : ""}` : "用意した対策は、すべて反映ずみです。";
+    } else if (/差|ブランド|比較|競合/.test(t)) {
+      const top = b[0], me = b.find((r) => r.me)!;
+      a = top.me ? `いまはSORAEがいちばんすすめられています（${me.pct}%）。` : `いちばんは${top.name}（${top.pct}%）で、SORAEは${me.pct}%です。差は${top.pct - me.pct}ポイント。根拠になった割合は${top.name}が${top.cite}%、SORAEが${me.cite}%です。`;
+    } else a = "いまは、下の決まった質問に答えられます。\n" + ASKS.join("／");
+    setLog((l) => [...l, { q, a }]); setText("");
+    void g;
+  };
+  return (
+    <div>
+      <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>測った結果について、ことばで聞けます。答えは、このページの数字から作ります（AIの利用料はかかりません）。</J></p>
+      <div className="mt-5 flex flex-wrap gap-2">{ASKS.map((q) => <button key={q} type="button" onClick={() => reply(q)} className="rounded-full px-3.5 py-1.5 text-[0.82rem] ring-1 ring-white/15 hover:bg-white/[.04]">{q}</button>)}</div>
+      {log.length > 0 && <ul className="mt-6 space-y-4">{log.slice(-4).map((x, i) => <li key={i}><p className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-md bg-ai/15 px-4 py-2.5 text-[0.88rem]">{x.q}</p><p className="mt-2 w-fit max-w-[92%] whitespace-pre-line rounded-2xl rounded-bl-md bg-white/[.05] px-4 py-3 text-[0.88rem] leading-[1.85]"><J>{x.a}</J></p></li>)}</ul>}
+      <form onSubmit={(e) => { e.preventDefault(); if (text.trim()) reply(text.trim()); }} className="mt-5 flex gap-2">
+        <label className="sr-only" htmlFor="ask">質問</label>
+        <input id="ask" value={text} onChange={(e) => setText(e.target.value.slice(0, 60))} placeholder="例：負けている質問は？" className="field" />
+        <button type="submit" className="btn btn-ai shrink-0 px-4" aria-label="送る"><Send size={17} /></button>
+      </form>
+    </div>
+  );
+}
+
 function Hakaru() {
   const s = useStore();
-  const sh = shelf(s.applied);
-  const data = [...WEEKS, { w: "今週", p: sh.pct }];
-  const diff = sh.pct - WEEKS[WEEKS.length - 1].p;
-  const rank = [...sh.rivals.slice(0, 4), { name: BRAND.name, n: sh.total }].sort((a, b) => b.n - a.n);
-  const myPos = rank.findIndex((r) => r.name === BRAND.name) + 1;
   const mine = (k: Sig) => PRODUCTS.reduce((a, p) => a + signals(p.id, s.applied)[k], 0) / PRODUCTS.length >= 0.4;
   const cols = [BRAND.name, ...Object.keys(RIVAL_HAS)];
   const win = winners(s.applied);
   return (
     <>
-      <Title n="PRO" title="測る" lead="同じジャンルのお店とまとめてAIに聞いた結果を、共有して見る画面です（プロプラン）。どの質問で、どの店に負けているかが分かります。お店がAIの利用料を払う必要はありません。数字は目安です。" />
+      <Title n="PRO" title="測る" lead="お客様が聞きそうな質問を、6つのAIに毎日くり返し聞いた結果です（プロプラン）。名前が出たか、何番目か、自分のサイトが根拠になったか、どの店に負けているかが分かります。お店がAIの利用料を払う必要はありません。数字は架空のブランドでの模擬の結果です。" />
 
-      <section aria-label="今週の結果" className="grid gap-12 md:grid-cols-[auto_1fr] md:gap-16">
-        <div>
-          <p className="text-[0.85rem] text-sub">今週、AIにすすめられた割合</p>
-          <p className="mt-2"><b className="num text-[4.2rem] leading-none text-ai">{sh.pct}</b><span className="ml-1 text-[1.2rem] text-sub">%</span></p>
-          <p className={`num mt-3 text-[0.88rem] ${diff > 0 ? "text-ai" : "text-sub"}`}>{diff > 0 ? `先週より +${diff}ポイント` : diff < 0 ? `先週より ${diff}ポイント` : "先週と同じ"}</p>
-          <p className="mt-6 text-[0.8rem] leading-[1.9] text-sub">ジャンル「スキンケア」の共有の測定<br />{QUESTIONS.length}個の質問 × {AIS.length}つのAI × {TRIES}回<br />次の測定：11月24日（月）</p>
-        </div>
-        <div className="min-w-0"><div className="hidden sm:block"><Trend data={data} /></div><div className="sm:hidden"><Trend data={data} W={360} H={200} fs={12} /></div></div>
-      </section>
+      <Daily />
 
       <Metrics />
 
-      <section className="mt-24" aria-labelledby="rk">
-        <h2 id="rk" className="text-[1.2rem] font-bold tracking-[.04em]">AIの売り場での順位</h2>
-        <p className="mt-2 text-[0.88rem] text-sub"><J>同じ質問で、どのブランドがすすめられたか。</J><span className="whitespace-nowrap">いまは <b className="text-ink">{myPos}位</b> です。</span></p>
-        <ol className="mt-8 border-t hair">
-          {rank.map((r, i) => {
-            const me = r.name === BRAND.name;
-            return (
-              <li key={r.name} className="grid grid-cols-[2rem_7.5rem_1fr_3.5rem] items-center gap-4 border-b hair py-4 text-[0.92rem] sm:grid-cols-[2.5rem_10rem_1fr_4rem]">
-                <span className={`num ${me ? "text-ai" : "text-sub"}`}>{i + 1}</span>
-                <b className={`truncate ${me ? "text-ai" : ""}`}>{r.name}</b>
-                <span className="h-1.5 overflow-hidden rounded-full bg-white/[.06]"><span className={`block h-full rounded-full transition-all duration-700 ${me ? "bg-ai" : "bg-[#2a3b5c]"}`} style={{ width: `${(r.n / rank[0].n) * 100}%` }} /></span>
-                <span className="num text-right text-sub">{Math.round((r.n / sh.max) * 100)}%</span>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
+      <Insights />
+      <Heat />
+      <Brands />
 
       <div className="mt-20" />
       <Fold title="よくすすめられている店との差" sub="ページに書かれていることの比較">
@@ -234,6 +350,7 @@ function Hakaru() {
         </ul>
       </Fold>
 
+      <Fold title="データに質問する" sub="「負けている質問は？」のように、ことばで聞く" open><Ask /></Fold>
       <Fold title="AIが調べたキーワード" sub="質問の裏で、AIが検索した言葉"><Fanout /></Fold>
       <Fold title="AIが根拠にしたサイト" sub="ここに載ると、すすめられやすくなる"><Sources /></Fold>
       <Fold title="お客様がAIに聞くと" sub="いまのページで、AIがどう答えるかの再現"><ChatSim /><Real /></Fold>
