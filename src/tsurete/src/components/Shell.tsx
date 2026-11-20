@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import J from "@/components/J";
 import { FIXES } from "@/lib/demo";
 import { useMounted, useStore } from "@/lib/store";
-import { BookOpen, GraduationCap, Home, Settings, Stethoscope, TrendingUp, Wand2 } from "lucide-react";
+import { GraduationCap, Home, Settings, Stethoscope, TrendingUp, Wand2 } from "lucide-react";
 
 export const NAV = [
   { href: "/", label: "ホーム", short: "ホーム", icon: Home, n: "" },
@@ -43,7 +43,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           </nav>
           <div className="ml-auto flex items-center gap-1">
             <span className="mr-2 hidden items-center gap-2 text-[0.8rem] text-sub sm:flex"><span className="grid h-6 w-6 place-items-center rounded-full bg-ai/15 text-[0.62rem] font-bold text-ai">S</span>SORAE</span>
-            {icon("/manabu/", "学ぶ", GraduationCap)}{icon("/guide/", "使い方", BookOpen)}{icon("/settings/", "設定", Settings)}
+            {icon("/manabu/", "学ぶ・使い方", GraduationCap)}{icon("/settings/", "設定", Settings)}
           </div>
         </div>
       </header>
