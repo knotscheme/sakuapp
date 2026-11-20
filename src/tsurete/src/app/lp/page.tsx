@@ -6,10 +6,11 @@ import LineChart from "@/components/LineChart";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, BarChart3, Bot, CalendarClock, Check, Download, Minus, ChevronRight, Copy, FileSpreadsheet, KeyRound, Link2, Mail, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, ShieldCheck, Stethoscope, Swords, TrendingUp, X } from "lucide-react";
+import { ArrowRight, BarChart3, Bot, CalendarClock, GraduationCap, Award, Clock, Check, Download, Minus, ChevronRight, Copy, FileSpreadsheet, KeyRound, Link2, Mail, MousePointerClick, PenLine, Plug, Plus, RotateCcw, Rss, Search, ShieldCheck, Stethoscope, Swords, TrendingUp, X } from "lucide-react";
 import J from "@/components/J";
 import { Laptop, Phone } from "@/components/Devices";
 import { SAMPLE_URL } from "@/lib/check";
+import { BookOpen as BookIcon } from "lucide-react";
 import { PLATFORMS, type Method } from "@/lib/platforms";
 
 const IMG = "/sakuapp/works/tsurete/img/lp";
@@ -527,6 +528,7 @@ const FEATURES = [
   { icon: Link2, t: "AIが根拠にしたサイト", d: "載ると有利な記事と、掲載をお願いする文。" },
   { icon: TrendingUp, t: "売上で確かめる", d: "計測タグで、AIから来たお客様と売上を数える。" },
   { icon: Download, t: "CSVで書き出し", d: "結果を、Excelでそのまま開ける形で。" },
+  { icon: GraduationCap, t: "学べる講座", d: "1レッスン約3分。確認テストと修了証つき。" },
 ];
 function Features() {
   return (
@@ -537,6 +539,33 @@ function Features() {
           <Reveal key={t} delay={(i % 3) * 90} className="h-full"><li className="flex h-full gap-4 rounded-[24px] bg-white/80 p-6"><span className="num w-7 shrink-0 pt-0.5 text-[0.85rem] font-semibold text-[#86868b]">{String(i + 1).padStart(2, "0")}</span><span className="min-w-0"><Icon size={22} strokeWidth={1.7} className="text-[#00a37a]" /><b className="mt-3 block text-[1.05rem]"><J>{t}</J></b><span className="mt-1 block text-[0.88rem] leading-[1.75] text-[#6e6e73]"><J>{d}</J></span></span></li></Reveal>
         ))}
       </ol>
+    </section>
+  );
+}
+
+// ---------- 学ぶ：小さなお店向けの短い講座 ----------
+const COURSE = [["知る", "AIで買い物をする時代に、何が変わったのか"], ["点検する", "自分のページの、どこが足りないかを見つける"], ["直す", "AIにも人にも伝わる商品ページの書き方"], ["届ける", "直したページを、AIが見る場所へ"], ["確かめる", "効いたかどうかを、数字とお金で見る"]];
+function Learn() {
+  return (
+    <section id="learn" className="scroll-mt-12 px-5 py-24 sm:py-36">
+      <div className="mx-auto grid max-w-[64rem] items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+        <Reveal>
+          <p className="text-[1rem] font-semibold text-[#00a37a]">学ぶ</p>
+          <h2 className="lp-h mt-2 text-[2rem] sm:text-[3rem]"><span className="inline-block">お店の人が、</span><span className="inline-block">AI担当になれる。</span></h2>
+          <p className="mt-5 text-[1.02rem] leading-[1.95] text-[#6e6e73]"><J>何時間も動画を見る必要はありません。1レッスン約3分の文章で、読んだらそのまま自分のお店の画面で試せます。登録なし・無料で、だれでも読めます。</J></p>
+          <ul className="mt-8 flex flex-wrap gap-2">{[["5章・15レッスン", BookIcon], ["1つ約3分", Clock], ["確認テスト", Check], ["お店の名前入りの修了証", Award]].map(([t, I]) => { const Ic = I as typeof Check; return <li key={t as string} className="flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-[0.84rem] font-semibold"><Ic size={15} className="text-[#00a37a]" />{t as string}</li>; })}</ul>
+          <Link href="/manabu/" className="btn btn-ai mt-9 px-7">講座を読んでみる<ArrowRight size={18} /></Link>
+        </Reveal>
+        <Reveal delay={150}>
+          <div className="rounded-[28px] bg-white p-6 shadow-[0_30px_60px_-36px_rgba(0,0,0,.28)] sm:p-8">
+            <p className="flex items-center gap-2 text-[0.9rem] font-semibold"><GraduationCap size={18} className="text-[#00a37a]" />AIに選ばれる商品ページ講座</p>
+            <ol className="mt-5 divide-y divide-black/[.06]">
+              {COURSE.map(([t, d], i) => <li key={t} className="flex items-center gap-4 py-3.5"><span className="num grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#e3f6ef] text-[0.8rem] font-bold text-[#00805f]">{i + 1}</span><span className="min-w-0 flex-1"><b className="block text-[0.95rem]">第{i + 1}章　{t}</b><span className="block text-[0.8rem] leading-[1.6] text-[#6e6e73]"><J>{d}</J></span></span><span className="shrink-0 text-[0.72rem] text-[#86868b]">3レッスン</span></li>)}
+            </ol>
+            <p className="mt-4 rounded-2xl bg-[#f5f5f7] px-4 py-3 text-[0.82rem] leading-[1.7] text-[#424245]"><J>各章のあとに確認テスト。全部合格すると、修了証をその場で受け取れます。</J></p>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -667,6 +696,7 @@ const FAQ = [
   { q: "必ずAIにすすめられるようになりますか？", a: "いいえ、保証はできません。AIの答えは、AIを作っている会社のしくみで決まります。TSURETEは、AIが読み取りやすいページになるよう材料をそろえ、効いたかどうかを実際の来店と売上で確かめます。" },
   { q: "AIの答えは、人によって変わるのでは？", a: "変わります。だからTSURETEは、AIの答えを当てにいくのではなく、AIが読み取りやすいページかを点検して直します。効いたかどうかは、計測タグで実際の来店と売上を見て確かめます。どの質問で負けているかは、プロプランの共有の測定で目安を出します。" },
   { q: "AIの答えを測るツールとは、何が違いますか？", a: "測るツールは、AIにどれだけ名前が出ているかを教えてくれます。TSURETEも同じように6つのAIで測りますが、そこで終わりません。足りないところを商品ページごとに見つけて、直す文章とコードを出し、ショップに反映し、AIから来たお客様と売上まで確かめます。料金も、小さなお店が続けられる額にしています。" },
+  { q: "AI対策の知識がなくても使えますか？", a: "使えます。点検と書き直し案はTSURETEが出すので、お店の人は読んで選ぶだけです。考え方を知りたい方のために、1レッスン約3分の講座（全5章・15レッスン、確認テストと修了証つき）を、登録なし・無料で用意しています。" },
   { q: "ハックや裏技は使いますか？", a: "使いません。AIをだます方法は、見つかると逆に外されるおそれがあります。TSURETEは、比較表やよくある質問、構造化データなど、AIにも人にも分かりやすいページにする、まっとうな方法だけを使います。" },
   { q: "お店の作業は、どれくらいですか？", a: "点検は、すべて自動です。お店の人は、毎週届く処方箋を読んで、コピーして貼るか、使う案のボタンを押すだけです。目安は週に5分ほどです。" },
   { q: "サイトの文章が、勝手に変わることはありますか？", a: "ありません。サイトが変わるのは、お店の人が「この案を使う」を押したものだけです。書きかえる前の文章は残しておくので、いつでも戻せます。" },
@@ -692,8 +722,8 @@ function Faq() {
 
 // セクションごとの背景の色（スクロールに合わせて、となりの色へとけるように変わる）
 // 黒い場面（4番目）は、その場面だけ黒。ページ全体まで黒にすると、手前の文字が読めなくなるため
-const BG = ["#ffffff", "#eaf3fd", "#f8f3ea", "#f8f3ea", "#f0eefa", "#e8f6ef", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#f2f2f5", "#e8f6ef", "#f8f3ea", "#f0eefa", "#e8f6ef", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#ffffff", "#e8f6ef"];
-const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","点検は自動","しくみ","測る","お店の1週間","使う前と後","対応サイト","小さなお店へ","機能","選ばれる理由","安心","料金","はじめ方","よくある質問","無料診断"];
+const BG = ["#ffffff", "#eaf3fd", "#f8f3ea", "#f8f3ea", "#f0eefa", "#e8f6ef", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#f2f2f5", "#e8f6ef", "#f8f3ea", "#f0eefa", "#e8f6ef", "#f8f3ea", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#ffffff", "#e8f6ef"];
+const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","点検は自動","しくみ","測る","お店の1週間","使う前と後","対応サイト","小さなお店へ","機能","学ぶ","選ばれる理由","安心","料金","はじめ方","よくある質問","無料診断"];
 
 // LPに出す数字（各社の公開調査。数字を変えるときは、出典も必ず一緒に直す）
 const STATS = [
@@ -719,7 +749,7 @@ export default function Page() {
       <header className={`sticky top-0 z-40 border-b backdrop-blur-xl transition-colors duration-500 ${dark ? "border-white/10 bg-black/70 text-white" : "border-black/5 bg-white/75"}`}>
         <div className="mx-auto flex h-12 max-w-[1000px] items-center gap-8 px-5 text-[0.8rem]">
           <Link href="/lp/" className="flex items-center gap-1.5 font-semibold tracking-[.18em]"><span className="h-1.5 w-1.5 rounded-full bg-[#00a37a]" />TSURETE</Link>
-          <nav className={`hidden gap-7 sm:flex ${dark ? "text-white/70" : "text-[#424245]"}`}><a href="#how" className="hover:text-black">しくみ</a><a href="#measure" className="hover:text-black">測る</a><a href="#features" className="hover:text-black">機能</a><a href="#sites" className="hover:text-black">対応サイト</a><a href="#price" className="hover:text-black">料金</a><a href="#faq" className="hover:text-black">よくある質問</a><a href="#try" className="hover:text-black">無料診断</a></nav>
+          <nav className={`hidden gap-7 sm:flex ${dark ? "text-white/70" : "text-[#424245]"}`}><a href="#how" className="hover:text-black">しくみ</a><a href="#measure" className="hover:text-black">測る</a><a href="#features" className="hover:text-black">機能</a><a href="#learn" className="hover:text-black">学ぶ</a><a href="#sites" className="hover:text-black">対応サイト</a><a href="#price" className="hover:text-black">料金</a><a href="#faq" className="hover:text-black">よくある質問</a><a href="#try" className="hover:text-black">無料診断</a></nav>
           <Link href="/" className={`ml-auto rounded-full px-3.5 py-1 text-[0.78rem] font-semibold transition-colors ${dark ? "bg-white text-black" : "bg-[#1d1d1f] text-white"}`}>デモを使う</Link>
         </div>
       </header>
@@ -829,6 +859,7 @@ export default function Page() {
         </section>
 
         <Features />
+        <Learn />
         <Compare />
 
         <Safety />

@@ -61,7 +61,7 @@ function Dashboard() {
         ) : <p className="mt-4 text-[0.9rem] text-sub">今週やることは、すべて終わりました。</p>}
       </section>
 
-      <p className="mt-14 text-[0.8rem] leading-[1.9] text-sub">次の自動の点検：11月24日（月）{plat ? `・サイト：${plat.name}` : ""}<br /><Link href="/hakaru/" className="text-ai underline underline-offset-4">AIの中での順位を見る（プロ）</Link></p>
+      <p className="mt-14 text-[0.8rem] leading-[1.9] text-sub">次の自動の点検：11月24日（月）{plat ? `・サイト：${plat.name}` : ""}<br /><Link href="/hakaru/" className="text-ai underline underline-offset-4">AIの中での順位を見る（プロ）</Link><br /><Link href="/manabu/" className="text-ai underline underline-offset-4">AI対策を学ぶ（1レッスン約3分）</Link></p>
     </>
   );
 }

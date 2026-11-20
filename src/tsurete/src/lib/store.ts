@@ -16,9 +16,11 @@ export type State = {
   tag: "" | "ok"; // 計測タグが届いているか（デモ）
   csv: boolean; // 注文CSVを取りこんだか（タグを貼れないサイト）
   log: { id: string; q: string; ai: string; rank: number; at: string }[]; // 自分でAIに聞いた結果の記録（0は「出なかった」）
+  learn: string[]; // 学ぶ：読んだレッスン
+  passed: string[]; // 学ぶ：合格した章の確認テスト
 };
 const KEY = "tsr-state-v2";
-export const SEED: State = { v: 2, applied: [], orders: [], real: { brand: "", item: "", kind: "" }, site: "", sent: [], feed: false, measure: { ais: ["ChatGPT", "Gemini", "Claude", "Perplexity"], tries: 5 }, tag: "", csv: false, log: [] };
+export const SEED: State = { v: 2, applied: [], orders: [], real: { brand: "", item: "", kind: "" }, site: "", sent: [], feed: false, measure: { ais: ["ChatGPT", "Gemini", "Claude", "Perplexity"], tries: 5 }, tag: "", csv: false, log: [], learn: [], passed: [] };
 let st: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {
