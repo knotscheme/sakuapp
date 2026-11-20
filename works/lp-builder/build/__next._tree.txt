@@ -4,4 +4,4 @@
 :HL["/sakuapp/works/lp-builder/_next/static/media/c0680f1bdb3a2e90-s.p.1gsd1jahc5dg_.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"build","h":96,"c":"$Q2"}]]
-0:{"b":"Fmbx3tVrXvp_aMWL7QVrP","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"M85YXloCPzhlMnwj8u79b","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
