@@ -510,23 +510,8 @@ body.lbo .fm{opacity:0;pointer-events:none}
     </details>
    </div>
   </article>
-  <article class="cs rv">
-   <div class="ch"><p class="no">02.4</p><h3>LP Layer Studio</h3><p class="cat"><span class="ja">LP画像を、編集できるデータに分解するツール（デモ）</span><span class="en">Turns a flat LP image into editable layers (demo)</span></p></div>
-   <a class="pic" href="lp-layer/" target="_blank" rel="noopener"><img src="img/lp-layer.webp" alt="" width="1200" height="750" loading="lazy"></a>
-   <div class="cb2">
-    <p class="sum"><span class="ja">1枚のLP画像を、AIが「背景」「写真や商品のパーツ」「打ち直せる文字」に分解。隠れて欠けた部分もAIで描き足し、あとから自由に動かして書き出せます。</span><span class="en">AI splits one LP image into a background, cut-out photo parts and real, editable text — fills in hidden areas, then lets you rearrange and export.</span></p>
-    <div class="row"><div class="kpi"><div><b>3</b><small><span class="ja">層に分解（背景・画像・文字）</span><span class="en">layers</span></small></div><div><b>14</b><small><span class="ja">種のフォントから自動で選ぶ</span><span class="en">fonts compared</span></small></div><div><b>0円</b><small><span class="ja">月々の費用</span><span class="en">monthly cost</span></small></div></div><a class="go" href="lp-layer/" target="_blank" rel="noopener">Try the editor <span>→</span></a></div>
-    <details class="more"><summary><span class="ja">詳しく見る</span><span class="en">Details</span></summary>
-     <div class="mb">
-      <div><p class="h"><span class="ja">課題</span><span class="en">Problem</span></p><p class="tx"><span class="ja">画像生成AIや外注で作ったLPは1枚の画像なので、文字を1か所直すだけでも作り直しになる。画像のまま、パーツと文字を動かせるデータに戻したいと考えました。</span><span class="en">LPs made by image AI or outsourcing arrive as a single flat image, so even a one-word fix means redoing it. I wanted to turn that image back into movable parts and text.</span></p>
-      <p class="h"><span class="ja">担当</span><span class="en">Role</span></p><p class="tx"><span class="ja">企画・AIでの開発（一人）</span><span class="en">Planning and AI-driven build (solo)</span></p>
-      <p class="h">Stack</p><p class="tx st">Python · PP-OCRv5 · Segment Anything 2.1 · LaMa · ONNX Runtime · Playwright · SVG</p></div>
-      <div class="cr"><p class="h"><span class="ja">AIでつくったポイント</span><span class="en">What I built with AI</span></p><ul><li><span class="ja">文字を読み取り、明朝・ゴシックや太さを判定。14種のフォントで実際に描いて、元の文字にいちばん重なるものを自動で選ぶ</span><span class="en">Reads the text, then renders it in 14 fonts and picks the closest match automatically</span></li><li><span class="ja">Segment Anything で写真・商品・バッジを1つずつ切り抜き、パネルは背景として残す</span><span class="en">Cuts out photos, products and badges one by one with Segment Anything, keeping panels as background</span></li><li><span class="ja">重なって隠れた部分をAIで描き足し、重なり順も推定してレイヤーに。月々の費用0円で、手元のパソコンだけで動く</span><span class="en">Fills in hidden areas, infers stacking order, and runs locally at zero monthly cost</span></li></ul></div>
-     </div>
-    </details>
-   </div>
-  </article>
   <div class="og">
+   <a href="lp-layer/" target="_blank" rel="noopener" class="oc rv"><span class="im"><img src="img/lp-layer.webp" alt="" width="1200" height="750" loading="lazy"></span><b>LP Layer Studio</b><small><span class="ja">LP画像を、背景・画像・文字に分解する試作ツール</span><span class="en">Prototype that splits an LP image into layers</span></small></a>
    <div class="oc rv zm"><span class="im"><img src="img/t-note.webp" alt="" width="1200" height="750" loading="lazy"></span><b>note Auto Publisher</b><small><span class="ja">note記事のAI生成と投稿管理</span><span class="en">AI article generation for note</span></small></div>
    <div class="oc rv zm"><span class="im"><img src="img/t-pipeline.webp" alt="" width="1200" height="750" loading="lazy"></span><b>Sales Pipeline</b><small><span class="ja">営業の自動化（AIエージェント）</span><span class="en">Sales automation (AI agents)</span></small></div>
    <div class="oc rv zm"><span class="im"><img src="img/t-todo.webp" alt="" width="1200" height="750" loading="lazy"></span><b>ToDo Optimizer</b><small><span class="ja">スケジュールを組む秘書AI</span><span class="en">AI scheduling assistant</span></small></div>
