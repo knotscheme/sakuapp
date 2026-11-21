@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, BarChart3, Check, ChevronRight, FileSpreadsheet, GraduationCap, KeyRound, LineChart as LineIcon, Mail, Minus, PenLine, Plus, RotateCcw, Search, ShieldCheck, Stethoscope, Swords, TrendingUp } from "lucide-react";
 import J from "@/components/J";
-import { Laptop, Phone } from "@/components/Devices";
+import DashMock from "@/components/DashMock";
 
 const IMG = "/sakuapp/works/tsurete/img/lp";
 
@@ -139,9 +139,9 @@ export default function Page() {
               <Note />
             </In>
             <In d={150} className="relative">
-              <div className="pr-[12%]"><Laptop silver src={`${IMG}/dash-pc.webp?v=6`} alt="TSURETEの管理画面（パソコン）" /></div>
-              <div className="absolute -bottom-2 right-0 w-[24%]"><Phone src={`${IMG}/dash-phone.webp?v=6`} alt="TSURETEの管理画面（スマホ）" /></div>
-              <div className="absolute -left-2 top-[8%] hidden rounded-[10px] border border-[#0b1e3d]/[.08] bg-white px-4 py-3 shadow-[0_18px_40px_-18px_rgba(15,26,23,.3)] sm:block"><p className="text-[0.68rem] text-[#687387]">AIにすすめられた割合</p><p className="mt-0.5 text-[1.3rem] font-bold">10% <span className="text-[#98a1b1]">→</span> <span className="text-[#1f5ad1]">70%</span></p><p className="text-[0.6rem] text-[#98a1b1]">架空のブランドでの模擬</p></div>
+              <DashMock />
+              <div className="absolute -bottom-5 -left-3 hidden rounded-[10px] border border-[#0b1e3d]/[.08] bg-white px-4 py-3 shadow-[0_18px_40px_-18px_rgba(11,30,61,.35)] sm:block"><p className="text-[0.68rem] text-[#687387]">AIにすすめられた割合</p><p className="mt-0.5 text-[1.3rem] font-bold">10% <span className="text-[#98a1b1]">→</span> <span className="text-[#1f5ad1]">38%</span></p></div>
+              <p className="mt-6 text-right text-[0.7rem] text-[#98a1b1] sm:mt-8">画面は見本です。数字は架空のブランドでの模擬の結果です。</p>
             </In>
           </div>
           <div className="relative border-t border-[#0b1e3d]/[.06] bg-white/70 py-6">
