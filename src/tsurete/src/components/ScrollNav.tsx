@@ -49,7 +49,7 @@ export default function ScrollNav({ names, dark = [], colors }: { names: string[
   }, [colors]);
   const d = dark.includes(i);
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 z-40 transition-[opacity,transform] duration-500"
+    <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 z-40 max-sm:hidden transition-[opacity,transform] duration-500"
       style={{ opacity: show ? 1 : 0, transform: show ? "none" : "translateY(8px)", paddingBottom: "env(safe-area-inset-bottom)" }}>
       <div className="tsr-navlabel mx-auto flex max-w-[1000px] px-4 pb-2 transition-opacity duration-300 text-[0.68rem] tracking-[.08em]">
         <div className={`flex items-center gap-2 rounded-full px-3 py-1 backdrop-blur-xl transition-colors duration-500 ${d ? "bg-black/55" : "bg-white/75 shadow-[0_1px_8px_rgba(0,0,0,.06)]"}`}>
