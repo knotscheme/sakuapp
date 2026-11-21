@@ -826,7 +826,11 @@ function Support() {
   ];
   return (
     <section id="support" className="scroll-mt-14 px-5 py-24 sm:py-32">
-      <Reveal className="text-center"><p className="lp-eye">Support</p><h2 className="lp-h mt-3 text-[2rem] sm:text-[3.2rem]"><J>はじめてでも、ひとりにしない。</J></h2><p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>AI対策がはじめての方でも、続けられるように。</J></p></Reveal>
+      <div className="mx-auto grid max-w-[64rem] grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+        <Reveal><p className="lp-eye">Support</p><h2 className="lp-h mt-3 text-[2rem] sm:text-[3rem]"><span className="inline-block">はじめてでも、</span><span className="inline-block">ひとりにしない。</span></h2><p className="mt-4 text-[1.02rem] leading-[1.9] text-[#6e6e73]"><J>AI対策がはじめての方でも、続けられるように。設定から使い方まで、人がお手伝いします。</J></p></Reveal>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <Reveal delay={120}><img src={`${IMG}/support.webp?v=1`} alt="オンラインで設定を手伝うサポート担当" width={1376} height={768} loading="lazy" className="block h-auto w-full rounded-[14px] object-cover" /></Reveal>
+      </div>
       <div className="mx-auto mt-14 grid grid-cols-1 max-w-[64rem] gap-4 md:grid-cols-3">
         {items.map(({ icon: Icon, t, d }, i) => <Reveal key={t} delay={i * 100} className="h-full"><div className="h-full rounded-[12px] border border-black/[.06] bg-white p-7"><span className="grid h-11 w-11 place-items-center rounded-xl bg-[#e3f6ef] text-[#00805f]"><Icon size={21} /></span><b className="mt-5 block text-[1.08rem]"><J>{t}</J></b><p className="mt-2 text-[0.9rem] leading-[1.85] text-[#6e6e73]"><J>{d}</J></p></div></Reveal>)}
       </div>
@@ -837,7 +841,11 @@ function Support() {
 function FinalCta() {
   return (
     <section className="px-5 pb-24 sm:pb-32">
-      <div className="mx-auto max-w-[64rem] overflow-hidden rounded-[14px] bg-[#1d1d1f] px-6 py-14 text-center text-white sm:px-12 sm:py-20">
+      <div className="relative mx-auto max-w-[64rem] overflow-hidden rounded-[14px] bg-[#1d1d1f] px-6 py-14 text-center text-white sm:px-12 sm:py-20">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`${IMG}/cta-bg.webp?v=1`} alt="" width={1376} height={768} loading="lazy" className="absolute inset-0 h-full w-full object-cover" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#111]/80 via-[#111]/72 to-[#111]/88" aria-hidden />
+        <div className="relative">
         <p className="lp-eye lp-eye-dark">Get started</p>
         <h2 className="lp-h mt-3 text-[1.9rem] sm:text-[3rem]"><span className="inline-block">AIに選ばれる準備を、</span><span className="inline-block">今日から。</span></h2>
         <p className="mx-auto mt-4 max-w-[30em] text-[0.98rem] leading-[1.85] text-white/70"><J>全商品の点検から、書き直し、売上の確認まで。14日間、すべての機能を無料で試せます。</J></p>
@@ -846,7 +854,8 @@ function FinalCta() {
           <Link href="/" className="btn border border-white/25 px-7 text-white hover:border-white/60">デモ画面を見る</Link>
           <Link href="/manabu/" className="btn border border-white/25 px-7 text-white hover:border-white/60">使い方を見る</Link>
         </div>
-        <p className="mt-5 text-[0.78rem] text-white/50">カードの登録不要・14日間無料・いつでも解約</p>
+        <p className="mt-5 text-[0.78rem] text-white/60">カードの登録不要・14日間無料・いつでも解約</p>
+        </div>
       </div>
     </section>
   );
@@ -986,7 +995,7 @@ export default function Page() {
           <div className="mx-auto mt-14 grid grid-cols-1 max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-2">
             {[
               { img: "owner.webp?v=3", alt: "作業机でネットショップを運営している人", k: "自分のお店を運営する方", t: "ひとりでも、AI対策を続けられる。", d: "点検はぜんぶ自動。毎週届く「今週やること」を読んで、使う案を押すだけ。作業は週5分ほどです。", p: "フリー・スタンダード・プロ" },
-              { img: null, alt: "", k: "制作会社・代理店・EC運用チーム", t: "たくさんのお店を、まとめて見る。", d: "お店ごとの点検・測定・書き直し案をひとつの画面で。お店ごとのレポートを書き出して、そのまま報告に使えます。お店の人を招待して、一緒に進めることも。", p: "代理店プラン（基本料＋1店舗ごと）" },
+              { img: "agency.webp?v=1", alt: "オフィスでモニターの数字を見ながら打ち合わせをする2人", k: "制作会社・代理店・EC運用チーム", t: "たくさんのお店を、まとめて見る。", d: "お店ごとの点検・測定・書き直し案をひとつの画面で。お店ごとのレポートを書き出して、そのまま報告に使えます。お店の人を招待して、一緒に進めることも。", p: "代理店プラン（基本料＋1店舗ごと）" },
             ].map((x, i) => (
               <Reveal key={x.k} delay={i * 120} className="h-full">
                 <div className="flex h-full flex-col overflow-hidden rounded-[14px] bg-white">
