@@ -10,6 +10,7 @@ import { useStore } from "@/lib/store";
 import { healthAll, healthGain } from "@/lib/health";
 import { tagKind } from "@/lib/tag";
 import J from "@/components/J";
+import HomeCharts from "@/components/HomeCharts";
 
 // ツールのホーム：今週の状況と、やることだけを出す
 function Dashboard() {
@@ -42,6 +43,8 @@ function Dashboard() {
           </Link>
         ))}
       </section>
+
+      <HomeCharts />
 
       {/* やることは、上から順に */}
       <section className="mt-14" aria-labelledby="todo">
