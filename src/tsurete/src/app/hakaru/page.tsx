@@ -147,7 +147,7 @@ function exportCsv(applied: string[]) {
 
 // ---------- 毎週の推移：期間を選び、前の期間とくらべる ----------
 const LINES: { k: keyof Omit<Day, "d">; l: string; c: string }[] = [
-  { k: "pct", l: "すすめられた割合", c: "#4d8dff" },
+  { k: "pct", l: "すすめられた割合", c: "#1f5ad1" },
   { k: "cite", l: "自分のサイトが根拠に", c: "#38bdf8" },
   { k: "top1", l: "1位の割合", c: "#f2b84b" },
 ];
@@ -157,7 +157,7 @@ function DailyChart({ data, W = 680, H = 210, fs = 10 }: { data: Day[]; W?: numb
   const step = Math.ceil(data.length / 7);
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="毎週の推移のグラフ">
-      {[0, 0.5, 1].map((f) => <g key={f}><line x1={P} x2={W - P} y1={y(max * f)} y2={y(max * f)} stroke="rgba(255,255,255,.06)" /><text x={0} y={y(max * f) + 4} fontSize={fs} fill="#6b7b98">{Math.round(max * f)}%</text></g>)}
+      {[0, 0.5, 1].map((f) => <g key={f}><line x1={P} x2={W - P} y1={y(max * f)} y2={y(max * f)} stroke="rgba(11,30,61,.08)" /><text x={0} y={y(max * f) + 4} fontSize={fs} fill="#6b7b98">{Math.round(max * f)}%</text></g>)}
       {LINES.map((l) => <path key={l.k} d={data.map((p, i) => `${i ? "L" : "M"}${x(i)},${y(p[l.k])}`).join(" ")} fill="none" stroke={l.c} strokeWidth="2.2" strokeLinejoin="round" />)}
       {data.map((p, i) => (i % step === 0 || i === data.length - 1) && <text key={p.d} x={x(i)} y={H - 8} fontSize={fs} fill="#6b7b98" textAnchor="middle">{p.d}</text>)}
     </svg>
@@ -229,7 +229,7 @@ function Insights() {
 function Heat() {
   const s = useStore();
   const g = grid(s.applied);
-  const col = (v: number) => v === 0 ? "rgba(255,255,255,.05)" : `rgba(77,141,255,${0.18 + v * 0.82})`;
+  const col = (v: number) => v === 0 ? "rgba(11,30,61,.07)" : `rgba(77,141,255,${0.18 + v * 0.82})`;
   return (
     <section className="mt-20" aria-labelledby="ht">
       <h2 id="ht" className="text-[1.2rem] font-bold tracking-[.04em]">質問 × AI</h2>
@@ -237,7 +237,7 @@ function Heat() {
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[46rem] table-fixed text-[0.78rem]">
           <thead><tr className="text-sub"><th className="w-[42%] py-2 text-left font-medium">質問</th>{AIS.map((a) => <th key={a} className="px-1 py-2 text-center font-medium">{a}</th>)}</tr></thead>
-          <tbody>{g.map((r) => <tr key={r.q.id} className="border-t hair"><td className="py-2.5 pr-2 leading-[1.5]"><J>{r.q.text}</J></td>{r.by.map((v, i) => <td key={i} className="p-1"><span className="num block rounded-md py-2 text-center text-[0.72rem]" style={{ background: col(v), color: v > 0.45 ? "#ffffff" : "#9fb0c8" }}>{Math.round(v * 100)}</span></td>)}</tr>)}</tbody>
+          <tbody>{g.map((r) => <tr key={r.q.id} className="border-t hair"><td className="py-2.5 pr-2 leading-[1.5]"><J>{r.q.text}</J></td>{r.by.map((v, i) => <td key={i} className="p-1"><span className="num block rounded-md py-2 text-center text-[0.72rem]" style={{ background: col(v), color: v > 0.45 ? "#ffffff" : "#687387" }}>{Math.round(v * 100)}</span></td>)}</tr>)}</tbody>
         </table>
       </div>
       <p className="mt-2 text-[0.72rem] text-sub">数字は、直近の測定で、その質問をそのAIに聞いたときにすすめられた割合（%）です。</p>

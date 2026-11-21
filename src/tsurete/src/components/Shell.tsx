@@ -32,7 +32,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const on = (h: string) => (h === "/" ? path === "/" || path.endsWith("/tsurete/") : path.includes(h));
   const icon = (href: string, label: string, Icon: typeof Home) => <Link href={href} aria-label={label} title={label} aria-current={on(href) ? "page" : undefined} className={`grid h-9 w-9 place-items-center rounded-full ${on(href) ? "text-ai" : "text-sub hover:text-ink"}`}><Icon size={18} strokeWidth={1.8} /></Link>;
   return (
-    <div className="min-h-screen">
+    <div className="app-light min-h-screen">
       <header className="sticky top-0 z-40 border-b hair bg-paper/85 backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-[1080px] items-center gap-10 px-5 sm:px-8">
           <div className="flex items-center gap-3"><Logo /><span className="rounded-full bg-white/[.06] px-2 py-0.5 text-[0.65rem] text-sub">デモ</span></div>

@@ -151,14 +151,14 @@ function drawCert(name: string) {
   const g = x.createLinearGradient(0, 0, W, H); g.addColorStop(0, "#03161b"); g.addColorStop(1, "#0b2a2a"); x.fillStyle = g; x.fillRect(0, 0, W, H);
   x.strokeStyle = "rgba(77,141,255,.55)"; x.lineWidth = 3; x.strokeRect(50, 50, W - 100, H - 100);
   x.strokeStyle = "rgba(77,141,255,.18)"; x.lineWidth = 1; x.strokeRect(70, 70, W - 140, H - 140);
-  x.textAlign = "center"; x.fillStyle = "#4d8dff"; x.font = "700 30px sans-serif"; x.fillText("T S U R E T E   A C A D E M Y", W / 2, 190);
+  x.textAlign = "center"; x.fillStyle = "#1f5ad1"; x.font = "700 30px sans-serif"; x.fillText("T S U R E T E   A C A D E M Y", W / 2, 190);
   x.fillStyle = "#ffffff"; x.font = "900 96px sans-serif"; x.fillText("修 了 証", W / 2, 330);
   x.font = "700 64px sans-serif"; x.fillText(`${name} 様`, W / 2, 500);
   x.fillStyle = "#cfe7e1"; x.font = "500 34px sans-serif";
   x.fillText("「AIに選ばれる商品ページ」講座（全5章・15レッスン）を", W / 2, 620);
   x.fillText("すべて読み終え、各章の確認テストに合格したことを証します。", W / 2, 676);
   const d = new Date(); x.fillStyle = "#8fb3ad"; x.font = "500 28px sans-serif"; x.fillText(`${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`, W / 2, 820);
-  x.fillStyle = "#4d8dff"; x.beginPath(); x.arc(W / 2 - 120, 940, 9, 0, Math.PI * 2); x.fill();
+  x.fillStyle = "#1f5ad1"; x.beginPath(); x.arc(W / 2 - 120, 940, 9, 0, Math.PI * 2); x.fill();
   x.fillStyle = "#ffffff"; x.font = "700 38px sans-serif"; x.fillText("TSURETE", W / 2 + 10, 953);
   const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "tsurete-修了証.png"; a.click();
 }

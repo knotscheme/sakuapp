@@ -9,7 +9,7 @@ const WORD = "TSURETE".split("");
 
 export default function Splash() {
   const path = usePathname() ?? "";
-  const light = path.includes("/lp");
+  const light = true; // デモもLPも明るい読みこみ画面
   const [phase, setPhase] = useState<"in" | "out" | "gone">("in");
   useEffect(() => {
     const short = document.documentElement.getAttribute("data-splash") === "short";
@@ -21,7 +21,7 @@ export default function Splash() {
     return () => { clearTimeout(a); clearTimeout(b); };
   }, []);
   if (phase === "gone") return null;
-  const blue = path.includes("/lp2");
+  const blue = !(path === "/lp" || path.startsWith("/lp/")); // 前のLP（/lp/）だけ緑
   const ink = blue ? "#0b1e3d" : light ? "#1d1d1f" : "#e6eef9", bg = light ? "#ffffff" : "#050a16", green = blue ? "#1f5ad1" : light ? "#00a37a" : "#4d8dff";
   return (
     <div className="tsr-splash fixed inset-0 z-[300] grid place-items-center" aria-hidden

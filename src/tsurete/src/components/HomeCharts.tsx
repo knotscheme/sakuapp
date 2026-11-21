@@ -9,8 +9,8 @@ import { daily, metrics } from "@/lib/demo";
 import { healthAll } from "@/lib/health";
 import { useStore } from "@/lib/store";
 
-const A = "#4d8dff", B = "#8ab4ff", SUB = "#6b7b98", GRID = "rgba(255,255,255,.06)";
-const DC = ["#4d8dff", "#8ab4ff", "#a78bfa", "#f2b84b"];
+const A = "#1f5ad1", B = "#8db0ef", SUB = "#6b7b98", GRID = "rgba(11,30,61,.08)";
+const DC = ["#1f5ad1", "#8db0ef", "#a78bfa", "#f2b84b"];
 function smooth(p: [number, number][]) { return p.map((q, i) => { if (!i) return `M${q[0]},${q[1]}`; const a = p[i - 1], dx = (q[0] - a[0]) / 2; return `C${a[0] + dx},${a[1]} ${q[0] - dx},${q[1]} ${q[0]},${q[1]}`; }).join(" "); }
 
 export default function HomeCharts() {
@@ -34,7 +34,7 @@ export default function HomeCharts() {
           <path d={`${smooth(pa)} L${x(d.length - 1)},${H - P} L${x(0)},${H - P} Z`} fill="url(#hcg)" style={{ opacity: on ? 1 : 0, transition: "opacity 1s .8s" }} />
           <path d={smooth(pb)} fill="none" stroke={B} strokeWidth="2" strokeDasharray="1200" style={{ strokeDashoffset: on ? 0 : 1200, transition: "stroke-dashoffset 1.6s ease-out .15s" }} />
           <path d={smooth(pa)} fill="none" stroke={A} strokeWidth="2.6" strokeLinecap="round" strokeDasharray="1200" style={{ strokeDashoffset: on ? 0 : 1200, transition: "stroke-dashoffset 1.6s ease-out" }} />
-          <circle cx={x(d.length - 1)} cy={y(last.pct)} r="4.5" fill="#0b1426" stroke={A} strokeWidth="2.4" />
+          <circle cx={x(d.length - 1)} cy={y(last.pct)} r="4.5" fill="#ffffff" stroke={A} strokeWidth="2.4" />
           {d.map((v, i) => (i % 3 === 2 || i === d.length - 1) && <text key={i} x={x(i)} y={H - 6} fontSize="10" fill={SUB} textAnchor={i === d.length - 1 ? "end" : "middle"}>{v.d}</text>)}
         </svg>
       </div>
@@ -42,7 +42,7 @@ export default function HomeCharts() {
         <b className="text-[0.98rem]">AI別のすすめられた割合</b>
         <div className="mt-3 flex items-center gap-5">
           <svg viewBox="0 0 120 120" className="h-[108px] w-[108px] shrink-0 -rotate-90" role="img" aria-label="AI別の円グラフ">
-            <circle cx="60" cy="60" r={R} fill="none" stroke="rgba(255,255,255,.06)" strokeWidth="16" />
+            <circle cx="60" cy="60" r={R} fill="none" stroke="rgba(11,30,61,.08)" strokeWidth="16" />
             {m.byAi.map((a, i) => { const len = (a.pct / sum) * C, off = acc; acc += len; return <circle key={a.ai} cx="60" cy="60" r={R} fill="none" stroke={DC[i % 4]} strokeWidth="16" strokeDasharray={`${on ? len : 0} ${C}`} strokeDashoffset={-off} style={{ transition: `stroke-dasharray 1.1s ease-out ${200 + i * 150}ms` }} />; })}
           </svg>
           <ul className="min-w-0 flex-1 space-y-1.5 text-[0.82rem]">{m.byAi.map((a, i) => <li key={a.ai} className="flex items-center gap-2"><i className="h-2 w-2 shrink-0 rounded-[2px]" style={{ background: DC[i % 4] }} /><span className="min-w-0 truncate text-sub">{a.ai}</span><b className="num ml-auto">{a.pct}%</b></li>)}</ul>

@@ -1,34 +1,34 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #060b18;
-  --color-panel: #0b1426;
-  --color-deep: #16243f;
-  --color-ink: #e6eef9;
-  --color-sub: #8191ad;
-  --color-line: #1a2a45;
-  --color-ai: #4d8dff;
-  --color-ai-2: #13254a;
-  --color-lime: #7aaaff;
-  --color-ok: #3ddc97;
-  --color-warn: #f2b84b;
+  --color-paper: #f5f7fb;
+  --color-panel: #ffffff;
+  --color-deep: #e8edf6;
+  --color-ink: #0b1e3d;
+  --color-sub: #687387;
+  --color-line: #e3e8f1;
+  --color-ai: #1f5ad1;
+  --color-ai-2: #e8effc;
+  --color-lime: #1f5ad1;
+  --color-ok: #0f9d6b;
+  --color-warn: #c2410c;
   --font-sans: var(--font-noto), system-ui, sans-serif;
   --font-display: var(--font-outfit), var(--font-noto), sans-serif;
   --font-mono: var(--font-jbm), ui-monospace, monospace;
 }
 html, body { overflow-x: clip; }
-body { background-color: var(--color-paper); background-image: radial-gradient(70% 40% at 50% -10%, rgba(77,141,255,.07), transparent 70%); color: var(--color-ink); font-family: var(--font-sans); line-height: 1.9; letter-spacing: .03em; font-feature-settings: "palt" 0; -webkit-font-smoothing: antialiased; line-break: strict; }
+body { background-color: var(--color-paper); background-image: none; color: var(--color-ink); font-family: var(--font-sans); line-height: 1.9; letter-spacing: .03em; font-feature-settings: "palt" 0; -webkit-font-smoothing: antialiased; line-break: strict; }
 h1, h2, h3 { word-break: auto-phrase; text-wrap: pretty; }
 :focus-visible { outline: 3px solid var(--color-ai); outline-offset: 2px; }
 @layer components {
-  .card { background: var(--color-panel); border: 1px solid rgba(255,255,255,.05); border-radius: 20px; }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5em; white-space: nowrap; min-height: 3rem; padding: .55rem 1.4rem; border-radius: 999px; font-weight: 700; font-size: .95rem; letter-spacing: .04em; transition: transform .12s, background .2s, opacity .2s; -webkit-tap-highlight-color: transparent; }
+  .card { background: var(--color-panel); border: 1px solid #e3e8f1; border-radius: 12px; box-shadow: 0 1px 2px rgba(11,30,61,.04); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5em; white-space: nowrap; min-height: 3rem; padding: .55rem 1.4rem; border-radius: 6px; font-weight: 700; font-size: .95rem; letter-spacing: .04em; transition: transform .12s, background .2s, opacity .2s; -webkit-tap-highlight-color: transparent; }
   .btn:active { transform: scale(.97); }
   .btn:disabled { opacity: .45; pointer-events: none; }
-  .btn-ai { background: var(--color-ai); color: #ffffff; } .btn-ai:hover { background: #7aaaff; box-shadow: 0 0 24px -6px rgba(77,141,255,.7); }
-  .btn-ink { background: var(--color-deep); color: var(--color-ink); border: 1px solid #24365a; } .btn-ink:hover { border-color: var(--color-ai); }
-  .btn-line { background: transparent; color: var(--color-ink); border: 1px solid #24365a; } .btn-line:hover { border-color: var(--color-ai); color: var(--color-ai); }
-  .field { width: 100%; min-height: 3.25rem; border-radius: 14px; border: 1px solid #24365a; background: #070f20; color: var(--color-ink); padding: .55rem 1rem; font-size: 1rem; outline: none; transition: border-color .2s; }
+  .btn-ai { background: var(--color-ai); color: #ffffff; } .btn-ai:hover { background: #1849ad; }
+  .btn-ink { background: var(--color-deep); color: var(--color-ink); border: 1px solid #d3dbe8; } .btn-ink:hover { border-color: var(--color-ai); }
+  .btn-line { background: #fff; color: var(--color-ink); border: 1px solid #d3dbe8; } .btn-line:hover { border-color: var(--color-ai); color: var(--color-ai); }
+  .field { width: 100%; min-height: 3.25rem; border-radius: 8px; border: 1px solid #d3dbe8; background: #ffffff; color: var(--color-ink); padding: .55rem 1rem; font-size: 1rem; outline: none; transition: border-color .2s; }
   .field:focus { border-color: var(--color-ai); }
   .chip { display: inline-flex; align-items: center; gap: .35em; border-radius: 999px; padding: .15rem .65rem; font-size: .78rem; font-weight: 700; white-space: nowrap; }
 }
@@ -40,10 +40,29 @@ h1, h2, h3 { word-break: auto-phrase; text-wrap: pretty; }
 @keyframes pulse { 50% { opacity: .45; } }
 @media (prefers-reduced-motion: reduce) { .fade-in, .pulse { animation: none; } }
 
-::selection { background: rgba(77,141,255,.35); }
-.field::placeholder { color: #4d5d7a; }
+::selection { background: rgba(31,90,209,.2); }
+.field::placeholder { color: #98a1b1; }
 .eyebrow { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .24em; color: var(--color-ai); }
-.hair { border-color: rgba(255,255,255,.06); }
+.hair { border-color: #e6eaf2; }
+
+/* デモ画面：新しいLPと同じ明るい見た目（暗い画面用の白の半透明を、紺の半透明に置きかえる） */
+.app-light { background: var(--color-paper); }
+.app-light .bg-white\/\[\.06\] { background-color: rgba(11,30,61,.06); }
+.app-light .bg-white\/\[\.05\] { background-color: rgba(11,30,61,.05); }
+.app-light .bg-white\/\[\.04\] { background-color: rgba(11,30,61,.04); }
+.app-light .bg-white\/\[\.03\] { background-color: rgba(11,30,61,.03); }
+.app-light .bg-white\/10 { background-color: rgba(11,30,61,.06); }
+.app-light .hover\:bg-white\/\[\.03\]:hover { background-color: rgba(11,30,61,.03); }
+.app-light .hover\:bg-white\/\[\.04\]:hover { background-color: rgba(11,30,61,.04); }
+.app-light .hover\:bg-white\/\[\.07\]:hover { background-color: rgba(11,30,61,.06); }
+.app-light .hover\:bg-white\/10:hover { background-color: rgba(11,30,61,.06); }
+.app-light .ring-white\/10 { --tw-ring-color: rgba(11,30,61,.1); }
+.app-light .ring-white\/15 { --tw-ring-color: rgba(11,30,61,.15); }
+.app-light .ring-white\/30 { --tw-ring-color: rgba(11,30,61,.25); }
+.app-light .ring-white\/40 { --tw-ring-color: rgba(11,30,61,.35); }
+.app-light .border-white\/10 { border-color: rgba(11,30,61,.1); }
+.app-light .border-white\/25 { border-color: rgba(11,30,61,.2); }
+.app-light .border-white\/30 { border-color: rgba(11,30,61,.25); }
 /* 文節で改行する（J部品の中）。Chromeでは、ほかの文章も文節で改行する */
 .jp { word-break: keep-all; overflow-wrap: anywhere; }
 p, li, dd, h1, h2, h3, button, a { word-break: auto-phrase; }
