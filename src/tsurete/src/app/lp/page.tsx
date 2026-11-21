@@ -664,7 +664,7 @@ const PLANS = [
   { n: "フリー", p: "0", u: "円", d: "まず1商品で試したい", who: "", f: ["1商品の診断と書き直し案（月1回）", "URL・CSVでの無料診断"] },
   { n: "スタンダード", p: "2,980", u: "円／月", d: "自分のお店のページを整えたい", who: "自分のお店", f: ["50商品を毎週自動で点検", "書き直し案 月50件", "Shopifyへの反映・楽天などのCSV", "AIから来たお客様と売上の計測", "ジャンル共通のAIの測定（月1回）"], hi: true },
   { n: "プロ", p: "9,800", u: "円／月", d: "自分のお店を、AIの答えまで深く見たい", who: "自分のお店", f: ["スタンダードのすべて", "500商品・書き直し案 月200件", "自分の質問15個を、4つのAIで毎週測る", "ほかのブランドとの比較・気づき・データに質問", "今すぐ測る（月2回）・CSVの書き出し"] },
-  { n: "代理店", p: "9,800", u: "円／月＋1店舗 3,980円", d: "お客様のお店をいくつも見る", who: "お客様のお店", f: ["全店の点数と変化を1画面で", "自社のロゴ入りレポートの書き出し", "お店の人の招待・見られる範囲を分ける", "1店舗ごと：点検・書き直し案 月50件・質問10個を毎週測る"] },
+  { n: "代理店", p: "13,780", u: "円／月〜", note: "1店舗のとき。基本料 9,800円＋1店舗ごと 3,980円", d: "お客様のお店をいくつも見る", who: "お客様のお店", f: ["全店の点数と変化を1画面で", "自社のロゴ入りレポートの書き出し", "お店の人の招待・見られる範囲を分ける", "1店舗ごと：点検・書き直し案 月50件・質問10個を毎週測る"] },
 ];
 // プランの違い：1行ずつ、どこまでできるか
 const MATRIX: [string, string[]][] = [
@@ -709,6 +709,7 @@ function Pricing() {
               <p className="flex items-center justify-between gap-2"><b className="text-[1.15rem]">{x.n}</b>{x.hi ? <span className="rounded-full bg-[#2fd9a6] px-2.5 py-0.5 text-[0.72rem] font-semibold text-[#03140f]">おすすめ</span> : x.who && <span className="rounded-full bg-[#f2f2f5] px-2.5 py-0.5 text-[0.72rem] text-[#6e6e73]">{x.who}</span>}</p>
               <p className={`mt-1 text-[0.86rem] ${x.hi ? "text-white/60" : "text-[#6e6e73]"}`}><J>{x.d}</J></p>
               <p className="mt-6"><b className="num text-[2.6rem] leading-none">{x.p}</b><span className={`ml-1 text-[0.85rem] ${x.hi ? "text-white/70" : "text-[#6e6e73]"}`}>{x.u}</span></p>
+              {"note" in x && <p className="mt-2 text-[0.8rem] leading-[1.6] text-[#6e6e73]"><J>{x.note as string}</J></p>}
               <ul className="mt-7 flex-1 space-y-3 text-[0.9rem]">{x.f.map((t) => <li key={t} className="flex gap-2.5"><Check size={17} className={`mt-0.5 shrink-0 ${x.hi ? "text-[#2fd9a6]" : "text-[#00a37a]"}`} /><span className="min-w-0"><J>{t}</J></span></li>)}</ul>
             </div>
           </Reveal>
@@ -723,11 +724,13 @@ function Pricing() {
           <div className="rounded-[24px] bg-white/80 p-6"><b className="text-[1.05rem]">代理店</b><p className="mt-2 text-[0.92rem] leading-[1.85] text-[#424245]"><J>たくさんのお店を、手間なく回す。全店の一覧、ロゴ入りレポート、お店の人の招待など、管理のための機能があります。</J></p></div>
         </div>
         <div className="mt-4 rounded-[24px] bg-white/80 p-6">
-          <p className="text-[0.92rem] font-semibold">代理店の料金（基本料 9,800円＋1店舗 3,980円）</p>
+          <p className="text-[0.92rem] font-semibold">代理店の料金は、店舗の数で決まります</p><p className="mt-1 text-[0.82rem] text-[#6e6e73]"><J>基本料 9,800円（管理の機能）＋ 1店舗ごとに 3,980円</J></p>
           <div className="mt-4 flex flex-wrap items-center gap-2" role="tablist" aria-label="店舗の数">
             {STORES.map((k) => <button key={k} type="button" role="tab" aria-selected={n === k} onClick={() => setN(k)} className={`rounded-full px-4 py-1.5 text-[0.88rem] ${n === k ? "bg-[#1d1d1f] font-semibold text-white" : "bg-[#f2f2f5] text-[#424245]"}`}>{k}店舗</button>)}
           </div>
-          <p className="mt-4"><span className="text-[0.88rem] text-[#6e6e73]">{n}店舗なら</span> <b className="num text-[2rem]">{(9800 + 3980 * n).toLocaleString("ja-JP")}</b><span className="text-[0.88rem] text-[#6e6e73]">円／月</span><span className="ml-3 text-[0.82rem] text-[#6e6e73]">1店舗あたり {Math.round((9800 + 3980 * n) / n).toLocaleString("ja-JP")}円</span></p>
+          <p className="mt-5 text-[0.88rem] text-[#6e6e73]">{n}店舗なら、月の合計</p>
+          <p className="mt-1"><b className="num text-[2.2rem] leading-none">{(9800 + 3980 * n).toLocaleString("ja-JP")}</b><span className="ml-1 text-[0.9rem] text-[#6e6e73]">円／月</span></p>
+          <p className="num mt-2 text-[0.8rem] text-[#6e6e73]">9,800円 ＋ 3,980円 × {n}店舗{n > 1 ? `（1店舗あたり ${Math.round((9800 + 3980 * n) / n).toLocaleString("ja-JP")}円）` : ""}</p>
         </div>
       </Reveal>
 

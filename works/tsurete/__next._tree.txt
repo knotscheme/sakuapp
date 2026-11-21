@@ -4,4 +4,4 @@
 :HL["/sakuapp/works/tsurete/_next/static/media/9a321a2c78eff0b5-s.p.1bkzbscqrt8rl.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/sakuapp/works/tsurete/_next/static/media/c0680f1bdb3a2e90-s.p.1gsd1jahc5dg_.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 1:[["children",{"s":"__PAGE__","h":160}]]
-0:{"b":"dHXaN1PLlr1Bl4pmbw8Vj","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"5xZN-uT4MdrxfaShpQPMy","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
