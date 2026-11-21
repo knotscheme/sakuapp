@@ -126,11 +126,11 @@ function Hero() {
       <div className={`relative mx-auto mt-4 w-[15.5rem] sm:w-[18rem] lg:mt-0 ${ready ? "translate-y-0 opacity-100" : "translate-y-24 opacity-0"}`} style={{ transition: "opacity 1.4s .5s, transform 1.4s .5s cubic-bezier(.2,.7,.2,1)" }}>
         {/* まわりに浮かぶ質問（スマホでは左右2つずつ） */}
         {QS.map((q, i) => (
-          <span key={q.t} className={`lp-anim pointer-events-none absolute z-20 whitespace-nowrap sm:z-0 rounded-full bg-white/90 px-3.5 py-2 text-[0.8rem] text-[#424245] shadow-[0_10px_30px_-12px_rgba(0,0,0,.25)] ring-1 ring-black/5 ${q.x} ${i >= 4 ? "hidden sm:block" : ""} max-sm:text-[0.7rem]`}
+          <span key={q.t} className={`lp-anim pointer-events-none absolute z-20 whitespace-nowrap max-sm:hidden sm:z-0 rounded-full bg-white/90 px-3.5 py-2 text-[0.8rem] text-[#424245] shadow-[0_10px_30px_-12px_rgba(0,0,0,.25)] ring-1 ring-black/5 ${q.x} ${i >= 4 ? "hidden sm:block" : ""} max-sm:text-[0.7rem]`}
             style={{ animation: `lp-floatq 6s ${q.d}s ease-in-out infinite` }}>{q.t}</span>
         ))}
         <div className="relative z-10"><Phone><ChatScreen after={after} /></Phone></div>
-        <div className="relative left-1/2 z-10 mt-6 grid w-[min(21rem,calc(100vw-2.5rem))] -translate-x-1/2 grid-cols-2 gap-2.5 sm:contents">
+        <div className="hidden sm:contents">
           <div key={`r${after}`} className={`lp-anim min-w-0 rounded-[8px] px-3.5 py-3 text-left sm:whitespace-nowrap sm:px-4 shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] sm:absolute sm:-left-44 sm:top-48 sm:z-20 ${after ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-black/5"}`} style={{ animation: "lp-pop .55s cubic-bezier(.2,.7,.2,1) both" }}>
             <p className="text-[0.7rem] font-semibold opacity-80">{after ? "TSURETEで直した後" : "直す前"}</p>
             <p className="text-[1.5rem] font-bold leading-tight">{after ? "1位" : "圏外"}</p>
@@ -140,6 +140,17 @@ function Hero() {
             <p className="num whitespace-nowrap text-[1.1rem] font-bold sm:text-[1.3rem]">10% <span className="text-[#86868b]">→</span> <span className="text-[#00a37a]">70%</span></p>
           </div>
         </div>
+      </div>
+      {/* スマホ：結果のカードは、動く端末の枠の外に置く（iPhoneで切れたり残像が出たりしないように） */}
+      <div className="mx-auto mt-6 grid w-full max-w-[21rem] grid-cols-2 gap-2.5 sm:hidden">
+          <div key={`m${after}`} className={`lp-anim min-w-0 rounded-[8px] px-3.5 py-3 text-left sm:whitespace-nowrap sm:px-4 shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] sm:absolute sm:-left-44 sm:top-48 sm:z-20 ${after ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-black/5"}`} style={{ animation: "lp-pop .55s cubic-bezier(.2,.7,.2,1) both" }}>
+            <p className="text-[0.7rem] font-semibold opacity-80">{after ? "TSURETEで直した後" : "直す前"}</p>
+            <p className="text-[1.5rem] font-bold leading-tight">{after ? "1位" : "圏外"}</p>
+          </div>
+          <div className="min-w-0 rounded-[8px] bg-white px-3.5 py-3 text-left sm:whitespace-nowrap sm:px-4 shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] ring-1 ring-black/5 sm:absolute sm:-right-48 sm:bottom-36 sm:z-20">
+            <p className="text-[0.7rem] text-[#6e6e73]">AIにすすめられた割合</p>
+            <p className="num whitespace-nowrap text-[1.1rem] font-bold sm:text-[1.3rem]">10% <span className="text-[#86868b]">→</span> <span className="text-[#00a37a]">70%</span></p>
+          </div>
       </div>
       </div>
       <div className="relative mx-auto mt-16 max-w-[1120px] rounded-[12px] border border-black/[.06] bg-white/85 px-5 py-4 text-left">
