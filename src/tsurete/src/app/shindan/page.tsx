@@ -247,7 +247,7 @@ function Shindan() {
       <Title title="無料診断" lead="商品ページのURLか、商品一覧のCSVを入れてください。AIに選ばれるために足りないところと、書き直し案を出します。どのサイトの商品でも使えます。" />
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div className="flex rounded-full bg-white/[.04] p-1" role="tablist" aria-label="診断のしかた">
-          {([["url", "URLで1商品", Link2], ["csv", "CSVでまとめて", FileSpreadsheet]] as const).map(([v, l, I]) => <button key={v} type="button" role="tab" aria-selected={tab === v} onClick={() => setTab(v)} className={`flex items-center gap-1.5 rounded-full px-5 py-2 text-[0.88rem] font-bold transition ${tab === v ? "bg-ai text-[#03140f]" : "text-sub"}`}><I size={16} />{l}</button>)}
+          {([["url", "URLで1商品", Link2], ["csv", "CSVでまとめて", FileSpreadsheet]] as const).map(([v, l, I]) => <button key={v} type="button" role="tab" aria-selected={tab === v} onClick={() => setTab(v)} className={`flex items-center gap-1.5 rounded-full px-5 py-2 text-[0.88rem] font-bold transition ${tab === v ? "bg-ai text-[#ffffff]" : "text-sub"}`}><I size={16} />{l}</button>)}
         </div>
         <Mode />
       </div>

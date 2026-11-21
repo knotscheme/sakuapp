@@ -22,7 +22,7 @@ export default function Splash() {
   }, []);
   if (phase === "gone") return null;
   const blue = path.includes("/lp2");
-  const ink = blue ? "#0b1e3d" : light ? "#1d1d1f" : "#e6eef9", bg = light ? "#ffffff" : "#050a16", green = blue ? "#1f5ad1" : light ? "#00a37a" : "#10d9a0";
+  const ink = blue ? "#0b1e3d" : light ? "#1d1d1f" : "#e6eef9", bg = light ? "#ffffff" : "#050a16", green = blue ? "#1f5ad1" : light ? "#00a37a" : "#4d8dff";
   return (
     <div className="tsr-splash fixed inset-0 z-[300] grid place-items-center" aria-hidden
       style={{ background: bg, clipPath: phase === "out" ? "inset(0 0 100% 0)" : "inset(0 0 0 0)", transition: "clip-path .8s cubic-bezier(.7,0,.2,1)" }}>

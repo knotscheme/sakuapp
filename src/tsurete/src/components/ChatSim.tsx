@@ -32,7 +32,7 @@ export function ChatSim() {
       <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,21rem)] lg:gap-5">
         <div className="card min-w-0 p-4 lg:col-start-2 lg:row-start-1">
           <div className="grid grid-cols-2 gap-1.5" role="group" aria-label="AI">{AIS.map((a) => <button key={a} type="button" aria-pressed={ai === a} onClick={() => { setAi(a); setT(0); }} className={`rounded-lg border px-1 py-1.5 text-[0.72rem] font-bold sm:text-[0.8rem] ${ai === a ? "border-ai text-ai" : "border-line text-sub"}`}>{a}</button>)}</div>
-          <div className="mt-3 flex flex-wrap gap-1.5" role="group" aria-label="商品">{PRODUCTS.map((p) => <button key={p.id} type="button" aria-pressed={prod === p.id} onClick={() => { setProd(p.id); setQid(QUESTIONS.find((x) => x.product === p.id)!.id); setT(0); }} className={`chip py-1 ${prod === p.id ? "bg-ai text-[#03140f]" : "bg-deep text-sub"}`}>{p.short}</button>)}</div>
+          <div className="mt-3 flex flex-wrap gap-1.5" role="group" aria-label="商品">{PRODUCTS.map((p) => <button key={p.id} type="button" aria-pressed={prod === p.id} onClick={() => { setProd(p.id); setQid(QUESTIONS.find((x) => x.product === p.id)!.id); setT(0); }} className={`chip py-1 ${prod === p.id ? "bg-ai text-[#ffffff]" : "bg-deep text-sub"}`}>{p.short}</button>)}</div>
           <ul className="mt-3 space-y-1.5">{qs.map((x) => <li key={x.id}><button type="button" aria-pressed={qid === x.id} onClick={() => { setQid(x.id); setT(0); }} className={`w-full rounded-lg border px-3 py-2 text-left text-[0.85rem] leading-[1.6] ${qid === x.id ? "border-ai bg-ai/10" : "border-line hover:border-ai/50"}`}><J>{x.text}</J></button></li>)}</ul>
         </div>
         <div className="card min-w-0 overflow-hidden p-0 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:self-start" aria-label="AIとの会話">
@@ -44,7 +44,7 @@ export function ChatSim() {
                 <p className="text-[0.92rem]">おすすめを3つ選びました。</p>
                 <ol className="space-y-2">{picks.map((p, i) => (
                   <li key={p.brand} className={`flex gap-3 rounded-xl border p-3 ${p.me ? "border-ai bg-ai/10" : "border-line bg-paper"}`}>
-                    <span className={`num grid h-7 w-7 shrink-0 place-items-center rounded-full text-[0.8rem] ${p.me ? "bg-ai text-[#03140f]" : "bg-deep"}`}>{i + 1}</span>
+                    <span className={`num grid h-7 w-7 shrink-0 place-items-center rounded-full text-[0.8rem] ${p.me ? "bg-ai text-[#ffffff]" : "bg-deep"}`}>{i + 1}</span>
                     <span className="min-w-0 flex-1"><b className="block text-[0.95rem] leading-[1.5]"><span className="whitespace-nowrap">{p.brand}</span>　<span className="whitespace-nowrap">{p.item}</span><span className="num block text-[0.78rem] font-normal text-sub sm:ml-2 sm:inline">{fmt(p.price)}円</span></b><span className="block text-[0.83rem] leading-[1.7] text-sub"><J>{p.why}</J></span>
                       {p.me && <button type="button" onClick={() => setOpen(p)} className="btn btn-ai mt-2 min-h-[2.3rem] px-3.5 text-[0.85rem]"><ShoppingBag size={16} />商品を見る</button>}</span>
                   </li>))}</ol>

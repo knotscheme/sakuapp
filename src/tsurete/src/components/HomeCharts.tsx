@@ -9,8 +9,8 @@ import { daily, metrics } from "@/lib/demo";
 import { healthAll } from "@/lib/health";
 import { useStore } from "@/lib/store";
 
-const A = "#10d9a0", B = "#38bdf8", SUB = "#6b7b98", GRID = "rgba(255,255,255,.06)";
-const DC = ["#10d9a0", "#38bdf8", "#a78bfa", "#f2b84b"];
+const A = "#4d8dff", B = "#8ab4ff", SUB = "#6b7b98", GRID = "rgba(255,255,255,.06)";
+const DC = ["#4d8dff", "#8ab4ff", "#a78bfa", "#f2b84b"];
 function smooth(p: [number, number][]) { return p.map((q, i) => { if (!i) return `M${q[0]},${q[1]}`; const a = p[i - 1], dx = (q[0] - a[0]) / 2; return `C${a[0] + dx},${a[1]} ${q[0] - dx},${q[1]} ${q[0]},${q[1]}`; }).join(" "); }
 
 export default function HomeCharts() {

@@ -46,7 +46,7 @@ function Rx({ f, pid, n }: { f: Fix; pid: string; n: number }) {
   return (
     <li className="border-b hair py-5">
       <div className="flex items-start gap-4">
-        <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-[0.8rem] font-bold ${done ? "bg-ai text-[#03140f]" : "bg-white/[.06] text-sub"}`}>{done ? <Check size={16} /> : n}</span>
+        <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-[0.8rem] font-bold ${done ? "bg-ai text-[#ffffff]" : "bg-white/[.06] text-sub"}`}>{done ? <Check size={16} /> : n}</span>
         <div className="min-w-0 flex-1">
           <p className="flex flex-wrap items-baseline gap-x-3"><b className={`text-[1rem] leading-[1.6] ${done ? "text-sub" : ""}`}><J>{f.title}</J></b>{!done && gain > 0 && <span className="num text-[0.8rem] text-ai">+{gain}点</span>}</p>
           <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className="mt-2 flex items-center gap-1 text-[0.84rem] text-ai">{open ? "案をとじる" : "案を見る"}<ChevronDown size={15} className={`transition ${open ? "rotate-180" : ""}`} /></button>
@@ -85,7 +85,7 @@ function Naosu() {
       </div>
 
       <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label="商品">
-        {PRODUCTS.map((x) => <button key={x.id} type="button" aria-pressed={pid === x.id} onClick={() => setPid(x.id)} className={`shrink-0 rounded-full px-4 py-2 text-[0.88rem] font-bold transition ${pid === x.id ? "bg-ai text-[#03140f]" : "bg-white/[.05] text-sub"}`}>{x.short}</button>)}
+        {PRODUCTS.map((x) => <button key={x.id} type="button" aria-pressed={pid === x.id} onClick={() => setPid(x.id)} className={`shrink-0 rounded-full px-4 py-2 text-[0.88rem] font-bold transition ${pid === x.id ? "bg-ai text-[#ffffff]" : "bg-white/[.05] text-sub"}`}>{x.short}</button>)}
       </div>
 
       <ol className="mt-4 border-t hair">{list.map((f, i) => <Rx key={f.id} f={f} pid={pid} n={i + 1} />)}</ol>

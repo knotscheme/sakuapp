@@ -36,7 +36,7 @@ export default function SitePicker({ compact = false }: { compact?: boolean }) {
     <>
       {compact
         ? <button type="button" onClick={() => setOpen(true)} className="text-ai underline underline-offset-4">{p ? `${p.name}・変える` : "サイトを選ぶ"}</button>
-        : <button type="button" onClick={() => setOpen(true)} className={`flex items-center gap-2 rounded-full px-4 py-2 text-[0.86rem] font-bold ${p ? "bg-white/[.05]" : "bg-ai text-[#03140f]"}`}>
+        : <button type="button" onClick={() => setOpen(true)} className={`flex items-center gap-2 rounded-full px-4 py-2 text-[0.86rem] font-bold ${p ? "bg-white/[.05]" : "bg-ai text-[#ffffff]"}`}>
             <Store size={16} />{p ? <>お店のサイト：{p.name}</> : "お店のサイトを選ぶ"}<ChevronDown size={15} />
           </button>}
       {open && (

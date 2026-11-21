@@ -46,8 +46,8 @@ function Uriage() {
 
       <section className="mt-24" aria-labelledby="wk">
         <h2 id="wk" className="text-[1.2rem] font-bold tracking-[.04em]">週ごとの注文（AI経由）</h2>
-        <div className="mt-10 sm:hidden"><LineChart data={weeks.map((w) => w.o)} labels={weeks.map((w) => w.w)} color="#10d9a0" grid="rgba(255,255,255,.07)" sub="#6b7b98" W={320} H={130} head={1.8} sparse /></div>
-        <div className="mt-10 hidden sm:block"><LineChart data={weeks.map((w) => w.o)} labels={weeks.map((w) => w.w)} color="#10d9a0" grid="rgba(255,255,255,.07)" sub="#6b7b98" W={900} H={220} head={1.6} /></div>
+        <div className="mt-10 sm:hidden"><LineChart data={weeks.map((w) => w.o)} labels={weeks.map((w) => w.w)} color="#4d8dff" grid="rgba(255,255,255,.07)" sub="#6b7b98" W={320} H={130} head={1.8} sparse /></div>
+        <div className="mt-10 hidden sm:block"><LineChart data={weeks.map((w) => w.o)} labels={weeks.map((w) => w.w)} color="#4d8dff" grid="rgba(255,255,255,.07)" sub="#6b7b98" W={900} H={220} head={1.6} /></div>
       </section>
 
       <div className="mt-20" />

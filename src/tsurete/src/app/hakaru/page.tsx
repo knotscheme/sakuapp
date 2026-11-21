@@ -147,7 +147,7 @@ function exportCsv(applied: string[]) {
 
 // ---------- 毎週の推移：期間を選び、前の期間とくらべる ----------
 const LINES: { k: keyof Omit<Day, "d">; l: string; c: string }[] = [
-  { k: "pct", l: "すすめられた割合", c: "#10d9a0" },
+  { k: "pct", l: "すすめられた割合", c: "#4d8dff" },
   { k: "cite", l: "自分のサイトが根拠に", c: "#38bdf8" },
   { k: "top1", l: "1位の割合", c: "#f2b84b" },
 ];
@@ -229,7 +229,7 @@ function Insights() {
 function Heat() {
   const s = useStore();
   const g = grid(s.applied);
-  const col = (v: number) => v === 0 ? "rgba(255,255,255,.05)" : `rgba(16,217,160,${0.18 + v * 0.82})`;
+  const col = (v: number) => v === 0 ? "rgba(255,255,255,.05)" : `rgba(77,141,255,${0.18 + v * 0.82})`;
   return (
     <section className="mt-20" aria-labelledby="ht">
       <h2 id="ht" className="text-[1.2rem] font-bold tracking-[.04em]">質問 × AI</h2>
@@ -237,7 +237,7 @@ function Heat() {
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[46rem] table-fixed text-[0.78rem]">
           <thead><tr className="text-sub"><th className="w-[42%] py-2 text-left font-medium">質問</th>{AIS.map((a) => <th key={a} className="px-1 py-2 text-center font-medium">{a}</th>)}</tr></thead>
-          <tbody>{g.map((r) => <tr key={r.q.id} className="border-t hair"><td className="py-2.5 pr-2 leading-[1.5]"><J>{r.q.text}</J></td>{r.by.map((v, i) => <td key={i} className="p-1"><span className="num block rounded-md py-2 text-center text-[0.72rem]" style={{ background: col(v), color: v > 0.45 ? "#03140f" : "#9fb0c8" }}>{Math.round(v * 100)}</span></td>)}</tr>)}</tbody>
+          <tbody>{g.map((r) => <tr key={r.q.id} className="border-t hair"><td className="py-2.5 pr-2 leading-[1.5]"><J>{r.q.text}</J></td>{r.by.map((v, i) => <td key={i} className="p-1"><span className="num block rounded-md py-2 text-center text-[0.72rem]" style={{ background: col(v), color: v > 0.45 ? "#ffffff" : "#9fb0c8" }}>{Math.round(v * 100)}</span></td>)}</tr>)}</tbody>
         </table>
       </div>
       <p className="mt-2 text-[0.72rem] text-sub">数字は、直近の測定で、その質問をそのAIに聞いたときにすすめられた割合（%）です。</p>
