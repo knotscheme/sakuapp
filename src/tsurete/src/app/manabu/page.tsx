@@ -60,7 +60,7 @@ function UseStep({ s }: { s: (typeof USE)[number] }) {
         <ChevronDown size={18} className={`shrink-0 text-sub transition ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <div className="grid border-t hair lg:grid-cols-[1fr_1.1fr]">
+        <div className="grid grid-cols-1 border-t hair lg:grid-cols-[1fr_1.1fr]">
           <div className="bg-paper px-4 pt-5 lg:p-4">
             <picture>
               <source media="(min-width: 1024px)" srcSet={`${IMG}/${s.img}?v=5`} />
@@ -198,7 +198,7 @@ function Manabu() {
       <h1 className="mt-2 text-[1.6rem] font-bold leading-[1.5] tracking-[.04em] sm:text-[2rem]">学ぶ・使い方</h1>
       <p className="mt-3 max-w-[38em] text-[0.95rem] leading-[2] text-sub"><J>まずは画面を触って使い方をつかみ、そのあと講座で「なぜ効くのか」を学ぶ、の順がおすすめです。登録なし・無料です。</J></p>
 
-      <section className="mt-8 grid gap-3 md:grid-cols-3" aria-label="このデモについて">
+      <section className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-3" aria-label="このデモについて">
         {[
           { icon: Store, t: "お店の人が使うツール", b: "宣伝のページ（LP）ではなく、ネットショップの人が使う管理画面の見本です。" },
           { icon: Hand, t: "押して試せます", b: "架空のスキンケアブランド「SORAE」の佐藤さんになったつもりで、押してみてください。" },

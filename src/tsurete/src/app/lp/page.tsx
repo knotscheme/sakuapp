@@ -396,7 +396,7 @@ const STEPS = [
 function Bars() {
   const [ref, on] = useInView<HTMLDivElement>();
   return (
-    <div ref={ref} className="grid gap-3 md:grid-cols-2 sm:gap-4">
+    <div ref={ref} className="grid grid-cols-1 gap-3 md:grid-cols-2 sm:gap-4">
       {[
         { t: "いまの商品説明", d: "空のように澄んだ肌へ。毎日のうるおいに寄りそう、SORAEの化粧水。", v: 10, c: "#c2410c", tone: "text-[#6e6e73]" },
         { t: "AIが書き直した後", d: "敏感肌・乾燥肌の方のために作った化粧水です。香料・アルコールは入っていません。朝晩使って約2か月、1日あたり約55円。", v: 70, c: "#00a37a", tone: "" },
@@ -462,7 +462,7 @@ function Week() {
   return (
     <section className="px-5 py-24 sm:py-36">
       <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">お店の1週間は、</span><span className="inline-block">こう変わる。</span></h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>やることは、週に一度の5分だけ。</J></p></Reveal>
-      <ol className="relative mx-auto mt-14 grid max-w-[64rem] gap-8 sm:mt-20 md:grid-cols-4 md:gap-6">
+      <ol className="relative mx-auto mt-14 grid grid-cols-1 max-w-[64rem] gap-8 sm:mt-20 md:grid-cols-4 md:gap-6">
         <i className="absolute left-[1.35rem] top-2 hidden h-[calc(100%-1rem)] w-px bg-[#d2d2d7] max-md:block" aria-hidden />
         <i className="absolute left-[12%] right-[12%] top-[1.4rem] hidden h-px bg-[#d2d2d7] md:block" aria-hidden />
         {items.map(({ icon: Icon, k, t, d }, i) => (
@@ -497,7 +497,7 @@ function Measure() {
         <h2 className="lp-h mt-2 text-[2rem] sm:text-[3.4rem]"><span className="inline-block">AIの答えを、</span><span className="inline-block">4つの数字で。</span></h2>
         <p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>お客様が聞きそうな質問を、6つのAIに毎日くり返し聞いて数えます。名前が出たか、何番目か、自分のサイトが根拠になったか。前の期間とくらべて、上がったか下がったかまで。</J></p>
       </Reveal>
-      <div ref={ref} className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-20 lg:grid-cols-[1.1fr_1fr]">
+      <div ref={ref} className="mx-auto mt-14 grid grid-cols-1 max-w-[64rem] gap-4 sm:mt-20 lg:grid-cols-[1.1fr_1fr]">
         <Reveal className="h-full"><div className="h-full rounded-[28px] bg-white p-6 shadow-[0_30px_60px_-36px_rgba(0,0,0,.28)] sm:p-8">
           <div className="grid grid-cols-2 gap-3">
             {nums.map((x) => <div key={x.l} className="rounded-2xl bg-[#f5f5f7] p-4"><p className="text-[0.78rem] text-[#6e6e73]"><J>{x.l}</J></p><p className="mt-1.5"><b className="text-[2rem] font-bold leading-none text-[#00a37a]">{on ? <Count to={x.v} dec={x.dec ?? 0} /> : 0}</b><span className="ml-1 text-[0.85rem] text-[#6e6e73]">{x.u}</span></p></div>)}
@@ -516,7 +516,7 @@ function Measure() {
           <p className="mt-5 rounded-2xl bg-[#fdf0ea] px-4 py-3 text-[0.84rem] leading-[1.7] text-[#7c2d12]"><J>「口コミ」で調べられているのに、ページに答えがない。→ 処方箋：レビュー依頼の質問を変える</J></p>
         </div></Reveal>
       </div>
-      <div className="mx-auto mt-4 grid max-w-[64rem] gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto mt-4 grid grid-cols-1 max-w-[64rem] gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {MTOOLS.map(({ icon: Icon, t, d }, i) => <Reveal key={t} delay={i * 80} className="h-full"><div className="h-full rounded-[22px] bg-white/80 p-5"><Icon size={20} strokeWidth={1.8} className="text-[#00a37a]" /><b className="mt-3 block text-[0.98rem]"><J>{t}</J></b><p className="mt-1 text-[0.84rem] leading-[1.75] text-[#6e6e73]"><J>{d}</J></p></div></Reveal>)}
       </div>
       <Reveal className="mx-auto mt-10 max-w-[40rem] text-center" delay={200}>
@@ -544,7 +544,7 @@ function Features() {
   return (
     <section id="features" className="scroll-mt-12 px-5 py-24 sm:py-36">
       <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">測るから、売上まで。</span><span className="inline-block">ぜんぶ、ひとつで。</span></h2><p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>測るだけのツール、直すだけのアプリ、売上を見る道具。別々に入れていたものを、TSURETEひとつに。</J></p></Reveal>
-      <ol className="mx-auto mt-14 grid max-w-[64rem] gap-3 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+      <ol className="mx-auto mt-14 grid grid-cols-1 max-w-[64rem] gap-3 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
         {FEATURES.map(({ icon: Icon, t, d }, i) => (
           <Reveal key={t} delay={(i % 3) * 90} className="h-full"><li className="flex h-full gap-4 rounded-[24px] bg-white/80 p-6"><span className="num w-7 shrink-0 pt-0.5 text-[0.85rem] font-semibold text-[#86868b]">{String(i + 1).padStart(2, "0")}</span><span className="min-w-0"><Icon size={22} strokeWidth={1.7} className="text-[#00a37a]" /><b className="mt-3 block text-[1.05rem]"><J>{t}</J></b><span className="mt-1 block text-[0.88rem] leading-[1.75] text-[#6e6e73]"><J>{d}</J></span></span></li></Reveal>
         ))}
@@ -558,7 +558,7 @@ const COURSE = [["知る", "AIで買い物をする時代に、何が変わっ�
 function Learn() {
   return (
     <section id="learn" className="scroll-mt-12 px-5 py-24 sm:py-36">
-      <div className="mx-auto grid max-w-[64rem] items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+      <div className="mx-auto grid grid-cols-1 max-w-[64rem] items-center gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
         <Reveal>
           <p className="text-[1rem] font-semibold text-[#00a37a]">学ぶ</p>
           <h2 className="lp-h mt-2 text-[2rem] sm:text-[3rem]"><span className="inline-block">お店の人が、</span><span className="inline-block">AI担当になれる。</span></h2>
@@ -608,7 +608,7 @@ function Compare() {
   return (
     <section className="px-5 py-24 sm:py-36">
       <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>TSURETEを選ぶ理由。</J></h2></Reveal>
-      <div className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-3">
+      <div className="mx-auto mt-14 grid grid-cols-1 max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-3">
         {PILLARS.map(({ icon: Icon, t, d }, i) => (
           <Reveal key={t} delay={i * 100} className="h-full"><div className="h-full rounded-[28px] bg-white/75 p-7 sm:p-8"><Icon size={26} strokeWidth={1.7} className="text-[#00a37a]" /><b className="mt-5 block text-[1.15rem] leading-[1.5]"><J>{t}</J></b><p className="mt-2 text-[0.92rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></p></div></Reveal>
         ))}
@@ -651,7 +651,7 @@ function Safety() {
   return (
     <section className="px-5 py-24 sm:py-36">
       <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>お店の大事なページだから。</J></h2></Reveal>
-      <div className="mx-auto mt-14 grid max-w-[60rem] gap-4 sm:mt-16 sm:grid-cols-2">
+      <div className="mx-auto mt-14 grid grid-cols-1 max-w-[60rem] gap-4 sm:mt-16 sm:grid-cols-2">
         {items.map(({ icon: Icon, t, d }, i) => (
           <Reveal key={t} delay={i * 90} className="h-full"><div className="flex h-full gap-5 rounded-[28px] bg-white p-7 sm:p-8"><Icon size={26} strokeWidth={1.7} className="mt-0.5 shrink-0 text-[#00a37a]" /><span className="min-w-0"><b className="block text-[1.1rem]"><J>{t}</J></b><span className="mt-1.5 block text-[0.92rem] leading-[1.8] text-[#6e6e73]"><J>{d}</J></span></span></div></Reveal>
         ))}
@@ -670,7 +670,7 @@ function Pricing() {
   return (
     <section id="price" className="scroll-mt-12 px-5 py-24 sm:py-36">
       <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>料金</J></h2><p className="mx-auto mt-5 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>お店がAIの利用料を払う必要はありません。点検と処方箋づくりの費用は、料金に含みます。</J></p><p className="mt-3 text-[0.85rem] text-[#86868b]"><J>どのプランも、はじめの14日間は無料。カードの登録はいりません。</J></p><p className="mt-1 text-[0.8rem] text-[#86868b]"><J>※デモ用の仮の料金です。実際の料金は決まっていません。</J></p></Reveal>
-      <div className="mx-auto mt-14 grid max-w-[72rem] gap-4 sm:mt-16 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mx-auto mt-14 grid grid-cols-1 max-w-[72rem] gap-4 sm:mt-16 md:grid-cols-2 xl:grid-cols-4">
         {PLANS.map((x, i) => (
           <Reveal key={x.n} delay={i * 100} className="h-full">
             <div className={`flex h-full flex-col rounded-[28px] p-8 ${x.hi ? "bg-[#1d1d1f] text-white" : "bg-white/75"}`}>
@@ -695,7 +695,7 @@ function Start() {
   return (
     <section className="px-5 py-24 sm:py-36">
       <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>はじめ方は、3つだけ。</J></h2></Reveal>
-      <ol className="mx-auto mt-14 grid max-w-[60rem] gap-10 sm:mt-16 md:grid-cols-3 md:gap-8">
+      <ol className="mx-auto mt-14 grid grid-cols-1 max-w-[60rem] gap-10 sm:mt-16 md:grid-cols-3 md:gap-8">
         {steps.map((x, i) => (
           <Reveal key={x.t} delay={i * 110}><li className="border-t border-[#d2d2d7] pt-6"><span className="num text-[2.4rem] font-bold leading-none text-[#00a37a]">{i + 1}</span><b className="mt-4 block text-[1.2rem]"><J>{x.t}</J></b><span className="mt-2 block text-[0.95rem] leading-[1.8] text-[#6e6e73]"><J>{x.d}</J></span></li></Reveal>
         ))}
@@ -780,7 +780,7 @@ export default function Page() {
             <img src={`${IMG}/ask-ai.webp?v=3`} alt="ソファでスマホのAIに相談している人" width={1264} height={848} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
           </Reveal>
           {/* 数字で見る：AIで買い物をする人（各社の調査） */}
-          <div className="mx-auto mt-16 grid max-w-[56rem] gap-10 text-center sm:mt-24 sm:grid-cols-3 sm:gap-6">
+          <div className="mx-auto mt-16 grid grid-cols-1 max-w-[56rem] gap-10 text-center sm:mt-24 sm:grid-cols-3 sm:gap-6">
             {STATS.map((x, i) => (
               <Reveal key={x.l} delay={i * 100}>
                 <p className="text-[3rem] font-bold leading-none tracking-[-.02em] sm:text-[3.4rem]"><Count to={x.v} dec={x.dec} /><span className="ml-1 text-[1.2rem] font-semibold">{x.s}</span></p>
@@ -811,7 +811,7 @@ export default function Page() {
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">点検する。直す。</span><span className="inline-block">売上で確かめる。</span></h2></Reveal>
           <div className="mx-auto mt-14 max-w-[62rem] space-y-20 sm:mt-20 sm:space-y-40">
             {STEPS.map((s, i) => (
-              <div key={s.n} className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+              <div key={s.n} className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
                 <Reveal className={i % 2 ? "lg:order-2" : ""}>
                   <p className="text-[1rem] font-semibold text-[#00a37a]">{s.n}</p>
                   <h3 className="lp-h mt-2 text-[1.8rem] sm:text-[2.4rem]"><J>{s.h}</J></h3>
@@ -835,7 +835,7 @@ export default function Page() {
         {/* 対応サイト */}
         <section id="sites" className="scroll-mt-12 px-5 py-24 sm:py-36">
           <Reveal className="text-center"><h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><J>どのサイトでも。</J></h2><p className="mx-auto mt-4 max-w-[30em] text-[1.02rem] leading-[1.8] text-[#6e6e73]"><J>測るのは、サイトに何も入れずに。直すときは、サイトに合わせて届け方を選べます。</J></p></Reveal>
-          <div className="mx-auto mt-16 grid max-w-[60rem] gap-4 sm:grid-cols-2">
+          <div className="mx-auto mt-16 grid grid-cols-1 max-w-[60rem] gap-4 sm:grid-cols-2">
             {WAYS.map(({ m, icon: Icon, t, d }, i) => (
               <Reveal key={t} delay={i * 90} className="h-full">
                 <div className="flex h-full flex-col rounded-[28px] bg-white/75 p-8">
@@ -860,7 +860,7 @@ export default function Page() {
             <h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">お店の、</span><span className="inline-block">AI担当に。</span></h2>
             <p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>AI対策の担当者を置かなくても、TSURETEが毎週点検して、やることだけを届けます。1つのお店でも、たくさんのお店でも。</J></p>
           </Reveal>
-          <div className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-2">
+          <div className="mx-auto mt-14 grid grid-cols-1 max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-2">
             {[
               { img: "owner.webp?v=3", alt: "作業机でネットショップを運営している人", k: "自分のお店を運営する方", t: "ひとりでも、AI対策を続けられる。", d: "点検はぜんぶ自動。毎週届く「今週やること」を読んで、使う案を押すだけ。作業は週5分ほどです。", p: "フリー・スタンダード・プロ" },
               { img: null, alt: "", k: "制作会社・代理店・EC運用チーム", t: "たくさんのお店を、まとめて見る。", d: "お店ごとの点検・測定・書き直し案をひとつの画面で。お店ごとのレポートを書き出して、そのまま報告に使えます。お店の人を招待して、一緒に進めることも。", p: "制作会社・代理店プラン" },

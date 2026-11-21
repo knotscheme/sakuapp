@@ -54,7 +54,7 @@ function SelfLog() {
   return (
     <div>
       <p className="mt-2 text-[0.88rem] leading-[1.9] text-sub"><J>ふだん使っているAIに自分で聞いてみた結果も、ここに残せます。答えは人によって変わるので、目安として使ってください。</J></p>
-      <div className="card mt-6 grid gap-3 p-5 sm:grid-cols-[1fr_9rem_9rem_auto] sm:items-end">
+      <div className="card mt-6 grid grid-cols-1 gap-3 p-5 sm:grid-cols-[1fr_9rem_9rem_auto] sm:items-end">
         <label className="text-[0.82rem] font-bold">聞いた質問<select value={q} onChange={(e) => setQ(e.target.value)} className="field mt-1">{QUESTIONS.map((x) => <option key={x.id}>{x.text}</option>)}</select></label>
         <label className="text-[0.82rem] font-bold">AI<select value={ai} onChange={(e) => setAi(e.target.value)} className="field mt-1">{AIS.map((x) => <option key={x}>{x}</option>)}</select></label>
         <label className="text-[0.82rem] font-bold">SORAEは<select value={rank} onChange={(e) => setRank(Number(e.target.value))} className="field mt-1">{RANKS.map((x) => <option key={x.v} value={x.v}>{x.l}</option>)}</select></label>
@@ -341,7 +341,7 @@ function Hakaru() {
       <Fold title="質問ごとの結果" sub="どの質問で、どの店がいちばんか">
         <ul className="mt-8 border-t hair">
           {win.map((r) => (
-            <li key={r.q.id} className="grid gap-x-6 gap-y-1 border-b hair py-4 sm:grid-cols-[1fr_9rem_6rem] sm:items-center">
+            <li key={r.q.id} className="grid grid-cols-1 gap-x-6 gap-y-1 border-b hair py-4 sm:grid-cols-[1fr_9rem_6rem] sm:items-center">
               <span className="text-[0.92rem]"><J>{r.q.text}</J></span>
               <span className="text-[0.8rem] text-sub">いちばん：<b className={r.top === BRAND.name ? "text-ai" : "text-ink"}>{r.top}</b></span>
               <span className={`num text-[0.85rem] sm:text-right ${r.me / r.max >= 0.5 ? "text-ai" : "text-warn"}`}>{BRAND.name} {Math.round((r.me / r.max) * 100)}%</span>
