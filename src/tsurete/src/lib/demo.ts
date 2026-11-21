@@ -3,7 +3,7 @@
 
 export const BRAND = { name: "SORAE", owner: "佐藤", kind: "スキンケア", site: "sorae-skin.example" };
 
-export const AIS = ["ChatGPT", "Gemini", "AIモード", "Copilot", "Claude", "Perplexity"] as const;
+export const AIS = ["ChatGPT", "Gemini", "Claude", "Perplexity"] as const;
 export type Ai = (typeof AIS)[number];
 export const TRIES = 20; // 1つの質問を、1つのAIに何回聞くか
 
@@ -98,7 +98,7 @@ export const FIXES: Fix[] = [
 
 // AIごとのくせ（どの情報を重く見るか）
 const AI_BIAS: Record<Ai, Partial<Record<Sig, number>>> = {
-  ChatGPT: { data: 0.06, review: 0.03 }, Gemini: { data: 0.08, spec: 0.03 }, "AIモード": { data: 0.07, media: 0.04 }, Copilot: { data: 0.05, spec: 0.04 }, Claude: { ingredient: 0.05, faq: 0.04 }, Perplexity: { media: 0.09, review: 0.04 },
+  ChatGPT: { data: 0.06, review: 0.03 }, Gemini: { data: 0.08, spec: 0.03 }, Claude: { ingredient: 0.05, faq: 0.04 }, Perplexity: { media: 0.09, review: 0.04 },
 };
 
 export function hash(s: string) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return ((h >>> 0) % 10000) / 10000; }
@@ -248,18 +248,19 @@ export const FANOUT: Record<string, { k: string; sig: Sig | null }[]> = {
 // そのキーワードに、自分のページが答えられているか
 export function covers(product: string, sig: Sig | null, applied: string[]) { return sig ? signals(product, applied)[sig] >= 0.4 : false; }
 
-// ---------- 毎日の測定（直近の推移） ----------
+// ---------- 毎週の測定（直近の推移） ----------
 // 直す前の状態から、直した分だけ最近の数日で上がっていく。数字は架空
 let baseCache: ReturnType<typeof metrics> | null = null;
 const baseM = () => (baseCache ??= metrics([]));
 export type Day = { d: string; pct: number; cite: number; top1: number };
-export function daily(applied: string[], days: number): Day[] {
+export function daily(applied: string[], weeks: number): Day[] {
+  const days = weeks;
   const b = baseM(), c = applied.length ? metrics(applied) : b;
   const end = new Date(2026, 10, 18);
   const out: Day[] = [];
   for (let i = days - 1; i >= 0; i--) {
-    const dt = new Date(end); dt.setDate(end.getDate() - i);
-    const k = i < 6 ? (6 - i) / 6 : 0; // 直したのはここ6日ほど、という想定
+    const dt = new Date(end); dt.setDate(end.getDate() - i * 7);
+    const k = i < 2 ? (2 - i) / 2 : 0; // 直したのはここ2週ほど、という想定
     const n = (key: string, amp: number) => Math.round((hash(`${key}|${days}|${i}`) - 0.5) * amp);
     out.push({ d: `${dt.getMonth() + 1}/${dt.getDate()}`, pct: Math.max(0, Math.round(b.pct + (c.pct - b.pct) * k) + n("p", 4)), cite: Math.max(0, Math.round(b.cite + (c.cite - b.cite) * k) + n("c", 6)), top1: Math.max(0, Math.round(b.top1 + (c.top1 - b.top1) * k) + n("t", 2)) });
   }

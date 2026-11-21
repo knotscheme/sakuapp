@@ -145,7 +145,7 @@ function exportCsv(applied: string[]) {
   toast("CSVを書き出しました");
 }
 
-// ---------- 毎日の推移：期間を選び、前の期間とくらべる ----------
+// ---------- 毎週の推移：期間を選び、前の期間とくらべる ----------
 const LINES: { k: keyof Omit<Day, "d">; l: string; c: string }[] = [
   { k: "pct", l: "すすめられた割合", c: "#10d9a0" },
   { k: "cite", l: "自分のサイトが根拠に", c: "#38bdf8" },
@@ -156,7 +156,7 @@ function DailyChart({ data, W = 680, H = 210, fs = 10 }: { data: Day[]; W?: numb
   const x = (i: number) => P + (i * (W - P * 2)) / Math.max(1, data.length - 1), y = (v: number) => H - P - (v / max) * (H - P * 2);
   const step = Math.ceil(data.length / 7);
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="毎日の推移のグラフ">
+    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="毎週の推移のグラフ">
       {[0, 0.5, 1].map((f) => <g key={f}><line x1={P} x2={W - P} y1={y(max * f)} y2={y(max * f)} stroke="rgba(255,255,255,.06)" /><text x={0} y={y(max * f) + 4} fontSize={fs} fill="#6b7b98">{Math.round(max * f)}%</text></g>)}
       {LINES.map((l) => <path key={l.k} d={data.map((p, i) => `${i ? "L" : "M"}${x(i)},${y(p[l.k])}`).join(" ")} fill="none" stroke={l.c} strokeWidth="2.2" strokeLinejoin="round" />)}
       {data.map((p, i) => (i % step === 0 || i === data.length - 1) && <text key={p.d} x={x(i)} y={H - 8} fontSize={fs} fill="#6b7b98" textAnchor="middle">{p.d}</text>)}
@@ -165,24 +165,25 @@ function DailyChart({ data, W = 680, H = 210, fs = 10 }: { data: Day[]; W?: numb
 }
 function Daily() {
   const s = useStore();
-  const [days, setDays] = useState(28);
+  const [days, setDays] = useState(12);
+  const [left, setLeft] = useState(2); // 今すぐ測るは、プロで月2回まで
   const [now, setNow] = useState<null | "run" | "done">(null);
   const [prog, setProg] = useState(0);
   const all = daily(s.applied, days * 2), cur = all.slice(days), prev = all.slice(0, days);
   const run = () => {
     setNow("run"); setProg(0);
     AIS.forEach((_, i) => setTimeout(() => setProg(i + 1), 350 * (i + 1)));
-    setTimeout(() => { setNow("done"); toast("いまの状態で測りなおしました"); }, 350 * AIS.length + 250);
+    setTimeout(() => { setNow("done"); setLeft((x) => x - 1); toast("いまの状態で測りなおしました"); }, 350 * AIS.length + 250);
   };
   return (
-    <section aria-label="毎日の推移">
+    <section aria-label="毎週の推移">
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex rounded-full bg-white/[.05] p-1 text-[0.8rem]" role="tablist" aria-label="期間">
-          {[7, 28, 90].map((d) => <button key={d} type="button" role="tab" aria-selected={days === d} onClick={() => setDays(d)} className={`rounded-full px-3.5 py-1.5 ${days === d ? "bg-ai font-bold text-paper" : "text-sub"}`}>{d}日</button>)}
+          {[4, 12, 26].map((d) => <button key={d} type="button" role="tab" aria-selected={days === d} onClick={() => setDays(d)} className={`rounded-full px-3.5 py-1.5 ${days === d ? "bg-ai font-bold text-paper" : "text-sub"}`}>{d}週</button>)}
         </div>
-        <button type="button" onClick={run} disabled={now === "run"} className="btn ml-auto px-5 ring-1 ring-white/15 disabled:opacity-60"><RefreshCw size={16} className={now === "run" ? "animate-spin" : ""} />{now === "run" ? `測っています（${prog}/${AIS.length}）` : "今すぐ測る"}</button>
+        <button type="button" onClick={run} disabled={now === "run" || left <= 0} className="btn ml-auto px-5 ring-1 ring-white/15 disabled:opacity-60"><RefreshCw size={16} className={now === "run" ? "animate-spin" : ""} />{now === "run" ? `測っています（${prog}/${AIS.length}）` : left > 0 ? `今すぐ測る（今月あと${left}回）` : "今月の回数を使いきりました"}</button>
       </div>
-      <p className="mt-3 text-[0.78rem] text-sub">毎日の自動の測定（毎朝6時）{now === "done" ? "・いま測りなおしました" : "・最後の測定：今日 6:00"}</p>
+      <p className="mt-3 text-[0.78rem] text-sub">毎週の自動の測定（月曜の朝）{now === "done" ? "・いま測りなおしました" : "・最後の測定：11月17日（月）"}</p>
       <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-3">
         {LINES.map((l) => {
           const a = avgOf(cur, l.k), b = avgOf(prev, l.k), d = Math.round((a - b) * 10) / 10;
@@ -190,7 +191,7 @@ function Daily() {
             <div key={l.k} className="card min-w-0 p-3 sm:p-5">
               <p className="flex items-center gap-1.5 text-[0.7rem] leading-[1.4] text-sub sm:text-[0.8rem]"><i className="h-2 w-2 shrink-0 rounded-full" style={{ background: l.c }} /><J>{l.l}</J></p>
               <p className="mt-2"><b className="num text-[1.4rem] leading-none sm:text-[2rem]">{a}</b><span className="ml-0.5 text-[0.75rem] text-sub">%</span></p>
-              <p className={`num mt-2 flex items-center gap-1 text-[0.72rem] sm:text-[0.8rem] ${d > 0 ? "text-ai" : d < 0 ? "text-warn" : "text-sub"}`}>{d > 0 ? <TrendingUp size={13} /> : d < 0 ? <TrendingDown size={13} /> : null}{d > 0 ? "+" : ""}{d}pt<span className="hidden text-sub sm:inline">（前の{days}日）</span></p>
+              <p className={`num mt-2 flex items-center gap-1 text-[0.72rem] sm:text-[0.8rem] ${d > 0 ? "text-ai" : d < 0 ? "text-warn" : "text-sub"}`}>{d > 0 ? <TrendingUp size={13} /> : d < 0 ? <TrendingDown size={13} /> : null}{d > 0 ? "+" : ""}{d}pt<span className="hidden text-sub sm:inline">（前の{days}週）</span></p>
             </div>
           );
         })}
@@ -239,7 +240,7 @@ function Heat() {
           <tbody>{g.map((r) => <tr key={r.q.id} className="border-t hair"><td className="py-2.5 pr-2 leading-[1.5]"><J>{r.q.text}</J></td>{r.by.map((v, i) => <td key={i} className="p-1"><span className="num block rounded-md py-2 text-center text-[0.72rem]" style={{ background: col(v), color: v > 0.45 ? "#03140f" : "#9fb0c8" }}>{Math.round(v * 100)}</span></td>)}</tr>)}</tbody>
         </table>
       </div>
-      <p className="mt-2 text-[0.72rem] text-sub">数字は、{TRIES}回聞いたうちの割合（%）です。</p>
+      <p className="mt-2 text-[0.72rem] text-sub">数字は、直近の測定で、その質問をそのAIに聞いたときにすすめられた割合（%）です。</p>
     </section>
   );
 }
@@ -309,7 +310,7 @@ function Hakaru() {
   const win = winners(s.applied);
   return (
     <>
-      <Title n="PRO" title="測る" lead="お客様が聞きそうな質問を、6つのAIに毎日くり返し聞いた結果です（プロプラン）。名前が出たか、何番目か、自分のサイトが根拠になったか、どの店に負けているかが分かります。お店がAIの利用料を払う必要はありません。数字は架空のブランドでの模擬の結果です。" />
+      <Title n="PRO" title="測る" lead="お客様が聞きそうな質問を、4つのAIに毎週くり返し聞いた結果です（プロプラン）。名前が出たか、何番目か、自分のサイトが根拠になったか、どの店に負けているかが分かります。お店がAIの利用料を払う必要はありません。数字は架空のブランドでの模擬の結果です。" />
 
       <Daily />
 
