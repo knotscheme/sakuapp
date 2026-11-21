@@ -597,7 +597,7 @@ const ROWS: [string, number[]][] = [
   ["直す文章とコードまで出す", [2, 1, 0, 1, 1]],
   ["ショップに反映（Shopify・楽天CSV）", [2, 0, 0, 0, 1]],
   ["効果を売上で確かめる", [2, 0, 1, 1, 0]],
-  ["小さなお店が続けられる料金", [2, 2, 1, 0, 1]],
+  ["月3,000円から始められる料金", [2, 2, 1, 0, 1]],
 ];
 function Mark({ v, me }: { v: number; me?: boolean }) {
   if (v === 2) return <Check size={18} strokeWidth={2.4} className={`mx-auto ${me ? "text-[#2fd9a6]" : "text-[#00a37a]"}`} aria-label="できる" />;
@@ -707,7 +707,7 @@ function Start() {
 const FAQ = [
   { q: "必ずAIにすすめられるようになりますか？", a: "いいえ、保証はできません。AIの答えは、AIを作っている会社のしくみで決まります。TSURETEは、AIが読み取りやすいページになるよう材料をそろえ、効いたかどうかを実際の来店と売上で確かめます。" },
   { q: "AIの答えは、人によって変わるのでは？", a: "変わります。だからTSURETEは、AIの答えを当てにいくのではなく、AIが読み取りやすいページかを点検して直します。効いたかどうかは、計測タグで実際の来店と売上を見て確かめます。どの質問で負けているかは、プロプランの共有の測定で目安を出します。" },
-  { q: "AIの答えを測るツールとは、何が違いますか？", a: "測るツールは、AIにどれだけ名前が出ているかを教えてくれます。TSURETEも同じように6つのAIで測りますが、そこで終わりません。足りないところを商品ページごとに見つけて、直す文章とコードを出し、ショップに反映し、AIから来たお客様と売上まで確かめます。料金も、小さなお店が続けられる額にしています。" },
+  { q: "AIの答えを測るツールとは、何が違いますか？", a: "測るツールは、AIにどれだけ名前が出ているかを教えてくれます。TSURETEも同じように6つのAIで測りますが、そこで終わりません。足りないところを商品ページごとに見つけて、直す文章とコードを出し、ショップに反映し、AIから来たお客様と売上まで確かめます。料金も、月3,000円ほどから始められる額にしています。" },
   { q: "AI対策の知識がなくても使えますか？", a: "使えます。点検と書き直し案はTSURETEが出すので、お店の人は読んで選ぶだけです。考え方を知りたい方のために、1レッスン約3分の講座（全5章・15レッスン、確認テストと修了証つき）を、登録なし・無料で用意しています。" },
   { q: "ハックや裏技は使いますか？", a: "使いません。AIをだます方法は、見つかると逆に外されるおそれがあります。TSURETEは、比較表やよくある質問、構造化データなど、AIにも人にも分かりやすいページにする、まっとうな方法だけを使います。" },
   { q: "お店の作業は、どれくらいですか？", a: "点検は、すべて自動です。お店の人は、毎週届く処方箋を読んで、コピーして貼るか、使う案のボタンを押すだけです。目安は週に5分ほどです。" },
@@ -735,7 +735,7 @@ function Faq() {
 // セクションごとの背景の色（スクロールに合わせて、となりの色へとけるように変わる）
 // 黒い場面（4番目）は、その場面だけ黒。ページ全体まで黒にすると、手前の文字が読めなくなるため
 const BG = ["#ffffff", "#eaf3fd", "#f8f3ea", "#f8f3ea", "#f0eefa", "#e8f6ef", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#f2f2f5", "#e8f6ef", "#f8f3ea", "#f0eefa", "#e8f6ef", "#f8f3ea", "#eaf3fd", "#f2f2f5", "#fdf0ea", "#ffffff", "#e8f6ef"];
-const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","点検は自動","しくみ","測る","お店の1週間","使う前と後","対応サイト","小さなお店へ","機能","学ぶ","選ばれる理由","安心","料金","はじめ方","よくある質問","無料診断"];
+const NAV = ["はじめに","AIで買う時代","これまでの集客","検索とAIのちがい","画面","点検は自動","しくみ","測る","お店の1週間","使う前と後","対応サイト","だれのため","機能","学ぶ","選ばれる理由","安心","料金","はじめ方","よくある質問","無料診断"];
 
 // LPに出す数字（各社の公開調査。数字を変えるときは、出典も必ず一緒に直す）
 const STATS = [
@@ -854,20 +854,42 @@ export default function Page() {
           </div>
         </section>
 
-        {/* 小さなネットショップのために */}
+        {/* だれのため：自分のお店／いくつものお店を見る会社 */}
         <section className="px-5 py-24 sm:py-36">
-          <div className="mx-auto grid max-w-[64rem] items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-            <Reveal>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${IMG}/owner.webp?v=3`} alt="自宅の作業机でネットショップを運営している人" width={1376} height={768} loading="lazy" className="block h-auto w-full rounded-[28px] object-cover sm:rounded-[36px]" />
-            </Reveal>
-            <Reveal delay={150}>
-              <h2 className="lp-h text-[2rem] sm:text-[2.6rem] lg:text-[2.3rem]"><J>小さなネットショップの、AI担当に。</J></h2>
-              <p className="mt-5 text-[1.02rem] leading-[1.95] text-[#6e6e73]"><J>大きな会社のように、AI対策の担当者は置けない。TSURETEが毎週自動で点検して、やることだけを届けます。</J></p>
-              <p className="mt-8 text-[0.85rem] font-semibold text-[#1d1d1f]"><J>比べて選ばれる商品なら、ジャンルは問いません。</J></p>
-              <p className="mt-3 flex flex-wrap gap-2">{["スキンケア", "食品・お菓子", "雑貨・インテリア", "アパレル", "ハンドメイド", "ベビー用品", "ペット用品"].map((t) => <span key={t} className="rounded-full bg-white px-3.5 py-1.5 text-[0.85rem]">{t}</span>)}</p>
-            </Reveal>
+          <Reveal className="text-center">
+            <h2 className="lp-h text-[2rem] sm:text-[3.4rem]"><span className="inline-block">お店の、</span><span className="inline-block">AI担当に。</span></h2>
+            <p className="mx-auto mt-4 max-w-[32em] text-[1.02rem] leading-[1.8] text-[#6e6e73] sm:text-[1.2rem]"><J>AI対策の担当者を置かなくても、TSURETEが毎週点検して、やることだけを届けます。1つのお店でも、たくさんのお店でも。</J></p>
+          </Reveal>
+          <div className="mx-auto mt-14 grid max-w-[64rem] gap-4 sm:mt-16 md:grid-cols-2">
+            {[
+              { img: "owner.webp?v=3", alt: "作業机でネットショップを運営している人", k: "自分のお店を運営する方", t: "ひとりでも、AI対策を続けられる。", d: "点検はぜんぶ自動。毎週届く「今週やること」を読んで、使う案を押すだけ。作業は週5分ほどです。", p: "フリー・スタンダード・プロ" },
+              { img: null, alt: "", k: "制作会社・代理店・EC運用チーム", t: "たくさんのお店を、まとめて見る。", d: "お店ごとの点検・測定・書き直し案をひとつの画面で。お店ごとのレポートを書き出して、そのまま報告に使えます。お店の人を招待して、一緒に進めることも。", p: "制作会社・代理店プラン" },
+            ].map((x, i) => (
+              <Reveal key={x.k} delay={i * 120} className="h-full">
+                <div className="flex h-full flex-col overflow-hidden rounded-[28px] bg-white">
+                  {x.img ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={`${IMG}/${x.img}`} alt={x.alt} width={1376} height={768} loading="lazy" className="block aspect-[16/9] h-auto w-full object-cover" />
+                  ) : (
+                    <div className="grid aspect-[16/9] place-items-center bg-[#1d1d1f] p-6">
+                      <ul className="w-full max-w-[20rem] space-y-2">{[["SORAE", 86], ["はなもり茶舗", 72], ["KOMOREBI 雑貨", 64], ["Lumi Kids", 41]].map(([n, v]) => <li key={n as string} className="flex items-center gap-3 rounded-xl bg-white/[.06] px-3.5 py-2.5 text-[0.82rem] text-white"><span className="min-w-0 flex-1 truncate">{n as string}</span><span className="h-1.5 w-20 overflow-hidden rounded-full bg-white/10"><span className="block h-full rounded-full bg-[#2fd9a6]" style={{ width: `${v}%` }} /></span><span className="num w-7 text-right text-[#2fd9a6]">{v as number}</span></li>)}</ul>
+                    </div>
+                  )}
+                  <div className="flex flex-1 flex-col p-7 sm:p-8">
+                    <p className="text-[0.85rem] font-semibold text-[#00a37a]">{x.k}</p>
+                    <b className="mt-2 block text-[1.3rem] leading-[1.5]"><J>{x.t}</J></b>
+                    <p className="mt-3 flex-1 text-[0.95rem] leading-[1.9] text-[#6e6e73]"><J>{x.d}</J></p>
+                    <a href="#price" className="mt-6 flex items-center text-[0.9rem] text-[#00a37a] hover:underline">{x.p}<ChevronRight size={16} /></a>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
+          <Reveal className="mx-auto mt-12 max-w-[56rem] text-center" delay={150}>
+            <p className="text-[0.85rem] font-semibold text-[#1d1d1f]"><J>比べて選ばれる商品なら、ジャンルは問いません。</J></p>
+            <p className="mt-3 flex flex-wrap justify-center gap-2">{["スキンケア", "食品・お菓子", "雑貨・インテリア", "アパレル", "ハンドメイド", "ベビー用品", "ペット用品"].map((t) => <span key={t} className="rounded-full bg-white px-3.5 py-1.5 text-[0.85rem]">{t}</span>)}</p>
+            <p className="mt-4 text-[0.72rem] text-[#86868b]"><J>店名はすべて架空です。</J></p>
+          </Reveal>
         </section>
 
         <Features />
