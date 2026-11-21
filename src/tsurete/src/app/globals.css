@@ -102,4 +102,4 @@ html[data-voice] .tsr-navlabel { opacity: 0; }
 .lp-light section .bg-white\/75, .lp-light section .bg-white\/80 { box-shadow: 0 0 0 1px rgba(0,0,0,.06); background: #fff; }
 
 /* LP：ボタンの角は控えめに（落ち着いた印象） */
-.lp-light .btn { border-radius: 8px; }
+.lp-light .btn { border-radius: 6px; }
