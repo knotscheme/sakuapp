@@ -663,13 +663,13 @@ function Safety() {
 const PLANS = [
   { n: "フリー", p: "0", u: "円", d: "まず1商品で試したい", who: "", f: ["1商品の診断と書き直し案（月1回）", "URL・CSVでの無料診断"] },
   { n: "スタンダード", p: "2,980", u: "円／月", d: "自分のお店のページを整えたい", who: "自分のお店", f: ["50商品を毎週自動で点検", "書き直し案 月50件", "Shopifyへの反映・楽天などのCSV", "AIから来たお客様と売上の計測", "ジャンル共通のAIの測定（月1回）"], hi: true },
-  { n: "プロ", p: "9,800", u: "円／月", d: "自分のお店を、AIの答えまで深く見たい", who: "自分のお店", f: ["スタンダードのすべて", "500商品・書き直し案 月200件", "自分の質問15個を、4つのAIで毎週測る", "ほかのブランドとの比較・気づき・データに質問", "今すぐ測る（月2回）・CSVの書き出し"] },
+  { n: "プロ", p: "9,800", u: "円／月", d: "自分のお店を、AIの答えまで深く見たい", who: "自分のお店", f: ["スタンダードのすべて", "500商品（100商品ごとに追加できます）", "書き直し案 月200件", "自分の質問15個を、4つのAIで毎週測る", "ほかのブランドとの比較・気づき・データに質問", "今すぐ測る（月2回）・CSVの書き出し"] },
   { n: "代理店", p: "13,780", u: "円／月〜", note: "1店舗のとき。基本料 9,800円＋1店舗ごと 3,980円", d: "お客様のお店をいくつも見る", who: "お客様のお店", f: ["全店の点数と変化を1画面で", "自社のロゴ入りレポートの書き出し", "お店の人の招待・見られる範囲を分ける", "1店舗ごと：点検・書き直し案 月50件・質問10個を毎週測る"] },
 ];
 // プランの違い：1行ずつ、どこまでできるか
 const MATRIX: [string, string[]][] = [
   ["向いている人", ["試したい", "自分のお店", "自分のお店", "お客様のお店"]],
-  ["商品の数", ["1", "50", "500", "1店舗500"]],
+  ["商品の数", ["1", "50", "500\n（追加できます）", "1店舗500\n（追加できます）"]],
   ["毎週の自動の点検", ["−", "◯", "◯", "◯"]],
   ["書き直し案", ["月1件", "月50件", "月200件", "1店舗 月50件"]],
   ["ショップへの反映（Shopify・CSV）", ["−", "◯", "◯", "◯"]],
@@ -687,7 +687,7 @@ const STORES = [1, 3, 5, 10];
 function Cell({ v }: { v: string }) {
   if (v === "◯") return <Check size={17} strokeWidth={2.4} className="mx-auto text-[#00a37a]" aria-label="あり" />;
   if (v === "−") return <Minus size={15} className="mx-auto text-[#c7c7cc]" aria-label="なし" />;
-  return <span className="block text-center leading-[1.4]"><J>{v}</J></span>;
+  return <span className="block whitespace-pre-line text-center leading-[1.4]">{v.includes("\n") ? v : <J>{v}</J>}</span>;
 }
 function Pricing() {
   const [n, setN] = useState(3);
@@ -716,6 +716,21 @@ function Pricing() {
         ))}
       </div>
 
+
+      {/* 商品が多いお店の追加 */}
+      <Reveal className="mx-auto mt-6 max-w-[56rem]">
+        <div className="flex flex-col gap-4 rounded-[24px] bg-white/80 p-6 sm:flex-row sm:items-center">
+          <div className="min-w-0 flex-1">
+            <p className="text-[0.92rem] font-semibold">500商品をこえるお店は、100商品ごとに追加</p>
+            <p className="mt-1 text-[0.84rem] leading-[1.8] text-[#6e6e73]"><J>プロと代理店（1店舗ごと）で使えます。追加した100商品ぶんの点検と、書き直し案 月50件がつきます。スタンダードで50商品をこえるときは、プロへ。</J></p>
+          </div>
+          <p className="shrink-0"><span className="text-[0.85rem] text-[#6e6e73]">100商品ごと</span> <b className="num text-[1.8rem]">980</b><span className="text-[0.85rem] text-[#6e6e73]">円／月</span></p>
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
+          {[500, 800, 1000, 2000].map((k) => <div key={k} className="rounded-2xl bg-white/60 px-3 py-3"><p className="text-[0.78rem] text-[#6e6e73]">{k.toLocaleString("ja-JP")}商品なら</p><p className="num mt-0.5 text-[1.05rem] font-bold">{(9800 + Math.max(0, Math.ceil((k - 500) / 100)) * 980).toLocaleString("ja-JP")}円</p><p className="text-[0.7rem] text-[#86868b]">プロの場合</p></div>)}
+        </div>
+      </Reveal>
+
       {/* プロと代理店のちがい */}
       <Reveal className="mx-auto mt-16 max-w-[56rem]">
         <p className="text-center text-[1.15rem] font-semibold sm:text-[1.4rem]"><J>プロと代理店のちがい</J></p>
@@ -743,7 +758,7 @@ function Pricing() {
             <tbody>{MATRIX.map(([t, v]) => <tr key={t} className="border-t border-black/[.05]"><td className="p-3 leading-[1.5] sm:p-4"><J>{t}</J></td>{v.map((c, i) => <td key={i} className={`px-1 py-3 text-[0.78rem] ${PLANS[i].hi ? "bg-[#1d1d1f] text-white" : "text-[#424245]"}`}><Cell v={c} /></td>)}</tr>)}</tbody>
           </table>
         </div>
-        <p className="mt-3 text-center text-[0.75rem] leading-[1.8] text-[#86868b]"><J>測るAIは、ChatGPT・Gemini・Claude・Perplexityの4つです。回数の上限をこえた月は、次の月までお待ちください。</J></p>
+        <p className="mt-3 text-center text-[0.75rem] leading-[1.8] text-[#86868b]"><J>測るAIは、ChatGPT・Gemini・Claude・Perplexityの4つです。商品の数・書き直し案・測る回数には、プランごとに上限があります。上限をこえた月は、追加するか次の月までお待ちください。</J></p>
       </Reveal>
     </section>
   );
