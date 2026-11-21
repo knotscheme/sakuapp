@@ -103,3 +103,10 @@ html[data-voice] .tsr-navlabel { opacity: 0; }
 
 /* LP：ボタンの角は控えめに（落ち着いた印象） */
 .lp-light .btn { border-radius: 6px; }
+
+/* LP（法人向けの版）：見出しの上の英語ラベル */
+.lp2 { --color-paper: #ffffff; --color-ink: #0f1a17; --color-sub: #55605c; }
+.lp2-eye { display: inline-flex; align-items: center; gap: .6em; font-size: .76rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #00805f; }
+.lp2-eye::before { content: ""; width: 1.4em; height: 2px; background: #00a37a; }
+.lp2-eye-dark { color: #2fd9a6; }
+.lp2 h1, .lp2 h2, .lp2 h3 { font-feature-settings: "palt"; }
