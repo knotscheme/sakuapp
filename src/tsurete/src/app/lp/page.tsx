@@ -130,14 +130,14 @@ function Hero() {
             style={{ animation: `lp-floatq 6s ${q.d}s ease-in-out infinite` }}>{q.t}</span>
         ))}
         <div className="relative z-10"><Phone><ChatScreen after={after} /></Phone></div>
-        <div className="relative z-10 mt-6 flex justify-center gap-3 sm:contents">
-          <div key={`r${after}`} className={`lp-anim whitespace-nowrap rounded-[10px] px-4 py-3 text-left shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] sm:absolute sm:-left-44 sm:top-48 sm:z-20 ${after ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-black/5"}`} style={{ animation: "lp-pop .55s cubic-bezier(.2,.7,.2,1) both" }}>
+        <div className="relative left-1/2 z-10 mt-6 grid w-[min(21rem,calc(100vw-2.5rem))] -translate-x-1/2 grid-cols-2 gap-2.5 sm:contents">
+          <div key={`r${after}`} className={`lp-anim min-w-0 rounded-[10px] px-3.5 py-3 text-left sm:whitespace-nowrap sm:px-4 shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] sm:absolute sm:-left-44 sm:top-48 sm:z-20 ${after ? "bg-[#00a37a] text-white" : "bg-white text-[#1d1d1f] ring-1 ring-black/5"}`} style={{ animation: "lp-pop .55s cubic-bezier(.2,.7,.2,1) both" }}>
             <p className="text-[0.7rem] font-semibold opacity-80">{after ? "TSURETEで直した後" : "直す前"}</p>
             <p className="text-[1.5rem] font-bold leading-tight">{after ? "1位" : "圏外"}</p>
           </div>
-          <div className="whitespace-nowrap rounded-[10px] bg-white px-4 py-3 text-left shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] ring-1 ring-black/5 sm:absolute sm:-right-48 sm:bottom-36 sm:z-20">
+          <div className="min-w-0 rounded-[10px] bg-white px-3.5 py-3 text-left sm:whitespace-nowrap sm:px-4 shadow-[0_20px_40px_-20px_rgba(0,0,0,.25)] ring-1 ring-black/5 sm:absolute sm:-right-48 sm:bottom-36 sm:z-20">
             <p className="text-[0.7rem] text-[#6e6e73]">AIにすすめられた割合</p>
-            <p className="num text-[1.3rem] font-bold">10% <span className="text-[#86868b]">→</span> <span className="text-[#00a37a]">70%</span></p>
+            <p className="num whitespace-nowrap text-[1.1rem] font-bold sm:text-[1.3rem]">10% <span className="text-[#86868b]">→</span> <span className="text-[#00a37a]">70%</span></p>
           </div>
         </div>
       </div>
