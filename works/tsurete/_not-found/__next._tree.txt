@@ -1,5 +1,5 @@
 :HL["/sakuapp/works/tsurete/_next/static/chunks/1c38i6y1jh-xn.css","style"]
-:HL["/sakuapp/works/tsurete/_next/static/chunks/2z79-c8-0yzgz.css","style"]
+:HL["/sakuapp/works/tsurete/_next/static/chunks/2b-1a8t37a5d1.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"edNMMKEkrqpvtk9gfpuTF","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"B1AjOaEr1heqbOjfYTN0e","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

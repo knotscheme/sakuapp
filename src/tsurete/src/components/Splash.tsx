@@ -21,7 +21,8 @@ export default function Splash() {
     return () => { clearTimeout(a); clearTimeout(b); };
   }, []);
   if (phase === "gone") return null;
-  const ink = light ? "#1d1d1f" : "#e6eef9", bg = light ? "#ffffff" : "#050a16", green = light ? "#00a37a" : "#10d9a0";
+  const blue = path.includes("/lp2");
+  const ink = blue ? "#0b1e3d" : light ? "#1d1d1f" : "#e6eef9", bg = light ? "#ffffff" : "#050a16", green = blue ? "#1f5ad1" : light ? "#00a37a" : "#10d9a0";
   return (
     <div className="tsr-splash fixed inset-0 z-[300] grid place-items-center" aria-hidden
       style={{ background: bg, clipPath: phase === "out" ? "inset(0 0 100% 0)" : "inset(0 0 0 0)", transition: "clip-path .8s cubic-bezier(.7,0,.2,1)" }}>
@@ -35,9 +36,9 @@ export default function Splash() {
         <p className="mt-4 flex font-display text-[1.6rem] font-semibold tracking-[.32em]" style={{ color: ink }}>
           {WORD.map((c, i) => <span key={i} className="sp-q" style={{ animation: `sp-letter .7s ${0.25 + i * 0.07}s cubic-bezier(.2,.7,.2,1) both` }}>{c}</span>)}
         </p>
-        <p className="sp-q mt-2 text-[0.75rem] tracking-[.2em]" style={{ color: light ? "#86868b" : "#8191ad", animation: "sp-fade .6s .85s both" }}>AIが、お客様をつれてくる。</p>
+        <p className="sp-q mt-2 text-[0.75rem] tracking-[.2em]" style={{ color: blue ? "#687387" : light ? "#86868b" : "#8191ad", animation: "sp-fade .6s .85s both" }}>AIが、お客様をつれてくる。</p>
         {/* 細い線がのびる */}
-        <span className="mt-7 block h-[2px] w-32 overflow-hidden rounded-full" style={{ background: light ? "#e8e8ed" : "rgba(255,255,255,.08)" }}>
+        <span className="mt-7 block h-[2px] w-32 overflow-hidden rounded-full" style={{ background: blue ? "#e6ecf6" : light ? "#e8e8ed" : "rgba(255,255,255,.08)" }}>
           <span className="sp-q block h-full rounded-full" style={{ background: green, animation: "sp-bar 1.5s .15s cubic-bezier(.6,0,.2,1) both" }} />
         </span>
       </div>

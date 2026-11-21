@@ -45,13 +45,15 @@ export function Phone({ children, src, alt = "" }: { children?: React.ReactNode;
   );
 }
 
-export function Laptop({ src, alt, silver = false }: { src: string; alt: string; silver?: boolean }) {
+export function Laptop({ src, alt, silver = false, children }: { src?: string; alt: string; silver?: boolean; children?: React.ReactNode }) {
   return (
     <div>
       <div className={`rounded-t-[2.2%/3.4%] bg-[#0d0d10] px-[2.2%] pb-[2.4%] pt-[2.2%] ring-1 ${silver ? "ring-[#c7c8cb] shadow-[0_40px_80px_-40px_rgba(0,0,0,.45)]" : "ring-white/15"}`}>
         <div className="relative overflow-hidden rounded-[0.6%] bg-paper" style={{ aspectRatio: "1440 / 900" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={src} alt={alt} className="block h-full w-full object-cover object-top" loading="lazy" />
+          {children ? <div className="absolute inset-0" aria-label={alt}>{children}</div> : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={src} alt={alt} className="block h-full w-full object-cover object-top" loading="lazy" />
+          )}
         </div>
       </div>
       {/* 台座（キーボード側の手前のふち） */}
