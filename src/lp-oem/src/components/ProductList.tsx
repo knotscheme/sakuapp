@@ -60,7 +60,9 @@ function LeatherPick({ list, value, onChange }: { list: LeatherDef[]; value?: st
       <div className="mt-2 flex flex-wrap gap-1.5" role="radiogroup" aria-label="革素材">
         {list.map((l) => (
           <button key={l.id} type="button" role="radio" aria-checked={cur.id === l.id} onClick={() => onChange(l.id)}
-            className={`border px-2.5 py-1 text-[11.5px] transition ${cur.id === l.id ? "border-ink bg-ink text-white" : "border-line text-ink/80 hover:border-ink"}`}>
+            className={`flex items-center gap-1.5 border py-1 pr-2.5 pl-1 text-[11.5px] transition ${cur.id === l.id ? "border-ink bg-ink text-white" : "border-line text-ink/80 hover:border-ink"}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {l.img && <img src={imgSrc(l.img)} alt="" className="h-6 w-8 object-cover" />}
             {l.name.replace(/（標準）$/, "")}{l.add > 0 && <span className={cur.id === l.id ? "ml-1 text-white/70" : "ml-1 text-mute"}>+{yen(l.add)}</span>}
           </button>
         ))}

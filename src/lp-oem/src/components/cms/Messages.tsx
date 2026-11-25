@@ -122,7 +122,7 @@ export function PoCard({ d, po, m, side, lang, who, onAsk }: { d: Deal; po: Po; 
       </div>
       <dl className="grid grid-cols-[5.5em_1fr] gap-x-2 gap-y-1 px-3.5 pb-3">
         <dt className="text-mute">{t.model}</dt><dd>{trModel(d.model, lang)}</dd>
-        <dt className="text-mute">{t.leather}</dt><dd>{leatherName(d)}{d.leather?.code && <span className="ml-1 font-mono text-[11px] text-mute">{d.leather.code}</span>}</dd>
+        <dt className="text-mute">{t.leather}</dt><dd className="flex items-center gap-1.5">{/* eslint-disable-next-line @next/next/no-img-element */}{d.leather?.img && <img src={d.leather.img.startsWith("data:") ? d.leather.img : asset(d.leather.img)} alt="" className="h-5 w-7 shrink-0 rounded-sm object-cover" />}<span>{leatherName(d)}{d.leather?.code && <span className="ml-1 font-mono text-[11px] text-mute">{d.leather.code}</span>}</span></dd>
         <dt className="text-mute">{t.qty}</dt>
         <dd>{po.items.map((x) => <span key={x.color} className="flex justify-between"><span>{trColor(x.color, lang)}</span><span className="tabular-nums">{x.qty}</span></span>)}
           <span className="mt-0.5 flex justify-between border-t border-line pt-0.5 font-medium"><span>{t.total}</span><span className="tabular-nums">{po.lot} {t.pcs}</span></span></dd>

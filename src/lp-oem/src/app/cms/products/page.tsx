@@ -299,7 +299,10 @@ function LeatherCard() {
   const [code, setCode] = useState("");
   const [ds, setDs] = useState("");
   const [add, setAdd] = useState("");
+  const [img, setImg] = useState<string | undefined>();
   const [msg, setMsg] = useState("");
+  // 革の見本の写真は小さく縮めて保存（本番では Supabase Storage）
+  const pickImg = async (f: File | undefined) => (f ? shrinkImage(f, 320, 240, 0.8) : undefined);
   const num = "w-full rounded-md border border-line px-2 py-1 text-right text-[12.5px] tabular-nums outline-none focus:border-ink";
   return (
     <Card>
@@ -310,6 +313,7 @@ function LeatherCard() {
           return (
             <li key={l.id} className="px-4 py-2.5">
               <div className="flex items-center gap-2">
+                <LeatherImg img={l.img} label={`${l.name}の写真を変える`} onPick={async (f) => { const v = await pickImg(f); if (v) updateLeather(l.id, { img: v }); }} />
                 <input defaultValue={l.name} onBlur={(e) => e.target.value.trim() && updateLeather(l.id, { name: e.target.value.trim() })} aria-label="革の名前" className="min-w-0 flex-1 rounded-md px-2 py-1 text-[13px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" />
                 <span className="font-mono text-[11px] text-mute" title="記号">{l.code}</span>
                 <span className="text-[11px] text-mute" title="使っている商品">{n}</span>
@@ -324,8 +328,9 @@ function LeatherCard() {
         })}
       </ul>
       {msg && <p className="border-t border-line bg-[#fdf3f3] px-4 py-2 text-[12px] text-red-700">{msg}</p>}
-      <form className="space-y-2 border-t border-line p-4" onSubmit={(e) => { e.preventDefault(); const n = name.trim(); if (!n) return; setMsg(addLeather(n, code, Number(ds) || 0, Number(add) || 0) ? "" : `「${n}」はもう登録されています。`); setName(""); setCode(""); setDs(""); setAdd(""); }}>
+      <form className="space-y-2 border-t border-line p-4" onSubmit={(e) => { e.preventDefault(); const n = name.trim(); if (!n) return; setMsg(addLeather(n, code, Number(ds) || 0, Number(add) || 0, img) ? "" : `「${n}」はもう登録されています。`); setName(""); setCode(""); setDs(""); setAdd(""); setImg(undefined); }}>
         <div className="flex gap-2">
+          <LeatherImg img={img} label="新しい革の写真" onPick={async (f) => setImg(await pickImg(f))} />
           <input value={name} onChange={(e) => setName(e.target.value)} placeholder="例：コードバン" aria-label="新しい革の名前" className="min-w-0 flex-1 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink" />
           <input value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="記号 CD" maxLength={4} aria-label="記号" className="w-[4.5rem] rounded-lg border border-line px-2 py-1.5 font-mono text-[13px] uppercase outline-none focus:border-ink" />
         </div>
@@ -336,6 +341,17 @@ function LeatherCard() {
         </div>
       </form>
     </Card>
+  );
+}
+
+// 革の見本の写真（押すと写真を選べる）
+function LeatherImg({ img, label, onPick }: { img?: string; label: string; onPick: (f?: File) => void }) {
+  return (
+    <label className="relative flex aspect-[4/3] w-11 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-dashed border-line bg-[#fafafa] text-mute hover:border-ink" title={label}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {img ? <img src={imgSrc(img)} alt="" className="h-full w-full object-cover" /> : <ImagePlus size={14} />}
+      <input type="file" accept="image/*" aria-label={label} className="sr-only" onChange={(e) => { onPick(e.target.files?.[0]); e.target.value = ""; }} />
+    </label>
   );
 }
 
@@ -351,7 +367,9 @@ function LeatherPick({ p, onChange }: { p: Product; onChange: (ids: string[]) =>
         {leathers.map((l) => {
           const i = on.indexOf(l.id);
           return (
-            <button key={l.id} type="button" aria-pressed={i >= 0} onClick={() => onChange(i >= 0 ? on.filter((x) => x !== l.id) : [...on, l.id])} className={`rounded-full border px-3 py-1.5 text-[12.5px] ${i >= 0 ? "border-ink bg-ink text-white" : "border-line hover:border-ink"}`}>
+            <button key={l.id} type="button" aria-pressed={i >= 0} onClick={() => onChange(i >= 0 ? on.filter((x) => x !== l.id) : [...on, l.id])} className={`flex items-center gap-1.5 rounded-full border py-1 pr-3 pl-1 text-[12.5px] ${i >= 0 ? "border-ink bg-ink text-white" : "border-line hover:border-ink"}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {l.img ? <img src={imgSrc(l.img)} alt="" className="h-6 w-6 rounded-full object-cover" /> : <span className="h-6 w-6 rounded-full bg-[#ececea]" />}
               {i === 0 && <span className="mr-1 text-[10.5px] text-white/70">標準</span>}{l.name}{l.add > 0 && <span className={`ml-1 text-[11px] ${i >= 0 ? "text-white/70" : "text-mute"}`}>+{yen(l.add)}</span>}
             </button>
           );

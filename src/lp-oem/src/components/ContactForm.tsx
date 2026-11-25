@@ -8,7 +8,7 @@ import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
-import { leathersOf, useCatalog } from "./cms/catalog";
+import { imgSrc, leathersOf, useCatalog } from "./cms/catalog";
 import { ALL_MODELS } from "@/lib/models";
 import { tierInfo, unitPriceOf } from "@/lib/cms";
 import { toLogoMask } from "./cms/Proof";
@@ -104,7 +104,7 @@ export default function ContactForm() {
       const lg = await logo;
       setSending(false);
       // デモ：管理画面（CMS）の案件ボードに、問い合わせとして追加する
-      addInquiry({ leather: leather ? { name: leather.name, code: leather.code, add: leather.add } : undefined, brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: (lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
+      addInquiry({ leather: leather ? { name: leather.name, code: leather.code, add: leather.add, img: leather.img } : undefined, brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: (lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
       setDone(true);
     }, 1100);
   };
@@ -172,9 +172,11 @@ export default function ContactForm() {
                   {leatherList.map((l, i) => {
                     const on = leather?.id === l.id;
                     return (
-                      <label key={l.id} className={`flex cursor-pointer items-center justify-between gap-3 border px-4 py-3 transition ${on ? "border-ink bg-ink text-white" : "border-line hover:border-mute"}`}>
+                      <label key={l.id} className={`flex cursor-pointer items-center gap-3 border p-2 pr-4 transition ${on ? "border-ink bg-ink text-white" : "border-line hover:border-mute"}`}>
                         <input type="radio" name="cf-leather" checked={on} onChange={() => setLeatherId(l.id)} className="sr-only" />
-                        <span className="text-[13px] font-medium">{l.name}</span>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        {l.img ? <img src={imgSrc(l.img)} alt="" className="aspect-[4/3] w-12 shrink-0 object-cover" /> : <span className="aspect-[4/3] w-12 shrink-0 bg-paper" />}
+                        <span className="flex-1 text-[13px] font-medium">{l.name}</span>
                         <span className={`shrink-0 text-[11.5px] font-normal ${on ? "text-white/70" : "text-mute"}`}>{i === 0 && l.add === 0 ? "標準" : `＋${yen(l.add)}／個`}</span>
                       </label>
                     );

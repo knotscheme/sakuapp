@@ -58,7 +58,7 @@ export type Deal = {
   model: ModelId;
   lot: number;
   finish: "金箔" | "銀箔" | "素押し" | "ロゴなし";
-  leather?: { name: string; code?: string; add: number }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
+  leather?: { name: string; code?: string; add: number; img?: string }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
   color: string;
   sellPrice: number; // お客様の想定販売価格（参考）
   stage: StageId;
