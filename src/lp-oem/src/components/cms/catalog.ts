@@ -38,7 +38,8 @@ export type Variant = { key: string; values: string[]; sku: string; visible: boo
 // あらかじめ登録しておくカラーとサイズ（カテゴリと同じように、商品管理の画面で増やせる）
 export type ColorDef = { id: string; name: string; hex: string; code?: string }; // code：SKUに入れる記号（例：BK）
 export type SizeDef = { id: string; name: string };
-type Catalog = { cats: Cat[]; products: Product[]; colors: ColorDef[]; sizes: SizeDef[]; leathers: LeatherDef[] };
+// products の並び＝製品一覧（カタログ）の表示順。lp＝LPのトップ（ベースモデル）に出す商品のidと、その表示順
+type Catalog = { cats: Cat[]; products: Product[]; colors: ColorDef[]; sizes: SizeDef[]; leathers: LeatherDef[]; lp: string[] };
 
 const KEY = "craft-oem-catalog-v3";
 const SEED_LEATHERS: LeatherDef[] = [
@@ -86,6 +87,7 @@ export function seedCatalog(): Catalog {
       return { id: m.id, name: m.name, short: m.short, cat: m.cat, feature: m.feature, size: m.size, logo: m.logo, unitPrice: m.unitPrice, img: m.img, visible: !m.soon, sku, options, variants, leathers: c?.leathers, cost: c && { ds: c.ds, labor: c.labor } };
     }),
     leathers: SEED_LEATHERS,
+    lp: MODELS.map((m) => m.id),
   };
 }
 
@@ -101,6 +103,8 @@ export function loadCatalog(): Catalog {
 }
 // 革素材を入れる前に保存したデータには、初期の革と、初期の商品の原価を足す（登録した商品や変更はそのまま）
 function migrate(c: Catalog): Catalog {
+  // LPの表示順を入れる前のデータ：シミュレーターのある公開中の商品を、今の並びのままLPに出す
+  if (!c.lp) c = { ...c, lp: c.products.filter((p) => p.visible && ALL_MODELS.some((m) => m.id === p.id)).map((p) => p.id) };
   // 写真を入れる前の初期の革には、見本の写真を足す
   if (c.leathers) return c.leathers.some((l) => !l.img && SEED_LEATHERS.some((x) => x.id === l.id)) ? { ...c, leathers: c.leathers.map((l) => l.img ? l : { ...l, img: SEED_LEATHERS.find((x) => x.id === l.id)?.img }) } : c;
   return { ...c, leathers: SEED_LEATHERS, products: c.products.map((p) => { const x = SEED_COST[p.id]; return x && !p.leathers ? { ...p, leathers: x.leathers, cost: p.cost ?? { ds: x.ds, labor: x.labor } } : p; }) };
@@ -115,7 +119,7 @@ function save(next: Catalog) {
   subs.forEach((f) => f());
 }
 
-const EMPTY: Catalog = { cats: [], products: [], colors: [], sizes: [], leathers: [] };
+const EMPTY: Catalog = { cats: [], products: [], colors: [], sizes: [], leathers: [], lp: [] };
 export function useCatalog(): Catalog {
   return useSyncExternalStore(
     (f) => { subs.add(f); return () => subs.delete(f); },
@@ -126,10 +130,40 @@ export function useCatalog(): Catalog {
 
 // LPのベースモデル・シミュレーター・見積フォームに出すモデル：商品管理で「公開中」のものだけ（非公開・削除したものは出さない）
 // 読み込み前（サーバーで作るとき）は、初期の公開モデルを出しておく
+// LPのトップに出す商品（公開中で「LPに出す」もの・LPの表示順）。読み込み前は初期の商品
+let seedLp: Product[] | null = null;
+const SEED_LP = () => { if (!seedLp) { const s = seedCatalog(); seedLp = s.lp.map((id) => s.products.find((p) => p.id === id)!).filter((p) => p.visible); } return seedLp; };
+export function useLpProducts(): Product[] {
+  const { products, lp } = useCatalog();
+  if (!products.length) return SEED_LP();
+  return lp.map((id) => products.find((p) => p.id === id)).filter((p): p is Product => !!p && p.visible);
+}
+// そのうち、利益シミュレーターと見積フォームで扱える（初期の）モデル
 export function useLpModels(): BaseModel[] {
-  const { products } = useCatalog();
-  if (!products.length) return MODELS;
-  return ALL_MODELS.filter((m) => products.find((p) => p.id === m.id)?.visible);
+  return useLpProducts().map((p) => ALL_MODELS.find((m) => m.id === p.id)).filter((m): m is BaseModel => !!m);
+}
+// ===== 表示順 =====
+// 製品一覧の順：ids（いま画面に出ている並び）の中で、1つ前・後ろと入れ替える
+export function moveProduct(id: string, dir: -1 | 1, ids: string[]) {
+  const c = loadCatalog();
+  const k = ids.indexOf(id), other = ids[k + dir];
+  if (k < 0 || !other) return;
+  const a = c.products.findIndex((p) => p.id === id), b = c.products.findIndex((p) => p.id === other);
+  const next = [...c.products];
+  [next[a], next[b]] = [next[b], next[a]];
+  save({ ...c, products: next });
+}
+export function setLp(id: string, on: boolean) {
+  const c = loadCatalog();
+  save({ ...c, lp: on ? (c.lp.includes(id) ? c.lp : [...c.lp, id]) : c.lp.filter((x) => x !== id) });
+}
+export function moveLp(id: string, dir: -1 | 1) {
+  const c = loadCatalog();
+  const k = c.lp.indexOf(id);
+  if (k < 0 || k + dir < 0 || k + dir >= c.lp.length) return;
+  const next = [...c.lp];
+  [next[k], next[k + dir]] = [next[k + dir], next[k]];
+  save({ ...c, lp: next });
 }
 
 export const imgSrc = (img: string) => (img.startsWith("data:") ? img : asset(img));
@@ -141,7 +175,7 @@ export function saveProduct(p: Product) {
 }
 export function deleteProduct(id: string) {
   const c = loadCatalog();
-  save({ ...c, products: c.products.filter((x) => x.id !== id) });
+  save({ ...c, products: c.products.filter((x) => x.id !== id), lp: c.lp.filter((x) => x !== id) });
 }
 export function toggleVisible(id: string) {
   const c = loadCatalog();

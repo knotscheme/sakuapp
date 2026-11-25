@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
-import { renameSize, updateColor } from "@/components/cms/catalog";
+import { ArrowDown, ArrowUp, ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
+import { moveLp, moveProduct, renameSize, setLp, updateColor } from "@/components/cms/catalog";
 import { addLeather, costOf, deleteLeather, leathersOf, updateLeather } from "@/components/cms/catalog";
 import { lotChoices, rateFor, usePricing } from "@/lib/pricing";
 import { MAX_SUB, skuList, addColor, addSize, deleteColor, deleteSize, setColorHex, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
@@ -15,8 +15,10 @@ const yen = (n: number) => `${n.toLocaleString("ja-JP")}円`;
 const blank = (cat: string): Product => ({ id: `p-${Date.now().toString(36)}`, name: "", short: "", cat, feature: "", size: "", logo: "", unitPrice: 0, img: "", visible: true });
 
 export default function ProductsAdmin() {
-  const { cats, products } = useCatalog();
+  const { cats, products, lp } = useCatalog();
   const [cat, setCat] = useState("all");
+  // 一覧の見方：製品一覧（カタログ）の並び順か、LPのトップの並び順か
+  const [mode, setMode] = useState<"catalog" | "lp">("catalog");
   const [edit, setEdit] = useState<Product | null>(null);
   const [newCat, setNewCat] = useState("");
   const { can } = useAuth();
@@ -35,6 +37,12 @@ export default function ProductsAdmin() {
     <Shell title="商品管理" actions={actions} note="商品は products、カテゴリは categories テーブル。画像は Supabase Storage。保存すると製品一覧ページに反映">
       <div className="grid gap-5 lg:grid-cols-[1fr_280px]">
         <Card>
+          <div className="flex gap-1 border-b border-line p-2">
+            {([["catalog", "製品一覧の並び"], ["lp", `LPに出す商品（${lp.filter((id) => products.some((p) => p.id === id)).length}）`]] as const).map(([k, t]) => (
+              <button key={k} type="button" onClick={() => setMode(k)} className={`flex-1 rounded-lg py-2 text-[12.5px] ${mode === k ? "bg-[#f1f1f0] font-medium" : "text-mute hover:text-ink"}`}>{t}</button>
+            ))}
+          </div>
+          {mode === "lp" ? <LpList onEdit={setEdit} /> : <>
           {/* カテゴリで絞り込み */}
           <div className="flex gap-1 overflow-x-auto border-b border-line px-4 pt-3">
             {[{ id: "all", name: "すべて" }, ...cats].map((c) => {
@@ -47,8 +55,9 @@ export default function ProductsAdmin() {
             })}
           </div>
           <ul className="divide-y divide-line">
-            {list.map((p) => (
-              <li key={p.id} className="flex items-center gap-4 px-5 py-3.5">
+            {list.map((p, k) => (
+              <li key={p.id} className="flex items-center gap-3 py-3.5 pr-5 pl-2 sm:gap-4">
+                <UpDown first={k === 0} last={k === list.length - 1} onMove={(dir) => moveProduct(p.id, dir, list.map((x) => x.id))} label={p.short} />
                 {p.img ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={imgSrc(p.img)} alt="" className="aspect-[4/3] w-16 shrink-0 rounded-md object-cover" />
@@ -56,7 +65,7 @@ export default function ProductsAdmin() {
                   <span className="flex aspect-[4/3] w-16 shrink-0 items-center justify-center rounded-md bg-[#f1f1f0] text-mute"><ImagePlus size={16} /></span>
                 )}
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[13.5px] font-medium">{p.short || "（名前なし）"}</p>
+                  <p className="flex items-center gap-1.5 truncate text-[13.5px] font-medium">{p.short || "（名前なし）"}{lp.includes(p.id) && <span className="shrink-0 rounded bg-[#eef4ff] px-1.5 py-px text-[10px] font-normal text-[#2a4f9e]">LP</span>}</p>
                   <p className="truncate text-[11.5px] text-mute">{catName(p.cat)}・{yen(p.unitPrice)}〜{(p.subImgs?.length ?? 0) > 0 && `・写真+${p.subImgs!.length}`}{p.video && "・動画"}</p>
                   <p className="truncate font-mono text-[11px] text-mute">{p.variants?.length ? `${p.sku ?? "SKU"}・${p.variants.filter((v) => v.visible).length}通り` : p.sku ?? "SKU未登録"}</p>
                 </div>
@@ -68,6 +77,8 @@ export default function ProductsAdmin() {
             ))}
             {!list.length && <li className="px-5 py-10 text-center text-[13px] text-mute">このカテゴリには、まだ商品がありません。</li>}
           </ul>
+          <p className="border-t border-line px-5 py-3 text-[11.5px] text-mute">↑↓で、製品一覧ページでの表示順を変えられます。</p>
+          </>}
         </Card>
 
         <div className="space-y-5 self-start">
@@ -100,7 +111,8 @@ export default function ProductsAdmin() {
 }
 
 function Editor({ initial, onClose }: { initial: Product; onClose: () => void }) {
-  const { cats, products } = useCatalog();
+  const { cats, products, lp } = useCatalog();
+  const [onLp, setOnLp] = useState(lp.includes(initial.id));
   const [p, setP] = useState<Product>(initial);
   const [busy, setBusy] = useState(false);
   const [busySub, setBusySub] = useState(false);
@@ -214,13 +226,18 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
             <input type="checkbox" checked={p.visible} onChange={(e) => set("visible", e.target.checked)} className="h-4 w-4 accent-[#1a1a1a]" />
             製品一覧に公開する
           </label>
+          <label className="flex items-center gap-2.5 font-medium">
+            <input type="checkbox" checked={onLp} onChange={(e) => setOnLp(e.target.checked)} className="h-4 w-4 accent-[#1a1a1a]" />
+            LPのトップ（ベースモデル）にも出す
+          </label>
+          {onLp && !p.visible && <p className="-mt-3 text-[11.5px] text-mute">非公開のあいだは、LPにも出ません。</p>}
         </div>
         {!skuOk && <p role="status" className="border-t border-line bg-[#fdf3f3] px-6 py-2.5 text-[12px] text-red-700">SKU品番に、空欄か、ほかと同じ品番があります。直すと保存できます。</p>}
         <div className="flex items-center justify-between gap-3 border-t border-line px-6 py-4">
           {!isNew ? (
             <button type="button" onClick={async () => { if (await askConfirm({ title: "この商品を削除しますか？", body: "製品一覧からも消えます。元に戻せません。", ok: "削除する", danger: true })) { deleteProduct(p.id); onClose(); } }} className="flex items-center gap-1.5 text-[12.5px] text-red-600"><Trash2 size={14} /> 削除</button>
           ) : <span />}
-          <button type="button" disabled={!ok} onClick={() => { saveProduct({ ...p, name: p.name.trim() || p.short.trim(), video: p.video?.trim() || undefined, sku: p.sku?.trim() || undefined, options: p.options?.filter((o) => o.name.trim() && o.values.length), variants: p.variants?.map((v) => ({ ...v, sku: v.sku.trim() })) }); onClose(); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute">保存する</button>
+          <button type="button" disabled={!ok} onClick={() => { saveProduct({ ...p, name: p.name.trim() || p.short.trim(), video: p.video?.trim() || undefined, sku: p.sku?.trim() || undefined, options: p.options?.filter((o) => o.name.trim() && o.values.length), variants: p.variants?.map((v) => ({ ...v, sku: v.sku.trim() })) }); setLp(p.id, onLp); onClose(); }} className="cms-btn bg-ink px-5 py-2.5 text-[13px] text-white disabled:bg-line disabled:text-mute">保存する</button>
         </div>
       </div>
     </div>
@@ -429,6 +446,62 @@ function CostBox({ p, onChange }: { p: Product; onChange: (c: Product["cost"]) =
         </ul>
       )}
       <TechNote className="mt-2.5">原価は products.cost と leathers.ds_price。RLS で「原価・粗利・売上を見る」権限の人だけが読める</TechNote>
+    </div>
+  );
+}
+
+// 表示順を1つずつ動かすボタン
+function UpDown({ first, last, onMove, label }: { first: boolean; last: boolean; onMove: (dir: -1 | 1) => void; label: string }) {
+  const b = "rounded-md p-1.5 text-mute hover:bg-[#f1f1f0] hover:text-ink disabled:opacity-25 disabled:hover:bg-transparent";
+  return (
+    <span className="flex shrink-0 flex-col">
+      <button type="button" disabled={first} onClick={() => onMove(-1)} aria-label={`${label}を上へ`} className={b}><ArrowUp size={14} /></button>
+      <button type="button" disabled={last} onClick={() => onMove(1)} aria-label={`${label}を下へ`} className={b}><ArrowDown size={14} /></button>
+    </span>
+  );
+}
+
+// LPのトップ（ベースモデル）に出す商品と、その並び順
+function LpList({ onEdit }: { onEdit: (p: Product) => void }) {
+  const { products, lp } = useCatalog();
+  const on = lp.map((id) => products.find((p) => p.id === id)).filter((p): p is Product => !!p);
+  const off = products.filter((p) => !lp.includes(p.id));
+  const Thumb = ({ p }: { p: Product }) => (p.img ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={imgSrc(p.img)} alt="" className="aspect-[4/3] w-14 shrink-0 rounded-md object-cover" />
+  ) : <span className="aspect-[4/3] w-14 shrink-0 rounded-md bg-[#f1f1f0]" />);
+  return (
+    <div>
+      <p className="px-5 pt-3 text-[11.5px] text-mute">LPのトップの「ベースモデル」に、この順で出ます。利益シミュレーターと見積フォームの並びも同じです。</p>
+      <ol className="mt-2 divide-y divide-line border-y border-line">
+        {on.map((p, k) => (
+          <li key={p.id} className="flex items-center gap-3 py-3 pr-4 pl-2">
+            <UpDown first={k === 0} last={k === on.length - 1} onMove={(dir) => moveLp(p.id, dir)} label={p.short} />
+            <span className="w-5 shrink-0 text-center text-[12px] text-mute tabular-nums">{k + 1}</span>
+            <Thumb p={p} />
+            <button type="button" onClick={() => onEdit(p)} className="min-w-0 flex-1 text-left">
+              <span className="block truncate text-[13.5px] font-medium">{p.short}</span>
+              <span className="block truncate text-[11.5px] text-mute">{p.visible ? yen(p.unitPrice) + "〜" : "非公開のため、いまはLPに出ていません"}</span>
+            </button>
+            <button type="button" onClick={() => setLp(p.id, false)} className="shrink-0 rounded-full border border-line px-3 py-1.5 text-[11.5px] text-mute hover:border-ink hover:text-ink">外す</button>
+          </li>
+        ))}
+        {!on.length && <li className="px-5 py-8 text-center text-[13px] text-mute">LPに出す商品がありません。下から選んでください。</li>}
+      </ol>
+      {off.length > 0 && (
+        <>
+          <p className="px-5 pt-4 pb-1 text-[12px] font-medium">LPに出していない商品</p>
+          <ul className="divide-y divide-line">
+            {off.map((p) => (
+              <li key={p.id} className="flex items-center gap-3 px-5 py-2.5">
+                <Thumb p={p} />
+                <span className="min-w-0 flex-1 truncate text-[13px] text-ink/80">{p.short}{!p.visible && <span className="ml-1.5 text-[11px] text-mute">非公開</span>}</span>
+                <button type="button" onClick={() => setLp(p.id, true)} className="shrink-0 rounded-full border border-ink px-3 py-1.5 text-[11.5px] hover:bg-ink hover:text-white">LPに出す</button>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
