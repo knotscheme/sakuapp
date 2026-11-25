@@ -8,7 +8,7 @@ import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
-import { useCatalog } from "./cms/catalog";
+import { imgSrc, leathersOf, useCatalog } from "./cms/catalog";
 import { ALL_MODELS } from "@/lib/models";
 import { tierInfo, unitPriceOf } from "@/lib/cms";
 import { toLogoMask } from "./cms/Proof";
@@ -27,19 +27,31 @@ export default function ContactForm() {
   const [lot, setLot] = useState("");
   // カラーごとの数量（入れると、合計の数で数量割引を出して概算を見せる）
   const [qtys, setQtys] = useState<Record<string, number>>({});
-  const { products, colors } = useCatalog();
+  const { products, colors, leathers: allLeathers } = useCatalog();
   const prod = products.find((p) => p.id === model);
+  // 革素材：商品で選べる革（先頭が標準）。選んだ革の上乗せを単価に足す
+  const leatherList = prod ? leathersOf(prod, allLeathers) : [];
+  const [leatherId, setLeatherId] = useState("");
+  const leather = leatherList.find((l) => l.id === leatherId) ?? leatherList[0];
   const ci = (prod?.options ?? []).findIndex((o) => o.kind === "color");
   const colorChoices = ci < 0 ? [] : [...new Set((prod?.variants ?? []).filter((v) => v.visible).map((v) => v.values[ci]))];
   const total = colorChoices.reduce((s, c) => s + (qtys[c] || 0), 0);
   const inSim = ALL_MODELS.some((m) => m.id === model);
   const [message, setMessage] = useState("");
+  // ロゴを入れるかどうか（無地のままでも注文できる。なしなら版代はかからない）
+  const [logoOn, setLogoOn] = useState(true);
   const [file, setFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Errors>({});
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [flash, setFlash] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  // 製品一覧で選んだ革（?leather=）を最初に選んでおく
+  useEffect(() => {
+    const l = new URLSearchParams(location.search).get("leather");
+    if (l) setLeatherId(l); // eslint-disable-line react-hooks/set-state-in-effect
+  }, []);
 
   // シミュレーターからの条件を自動入力する
   useEffect(() => {
@@ -68,9 +80,9 @@ export default function ContactForm() {
     if (!email.trim()) e.email = "メールアドレスを入力してください";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "メールアドレスの形式が正しくありません";
     if (!model) e.model = "希望ベースモデルを選んでください";
-    if (total > 0 ? total < MIN_LOT : !lot) e.lot = total > 0 ? `カラーごとの数量は、合計${MIN_LOT}個からです` : "希望ロット数を選んでください";
+    if (total > 0 ? total < MIN_LOT : !lot) e.lot = total > 0 ? `カラーごとの数量は、合計${MIN_LOT}個からです` : "希望ロット数を選ぶか、カラーごとの数量を入れてください";
     if (message.length > 1000) e.message = "相談内容は1,000文字以内で入力してください";
-    if (file && (file.size > MAX_FILE || !OK_EXT.test(file.name))) e.file = "10MB以内の ai / pdf / svg / eps / png / jpg を添付してください";
+    if (logoOn && file && (file.size > MAX_FILE || !OK_EXT.test(file.name))) e.file = "10MB以内の ai / pdf / svg / eps / png / jpg を添付してください";
     return e;
   };
 
@@ -85,19 +97,21 @@ export default function ContactForm() {
     setSending(true);
     // デモ版のため、実際には送信しない
     // 添付のロゴ（png・jpg・svg）は、管理画面のロゴ配置イメージに使えるように透明な画像にしておく
-    const logo = file ? toLogoMask(file) : Promise.resolve(null);
+    const logo = logoOn && file ? toLogoMask(file) : Promise.resolve(null);
+    // 希望ロットと内訳の合計がちがうときは、両方わかるように相談内容に残す
+    const lotNote = total > 0 && lot && lot !== "more" && Number(lot) !== total ? `【希望ロット】${lot}個（カラーごとの内訳は合計${total}個）\n` : "";
     setTimeout(async () => {
       const lg = await logo;
       setSending(false);
       // デモ：管理画面（CMS）の案件ボードに、問い合わせとして追加する
-      addInquiry({ brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: message.trim() || undefined, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
+      addInquiry({ leather: leather ? { name: leather.name, code: leather.code, add: leather.add, img: leather.img } : undefined, brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: (lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
       setDone(true);
     }, 1100);
   };
 
   const reset = () => {
     setDone(false);
-    setName(""); setEmail(""); setModel(""); setLot(""); setQtys({}); setMessage(""); setFile(null); setErrors({});
+    setName(""); setEmail(""); setModel(""); setLot(""); setQtys({}); setMessage(""); setLogoOn(true); setLeatherId(""); setFile(null); setErrors({});
     if (fileRef.current) fileRef.current.value = "";
   };
 
@@ -151,17 +165,64 @@ export default function ContactForm() {
               </div>
               <Err k="model" />
             </fieldset>
+            {leatherList.length > 1 && (
+              <fieldset className="min-w-0 text-sm font-bold md:col-span-2">
+                <legend>革素材</legend>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {leatherList.map((l, i) => {
+                    const on = leather?.id === l.id;
+                    return (
+                      <label key={l.id} className={`flex cursor-pointer items-center gap-3 border p-2 pr-4 transition ${on ? "border-ink bg-ink text-white" : "border-line hover:border-mute"}`}>
+                        <input type="radio" name="cf-leather" checked={on} onChange={() => setLeatherId(l.id)} className="sr-only" />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        {l.img ? <img src={imgSrc(l.img)} alt="" className="aspect-[4/3] w-12 shrink-0 object-cover" /> : <span className="aspect-[4/3] w-12 shrink-0 bg-paper" />}
+                        <span className="flex-1 text-[13px] font-medium">{l.name}</span>
+                        <span className={`shrink-0 text-[11.5px] font-normal ${on ? "text-white/70" : "text-mute"}`}>{i === 0 && l.add === 0 ? "標準" : `＋${yen(l.add)}／個`}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            )}
+            <fieldset className="min-w-0 text-sm font-bold md:col-span-2">
+              <legend>ロゴ入れ</legend>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                {([[true, "ロゴを入れる", `＋版代${yen(pr.plate)}`], [false, "ロゴなし", "無地のまま・版代なし"]] as const).map(([v, t, sub]) => (
+                  <label key={t} className={`cursor-pointer border px-3 py-3 text-center transition ${logoOn === v ? "border-ink bg-ink text-white" : "border-line hover:border-mute"}`}>
+                    <input type="radio" name="cf-logo" checked={logoOn === v} onChange={() => setLogoOn(v)} className="sr-only" />
+                    <span className="block text-[13px] font-medium">{t}</span>
+                    <span className={`block text-[11px] font-normal ${logoOn === v ? "text-white/70" : "text-mute"}`}>{sub}</span>
+                  </label>
+                ))}
+              </div>
+              {logoOn && (
+                <div className="mt-5">
+                ロゴデータ添付<span className="ml-1 text-xs font-normal text-mute">任意・あとからでも大丈夫です</span><span className="mt-1 block text-[11px] font-normal text-mute">ai / pdf / svg / eps / png / jpg・10MBまで</span>
+                <label className={`mt-2 flex cursor-pointer items-center gap-3 border border-dashed px-4 py-5 transition hover:border-gold hover:bg-[#faf8f3] ${errors.file ? "border-red-400" : "border-gold-2/60"}`}>
+                  <Paperclip size={20} className="text-gold" />
+                  <span className="flex-1 truncate font-normal text-mute">{file ? file.name : "ファイルを選択、またはここにドロップ"}</span>
+                  {file && (
+                    <button type="button" aria-label="添付を取り消す" onClick={(e) => { e.preventDefault(); setFile(null); if (fileRef.current) fileRef.current.value = ""; }} className="rounded-full p-1 text-mute hover:bg-line">
+                      <X size={16} />
+                    </button>
+                  )}
+                  <input ref={fileRef} type="file" accept=".ai,.pdf,.svg,.eps,.png,.jpg,.jpeg" className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
+                </label>
+                <Err k="file" />
+                </div>
+              )}
+            </fieldset>
             <fieldset className="min-w-0 text-sm font-bold md:col-span-2" aria-invalid={!!errors.lot} aria-describedby="err-lot">
               <legend>希望ロット数<span className="ml-1 text-xs text-gold">必須</span></legend>
-              {total > 0 && <p className="mt-2 text-[12px] font-normal text-mute">下のカラーごとの数量（合計{total}個）で見積もります</p>}
-              <div className={`mt-3 grid gap-2 [grid-template-columns:repeat(auto-fit,minmax(4.2rem,1fr))] ${total > 0 ? "pointer-events-none opacity-35" : ""}`}>
+              <div className="mt-3 grid gap-2 [grid-template-columns:repeat(auto-fit,minmax(4.2rem,1fr))]">
                 {[...lotChoices(pr).map((l) => [String(l), `${l}個`]), ["more", "未定"]].map(([v, t]) => (
                   <label key={v} className={`cursor-pointer border py-3 text-center text-[13px] font-medium transition ${lot === v ? "border-ink bg-ink text-white" : errors.lot ? "border-red-300" : "border-line hover:border-mute"}`}>
-                    <input type="radio" name="cf-lot" value={v} checked={lot === v} onChange={() => setLot(v)} className="sr-only" />
+                    <input type="radio" name="cf-lot" value={v} checked={lot === v} onChange={() => setLot(v)} onClick={() => lot === v && setLot("")} className="sr-only" />
                     {t}
                   </label>
                 ))}
               </div>
+              {total > 0 && <LotHint lot={lot} total={total} />}
               <Err k="lot" />
             </fieldset>
 
@@ -183,24 +244,10 @@ export default function ContactForm() {
                     );
                   })}
                 </ul>
-                {total > 0 && <Estimate model={model as ModelId} total={total} show={inSim} />}
+                {total > 0 && <Estimate model={model as ModelId} total={total} show={inSim} logo={logoOn} add={leather?.add ?? 0} leatherName={leatherList.length > 1 ? leather?.name : undefined} />}
               </div>
             )}
 
-            <div className="text-sm font-bold md:col-span-2">
-              ロゴデータ添付<span className="ml-1 text-xs font-normal text-mute">任意</span><span className="mt-1 block text-[11px] font-normal text-mute">ai / pdf / svg / eps / png / jpg・10MBまで</span>
-              <label className={`mt-2 flex cursor-pointer items-center gap-3 border border-dashed px-4 py-5 transition hover:border-gold hover:bg-[#faf8f3] ${errors.file ? "border-red-400" : "border-gold-2/60"}`}>
-                <Paperclip size={20} className="text-gold" />
-                <span className="flex-1 truncate font-normal text-mute">{file ? file.name : "ファイルを選択、またはここにドロップ"}</span>
-                {file && (
-                  <button type="button" aria-label="添付を取り消す" onClick={(e) => { e.preventDefault(); setFile(null); if (fileRef.current) fileRef.current.value = ""; }} className="rounded-full p-1 text-mute hover:bg-line">
-                    <X size={16} />
-                  </button>
-                )}
-                <input ref={fileRef} type="file" accept=".ai,.pdf,.svg,.eps,.png,.jpg,.jpeg" className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-              </label>
-              <Err k="file" />
-            </div>
 
             <label className="block text-sm font-bold md:col-span-2">
               ご相談内容<span className="ml-1 text-xs font-normal text-mute">任意</span>
@@ -231,22 +278,31 @@ export default function ContactForm() {
 }
 
 // 概算の見積もり：合計の数で単価が下がる（数量割引）。あと何個で次の割引かも出す
-function Estimate({ model, total, show }: { model: ModelId; total: number; show: boolean }) {
-  const { minLot: MIN_LOT, plate: PLATE_COST } = usePricing();
+function Estimate({ model, total, show, logo, add, leatherName }: { model: ModelId; total: number; show: boolean; logo: boolean; add: number; leatherName?: string }) {
+  const { minLot: MIN_LOT, plate } = usePricing();
+  const PLATE_COST = logo ? plate : 0;
   const t = tierInfo(total);
   if (total < MIN_LOT) return <p className="mt-3 text-[12.5px] text-red-600">合計{MIN_LOT}個から承ります（いま{total}個）</p>;
   if (!show) return <p className="mt-3 text-[12.5px] text-mute">合計{total}個。お見積もりは担当者からお送りします。</p>;
-  const unit = unitPriceOf(model, total);
+  const unit = unitPriceOf(model, total, add);
   const items = unit * total;
   const sum = Math.round((items + PLATE_COST) * 1.1);
   return (
     <div className="mt-4 bg-paper px-4 py-4 text-[13px] leading-relaxed">
       <p className="flex justify-between"><span>合計数量</span><b className="tabular-nums">{total}個</b></p>
+      {leatherName && <p className="flex justify-between text-mute"><span>革素材</span><span>{leatherName}{add > 0 ? `（+${yen(add)}）` : ""}</span></p>}
       <p className="flex justify-between"><span>単価{t.cur && t.cur.rate > 0 ? `（${t.cur.at}個以上で${Math.round(t.cur.rate * 100)}%引き）` : ""}</span><span className="tabular-nums">{yen(unit)}</span></p>
-      <p className="flex justify-between text-mute"><span>ロゴの版代（初回のみ）</span><span className="tabular-nums">{yen(PLATE_COST)}</span></p>
+      <p className="flex justify-between text-mute"><span>{logo ? "ロゴの版代（初回のみ）" : "ロゴなし（版代なし）"}</span><span className="tabular-nums">{yen(PLATE_COST)}</span></p>
       <p className="mt-2 flex items-baseline justify-between border-t border-line pt-2"><span className="font-bold">概算合計（税込）</span><b className="text-[18px] tabular-nums">{yen(sum)}</b></p>
       {t.next && <p className="mt-1.5 text-[12px] text-gold">あと{t.need}個（合計{t.next.at}個）で、単価が{Math.round(t.next.rate * 100)}%引きになります</p>}
-      <p className="mt-1.5 text-[11px] text-mute">※概算です。正式なお見積もりは、ロゴの配置を確認してからお送りします。</p>
+      <p className="mt-1.5 text-[11px] text-mute">※概算です。正式なお見積もりは、{logo ? "ロゴの配置を確認してから" : "内容を確認してから"}お送りします。</p>
     </div>
   );
+}
+
+// 希望ロットと、カラーごとの内訳の合計を見比べる（どちらも自由に変えられる）
+function LotHint({ lot, total }: { lot: string; total: number }) {
+  const want = lot && lot !== "more" ? Number(lot) : 0;
+  const text = !want ? `カラーごとの内訳：合計${total}個` : want === total ? `カラーごとの内訳：合計${total}個（希望ロットと同じです）` : want > total ? `カラーごとの内訳：合計${total}個（希望${want}個まで、あと${want - total}個）` : `カラーごとの内訳：合計${total}個（希望${want}個より${total - want}個多い）`;
+  return <p className={`mt-2 text-[12px] font-normal ${want && want !== total ? "text-gold" : "text-mute"}`}>{text}。見積もりは内訳の合計で出します</p>;
 }

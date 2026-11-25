@@ -64,6 +64,7 @@ const FILL: Record<Deal["finish"], CSSProperties> = {
   金箔: { background: "linear-gradient(100deg, #8a650c 0%, #f4e0a4 30%, #b8860b 50%, #f1d999 70%, #8a650c 100%)" },
   銀箔: { background: "linear-gradient(100deg, #7d838a 0%, #f6f8fa 30%, #a6acb3 50%, #eef1f4 70%, #7d838a 100%)" },
   素押し: { background: "rgba(0,0,0,.55)", mixBlendMode: "multiply" },
+  ロゴなし: { display: "none" },
 };
 
 // zoom：ロゴのまわりを拡大して見せる

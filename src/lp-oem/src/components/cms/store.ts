@@ -2,9 +2,9 @@
 
 // デモ用のデータ置き場（ブラウザの localStorage に保存）
 import { useSyncExternalStore } from "react";
-import { priceLock, DOCS, DRAFT_LABEL, RATE, STAGES, STAGE_DRAFT, amounts, makeDraft, seedDeals, stageIndex, today, unitPriceOf, yenOf, type Deal, type Draft, type DraftKind, type Log, type Msg, type StageId } from "@/lib/cms";
+import { priceLock, DOCS, DRAFT_LABEL, RATE, STAGES, STAGE_DRAFT, amounts, makeDraft, seedDeals, stageIndex, today, unitPriceOf, yenOf, type Deal, type Draft, type DraftKind, type Log, type Msg, type StageId, PO_ACK, poOf, poText } from "@/lib/cms";
 
-const KEY = "craft-oem-cms-v6";
+const KEY = "craft-oem-cms-v7";
 let cache: Deal[] | null = null;
 const subs = new Set<() => void>();
 
@@ -88,16 +88,16 @@ export function revert(id: string, who = "佐藤") {
   });
 }
 
-export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"] }) {
+export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"]; noLogo?: boolean; leather?: Deal["leather"] }) {
   const list = load();
   const n = Math.max(1023, ...list.map((d) => Number(d.id.slice(2)))) + 1;
   const deal: Deal = {
     id: `C-${n}`, brand: p.brand, person: p.brand, email: p.email, model: p.model, lot: p.lot,
-    finish: "金箔", color: p.items?.[0]?.color ?? "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
+    finish: p.noLogo ? "ロゴなし" : "金箔", color: p.items?.[0]?.color ?? "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
     createdAt: today(), due: today(), prodStep: 0, defects: 0, checks: [false, false, false, false, false, false],
-    thbCost: Math.round(unitPriceOf(p.model, p.lot) / RATE / 1.6),
+    thbCost: Math.round(unitPriceOf(p.model, p.lot, p.leather?.add) / RATE / 1.6), leather: p.leather,
     message: p.message, logo: p.logo, logoAspect: p.logoAspect, items: p.items?.length ? p.items : undefined,
-    logs: [{ at: today(), who: "システム", text: p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
+    logs: [{ at: today(), who: "システム", text: p.noLogo ? "LPのフォームから問い合わせが届きました（ロゴなし）" : p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
   };
   // 届いたらすぐ、返信と見積の下書きを自動で作る（人が確認して送るだけ）
   save([withDraft(deal, "reply"), ...list]);
@@ -132,13 +132,28 @@ function withDraft(d: Deal, kind: DraftKind): Deal {
 export const pendingDrafts = (deals: Deal[]) => deals.flatMap((d) => (d.drafts ?? []).filter((x) => x.status === "draft").map((x) => ({ d, x })));
 
 // 下書きを確認して送る。送ると、次の段階へ自動で進む（工場への発注は、人の最終確認のあとだけ）
-export function sendDraft(dealId: string, draftId: string, who: string, edit: { subject: string; body: string }) {
+export function sendDraft(dealId: string, draftId: string, who: string, edit: { subject: string; body: string }, note?: string) {
   const d = load().find((x) => x.id === dealId);
   const dr = d?.drafts?.find((x) => x.id === draftId);
   if (!d || !dr || dr.status !== "draft") return;
   updateDeal(dealId, (x) => addLog({ ...x, drafts: x.drafts?.map((y) => (y.id === draftId ? { ...y, ...edit, status: "sent", sentBy: who, sentAt: today() } : y)) }, who, `下書きを確認して送信しました：「${edit.subject}」`, dr.to === "工場" ? "factory" : "mail"));
   if (STAGE_DRAFT[d.stage] === dr.kind) advance(dealId, who);
-  if (dr.kind === "factory") sendMsg(dealId, { from: "japan", who, t: { ja: "新しい製造指示書を送りました。確認をお願いします", en: "We sent a new production order. Please check it.", th: "ส่งใบสั่งผลิตใหม่แล้ว กรุณาตรวจสอบ" } });
+  // 工場への発注は、メールではなく工場とのチャットに「発注カード」として送る（本番では LINE にも通知だけ送る）
+  if (dr.kind === "factory") {
+    const po = poOf(d);
+    sendMsg(dealId, { from: "japan", who, t: poText(po), po });
+    if (note?.trim()) sendMsg(dealId, { from: "japan", who, raw: note.trim() });
+  }
+}
+// 工場が発注カードの「受けました」を押す
+export function ackPo(dealId: string, msgId: string, who: string) {
+  const d = load().find((x) => x.id === dealId);
+  const m = d?.msgs?.find((x) => x.id === msgId);
+  if (!m?.po || m.po.ackAt) return;
+  const at = new Date().toISOString();
+  const no = m.po.no;
+  updateDeal(dealId, (x) => addLog({ ...x, msgs: x.msgs?.map((y) => (y.id === msgId && y.po ? { ...y, po: { ...y.po, ackAt: at, ackBy: who } } : y)) }, who, `工場が発注（${no}）を受けました`, "factory"));
+  sendMsg(dealId, { from: "factory", who, t: PO_ACK });
 }
 export function discardDraft(dealId: string, draftId: string, who: string) {
   updateDeal(dealId, (x) => addLog({ ...x, drafts: x.drafts?.map((y) => (y.id === draftId ? { ...y, status: "discarded" } : y)) }, who, "下書きを破棄しました", "system"));

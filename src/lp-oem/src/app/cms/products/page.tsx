@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
+import { renameSize, updateColor } from "@/components/cms/catalog";
+import { addLeather, costOf, deleteLeather, leathersOf, updateLeather } from "@/components/cms/catalog";
+import { lotChoices, rateFor, usePricing } from "@/lib/pricing";
 import { MAX_SUB, skuList, addColor, addSize, deleteColor, deleteSize, setColorHex, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
 import { Card, CardHead, NoAccess, Shell, TechNote } from "@/components/cms/ui";
 import { Dot, VariantsEditor } from "./variants";
@@ -85,6 +88,7 @@ export default function ProductsAdmin() {
             <button className="cms-btn border border-ink px-3 text-[12.5px]">追加</button>
           </form>
         </Card>
+        <LeatherCard />
         <ColorCard />
         <SizeCard />
         </div>
@@ -200,6 +204,8 @@ function Editor({ initial, onClose }: { initial: Product; onClose: () => void })
           <label className="block font-medium">参考単価（30個・円）<span className="ml-1 text-[11px] text-gold">必須</span>
             <input type="number" min={0} step={100} value={p.unitPrice || ""} onChange={(e) => set("unitPrice", Number(e.target.value))} className={field} />
           </label>
+          <LeatherPick p={p} onChange={(leathers) => set("leathers", leathers)} />
+          <CostBox p={p} onChange={(cost) => set("cost", cost)} />
           <div className="border-t border-line pt-5">
             <p className="mb-3 text-[14px] font-semibold">SKU品番とバリエーション</p>
             <VariantsEditor p={p} onChange={(x) => setP((cur) => ({ ...cur, ...x }))} taken={taken} />
@@ -231,6 +237,7 @@ function ColorCard() {
   return (
     <Card>
       <CardHead note="colors テーブル。色は製品一覧の丸に、記号（BKなど）はSKUの自動作成に使う">カラー</CardHead>
+      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">丸・名前・記号を押すと直せます。名前を変えると、その色を使っている商品にも反映されます。</p>
       <ul className="divide-y divide-line border-t border-line">
         {colors.map((c) => (
           <li key={c.id} className="flex items-center gap-3 px-4 py-2">
@@ -238,8 +245,9 @@ function ColorCard() {
               <Dot c={c} size={22} />
               <input type="color" value={c.hex} onChange={(e) => setColorHex(c.id, e.target.value)} className="absolute inset-0 h-full w-full cursor-pointer opacity-0" aria-label={`${c.name}の色を変える`} />
             </label>
-            <span className="flex-1 text-[13px]">{c.name}</span>
-            <span className="font-mono text-[11px] text-mute" title="SKUの記号">{c.code}</span>
+            {/* 名前と記号は、押すとその場で直せる（名前を変えると、使っている商品のバリエーションも同じ名前に変わる） */}
+            <input key={`n-${c.name}`} defaultValue={c.name} aria-label={`${c.name}の名前`} onBlur={(e) => { const v = e.target.value.trim(); if (!v || v === c.name) { e.target.value = c.name; return; } if (!updateColor(c.id, { name: v })) { setMsg(`「${v}」はもう登録されています。`); e.target.value = c.name; } else setMsg(""); }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="min-w-0 flex-1 rounded-md px-2 py-1 text-[13px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" />
+            <input key={`c-${c.code}`} defaultValue={c.code} aria-label={`${c.name}の記号`} title="SKUの記号" maxLength={4} onBlur={(e) => { updateColor(c.id, { code: e.target.value }); }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="w-12 rounded-md px-1.5 py-1 text-center font-mono text-[11px] text-mute uppercase outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0] focus:text-ink" />
             <button type="button" aria-label={`${c.name}を削除`} onClick={async () => { if (!(await askConfirm({ title: `カラー「${c.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; setMsg(deleteColor(c.id) ? "" : `「${c.name}」は商品で使われているため、削除できません。`); }} className="rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
           </li>
         ))}
@@ -266,10 +274,11 @@ function SizeCard() {
   return (
     <Card>
       <CardHead note="sizes テーブル。商品のバリエーションでは、ここから選ぶ">サイズ</CardHead>
+      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">名前を押すと直せます。使っている商品にも反映されます。</p>
       <div className="flex flex-wrap gap-2 border-t border-line px-4 py-3.5">
         {sizes.map((z) => (
-          <span key={z.id} className="flex items-center gap-1 rounded-full border border-line py-1 pr-1 pl-3 text-[12.5px]">
-            {z.name}
+          <span key={z.id} className="flex items-center gap-1 rounded-full border border-line py-1 pr-1 pl-1.5 text-[12.5px]">
+            <input key={z.name} defaultValue={z.name} aria-label={`サイズ「${z.name}」の名前`} style={{ width: `${[...z.name].reduce((w, ch) => w + (ch.charCodeAt(0) > 255 ? 1.05 : 0.65), 0) + 1}em` }} onBlur={(e) => { const v = e.target.value.trim(); if (!v || v === z.name) { e.target.value = z.name; return; } if (!renameSize(z.id, v)) { setMsg(`「${v}」はもう登録されています。`); e.target.value = z.name; } else setMsg(""); }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="rounded-full px-1.5 py-0.5 text-[12.5px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" />
             <button type="button" aria-label={`${z.name}を削除`} onClick={async () => { if (!(await askConfirm({ title: `サイズ「${z.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; setMsg(deleteSize(z.id) ? "" : `「${z.name}」は商品で使われているため、削除できません。`); }} className="-my-1 rounded-full p-2.5 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><X size={12} /></button>
           </span>
         ))}
@@ -280,5 +289,146 @@ function SizeCard() {
         <button className="cms-btn border border-ink px-3 text-[12.5px]">追加</button>
       </form>
     </Card>
+  );
+}
+
+const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
+
+// 革素材の登録：お客様に見える名前と、社内用のデシ単価（1デシ＝10×10cm）、お客様の単価への上乗せ
+function LeatherCard() {
+  const { leathers, products } = useCatalog();
+  const { can } = useAuth();
+  const money = can("money.view");
+  const [name, setName] = useState("");
+  const [code, setCode] = useState("");
+  const [ds, setDs] = useState("");
+  const [add, setAdd] = useState("");
+  const [img, setImg] = useState<string | undefined>();
+  const [msg, setMsg] = useState("");
+  // 革の見本の写真は小さく縮めて保存（本番では Supabase Storage）
+  const pickImg = async (f: File | undefined) => (f ? shrinkImage(f, 320, 240, 0.8) : undefined);
+  const num = "w-full rounded-md border border-line px-2 py-1 text-right text-[12.5px] tabular-nums outline-none focus:border-ink";
+  return (
+    <Card>
+      <CardHead note="leathers テーブル。デシ単価は社内用で、お客様の画面には出ない">革素材</CardHead>
+      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">写真・名前・記号・金額を押すと直せます。</p>
+      <ul className="divide-y divide-line border-t border-line">
+        {leathers.map((l) => {
+          const n = products.filter((p) => p.leathers?.includes(l.id)).length;
+          return (
+            <li key={l.id} className="px-4 py-2.5">
+              <div className="flex items-center gap-2">
+                <LeatherImg img={l.img} label={`${l.name}の写真を変える`} onPick={async (f) => { const v = await pickImg(f); if (v) updateLeather(l.id, { img: v }); }} />
+                <input defaultValue={l.name} onBlur={(e) => e.target.value.trim() && updateLeather(l.id, { name: e.target.value.trim() })} aria-label="革の名前" className="min-w-0 flex-1 rounded-md px-2 py-1 text-[13px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" />
+                <input key={`c-${l.code}`} defaultValue={l.code} aria-label={`${l.name}の記号`} title="記号" maxLength={4} onBlur={(e) => { const v = e.target.value.normalize("NFKC").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4); if (v) updateLeather(l.id, { code: v }); else e.target.value = l.code; }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="w-11 rounded-md px-1 py-1 text-center font-mono text-[11px] text-mute uppercase outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0] focus:text-ink" />
+                <span className="text-[11px] text-mute" title="使っている商品">{n}</span>
+                <button type="button" aria-label={`${l.name}を削除`} onClick={async () => { if (!(await askConfirm({ title: `革「${l.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; setMsg(deleteLeather(l.id) ? "" : `「${l.name}」を使っている商品があるため、削除できません。`); }} className="rounded-md p-2 text-mute hover:text-red-600"><Trash2 size={14} /></button>
+              </div>
+              <div className="mt-1.5 grid grid-cols-2 gap-2 pl-2 text-[11px] text-mute">
+                {money && <label>デシ単価（円）<input type="number" min={0} step={1} defaultValue={l.dsPrice} onBlur={(e) => updateLeather(l.id, { dsPrice: Math.max(0, Number(e.target.value) || 0) })} className={num} /></label>}
+                <label>お客様への上乗せ（1個・円）<input type="number" min={0} step={100} defaultValue={l.add} onBlur={(e) => updateLeather(l.id, { add: Math.max(0, Number(e.target.value) || 0) })} className={num} /></label>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      {msg && <p className="border-t border-line bg-[#fdf3f3] px-4 py-2 text-[12px] text-red-700">{msg}</p>}
+      <form className="space-y-2 border-t border-line p-4" onSubmit={(e) => { e.preventDefault(); const n = name.trim(); if (!n) return; setMsg(addLeather(n, code, Number(ds) || 0, Number(add) || 0, img) ? "" : `「${n}」はもう登録されています。`); setName(""); setCode(""); setDs(""); setAdd(""); setImg(undefined); }}>
+        <div className="flex gap-2">
+          <LeatherImg img={img} label="新しい革の写真" onPick={async (f) => setImg(await pickImg(f))} />
+          <input value={name} onChange={(e) => setName(e.target.value)} placeholder="例：コードバン" aria-label="新しい革の名前" className="min-w-0 flex-1 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink" />
+          <input value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="記号 CD" maxLength={4} aria-label="記号" className="w-[4.5rem] rounded-lg border border-line px-2 py-1.5 font-mono text-[13px] uppercase outline-none focus:border-ink" />
+        </div>
+        <div className="flex gap-2">
+          {money && <input type="number" min={0} value={ds} onChange={(e) => setDs(e.target.value)} placeholder="デシ単価 円" aria-label="デシ単価" className="min-w-0 flex-1 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink" />}
+          <input type="number" min={0} step={100} value={add} onChange={(e) => setAdd(e.target.value)} placeholder="上乗せ 円" aria-label="お客様への上乗せ" className="min-w-0 flex-1 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink" />
+          <button className="cms-btn border border-ink px-3 py-1.5 text-[12.5px]">追加</button>
+        </div>
+      </form>
+    </Card>
+  );
+}
+
+// 革の見本の写真（押すと写真を選べる）
+function LeatherImg({ img, label, onPick }: { img?: string; label: string; onPick: (f?: File) => void }) {
+  return (
+    <label className="relative flex aspect-[4/3] w-11 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-dashed border-line bg-[#fafafa] text-mute hover:border-ink" title={label}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {img ? <img src={imgSrc(img)} alt="" className="h-full w-full object-cover" /> : <ImagePlus size={14} />}
+      <input type="file" accept="image/*" aria-label={label} className="sr-only" onChange={(e) => { onPick(e.target.files?.[0]); e.target.value = ""; }} />
+    </label>
+  );
+}
+
+// 商品で選べる革素材（押した順に並び、先頭が標準）
+function LeatherPick({ p, onChange }: { p: Product; onChange: (ids: string[]) => void }) {
+  const { leathers } = useCatalog();
+  const on = p.leathers ?? [];
+  return (
+    <div className="border-t border-line pt-5">
+      <p className="text-[14px] font-semibold">革素材</p>
+      <p className="mt-1 text-[11.5px] text-mute">お客様が見積もりで選べる革。最初に選んだものが標準になります。</p>
+      <div className="mt-2.5 flex flex-wrap gap-2">
+        {leathers.map((l) => {
+          const i = on.indexOf(l.id);
+          return (
+            <button key={l.id} type="button" aria-pressed={i >= 0} onClick={() => onChange(i >= 0 ? on.filter((x) => x !== l.id) : [...on, l.id])} className={`flex items-center gap-1.5 rounded-full border py-1 pr-3 pl-1 text-[12.5px] ${i >= 0 ? "border-ink bg-ink text-white" : "border-line hover:border-ink"}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {l.img ? <img src={imgSrc(l.img)} alt="" className="h-6 w-6 rounded-full object-cover" /> : <span className="h-6 w-6 rounded-full bg-[#ececea]" />}
+              {i === 0 && <span className="mr-1 text-[10.5px] text-white/70">標準</span>}{l.name}{l.add > 0 && <span className={`ml-1 text-[11px] ${i >= 0 ? "text-white/70" : "text-mute"}`}>+{yen(l.add)}</span>}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// 原価と利益（社内用）：デシ単価×使用デシ数＋加工賃＝合計原価。販売単価から利益と利益率を自動で出す
+function CostBox({ p, onChange }: { p: Product; onChange: (c: Product["cost"]) => void }) {
+  const { leathers } = useCatalog();
+  const { can } = useAuth();
+  const pr = usePricing();
+  const lots = lotChoices(pr);
+  const [lot, setLot] = useState(lots[0]);
+  if (!can("money.view")) return null;
+  const c = p.cost ?? { ds: 0, labor: 0 };
+  const list = leathersOf(p, leathers);
+  const rate = rateFor(lot, pr);
+  const field = "mt-1 w-full rounded-lg border border-line px-3 py-2 text-right text-[13.5px] tabular-nums outline-none focus:border-ink";
+  return (
+    <div className="rounded-xl border border-[#e8d9b5] bg-[#fdfaf2] p-4">
+      <p className="flex items-center justify-between text-[14px] font-semibold">原価と利益<span className="rounded-full bg-[#f3e7c8] px-2 py-0.5 text-[10.5px] font-normal text-[#8a650c]">社内用・お客様には見えません</span></p>
+      <div className="mt-3 grid grid-cols-2 gap-3">
+        <label className="block text-[12px] font-medium">使用デシ数（1個）<input type="number" min={0} step={0.5} value={c.ds || ""} onChange={(e) => onChange({ ...c, ds: Math.max(0, Number(e.target.value) || 0) })} className={field} /></label>
+        <label className="block text-[12px] font-medium">加工賃（1個・円）<input type="number" min={0} step={50} value={c.labor || ""} onChange={(e) => onChange({ ...c, labor: Math.max(0, Number(e.target.value) || 0) })} className={field} /></label>
+      </div>
+      <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[11.5px] text-mute">
+        <span>数量</span>
+        {lots.map((n) => <button key={n} type="button" onClick={() => setLot(n)} className={`rounded-full border px-2.5 py-1 tabular-nums ${lot === n ? "border-ink bg-ink text-white" : "border-line bg-white hover:border-ink"}`}>{n}個〜</button>)}
+        {rate > 0 && <span className="ml-1">（単価 {Math.round(rate * 100)}%引きで計算）</span>}
+      </div>
+      {!list.length ? <p className="mt-3 text-[12px] text-mute">上の「革素材」を選ぶと計算します。</p> : (
+        <ul className="mt-3 space-y-2">
+          {list.map((l) => {
+            const x = costOf(p, l, rate);
+            return (
+              <li key={l.id} className="rounded-lg bg-white px-3.5 py-3 text-[12px] ring-1 ring-[#efe3c4]">
+                <p className="flex items-baseline justify-between gap-2"><span className="font-medium">{l.name}</span><span className="text-[11px] text-mute tabular-nums">デシ単価 {yen(l.dsPrice)}</span></p>
+                <dl className="mt-1.5 grid grid-cols-[1fr_auto] gap-y-0.5 tabular-nums">
+                  <dt className="text-mute">革代（{x.ds}デシ × {yen(l.dsPrice)}）</dt><dd className="text-right">{yen(x.leather)}</dd>
+                  <dt className="text-mute">加工賃</dt><dd className="text-right">{yen(x.labor)}</dd>
+                  <dt className="border-t border-line pt-0.5 font-medium">合計原価</dt><dd className="border-t border-line pt-0.5 text-right font-medium">{yen(x.total)}</dd>
+                  <dt className="text-mute">販売単価{l.add > 0 ? `（+${yen(l.add)}）` : ""}</dt><dd className="text-right">{yen(x.price)}</dd>
+                  <dt className="font-medium">利益（1個）</dt><dd className={`text-right font-semibold ${x.profit < 0 ? "text-red-600" : "text-[#2f7a4a]"}`}>{yen(x.profit)}<span className="ml-1.5 text-[11px] font-normal">利益率 {pct(x.margin)}</span></dd>
+                  <dt className="text-mute">{lot}個の利益</dt><dd className="text-right text-mute">{yen(x.profit * lot)}</dd>
+                </dl>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      <TechNote className="mt-2.5">原価は products.cost と leathers.ds_price。RLS で「原価・粗利・売上を見る」権限の人だけが読める</TechNote>
+    </div>
   );
 }

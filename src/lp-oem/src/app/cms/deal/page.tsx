@@ -5,7 +5,8 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIcon, Activity } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS } from "@/lib/cms";
+import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS, leatherName, makeDraft, type Deal } from "@/lib/cms";
+import { leathersOf, useCatalog } from "@/components/cms/catalog";
 import { asset } from "@/lib/asset";
 import { addLog, advance, confirmPayment, revert, updateDeal, useDeals } from "@/components/cms/store";
 import { askConfirm } from "@/components/cms/Confirm";
@@ -125,6 +126,7 @@ export default function DealPage() {
               <dl className="grid flex-1 grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
                 <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
                 <dt className="text-mute">数量</dt><dd>合計 {d.lot}個</dd>
+                <dt className="text-mute">革素材</dt><dd><LeatherSelect d={d} canEdit={can("deals.advance")} who={me?.name ?? "担当"} /></dd>
                 <dt className="text-mute">ロゴ加工</dt><dd>{d.finish}</dd>
                 <dt className="text-mute">ロゴ位置</dt><dd><Ph>{m.logo}</Ph></dd>
               </dl>
@@ -137,7 +139,7 @@ export default function DealPage() {
                   <tr key={x.color}><td className="px-4 py-2.5 sm:px-5 text-mute">{x.color}<span className="block text-[11.5px] whitespace-nowrap sm:inline sm:text-[13px]">（{yenOf(x.unit)}×{x.qty}個）</span></td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(x.sum)}</td></tr>
                 ))}
                 {q.discount && <tr><td className="px-4 py-2.5 sm:px-5 text-[#8a650c]">数量割引<span className="block text-[11.5px] whitespace-nowrap sm:inline sm:text-[13px]">（合計{d.lot}個・{Math.round(q.discount.rate * 100)}%引き）</span></td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap text-[#8a650c] tabular-nums">−{yenOf(q.discount.amount)}</td></tr>}
-                <tr><td className="px-4 py-2.5 sm:px-5 text-mute">ロゴの版代（初回のみ）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.plate)}</td></tr>
+                {a.plate > 0 && <tr><td className="px-4 py-2.5 sm:px-5 text-mute">ロゴの版代（初回のみ）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.plate)}</td></tr>}
                 <tr><td className="px-4 py-2.5 sm:px-5 text-mute">消費税（10%）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.tax)}</td></tr>
                 <tr className="bg-[#fafafa]"><td className="px-4 py-3 sm:px-5 font-medium">合計（税込）</td><td className="px-4 py-3 sm:px-5 text-right text-[16px] font-medium whitespace-nowrap tabular-nums">{yenOf(a.total)}</td></tr>
               </tbody>
@@ -252,5 +254,20 @@ export default function DealPage() {
         </div>
       </div>
     </Shell>
+  );
+}
+
+// 革素材：見積を送る前なら選び直せる（上乗せは単価に入る）。送ったあとは価格が固定なので変えない
+function LeatherSelect({ d, canEdit, who }: { d: Deal; canEdit: boolean; who: string }) {
+  const { products, leathers } = useCatalog();
+  const list = leathersOf(products.find((p) => p.id === d.model), leathers);
+  const cur = d.leather?.name ?? list[0]?.name;
+  const label = <>{leatherName(d)}{d.leather?.add ? <span className="text-mute">（+{yenOf(d.leather.add)}/個）</span> : null}</>;
+  if (!canEdit || d.lock || list.length < 2) return label;
+  return (
+    <select value={cur} aria-label="革素材" onChange={(e) => { const l = list.find((x) => x.name === e.target.value); if (l) updateDeal(d.id, (x) => { const y = { ...x, leather: { name: l.name, code: l.code, add: l.add, img: l.img } }; return addLog({ ...y, drafts: y.drafts?.map((dr) => (dr.status === "draft" ? { ...dr, subject: makeDraft(dr.kind, y).subject, body: makeDraft(dr.kind, y).body } : dr)) }, who, `革素材を「${l.name}」に変更しました（送る前の下書きも更新）`); }); }}
+      className="-my-1 w-full rounded-md border border-line bg-white px-2 py-1 text-[13px] outline-none focus:border-ink">
+      {list.map((l) => <option key={l.id} value={l.name}>{l.name}{l.add ? `（+${yenOf(l.add)}/個）` : ""}</option>)}
+    </select>
   );
 }

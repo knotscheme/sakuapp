@@ -40,7 +40,9 @@ export const DOCS = [
 export type DocId = (typeof DOCS)[number]["id"];
 
 // 工場との連絡。t は決まった文（日本語・英語・タイ語がそろっている）、raw は自由に書いた文（本番では自動翻訳）
-export type Msg = { id: string; at: string; from: "factory" | "japan"; who: string; t?: { ja: string; en: string; th: string }; raw?: string; read?: boolean };
+export type Msg = { id: string; at: string; from: "factory" | "japan"; who: string; t?: { ja: string; en: string; th: string }; raw?: string; read?: boolean; po?: Po };
+// 工場への発注（チャットに「発注カード」として流す）。ackAt があれば、工場が「受けました」を押した
+export type Po = { no: string; items: { color: string; qty: number }[]; lot: number; shipBy: string; ackAt?: string; ackBy?: string };
 // 自動で作る下書き。reply：返信と見積、proof：ロゴ配置案、factory：タイの工場への発注、remind：入金のお願い
 export type DraftKind = "reply" | "proof" | "factory" | "remind";
 export type Draft = { id: string; kind: DraftKind; to: "お客様" | "工場"; subject: string; body: string; at: string; status: "draft" | "sent" | "discarded"; sentBy?: string; sentAt?: string };
@@ -55,7 +57,8 @@ export type Deal = {
   email: string;
   model: ModelId;
   lot: number;
-  finish: "金箔" | "銀箔" | "素押し";
+  finish: "金箔" | "銀箔" | "素押し" | "ロゴなし";
+  leather?: { name: string; code?: string; add: number; img?: string }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
   color: string;
   sellPrice: number; // お客様の想定販売価格（参考）
   stage: StageId;
@@ -93,14 +96,15 @@ const d = (offset: number) => {
   return t.toISOString().slice(0, 10);
 };
 
-export function unitPriceOf(model: ModelId, lot: number) {
-  const base = ALL_MODELS.find((m) => m.id === model)?.unitPrice ?? 0;
+export function unitPriceOf(model: ModelId, lot: number, add = 0) {
+  const base = (ALL_MODELS.find((m) => m.id === model)?.unitPrice ?? 0) + add;
   return Math.round((base * (1 - rateFor(lot))) / 10) * 10;
 }
-export function amounts(x: Pick<Deal, "model" | "lot"> & { lock?: Deal["lock"] }) {
+export const hasLogo = (x: Pick<Deal, "finish">) => x.finish !== "ロゴなし";
+export function amounts(x: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"]; leather?: Deal["leather"]; lock?: Deal["lock"] }) {
   // 見積を送ったあとは、そのときの単価・版代で固定（あとで割引率を変えても変わらない）
-  const unit = x.lock?.unit ?? unitPriceOf(x.model, x.lot);
-  const plate = x.lock?.plate ?? getPricing().plate;
+  const unit = x.lock?.unit ?? unitPriceOf(x.model, x.lot, x.leather?.add);
+  const plate = x.finish === "ロゴなし" ? 0 : x.lock?.plate ?? getPricing().plate;
   const sub = unit * x.lot + plate;
   const tax = Math.round(sub * 0.1);
   return { unit, items: unit * x.lot, plate, sub, tax, total: sub + tax, deposit: Math.round((sub + tax) * 0.5) };
@@ -181,6 +185,15 @@ export function seedDeals(): Deal[] {
     const si = stageIndex(x.stage);
     if (si >= 1) x.lock = priceLock(x);
     if (x.paid) x.paid.amount = amounts(x).deposit;
+    if (si >= stageIndex("production")) {
+      const at = (h: number) => { const t = new Date(); t.setHours(t.getHours() - h, 0, 0, 0); return t.toISOString(); };
+      const po = { ...poOf(x), shipBy: d(10), ackAt: at(24 * 9), ackBy: "Somchai" };
+      x.msgs = [
+        { id: "po1", at: at(24 * 10), from: "japan", who: x.owner, t: poText(po), po, read: true },
+        { id: "po2", at: at(24 * 9), from: "factory", who: "Somchai", t: PO_ACK, read: true },
+        ...(x.msgs ?? []),
+      ];
+    }
     const pending: DraftKind | undefined = x.stage === "inquiry" ? "reply" : x.stage === "order" && x.paid ? "proof" : x.stage === "proof" && x.proofOk ? "factory" : undefined;
     const sent: DraftKind[] = (["reply", "proof", "factory"] as DraftKind[]).filter((k) => stageIndex(k === "reply" ? "quote" : k === "proof" ? "proof" : "production") <= si);
     x.drafts = [
@@ -203,9 +216,9 @@ export function tierInfo(total: number) {
 }
 
 // 見積の明細：カラーごとの行（通常の単価）と、合計の数で決まる数量割引の行。合計は amounts().items と同じ
-export function quoteLines(d: Pick<Deal, "items" | "color" | "lot" | "model"> & { lock?: Deal["lock"] }) {
-  const base = d.lock?.base ?? unitPriceOf(d.model, 0);
-  const unit = d.lock?.unit ?? unitPriceOf(d.model, d.lot);
+export function quoteLines(d: Pick<Deal, "items" | "color" | "lot" | "model"> & { leather?: Deal["leather"]; lock?: Deal["lock"] }) {
+  const base = d.lock?.base ?? unitPriceOf(d.model, 0, d.leather?.add);
+  const unit = d.lock?.unit ?? unitPriceOf(d.model, d.lot, d.leather?.add);
   const lines = colorLines(d).map((x) => ({ color: x.color, qty: x.qty, unit: base, sum: base * x.qty }));
   const t = tierInfo(d.lot);
   const off = (base - unit) * d.lot;
@@ -237,6 +250,7 @@ const FINISH_I18N: Record<string, L3> = {
   金箔: { ja: "金箔", en: "Gold foil", th: "ฟอยล์ทอง" },
   銀箔: { ja: "銀箔", en: "Silver foil", th: "ฟอยล์เงิน" },
   素押し: { ja: "素押し", en: "Blind deboss", th: "ปั๊มจม (ไม่ใช้ฟอยล์)" },
+  ロゴなし: { ja: "ロゴなし", en: "No logo (plain)", th: "ไม่ใส่โลโก้" },
 };
 const POS_I18N: Record<string, L3> = {
   表面右下: { ja: "表面右下", en: "front, bottom right", th: "ด้านหน้า มุมขวาล่าง" },
@@ -256,7 +270,7 @@ export const trFinish = (f: string, l: LangId) => FINISH_I18N[f]?.[l] ?? f;
 export const trPos = (p: string, l: LangId) => p.split(" / ").map((x) => POS_I18N[x]?.[l] ?? x).join(" / ");
 
 // ===== 自動で作る下書き（本番では、AIで文面を整え、送信は Resend・工場へは LINE でも通知） =====
-const shipBy = () => { const t = new Date(); t.setDate(t.getDate() + 21); return t.toISOString().slice(0, 10); };
+export const shipBy = () => { const t = new Date(); t.setDate(t.getDate() + 21); return t.toISOString().slice(0, 10); };
 export function makeDraft(kind: DraftKind, d: Deal): Draft {
   const m = modelOf(d.model);
   const a = amounts(d);
@@ -273,17 +287,17 @@ export function makeDraft(kind: DraftKind, d: Deal): Draft {
 いただいた内容で、お見積りをお作りしました。
 
 ■ 製品：${m.name}
+■ 革素材：${leatherName(d)}
 ■ カラーと数量：${colorText(d)}（合計${d.lot}個）
 ■ ロゴ加工：${d.finish}
 
 【お見積り】
 ・製品代：${q.lines.map((x) => `${x.color} ${x.qty}個`).join("、")}
 　単価 ${yenOf(q.unit)}${q.discount ? `（合計${d.lot}個で${Math.round(q.discount.rate * 100)}%の数量割引）` : ""} × ${d.lot}個 ＝ ${yenOf(a.items)}
-・ロゴの版代（初回のみ）：${yenOf(a.plate)}
-・消費税：${yenOf(a.tax)}
+${hasLogo(d) ? `・ロゴの版代（初回のみ）：${yenOf(a.plate)}\n` : ""}・消費税：${yenOf(a.tax)}
 ・合計（税込）：${yenOf(a.total)}
 ${t.next ? `\n※あと${t.need}個（合計${t.next.at}個）で、単価が${Math.round(t.next.rate * 100)}%引きになります。\n` : ""}
-ロゴデータ：${d.logo ? "受け取りました。配置のイメージは、ご注文のあとにお送りします。" : "まだ届いていません。ai・pdf・png などでお送りください。"}
+${!hasLogo(d) ? "ロゴ：なし（無地のまま）でお作りします。あとからロゴを入れたくなった場合も、ご相談ください。" : `ロゴデータ：${d.logo ? "受け取りました。配置のイメージは、ご注文のあとにお送りします。" : "まだ届いていません。ai・pdf・png などでお送りください。"}`}
 
 見積書のご確認と承諾は、下の専用ページからできます。
 ${link}${sign}` };
@@ -302,7 +316,7 @@ ${link}${sign}` };
 承認いただくと、製造の手配に進みます。
 
 ${link}${sign}` };
-  if (kind === "factory") return { ...base, to: "工場", subject: `[PO-${d.id.slice(2)}] New production order / ใบสั่งผลิตใหม่`, body:
+  if (kind === "factory") return { ...base, to: "工場", subject: `PO-${d.id.slice(2)}・製造の発注（工場とのチャットに発注カードで送ります）`, body:
 `Dear ${FACTORY.replace("（仮）", "")},
 
 Please start production of the following order.
@@ -312,7 +326,7 @@ Model / รุ่น: ${trModel(d.model, "en")} / ${trModel(d.model, "th")}
 Colors & qty / สีและจำนวน:
 ${colorLines(d).map((x) => `  - ${trColor(x.color, "en")} / ${trColor(x.color, "th")}: ${x.qty} pcs`).join("\n")}
 Total / รวม: ${d.lot} pcs
-Logo / โลโก้: ${trFinish(d.finish, "en")} / ${trFinish(d.finish, "th")} (approved placement attached)
+Logo / โลโก้: ${trFinish(d.finish, "en")} / ${trFinish(d.finish, "th")} ${hasLogo(d) ? " (approved placement attached)" : ""}
 Ship by / ส่งภายใน: ${shipBy()}
 
 The production order (EN/TH) is on your factory screen.
@@ -336,6 +350,15 @@ ${link}${sign}` };
 }
 
 // 見積を送る時点の価格を固定する
-export function priceLock(d: Pick<Deal, "model" | "lot">) {
-  return { base: unitPriceOf(d.model, 0), unit: unitPriceOf(d.model, d.lot), plate: getPricing().plate, rate: rateFor(d.lot) };
+export function priceLock(d: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"]; leather?: Deal["leather"] }) {
+  return { base: unitPriceOf(d.model, 0, d.leather?.add), unit: unitPriceOf(d.model, d.lot, d.leather?.add), plate: d.finish === "ロゴなし" ? 0 : getPricing().plate, rate: rateFor(d.lot) };
 }
+
+// 革素材の名前（登録が無い古い案件は標準の革）
+export const leatherName = (d: Pick<Deal, "leather">) => d.leather?.name ?? "牛革スムース（標準）";
+
+// ===== 工場への発注カード =====
+export const poOf = (d: Deal): Po => ({ no: `PO-${d.id.slice(2)}`, items: colorLines(d), lot: d.lot, shipBy: shipBy() });
+export const poText = (p: Pick<Po, "no" | "lot">) => ({ ja: `製造の発注 ${p.no}（${p.lot}個）`, en: `Production order ${p.no} (${p.lot} pcs)`, th: `ใบสั่งผลิต ${p.no} (${p.lot} ชิ้น)` });
+export const PO_ACK = { ja: "発注を受けました。製造を始めます", en: "Order received. We will start production", th: "ได้รับใบสั่งผลิตแล้ว จะเริ่มผลิต" };
+export const PO_ASK = { ja: "発注について確認したいことがあります：", en: "I have a question about the order: ", th: "มีคำถามเกี่ยวกับใบสั่งผลิต: " };
