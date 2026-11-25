@@ -38,6 +38,9 @@ export function MsgThread({ d, side, lang, who, listClass = "max-h-[22rem]", com
   const t = T[lang];
   const other: Msg["from"] = side === "japan" ? "factory" : "japan";
   const [text, setText] = useState("");
+  // よく使う文は、押すと入力欄に入るだけ（すぐには送らない）。文を変えずに送れば、3か国語そろった文として届く
+  const [pick, setPick] = useState<L3 | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   // 開いたときに未読だったものに「新着」を付けてから、既読にする
   const [fresh] = useState(() => new Set((d.msgs ?? []).filter((m) => m.from === other && !m.read).map((m) => m.id)));
   useEffect(() => { markRead(d.id, other); }, [d.id, other, d.msgs?.length]);
@@ -73,11 +76,11 @@ export function MsgThread({ d, side, lang, who, listClass = "max-h-[22rem]", com
         {/* compact：LINEのように、よく使う文を横にスクロールする1列に */}
         <div className={compact ? "-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none]" : "mt-2 flex flex-wrap gap-2"}>
           {quick.map((q) => (
-            <button key={q.ja} type="button" onClick={() => sendMsg(d.id, { from: side, who, t: q })} className={`rounded-full border border-line bg-white text-left hover:border-ink ${compact ? "shrink-0 px-3.5 py-2 text-[12.5px] whitespace-nowrap" : "px-3.5 py-2.5 text-[12.5px]"}`}>{q[lang]}</button>
+            <button key={q.ja} type="button" onClick={() => { setText(q[lang]); setPick(q); inputRef.current?.focus(); }} className={`rounded-full border border-line bg-white text-left hover:border-ink ${compact ? "shrink-0 px-3.5 py-2 text-[12.5px] whitespace-nowrap" : "px-3.5 py-2.5 text-[12.5px]"}`}>{q[lang]}</button>
           ))}
         </div>
-        <form className={`${compact ? "mt-2" : "mt-3"} flex gap-2`} onSubmit={(e) => { e.preventDefault(); const v = text.trim(); if (!v) return; sendMsg(d.id, { from: side, who, raw: v }); setText(""); }}>
-          <input value={text} onChange={(e) => setText(e.target.value)} placeholder={t.ph} maxLength={300} className="min-w-0 flex-1 rounded-lg border border-line px-3 py-2.5 text-[13px] outline-none focus:border-ink" />
+        <form className={`${compact ? "mt-2" : "mt-3"} flex gap-2`} onSubmit={(e) => { e.preventDefault(); const v = text.trim(); if (!v) return; sendMsg(d.id, pick && pick[lang] === v ? { from: side, who, t: pick } : { from: side, who, raw: v }); setText(""); setPick(null); }}>
+          <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder={t.ph} maxLength={300} className="min-w-0 flex-1 rounded-lg border border-line px-3 py-2.5 text-[13px] outline-none focus:border-ink" />
           <button type="submit" className="cms-btn flex shrink-0 items-center gap-1.5 bg-ink px-4 py-2.5 text-[12.5px] text-white"><Send size={13} />{t.send}</button>
         </form>
         {!compact && <TechNote className="mt-2.5">{t.note}</TechNote>}
