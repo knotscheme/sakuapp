@@ -28,7 +28,8 @@ export type Product = {
 };
 // 革素材：name はお客様にも見える名前。dsPrice（デシ単価・円）は社内用。add はお客様の単価への上乗せ（1個・円）
 // ※1デシ＝10cm×10cm
-export type LeatherDef = { id: string; name: string; code: string; dsPrice: number; add: number; img?: string }; // img：革の見本の写真
+// colors：この革で作れるカラー（登録したカラーの名前）。無ければ全部の色で作れる
+export type LeatherDef = { id: string; name: string; code: string; dsPrice: number; add: number; img?: string; colors?: string[] }; // img：革の見本の写真
 // 例：{ name: "カラー", values: ["ブラック", "キャメル"] }
 // kind：color は登録したカラーから、size は登録したサイズから選ぶ。custom は自由に入力
 export type VOption = { name: string; values: string[]; kind?: "color" | "size" | "custom" };
@@ -44,9 +45,9 @@ type Catalog = { cats: Cat[]; products: Product[]; colors: ColorDef[]; sizes: Si
 const KEY = "craft-oem-catalog-v3";
 const SEED_LEATHERS: LeatherDef[] = [
   { id: "l-st", name: "牛革スムース（標準）", code: "ST", dsPrice: 45, add: 0, img: "/images/leather-st.webp" },
-  { id: "l-sh", name: "シュリンクレザー", code: "SH", dsPrice: 55, add: 200, img: "/images/leather-sh.webp" },
-  { id: "l-nm", name: "ヌメ革", code: "NM", dsPrice: 60, add: 300, img: "/images/leather-nm.webp" },
-  { id: "l-it", name: "イタリアンレザー", code: "IT", dsPrice: 95, add: 800, img: "/images/leather-it.webp" },
+  { id: "l-sh", name: "シュリンクレザー", code: "SH", dsPrice: 55, add: 200, img: "/images/leather-sh.webp", colors: ["ブラック", "ダークブラウン", "ネイビー", "グレー"] },
+  { id: "l-nm", name: "ヌメ革", code: "NM", dsPrice: 60, add: 300, img: "/images/leather-nm.webp", colors: ["キャメル", "ダークブラウン", "アイボリー"] },
+  { id: "l-it", name: "イタリアンレザー", code: "IT", dsPrice: 95, add: 800, img: "/images/leather-it.webp", colors: ["ブラック", "ダークブラウン", "キャメル", "ネイビー"] },
 ];
 // 商品ごとの使用デシ数・加工賃（初期の値）
 const SEED_COST: Record<string, { ds: number; labor: number; leathers: string[] }> = {
@@ -105,6 +106,8 @@ export function loadCatalog(): Catalog {
 function migrate(c: Catalog): Catalog {
   // LPの表示順を入れる前のデータ：シミュレーターのある公開中の商品を、今の並びのままLPに出す
   if (!c.lp) c = { ...c, lp: c.products.filter((p) => p.visible && ALL_MODELS.some((m) => m.id === p.id)).map((p) => p.id) };
+  // 革ごとのカラーを入れる前の初期の革には、初期のカラーを足す
+  if (c.leathers?.some((l) => !("colors" in l) && SEED_LEATHERS.find((x) => x.id === l.id)?.colors)) c = { ...c, leathers: c.leathers.map((l) => ("colors" in l ? l : { ...l, colors: SEED_LEATHERS.find((x) => x.id === l.id)?.colors })) };
   // 写真を入れる前の初期の革には、見本の写真を足す
   if (c.leathers) return c.leathers.some((l) => !l.img && SEED_LEATHERS.some((x) => x.id === l.id)) ? { ...c, leathers: c.leathers.map((l) => l.img ? l : { ...l, img: SEED_LEATHERS.find((x) => x.id === l.id)?.img }) } : c;
   return { ...c, leathers: SEED_LEATHERS, products: c.products.map((p) => { const x = SEED_COST[p.id]; return x && !p.leathers ? { ...p, leathers: x.leathers, cost: p.cost ?? { ds: x.ds, labor: x.labor } } : p; }) };
@@ -230,7 +233,8 @@ export function updateColor(id: string, patch: { name?: string; code?: string })
   const name = patch.name?.trim();
   if (name && name !== col.name && c.colors.some((x) => x.name === name)) return false; // 同じ名前は2つ作らない
   const code = patch.code !== undefined ? patch.code.normalize("NFKC").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4) || col.code : col.code;
-  save({ ...c, colors: c.colors.map((x) => (x.id === id ? { ...x, name: name || x.name, code } : x)), products: name && name !== col.name ? renameIn(c.products, "color", col.name, name) : c.products });
+  const ren = !!name && name !== col.name;
+  save({ ...c, colors: c.colors.map((x) => (x.id === id ? { ...x, name: name || x.name, code } : x)), products: ren ? renameIn(c.products, "color", col.name, name!) : c.products, leathers: ren ? c.leathers.map((l) => (l.colors ? { ...l, colors: l.colors.map((v) => (v === col.name ? name! : v)) } : l)) : c.leathers });
   return true;
 }
 export function renameSize(id: string, name: string) {
@@ -249,7 +253,7 @@ export function deleteColor(id: string) {
   const c = loadCatalog();
   const col = c.colors.find((x) => x.id === id);
   if (!col || usedIn(c, "color", col.name)) return false;
-  save({ ...c, colors: c.colors.filter((x) => x.id !== id) });
+  save({ ...c, colors: c.colors.filter((x) => x.id !== id), leathers: c.leathers.map((l) => (l.colors ? { ...l, colors: l.colors.filter((v) => v !== col.name) } : l)) });
   return true;
 }
 export function addSize(name: string) {
@@ -288,6 +292,18 @@ export function leathersOf(p: Pick<Product, "leathers"> | undefined, all: Leathe
   const ids = p?.leathers?.length ? p.leathers : all[0] ? [all[0].id] : [];
   return ids.map((id) => all.find((x) => x.id === id)).filter((x): x is LeatherDef => !!x);
 }
+// その革で作れる色だけに絞る（革に色の指定が無ければ、そのまま）
+export const colorsForLeather = (names: string[], l?: Pick<LeatherDef, "colors">) => (l?.colors ? names.filter((n) => l.colors!.includes(n)) : names);
+// 革で作れる色を、押して付け外しする
+export function toggleLeatherColor(id: string, color: string, all: string[]) {
+  const c = loadCatalog();
+  save({ ...c, leathers: c.leathers.map((l) => {
+    if (l.id !== id) return l;
+    const cur = l.colors ?? all;
+    return { ...l, colors: cur.includes(color) ? cur.filter((x) => x !== color) : all.filter((x) => cur.includes(x) || x === color) };
+  }) });
+}
+
 // 原価と利益（1個・社内用）。販売単価は参考単価＋革の上乗せ。lot を渡すと、その数の数量割引を入れた単価で計算する
 export function costOf(p: Pick<Product, "unitPrice" | "cost">, l: LeatherDef, rate = 0) {
   const ds = p.cost?.ds ?? 0, labor = p.cost?.labor ?? 0;

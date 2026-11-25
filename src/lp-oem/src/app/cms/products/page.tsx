@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowDown, ArrowUp, ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
 import { moveLp, moveProduct, renameSize, setLp, updateColor } from "@/components/cms/catalog";
+import { colorsForLeather, toggleLeatherColor } from "@/components/cms/catalog";
 import { addLeather, costOf, deleteLeather, leathersOf, updateLeather } from "@/components/cms/catalog";
 import { lotChoices, rateFor, usePricing } from "@/lib/pricing";
 import { MAX_SUB, skuList, addColor, addSize, deleteColor, deleteSize, setColorHex, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
@@ -313,7 +314,7 @@ const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 
 // 革素材の登録：お客様に見える名前と、社内用のデシ単価（1デシ＝10×10cm）、お客様の単価への上乗せ
 function LeatherCard() {
-  const { leathers, products } = useCatalog();
+  const { leathers, products, colors } = useCatalog();
   const { can } = useAuth();
   const money = can("money.view");
   const [name, setName] = useState("");
@@ -328,7 +329,7 @@ function LeatherCard() {
   return (
     <Card>
       <CardHead note="leathers テーブル。デシ単価は社内用で、お客様の画面には出ない">革素材</CardHead>
-      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">写真・名前・記号・金額を押すと直せます。</p>
+      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">写真・名前・記号・金額を押すと直せます。「作れる色」は丸を押して付け外し（カラーの登録から選びます）。</p>
       <ul className="divide-y divide-line border-t border-line">
         {leathers.map((l) => {
           const n = products.filter((p) => p.leathers?.includes(l.id)).length;
@@ -344,6 +345,18 @@ function LeatherCard() {
               <div className="mt-1.5 grid grid-cols-2 gap-2 pl-2 text-[11px] text-mute">
                 {money && <label>デシ単価（円）<input type="number" min={0} step={1} defaultValue={l.dsPrice} onBlur={(e) => updateLeather(l.id, { dsPrice: Math.max(0, Number(e.target.value) || 0) })} className={num} /></label>}
                 <label>お客様への上乗せ（1個・円）<input type="number" min={0} step={100} defaultValue={l.add} onBlur={(e) => updateLeather(l.id, { add: Math.max(0, Number(e.target.value) || 0) })} className={num} /></label>
+              </div>
+              {/* この革で作れるカラー（押して付け外し）。製品一覧と見積フォームでは、選んだ革で作れる色だけが出る */}
+              <div className="mt-2 flex flex-wrap items-center gap-1.5 pl-2">
+                <span className="mr-0.5 text-[11px] text-mute">作れる色</span>
+                {colors.map((c) => {
+                  const on = !l.colors || l.colors.includes(c.name);
+                  return (
+                    <button key={c.id} type="button" aria-pressed={on} title={c.name} aria-label={`${l.name}：${c.name}`} onClick={() => toggleLeatherColor(l.id, c.name, colors.map((x) => x.name))}
+                      className={`h-6 w-6 rounded-full transition ${on ? "ring-2 ring-ink ring-offset-1" : "opacity-25 ring-1 ring-black/15 hover:opacity-60"}`} style={{ background: c.hex }} />
+                  );
+                })}
+                <span className="ml-1 text-[11px] text-mute">{l.colors ? `${colors.filter((c) => l.colors!.includes(c.name)).length}色` : "全色"}</span>
               </div>
             </li>
           );
@@ -379,8 +392,11 @@ function LeatherImg({ img, label, onPick }: { img?: string; label: string; onPic
 
 // 商品で選べる革素材（押した順に並び、先頭が標準）
 function LeatherPick({ p, onChange }: { p: Product; onChange: (ids: string[]) => void }) {
-  const { leathers } = useCatalog();
+  const { leathers, colors } = useCatalog();
   const on = p.leathers ?? [];
+  // この商品のカラー（バリエーションで取り扱うもの）のうち、革ごとに作れる色
+  const ci = (p.options ?? []).findIndex((o) => o.kind === "color");
+  const pColors = ci < 0 ? [] : [...new Set((p.variants ?? []).filter((v) => v.visible).map((v) => v.values[ci]))];
   return (
     <div className="border-t border-line pt-5">
       <p className="text-[14px] font-semibold">革素材</p>
@@ -397,6 +413,20 @@ function LeatherPick({ p, onChange }: { p: Product; onChange: (ids: string[]) =>
           );
         })}
       </div>
+      {pColors.length > 0 && on.length > 0 && (
+        <ul className="mt-3 space-y-1.5 rounded-lg bg-[#f6f6f5] px-3.5 py-2.5 text-[12px]">
+          {on.map((id) => leathers.find((l) => l.id === id)).filter((l) => !!l).map((l) => {
+            const cs = colorsForLeather(pColors, l);
+            return (
+              <li key={l!.id} className="flex items-center gap-2">
+                <span className="w-28 shrink-0 truncate text-mute">{l!.name}</span>
+                {cs.length ? cs.map((n) => <span key={n} title={n} className="h-4 w-4 rounded-full ring-1 ring-black/15" style={{ background: colors.find((c) => c.name === n)?.hex ?? "#ccc" }} />) : <span className="text-red-600">この商品の色では作れません</span>}
+              </li>
+            );
+          })}
+          <li className="pt-0.5 text-[11px] text-mute">お客様には、選んだ革で作れる色だけが出ます。</li>
+        </ul>
+      )}
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
-import { imgSrc, leathersOf, useCatalog, useLpModels } from "./cms/catalog";
+import { colorsForLeather, imgSrc, leathersOf, useCatalog, useLpModels } from "./cms/catalog";
 import { ALL_MODELS } from "@/lib/models";
 import { tierInfo, unitPriceOf } from "@/lib/cms";
 import { toLogoMask } from "./cms/Proof";
@@ -34,8 +34,10 @@ export default function ContactForm() {
   const leatherList = prod ? leathersOf(prod, allLeathers) : [];
   const [leatherId, setLeatherId] = useState("");
   const leather = leatherList.find((l) => l.id === leatherId) ?? leatherList[0];
+  // カラーは革によって異なる：選んだ革で作れる色だけ（作れない色に入れた数は数えない）
   const ci = (prod?.options ?? []).findIndex((o) => o.kind === "color");
-  const colorChoices = ci < 0 ? [] : [...new Set((prod?.variants ?? []).filter((v) => v.visible).map((v) => v.values[ci]))];
+  const prodColors = ci < 0 ? [] : [...new Set((prod?.variants ?? []).filter((v) => v.visible).map((v) => v.values[ci]))];
+  const colorChoices = colorsForLeather(prodColors, leather);
   const total = colorChoices.reduce((s, c) => s + (qtys[c] || 0), 0);
   const inSim = ALL_MODELS.some((m) => m.id === model);
   const [message, setMessage] = useState("");
@@ -230,6 +232,7 @@ export default function ContactForm() {
             {colorChoices.length > 0 && (
               <div className="min-w-0 text-sm md:col-span-2">
                 <p className="font-bold">カラーごとの数量<span className="ml-1 text-xs font-normal text-mute">任意・入れると概算が出ます</span></p>
+                {leatherList.length > 1 && leather && <p className="mt-1 text-[11.5px] text-mute">「{leather.name}」で作れる色です。色は革によって異なります。</p>}
                 <ul className="mt-3 divide-y divide-line border-y border-line">
                   {colorChoices.map((c) => {
                     const v = qtys[c] || 0;

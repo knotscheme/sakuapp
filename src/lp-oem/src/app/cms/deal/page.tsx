@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIcon, Activity } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS, leatherName, makeDraft, type Deal } from "@/lib/cms";
+import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS, colorLines, leatherName, makeDraft, type Deal } from "@/lib/cms";
 import { leathersOf, useCatalog } from "@/components/cms/catalog";
 import { asset } from "@/lib/asset";
 import { addLog, advance, confirmPayment, revert, updateDeal, useDeals } from "@/components/cms/store";
@@ -262,12 +262,17 @@ function LeatherSelect({ d, canEdit, who }: { d: Deal; canEdit: boolean; who: st
   const { products, leathers } = useCatalog();
   const list = leathersOf(products.find((p) => p.id === d.model), leathers);
   const cur = d.leather?.name ?? list[0]?.name;
-  const label = <>{leatherName(d)}{d.leather?.add ? <span className="text-mute">（+{yenOf(d.leather.add)}/個）</span> : null}</>;
+  // 色は革によって異なる：注文の色がこの革で作れないときは知らせる
+  const curL = leathers.find((l) => l.name === cur);
+  const ng = curL?.colors ? colorLines(d).map((x) => x.color).filter((c) => !curL.colors!.includes(c)) : [];
+  const warn = ng.length > 0 && <span className="mt-1 block text-[11.5px] text-red-600">{ng.join("・")}は、この革では作れません</span>;
+  const label = <>{leatherName(d)}{d.leather?.add ? <span className="text-mute">（+{yenOf(d.leather.add)}/個）</span> : null}{warn}</>;
   if (!canEdit || d.lock || list.length < 2) return label;
-  return (
+  return (<>
     <select value={cur} aria-label="革素材" onChange={(e) => { const l = list.find((x) => x.name === e.target.value); if (l) updateDeal(d.id, (x) => { const y = { ...x, leather: { name: l.name, code: l.code, add: l.add, img: l.img } }; return addLog({ ...y, drafts: y.drafts?.map((dr) => (dr.status === "draft" ? { ...dr, subject: makeDraft(dr.kind, y).subject, body: makeDraft(dr.kind, y).body } : dr)) }, who, `革素材を「${l.name}」に変更しました（送る前の下書きも更新）`); }); }}
       className="-my-1 w-full rounded-md border border-line bg-white px-2 py-1 text-[13px] outline-none focus:border-ink">
       {list.map((l) => <option key={l.id} value={l.name}>{l.name}{l.add ? `（+${yenOf(l.add)}/個）` : ""}</option>)}
     </select>
-  );
+    {warn}
+  </>);
 }
