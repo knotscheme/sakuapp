@@ -40,7 +40,9 @@ export const DOCS = [
 export type DocId = (typeof DOCS)[number]["id"];
 
 // 工場との連絡。t は決まった文（日本語・英語・タイ語がそろっている）、raw は自由に書いた文（本番では自動翻訳）
-export type Msg = { id: string; at: string; from: "factory" | "japan"; who: string; t?: { ja: string; en: string; th: string }; raw?: string; read?: boolean };
+export type Msg = { id: string; at: string; from: "factory" | "japan"; who: string; t?: { ja: string; en: string; th: string }; raw?: string; read?: boolean; po?: Po };
+// 工場への発注（チャットに「発注カード」として流す）。ackAt があれば、工場が「受けました」を押した
+export type Po = { no: string; items: { color: string; qty: number }[]; lot: number; shipBy: string; ackAt?: string; ackBy?: string };
 // 自動で作る下書き。reply：返信と見積、proof：ロゴ配置案、factory：タイの工場への発注、remind：入金のお願い
 export type DraftKind = "reply" | "proof" | "factory" | "remind";
 export type Draft = { id: string; kind: DraftKind; to: "お客様" | "工場"; subject: string; body: string; at: string; status: "draft" | "sent" | "discarded"; sentBy?: string; sentAt?: string };
@@ -182,6 +184,15 @@ export function seedDeals(): Deal[] {
     const si = stageIndex(x.stage);
     if (si >= 1) x.lock = priceLock(x);
     if (x.paid) x.paid.amount = amounts(x).deposit;
+    if (si >= stageIndex("production")) {
+      const at = (h: number) => { const t = new Date(); t.setHours(t.getHours() - h, 0, 0, 0); return t.toISOString(); };
+      const po = { ...poOf(x), shipBy: d(10), ackAt: at(24 * 9), ackBy: "Somchai" };
+      x.msgs = [
+        { id: "po1", at: at(24 * 10), from: "japan", who: x.owner, t: poText(po), po, read: true },
+        { id: "po2", at: at(24 * 9), from: "factory", who: "Somchai", t: PO_ACK, read: true },
+        ...(x.msgs ?? []),
+      ];
+    }
     const pending: DraftKind | undefined = x.stage === "inquiry" ? "reply" : x.stage === "order" && x.paid ? "proof" : x.stage === "proof" && x.proofOk ? "factory" : undefined;
     const sent: DraftKind[] = (["reply", "proof", "factory"] as DraftKind[]).filter((k) => stageIndex(k === "reply" ? "quote" : k === "proof" ? "proof" : "production") <= si);
     x.drafts = [
@@ -258,7 +269,7 @@ export const trFinish = (f: string, l: LangId) => FINISH_I18N[f]?.[l] ?? f;
 export const trPos = (p: string, l: LangId) => p.split(" / ").map((x) => POS_I18N[x]?.[l] ?? x).join(" / ");
 
 // ===== 自動で作る下書き（本番では、AIで文面を整え、送信は Resend・工場へは LINE でも通知） =====
-const shipBy = () => { const t = new Date(); t.setDate(t.getDate() + 21); return t.toISOString().slice(0, 10); };
+export const shipBy = () => { const t = new Date(); t.setDate(t.getDate() + 21); return t.toISOString().slice(0, 10); };
 export function makeDraft(kind: DraftKind, d: Deal): Draft {
   const m = modelOf(d.model);
   const a = amounts(d);
@@ -303,7 +314,7 @@ ${link}${sign}` };
 承認いただくと、製造の手配に進みます。
 
 ${link}${sign}` };
-  if (kind === "factory") return { ...base, to: "工場", subject: `[PO-${d.id.slice(2)}] New production order / ใบสั่งผลิตใหม่`, body:
+  if (kind === "factory") return { ...base, to: "工場", subject: `PO-${d.id.slice(2)}・製造の発注（工場とのチャットに発注カードで送ります）`, body:
 `Dear ${FACTORY.replace("（仮）", "")},
 
 Please start production of the following order.
@@ -340,3 +351,9 @@ ${link}${sign}` };
 export function priceLock(d: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"] }) {
   return { base: unitPriceOf(d.model, 0), unit: unitPriceOf(d.model, d.lot), plate: d.finish === "ロゴなし" ? 0 : getPricing().plate, rate: rateFor(d.lot) };
 }
+
+// ===== 工場への発注カード =====
+export const poOf = (d: Deal): Po => ({ no: `PO-${d.id.slice(2)}`, items: colorLines(d), lot: d.lot, shipBy: shipBy() });
+export const poText = (p: Pick<Po, "no" | "lot">) => ({ ja: `製造の発注 ${p.no}（${p.lot}個）`, en: `Production order ${p.no} (${p.lot} pcs)`, th: `ใบสั่งผลิต ${p.no} (${p.lot} ชิ้น)` });
+export const PO_ACK = { ja: "発注を受けました。製造を始めます", en: "Order received. We will start production", th: "ได้รับใบสั่งผลิตแล้ว จะเริ่มผลิต" };
+export const PO_ASK = { ja: "発注について確認したいことがあります：", en: "I have a question about the order: ", th: "มีคำถามเกี่ยวกับใบสั่งผลิต: " };

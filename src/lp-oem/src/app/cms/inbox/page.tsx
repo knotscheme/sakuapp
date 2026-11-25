@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ExternalLink, FileText, Send, Sparkles, Trash2 } from "lucide-react";
-import { DRAFT_LABEL, colorLines, modelOf, trColor, type Deal, type Draft } from "@/lib/cms";
+import { DRAFT_LABEL, colorLines, modelOf, poOf, type Deal, type Draft } from "@/lib/cms";
+import { PoCard } from "@/components/cms/Messages";
 import { checkReminders, discardDraft, pendingDrafts, sendDraft, useDeals } from "@/components/cms/store";
 import { useAuth } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
@@ -79,14 +80,15 @@ export default function Inbox() {
 function Editor({ d, x, who, onBack }: { d: Deal; x: Draft; who: string; onBack: () => void }) {
   const [subject, setSubject] = useState(x.subject);
   const [body, setBody] = useState(x.body);
+  const [note, setNote] = useState("");
   const done = x.status !== "draft";
   const factory = x.kind === "factory";
   const send = async () => {
     const ok = factory
-      ? await askConfirm({ title: "最終確認：タイの工場へ発注しますか？", body: `${modelOf(d.model).short}・合計${d.lot}個（${colorLines(d).map((c) => `${c.color}${c.qty}`).join("・")}）・ロゴ${d.finish} ${sizeText(d)}。発注すると製造が始まり、工場の画面に製造指示書が届きます。`, ok: "発注する" })
+      ? await askConfirm({ title: "最終確認：タイの工場へ発注しますか？", body: `${modelOf(d.model).short}・合計${d.lot}個（${colorLines(d).map((c) => `${c.color}${c.qty}`).join("・")}）・ロゴ${d.finish} ${sizeText(d)}。発注すると、工場とのチャットに発注カードが届き、製造が始まります。`, ok: "発注する" })
       : await askConfirm({ title: `${d.person} 様にメールを送りますか？`, body: `件名：${subject}`, ok: "送信する" });
     if (!ok) return;
-    sendDraft(d.id, x.id, who, { subject, body });
+    sendDraft(d.id, x.id, who, { subject, body }, factory ? note : undefined);
     onBack();
   };
   return (
@@ -102,27 +104,37 @@ function Editor({ d, x, who, onBack }: { d: Deal; x: Draft; who: string; onBack:
       </div>
       <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4 md:px-5">
         <p className="flex items-center gap-1.5 text-[12px] text-[#2a4f9e]"><Sparkles size={13} />{done ? `${x.sentAt}に ${x.sentBy} が送信しました` : "自動で作った下書きです。内容を確かめて、必要なら直してから送ってください。"}</p>
-        <div className="text-[12.5px]"><span className="text-mute">宛先：</span>{x.to === "工場" ? "Bangkok Leather Factory（タイ）" : `${d.person} 様 <${d.email}>`}</div>
-        <label className="block text-[12px] text-mute">件名
-          <input value={subject} onChange={(e) => setSubject(e.target.value)} disabled={done} className="mt-1 w-full rounded-lg border border-line px-3 py-2 text-[14px] text-ink outline-none focus:border-ink disabled:bg-[#fafafa]" />
-        </label>
-        <label className="block text-[12px] text-mute">本文
-          <textarea value={body} onChange={(e) => setBody(e.target.value)} disabled={done} rows={14} className="mt-1 w-full resize-y rounded-lg border border-line px-3 py-2.5 font-[inherit] text-[13.5px] leading-relaxed text-ink outline-none focus:border-ink disabled:bg-[#fafafa]" />
-        </label>
-        {/* 添付：自動で作った書類・ロゴ配置イメージ */}
-        <div>
-          <p className="text-[12px] text-mute">添付（自動で作成）</p>
-          <div className="mt-1.5 flex flex-wrap gap-2">
-            {DOC[x.kind].map((doc) => <Link key={doc.type} href={`/cms/doc/?id=${d.id}&type=${doc.type}`} className="flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-[12.5px] hover:border-ink"><FileText size={13} />{doc.ja}</Link>)}
-          </div>
-          {(x.kind === "proof" || factory) && <div className="mt-2.5"><ProofPair d={d} label={false} /><p className="mt-1 text-[11.5px] text-mute">ロゴ配置イメージ（{factory ? "お客様が承認済み" : "お客様に確認をお願いする版"}）・{d.finish}・{sizeText(d)}</p></div>}
-          {factory && (
-            <ul className="mt-2.5 rounded-lg bg-[#f6f6f5] px-3.5 py-2.5 text-[12.5px]">
-              {colorLines(d).map((c) => <li key={c.color} className="flex justify-between"><span>{c.color} <span className="text-mute">/ {trColor(c.color, "th")}</span></span><span className="tabular-nums">{c.qty}個</span></li>)}
-              <li className="mt-1 flex justify-between border-t border-line pt-1 font-medium"><span>合計</span><span className="tabular-nums">{d.lot}個</span></li>
-            </ul>
-          )}
-        </div>
+        {factory ? (
+          <>
+            <div className="text-[12.5px]"><span className="text-mute">送り先：</span>工場とのチャット（Bangkok Leather Factory・タイ語で表示）</div>
+            <p className="text-[12px] text-mute">メールではなく、この発注カードがチャットに届きます。工場が「受けました」を押すと、ここと案件の記録に残ります。</p>
+            {/* 送ったあとは、実際にチャットへ流したカード（受けたかどうかも）を見せる */}
+            <PoCard d={d} po={(done && d.msgs?.findLast((m) => m.po)?.po) || poOf(d)} lang="ja" />
+            {!done && (
+              <label className="block text-[12px] text-mute">ひとこと添える（任意・カードのあとに送ります）
+                <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={2} maxLength={300} placeholder="例）今回は急ぎでお願いします" className="mt-1 w-full resize-y rounded-lg border border-line px-3 py-2 font-[inherit] text-[13.5px] text-ink outline-none focus:border-ink" />
+              </label>
+            )}
+          </>
+        ) : (
+          <>
+            <div className="text-[12.5px]"><span className="text-mute">宛先：</span>{x.to === "工場" ? "Bangkok Leather Factory（タイ）" : `${d.person} 様 <${d.email}>`}</div>
+            <label className="block text-[12px] text-mute">件名
+              <input value={subject} onChange={(e) => setSubject(e.target.value)} disabled={done} className="mt-1 w-full rounded-lg border border-line px-3 py-2 text-[14px] text-ink outline-none focus:border-ink disabled:bg-[#fafafa]" />
+            </label>
+            <label className="block text-[12px] text-mute">本文
+              <textarea value={body} onChange={(e) => setBody(e.target.value)} disabled={done} rows={14} className="mt-1 w-full resize-y rounded-lg border border-line px-3 py-2.5 font-[inherit] text-[13.5px] leading-relaxed text-ink outline-none focus:border-ink disabled:bg-[#fafafa]" />
+            </label>
+            {/* 添付：自動で作った書類・ロゴ配置イメージ */}
+            <div>
+              <p className="text-[12px] text-mute">添付（自動で作成）</p>
+              <div className="mt-1.5 flex flex-wrap gap-2">
+                {DOC[x.kind].map((doc) => <Link key={doc.type} href={`/cms/doc/?id=${d.id}&type=${doc.type}`} className="flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-[12.5px] hover:border-ink"><FileText size={13} />{doc.ja}</Link>)}
+              </div>
+              {x.kind === "proof" && <div className="mt-2.5"><ProofPair d={d} label={false} /><p className="mt-1 text-[11.5px] text-mute">ロゴ配置イメージ（お客様に確認をお願いする版）・{d.finish}・{sizeText(d)}</p></div>}
+            </div>
+          </>
+        )}
       </div>
       {!done && (
         <div className="flex items-center justify-between gap-3 border-t border-line px-4 py-3">
