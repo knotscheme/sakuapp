@@ -126,6 +126,10 @@ export default function DealPage() {
               <dl className="grid flex-1 grid-cols-[5.5em_1fr] gap-y-1.5 text-[13px]">
                 <dt className="text-mute">製品</dt><dd><Ph>{m.name}</Ph></dd>
                 <dt className="text-mute">数量</dt><dd>合計 {d.lot}個</dd>
+                <dt className="text-mute">工場へ</dt><dd>{can("deals.advance") ? (
+                  <button type="button" aria-pressed={!!d.urgent} onClick={() => updateDeal(d.id, (x) => addLog({ ...x, urgent: !x.urgent }, me?.name ?? "担当", x.urgent ? "急ぎの依頼を外しました" : "工場に急ぎで依頼しました（工場の画面で先頭に出ます）", "factory"))}
+                    className={`rounded-full border px-2.5 py-0.5 text-[12px] ${d.urgent ? "border-[#9b2c2c] bg-[#9b2c2c] text-white" : "border-line text-mute hover:border-ink hover:text-ink"}`}>{d.urgent ? "急ぎ（優先）" : "通常"}</button>
+                ) : d.urgent ? "急ぎ（優先）" : "通常"}</dd>
                 <dt className="text-mute">革素材</dt><dd><LeatherSelect d={d} canEdit={can("deals.advance")} who={me?.name ?? "担当"} /></dd>
                 <dt className="text-mute">ロゴ加工</dt><dd>{d.finish}</dd>
                 <dt className="text-mute">ロゴ位置</dt><dd><Ph>{m.logo}</Ph></dd>

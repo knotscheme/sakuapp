@@ -3,11 +3,12 @@
 import { Ph } from "@/components/cms/Ph";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ClipboardList, MessageSquare } from "lucide-react";
 import { MsgThread, unreadOf } from "@/components/cms/Messages";
 import { Camera, Check, FileText, Truck } from "lucide-react";
-import { FACTORY, PROD_STEPS, colorLines, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
+import { useCatalog } from "@/components/cms/catalog";
+import { daysLeft, FACTORY, PROD_STEPS, colorLines, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
 import { ProofView } from "@/components/cms/Proof";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { Card, NoAccess, Shell, TechNote } from "@/components/cms/ui";
@@ -22,13 +23,40 @@ const T = {
   ja: { newPo: "新しい発注が届いています。確認して「受けました」を押してください", q: (s: string) => `「${s}」を完了にしますか？`, qb: "間違えたときは、その工程をもう一度押すと取り消せます。", undo: (s: string) => `「${s}」の完了を取り消しますか？`, qShip: "この注文を日本へ出荷しますか？", qShipB: "段階が「輸送中」に進み、日本側に通知されます。", ok: "はい", cancel: "キャンセル", title: "製造中の注文", ship: "出荷期限", qty: "数量", done: "完了にする", shipBtn: "日本へ出荷", photo: "写真を登録", order: "製造指示書", empty: "製造中の注文はありません。", shipped: "出荷済み", intro: "工場の人が見る画面です。お客様の名前・連絡先・販売価格は表示されません。", note: "工場用アカウントは行レベルの権限（RLS）で、担当の注文だけ見える。更新時に LINE 通知も可能", photoNote: "写真は Supabase Storage に保存", undoAria: "取り消す", msg: "日本への連絡", msgPh: "メッセージを入力（タイ語でも可）", send: "送る", sent: "日本側に送りました", msgNote: "自由に書いた文は、日本語に自動翻訳して届ける（Google 翻訳 API など）", quick: "よく使う連絡" },
 };
 
+// 並び替え：優先（急ぎ→納期が近い順、出荷済みは最後）・納期・カテゴリ（製品の分類ごと）・進み具合（遅れている工程から）
+type SortId = "priority" | "due" | "cat" | "step";
+const S = {
+  ja: { sort: "並び順", priority: "優先", due: "納期", cat: "カテゴリ", step: "進み具合", urgent: "急ぎ", left: (n: number) => (n < 0 ? `${-n}日遅れ` : n === 0 ? "今日まで" : `あと${n}日`), other: "その他" },
+  th: { sort: "เรียงตาม", priority: "ลำดับความสำคัญ", due: "กำหนดส่ง", cat: "หมวดหมู่", step: "ความคืบหน้า", urgent: "ด่วน", left: (n: number) => (n < 0 ? `เลยกำหนด ${-n} วัน` : n === 0 ? "ภายในวันนี้" : `อีก ${n} วัน`), other: "อื่นๆ" },
+  en: { sort: "Sort", priority: "Priority", due: "Due date", cat: "Category", step: "Progress", urgent: "Urgent", left: (n: number) => (n < 0 ? `${-n} days late` : n === 0 ? "Due today" : `${n} days left`), other: "Other" },
+};
+// カテゴリ名（工場の人向けに、初期のカテゴリだけ英語・タイ語を用意）
+const CAT_I18N: Record<string, { en: string; th: string }> = { "財布・小物": { en: "Wallets & small goods", th: "กระเป๋าสตางค์และของชิ้นเล็ก" }, "バッグ": { en: "Bags", th: "กระเป๋า" } };
+const SORT_KEY = "craft-factory-sort";
+
 export default function FactoryPage() {
   const deals = useDeals();
   const { lang, home } = useLang();
   const t = T[lang];
   const { can, me } = useAuth();
   const [open, setOpen] = useState<string | null>(null);
-  const list = deals.filter((d) => d.stage === "production" || d.stage === "transit");
+  const s2 = S[lang];
+  const { products, cats } = useCatalog();
+  const [sort, setSort] = useState<SortId>("priority");
+  // 選んだ並び順は、この端末で覚えておく
+  useEffect(() => { try { const v = localStorage.getItem(SORT_KEY) as SortId | null; if (v && v in S.ja) setSort(v); } catch {} }, []); // eslint-disable-line react-hooks/set-state-in-effect
+  const choose = (v: SortId) => { setSort(v); try { localStorage.setItem(SORT_KEY, v); } catch {} };
+  const catOf = (d: (typeof deals)[number]) => { const c = cats.find((x) => x.id === products.find((p) => p.id === d.model)?.cat)?.name; return c ?? ""; };
+  // カテゴリは商品管理の並び順で（分類なしは最後）
+  const catRank = (d: (typeof deals)[number]) => { const i = cats.findIndex((c) => c.name === catOf(d)); return i < 0 ? cats.length : i; };
+  const catLabel = (name: string) => (!name ? s2.other : lang === "ja" ? name : CAT_I18N[name]?.[lang] ?? name);
+  const shippedOf = (d: (typeof deals)[number]) => stageIndex(d.stage) >= 5;
+  const byDue = (a: (typeof deals)[number], b: (typeof deals)[number]) => a.due.localeCompare(b.due);
+  const list = deals.filter((d) => d.stage === "production" || d.stage === "transit").sort((a, b) =>
+    sort === "due" ? byDue(a, b)
+    : sort === "step" ? Number(shippedOf(a)) - Number(shippedOf(b)) || a.prodStep - b.prodStep || byDue(a, b)
+    : sort === "cat" ? catRank(a) - catRank(b) || byDue(a, b)
+    : Number(shippedOf(a)) - Number(shippedOf(b)) || Number(!!b.urgent) - Number(!!a.urgent) || byDue(a, b));
   const stepName = (i: number) => (lang === "ja" ? PROD_STEPS[i].ja : lang === "th" ? PROD_STEPS[i].th : PROD_STEPS[i].en);
   const finishStep = async (id: string, i: number) => {
     if (await askConfirm({ title: t.q(stepName(i)), body: t.qb, ok: t.ok, cancel: t.cancel })) updateDeal(id, (x) => addLog({ ...x, prodStep: i + 1 }, "工場", `「${PROD_STEPS[i].ja}」が完了しました（写真あり）`, "factory"));
@@ -51,21 +79,31 @@ export default function FactoryPage() {
 
   return (
     <Shell title={`${t.title}｜${lang === "ja" ? FACTORY : FACTORY.replace("（仮）", "")}`} actions={langs} note={t.note}>
-      <p className="mb-6 text-[13px] text-mute">{t.intro}</p>
+      <p className="mb-4 text-[13px] text-mute">{t.intro}</p>
+      <div className="mb-5 flex flex-wrap items-center gap-1.5 text-[12px]" role="radiogroup" aria-label={s2.sort}>
+        <span className="mr-1 text-mute">{s2.sort}</span>
+        {(["priority", "due", "cat", "step"] as SortId[]).map((k) => (
+          <button key={k} type="button" role="radio" aria-checked={sort === k} onClick={() => choose(k)} className={`rounded-full border px-3.5 py-1.5 ${sort === k ? "border-ink bg-ink text-white" : "border-line bg-white text-ink/80 hover:border-ink"}`}>{s2[k]}</button>
+        ))}
+      </div>
       {!list.length && <p className="text-[13px] text-mute">{t.empty}</p>}
       <div className="grid gap-5 lg:grid-cols-2">
-        {list.map((d) => {
+        {list.map((d, k) => {
           const shipped = stageIndex(d.stage) >= 5;
+          const left = daysLeft(d.due);
+          const head = sort === "cat" && (k === 0 || catOf(list[k - 1]) !== catOf(d));
           return (
-            <Card key={d.id}>
+            <div key={d.id} className="contents">
+            {head && <h2 className="mt-2 text-[13px] font-semibold lg:col-span-2">{catLabel(catOf(d))}</h2>}
+            <Card>
               <div className="flex gap-4 p-5">
                 <div className="w-32 shrink-0 self-start"><ProofView d={d} label={false} /></div>
                 <div className="min-w-0 flex-1 text-[13px]">
-                  <p className="text-[11.5px] text-mute">PO-{d.id.slice(2)}</p>
+                  <p className="flex items-center gap-1.5 text-[11.5px] text-mute">PO-{d.id.slice(2)}{d.urgent && !shipped && <span className="rounded bg-[#9b2c2c] px-1.5 py-px text-[10.5px] font-medium text-white">{s2.urgent}</span>}</p>
                   <p className="font-medium"><Ph>{trModel(d.model, lang)}</Ph></p>
                   <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{trFinish(d.finish, lang)}</p>
                   <p className="text-ink/80"><Ph>{colorLines(d).map((x) => `${trColor(x.color, lang)} ${x.qty}`).join(" / ")}</Ph></p>
-                  <p className="text-ink/80">{t.ship}: {d.due}</p>
+                  <p className="text-ink/80">{t.ship}: {d.due}{!shipped && <span className={`ml-1.5 text-[11.5px] ${left < 0 ? "font-medium text-red-600" : left <= 3 ? "text-[#8a650c]" : "text-mute"}`}>（{s2.left(left)}）</span>}</p>
                   <Link href={`/cms/doc/?id=${d.id}&type=work`} className="tap mt-1.5 inline-flex items-center gap-1 text-[12px] underline underline-offset-4"><FileText size={13} />{t.order}</Link>
                 </div>
               </div>
@@ -109,6 +147,7 @@ export default function FactoryPage() {
                 {open === d.id && <div className="mt-3"><MsgThread d={d} side="factory" lang={lang} who={me?.name ?? "工場"} /></div>}
               </div>
             </Card>
+            </div>
           );
         })}
       </div>
