@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, Printer } from "lucide-react";
-import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, hasLogo, modelOf, today, colorLines, quoteLines, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
+import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, hasLogo, leatherName, modelOf, today, colorLines, quoteLines, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { useDeals } from "@/components/cms/store";
 import { NoAccess, Shell, useQuery } from "@/components/cms/ui";
@@ -40,7 +40,7 @@ export default function DocPage() {
   // カラーごとの行＋数量割引（合計の数で決まる）＋版代
   const q = quoteLines(d);
   const rows: { name: string; qty?: number; unit?: number; sum: number; off?: boolean }[] = [
-    ...q.lines.map((x) => ({ name: `${m.name}（${x.color}・${hasLogo(d) ? `ロゴ${d.finish}` : "ロゴなし"}）`, qty: x.qty, unit: x.unit, sum: x.sum })),
+    ...q.lines.map((x) => ({ name: `${m.name}（${x.color}・${leatherName(d)}・${hasLogo(d) ? `ロゴ${d.finish}` : "ロゴなし"}）`, qty: x.qty, unit: x.unit, sum: x.sum })),
     ...(q.discount ? [{ name: `数量割引（合計${d.lot}個・${Math.round(q.discount.rate * 100)}%引き）`, sum: -q.discount.amount, off: true }] : []),
     ...(hasLogo(d) ? [{ name: "ロゴの版代（初回のみ）", qty: 1, unit: a.plate, sum: a.plate }] : []),
   ];
@@ -97,6 +97,7 @@ export default function DocPage() {
                   {[
                     ["製品 / Model / รุ่น", tri((l) => trModel(d.model, l))],
                     ["数量 / Qty / จำนวน", `${d.lot} pcs`],
+                    ["革 / Leather / หนัง", `${leatherName(d)}${d.leather?.code ? `（${d.leather.code}）` : ""}`],
                     ["革の色と数量 / Color & qty / สีและจำนวน", <>{colorLines(d).map((x) => <span key={x.color} className="block">{trColor(x.color, "ja")} {x.qty}<span className="text-[11px] text-mute">　{trColor(x.color, "en")} / {trColor(x.color, "th")}</span></span>)}</>],
                     ["ロゴ加工 / Logo / โลโก้", tri((l) => trFinish(d.finish, l))],
                     ["ロゴ位置 / Position / ตำแหน่ง", tri((l) => trPos(m.logo, l))],

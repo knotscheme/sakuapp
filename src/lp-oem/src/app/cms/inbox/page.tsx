@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ExternalLink, FileText, Send, Sparkles, Trash2 } from "lucide-react";
-import { DRAFT_LABEL, colorLines, modelOf, poOf, type Deal, type Draft } from "@/lib/cms";
+import { DRAFT_LABEL, colorLines, leatherName, modelOf, poOf, type Deal, type Draft } from "@/lib/cms";
 import { PoCard } from "@/components/cms/Messages";
 import { checkReminders, discardDraft, pendingDrafts, sendDraft, useDeals } from "@/components/cms/store";
 import { useAuth } from "@/components/cms/perm";
@@ -85,7 +85,7 @@ function Editor({ d, x, who, onBack }: { d: Deal; x: Draft; who: string; onBack:
   const factory = x.kind === "factory";
   const send = async () => {
     const ok = factory
-      ? await askConfirm({ title: "最終確認：タイの工場へ発注しますか？", body: `${modelOf(d.model).short}・合計${d.lot}個（${colorLines(d).map((c) => `${c.color}${c.qty}`).join("・")}）・ロゴ${d.finish} ${sizeText(d)}。発注すると、工場とのチャットに発注カードが届き、製造が始まります。`, ok: "発注する" })
+      ? await askConfirm({ title: "最終確認：タイの工場へ発注しますか？", body: `${modelOf(d.model).short}・${leatherName(d)}・合計${d.lot}個（${colorLines(d).map((c) => `${c.color}${c.qty}`).join("・")}）・ロゴ${d.finish} ${sizeText(d)}。発注すると、工場とのチャットに発注カードが届き、製造が始まります。`, ok: "発注する" })
       : await askConfirm({ title: `${d.person} 様にメールを送りますか？`, body: `件名：${subject}`, ok: "送信する" });
     if (!ok) return;
     sendDraft(d.id, x.id, who, { subject, body }, factory ? note : undefined);

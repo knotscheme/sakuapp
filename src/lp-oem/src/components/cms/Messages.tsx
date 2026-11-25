@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Check, ClipboardList, FileText, HelpCircle, Send } from "lucide-react";
-import { PO_ASK, hasLogo, modelOf, trColor, trFinish, trModel, trPos, type Deal, type Msg, type Po } from "@/lib/cms";
+import { PO_ASK, hasLogo, leatherName, modelOf, trColor, trFinish, trModel, trPos, type Deal, type Msg, type Po } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { ackPo, markRead, sendMsg } from "./store";
 import { ProofView, logoSize } from "./Proof";
@@ -100,9 +100,9 @@ export function MsgThread({ d, side, lang, who, listClass = "max-h-[22rem]", com
 
 // 発注カード：工場への発注を、チャットの中で一目で分かる形に。価格とお客様の名前は載せない
 const PT = {
-  ja: { title: "製造の発注", model: "製品", qty: "色と数量", total: "合計", logo: "ロゴ", noLogo: "ロゴなし（無地）", ship: "出荷期限", doc: "製造指示書を開く", ack: "受けました", ask: "質問がある", acked: (w: string, at: string) => `${w} が受けました・${at}`, wait: "工場の確認待ち", pcs: "個" },
-  en: { title: "Production order", model: "Model", qty: "Colors & qty", total: "Total", logo: "Logo", noLogo: "No logo (plain)", ship: "Ship by", doc: "Open production sheet", ack: "Received", ask: "Ask a question", acked: (w: string, at: string) => `Received by ${w} · ${at}`, wait: "Waiting for the factory", pcs: "pcs" },
-  th: { title: "ใบสั่งผลิต", model: "รุ่น", qty: "สีและจำนวน", total: "รวม", logo: "โลโก้", noLogo: "ไม่ใส่โลโก้", ship: "ส่งภายใน", doc: "เปิดใบสั่งผลิต", ack: "รับทราบแล้ว", ask: "มีคำถาม", acked: (w: string, at: string) => `${w} รับทราบแล้ว · ${at}`, wait: "รอโรงงานยืนยัน", pcs: "ชิ้น" },
+  ja: { title: "製造の発注", leather: "革", model: "製品", qty: "色と数量", total: "合計", logo: "ロゴ", noLogo: "ロゴなし（無地）", ship: "出荷期限", doc: "製造指示書を開く", ack: "受けました", ask: "質問がある", acked: (w: string, at: string) => `${w} が受けました・${at}`, wait: "工場の確認待ち", pcs: "個" },
+  en: { title: "Production order", leather: "Leather", model: "Model", qty: "Colors & qty", total: "Total", logo: "Logo", noLogo: "No logo (plain)", ship: "Ship by", doc: "Open production sheet", ack: "Received", ask: "Ask a question", acked: (w: string, at: string) => `Received by ${w} · ${at}`, wait: "Waiting for the factory", pcs: "pcs" },
+  th: { title: "ใบสั่งผลิต", leather: "หนัง", model: "รุ่น", qty: "สีและจำนวน", total: "รวม", logo: "โลโก้", noLogo: "ไม่ใส่โลโก้", ship: "ส่งภายใน", doc: "เปิดใบสั่งผลิต", ack: "รับทราบแล้ว", ask: "มีคำถาม", acked: (w: string, at: string) => `${w} รับทราบแล้ว · ${at}`, wait: "รอโรงงานยืนยัน", pcs: "ชิ้น" },
 };
 export function PoCard({ d, po, m, side, lang, who, onAsk }: { d: Deal; po: Po; m?: Msg; side?: Msg["from"]; lang: Lang; who?: string; onAsk?: () => void }) {
   const t = PT[lang];
@@ -122,6 +122,7 @@ export function PoCard({ d, po, m, side, lang, who, onAsk }: { d: Deal; po: Po; 
       </div>
       <dl className="grid grid-cols-[5.5em_1fr] gap-x-2 gap-y-1 px-3.5 pb-3">
         <dt className="text-mute">{t.model}</dt><dd>{trModel(d.model, lang)}</dd>
+        <dt className="text-mute">{t.leather}</dt><dd>{leatherName(d)}{d.leather?.code && <span className="ml-1 font-mono text-[11px] text-mute">{d.leather.code}</span>}</dd>
         <dt className="text-mute">{t.qty}</dt>
         <dd>{po.items.map((x) => <span key={x.color} className="flex justify-between"><span>{trColor(x.color, lang)}</span><span className="tabular-nums">{x.qty}</span></span>)}
           <span className="mt-0.5 flex justify-between border-t border-line pt-0.5 font-medium"><span>{t.total}</span><span className="tabular-nums">{po.lot} {t.pcs}</span></span></dd>

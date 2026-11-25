@@ -88,14 +88,14 @@ export function revert(id: string, who = "佐藤") {
   });
 }
 
-export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"]; noLogo?: boolean }) {
+export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"]; noLogo?: boolean; leather?: Deal["leather"] }) {
   const list = load();
   const n = Math.max(1023, ...list.map((d) => Number(d.id.slice(2)))) + 1;
   const deal: Deal = {
     id: `C-${n}`, brand: p.brand, person: p.brand, email: p.email, model: p.model, lot: p.lot,
     finish: p.noLogo ? "ロゴなし" : "金箔", color: p.items?.[0]?.color ?? "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
     createdAt: today(), due: today(), prodStep: 0, defects: 0, checks: [false, false, false, false, false, false],
-    thbCost: Math.round(unitPriceOf(p.model, p.lot) / RATE / 1.6),
+    thbCost: Math.round(unitPriceOf(p.model, p.lot, p.leather?.add) / RATE / 1.6), leather: p.leather,
     message: p.message, logo: p.logo, logoAspect: p.logoAspect, items: p.items?.length ? p.items : undefined,
     logs: [{ at: today(), who: "システム", text: p.noLogo ? "LPのフォームから問い合わせが届きました（ロゴなし）" : p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
   };

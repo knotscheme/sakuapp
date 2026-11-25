@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Images, Play } from "lucide-react";
 import { ALL_MODELS, COLORS, yen } from "@/lib/models";
 import { usePricing } from "@/lib/pricing";
-import { imgSrc, swatchOf, useCatalog, type ColorDef } from "./cms/catalog";
+import { imgSrc, leathersOf, swatchOf, useCatalog, type ColorDef, type LeatherDef } from "./cms/catalog";
 import NoOrphan from "./NoOrphan";
 import Gallery from "./Gallery";
 import type { Product } from "./cms/catalog";
@@ -50,11 +50,31 @@ function ColorPick({ m, colors, value, onChange }: { m: Product; colors: ColorDe
   );
 }
 
+// 革素材のえらび（2種類以上あるときだけ）。上乗せのある革は「+800円」のように出す
+function LeatherPick({ list, value, onChange }: { list: LeatherDef[]; value?: string; onChange: (v?: string) => void }) {
+  if (list.length < 2) return null;
+  const cur = list.find((l) => l.id === value) ?? list[0];
+  return (
+    <div className="mt-4">
+      <p className="text-[12px] text-mute">革素材<span className="ml-2 text-ink">{cur.name}</span></p>
+      <div className="mt-2 flex flex-wrap gap-1.5" role="radiogroup" aria-label="革素材">
+        {list.map((l) => (
+          <button key={l.id} type="button" role="radio" aria-checked={cur.id === l.id} onClick={() => onChange(l.id)}
+            className={`border px-2.5 py-1 text-[11.5px] transition ${cur.id === l.id ? "border-ink bg-ink text-white" : "border-line text-ink/80 hover:border-ink"}`}>
+            {l.name.replace(/（標準）$/, "")}{l.add > 0 && <span className={cur.id === l.id ? "ml-1 text-white/70" : "ml-1 text-mute"}>+{yen(l.add)}</span>}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ProductList() {
   const { minLot: MIN_LOT, plate: PLATE_COST } = usePricing();
   // 管理画面の「商品管理」で登録・公開した商品を表示する
-  const { cats, products, colors } = useCatalog();
+  const { cats, products, colors, leathers } = useCatalog();
   const [picked, setPicked] = useState<Record<string, string | undefined>>({});
+  const [pickedL, setPickedL] = useState<Record<string, string | undefined>>({});
   const shown = products.filter((p) => p.visible);
   const [cat, setCat] = useState("all");
   const list = shown.filter((m) => cat === "all" || m.cat === cat);
@@ -97,14 +117,15 @@ export default function ProductList() {
             {m.name !== m.short && <p className="mt-0.5 text-[12px] text-mute">{m.name}</p>}
             <p className="mt-3 text-[13.5px] leading-relaxed text-mute"><NoOrphan text={m.feature} /></p>
             <ColorPick m={m} colors={colors} value={picked[m.id]} onChange={(v) => setPicked((x) => ({ ...x, [m.id]: v }))} />
+            <LeatherPick list={leathersOf(m, leathers)} value={pickedL[m.id]} onChange={(v) => setPickedL((x) => ({ ...x, [m.id]: v }))} />
             <dl className="mt-5 space-y-1.5 border-t border-line pt-5 text-[12.5px]">
               {[["寸法", m.size], ["ロゴ位置", m.logo], ...optionRows(m), ["最小ロット", `${MIN_LOT}個から`]].filter(([, v]) => v).map(([k, v]) => (
                 <div key={k} className="flex gap-3"><dt className="w-16 shrink-0 text-mute">{k}</dt><dd className="text-ink">{v.split("・").map((t, i, arr) => <span key={t} className="inline-block">{t}{i < arr.length - 1 ? "・" : ""}</span>)}</dd></div>
               ))}
             </dl>
-            <p className="mt-5 text-[12px] text-mute">参考単価<span className="ml-2 text-[20px] font-medium text-ink">{yen(m.unitPrice)}〜</span></p>
+            <p className="mt-5 text-[12px] text-mute">参考単価<span className="ml-2 text-[20px] font-medium text-ink">{yen(m.unitPrice + (leathersOf(m, leathers).find((l) => l.id === pickedL[m.id])?.add ?? 0))}〜</span></p>
             <div className="mt-5 flex items-center gap-6">
-              <a href={`${HOME}?model=${m.id}${picked[m.id] ? `&color=${encodeURIComponent(picked[m.id]!)}` : ""}#contact`} className="inline-flex items-center gap-2 bg-ink px-5 py-3 text-[12.5px] tracking-[0.1em] text-white transition hover:bg-gold">
+              <a href={`${HOME}?model=${m.id}${picked[m.id] ? `&color=${encodeURIComponent(picked[m.id]!)}` : ""}${pickedL[m.id] ? `&leather=${pickedL[m.id]}` : ""}#contact`} className="inline-flex items-center gap-2 bg-ink px-5 py-3 text-[12.5px] tracking-[0.1em] text-white transition hover:bg-gold">
                 このモデルで相談 <ArrowRight size={14} />
               </a>
               {inSim(m.id) && <a href={`${HOME}?model=${m.id}#simulator`} className="border-b border-ink/40 pb-0.5 text-[12.5px] text-ink transition hover:border-gold hover:text-gold">利益を計算</a>}

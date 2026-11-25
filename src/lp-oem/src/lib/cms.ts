@@ -57,7 +57,8 @@ export type Deal = {
   email: string;
   model: ModelId;
   lot: number;
-  finish: "金箔" | "銀箔" | "素押し" | "ロゴなし"; // ロゴなし：無地のまま（版代はかからない）
+  finish: "金箔" | "銀箔" | "素押し" | "ロゴなし";
+  leather?: { name: string; code?: string; add: number }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
   color: string;
   sellPrice: number; // お客様の想定販売価格（参考）
   stage: StageId;
@@ -95,14 +96,14 @@ const d = (offset: number) => {
   return t.toISOString().slice(0, 10);
 };
 
-export function unitPriceOf(model: ModelId, lot: number) {
-  const base = ALL_MODELS.find((m) => m.id === model)?.unitPrice ?? 0;
+export function unitPriceOf(model: ModelId, lot: number, add = 0) {
+  const base = (ALL_MODELS.find((m) => m.id === model)?.unitPrice ?? 0) + add;
   return Math.round((base * (1 - rateFor(lot))) / 10) * 10;
 }
 export const hasLogo = (x: Pick<Deal, "finish">) => x.finish !== "ロゴなし";
-export function amounts(x: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"]; lock?: Deal["lock"] }) {
+export function amounts(x: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"]; leather?: Deal["leather"]; lock?: Deal["lock"] }) {
   // 見積を送ったあとは、そのときの単価・版代で固定（あとで割引率を変えても変わらない）
-  const unit = x.lock?.unit ?? unitPriceOf(x.model, x.lot);
+  const unit = x.lock?.unit ?? unitPriceOf(x.model, x.lot, x.leather?.add);
   const plate = x.finish === "ロゴなし" ? 0 : x.lock?.plate ?? getPricing().plate;
   const sub = unit * x.lot + plate;
   const tax = Math.round(sub * 0.1);
@@ -215,9 +216,9 @@ export function tierInfo(total: number) {
 }
 
 // 見積の明細：カラーごとの行（通常の単価）と、合計の数で決まる数量割引の行。合計は amounts().items と同じ
-export function quoteLines(d: Pick<Deal, "items" | "color" | "lot" | "model"> & { lock?: Deal["lock"] }) {
-  const base = d.lock?.base ?? unitPriceOf(d.model, 0);
-  const unit = d.lock?.unit ?? unitPriceOf(d.model, d.lot);
+export function quoteLines(d: Pick<Deal, "items" | "color" | "lot" | "model"> & { leather?: Deal["leather"]; lock?: Deal["lock"] }) {
+  const base = d.lock?.base ?? unitPriceOf(d.model, 0, d.leather?.add);
+  const unit = d.lock?.unit ?? unitPriceOf(d.model, d.lot, d.leather?.add);
   const lines = colorLines(d).map((x) => ({ color: x.color, qty: x.qty, unit: base, sum: base * x.qty }));
   const t = tierInfo(d.lot);
   const off = (base - unit) * d.lot;
@@ -286,6 +287,7 @@ export function makeDraft(kind: DraftKind, d: Deal): Draft {
 いただいた内容で、お見積りをお作りしました。
 
 ■ 製品：${m.name}
+■ 革素材：${leatherName(d)}
 ■ カラーと数量：${colorText(d)}（合計${d.lot}個）
 ■ ロゴ加工：${d.finish}
 
@@ -348,9 +350,12 @@ ${link}${sign}` };
 }
 
 // 見積を送る時点の価格を固定する
-export function priceLock(d: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"] }) {
-  return { base: unitPriceOf(d.model, 0), unit: unitPriceOf(d.model, d.lot), plate: d.finish === "ロゴなし" ? 0 : getPricing().plate, rate: rateFor(d.lot) };
+export function priceLock(d: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"]; leather?: Deal["leather"] }) {
+  return { base: unitPriceOf(d.model, 0, d.leather?.add), unit: unitPriceOf(d.model, d.lot, d.leather?.add), plate: d.finish === "ロゴなし" ? 0 : getPricing().plate, rate: rateFor(d.lot) };
 }
+
+// 革素材の名前（登録が無い古い案件は標準の革）
+export const leatherName = (d: Pick<Deal, "leather">) => d.leather?.name ?? "牛革スムース（標準）";
 
 // ===== 工場への発注カード =====
 export const poOf = (d: Deal): Po => ({ no: `PO-${d.id.slice(2)}`, items: colorLines(d), lot: d.lot, shipBy: shipBy() });

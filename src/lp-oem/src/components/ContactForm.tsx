@@ -8,7 +8,7 @@ import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
-import { useCatalog } from "./cms/catalog";
+import { leathersOf, useCatalog } from "./cms/catalog";
 import { ALL_MODELS } from "@/lib/models";
 import { tierInfo, unitPriceOf } from "@/lib/cms";
 import { toLogoMask } from "./cms/Proof";
@@ -27,8 +27,12 @@ export default function ContactForm() {
   const [lot, setLot] = useState("");
   // カラーごとの数量（入れると、合計の数で数量割引を出して概算を見せる）
   const [qtys, setQtys] = useState<Record<string, number>>({});
-  const { products, colors } = useCatalog();
+  const { products, colors, leathers: allLeathers } = useCatalog();
   const prod = products.find((p) => p.id === model);
+  // 革素材：商品で選べる革（先頭が標準）。選んだ革の上乗せを単価に足す
+  const leatherList = prod ? leathersOf(prod, allLeathers) : [];
+  const [leatherId, setLeatherId] = useState("");
+  const leather = leatherList.find((l) => l.id === leatherId) ?? leatherList[0];
   const ci = (prod?.options ?? []).findIndex((o) => o.kind === "color");
   const colorChoices = ci < 0 ? [] : [...new Set((prod?.variants ?? []).filter((v) => v.visible).map((v) => v.values[ci]))];
   const total = colorChoices.reduce((s, c) => s + (qtys[c] || 0), 0);
@@ -42,6 +46,12 @@ export default function ContactForm() {
   const [done, setDone] = useState(false);
   const [flash, setFlash] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  // 製品一覧で選んだ革（?leather=）を最初に選んでおく
+  useEffect(() => {
+    const l = new URLSearchParams(location.search).get("leather");
+    if (l) setLeatherId(l); // eslint-disable-line react-hooks/set-state-in-effect
+  }, []);
 
   // シミュレーターからの条件を自動入力する
   useEffect(() => {
@@ -94,14 +104,14 @@ export default function ContactForm() {
       const lg = await logo;
       setSending(false);
       // デモ：管理画面（CMS）の案件ボードに、問い合わせとして追加する
-      addInquiry({ brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: (lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
+      addInquiry({ leather: leather ? { name: leather.name, code: leather.code, add: leather.add } : undefined, brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: (lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
       setDone(true);
     }, 1100);
   };
 
   const reset = () => {
     setDone(false);
-    setName(""); setEmail(""); setModel(""); setLot(""); setQtys({}); setMessage(""); setLogoOn(true); setFile(null); setErrors({});
+    setName(""); setEmail(""); setModel(""); setLot(""); setQtys({}); setMessage(""); setLogoOn(true); setLeatherId(""); setFile(null); setErrors({});
     if (fileRef.current) fileRef.current.value = "";
   };
 
@@ -155,6 +165,23 @@ export default function ContactForm() {
               </div>
               <Err k="model" />
             </fieldset>
+            {leatherList.length > 1 && (
+              <fieldset className="min-w-0 text-sm font-bold md:col-span-2">
+                <legend>革素材</legend>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {leatherList.map((l, i) => {
+                    const on = leather?.id === l.id;
+                    return (
+                      <label key={l.id} className={`flex cursor-pointer items-center justify-between gap-3 border px-4 py-3 transition ${on ? "border-ink bg-ink text-white" : "border-line hover:border-mute"}`}>
+                        <input type="radio" name="cf-leather" checked={on} onChange={() => setLeatherId(l.id)} className="sr-only" />
+                        <span className="text-[13px] font-medium">{l.name}</span>
+                        <span className={`shrink-0 text-[11.5px] font-normal ${on ? "text-white/70" : "text-mute"}`}>{i === 0 && l.add === 0 ? "標準" : `＋${yen(l.add)}／個`}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            )}
             <fieldset className="min-w-0 text-sm font-bold md:col-span-2">
               <legend>ロゴ入れ</legend>
               <div className="mt-3 grid grid-cols-2 gap-2">
@@ -215,7 +242,7 @@ export default function ContactForm() {
                     );
                   })}
                 </ul>
-                {total > 0 && <Estimate model={model as ModelId} total={total} show={inSim} logo={logoOn} />}
+                {total > 0 && <Estimate model={model as ModelId} total={total} show={inSim} logo={logoOn} add={leather?.add ?? 0} leatherName={leatherList.length > 1 ? leather?.name : undefined} />}
               </div>
             )}
 
@@ -249,18 +276,19 @@ export default function ContactForm() {
 }
 
 // 概算の見積もり：合計の数で単価が下がる（数量割引）。あと何個で次の割引かも出す
-function Estimate({ model, total, show, logo }: { model: ModelId; total: number; show: boolean; logo: boolean }) {
+function Estimate({ model, total, show, logo, add, leatherName }: { model: ModelId; total: number; show: boolean; logo: boolean; add: number; leatherName?: string }) {
   const { minLot: MIN_LOT, plate } = usePricing();
   const PLATE_COST = logo ? plate : 0;
   const t = tierInfo(total);
   if (total < MIN_LOT) return <p className="mt-3 text-[12.5px] text-red-600">合計{MIN_LOT}個から承ります（いま{total}個）</p>;
   if (!show) return <p className="mt-3 text-[12.5px] text-mute">合計{total}個。お見積もりは担当者からお送りします。</p>;
-  const unit = unitPriceOf(model, total);
+  const unit = unitPriceOf(model, total, add);
   const items = unit * total;
   const sum = Math.round((items + PLATE_COST) * 1.1);
   return (
     <div className="mt-4 bg-paper px-4 py-4 text-[13px] leading-relaxed">
       <p className="flex justify-between"><span>合計数量</span><b className="tabular-nums">{total}個</b></p>
+      {leatherName && <p className="flex justify-between text-mute"><span>革素材</span><span>{leatherName}{add > 0 ? `（+${yen(add)}）` : ""}</span></p>}
       <p className="flex justify-between"><span>単価{t.cur && t.cur.rate > 0 ? `（${t.cur.at}個以上で${Math.round(t.cur.rate * 100)}%引き）` : ""}</span><span className="tabular-nums">{yen(unit)}</span></p>
       <p className="flex justify-between text-mute"><span>{logo ? "ロゴの版代（初回のみ）" : "ロゴなし（版代なし）"}</span><span className="tabular-nums">{yen(PLATE_COST)}</span></p>
       <p className="mt-2 flex items-baseline justify-between border-t border-line pt-2"><span className="font-bold">概算合計（税込）</span><b className="text-[18px] tabular-nums">{yen(sum)}</b></p>
