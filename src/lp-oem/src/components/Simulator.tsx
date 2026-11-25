@@ -2,15 +2,20 @@
 
 import { ArrowRight, Info } from "lucide-react";
 import { lotChoices, usePricing } from "@/lib/pricing";
-import { MODELS, NORMAL_DIE_COST, PRICE_MAX, PRICE_MIN, PRICE_STEP, calcProfit, getModel, yen } from "@/lib/models";
+import { NORMAL_DIE_COST, PRICE_MAX, PRICE_MIN, PRICE_STEP, calcProfit, getModel, yen } from "@/lib/models";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { useCountUp } from "./useCountUp";
+import { useEffect } from "react";
+import { useLpModels } from "./cms/catalog";
 
 export default function Simulator() {
   const pr = usePricing(); // 価格と割引の設定（管理画面で変えると、ここにも反映）
   const { model, lot, price, setModel, setLot, setPrice, sendToContact } = useLp();
+  const MODELS = useLpModels(); // 商品管理で公開中のものだけ
+  // 選んでいたモデルが非公開になったら、公開中の最初のモデルにする
+  useEffect(() => { if (MODELS.length && !MODELS.some((x) => x.id === model)) setModel(MODELS[0].id); }, [MODELS, model, setModel]);
   const r = calcProfit(model, lot, price);
   const m = getModel(model);
   const pct = ((price - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100;

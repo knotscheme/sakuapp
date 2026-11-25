@@ -1,7 +1,8 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { MODELS, yen } from "@/lib/models";
+import { yen } from "@/lib/models";
+import { useLpModels } from "./cms/catalog";
 import { asset } from "@/lib/asset";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
@@ -9,6 +10,7 @@ import NoOrphan from "./NoOrphan";
 
 export default function Models() {
   const { chooseModelAndScroll } = useLp();
+  const MODELS = useLpModels(); // 商品管理で公開中のものだけ
   return (
     <section id="models" className="bg-white py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-8">

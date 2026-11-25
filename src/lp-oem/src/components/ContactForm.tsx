@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { CheckCircle2, Paperclip, Send, X } from "lucide-react";
-import { MODELS, getModel, yen, type ModelId } from "@/lib/models";
+import { getModel, yen, type ModelId } from "@/lib/models";
 import { lotChoices, usePricing } from "@/lib/pricing";
 import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
-import { imgSrc, leathersOf, useCatalog } from "./cms/catalog";
+import { imgSrc, leathersOf, useCatalog, useLpModels } from "./cms/catalog";
 import { ALL_MODELS } from "@/lib/models";
 import { tierInfo, unitPriceOf } from "@/lib/cms";
 import { toLogoMask } from "./cms/Proof";
@@ -28,6 +28,7 @@ export default function ContactForm() {
   // カラーごとの数量（入れると、合計の数で数量割引を出して概算を見せる）
   const [qtys, setQtys] = useState<Record<string, number>>({});
   const { products, colors, leathers: allLeathers } = useCatalog();
+  const MODELS = useLpModels(); // 商品管理で公開中のものだけ
   const prod = products.find((p) => p.id === model);
   // 革素材：商品で選べる革（先頭が標準）。選んだ革の上乗せを単価に足す
   const leatherList = prod ? leathersOf(prod, allLeathers) : [];
