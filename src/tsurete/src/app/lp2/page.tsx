@@ -78,10 +78,10 @@ const STATS = [
   { v: 1.5, dec: 1, s: "倍", l: "AIから来たお客様の、買う割合（AI以外から来た人とくらべて）", src: "Adobeの調査（アメリカ、2026年5月）", href: "https://business.adobe.com/resources/sdk/.q3-ai-traffic-trends-report/q3-2026-ai-sourced-traffic-insights.pdf" },
 ];
 const FEATS = [
-  { n: "01", tag: "全商品の点検", icon: Stethoscope, t: "AIに選ばれる準備ができているか、全商品を毎週点検", d: "だれ向けか・成分・比較表・よくある質問・構造化データなど8つの項目で、全商品のページを自動で点検。直すべき商品と項目が、点数でひと目で分かります。", pts: ["8項目 × 全商品を毎週自動で", "直すと上がる点数の大きい順に並べる", "AIを使わない点検なので、何度でも"], img: "feat-kenko.webp", w: 2064, h: 1280 },
-  { n: "02", tag: "書き直し案", icon: PenLine, t: "足りないところに、そのまま使える文章とコードを", d: "足りない項目ごとに、商品説明の書き直し案・よくある質問・構造化データのコードを用意。ページにない事実は作らず、【】で空けてお店に確かめます。", pts: ["Shopifyは押すだけで反映", "楽天・Amazon・Yahoo!は取りこみ用CSV", "元の文章を残すので、いつでも戻せる"], img: "feat-naosu.webp", w: 2064, h: 1416 },
-  { n: "03", tag: "AIの答えを測る", icon: BarChart3, t: "4つのAIに、お客様の質問を毎週聞いて数える", d: "すすめられた割合・1位の割合・自分のサイトが根拠になった割合・平均の順位。前の期間とくらべて、上がったか下がったかまで分かります。", pts: ["ChatGPT・Gemini・Claude・Perplexity", "ほかのブランドとの比較", "AIが裏で調べたキーワードへの答えの有無"], img: "feat-rank.webp", w: 2032, h: 1066 },
-  { n: "04", tag: "売上で確かめる", icon: TrendingUp, t: "効いたかどうかを、AIから来た売上で", d: "計測タグを貼るだけで、ChatGPTやGeminiから来たお客様と、その売上を数えます。名前やメールなどの個人の情報は集めません。", pts: ["AIごとの来店と注文", "直す前とあとの比較", "タグを貼れないサイトは注文CSVで"], img: "feat-sales.webp", w: 2032, h: 832 },
+  { n: "01", tag: "全商品の点検", icon: Stethoscope, t: "AIに選ばれる準備ができているか、全商品を毎週点検", d: "だれ向けか・成分・比較表・よくある質問・構造化データなど8つの項目で、全商品のページを自動で点検。直すべき商品と項目が、点数でひと目で分かります。", pts: ["8項目 × 全商品を毎週自動で", "直すと上がる点数の大きい順に並べる", "AIを使わない点検なので、何度でも"], img: "m-kenko.webp", w: 1410, h: 1847, href: "/kenko/" },
+  { n: "02", tag: "書き直し案", icon: PenLine, t: "足りないところに、そのまま使える文章とコードを", d: "足りない項目ごとに、商品説明の書き直し案・よくある質問・構造化データのコードを用意。ページにない事実は作らず、【】で空けてお店に確かめます。", pts: ["Shopifyは押すだけで反映", "楽天・Amazon・Yahoo!は取りこみ用CSV", "元の文章を残すので、いつでも戻せる"], img: "m-naosu.webp", w: 1410, h: 1581, href: "/naosu/" },
+  { n: "03", tag: "AIの答えを測る", icon: BarChart3, t: "4つのAIに、お客様の質問を毎週聞いて数える", d: "すすめられた割合・1位の割合・自分のサイトが根拠になった割合・平均の順位。前の期間とくらべて、上がったか下がったかまで分かります。", pts: ["ChatGPT・Gemini・Claude・Perplexity", "ほかのブランドとの比較", "AIが裏で調べたキーワードへの答えの有無"], img: "m-measure.webp", w: 1410, h: 1680, href: "/hakaru/" },
+  { n: "04", tag: "売上で確かめる", icon: TrendingUp, t: "効いたかどうかを、AIから来た売上で", d: "計測タグを貼るだけで、ChatGPTやGeminiから来たお客様と、その売上を数えます。名前やメールなどの個人の情報は集めません。", pts: ["AIごとの来店と注文", "直す前とあとの比較", "タグを貼れないサイトは注文CSVで"], img: "m-sales.webp", w: 1410, h: 1403, href: "/kouka/" },
 ];
 const ROWS: [string, number[]][] = [
   ["全商品のページを、毎週自動で点検", [2, 0, 1, 0]],
@@ -196,12 +196,12 @@ export default function Page() {
                     <h3 className="mt-4 text-[1.45rem] font-bold leading-[1.5] sm:text-[1.75rem]"><J>{f.t}</J></h3>
                     <p className="mt-4 text-[0.96rem] leading-[1.95] text-[#394456]"><J>{f.d}</J></p>
                     <ul className="mt-6 space-y-2.5">{f.pts.map((p) => <li key={p} className="flex items-start gap-2.5 text-[0.92rem]"><Check size={17} className="mt-0.5 shrink-0 text-[#1f5ad1]" /><span className="min-w-0"><J>{p}</J></span></li>)}</ul>
-                    <Link href="/" className="mt-7 inline-flex items-center gap-1 text-[0.88rem] font-semibold text-[#1d4fb5] hover:underline">デモで見る<ChevronRight size={16} /></Link>
+                    <Link href={f.href} className="mt-7 inline-flex items-center gap-1 text-[0.88rem] font-semibold text-[#1d4fb5] hover:underline">デモで見る<ChevronRight size={16} /></Link>
                   </In>
                   <In d={120} className={i % 2 ? "lg:order-1" : ""}>
-                    <div className="rounded-[14px] border border-[#0b1e3d]/[.07] bg-[#f5f7fb] p-3 sm:p-5">
+                    <div className="mx-auto max-w-[26rem] overflow-hidden rounded-[14px] border border-[#0b1e3d]/[.07] bg-[#f5f7fb] shadow-[0_24px_50px_-30px_rgba(11,30,61,.35)]">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={`${IMG}/${f.img}?v=1`} alt={`「${f.tag}」の画面`} width={f.w} height={f.h} loading="lazy" className="block h-auto w-full rounded-[8px] border border-[#0b1e3d]/[.06] bg-white" />
+                      <img src={`${IMG}/${f.img}?v=2`} alt={`「${f.tag}」の画面`} width={f.w} height={f.h} loading="lazy" className="block h-auto w-full" />
                     </div>
                   </In>
                 </div>
