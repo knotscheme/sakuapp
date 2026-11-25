@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Images, Play } from "lucide-react";
 import { ALL_MODELS, COLORS, yen } from "@/lib/models";
 import { usePricing } from "@/lib/pricing";
-import { imgSrc, leathersOf, swatchOf, useCatalog, type ColorDef, type LeatherDef } from "./cms/catalog";
+import { colorsForLeather, imgSrc, leathersOf, swatchOf, useCatalog, type ColorDef, type LeatherDef } from "./cms/catalog";
 import NoOrphan from "./NoOrphan";
 import Gallery from "./Gallery";
 import type { Product } from "./cms/catalog";
@@ -33,8 +33,11 @@ function colorChoices(m: Product, colors: ColorDef[]) {
 }
 
 // 小さな丸のカラーピッカー（押すと選んだ色の名前が出て、そのまま相談できる）
-function ColorPick({ m, colors, value, onChange }: { m: Product; colors: ColorDef[]; value?: string; onChange: (v?: string) => void }) {
-  const list = colorChoices(m, colors);
+// leather：選んでいる革（その革で作れる色だけを出す）
+function ColorPick({ m, colors, leather, value, onChange }: { m: Product; colors: ColorDef[]; leather?: LeatherDef; value?: string; onChange: (v?: string) => void }) {
+  const all = colorChoices(m, colors);
+  const ok = colorsForLeather(all.map((x) => x.name), leather);
+  const list = all.filter((x) => ok.includes(x.name));
   if (!list.length) return null;
   const label = m.options?.find((o) => o.kind === "color")?.name ?? "カラー";
   return (
@@ -118,8 +121,17 @@ export default function ProductList() {
             <h2 className="mt-1.5 text-[19px] font-medium">{m.short}</h2>
             {m.name !== m.short && <p className="mt-0.5 text-[12px] text-mute">{m.name}</p>}
             <p className="mt-3 text-[13.5px] leading-relaxed text-mute"><NoOrphan text={m.feature} /></p>
-            <ColorPick m={m} colors={colors} value={picked[m.id]} onChange={(v) => setPicked((x) => ({ ...x, [m.id]: v }))} />
-            <LeatherPick list={leathersOf(m, leathers)} value={pickedL[m.id]} onChange={(v) => setPickedL((x) => ({ ...x, [m.id]: v }))} />
+            {(() => {
+              const ls = leathersOf(m, leathers);
+              const cur = ls.find((l) => l.id === pickedL[m.id]) ?? ls[0];
+              return (
+                <>
+                  <ColorPick m={m} colors={colors} leather={cur} value={picked[m.id]} onChange={(v) => setPicked((x) => ({ ...x, [m.id]: v }))} />
+                  {/* 革を変えたら、その革で作れない色の選択は外す */}
+                  <LeatherPick list={ls} value={pickedL[m.id]} onChange={(v) => { setPickedL((x) => ({ ...x, [m.id]: v })); const nl = ls.find((l) => l.id === v); if (picked[m.id] && !colorsForLeather([picked[m.id]!], nl).length) setPicked((x) => ({ ...x, [m.id]: undefined })); }} />
+                </>
+              );
+            })()}
             <dl className="mt-5 space-y-1.5 border-t border-line pt-5 text-[12.5px]">
               {[["寸法", m.size], ["ロゴ位置", m.logo], ...optionRows(m), ["最小ロット", `${MIN_LOT}個から`]].filter(([, v]) => v).map(([k, v]) => (
                 <div key={k} className="flex gap-3"><dt className="w-16 shrink-0 text-mute">{k}</dt><dd className="text-ink">{v.split("・").map((t, i, arr) => <span key={t} className="inline-block">{t}{i < arr.length - 1 ? "・" : ""}</span>)}</dd></div>
