@@ -58,6 +58,7 @@ export type Deal = {
   model: ModelId;
   lot: number;
   finish: "金箔" | "銀箔" | "素押し" | "ロゴなし";
+  urgent?: boolean; // 工場に急ぎで依頼（工場の画面の「優先」の並びで先頭に出る）
   leather?: { name: string; code?: string; add: number; img?: string }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
   color: string;
   sellPrice: number; // お客様の想定販売価格（参考）
@@ -185,6 +186,7 @@ export function seedDeals(): Deal[] {
     const si = stageIndex(x.stage);
     if (si >= 1) x.lock = priceLock(x);
     if (x.paid) x.paid.amount = amounts(x).deposit;
+    if (x.id === "C-1030") x.urgent = true; // 見本：工場に急ぎで依頼している案件
     if (si >= stageIndex("production")) {
       const at = (h: number) => { const t = new Date(); t.setHours(t.getHours() - h, 0, 0, 0); return t.toISOString(); };
       const po = { ...poOf(x), shipBy: d(10), ackAt: at(24 * 9), ackBy: "Somchai" };
