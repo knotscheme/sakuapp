@@ -55,7 +55,7 @@ export type Deal = {
   email: string;
   model: ModelId;
   lot: number;
-  finish: "金箔" | "銀箔" | "素押し";
+  finish: "金箔" | "銀箔" | "素押し" | "ロゴなし"; // ロゴなし：無地のまま（版代はかからない）
   color: string;
   sellPrice: number; // お客様の想定販売価格（参考）
   stage: StageId;
@@ -97,10 +97,11 @@ export function unitPriceOf(model: ModelId, lot: number) {
   const base = ALL_MODELS.find((m) => m.id === model)?.unitPrice ?? 0;
   return Math.round((base * (1 - rateFor(lot))) / 10) * 10;
 }
-export function amounts(x: Pick<Deal, "model" | "lot"> & { lock?: Deal["lock"] }) {
+export const hasLogo = (x: Pick<Deal, "finish">) => x.finish !== "ロゴなし";
+export function amounts(x: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"]; lock?: Deal["lock"] }) {
   // 見積を送ったあとは、そのときの単価・版代で固定（あとで割引率を変えても変わらない）
   const unit = x.lock?.unit ?? unitPriceOf(x.model, x.lot);
-  const plate = x.lock?.plate ?? getPricing().plate;
+  const plate = x.finish === "ロゴなし" ? 0 : x.lock?.plate ?? getPricing().plate;
   const sub = unit * x.lot + plate;
   const tax = Math.round(sub * 0.1);
   return { unit, items: unit * x.lot, plate, sub, tax, total: sub + tax, deposit: Math.round((sub + tax) * 0.5) };
@@ -237,6 +238,7 @@ const FINISH_I18N: Record<string, L3> = {
   金箔: { ja: "金箔", en: "Gold foil", th: "ฟอยล์ทอง" },
   銀箔: { ja: "銀箔", en: "Silver foil", th: "ฟอยล์เงิน" },
   素押し: { ja: "素押し", en: "Blind deboss", th: "ปั๊มจม (ไม่ใช้ฟอยล์)" },
+  ロゴなし: { ja: "ロゴなし", en: "No logo (plain)", th: "ไม่ใส่โลโก้" },
 };
 const POS_I18N: Record<string, L3> = {
   表面右下: { ja: "表面右下", en: "front, bottom right", th: "ด้านหน้า มุมขวาล่าง" },
@@ -279,11 +281,10 @@ export function makeDraft(kind: DraftKind, d: Deal): Draft {
 【お見積り】
 ・製品代：${q.lines.map((x) => `${x.color} ${x.qty}個`).join("、")}
 　単価 ${yenOf(q.unit)}${q.discount ? `（合計${d.lot}個で${Math.round(q.discount.rate * 100)}%の数量割引）` : ""} × ${d.lot}個 ＝ ${yenOf(a.items)}
-・ロゴの版代（初回のみ）：${yenOf(a.plate)}
-・消費税：${yenOf(a.tax)}
+${hasLogo(d) ? `・ロゴの版代（初回のみ）：${yenOf(a.plate)}\n` : ""}・消費税：${yenOf(a.tax)}
 ・合計（税込）：${yenOf(a.total)}
 ${t.next ? `\n※あと${t.need}個（合計${t.next.at}個）で、単価が${Math.round(t.next.rate * 100)}%引きになります。\n` : ""}
-ロゴデータ：${d.logo ? "受け取りました。配置のイメージは、ご注文のあとにお送りします。" : "まだ届いていません。ai・pdf・png などでお送りください。"}
+${!hasLogo(d) ? "ロゴ：なし（無地のまま）でお作りします。あとからロゴを入れたくなった場合も、ご相談ください。" : `ロゴデータ：${d.logo ? "受け取りました。配置のイメージは、ご注文のあとにお送りします。" : "まだ届いていません。ai・pdf・png などでお送りください。"}`}
 
 見積書のご確認と承諾は、下の専用ページからできます。
 ${link}${sign}` };
@@ -312,7 +313,7 @@ Model / รุ่น: ${trModel(d.model, "en")} / ${trModel(d.model, "th")}
 Colors & qty / สีและจำนวน:
 ${colorLines(d).map((x) => `  - ${trColor(x.color, "en")} / ${trColor(x.color, "th")}: ${x.qty} pcs`).join("\n")}
 Total / รวม: ${d.lot} pcs
-Logo / โลโก้: ${trFinish(d.finish, "en")} / ${trFinish(d.finish, "th")} (approved placement attached)
+Logo / โลโก้: ${trFinish(d.finish, "en")} / ${trFinish(d.finish, "th")} ${hasLogo(d) ? " (approved placement attached)" : ""}
 Ship by / ส่งภายใน: ${shipBy()}
 
 The production order (EN/TH) is on your factory screen.
@@ -336,6 +337,6 @@ ${link}${sign}` };
 }
 
 // 見積を送る時点の価格を固定する
-export function priceLock(d: Pick<Deal, "model" | "lot">) {
-  return { base: unitPriceOf(d.model, 0), unit: unitPriceOf(d.model, d.lot), plate: getPricing().plate, rate: rateFor(d.lot) };
+export function priceLock(d: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"] }) {
+  return { base: unitPriceOf(d.model, 0), unit: unitPriceOf(d.model, d.lot), plate: d.finish === "ロゴなし" ? 0 : getPricing().plate, rate: rateFor(d.lot) };
 }

@@ -88,16 +88,16 @@ export function revert(id: string, who = "佐藤") {
   });
 }
 
-export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"] }) {
+export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"]; noLogo?: boolean }) {
   const list = load();
   const n = Math.max(1023, ...list.map((d) => Number(d.id.slice(2)))) + 1;
   const deal: Deal = {
     id: `C-${n}`, brand: p.brand, person: p.brand, email: p.email, model: p.model, lot: p.lot,
-    finish: "金箔", color: p.items?.[0]?.color ?? "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
+    finish: p.noLogo ? "ロゴなし" : "金箔", color: p.items?.[0]?.color ?? "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
     createdAt: today(), due: today(), prodStep: 0, defects: 0, checks: [false, false, false, false, false, false],
     thbCost: Math.round(unitPriceOf(p.model, p.lot) / RATE / 1.6),
     message: p.message, logo: p.logo, logoAspect: p.logoAspect, items: p.items?.length ? p.items : undefined,
-    logs: [{ at: today(), who: "システム", text: p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
+    logs: [{ at: today(), who: "システム", text: p.noLogo ? "LPのフォームから問い合わせが届きました（ロゴなし）" : p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
   };
   // 届いたらすぐ、返信と見積の下書きを自動で作る（人が確認して送るだけ）
   save([withDraft(deal, "reply"), ...list]);

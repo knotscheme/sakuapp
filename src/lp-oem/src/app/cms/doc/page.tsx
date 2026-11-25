@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, Printer } from "lucide-react";
-import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, modelOf, today, colorLines, quoteLines, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
+import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, hasLogo, modelOf, today, colorLines, quoteLines, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { useDeals } from "@/components/cms/store";
 import { NoAccess, Shell, useQuery } from "@/components/cms/ui";
@@ -40,9 +40,9 @@ export default function DocPage() {
   // カラーごとの行＋数量割引（合計の数で決まる）＋版代
   const q = quoteLines(d);
   const rows: { name: string; qty?: number; unit?: number; sum: number; off?: boolean }[] = [
-    ...q.lines.map((x) => ({ name: `${m.name}（${x.color}・ロゴ${d.finish}）`, qty: x.qty, unit: x.unit, sum: x.sum })),
+    ...q.lines.map((x) => ({ name: `${m.name}（${x.color}・${hasLogo(d) ? `ロゴ${d.finish}` : "ロゴなし"}）`, qty: x.qty, unit: x.unit, sum: x.sum })),
     ...(q.discount ? [{ name: `数量割引（合計${d.lot}個・${Math.round(q.discount.rate * 100)}%引き）`, sum: -q.discount.amount, off: true }] : []),
-    { name: "ロゴの版代（初回のみ）", qty: 1, unit: a.plate, sum: a.plate },
+    ...(hasLogo(d) ? [{ name: "ロゴの版代（初回のみ）", qty: 1, unit: a.plate, sum: a.plate }] : []),
   ];
 
   return (
@@ -136,7 +136,7 @@ export default function DocPage() {
           </>
         ) : isInspect ? (
           <section className="mt-8">
-            <p>{m.name}　{d.lot}個（{d.color}・ロゴ{d.finish}）の国内検品の結果をご報告します。</p>
+            <p>{m.name}　{d.lot}個（{d.color}・{hasLogo(d) ? `ロゴ${d.finish}` : "ロゴなし"}）の国内検品の結果をご報告します。</p>
             <table className="mt-4 w-full border border-line">
               <tbody className="divide-y divide-line">
                 {CHECKS.map((c, i) => <tr key={c}><td className="px-3 py-2">{c}</td><td className="w-24 px-3 py-2 text-right">{d.checks[i] ? "合格" : "—"}</td></tr>)}

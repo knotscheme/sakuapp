@@ -137,7 +137,7 @@ export default function DealPage() {
                   <tr key={x.color}><td className="px-4 py-2.5 sm:px-5 text-mute">{x.color}<span className="block text-[11.5px] whitespace-nowrap sm:inline sm:text-[13px]">（{yenOf(x.unit)}×{x.qty}個）</span></td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(x.sum)}</td></tr>
                 ))}
                 {q.discount && <tr><td className="px-4 py-2.5 sm:px-5 text-[#8a650c]">数量割引<span className="block text-[11.5px] whitespace-nowrap sm:inline sm:text-[13px]">（合計{d.lot}個・{Math.round(q.discount.rate * 100)}%引き）</span></td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap text-[#8a650c] tabular-nums">−{yenOf(q.discount.amount)}</td></tr>}
-                <tr><td className="px-4 py-2.5 sm:px-5 text-mute">ロゴの版代（初回のみ）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.plate)}</td></tr>
+                {a.plate > 0 && <tr><td className="px-4 py-2.5 sm:px-5 text-mute">ロゴの版代（初回のみ）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.plate)}</td></tr>}
                 <tr><td className="px-4 py-2.5 sm:px-5 text-mute">消費税（10%）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.tax)}</td></tr>
                 <tr className="bg-[#fafafa]"><td className="px-4 py-3 sm:px-5 font-medium">合計（税込）</td><td className="px-4 py-3 sm:px-5 text-right text-[16px] font-medium whitespace-nowrap tabular-nums">{yenOf(a.total)}</td></tr>
               </tbody>
