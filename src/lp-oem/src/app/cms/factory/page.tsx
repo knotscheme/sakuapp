@@ -80,10 +80,11 @@ export default function FactoryPage() {
   return (
     <Shell title={`${t.title}｜${lang === "ja" ? FACTORY : FACTORY.replace("（仮）", "")}`} actions={langs} note={t.note}>
       <p className="mb-4 text-[13px] text-mute">{t.intro}</p>
-      <div className="mb-5 flex flex-wrap items-center gap-1.5 text-[12px]" role="radiogroup" aria-label={s2.sort}>
-        <span className="mr-1 text-mute">{s2.sort}</span>
+      {/* 並び順：途中で折り返さないように、1列の横スクロールにする */}
+      <div className="-mx-4 mb-5 flex items-center gap-1.5 overflow-x-auto px-4 pb-1 text-[11.5px] whitespace-nowrap [scrollbar-width:none] sm:mx-0 sm:px-0" role="radiogroup" aria-label={s2.sort}>
+        <span className="mr-0.5 shrink-0 text-mute">{s2.sort}</span>
         {(["priority", "due", "cat", "step"] as SortId[]).map((k) => (
-          <button key={k} type="button" role="radio" aria-checked={sort === k} onClick={() => choose(k)} className={`rounded-full border px-3.5 py-1.5 ${sort === k ? "border-ink bg-ink text-white" : "border-line bg-white text-ink/80 hover:border-ink"}`}>{s2[k]}</button>
+          <button key={k} type="button" role="radio" aria-checked={sort === k} onClick={() => choose(k)} className={`shrink-0 rounded-full border px-3 py-1.5 ${sort === k ? "border-ink bg-ink text-white" : "border-line bg-white text-ink/80 hover:border-ink"}`}>{s2[k]}</button>
         ))}
       </div>
       {!list.length && <p className="text-[13px] text-mute">{t.empty}</p>}
@@ -103,7 +104,7 @@ export default function FactoryPage() {
                   <p className="font-medium"><Ph>{trModel(d.model, lang)}</Ph></p>
                   <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{trFinish(d.finish, lang)}</p>
                   <p className="text-ink/80"><Ph>{colorLines(d).map((x) => `${trColor(x.color, lang)} ${x.qty}`).join(" / ")}</Ph></p>
-                  <p className="text-ink/80">{t.ship}: {d.due}{!shipped && <span className={`ml-1.5 text-[11.5px] ${left < 0 ? "font-medium text-red-600" : left <= 3 ? "text-[#8a650c]" : "text-mute"}`}>（{s2.left(left)}）</span>}</p>
+                  <p className="text-ink/80">{t.ship}: {d.due}{!shipped && <span className={`ml-1.5 inline-block whitespace-nowrap text-[11.5px] ${left < 0 ? "font-medium text-red-600" : left <= 3 ? "text-[#8a650c]" : "text-mute"}`}>（{s2.left(left)}）</span>}</p>
                   <Link href={`/cms/doc/?id=${d.id}&type=work`} className="tap mt-1.5 inline-flex items-center gap-1 text-[12px] underline underline-offset-4"><FileText size={13} />{t.order}</Link>
                 </div>
               </div>
