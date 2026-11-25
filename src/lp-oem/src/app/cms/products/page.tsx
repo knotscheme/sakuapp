@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
+import { renameSize, updateColor } from "@/components/cms/catalog";
 import { addLeather, costOf, deleteLeather, leathersOf, updateLeather } from "@/components/cms/catalog";
 import { lotChoices, rateFor, usePricing } from "@/lib/pricing";
 import { MAX_SUB, skuList, addColor, addSize, deleteColor, deleteSize, setColorHex, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
@@ -236,6 +237,7 @@ function ColorCard() {
   return (
     <Card>
       <CardHead note="colors テーブル。色は製品一覧の丸に、記号（BKなど）はSKUの自動作成に使う">カラー</CardHead>
+      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">丸・名前・記号を押すと直せます。名前を変えると、その色を使っている商品にも反映されます。</p>
       <ul className="divide-y divide-line border-t border-line">
         {colors.map((c) => (
           <li key={c.id} className="flex items-center gap-3 px-4 py-2">
@@ -243,8 +245,9 @@ function ColorCard() {
               <Dot c={c} size={22} />
               <input type="color" value={c.hex} onChange={(e) => setColorHex(c.id, e.target.value)} className="absolute inset-0 h-full w-full cursor-pointer opacity-0" aria-label={`${c.name}の色を変える`} />
             </label>
-            <span className="flex-1 text-[13px]">{c.name}</span>
-            <span className="font-mono text-[11px] text-mute" title="SKUの記号">{c.code}</span>
+            {/* 名前と記号は、押すとその場で直せる（名前を変えると、使っている商品のバリエーションも同じ名前に変わる） */}
+            <input key={`n-${c.name}`} defaultValue={c.name} aria-label={`${c.name}の名前`} onBlur={(e) => { const v = e.target.value.trim(); if (!v || v === c.name) { e.target.value = c.name; return; } if (!updateColor(c.id, { name: v })) { setMsg(`「${v}」はもう登録されています。`); e.target.value = c.name; } else setMsg(""); }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="min-w-0 flex-1 rounded-md px-2 py-1 text-[13px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" />
+            <input key={`c-${c.code}`} defaultValue={c.code} aria-label={`${c.name}の記号`} title="SKUの記号" maxLength={4} onBlur={(e) => { updateColor(c.id, { code: e.target.value }); }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="w-12 rounded-md px-1.5 py-1 text-center font-mono text-[11px] text-mute uppercase outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0] focus:text-ink" />
             <button type="button" aria-label={`${c.name}を削除`} onClick={async () => { if (!(await askConfirm({ title: `カラー「${c.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; setMsg(deleteColor(c.id) ? "" : `「${c.name}」は商品で使われているため、削除できません。`); }} className="rounded-md p-3 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><Trash2 size={14} /></button>
           </li>
         ))}
@@ -271,10 +274,11 @@ function SizeCard() {
   return (
     <Card>
       <CardHead note="sizes テーブル。商品のバリエーションでは、ここから選ぶ">サイズ</CardHead>
+      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">名前を押すと直せます。使っている商品にも反映されます。</p>
       <div className="flex flex-wrap gap-2 border-t border-line px-4 py-3.5">
         {sizes.map((z) => (
-          <span key={z.id} className="flex items-center gap-1 rounded-full border border-line py-1 pr-1 pl-3 text-[12.5px]">
-            {z.name}
+          <span key={z.id} className="flex items-center gap-1 rounded-full border border-line py-1 pr-1 pl-1.5 text-[12.5px]">
+            <input key={z.name} defaultValue={z.name} aria-label={`サイズ「${z.name}」の名前`} style={{ width: `${[...z.name].reduce((w, ch) => w + (ch.charCodeAt(0) > 255 ? 1.05 : 0.65), 0) + 1}em` }} onBlur={(e) => { const v = e.target.value.trim(); if (!v || v === z.name) { e.target.value = z.name; return; } if (!renameSize(z.id, v)) { setMsg(`「${v}」はもう登録されています。`); e.target.value = z.name; } else setMsg(""); }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="rounded-full px-1.5 py-0.5 text-[12.5px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" />
             <button type="button" aria-label={`${z.name}を削除`} onClick={async () => { if (!(await askConfirm({ title: `サイズ「${z.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; setMsg(deleteSize(z.id) ? "" : `「${z.name}」は商品で使われているため、削除できません。`); }} className="-my-1 rounded-full p-2.5 text-mute hover:bg-[#f1f1f0] hover:text-red-600"><X size={12} /></button>
           </span>
         ))}
@@ -307,6 +311,7 @@ function LeatherCard() {
   return (
     <Card>
       <CardHead note="leathers テーブル。デシ単価は社内用で、お客様の画面には出ない">革素材</CardHead>
+      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">写真・名前・記号・金額を押すと直せます。</p>
       <ul className="divide-y divide-line border-t border-line">
         {leathers.map((l) => {
           const n = products.filter((p) => p.leathers?.includes(l.id)).length;
@@ -315,7 +320,7 @@ function LeatherCard() {
               <div className="flex items-center gap-2">
                 <LeatherImg img={l.img} label={`${l.name}の写真を変える`} onPick={async (f) => { const v = await pickImg(f); if (v) updateLeather(l.id, { img: v }); }} />
                 <input defaultValue={l.name} onBlur={(e) => e.target.value.trim() && updateLeather(l.id, { name: e.target.value.trim() })} aria-label="革の名前" className="min-w-0 flex-1 rounded-md px-2 py-1 text-[13px] outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0]" />
-                <span className="font-mono text-[11px] text-mute" title="記号">{l.code}</span>
+                <input key={`c-${l.code}`} defaultValue={l.code} aria-label={`${l.name}の記号`} title="記号" maxLength={4} onBlur={(e) => { const v = e.target.value.normalize("NFKC").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4); if (v) updateLeather(l.id, { code: v }); else e.target.value = l.code; }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="w-11 rounded-md px-1 py-1 text-center font-mono text-[11px] text-mute uppercase outline-none hover:bg-[#f1f1f0] focus:bg-[#f1f1f0] focus:text-ink" />
                 <span className="text-[11px] text-mute" title="使っている商品">{n}</span>
                 <button type="button" aria-label={`${l.name}を削除`} onClick={async () => { if (!(await askConfirm({ title: `革「${l.name}」を削除しますか？`, body: "削除すると元に戻せません。", ok: "削除する", danger: true }))) return; setMsg(deleteLeather(l.id) ? "" : `「${l.name}」を使っている商品があるため、削除できません。`); }} className="rounded-md p-2 text-mute hover:text-red-600"><Trash2 size={14} /></button>
               </div>

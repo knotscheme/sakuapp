@@ -167,6 +167,39 @@ export function setColorHex(id: string, hex: string) {
   const c = loadCatalog();
   save({ ...c, colors: c.colors.map((x) => (x.id === id ? { ...x, hex } : x)) });
 }
+// 名前を変えたら、その名前を使っている商品のバリエーション（値・組み合わせ・丸の色）も同じ名前に変える
+function renameIn(products: Product[], kind: "color" | "size", from: string, to: string): Product[] {
+  return products.map((p) => {
+    const i = (p.options ?? []).findIndex((o) => o.kind === kind && o.values.includes(from));
+    const sw = kind === "color" && p.variants?.some((v) => v.swatch === from);
+    if (i < 0 && !sw) return p;
+    const options = p.options?.map((o, k) => (k === i ? { ...o, values: o.values.map((v) => (v === from ? to : v)) } : o));
+    const variants = p.variants?.map((v) => {
+      const values = i >= 0 ? v.values.map((x, k) => (k === i && x === from ? to : x)) : v.values;
+      return { ...v, values, key: values.join("|"), swatch: v.swatch === from ? to : v.swatch };
+    });
+    return { ...p, options, variants };
+  });
+}
+export function updateColor(id: string, patch: { name?: string; code?: string }) {
+  const c = loadCatalog();
+  const col = c.colors.find((x) => x.id === id);
+  if (!col) return false;
+  const name = patch.name?.trim();
+  if (name && name !== col.name && c.colors.some((x) => x.name === name)) return false; // 同じ名前は2つ作らない
+  const code = patch.code !== undefined ? patch.code.normalize("NFKC").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4) || col.code : col.code;
+  save({ ...c, colors: c.colors.map((x) => (x.id === id ? { ...x, name: name || x.name, code } : x)), products: name && name !== col.name ? renameIn(c.products, "color", col.name, name) : c.products });
+  return true;
+}
+export function renameSize(id: string, name: string) {
+  const c = loadCatalog();
+  const sz = c.sizes.find((x) => x.id === id);
+  const n = name.trim();
+  if (!sz || !n || n === sz.name) return true;
+  if (c.sizes.some((x) => x.name === n)) return false;
+  save({ ...c, sizes: c.sizes.map((x) => (x.id === id ? { ...x, name: n } : x)), products: renameIn(c.products, "size", sz.name, n) });
+  return true;
+}
 // 使っている商品があるカラー・サイズは消さない
 const usedIn = (c: Catalog, kind: "color" | "size", name: string) =>
   c.products.some((p) => p.options?.some((o) => o.kind === kind && o.values.includes(name)) || (kind === "color" && p.variants?.some((v) => v.swatch === name)));
