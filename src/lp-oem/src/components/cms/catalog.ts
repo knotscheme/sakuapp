@@ -3,7 +3,7 @@
 // 商品とカテゴリのデータ置き場（デモ：ブラウザの localStorage に保存）
 // 管理画面の「商品管理」で登録・編集した内容が、LPの製品一覧ページにそのまま出る
 import { useSyncExternalStore } from "react";
-import { ALL_MODELS } from "@/lib/models";
+import { ALL_MODELS, MODELS, type BaseModel } from "@/lib/models";
 import { asset } from "@/lib/asset";
 
 export type Cat = { id: string; name: string };
@@ -122,6 +122,14 @@ export function useCatalog(): Catalog {
     () => loadCatalog(),
     () => EMPTY,
   );
+}
+
+// LPのベースモデル・シミュレーター・見積フォームに出すモデル：商品管理で「公開中」のものだけ（非公開・削除したものは出さない）
+// 読み込み前（サーバーで作るとき）は、初期の公開モデルを出しておく
+export function useLpModels(): BaseModel[] {
+  const { products } = useCatalog();
+  if (!products.length) return MODELS;
+  return ALL_MODELS.filter((m) => products.find((p) => p.id === m.id)?.visible);
 }
 
 export const imgSrc = (img: string) => (img.startsWith("data:") ? img : asset(img));
