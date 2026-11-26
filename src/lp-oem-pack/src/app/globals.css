@@ -232,3 +232,8 @@ html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top
   :where(.cms-bg main, .cms-bg [role="dialog"]) * { min-width: 0; }
 }
 .cms-bg dd, .cms-bg td, .cms-bg h1, .cms-bg h2 { overflow-wrap: anywhere; }
+
+/* 物語の「売れるLP」：スマホの画面の中で、縦長のページを上から下までゆっくり見せる */
+.lp-autoscroll { animation: lpScroll 11s ease-in-out infinite; }
+@keyframes lpScroll { 0%, 8% { transform: translateY(0); } 46%, 54% { transform: translateY(calc(-100% + 100cqh)); } 92%, 100% { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .lp-autoscroll { animation: none; } }

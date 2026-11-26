@@ -7,8 +7,23 @@ import Laurel from "./Laurel";
 
 // ファーストビュー：革の壁の写真の上に、合言葉「売れるまで、つくる。」と、0 → 1億円まで一気に数える数字
 const GOAL = 100_000_000;
+// 写真のスライダー（自動で切り替わる）。pos：切り抜くときの中心
+const SLIDES = [
+  { src: "/images/work-totes.webp", alt: "仕上げ前の革のトートバッグと長財布が並ぶ作業台", pos: "55% 55%" },
+  { src: "/images/studio-wall.webp", alt: "色とりどりの革が並ぶ工房の壁", pos: "50% 60%" },
+  { src: "/images/work-pouches.webp", alt: "縫い上がった革のポーチが並ぶ工場", pos: "50% 55%" },
+  { src: "/images/studio-brown.webp", alt: "茶色の革を台の上に広げているところ", pos: "50% 50%" },
+  { src: "/images/work-parts.webp", alt: "裁断した黒い革のパーツ", pos: "50% 55%" },
+];
 export default function Hero() {
   const [n, setN] = useState(0);
+  const [cur, setCur] = useState(0);
+  // 4.5秒ごとに次の写真へ（動きを減らす設定のときは切り替えない）
+  useEffect(() => {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setInterval(() => setCur((c) => (c + 1) % SLIDES.length), 4500);
+    return () => clearInterval(t);
+  }, []);
   const bg = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,8 +56,19 @@ export default function Hero() {
     <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#141210] text-white md:flex-row-reverse">
       <div className="relative h-[30svh] shrink-0 overflow-hidden md:h-auto md:w-1/2">
         <div ref={bg} className="absolute inset-0 scale-[1.06] will-change-transform">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={asset("/images/work-totes.webp")} alt="仕上げ前の革のトートバッグと長財布が並ぶ作業台" className="h-full w-full object-cover object-[55%_55%]" />
+          {SLIDES.map((x, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={x.src} src={asset(x.src)} alt={i === cur ? x.alt : ""} aria-hidden={i !== cur} loading={i === 0 ? "eager" : "lazy"}
+              className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-[1600ms] ease-out ${i === cur ? "scale-100 opacity-100" : "scale-[1.06] opacity-0"}`} style={{ objectPosition: x.pos }} />
+          ))}
+        </div>
+        {/* いまの写真の位置（押すとその写真へ） */}
+        <div className="absolute right-5 bottom-4 z-[1] flex gap-1.5 md:right-6 md:bottom-6">
+          {SLIDES.map((x, i) => (
+            <button key={x.src} type="button" onClick={() => setCur(i)} aria-label={`${i + 1}枚目の写真`} aria-current={i === cur} className="p-1">
+              <span className={`block h-[3px] rounded-full transition-all duration-500 ${i === cur ? "w-5 bg-white" : "w-2.5 bg-white/40"}`} />
+            </button>
+          ))}
         </div>
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#141210] to-transparent md:inset-y-0 md:left-0 md:h-auto md:w-1/3 md:bg-gradient-to-r" />
       </div>
