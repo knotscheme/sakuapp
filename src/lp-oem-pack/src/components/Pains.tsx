@@ -9,7 +9,7 @@ const PAINS = [
 
 export default function Pains() {
   return (
-    <section id="problems" className="bg-white py-24 md:py-36">
+    <section id="problems" className="bg-white py-24 md:py-24">
       <div className="mx-auto max-w-4xl px-6 md:px-8">
         <SectionTitle en="Problems" ja="いちばんの壁は、|“売り方”では|ありませんか？" />
         <ol className="border-t border-line">

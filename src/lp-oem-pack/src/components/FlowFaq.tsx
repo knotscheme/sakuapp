@@ -23,11 +23,11 @@ const FAQ = [
 export default function FlowFaq() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <section id="faq" className="bg-white py-24 md:py-36">
+    <section id="faq" className="bg-white py-24 md:py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Flow" ja="ご相談から|一般販売までの|流れ" sub="期間はプランや数量によって|前後します。" />
         {/* 縦のタイムライン：左に線と時期（目安）、右に写真カード */}
-        <ol className="relative mx-auto max-w-3xl">
+        <ol className="relative mx-auto max-w-2xl">
           <span aria-hidden className="absolute top-2 bottom-2 left-[52px] w-px bg-gradient-to-b from-gold via-line to-line md:left-[84px]" />
           {FLOW.map((s, i) => (
             <li key={s.t} className="reveal relative grid grid-cols-[52px_1fr] gap-x-5 pb-8 last:pb-0 md:grid-cols-[84px_1fr] md:gap-x-10 md:pb-12">
@@ -37,7 +37,7 @@ export default function FlowFaq() {
                 <span aria-hidden className={`absolute top-1 -right-[5px] h-[11px] w-[11px] rounded-full border-2 ${i === 0 ? "border-gold bg-gold" : "border-gold bg-white"}`} />
               </div>
               <div>
-                <div className="relative aspect-[16/9] overflow-hidden bg-ink">
+                <div className="relative aspect-[16/9] overflow-hidden bg-ink md:aspect-[21/9]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   {s.img && <img src={asset(s.img)} alt="" loading="lazy" className="h-full w-full object-cover" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />

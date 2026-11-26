@@ -5,7 +5,7 @@ import SectionTitle from "./SectionTitle";
 // 実績（実際のプロジェクト）
 export default function Results() {
   return (
-    <section id="results" className="bg-white py-24 md:py-36">
+    <section id="results" className="bg-white py-24 md:py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Results" ja="クラウドファンディング|累計1億円の実績" sub="製品は、ご依頼ごとに|あなただけのものを。|売り方のノウハウで|伴走します。" />
         <ul className="grid gap-10 md:grid-cols-3 md:gap-8">

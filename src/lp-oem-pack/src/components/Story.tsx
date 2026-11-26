@@ -180,7 +180,7 @@ export default function Story() {
               {SCENES.map((s, i) => (
                 <div key={s.no} className={`transition-all duration-700 ${i === k ? "relative translate-y-0 opacity-100" : "pointer-events-none absolute inset-x-0 top-0 translate-y-4 opacity-0"}`}>
                   <p className="mt-4 flex items-baseline gap-3"><span className="font-num text-[15px] text-gold">{s.no}</span><span className="font-display text-[12px] tracking-[0.3em] text-white/60 uppercase">{s.en}</span></p>
-                  <h2 className="mt-2 text-[26px] leading-snug font-medium sm:text-[40px]">{s.t}</h2>
+                  <h2 className="mt-2 text-[26px] leading-snug font-medium sm:text-[32px]">{s.t}</h2>
                   <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-white/80">{s.b}</p>
                 </div>
               ))}

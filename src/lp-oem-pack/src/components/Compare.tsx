@@ -18,7 +18,7 @@ const ROWS: [string, string, string][] = [
 export default function Compare() {
   const [us, setUs] = useState(true);
   return (
-    <section id="compare" className="bg-white py-24 md:py-36">
+    <section id="compare" className="bg-white py-24 md:py-24">
       <div className="mx-auto max-w-4xl px-6 md:px-8">
         <SectionTitle en="Difference" ja="“作るだけ”の工場と、|ここが違う。" />
         <div className="reveal mx-auto mb-8 grid max-w-md grid-cols-2 overflow-hidden rounded-full border border-ink p-1 text-[13px]" role="tablist">

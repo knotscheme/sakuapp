@@ -10,18 +10,18 @@ const REASONS = [
 
 export default function Features() {
   return (
-    <section id="reasons" className="bg-paper py-24 md:py-36">
+    <section id="reasons" className="bg-paper py-24 md:py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Why us" ja="選ばれる|3つの理由" />
-        <ul className="grid gap-4 md:grid-cols-3 md:gap-5">
+        <ul className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3 md:gap-5">
           {REASONS.map(({ no, img, title, body }) => (
-            <li key={no} className="reveal relative aspect-[4/3] overflow-hidden bg-ink md:aspect-[3/4]">
+            <li key={no} className="reveal relative aspect-[4/3] overflow-hidden bg-ink md:aspect-[4/5]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={asset(img)} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 hover:scale-105" />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 text-white md:p-6">
-                <p className="font-num text-[36px] leading-none font-light text-gold md:text-[44px]">{no}</p>
-                <h3 className="mt-3 text-[20px] leading-snug font-medium">{title}</h3>
+                <p className="font-num text-[36px] leading-none font-light text-gold md:text-[36px]">{no}</p>
+                <h3 className="mt-3 text-[20px] leading-snug font-medium md:text-[18px]">{title}</h3>
                 <p className="mt-2 text-[13px] leading-relaxed text-white/80">{body}</p>
               </div>
             </li>

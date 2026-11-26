@@ -62,7 +62,7 @@ export default function Hero() {
 
       <div className="relative z-[1] -mt-48 flex flex-1 flex-col px-6 pb-[calc(2rem+100lvh-100svh)] md:mx-auto md:mt-0 md:min-h-[100svh] md:max-w-6xl md:justify-center md:px-8 md:pt-24 md:pb-16">
         <p className="hero-in font-display text-[10px] tracking-[0.18em] whitespace-nowrap text-white/75 min-[380px]:text-[10.5px] min-[380px]:tracking-[0.3em]" style={{ animationDelay: ".05s" }}>LEATHER OEM / ODM × CROWDFUNDING</p>
-        <h1 className="mt-2 text-[clamp(34px,11.2vw,56px)] leading-[1.08] font-bold tracking-[0.01em] [text-shadow:0_2px_24px_rgba(0,0,0,.5)] sm:text-[72px] lg:text-[96px]">
+        <h1 className="mt-2 text-[clamp(34px,11.2vw,56px)] leading-[1.08] font-bold tracking-[0.01em] [text-shadow:0_2px_24px_rgba(0,0,0,.5)] sm:text-[56px] lg:text-[68px]">
           <span className="line-mask"><span style={{ animationDelay: ".1s" }}>「アイデア」を、</span></span>
           <span className="line-mask"><span style={{ animationDelay: ".2s" }}><span className="text-gold">「売れた」</span>に。</span></span>
         </h1>

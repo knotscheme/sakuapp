@@ -15,7 +15,7 @@ export default function Models() {
   const sim = (id: string) => ALL_MODELS.some((x) => x.id === id);
   const go = (m: (typeof MODELS)[number]) => (sim(m.id) ? chooseModelAndScroll(m.id as ModelId) : sendBrandToContact(`【ご希望モデル】${m.name}`));
   return (
-    <section id="models" className="bg-white py-24 md:py-36">
+    <section id="models" className="bg-white py-24 md:py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Base Models" ja="定番の型に、|ロゴを入れる。" sub="クラファン以外（自社販売・ギフト・|ノベルティ）向けの「OEMのみ」の型です。|クラファンでは、既存の型の製品は|掲載できないことが多いため、|オリジナル設計でおつくりします。|大きさや収納の参考にもどうぞ。" />
         {/* 並びや数は読み込み後に変わるので、ふわっと出すのは一覧ごとにする */}

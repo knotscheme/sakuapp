@@ -12,7 +12,7 @@ const STEPS = [
 
 export default function OneStop() {
   return (
-    <section id="onestop" className="bg-paper py-24 md:py-36">
+    <section id="onestop" className="bg-paper py-24 md:py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="One Stop" ja="つくる・見せる・売る。|ぜんぶ、ひとつの|チームで。" sub="工場・制作会社・EC構築を|別々に探す必要は|ありません。" />
         <ol className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">

@@ -34,7 +34,7 @@ export default function CfSimulator() {
   const rows: [string, number, boolean?][] = [["支援総額", total], [`クラファン手数料（${SITES.find((x) => x.id === site)!.name}・${feePct}%）`, -fee], [`プラン料金（${p.name}・設計と50個込み）`, -p.price!], [`追加の生産（${extra}個）`, -make], [`梱包・送料（${backers}件）`, -ship]];
   const num = "w-full border border-line bg-white px-3 py-2.5 text-right font-num text-[16px] tabular-nums outline-none focus:border-ink";
   return (
-    <section id="cfsim" className="bg-paper py-24 md:py-36">
+    <section id="cfsim" className="bg-paper py-24 md:py-24">
       <div className="mx-auto max-w-5xl px-6 md:px-8">
         <SectionTitle en="Crowdfunding Simulator" ja="クラファンで、|手元にいくら|残る？" sub="リターンの価格と支援者数を入れると、|プラン料金や生産費を引いた|手元の金額が分かります。" />
         <div className="reveal grid overflow-hidden border border-line bg-white lg:grid-cols-2">
