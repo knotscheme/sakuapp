@@ -42,11 +42,12 @@ export const RULES = [
   { k: "型紙・抜き型", v: "あなた専用として保管し、ほかのお客様には使いません。追加生産や一般販売でそのまま使えます。" },
 ];
 
-// 実績（サンプル表示）
-export const RESULTS = [
-  { img: "/images/model-trifold.webp", title: "コンパクト三つ折りミニ財布", total: 4860000, rate: 972, backers: 1240, tag: "国産レザー・本ヌメ" },
-  { img: "/images/model-long.webp", title: "ラウンドファスナー長財布", total: 10200000, rate: 1360, backers: 1610, tag: "イタリアンレザー" },
-  { img: "/images/model-fragment.webp", title: "スリムフラグメントケース", total: 3120000, rate: 624, backers: 1480, tag: "シュリンクレザー" },
+// 実績（実際のプロジェクト。画像はプロジェクトページから）
+export type Result = { img: string; title: string; total: number; rate?: number; backers?: number; period: string; label?: string };
+export const RESULTS: Result[] = [
+  { img: "/images/cf-wallet-small.webp", title: "必要な機能をギュッと閉じ込めた『小さい財布』の至高。第2弾 最終改良版", total: 9210200, label: "購入総額", period: "2020.08.05 〜 2020.10.20" },
+  { img: "/images/cf-tote-mini.webp", title: "このサイズ感が良い。小さいトートバッグ", total: 5499401, rate: 2749, backers: 230, period: "2025.01.01 〜 2025.03.16" },
+  { img: "/images/cf-wallet-nobu.webp", title: "「縫わない美学」変化を楽しむ大人の財布", total: 2686459, rate: 1343, backers: 270, period: "2026.06.13 〜 2026.08.25" },
 ];
 export const HERO_STATS = [
   { v: "累計1億円", k: "クラファン支援額" },
