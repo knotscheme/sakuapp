@@ -118,14 +118,13 @@ export default function Hero() {
               <span className="line-mask"><span style={{ animationDelay: ".35s" }}>終わらせない。</span></span>
             </h1>
             <p className="hero-in mt-4 text-[13.5px] leading-relaxed text-ink sm:text-[14.5px]" style={{ animationDelay: ".5s" }}>
-              <span className="inline-block">革製品クラファンの実績者が伴走。</span><span className="inline-block"><span className="text-gold">小ロットOEM</span>と<span className="text-gold">売れるLP</span>を、</span><span className="inline-block">まるごとお任せ。</span>
+              <span className="inline-block">革製品づくり20年、クラファン累計1億円。</span><span className="inline-block">その実績で伴走します。</span><span className="inline-block"><span className="text-gold">小ロットOEM</span>と<span className="text-gold">売れるLP</span>を、</span><span className="inline-block">まるごとお任せ。</span>
             </p>
             <dl className="hero-in mt-5 grid max-w-[460px] grid-cols-3 gap-3 border-y border-line py-3" style={{ animationDelay: ".6s" }}>
               {HERO_STATS.map((x) => (
                 <div key={x.k}><dt className="sr-only">{x.k}</dt><dd className="font-num text-[16px] font-medium whitespace-nowrap sm:text-[19px]">{x.v}</dd><dd className="mt-0.5 text-[10.5px] leading-snug text-mute">{x.k}</dd></div>
               ))}
             </dl>
-            <p className="hero-in mt-1.5 text-[10px] text-mute" style={{ animationDelay: ".6s" }}>※数値はサンプルです（デモ版）</p>
             <div className="hero-in mt-5 flex items-center gap-8" style={{ animationDelay: ".75s" }}>
               <a href="#plans" className="group inline-flex items-center gap-3 bg-ink px-7 py-3.5 text-[13.5px] tracking-[0.1em] whitespace-nowrap text-white transition hover:bg-gold">
                 プランを見る <ArrowRight size={16} className="transition group-hover:translate-x-1" />

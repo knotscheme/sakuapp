@@ -9,7 +9,7 @@ const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600"
 
 export const metadata: Metadata = {
   title: "CRAFT OEM｜小ロットOEM×売れるLPのクラファン丸ごと支援（デモ版）",
-  description: "革製品クラファンの実績者が伴走。50個からの小ロットOEMと、撮影・構成・執筆まで含む売れるLP制作、クラファン後のShopify構築までをパッケージで。※デモ版です。",
+  description: "革製品づくり20年・クラウドファンディング累計1億円の実績で伴走。50個からの小ロットOEMと、撮影・構成・執筆まで含む売れるLP制作、クラファン後のShopify構築までをパッケージで。※デモ版です。",
   robots: { index: false },
 };
 

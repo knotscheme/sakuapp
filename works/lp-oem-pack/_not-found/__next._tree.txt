@@ -2,4 +2,4 @@
 :HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/1c8d_6f3zinsn.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"lzDFKfdY49knWB8xO4rCz","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"O5LRTPWVlfPcND-AnL-qh","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
