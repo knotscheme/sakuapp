@@ -34,7 +34,7 @@ export default function Hero() {
 
   const badges = [
     { top: "生産実績", big: "20", unit: "年", sub: "革製品づくり" },
-    { top: "クラファン累計", big: "1", unit: "億円", sub: "支援達成" },
+    { top: "クラファン", big: "1", unit: "億円", sub: "累計支援額" },
     { top: "小ロット", big: "50", unit: "個〜", sub: "カラー別OK" },
   ];
 
@@ -81,10 +81,10 @@ export default function Hero() {
           {badges.map((x) => (
             <li key={x.top} className="relative mx-auto grid aspect-square w-full max-w-[140px] place-items-center text-center text-[#e9cf8f]">
               <Laurel className="absolute inset-0 h-full w-full drop-shadow-[0_1px_6px_rgba(0,0,0,.35)]" />
-              <div className="relative -mt-[6%] flex w-[64%] flex-col items-center gap-1 text-white">
+              <div className="relative mt-[1%] flex w-[60%] flex-col items-center gap-0.5 text-white">
                 <small className="text-[8px] leading-tight font-bold whitespace-nowrap text-white/90 min-[380px]:text-[10px]">{x.top}</small>
-                <b className="font-display text-[24px] leading-none font-medium tabular-nums min-[380px]:text-[32px]">{x.big}<i className="ml-0.5 font-sans text-[10px] font-bold not-italic">{x.unit}</i></b>
-                <small className="mt-0.5 border-t border-[#e9cf8f]/70 pt-1 text-[7.5px] leading-tight whitespace-nowrap text-white/85 min-[380px]:text-[9px]">{x.sub}</small>
+                <b className="font-display text-[22px] leading-none font-medium tabular-nums min-[380px]:text-[28px]">{x.big}<i className="ml-0.5 font-sans text-[10px] font-bold not-italic">{x.unit}</i></b>
+                <small className="mt-0.5 border-t border-[#e9cf8f]/70 pt-0.5 text-[7.5px] leading-tight whitespace-nowrap text-white/85 min-[380px]:text-[9px]">{x.sub}</small>
               </div>
             </li>
           ))}
