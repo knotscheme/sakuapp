@@ -26,17 +26,25 @@ export default function FlowFaq() {
     <section id="faq" className="bg-white py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Flow" ja="ご相談から|一般販売までの|流れ" sub="期間はプランや数量によって|前後します。" />
-        <ol className="mx-auto max-w-3xl border-l border-line">
+        {/* 横にスワイプする写真カード（PCは4列×2段） */}
+        <ol className="-mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-6 px-6 pb-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:gap-4 md:overflow-visible md:px-0">
           {FLOW.map((s, i) => (
-            <li key={s.t} className="reveal relative pb-9 pl-8 last:pb-0" style={{ transitionDelay: `${i * 0.06}s` }}>
-              <span className="absolute top-0.5 -left-[11px] flex h-[22px] w-[22px] items-center justify-center rounded-full border border-ink bg-white font-num text-[11px]">{i + 1}</span>
-              <p className="flex flex-wrap items-baseline gap-x-3"><span className="text-[16px] font-medium">{s.t}</span><span className="text-[12px] text-gold">{s.d}</span></p>
-              <p className="mt-1.5 text-[13.5px] leading-relaxed text-mute"><NoOrphan text={s.b} /></p>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              {s.img && <img src={asset(s.img)} alt="" loading="lazy" className="mt-3 aspect-[16/9] w-full max-w-[360px] object-cover" />}
+            <li key={s.t} className="w-[72%] shrink-0 snap-start sm:w-[44%] md:w-auto">
+              <div className="relative aspect-[4/5] overflow-hidden bg-ink">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {s.img && <img src={asset(s.img)} alt="" loading="lazy" className="h-full w-full object-cover" />}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30" />
+                <span className="absolute top-3 left-3 font-num text-[30px] leading-none font-light text-white">{String(i + 1).padStart(2, "0")}</span>
+                <span className="absolute top-4 right-3 rounded-full bg-white/90 px-2 py-0.5 text-[10.5px] text-ink">{s.d}</span>
+                <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                  <p className="text-[16px] leading-snug font-medium">{s.t}</p>
+                  <p className="mt-1.5 text-[12px] leading-relaxed text-white/80">{s.b}</p>
+                </div>
+              </div>
             </li>
           ))}
         </ol>
+        <p className="mt-2 text-center text-[11.5px] text-mute md:hidden">横にスワイプして見られます →</p>
 
         <div className="mt-28">
           <SectionTitle en="Rules" ja="はじめに決めておく、|安心のルール" sub="やり取りや修正が膨らまないように、|最初に約束しておきます。" />
