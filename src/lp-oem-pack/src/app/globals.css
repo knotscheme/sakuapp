@@ -248,3 +248,6 @@ html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top
 .hero-kb { animation: heroKb 4s ease-out both; }
 @keyframes heroKb { from { transform: scale(1.12); } to { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .hero-kb { animation: none; } }
+
+/* 見出しは約物（、。「」など）の余白を詰める（プロポーショナル）。本文は読みやすさのため詰めない */
+h1, h2, h3, .palt { font-feature-settings: "palt" 1; }
