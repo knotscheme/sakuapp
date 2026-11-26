@@ -49,7 +49,7 @@ export default function Hero() {
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${i === cur ? "hero-kb opacity-100" : "opacity-0"}`} style={{ objectPosition: x.pos }} />
           ))}
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/25 to-black/30 md:bg-gradient-to-r md:from-[#141210] md:via-[#141210]/70 md:to-transparent" />
+        <div className="absolute inset-x-0 top-0 -bottom-[3px] bg-gradient-to-t from-[#141210] from-[3px] via-[#141210]/25 to-black/30 md:bg-gradient-to-r md:from-[#141210] md:via-[#141210]/70 md:to-transparent" />
         {/* いまの写真の位置（押すとその写真へ） */}
         <div className="absolute top-20 right-4 z-[2] flex flex-col gap-1 md:top-auto md:right-8 md:bottom-8 md:flex-row">
           {SLIDES.map((x, i) => (
