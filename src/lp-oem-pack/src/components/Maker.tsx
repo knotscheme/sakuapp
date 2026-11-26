@@ -12,7 +12,7 @@ export default function Maker() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={asset("/images/work-parts.webp")} alt="縫製前の黒い革のパーツ" loading="lazy" className="aspect-square w-full object-cover" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={asset("/images/office-lounge.webp")} alt="打ち合わせのできるオフィス" loading="lazy" className="aspect-square w-full object-cover" />
+          <img src={asset("/images/office-lounge.webp")} alt="工房のオフィス" loading="lazy" className="aspect-square w-full object-cover" />
         </div>
         <div className="reveal-r">
           <p className="font-display text-[12px] tracking-[0.4em] text-mute uppercase">Message</p>

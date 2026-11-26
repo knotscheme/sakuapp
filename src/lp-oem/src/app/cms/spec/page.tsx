@@ -58,13 +58,13 @@ function Editor({ dealId, who, edit }: { dealId: string; who: string; edit: bool
           {edit && <button type="button" onClick={async () => { if (await askConfirm({ title: "仕様書を修正しますか？", body: "修正中は見積を送れません。直したら、もう一度確定してください。", ok: "修正する" })) reopenSpec(d.id, who); }} className="ml-auto rounded-full border border-[#1e6b34]/40 px-3 py-1 text-[12px]">修正する</button>}
         </p>
       ) : (
-        <p className="mb-4 rounded-lg bg-[#fbf3e2] px-4 py-3 text-[13px] text-[#8a650c] print:hidden">お客様と打ち合わせて、寸法・革の量・抜き型・設計図をまとめてください。確定すると見積を送れるようになります。</p>
+        <p className="mb-4 rounded-lg bg-[#fbf3e2] px-4 py-3 text-[13px] text-[#8a650c] print:hidden">お客様とのチャットで、寸法・革の量・抜き型・設計図をまとめてください。確定すると見積を送れるようになります。</p>
       )}
 
       <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
         <div className="space-y-5">
           <Card>
-            <CardHead>1. 打ち合わせ</CardHead>
+            <CardHead note="打ち合わせはチャットで。決めたことをここにまとめる">1. 打ち合わせ（チャット）</CardHead>
             <div className="grid gap-3 border-t border-line p-5 sm:grid-cols-[10em_1fr]">
               <label className="text-[12px] text-mute">日付<input type="date" value={s.meetAt ?? ""} disabled={locked} onChange={(e) => set("meetAt", e.target.value)} className={`mt-1 ${field}`} /></label>
               <label className="text-[12px] text-mute">決めたこと・メモ<textarea value={s.meetMemo ?? ""} disabled={locked} onChange={(e) => set("meetMemo", e.target.value)} rows={3} placeholder="例）カード段は3段、小銭入れはマチ付き。革はハイブリッドの標準色から" className={`mt-1 resize-y ${field}`} /></label>
