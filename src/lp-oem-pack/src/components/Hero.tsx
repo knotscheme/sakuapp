@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { asset } from "@/lib/asset";
 import Laurel from "./Laurel";
 
-// ファーストビュー：革の壁の写真の上に、合言葉「売れるまで、つくる。」と、0 → 1億円まで一気に数える数字
+// ファーストビュー：革の壁の写真の上に、合言葉「「アイデア」を、「売れた」に。」と、0 → 1億円まで一気に数える数字
 // 写真のスライダー（自動で切り替わる）。pos：切り抜くときの中心
 const SLIDES = [
   { src: "/images/work-totes.webp", alt: "仕上げ前の革のトートバッグと長財布が並ぶ作業台", pos: "55% 55%" },
@@ -61,10 +61,10 @@ export default function Hero() {
       </div>
 
       <div className="relative z-[1] -mt-48 flex flex-1 flex-col px-6 pb-8 md:mx-auto md:mt-0 md:min-h-[100svh] md:max-w-6xl md:justify-center md:px-8 md:pt-24 md:pb-16">
-        <p className="hero-in font-display text-[10.5px] tracking-[0.3em] text-white/75" style={{ animationDelay: ".05s" }}>LEATHER OEM / ODM × CROWDFUNDING</p>
-        <h1 className="mt-2 text-[clamp(38px,13.4vw,56px)] leading-[1.08] font-bold tracking-[0.01em] [text-shadow:0_2px_24px_rgba(0,0,0,.5)] sm:text-[72px] lg:text-[96px]">
-          <span className="line-mask"><span style={{ animationDelay: ".1s" }}>売れるまで、</span></span>
-          <span className="line-mask"><span style={{ animationDelay: ".2s" }}><span className="text-gold">つくる。</span></span></span>
+        <p className="hero-in font-display text-[10px] tracking-[0.18em] whitespace-nowrap text-white/75 min-[380px]:text-[10.5px] min-[380px]:tracking-[0.3em]" style={{ animationDelay: ".05s" }}>LEATHER OEM / ODM × CROWDFUNDING</p>
+        <h1 className="mt-2 text-[clamp(34px,11.2vw,56px)] leading-[1.08] font-bold tracking-[0.01em] [text-shadow:0_2px_24px_rgba(0,0,0,.5)] sm:text-[72px] lg:text-[96px]">
+          <span className="line-mask"><span style={{ animationDelay: ".1s" }}>「アイデア」を、</span></span>
+          <span className="line-mask"><span style={{ animationDelay: ".2s" }}><span className="text-gold">「売れた」</span>に。</span></span>
         </h1>
         <p className="hero-in mt-4 max-w-md text-[14px] leading-relaxed text-white/85 sm:text-[15.5px]" style={{ animationDelay: ".3s" }}>
           <span className="inline-block">革製品づくり20年のつくり手が、</span><span className="inline-block">設計・小ロット生産から売れるLP、</span><span className="inline-block">クラファン、自社ECまで伴走。</span>
