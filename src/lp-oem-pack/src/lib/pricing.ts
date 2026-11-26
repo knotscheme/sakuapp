@@ -14,7 +14,7 @@ export const DEFAULT_PRICING: Pricing = {
   logs: [],
 };
 
-const KEY = "craftpack-oem-pricing-v1";
+const KEY = "craft-oem-pricing-v1";
 // 最初の表示（サーバーで作ったHTML）と合わせるため、読み込むまでは初期値を使う
 let active: Pricing = DEFAULT_PRICING;
 let loaded = false;

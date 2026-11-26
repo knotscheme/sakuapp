@@ -8,7 +8,7 @@ import { ClipboardList, MessageSquare } from "lucide-react";
 import { MsgThread, unreadOf } from "@/components/cms/Messages";
 import { Camera, Check, FileText, Truck } from "lucide-react";
 import { useCatalog } from "@/components/cms/catalog";
-import { daysLeft, FACTORY, PROD_STEPS, colorLines, trLeather, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
+import { kindInfo, kindOf, daysLeft, FACTORY, PROD_STEPS, colorLines, trLeather, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
 import { ProofView } from "@/components/cms/Proof";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { Card, NoAccess, Shell, TechNote } from "@/components/cms/ui";
@@ -100,7 +100,7 @@ export default function FactoryPage() {
               <div className="flex gap-4 p-5">
                 <div className="w-32 shrink-0 self-start"><ProofView d={d} label={false} /></div>
                 <div className="min-w-0 flex-1 text-[13px]">
-                  <p className="flex items-center gap-1.5 text-[11.5px] text-mute">PO-{d.id.slice(2)}{d.urgent && !shipped && <span className="rounded bg-[#9b2c2c] px-1.5 py-px text-[10.5px] font-medium text-white">{s2.urgent}</span>}</p>
+                  <p className="flex items-center gap-1.5 text-[11.5px] text-mute">PO-{d.id.slice(2)}<span className={`rounded px-1.5 py-px text-[10.5px] font-medium ${kindOf(d) === "odm" ? "bg-[#2a4f9e] text-white" : "border border-line text-ink/70"}`}>{kindInfo(d)[lang === "ja" ? "short" : lang]}</span>{d.urgent && !shipped && <span className="rounded bg-[#9b2c2c] px-1.5 py-px text-[10.5px] font-medium text-white">{s2.urgent}</span>}</p>
                   <p className="font-medium"><Ph>{trModel(d.model, lang)}</Ph></p>
                   <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{trFinish(d.finish, lang)}</p>
                   <p className="text-ink/80"><Ph>{trLeather(d, lang)}</Ph></p>

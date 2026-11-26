@@ -9,7 +9,7 @@ import { checkReminders, discardDraft, pendingDrafts, sendDraft, useDeals } from
 import { useAuth } from "@/components/cms/perm";
 import { askConfirm } from "@/components/cms/Confirm";
 import { ProofPair, ProofView, sizeText } from "@/components/cms/Proof";
-import { NoAccess, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
+import { KindBadge, NoAccess, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
 
 // 確認待ち：システムが自動で作った下書き（返信と見積・ロゴ配置案・工場への発注・入金のお願い）を、人が確認して送る
 const TONE: Record<Draft["kind"], string> = { reply: "bg-[#eef4ff] text-[#2a4f9e]", proof: "bg-[#fbf3e2] text-[#8a650c]", factory: "bg-[#fde8e8] text-[#9b2c2c]", remind: "bg-[#f1f1ef] text-ink" };
@@ -97,7 +97,7 @@ function Editor({ d, x, who, onBack }: { d: Deal; x: Draft; who: string; onBack:
         <button type="button" onClick={onBack} aria-label="一覧に戻る" className="rounded-full p-2 text-mute hover:bg-[#f1f1f0] md:hidden"><ChevronLeft size={20} /></button>
         <div className="w-12 shrink-0 overflow-hidden rounded-lg"><ProofView d={d} label={false} /></div>
         <div className="min-w-0 flex-1">
-          <p className="flex items-center gap-2 text-[14px] font-semibold"><span className="truncate">{d.brand}</span><StageBadge stage={d.stage} /></p>
+          <p className="flex items-center gap-2 text-[14px] font-semibold"><KindBadge d={d} /><span className="truncate">{d.brand}</span><StageBadge stage={d.stage} /></p>
           <p className="truncate text-[11.5px] text-mute">{d.id}・{modelOf(d.model).short}・合計{d.lot}個</p>
         </div>
         <Link href={`/cms/deal/?id=${d.id}`} className="flex shrink-0 items-center gap-1 rounded-full border border-line px-2.5 py-2 text-[12px] hover:border-ink"><span className="hidden sm:inline">案件を開く</span><span className="sm:hidden">案件</span><ExternalLink size={12} /></Link>

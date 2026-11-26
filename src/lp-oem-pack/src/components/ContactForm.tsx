@@ -119,7 +119,7 @@ export default function ContactForm() {
       const lg = await logo;
       setSending(false);
       // デモ：管理画面（CMS）の案件ボードに、問い合わせとして追加する
-      addInquiry({ leather: leather ? { name: leather.name, code: leather.code, add: leather.add, img: leather.img, group: leather.group, tan: leather.tan, en: leather.en, th: leather.th } : undefined, brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), plan: PLAN_CHOICES.find((x) => x.id === plan)?.name, message: ((plan ? `【ご希望のプラン】${PLAN_CHOICES.find((x) => x.id === plan)?.name}\n` : "") + lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
+      addInquiry({ leather: leather ? { name: leather.name, code: leather.code, add: leather.add, img: leather.img, group: leather.group, tan: leather.tan, en: leather.en, th: leather.th } : undefined, brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), kind: plan === "oem" ? "oem" : "odm", plan: plan && plan !== "oem" && plan !== "undecided" ? PLAN_CHOICES.find((x) => x.id === plan)?.name : undefined, message: ((plan ? `【ご希望のプラン】${PLAN_CHOICES.find((x) => x.id === plan)?.name}\n` : "") + lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
       setDone(true);
     }, 1100);
   };

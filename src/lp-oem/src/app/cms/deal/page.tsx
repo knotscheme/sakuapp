@@ -5,13 +5,13 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIcon, Activity } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS, colorLines, leatherName, makeDraft, type Deal } from "@/lib/cms";
+import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS, kindInfo, colorLines, leatherName, makeDraft, type Deal } from "@/lib/cms";
 import { leathersOf, minLotOf, useCatalog } from "@/components/cms/catalog";
 import { getPricing } from "@/lib/pricing";
 import { asset } from "@/lib/asset";
 import { addLog, advance, confirmPayment, revert, updateDeal, useDeals } from "@/components/cms/store";
 import { askConfirm } from "@/components/cms/Confirm";
-import { Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useNavHidden, useQuery } from "@/components/cms/ui";
+import { KindBadge, Card, CardHead, DueBadge, NoAccess, Shell, StageBadge, TechNote, useNavHidden, useQuery } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
 import { ProofCard } from "./proof-card";
 import { ItemsEditor } from "./items";
@@ -59,6 +59,8 @@ export default function DealPage() {
       title={`${d.id}　${d.brand}`}
       actions={<Link href={`/cms/portal/?id=${d.id}`} className="hidden items-center gap-1.5 text-[12px] text-mute hover:text-ink sm:flex">お客様の画面 <ExternalLink size={13} /></Link>}
     >
+      {/* 依頼の種類（OEM・ODM） */}
+      <p className="-mt-2 mb-4 flex flex-wrap items-center gap-2 text-[12.5px]"><KindBadge d={d} long /><span className="text-mute">{kindInfo(d).note}</span></p>
       {/* 段階 */}
       <Card className="px-5 py-4 md:hidden">
         <div className="flex items-baseline justify-between text-[13px]"><span className="font-semibold">{STAGES[si].ja}</span><span className="text-[11.5px] text-mute">{si + 1} / {STAGES.length}</span></div>
