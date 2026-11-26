@@ -14,7 +14,7 @@ const SCENES: Scene[] = [
   { no: "02", en: "Design", t: "型紙と抜き型から、あなただけの形に。", b: "クラファンは新しい製品が前提。デザインを図面にし、型紙と抜き型をつくって、パーツを裁断します。", v: { kind: "photo", src: "/images/work-parts.webp", alt: "裁断した黒い革のパーツ", pos: "55% 55%" } },
   { no: "03", en: "Make", t: "ひと針ずつ、縫い上げる。", b: "タイの提携工場で、50個から。パーツの段階から検品して仕上げます。", v: { kind: "video", src: "/images/sewing.mp4", poster: "/images/sewing-poster.webp", pos: "62% 45%" } },
   { no: "04", en: "Show", t: "撮影して、売れるLPに。", b: "撮影・構成・執筆までまとめて。革の産地や鞣しまで知っているから、根拠のある言葉で伝えられます。", v: { kind: "lp" } },
-  { no: "05", en: "Sell", t: "クラファンで、一気に届ける。", b: "リターン設計から公開後の告知まで伴走。支援が集まった分だけ生産するので、在庫を抱えません。", v: { kind: "meter" } },
+  { no: "05", en: "Sell", t: "クラファンで、一気に届ける。", b: "リターン設計から公開後の告知まで伴走。写真は、いま公開中の私たちのプロジェクトです。", v: { kind: "meter" } },
   { no: "06", en: "Keep selling", t: "自社ECで、売れ続ける。", b: "クラファンの写真と文章で、Shopifyのお店を。追加生産も型紙と抜き型があるので、すぐに。", v: { kind: "ec" } },
 ];
 
@@ -88,23 +88,11 @@ function Mock({ v, fill, total }: { v: Visual; fill: number; total: number }) {
     );
   }
   if (v.kind === "meter") {
-    // クラファンのページ（イメージ）：支援額が伸びる
+    // 実際のクラファンページ（CAMPFIRE・公開中のプロジェクト）
     return (
       <Phone>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset("/images/model-long.webp")} alt="" className="aspect-[4/3] w-full object-cover" />
-        <div className="px-3 pt-3">
-          <p className="text-[8px] text-mute">現在の支援総額</p>
-          <p className="font-num text-[20px] leading-tight font-bold tabular-nums">¥{total.toLocaleString("ja-JP")}</p>
-          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#eee]"><div className="h-full rounded-full bg-[#e85a4f]" style={{ width: `${Math.min(100, fill * 100)}%` }} /></div>
-          <p className="mt-1 flex justify-between text-[8px]"><span className="text-mute">目標 ¥1,000,000</span><b className="text-[#e85a4f] tabular-nums">{Math.round(fill * 1280)}%</b></p>
-          <div className="mt-2.5 grid grid-cols-2 border-t border-[#eee] pt-2 text-center">
-            <div><p className="text-[7px] text-mute">支援者</p><p className="text-[11px] font-bold tabular-nums">{Math.round(fill * 1240).toLocaleString()}人</p></div>
-            <div><p className="text-[7px] text-mute">残り</p><p className="text-[11px] font-bold">12日</p></div>
-          </div>
-          <p className="mt-2.5 rounded bg-[#e85a4f] py-1.5 text-center text-[9px] font-bold text-white">支援する</p>
-          <p className="mt-1.5 text-center text-[6.5px] text-mute">※イメージです</p>
-        </div>
+        <img src={asset("/images/cf-page.webp")} alt="CAMPFIREで公開中のプロジェクトページ" className="h-full w-full object-cover object-top" />
       </Phone>
     );
   }
