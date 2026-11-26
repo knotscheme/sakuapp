@@ -117,13 +117,13 @@ function Mock({ v, fill, total }: { v: Visual; fill: number; total: number }) {
 }
 
 // 画面のイメージは、暗くぼかした写真の上に置く（ほかの場面と同じく画面いっぱいの見た目に）
-const MOCK_BG: Record<string, string> = { lp: "/images/studio-tag.webp", meter: "/images/work-totes.webp", ec: "/images/ai-ecshop.webp" };
+const MOCK_BG: Record<string, string> = { lp: "/images/ai-shooting.webp", meter: "/images/work-totes.webp", ec: "/images/ai-ecshop.webp" };
 function SceneVisual({ v, fill, total }: { v: Visual; fill: number; total: number }) {
   if (v.kind === "photo" || v.kind === "video") return <div className="relative h-full w-full"><Mock v={v} fill={fill} total={total} /><div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/40 to-transparent" /></div>;
   return (
     <div className="relative h-full w-full">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={asset(MOCK_BG[v.kind])} alt="" loading="lazy" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-[6px]" />
+      <img src={asset(MOCK_BG[v.kind])} alt="" loading="lazy" className={`absolute inset-0 h-full w-full object-cover ${v.kind === "lp" ? "opacity-80" : "scale-110 opacity-45 blur-[6px]"}`} />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/40 to-transparent" />
       <div className="absolute inset-x-0 top-[9svh] bottom-[46svh] flex justify-center md:top-[12svh] md:bottom-[12svh] md:left-1/2">
         <Mock v={v} fill={fill} total={total} />
