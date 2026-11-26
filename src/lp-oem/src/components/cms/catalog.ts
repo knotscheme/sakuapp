@@ -5,6 +5,7 @@
 import { useSyncExternalStore } from "react";
 import { ALL_MODELS, MODELS, type BaseModel } from "@/lib/models";
 import { asset } from "@/lib/asset";
+import { autoLeatherTr } from "@/lib/leatherTr";
 
 export type Cat = { id: string; name: string };
 export type Product = {
@@ -29,7 +30,10 @@ export type Product = {
 // 革素材：name はお客様にも見える名前。dsPrice（デシ単価・円）は社内用。add はお客様の単価への上乗せ（1個・円）
 // ※1デシ＝10cm×10cm
 // colors：この革で作れるカラー（登録したカラーの名前）。無ければ全部の色で作れる
-export type LeatherDef = { id: string; name: string; code: string; dsPrice: number; add: number; img?: string; colors?: string[] }; // img：革の見本の写真
+// group：系統（イタリアンレザー・国産レザーなど）、tan：鞣し方、en・th：工場向けの英語・タイ語の名前（空なら日本語のまま出す）
+export type LeatherDef = { id: string; name: string; code: string; dsPrice: number; add: number; img?: string; colors?: string[]; group?: string; tan?: Tan; en?: string; th?: string }; // img：革の見本の写真
+export type Tan = "タンニン鞣し" | "クロム鞣し" | "混合鞣し";
+export const TANS: Tan[] = ["タンニン鞣し", "クロム鞣し", "混合鞣し"];
 // 例：{ name: "カラー", values: ["ブラック", "キャメル"] }
 // kind：color は登録したカラーから、size は登録したサイズから選ぶ。custom は自由に入力
 export type VOption = { name: string; values: string[]; kind?: "color" | "size" | "custom" };
@@ -43,21 +47,29 @@ export type SizeDef = { id: string; name: string };
 type Catalog = { cats: Cat[]; products: Product[]; colors: ColorDef[]; sizes: SizeDef[]; leathers: LeatherDef[]; lp: string[] };
 
 const KEY = "craft-oem-catalog-v3";
+const ALL4 = ["ブラック", "ダークブラウン", "キャメル", "ネイビー"];
+// 初期の革（デシ単価・上乗せ・作れる色は仮の値。管理画面で直せる）
 const SEED_LEATHERS: LeatherDef[] = [
-  { id: "l-st", name: "牛革スムース（標準）", code: "ST", dsPrice: 45, add: 0, img: "/images/leather-st.webp" },
-  { id: "l-sh", name: "シュリンクレザー", code: "SH", dsPrice: 55, add: 200, img: "/images/leather-sh.webp", colors: ["ブラック", "ダークブラウン", "ネイビー", "グレー"] },
-  { id: "l-nm", name: "ヌメ革", code: "NM", dsPrice: 60, add: 300, img: "/images/leather-nm.webp", colors: ["キャメル", "ダークブラウン", "アイボリー"] },
-  { id: "l-it", name: "イタリアンレザー", code: "IT", dsPrice: 95, add: 800, img: "/images/leather-it.webp", colors: ["ブラック", "ダークブラウン", "キャメル", "ネイビー"] },
+  { id: "l-my", group: "イタリアンレザー", tan: "タンニン鞣し", name: "マヤレザー", en: "Maya leather", th: "หนังมายา", code: "MY", dsPrice: 90, add: 800, img: "/images/leather-it.webp", colors: ALL4 },
+  { id: "l-ms", group: "イタリアンレザー", tan: "タンニン鞣し", name: "ミッスーリレザー", en: "Missouri leather", th: "หนังมิสซูรี", code: "MS", dsPrice: 95, add: 900, img: "/images/leather-st.webp", colors: ["ブラック", "ダークブラウン", "キャメル"] },
+  { id: "l-ak", group: "イタリアンレザー", tan: "タンニン鞣し", name: "アラスカレザー", en: "Alaska leather", th: "หนังอลาสก้า", code: "AK", dsPrice: 100, add: 1000, img: "/images/leather-vc.webp", colors: ["ブラック", "ダークブラウン", "ネイビー"] },
+  { id: "l-tv", group: "国産レザー", tan: "タンニン鞣し", name: "たつの（ヴィンテージ）", en: "Tatsuno leather (vintage)", th: "หนังทัตสึโนะ (วินเทจ)", code: "TV", dsPrice: 75, add: 600, img: "/images/leather-tv.webp", colors: ["ダークブラウン", "キャメル"] },
+  { id: "l-tn", group: "国産レザー", tan: "タンニン鞣し", name: "たつの（本ヌメ）", en: "Tatsuno leather (natural veg-tan)", th: "หนังทัตสึโนะ (หนังฟอกฝาดธรรมชาติ)", code: "TN", dsPrice: 70, add: 500, img: "/images/leather-nm.webp", colors: ["キャメル", "アイボリー"] },
+  { id: "l-tj", group: "国産レザー", tan: "タンニン鞣し", name: "栃木レザー（ジーンズ）", en: "Tochigi leather (jeans)", th: "หนังโทจิงิ (ยีนส์)", code: "TJ", dsPrice: 80, add: 700, img: "/images/leather-jn.webp", colors: ["ネイビー"] },
+  { id: "l-vc", group: "オリジナルレザー", tan: "タンニン鞣し", name: "ヴァイカウント", en: "Viscount leather", th: "หนังไวเคานต์", code: "VC", dsPrice: 60, add: 300, img: "/images/leather-vc.webp", colors: ALL4 },
+  { id: "l-hb", group: "オリジナルレザー", tan: "タンニン鞣し", name: "ハイブリッド（混合鞣し）", en: "Hybrid leather (combination tanned)", th: "หนังไฮบริด (ฟอกผสม)", code: "HB", dsPrice: 50, add: 0, img: "/images/leather-it.webp", colors: [...ALL4, "グレー"] },
+  { id: "l-sh", group: "シュリンクレザー", tan: "クロム鞣し", name: "シュリンクレザー", en: "Shrink leather", th: "หนังชริงค์", code: "SH", dsPrice: 45, add: 0, img: "/images/leather-sh.webp", colors: ["ブラック", "ダークブラウン", "ネイビー", "グレー"] },
 ];
-// 商品ごとの使用デシ数・加工賃（初期の値）
+// 商品ごとの使用デシ数・加工賃・選べる革（先頭が標準）（初期の値）
 const SEED_COST: Record<string, { ds: number; labor: number; leathers: string[] }> = {
-  long: { ds: 14, labor: 900, leathers: ["l-st", "l-sh", "l-it"] },
-  bifold: { ds: 8, labor: 700, leathers: ["l-st", "l-sh", "l-it"] },
-  trifold: { ds: 7, labor: 650, leathers: ["l-st", "l-nm", "l-it"] },
-  fragment: { ds: 4, labor: 400, leathers: ["l-st", "l-sh"] },
-  tote: { ds: 45, labor: 1800, leathers: ["l-st", "l-nm"] },
-  phone: { ds: 12, labor: 900, leathers: ["l-st", "l-sh"] },
+  long: { ds: 14, labor: 900, leathers: ["l-hb", "l-vc", "l-my", "l-ms", "l-ak", "l-tv"] },
+  bifold: { ds: 8, labor: 700, leathers: ["l-hb", "l-sh", "l-vc", "l-my", "l-ms", "l-tj"] },
+  trifold: { ds: 7, labor: 650, leathers: ["l-hb", "l-vc", "l-my", "l-tv", "l-tn"] },
+  fragment: { ds: 4, labor: 400, leathers: ["l-hb", "l-sh", "l-my", "l-tj"] },
+  tote: { ds: 45, labor: 1800, leathers: ["l-hb", "l-ak", "l-tv", "l-tn"] },
+  phone: { ds: 12, labor: 900, leathers: ["l-hb", "l-sh", "l-my", "l-tj"] },
 };
+const OLD_LEATHERS = ["l-st", "l-nm", "l-it"]; // 以前の初期の革（新しい革に置きかえる）
 let cache: Catalog | null = null;
 const subs = new Set<() => void>();
 
@@ -104,6 +116,12 @@ export function loadCatalog(): Catalog {
 }
 // 革素材を入れる前に保存したデータには、初期の革と、初期の商品の原価を足す（登録した商品や変更はそのまま）
 function migrate(c: Catalog): Catalog {
+  // 革を系統（イタリアン・国産・オリジナル・シュリンク）に分ける前のデータ：初期の革を新しい革に置きかえ、初期の商品の革も新しくする（追加した革はそのまま）
+  if (c.leathers && !c.leathers.some((l) => l.group)) {
+    const mine = c.leathers.filter((l) => !OLD_LEATHERS.includes(l.id) && l.id !== "l-sh");
+    const map = (ids?: string[]) => ids && [...new Set(ids.map((id) => (OLD_LEATHERS.includes(id) ? "l-hb" : id)))];
+    c = { ...c, leathers: [...SEED_LEATHERS, ...mine], products: c.products.map((p) => (SEED_COST[p.id] ? { ...p, leathers: SEED_COST[p.id].leathers } : { ...p, leathers: map(p.leathers) })) };
+  }
   // LPの表示順を入れる前のデータ：シミュレーターのある公開中の商品を、今の並びのままLPに出す
   if (!c.lp) c = { ...c, lp: c.products.filter((p) => p.visible && ALL_MODELS.some((m) => m.id === p.id)).map((p) => p.id) };
   // 革ごとのカラーを入れる前の初期の革には、初期のカラーを足す
@@ -270,11 +288,11 @@ export function deleteSize(id: string) {
   return true;
 }
 // ===== 革素材の登録 =====
-export function addLeather(name: string, code: string, dsPrice: number, add: number, img?: string) {
+export function addLeather(name: string, code: string, dsPrice: number, add: number, img?: string, group?: string, tan?: Tan) {
   const c = loadCatalog();
   if (c.leathers.some((x) => x.name === name)) return false;
   const cd = code.normalize("NFKC").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 4) || `L${c.leathers.length + 1}`;
-  save({ ...c, leathers: [...c.leathers, { id: `l-${Date.now().toString(36)}`, name, code: cd, dsPrice: Math.max(0, dsPrice), add: Math.max(0, add), img }] });
+  save({ ...c, leathers: [...c.leathers, { id: `l-${Date.now().toString(36)}`, name, code: cd, dsPrice: Math.max(0, dsPrice), add: Math.max(0, add), img, group: group?.trim() || undefined, tan, ...autoLeatherTr(name) }] });
   return true;
 }
 export function updateLeather(id: string, patch: Partial<Omit<LeatherDef, "id">>) {
@@ -412,3 +430,4 @@ export function skuList(products: Product[], exceptId?: string) {
   }
   return out;
 }
+

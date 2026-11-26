@@ -107,7 +107,7 @@ export default function ContactForm() {
       const lg = await logo;
       setSending(false);
       // デモ：管理画面（CMS）の案件ボードに、問い合わせとして追加する
-      addInquiry({ leather: leather ? { name: leather.name, code: leather.code, add: leather.add, img: leather.img } : undefined, brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: (lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
+      addInquiry({ leather: leather ? { name: leather.name, code: leather.code, add: leather.add, img: leather.img, group: leather.group, tan: leather.tan, en: leather.en, th: leather.th } : undefined, brand: name.trim(), email: email.trim(), model: model && model !== "undecided" ? (model as ModelId) : "long", lot: total > 0 ? total : lot === "more" || !lot ? 300 : Number(lot), message: (lotNote + message).trim() || undefined, noLogo: !logoOn, logo: lg?.src, logoAspect: lg?.ar, items: total > 0 ? colorChoices.filter((c) => qtys[c] > 0).map((c) => ({ color: c, qty: qtys[c] })) : undefined });
       setDone(true);
     }, 1100);
   };
@@ -171,8 +171,11 @@ export default function ContactForm() {
             {leatherList.length > 1 && (
               <fieldset className="min-w-0 text-sm font-bold md:col-span-2">
                 <legend>革素材</legend>
-                <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                  {leatherList.map((l, i) => {
+                {[...new Set(leatherList.map((l) => l.group ?? ""))].map((g) => (
+                <div key={g || "none"} className="mt-3">
+                {g && <p className="mb-1.5 text-[12px] font-medium text-ink/80">{g}<span className="ml-1.5 text-[11px] font-normal text-mute">{[...new Set(leatherList.filter((l) => l.group === g).map((l) => l.tan).filter(Boolean))].join("・")}</span></p>}
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {leatherList.filter((l) => (l.group ?? "") === g).map((l) => { const i = leatherList.indexOf(l);
                     const on = leather?.id === l.id;
                     return (
                       <label key={l.id} className={`flex cursor-pointer items-center gap-3 border p-2 pr-4 transition ${on ? "border-ink bg-ink text-white" : "border-line hover:border-mute"}`}>
@@ -185,6 +188,8 @@ export default function ContactForm() {
                     );
                   })}
                 </div>
+                </div>
+                ))}
               </fieldset>
             )}
             <fieldset className="min-w-0 text-sm font-bold md:col-span-2">

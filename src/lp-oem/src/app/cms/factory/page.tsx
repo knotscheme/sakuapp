@@ -8,7 +8,7 @@ import { ClipboardList, MessageSquare } from "lucide-react";
 import { MsgThread, unreadOf } from "@/components/cms/Messages";
 import { Camera, Check, FileText, Truck } from "lucide-react";
 import { useCatalog } from "@/components/cms/catalog";
-import { daysLeft, FACTORY, PROD_STEPS, colorLines, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
+import { daysLeft, FACTORY, PROD_STEPS, colorLines, trLeather, stageIndex, trColor, trFinish, trModel } from "@/lib/cms";
 import { ProofView } from "@/components/cms/Proof";
 import { addLog, advance, updateDeal, useDeals } from "@/components/cms/store";
 import { Card, NoAccess, Shell, TechNote } from "@/components/cms/ui";
@@ -103,6 +103,7 @@ export default function FactoryPage() {
                   <p className="flex items-center gap-1.5 text-[11.5px] text-mute">PO-{d.id.slice(2)}{d.urgent && !shipped && <span className="rounded bg-[#9b2c2c] px-1.5 py-px text-[10.5px] font-medium text-white">{s2.urgent}</span>}</p>
                   <p className="font-medium"><Ph>{trModel(d.model, lang)}</Ph></p>
                   <p className="mt-1 text-ink/80">{t.qty}: {d.lot}・{trFinish(d.finish, lang)}</p>
+                  <p className="text-ink/80"><Ph>{trLeather(d, lang)}</Ph></p>
                   <p className="text-ink/80"><Ph>{colorLines(d).map((x) => `${trColor(x.color, lang)} ${x.qty}`).join(" / ")}</Ph></p>
                   <p className="text-ink/80">{t.ship}: {d.due}{!shipped && <span className={`ml-1.5 inline-block whitespace-nowrap text-[11.5px] ${left < 0 ? "font-medium text-red-600" : left <= 3 ? "text-[#8a650c]" : "text-mute"}`}>（{s2.left(left)}）</span>}</p>
                   <Link href={`/cms/doc/?id=${d.id}&type=work`} className="tap mt-1.5 inline-flex items-center gap-1 text-[12px] underline underline-offset-4"><FileText size={13} />{t.order}</Link>

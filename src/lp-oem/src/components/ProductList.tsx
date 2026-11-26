@@ -60,8 +60,11 @@ function LeatherPick({ list, value, onChange }: { list: LeatherDef[]; value?: st
   return (
     <div className="mt-4">
       <p className="text-[12px] text-mute">革素材<span className="ml-2 text-ink">{cur.name}</span></p>
-      <div className="mt-2 flex flex-wrap gap-1.5" role="radiogroup" aria-label="革素材">
-        {list.map((l) => (
+      {[...new Set(list.map((l) => l.group ?? ""))].map((g) => (
+      <div key={g || "none"} className="mt-2">
+      {g && <p className="mb-1 text-[11px] text-mute">{g}<span className="ml-1.5">{[...new Set(list.filter((l) => l.group === g).map((l) => l.tan).filter(Boolean))].join("・")}</span></p>}
+      <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label={g || "革素材"}>
+        {list.filter((l) => (l.group ?? "") === g).map((l) => (
           <button key={l.id} type="button" role="radio" aria-checked={cur.id === l.id} onClick={() => onChange(l.id)}
             className={`flex items-center gap-1.5 border py-1 pr-2.5 pl-1 text-[11.5px] transition ${cur.id === l.id ? "border-ink bg-ink text-white" : "border-line text-ink/80 hover:border-ink"}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -70,6 +73,8 @@ function LeatherPick({ list, value, onChange }: { list: LeatherDef[]; value?: st
           </button>
         ))}
       </div>
+      </div>
+      ))}
     </div>
   );
 }

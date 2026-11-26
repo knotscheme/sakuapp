@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowDown, ArrowUp, ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
 import { moveLp, moveProduct, renameSize, setLp, updateColor } from "@/components/cms/catalog";
-import { colorsForLeather, toggleLeatherColor } from "@/components/cms/catalog";
+import { TANS, colorsForLeather, toggleLeatherColor, type LeatherDef, type Tan } from "@/components/cms/catalog";
 import { addLeather, costOf, deleteLeather, leathersOf, updateLeather } from "@/components/cms/catalog";
 import { lotChoices, rateFor, usePricing } from "@/lib/pricing";
 import { MAX_SUB, skuList, addColor, addSize, deleteColor, deleteSize, setColorHex, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
@@ -322,16 +322,25 @@ function LeatherCard() {
   const [ds, setDs] = useState("");
   const [add, setAdd] = useState("");
   const [img, setImg] = useState<string | undefined>();
+  const [group, setGroup] = useState("");
+  const [tan, setTan] = useState<Tan>("タンニン鞣し");
   const [msg, setMsg] = useState("");
+  // 系統ごとに見出しをつけて並べる（系統の並びは、最初に出てきた順）
+  const groups = [...new Set(leathers.map((l) => l.group ?? ""))];
+  const sel = "rounded-md border border-line bg-white px-1.5 py-1 text-[11.5px] outline-none focus:border-ink";
   // 革の見本の写真は小さく縮めて保存（本番では Supabase Storage）
   const pickImg = async (f: File | undefined) => (f ? shrinkImage(f, 320, 240, 0.8) : undefined);
   const num = "w-full rounded-md border border-line px-2 py-1 text-right text-[12.5px] tabular-nums outline-none focus:border-ink";
   return (
     <Card>
       <CardHead note="leathers テーブル。デシ単価は社内用で、お客様の画面には出ない">革素材</CardHead>
-      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">写真・名前・記号・金額を押すと直せます。「作れる色」は丸を押して付け外し（カラーの登録から選びます）。</p>
+      <p className="border-t border-line px-4 py-2 text-[11px] text-mute">写真・名前・記号・金額・系統・鞣し・英語／タイ語の名前（工場向け）を押すと直せます。「作れる色」は丸を押して付け外し。</p>
+      <datalist id="leather-groups">{groups.filter(Boolean).map((g) => <option key={g} value={g} />)}</datalist>
+      {groups.map((g) => (
+      <div key={g || "none"}>
+      <p className="flex items-baseline gap-2 border-t border-line bg-[#fafafa] px-4 py-2 text-[12.5px] font-semibold">{g || "系統なし"}<span className="text-[11px] font-normal text-mute">{[...new Set(leathers.filter((l) => (l.group ?? "") === g).map((l) => l.tan).filter(Boolean))].join("・")}</span></p>
       <ul className="divide-y divide-line border-t border-line">
-        {leathers.map((l) => {
+        {leathers.filter((l) => (l.group ?? "") === g).map((l) => {
           const n = products.filter((p) => p.leathers?.includes(l.id)).length;
           return (
             <li key={l.id} className="px-4 py-2.5">
@@ -358,12 +367,19 @@ function LeatherCard() {
                 })}
                 <span className="ml-1 text-[11px] text-mute">{l.colors ? `${colors.filter((c) => l.colors!.includes(c.name)).length}色` : "全色"}</span>
               </div>
+              <LeatherMeta l={l} sel={sel} />
             </li>
           );
         })}
       </ul>
+      </div>
+      ))}
       {msg && <p className="border-t border-line bg-[#fdf3f3] px-4 py-2 text-[12px] text-red-700">{msg}</p>}
-      <form className="space-y-2 border-t border-line p-4" onSubmit={(e) => { e.preventDefault(); const n = name.trim(); if (!n) return; setMsg(addLeather(n, code, Number(ds) || 0, Number(add) || 0, img) ? "" : `「${n}」はもう登録されています。`); setName(""); setCode(""); setDs(""); setAdd(""); setImg(undefined); }}>
+      <form className="space-y-2 border-t border-line p-4" onSubmit={(e) => { e.preventDefault(); const n = name.trim(); if (!n) return; setMsg(addLeather(n, code, Number(ds) || 0, Number(add) || 0, img, group, tan) ? "" : `「${n}」はもう登録されています。`); setName(""); setCode(""); setDs(""); setAdd(""); setImg(undefined); }}>
+        <div className="flex gap-2">
+          <input value={group} onChange={(e) => setGroup(e.target.value)} list="leather-groups" placeholder="系統（例：イタリアンレザー）" aria-label="新しい革の系統" className="min-w-0 flex-1 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink" />
+          <select value={tan} onChange={(e) => setTan(e.target.value as Tan)} aria-label="鞣し" className="rounded-lg border border-line bg-white px-2 py-1.5 text-[12.5px] outline-none focus:border-ink">{TANS.map((x) => <option key={x}>{x}</option>)}</select>
+        </div>
         <div className="flex gap-2">
           <LeatherImg img={img} label="新しい革の写真" onPick={async (f) => setImg(await pickImg(f))} />
           <input value={name} onChange={(e) => setName(e.target.value)} placeholder="例：コードバン" aria-label="新しい革の名前" className="min-w-0 flex-1 rounded-lg border border-line px-3 py-1.5 text-[13px] outline-none focus:border-ink" />
@@ -376,6 +392,25 @@ function LeatherCard() {
         </div>
       </form>
     </Card>
+  );
+}
+
+// 革の系統・鞣し・工場向けの英語／タイ語の名前（英語・タイ語は、追加したときに辞書から自動で入る）
+function LeatherMeta({ l, sel }: { l: LeatherDef; sel: string }) {
+  const inp = "min-w-0 w-full rounded-md border border-line px-2 py-1 text-[11.5px] outline-none focus:border-ink";
+  return (
+    <div className="mt-2 space-y-1.5 pl-2 text-[11px] text-mute">
+      <div className="flex gap-1.5">
+        <input key={`g-${l.group}`} defaultValue={l.group ?? ""} list="leather-groups" placeholder="系統" aria-label={`${l.name}の系統`} onBlur={(e) => updateLeather(l.id, { group: e.target.value.trim() || undefined })} className={inp} />
+        <select value={l.tan ?? ""} aria-label={`${l.name}の鞣し`} onChange={(e) => updateLeather(l.id, { tan: (e.target.value || undefined) as Tan | undefined })} className={sel}>
+          <option value="">鞣し：未設定</option>{TANS.map((x) => <option key={x}>{x}</option>)}
+        </select>
+      </div>
+      <div className="grid grid-cols-2 gap-1.5">
+        <input key={`en-${l.en}`} defaultValue={l.en ?? ""} placeholder="英語の名前" aria-label={`${l.name}の英語の名前`} onBlur={(e) => updateLeather(l.id, { en: e.target.value.trim() || undefined })} className={inp} />
+        <input key={`th-${l.th}`} defaultValue={l.th ?? ""} placeholder="タイ語の名前" aria-label={`${l.name}のタイ語の名前`} onBlur={(e) => updateLeather(l.id, { th: e.target.value.trim() || undefined })} className={inp} />
+      </div>
+    </div>
   );
 }
 

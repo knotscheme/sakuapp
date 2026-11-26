@@ -1,6 +1,7 @@
 // CRAFT OEM の管理画面（CMS）のデモ用データと仕組み
 // ※すべて架空のデータです。操作した内容は、見ている人のブラウザ（localStorage）にだけ保存されます。
 import { ALL_MODELS, type ModelId } from "./models";
+import { autoLeatherTr } from "./leatherTr";
 import { allTiers, getPricing, rateFor } from "./pricing";
 
 export const STAGES = [
@@ -59,7 +60,7 @@ export type Deal = {
   lot: number;
   finish: "金箔" | "銀箔" | "素押し" | "ロゴなし";
   urgent?: boolean; // 工場に急ぎで依頼（工場の画面の「優先」の並びで先頭に出る）
-  leather?: { name: string; code?: string; add: number; img?: string }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
+  leather?: { name: string; code?: string; add: number; img?: string; group?: string; tan?: string; en?: string; th?: string }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
   color: string;
   sellPrice: number; // お客様の想定販売価格（参考）
   stage: StageId;
@@ -186,6 +187,7 @@ export function seedDeals(): Deal[] {
     const si = stageIndex(x.stage);
     if (si >= 1) x.lock = priceLock(x);
     if (x.paid) x.paid.amount = amounts(x).deposit;
+    x.leather = DEFAULT_LEATHER; // 見本の案件は標準の革
     if (x.id === "C-1030") x.urgent = true; // 見本：工場に急ぎで依頼している案件
     if (si >= stageIndex("production")) {
       const at = (h: number) => { const t = new Date(); t.setHours(t.getHours() - h, 0, 0, 0); return t.toISOString(); };
@@ -357,7 +359,16 @@ export function priceLock(d: Pick<Deal, "model" | "lot"> & { finish?: Deal["fini
 }
 
 // 革素材の名前（登録が無い古い案件は標準の革）
-export const leatherName = (d: Pick<Deal, "leather">) => d.leather?.name ?? "牛革スムース（標準）";
+export const DEFAULT_LEATHER = { name: "ハイブリッド（混合鞣し）", code: "HB", add: 0, group: "オリジナルレザー", tan: "タンニン鞣し", en: "Hybrid leather (combination tanned)", th: "หนังไฮบริด (ฟอกผสม)" };
+export const leatherName = (d: Pick<Deal, "leather">) => d.leather?.name ?? DEFAULT_LEATHER.name;
+// 工場向け：革の名前を英語・タイ語で（登録が無ければ辞書から、それでも無ければ日本語のまま）
+export const trLeather = (d: Pick<Deal, "leather">, l: LangId) => {
+  const x = d.leather ?? DEFAULT_LEATHER;
+  if (l === "ja") return x.name;
+  return x[l] ?? autoLeatherTr(x.name)[l] ?? x.name;
+};
+const TAN_I18N: Record<string, L3> = { タンニン鞣し: { ja: "タンニン鞣し", en: "Vegetable tanned", th: "ฟอกฝาด" }, クロム鞣し: { ja: "クロム鞣し", en: "Chrome tanned", th: "ฟอกโครม" }, 混合鞣し: { ja: "混合鞣し", en: "Combination tanned", th: "ฟอกผสม" } };
+export const trTan = (d: Pick<Deal, "leather">, l: LangId) => { const t = (d.leather ?? DEFAULT_LEATHER).tan; return t ? TAN_I18N[t]?.[l] ?? t : ""; };
 
 // ===== 工場への発注カード =====
 export const poOf = (d: Deal): Po => ({ no: `PO-${d.id.slice(2)}`, items: colorLines(d), lot: d.lot, shipBy: shipBy() });

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, Printer } from "lucide-react";
-import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, hasLogo, leatherName, modelOf, today, colorLines, quoteLines, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
+import { CHECKS, DOCS, FACTORY, PROD_STEPS, amounts, hasLogo, leatherName, modelOf, trLeather, trTan, today, colorLines, quoteLines, trColor, trFinish, trModel, trPos, yenOf, type DocId, type LangId } from "@/lib/cms";
 import { asset } from "@/lib/asset";
 import { useDeals } from "@/components/cms/store";
 import { NoAccess, Shell, useQuery } from "@/components/cms/ui";
@@ -97,7 +97,7 @@ export default function DocPage() {
                   {[
                     ["製品 / Model / รุ่น", tri((l) => trModel(d.model, l))],
                     ["数量 / Qty / จำนวน", `${d.lot} pcs`],
-                    ["革 / Leather / หนัง", `${leatherName(d)}${d.leather?.code ? `（${d.leather.code}）` : ""}`],
+                    ["革 / Leather / หนัง", tri((l) => `${trLeather(d, l)}${l === "ja" && d.leather?.code ? `（${d.leather.code}）` : ""}${trTan(d, l) ? `・${trTan(d, l)}` : ""}`)],
                     ["革の色と数量 / Color & qty / สีและจำนวน", <>{colorLines(d).map((x) => <span key={x.color} className="block">{trColor(x.color, "ja")} {x.qty}<span className="text-[11px] text-mute">　{trColor(x.color, "en")} / {trColor(x.color, "th")}</span></span>)}</>],
                     ["ロゴ加工 / Logo / โลโก้", tri((l) => trFinish(d.finish, l))],
                     ["ロゴ位置 / Position / ตำแหน่ง", tri((l) => trPos(m.logo, l))],
