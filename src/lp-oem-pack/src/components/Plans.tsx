@@ -3,6 +3,7 @@
 import { ArrowRight, Check } from "lucide-react";
 import { OEM_ONLY, PLANS, PLAN_EVENT, PLAN_OPTIONS, yen, type PlanId } from "@/lib/packs";
 import { scrollToId } from "./LpContext";
+import { asset } from "@/lib/asset";
 import SectionTitle from "./SectionTitle";
 
 // 料金プラン：3つのパッケージ＋OEMのみ＋オプション（金額は例）
@@ -18,7 +19,9 @@ export default function Plans() {
         <div className="grid gap-5 lg:grid-cols-3">
           {PLANS.map((p, i) => (
             <article key={p.id} className={`reveal relative flex flex-col border p-7 md:p-8 ${p.best ? "border-ink bg-ink text-white" : "border-line bg-white"}`} style={{ transitionDelay: `${i * 0.1}s` }}>
-              {p.best && <span className="absolute -top-3 left-7 bg-gold px-3 py-1 text-[11px] tracking-[0.1em] text-white">いちばん人気</span>}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {p.img && <img src={asset(p.img)} alt="" loading="lazy" className="-mx-7 -mt-7 mb-6 aspect-[16/9] w-[calc(100%+3.5rem)] max-w-none object-cover md:-mx-8 md:-mt-8 md:w-[calc(100%+4rem)]" />}
+              {p.best && <span className="absolute top-3 left-3 z-[1] bg-gold px-3 py-1 text-[11px] tracking-[0.1em] text-white">いちばん人気</span>}
               <p className={`font-display text-[12px] tracking-[0.3em] uppercase ${p.best ? "text-white/60" : "text-mute"}`}>{p.en}</p>
               <h3 className="mt-1.5 text-[20px] font-medium">{p.name}</h3>
               <p className="mt-4 font-num text-[32px] leading-none font-medium tabular-nums">{(p.price! / 10000).toLocaleString()}<span className="ml-1 text-[14px] font-normal">万円〜</span></p>

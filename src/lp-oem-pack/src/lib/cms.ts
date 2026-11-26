@@ -62,6 +62,7 @@ export type Deal = {
   // 依頼の種類：oem＝定番の型にロゴを入れるだけ（ロゴ入れOEMのLPから）、odm＝オリジナル設計で型紙・抜き型から（クラファン支援パッケージのLPから）
   kind?: DealKind;
   plan?: string; // ODMのプラン（ライト・スタンダード・プレミアム）
+  spec?: Spec; // ODMの仕様書（打ち合わせで決めた寸法・パーツと革の量・抜き型・設計図）
   urgent?: boolean; // 工場に急ぎで依頼（工場の画面の「優先」の並びで先頭に出る）
   leather?: { name: string; code?: string; add: number; img?: string; group?: string; tan?: string; en?: string; th?: string }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
   color: string;
@@ -92,6 +93,43 @@ export type Deal = {
 };
 
 export type DealKind = "oem" | "odm";
+// ===== ODMの仕様書 =====
+// parts：パーツごとに、使う革とデシ数（1枚）と枚数（1個あたり）。dies：抜き型（初回のみ・お客様の専用）
+export type SpecPart = { name: string; leather: string; ds: number; qty: number };
+export type SpecDie = { name: string; cost: number };
+export type Spec = {
+  meetAt?: string; meetMemo?: string; // 打ち合わせ
+  size: { w: number; h: number; d: number }; // 仕上がり寸法（cm）
+  parts: SpecPart[]; dies: SpecDie[];
+  labor: number; // 加工賃（1個・円）
+  hardware: string; stitch: string; logo: string; notes: string;
+  drawings: string[]; // 設計図（画像）
+  status: "draft" | "done"; doneBy?: string; doneAt?: string;
+};
+export const emptySpec = (): Spec => ({ size: { w: 0, h: 0, d: 0 }, parts: [{ name: "本体（外装）", leather: "", ds: 0, qty: 1 }], dies: [{ name: "本体", cost: 0 }], labor: 0, hardware: "", stitch: "", logo: "", notes: "", drawings: [], status: "draft" });
+export const dieTotal = (s?: Spec) => (s?.dies ?? []).reduce((t, x) => t + (x.cost || 0), 0);
+export const dsTotal = (s?: Spec) => (s?.parts ?? []).reduce((t, x) => t + (x.ds || 0) * (x.qty || 0), 0);
+// ODMは、仕様書を確定してから見積へ進む
+export const needsSpec = (d: Pick<Deal, "kind" | "spec">) => d.kind === "odm" && d.spec?.status !== "done";
+// 設計図の見本（寸法線つきの線画）
+export function sampleDrawing(title: string, w: number, h: number) {
+  const W = 480, H = 340, k = Math.min(300 / w, 200 / h), bw = w * k, bh = h * k, x = (W - bw) / 2, y = 70;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" font-family="sans-serif"><rect width="100%" height="100%" fill="#fff"/><text x="16" y="26" font-size="14" fill="#222">${title}</text><text x="16" y="44" font-size="10" fill="#888">DESIGN DRAWING（例）  単位：cm</text><rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="6" fill="none" stroke="#222" stroke-width="1.6"/><line x1="${x}" y1="${y + bh * 0.42}" x2="${x + bw}" y2="${y + bh * 0.42}" stroke="#222" stroke-dasharray="5 4"/><rect x="${x + bw * 0.08}" y="${y + bh * 0.52}" width="${bw * 0.5}" height="${bh * 0.34}" fill="none" stroke="#555"/><circle cx="${x + bw * 0.78}" cy="${y + bh * 0.68}" r="6" fill="none" stroke="#555"/><rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="6" fill="none" stroke="#999" stroke-dasharray="2 3" transform="translate(-5 -5)"/><line x1="${x}" y1="${y + bh + 22}" x2="${x + bw}" y2="${y + bh + 22}" stroke="#2a4f9e"/><text x="${x + bw / 2}" y="${y + bh + 38}" font-size="12" text-anchor="middle" fill="#2a4f9e">W ${w}</text><line x1="${x + bw + 22}" y1="${y}" x2="${x + bw + 22}" y2="${y + bh}" stroke="#2a4f9e"/><text x="${x + bw + 30}" y="${y + bh / 2}" font-size="12" fill="#2a4f9e">H ${h}</text><text x="${x + bw * 0.1}" y="${y + bh * 0.5}" font-size="9" fill="#555">カード段</text><text x="${x + bw * 0.62}" y="${y + bh * 0.62}" font-size="9" fill="#555">ホック</text><text x="${x + 6}" y="${y + bh * 0.39}" font-size="9" fill="#555">折り線</text></svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+function sampleSpec(model: ModelId, done: boolean): Spec {
+  const m = ALL_MODELS.find((x) => x.id === model)!;
+  const [w, h, dd] = (m.size.match(/[\d.]+/g) ?? ["10", "9", "2"]).map(Number);
+  return {
+    meetAt: today(), meetMemo: "サンプルの形と大きさを確認。カード段は3段、小銭入れはマチ付きで。革はハイブリッドの標準色から。",
+    size: { w, h, d: dd || 2 },
+    parts: [{ name: "本体（外装）", leather: "ハイブリッド（混合鞣し）", ds: 4.5, qty: 1 }, { name: "カード段", leather: "ハイブリッド（混合鞣し）", ds: 0.8, qty: 3 }, { name: "小銭入れ", leather: "ハイブリッド（混合鞣し）", ds: 1.2, qty: 1 }],
+    dies: [{ name: "本体", cost: 18000 }, { name: "カード段", cost: 8000 }, { name: "小銭入れ", cost: 9000 }],
+    labor: 900, hardware: "ホック（真鍮・アンティーク）1個", stitch: "生成り・8針/3cm", logo: "外装の右下に素押し", notes: "",
+    drawings: [sampleDrawing(`${m.short}（オリジナル）`, w, h)], status: done ? "done" : "draft", doneBy: done ? "佐藤" : undefined, doneAt: done ? today() : undefined,
+  };
+}
+
 export const KINDS: { id: DealKind; ja: string; short: string; en: string; th: string; note: string }[] = [
   { id: "oem", ja: "OEM（ロゴのみ）", short: "OEM", en: "OEM (logo only)", th: "OEM (ใส่โลโก้)", note: "定番の型にロゴを入れる" },
   { id: "odm", ja: "ODM（オリジナル設計）", short: "ODM", en: "ODM (original design)", th: "ODM (ออกแบบใหม่)", note: "設計・型紙・抜き型から。クラファン向け" },
@@ -113,13 +151,14 @@ export function unitPriceOf(model: ModelId, lot: number, add = 0) {
   return Math.round((base * (1 - rateFor(lot))) / 10) * 10;
 }
 export const hasLogo = (x: Pick<Deal, "finish">) => x.finish !== "ロゴなし";
-export function amounts(x: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"]; leather?: Deal["leather"]; lock?: Deal["lock"] }) {
+export function amounts(x: Pick<Deal, "model" | "lot"> & { finish?: Deal["finish"]; leather?: Deal["leather"]; lock?: Deal["lock"]; kind?: Deal["kind"]; spec?: Deal["spec"] }) {
   // 見積を送ったあとは、そのときの単価・版代で固定（あとで割引率を変えても変わらない）
   const unit = x.lock?.unit ?? unitPriceOf(x.model, x.lot, x.leather?.add);
   const plate = x.finish === "ロゴなし" ? 0 : x.lock?.plate ?? getPricing().plate;
-  const sub = unit * x.lot + plate;
+  const dies = x.kind === "odm" ? dieTotal(x.spec) : 0; // ODMの抜き型代（初回のみ）
+  const sub = unit * x.lot + plate + dies;
   const tax = Math.round(sub * 0.1);
-  return { unit, items: unit * x.lot, plate, sub, tax, total: sub + tax, deposit: Math.round((sub + tax) * 0.5) };
+  return { unit, items: unit * x.lot, plate, dies, sub, tax, total: sub + tax, deposit: Math.round((sub + tax) * 0.5) };
 }
 
 type Seed = [string, string, ModelId, number, Deal["finish"], string, StageId, number, number];
@@ -201,7 +240,7 @@ export function seedDeals(): Deal[] {
     if (x.id === "C-1030") x.urgent = true;
     // 見本：クラファン支援パッケージ（ODM）の案件
     const odm: Record<string, string> = { "C-1025": "スタンダード", "C-1027": "プレミアム", "C-1029": "スタンダード", "C-1032": "ライト" };
-    if (odm[x.id]) { x.kind = "odm"; x.plan = odm[x.id]; } // 見本：工場に急ぎで依頼している案件
+    if (odm[x.id]) { x.kind = "odm"; x.plan = odm[x.id]; x.spec = sampleSpec(x.model, x.stage !== "inquiry"); } // 見本：工場に急ぎで依頼している案件
     if (si >= stageIndex("production")) {
       const at = (h: number) => { const t = new Date(); t.setHours(t.getHours() - h, 0, 0, 0); return t.toISOString(); };
       const po = { ...poOf(x), shipBy: d(10), ackAt: at(24 * 9), ackBy: "Somchai" };
@@ -312,7 +351,7 @@ export function makeDraft(kind: DraftKind, d: Deal): Draft {
 【お見積り】
 ・製品代：${q.lines.map((x) => `${x.color} ${x.qty}個`).join("、")}
 　単価 ${yenOf(q.unit)}${q.discount ? `（合計${d.lot}個で${Math.round(q.discount.rate * 100)}%の数量割引）` : ""} × ${d.lot}個 ＝ ${yenOf(a.items)}
-${hasLogo(d) ? `・ロゴの版代（初回のみ）：${yenOf(a.plate)}\n` : ""}・消費税：${yenOf(a.tax)}
+${hasLogo(d) ? `・ロゴの版代（初回のみ）：${yenOf(a.plate)}\n` : ""}${a.dies ? `・抜き型代（初回のみ・${d.spec?.dies.length ?? 0}型）：${yenOf(a.dies)}\n` : ""}・消費税：${yenOf(a.tax)}
 ・合計（税込）：${yenOf(a.total)}
 ${t.next ? `\n※あと${t.need}個（合計${t.next.at}個）で、単価が${Math.round(t.next.rate * 100)}%引きになります。\n` : ""}
 ${!hasLogo(d) ? "ロゴ：なし（無地のまま）でお作りします。あとからロゴを入れたくなった場合も、ご相談ください。" : `ロゴデータ：${d.logo ? "受け取りました。配置のイメージは、ご注文のあとにお送りします。" : "まだ届いていません。ai・pdf・png などでお送りください。"}`}

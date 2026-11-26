@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ExternalLink, FileText, Send, Sparkles, Trash2 } from "lucide-react";
-import { DRAFT_LABEL, colorLines, leatherName, modelOf, poOf, type Deal, type Draft } from "@/lib/cms";
+import { needsSpec, DRAFT_LABEL, colorLines, leatherName, modelOf, poOf, type Deal, type Draft } from "@/lib/cms";
 import { PoCard } from "@/components/cms/Messages";
 import { checkReminders, discardDraft, pendingDrafts, sendDraft, useDeals } from "@/components/cms/store";
 import { useAuth } from "@/components/cms/perm";
@@ -139,7 +139,8 @@ function Editor({ d, x, who, onBack }: { d: Deal; x: Draft; who: string; onBack:
       {!done && (
         <div className="flex items-center justify-between gap-3 border-t border-line px-4 py-3">
           <button type="button" onClick={async () => { if (await askConfirm({ title: "この下書きを破棄しますか？", body: "送らずに消します。必要なら、案件の画面から進めることもできます。", ok: "破棄する", danger: true })) { discardDraft(d.id, x.id, who); onBack(); } }} className="flex items-center gap-1.5 px-2 py-2 text-[12.5px] text-mute hover:text-red-600"><Trash2 size={14} />破棄</button>
-          <button type="button" onClick={send} className={`cms-btn flex items-center gap-2 px-5 py-2.5 text-[13.5px] text-white ${factory ? "bg-[#9b2c2c]" : "bg-ink"}`}><Send size={14} />{factory ? "最終確認して工場へ発注" : "確認して送信"}</button>
+          {x.kind === "reply" && needsSpec(d) ? <Link href={`/cms/spec/?id=${d.id}`} className="cms-btn flex items-center gap-2 bg-[#8a650c] px-5 py-2.5 text-[13px] text-white">先に仕様書を確定する（ODM）</Link> :
+          <button type="button" onClick={send} className={`cms-btn flex items-center gap-2 px-5 py-2.5 text-[13.5px] text-white ${factory ? "bg-[#9b2c2c]" : "bg-ink"}`}><Send size={14} />{factory ? "最終確認して工場へ発注" : "確認して送信"}</button>}
         </div>
       )}
     </div>

@@ -2,7 +2,7 @@
 
 // デモ用のデータ置き場（ブラウザの localStorage に保存）
 import { useSyncExternalStore } from "react";
-import { priceLock, DOCS, DRAFT_LABEL, RATE, STAGES, STAGE_DRAFT, amounts, makeDraft, seedDeals, stageIndex, today, unitPriceOf, yenOf, type Deal, type Draft, type DraftKind, type Log, type Msg, type StageId, PO_ACK, poOf, poText } from "@/lib/cms";
+import { needsSpec, priceLock, DOCS, DRAFT_LABEL, RATE, STAGES, STAGE_DRAFT, amounts, makeDraft, seedDeals, stageIndex, today, unitPriceOf, yenOf, type Deal, type Draft, type DraftKind, type Log, type Msg, type StageId, type Spec, dsTotal, PO_ACK, poOf, poText } from "@/lib/cms";
 
 const KEY = "craft-oem-cms-v8";
 let cache: Deal[] | null = null;
@@ -45,6 +45,7 @@ export function advance(id: string, who = "佐藤") {
   updateDeal(id, (d) => {
     const i = stageIndex(d.stage);
     if (i >= STAGES.length - 1) return d;
+    if (d.stage === "inquiry" && needsSpec(d)) return d; // ODMは仕様書を確定してから見積へ
     const next = STAGES[i + 1].id as StageId;
     let x: Deal = { ...d, stage: next };
     // 見積を送るときに、その時点の価格を固定する
@@ -180,3 +181,20 @@ export function checkReminders() {
   late.forEach((d) => updateDeal(d.id, (x) => withDraft(x, "remind")));
 }
 export type { Draft };
+
+// ===== ODMの仕様書 =====
+export function saveSpec(id: string, spec: Spec, who: string) {
+  updateDeal(id, (x) => ({ ...x, spec }));
+  void who;
+}
+export function finishSpec(id: string, spec: Spec, who: string) {
+  updateDeal(id, (x) => {
+    const y: Deal = { ...x, spec: { ...spec, status: "done", doneBy: who, doneAt: today() } };
+    // 抜き型代が入るので、まだ送っていない見積の下書きを作り直す
+    const drafts = y.drafts?.map((dr) => (dr.status === "draft" ? { ...dr, subject: makeDraft(dr.kind, y).subject, body: makeDraft(dr.kind, y).body } : dr));
+    return addLog({ ...y, drafts }, who, `仕様書を確定しました（抜き型${spec.dies.length}型・革 合計${dsTotal(spec).toFixed(1)}デシ/個・設計図${spec.drawings.length}枚）`, "doc");
+  });
+}
+export function reopenSpec(id: string, who: string) {
+  updateDeal(id, (x) => (x.spec ? addLog({ ...x, spec: { ...x.spec, status: "draft" } }, who, "仕様書を修正のために開きました", "doc") : x));
+}
