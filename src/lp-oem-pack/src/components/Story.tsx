@@ -5,13 +5,14 @@ import { ShoppingBag } from "lucide-react";
 import { asset } from "@/lib/asset";
 
 // 目玉のセクション：スクロールに合わせて「ひとつの財布が売れるまで」が進む（画面は固定、場面だけ切り替わる）
-// 写真は切り抜かずに全体を見せる。LP・クラファン・ECの場面は、画面のイメージで見せる
-type Visual = { kind: "photo"; src: string; alt: string } | { kind: "video"; src: string; poster: string } | { kind: "lp" } | { kind: "meter" } | { kind: "ec" };
+// 写真・動画は画面いっぱいに（被写体が切れないよう中心をずらす）。LP・クラファン・ECの場面は、暗くした写真の上に画面のイメージ
+// pos：スマホの縦長の画面で切り抜くときに、写真のどこを中心にするか
+type Visual = { kind: "photo"; src: string; alt: string; pos: string } | { kind: "video"; src: string; poster: string; pos: string } | { kind: "lp" } | { kind: "meter" } | { kind: "ec" };
 type Scene = { no: string; en: string; t: string; b: string; v: Visual };
 const SCENES: Scene[] = [
-  { no: "01", en: "Select", t: "革を、手で選ぶ。", b: "イタリアン・国産・オリジナル。実物の革に触れて、ブランドに合う一枚を選びます。", v: { kind: "photo", src: "/images/studio-pick.webp", alt: "壁に掛かった革を手に取って選んでいるところ" } },
-  { no: "02", en: "Design", t: "型紙と抜き型から、あなただけの形に。", b: "クラファンは新しい製品が前提。デザインを図面にし、型紙と抜き型をつくって、パーツを裁断します。", v: { kind: "photo", src: "/images/work-parts.webp", alt: "裁断した黒い革のパーツ" } },
-  { no: "03", en: "Make", t: "ひと針ずつ、縫い上げる。", b: "タイの提携工場で、50個から。パーツの段階から検品して仕上げます。", v: { kind: "video", src: "/images/sewing.mp4", poster: "/images/sewing-poster.webp" } },
+  { no: "01", en: "Select", t: "革を、手で選ぶ。", b: "イタリアン・国産・オリジナル。実物の革に触れて、ブランドに合う一枚を選びます。", v: { kind: "photo", src: "/images/studio-pick.webp", alt: "壁に掛かった革を手に取って選んでいるところ", pos: "22% 50%" } },
+  { no: "02", en: "Design", t: "型紙と抜き型から、あなただけの形に。", b: "クラファンは新しい製品が前提。デザインを図面にし、型紙と抜き型をつくって、パーツを裁断します。", v: { kind: "photo", src: "/images/work-parts.webp", alt: "裁断した黒い革のパーツ", pos: "55% 55%" } },
+  { no: "03", en: "Make", t: "ひと針ずつ、縫い上げる。", b: "タイの提携工場で、50個から。パーツの段階から検品して仕上げます。", v: { kind: "video", src: "/images/sewing.mp4", poster: "/images/sewing-poster.webp", pos: "62% 45%" } },
   { no: "04", en: "Show", t: "撮影して、売れるLPに。", b: "撮影・構成・執筆までまとめて。革の産地や鞣しまで知っているから、根拠のある言葉で伝えられます。", v: { kind: "lp" } },
   { no: "05", en: "Sell", t: "クラファンで、一気に届ける。", b: "リターン設計から公開後の告知まで伴走。支援が集まった分だけ生産するので、在庫を抱えません。", v: { kind: "meter" } },
   { no: "06", en: "Keep selling", t: "自社ECで、売れ続ける。", b: "クラファンの写真と文章で、Shopifyのお店を。追加生産も型紙と抜き型があるので、すぐに。", v: { kind: "ec" } },
@@ -20,19 +21,19 @@ const SCENES: Scene[] = [
 // スマホの枠
 function Phone({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-full max-h-[460px] rounded-[26px] border-[5px] border-[#2c2824] bg-white shadow-2xl" style={{ aspectRatio: "9 / 18" }}>
+    <div className="h-full max-h-[440px] rounded-[26px] border-[5px] border-[#2c2824] bg-white shadow-2xl" style={{ aspectRatio: "9 / 18" }}>
       <div className="h-full overflow-hidden rounded-[21px] text-ink">{children}</div>
     </div>
   );
 }
 
-function SceneVisual({ v, fill, total }: { v: Visual; fill: number; total: number }) {
+function Mock({ v, fill, total }: { v: Visual; fill: number; total: number }) {
   if (v.kind === "photo") {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img src={asset(v.src)} alt={v.alt} loading="lazy" className="max-h-full max-w-full rounded-xl object-contain shadow-2xl" />;
+    return <img src={asset(v.src)} alt={v.alt} loading="lazy" className="h-full w-full object-cover" style={{ objectPosition: v.pos }} />;
   }
   if (v.kind === "video") {
-    return <video src={asset(v.src)} poster={asset(v.poster)} muted loop playsInline autoPlay preload="none" className="max-h-full max-w-full rounded-xl object-contain shadow-2xl" />;
+    return <video src={asset(v.src)} poster={asset(v.poster)} muted loop playsInline autoPlay preload="none" className="h-full w-full object-cover" style={{ objectPosition: v.pos }} />;
   }
   if (v.kind === "lp") {
     // 撮影した写真で作ったLP（イメージ）
@@ -92,6 +93,22 @@ function SceneVisual({ v, fill, total }: { v: Visual; fill: number; total: numbe
   );
 }
 
+// 画面のイメージは、暗くぼかした写真の上に置く（ほかの場面と同じく画面いっぱいの見た目に）
+const MOCK_BG: Record<string, string> = { lp: "/images/studio-tag.webp", meter: "/images/work-totes.webp", ec: "/images/office-lounge.webp" };
+function SceneVisual({ v, fill, total }: { v: Visual; fill: number; total: number }) {
+  if (v.kind === "photo" || v.kind === "video") return <div className="relative h-full w-full"><Mock v={v} fill={fill} total={total} /><div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/40 to-transparent" /></div>;
+  return (
+    <div className="relative h-full w-full">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={asset(MOCK_BG[v.kind])} alt="" loading="lazy" className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-[6px]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/40 to-transparent" />
+      <div className="absolute inset-x-0 top-[9svh] bottom-[46svh] flex justify-center md:top-[12svh] md:bottom-[12svh] md:left-1/2">
+        <Mock v={v} fill={fill} total={total} />
+      </div>
+    </div>
+  );
+}
+
 export default function Story() {
   const wrap = useRef<HTMLElement>(null);
   const [p, setP] = useState(0); // 0〜1：このセクションをどこまで進んだか
@@ -119,32 +136,31 @@ export default function Story() {
 
   return (
     <section id="story" ref={wrap} className="relative bg-[#141210] text-white" style={{ height: `${SCENES.length * 85 + 15}svh` }}>
-      <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden bg-[radial-gradient(ellipse_at_50%_35%,#2a2219_0%,#141210_65%)] px-6 pt-20 pb-24 md:flex-row-reverse md:items-center md:gap-12 md:px-[max(2rem,calc((100vw-72rem)/2+2rem))] md:pt-24 md:pb-16">
-        {/* 絵（写真・動画・画面のイメージ） */}
-        <div className="relative min-h-0 flex-1 md:h-[70svh]">
-          {SCENES.map((s, i) => (
-            <div key={s.no} className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ${i === k ? "scale-100 opacity-100" : "pointer-events-none scale-[.97] opacity-0"}`} aria-hidden={i !== k}>
-              <SceneVisual v={s.v} fill={fill} total={total} />
-            </div>
-          ))}
-        </div>
+      <div className="sticky top-0 h-[100svh] overflow-hidden">
+        {SCENES.map((s, i) => (
+          <div key={s.no} className={`absolute inset-0 transition-opacity duration-700 ${i === k ? "opacity-100" : "pointer-events-none opacity-0"}`} aria-hidden={i !== k}>
+            <SceneVisual v={s.v} fill={fill} total={total} />
+          </div>
+        ))}
 
         {/* 見出しと説明 */}
-        <div className="relative mt-5 shrink-0 md:mt-0 md:w-[42%]">
-          <p className="font-display text-[10.5px] tracking-[0.3em] text-white/60 uppercase">Story — ひとつの財布が売れるまで</p>
-          <div className="relative">
-            {SCENES.map((s, i) => (
-              <div key={s.no} className={`transition-all duration-700 ${i === k ? "relative translate-y-0 opacity-100" : "pointer-events-none absolute inset-x-0 top-0 translate-y-3 opacity-0"}`}>
-                <p className="mt-3 flex items-baseline gap-3"><span className="font-num text-[15px] text-gold">{s.no}</span><span className="font-display text-[12px] tracking-[0.3em] text-white/60 uppercase">{s.en}</span></p>
-                <h2 className="mt-1.5 text-[23px] leading-snug font-medium sm:text-[34px]">{s.t}</h2>
-                <p className="mt-2 text-[13px] leading-relaxed text-white/80 sm:text-[14px]">{s.b}</p>
-              </div>
-            ))}
+        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-6 pb-28 md:px-8 md:pb-20">
+          <div className="md:max-w-[46%]">
+            <p className="font-display text-[11px] tracking-[0.35em] text-white/60 uppercase">Story — ひとつの財布が売れるまで</p>
+            <div className="relative">
+              {SCENES.map((s, i) => (
+                <div key={s.no} className={`transition-all duration-700 ${i === k ? "relative translate-y-0 opacity-100" : "pointer-events-none absolute inset-x-0 top-0 translate-y-4 opacity-0"}`}>
+                  <p className="mt-4 flex items-baseline gap-3"><span className="font-num text-[15px] text-gold">{s.no}</span><span className="font-display text-[12px] tracking-[0.3em] text-white/60 uppercase">{s.en}</span></p>
+                  <h2 className="mt-2 text-[26px] leading-snug font-medium sm:text-[40px]">{s.t}</h2>
+                  <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-white/80">{s.b}</p>
+                </div>
+              ))}
+            </div>
+            {/* 進み具合 */}
+            <ol className="mt-7 flex gap-1.5" aria-label="進み具合">
+              {SCENES.map((s, i) => <li key={s.no} className={`h-[3px] flex-1 rounded-full transition-colors duration-500 ${i <= k ? "bg-gold" : "bg-white/20"}`} />)}
+            </ol>
           </div>
-          {/* 進み具合 */}
-          <ol className="mt-5 flex gap-1.5" aria-label="進み具合">
-            {SCENES.map((s, i) => <li key={s.no} className={`h-[3px] flex-1 rounded-full transition-colors duration-500 ${i <= k ? "bg-gold" : "bg-white/20"}`} />)}
-          </ol>
         </div>
       </div>
     </section>
