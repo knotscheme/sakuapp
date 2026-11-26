@@ -1,8 +1,8 @@
 import { asset } from "@/lib/asset";
 
 // 工房・工場・オフィスの写真を、2列で左右に流し続ける（文字を読まなくても雰囲気が伝わるように）
-const ROW1 = ["studio-wall", "work-totes", "studio-pick", "work-pouches", "studio-tag", "office-lounge"];
-const ROW2 = ["work-parts", "studio-brown", "sewing-poster", "studio-black", "office-sign", "craft-sew"];
+const ROW1 = ["studio-wall", "work-totes", "studio-pick", "work-pouches", "studio-tag", "ai-shipping", "office-lounge"];
+const ROW2 = ["work-parts", "studio-brown", "sewing-poster", "studio-black", "office-sign", "ai-factory"];
 
 function Row({ list, reverse }: { list: string[]; reverse?: boolean }) {
   const all = [...list, ...list]; // 2周分並べて、つなぎ目なく流す

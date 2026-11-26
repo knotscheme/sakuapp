@@ -14,7 +14,7 @@ export const PLANS: Plan[] = [
     items: ["ライトの内容すべて", "商品撮影（物撮り・イメージカット）", "クラファンLPのデザイン制作", "リターン（支援コース）の設計", "プロジェクト申請のサポート"],
   },
   {
-    img: "/images/sewing-poster.webp", id: "premium", name: "プレミアム", en: "Premium", price: 950000, qty: 50,
+    img: "/images/ai-video.webp", id: "premium", name: "プレミアム", en: "Premium", price: 950000, qty: 50,
     lead: "デザインの作り込みや動画まで、ブランドとして仕上げたい方に。",
     items: ["スタンダードの内容すべて", "デザインの作り込み（サンプル修正2回まで無料）", "紹介動画の制作（30〜60秒）", "革のアップグレード（イタリアン・国産から）", "公開後1か月の伴走（活動報告・SNS告知）"],
   },
@@ -58,13 +58,13 @@ export const HERO_STATS = [
 // 流れと期間の目安
 export const FLOW = [
   { at: ["DAY", "1"], img: "/images/office-lounge.webp", t: "無料相談・プラン決定", d: "1〜3日", b: "チャットで、作りたいものと予算をうかがい、プランを決めます。" },
-  { at: ["DAY", "3"], img: "/images/office-sign.webp", t: "ご契約・お支払い（50%）", d: "即日", b: "入金を確認したら、デザイン・革・ロゴの仕様を固めます。" },
+  { at: ["DAY", "3"], img: "/images/ai-contract.webp", t: "ご契約・お支払い（50%）", d: "即日", b: "入金を確認したら、デザイン・革・ロゴの仕様を固めます。" },
   { at: ["WEEK", "1"], img: "/images/work-parts.webp", t: "設計・型紙・抜き型", d: "約2週間", b: "デザインを図面にし、型紙と裁断用の抜き型をつくります。図面はチャットで確認します。" },
   { at: ["WEEK", "3"], img: "/images/sewing-poster.webp", t: "サンプル製作", d: "約3週間", b: "タイの提携工場でサンプルを製作。届いたら実物で確認します。" },
   { at: ["WEEK", "6"], img: "/images/studio-tag.webp", t: "撮影・LP制作", d: "約2週間", b: "サンプルを撮影し、売れる構成でLPを制作。修正は2回まで無料。" },
   { at: ["WEEK", "8"], img: "/images/cf-tote-mini.webp", t: "クラファン公開", d: "30〜60日", b: "公開後も、活動報告や告知の文面をサポート（プレミアム）。" },
-  { at: ["MONTH", "4"], img: "/images/work-pouches.webp", t: "本生産・検品・発送", d: "約30〜45日", b: "国内で1点ずつ検品し、支援者さまへお届けします。" },
-  { at: ["MONTH", "5"], img: "/images/work-totes.webp", t: "一般販売（Shopify）", d: "約2週間", b: "クラファンの素材を使って自社ECを公開。追加生産も型紙ですぐ。" },
+  { at: ["MONTH", "4"], img: "/images/ai-shipping.webp", t: "本生産・検品・発送", d: "約30〜45日", b: "国内で1点ずつ検品し、支援者さまへお届けします。" },
+  { at: ["MONTH", "5"], img: "/images/ai-ecshop.webp", t: "一般販売（Shopify）", d: "約2週間", b: "クラファンの素材を使って自社ECを公開。追加生産も型紙ですぐ。" },
 ];
 
 export const yen = (n: number) => `${n.toLocaleString("ja-JP")}円`;
