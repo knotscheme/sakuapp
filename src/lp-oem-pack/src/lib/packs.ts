@@ -57,7 +57,7 @@ export const HERO_STATS = [
 
 // 流れと期間の目安
 export const FLOW = [
-  { at: ["DAY", "1"], img: "/images/office-lounge.webp", t: "チャットで相談・プラン決定", d: "1〜3日", b: "チャットで、作りたいものと予算をうかがい、プランを決めます。" },
+  { at: ["DAY", "1"], img: "/images/ai-chat.webp", t: "チャットで相談・プラン決定", d: "1〜3日", b: "チャットで、作りたいものと予算をうかがい、プランを決めます。" },
   { at: ["DAY", "3"], img: "/images/ai-contract.webp", t: "ご契約・お支払い（50%）", d: "即日", b: "入金を確認したら、デザイン・革・ロゴの仕様を固めます。" },
   { at: ["WEEK", "1"], img: "/images/ai-pattern.webp", t: "設計・型紙・抜き型", d: "約2週間", b: "チャットで革の量・金具・寸法を決め、図面にして型紙と抜き型をつくります。" },
   { at: ["WEEK", "3"], img: "/images/sewing-poster.webp", t: "サンプル製作", d: "約3週間", b: "タイの提携工場でサンプルを製作。届いたら実物で確認します。" },
