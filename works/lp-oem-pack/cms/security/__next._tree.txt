@@ -1,0 +1,8 @@
+:HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/3pv2lqr2z1g40.css","style"]
+:HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/1c8d_6f3zinsn.css","style"]
+:HL["/sakuapp/works/lp-oem-pack/_next/static/media/6d74e39191e78e88-s.p.0fhiaplbf_4wa.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/sakuapp/works/lp-oem-pack/_next/static/media/6f3ab718e3727c1a-s.p.3huc2loe0ie8a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":"security","h":96,"c":"$Q3"}]]
+1:[["children",{"s":"cms","h":96,"c":"$Q2"}]]
+0:{"b":"lzDFKfdY49knWB8xO4rCz","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
