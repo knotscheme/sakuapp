@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ArrowDown, ArrowUp, ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
 import { moveLp, moveProduct, renameSize, setLp, updateColor } from "@/components/cms/catalog";
-import { TANS, colorsForLeather, toggleLeatherColor, type LeatherDef, type Tan } from "@/components/cms/catalog";
+import { TANS, colorsForLeather, toggleLeatherColor, toggleProductLeather, type LeatherDef, type Tan } from "@/components/cms/catalog";
 import { addLeather, costOf, deleteLeather, leathersOf, updateLeather } from "@/components/cms/catalog";
 import { lotChoices, rateFor, usePricing } from "@/lib/pricing";
 import { MAX_SUB, skuList, addColor, addSize, deleteColor, deleteSize, setColorHex, addCat, deleteCat, deleteProduct, embedUrl, imgSrc, renameCat, saveProduct, shrinkImage, toggleVisible, useCatalog, type Product } from "@/components/cms/catalog";
@@ -315,6 +315,7 @@ const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 // 革素材の登録：お客様に見える名前と、社内用のデシ単価（1デシ＝10×10cm）、お客様の単価への上乗せ
 function LeatherCard() {
   const { leathers, products, colors } = useCatalog();
+  const pr = usePricing();
   const { can } = useAuth();
   const money = can("money.view");
   const [name, setName] = useState("");
@@ -368,6 +369,20 @@ function LeatherCard() {
                 <span className="ml-1 text-[11px] text-mute">{l.colors ? `${colors.filter((c) => l.colors!.includes(c.name)).length}色` : "全色"}</span>
               </div>
               <LeatherMeta l={l} sel={sel} />
+              {/* 最小ロット（この革だけ多いとき）と、この革に対応する商品（押して付け外し。商品の編集の「革素材」と同じ設定） */}
+              <div className="mt-2 flex items-center gap-2 pl-2 text-[11px] text-mute">
+                <label className="flex items-center gap-1.5">最小ロット
+                  <input key={`m-${l.minLot}`} type="number" min={0} step={10} defaultValue={l.minLot ?? ""} placeholder={`${pr.minLot}`} aria-label={`${l.name}の最小ロット`} onBlur={(e) => { const v = Math.round(Number(e.target.value)); updateLeather(l.id, { minLot: v > 0 ? v : undefined }); }} onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()} className="w-16 rounded-md border border-line px-2 py-1 text-right text-[12px] tabular-nums outline-none focus:border-ink" />個から
+                </label>
+                {!l.minLot && <span>（空なら全体の{pr.minLot}個）</span>}
+              </div>
+              <div className="mt-2 flex flex-wrap items-center gap-1.5 pl-2 text-[11px]">
+                <span className="mr-0.5 text-mute">対応する商品</span>
+                {products.map((p) => {
+                  const on = !!p.leathers?.includes(l.id);
+                  return <button key={p.id} type="button" aria-pressed={on} onClick={() => toggleProductLeather(p.id, l.id)} className={`rounded-full border px-2 py-0.5 ${on ? "border-ink bg-ink text-white" : "border-line text-mute hover:border-ink hover:text-ink"}`}>{p.short}</button>;
+                })}
+              </div>
             </li>
           );
         })}

@@ -8,7 +8,7 @@ import { useLp } from "./LpContext";
 import SectionTitle from "./SectionTitle";
 import { asset } from "@/lib/asset";
 import { addInquiry } from "./cms/store";
-import { colorsForLeather, imgSrc, leathersOf, useCatalog, useLpModels } from "./cms/catalog";
+import { colorsForLeather, imgSrc, leathersOf, minLotOf, useCatalog, useLpModels } from "./cms/catalog";
 import { ALL_MODELS } from "@/lib/models";
 import { tierInfo, unitPriceOf } from "@/lib/cms";
 import { toLogoMask } from "./cms/Proof";
@@ -19,7 +19,6 @@ const OK_EXT = /\.(ai|pdf|svg|png|jpe?g|eps)$/i;
 
 export default function ContactForm() {
   const pr = usePricing();
-  const MIN_LOT = pr.minLot;
   const { prefill } = useLp();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,6 +33,9 @@ export default function ContactForm() {
   const leatherList = prod ? leathersOf(prod, allLeathers) : [];
   const [leatherId, setLeatherId] = useState("");
   const leather = leatherList.find((l) => l.id === leatherId) ?? leatherList[0];
+  // 最小ロットは革によって異なる（例：シュリンクレザーは300個から）
+  const MIN_LOT = minLotOf(leather, pr.minLot);
+  const lots = [...new Set([MIN_LOT, ...lotChoices(pr).filter((n) => n >= MIN_LOT)])];
   // カラーは革によって異なる：選んだ革で作れる色だけ（作れない色に入れた数は数えない）
   const ci = (prod?.options ?? []).findIndex((o) => o.kind === "color");
   const prodColors = ci < 0 ? [] : [...new Set((prod?.variants ?? []).filter((v) => v.visible).map((v) => v.values[ci]))];
@@ -50,6 +52,8 @@ export default function ContactForm() {
   const [flash, setFlash] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  // 革を変えて最小ロットに届かなくなった希望ロットは、選び直してもらう
+  useEffect(() => { if (lot && lot !== "more" && Number(lot) < MIN_LOT) setLot(""); }, [MIN_LOT, lot]); // eslint-disable-line react-hooks/set-state-in-effect
   // 製品一覧で選んだ革（?leather=）を最初に選んでおく
   useEffect(() => {
     const l = new URLSearchParams(location.search).get("leather");
@@ -183,7 +187,7 @@ export default function ContactForm() {
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         {l.img ? <img src={imgSrc(l.img)} alt="" className="aspect-[4/3] w-12 shrink-0 object-cover" /> : <span className="aspect-[4/3] w-12 shrink-0 bg-paper" />}
                         <span className="flex-1 text-[13px] font-medium">{l.name}</span>
-                        <span className={`shrink-0 text-[11.5px] font-normal ${on ? "text-white/70" : "text-mute"}`}>{i === 0 && l.add === 0 ? "標準" : `＋${yen(l.add)}／個`}</span>
+                        <span className={`shrink-0 text-right text-[11.5px] leading-tight font-normal ${on ? "text-white/70" : "text-mute"}`}>{i === 0 && l.add === 0 ? "標準" : l.add > 0 ? `＋${yen(l.add)}／個` : "追加料金なし"}{minLotOf(l, pr.minLot) > pr.minLot && <span className="block">{minLotOf(l, pr.minLot)}個から</span>}</span>
                       </label>
                     );
                   })}
@@ -223,7 +227,7 @@ export default function ContactForm() {
             <fieldset className="min-w-0 text-sm font-bold md:col-span-2" aria-invalid={!!errors.lot} aria-describedby="err-lot">
               <legend>希望ロット数<span className="ml-1 text-xs text-gold">必須</span></legend>
               <div className="mt-3 grid gap-2 [grid-template-columns:repeat(auto-fit,minmax(4.2rem,1fr))]">
-                {[...lotChoices(pr).map((l) => [String(l), `${l}個`]), ["more", "未定"]].map(([v, t]) => (
+                {[...lots.map((l) => [String(l), `${l}個`]), ["more", "未定"]].map(([v, t]) => (
                   <label key={v} className={`cursor-pointer border py-3 text-center text-[13px] font-medium transition ${lot === v ? "border-ink bg-ink text-white" : errors.lot ? "border-red-300" : "border-line hover:border-mute"}`}>
                     <input type="radio" name="cf-lot" value={v} checked={lot === v} onChange={() => setLot(v)} onClick={() => lot === v && setLot("")} className="sr-only" />
                     {t}
@@ -253,7 +257,7 @@ export default function ContactForm() {
                     );
                   })}
                 </ul>
-                {total > 0 && <Estimate model={model as ModelId} total={total} show={inSim} logo={logoOn} add={leather?.add ?? 0} leatherName={leatherList.length > 1 ? leather?.name : undefined} />}
+                {total > 0 && <Estimate minLot={MIN_LOT} model={model as ModelId} total={total} show={inSim} logo={logoOn} add={leather?.add ?? 0} leatherName={leatherList.length > 1 ? leather?.name : undefined} />}
               </div>
             )}
 
@@ -287,8 +291,8 @@ export default function ContactForm() {
 }
 
 // 概算の見積もり：合計の数で単価が下がる（数量割引）。あと何個で次の割引かも出す
-function Estimate({ model, total, show, logo, add, leatherName }: { model: ModelId; total: number; show: boolean; logo: boolean; add: number; leatherName?: string }) {
-  const { minLot: MIN_LOT, plate } = usePricing();
+function Estimate({ minLot: MIN_LOT, model, total, show, logo, add, leatherName }: { minLot: number; model: ModelId; total: number; show: boolean; logo: boolean; add: number; leatherName?: string }) {
+  const { plate } = usePricing();
   const PLATE_COST = logo ? plate : 0;
   const t = tierInfo(total);
   if (total < MIN_LOT) return <p className="mt-3 text-[12.5px] text-red-600">合計{MIN_LOT}個から承ります（いま{total}個）</p>;
