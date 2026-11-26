@@ -22,7 +22,7 @@ export default function Products() {
             <p className="font-display text-[12px] tracking-[0.4em] text-mute">PRODUCTS</p>
             <h1 className="mt-4 text-[30px] font-medium tracking-[0.06em] md:text-[40px]">製品一覧</h1>
             <p className="mt-5 max-w-xl text-[14px] leading-loose text-mute">
-              <span className="inline-block">販売実績のある定番の型に、</span><span className="inline-block">あなたのロゴを入れてお届けします。</span>
+              <span className="inline-block">定番の型に、</span><span className="inline-block">あなたのロゴを入れてお届けします。</span>
             </p>
           </div>
           <ProductList />
