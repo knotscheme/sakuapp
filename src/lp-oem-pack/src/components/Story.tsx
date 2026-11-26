@@ -36,18 +36,53 @@ function Mock({ v, fill, total }: { v: Visual; fill: number; total: number }) {
     return <video src={asset(v.src)} poster={asset(v.poster)} muted loop playsInline autoPlay preload="none" className="h-full w-full object-cover" style={{ objectPosition: v.pos }} />;
   }
   if (v.kind === "lp") {
-    // 撮影した写真で作ったLP（イメージ）
+    // 売れるLP（イメージ）：クラファンでよく見る縦長のページを、画面の中で自動でスクロールして見せる
+    const dot = ["#5b2a1e", "#8a4b2a", "#b8743a", "#2c3a4f", "#2f4a35", "#1d1d1f"];
     return (
       <Phone>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset("/images/model-long.webp")} alt="" className="aspect-[4/3] w-full object-cover" />
-        <div className="px-3 pt-3">
-          <p className="text-[7px] tracking-[0.2em] text-mute">NEW PROJECT</p>
-          <p className="mt-1 text-[11px] leading-snug font-bold">20年の職人が選んだ革で、一生ものの長財布を。</p>
-          <p className="mt-1.5 text-[7.5px] leading-relaxed text-mute">イタリアンレザーを、タンニンでゆっくり鞣して。使うほどに艶が出ます。</p>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={asset("/images/studio-tag.webp")} alt="" className="mt-2 aspect-[16/9] w-full rounded object-cover" />
-          <p className="mt-2 rounded bg-[#e85a4f] py-1.5 text-center text-[9px] font-bold text-white">このプロジェクトを支援する</p>
+        <div className="h-full [container-type:size]">
+          <div className="lp-autoscroll bg-white">
+            {/* ファーストビュー：写真にキャッチコピー */}
+            <div className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={asset("/images/studio-brown.webp")} alt="" className="aspect-[3/4] w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60" />
+              <p className="absolute top-12 right-2 rounded-full bg-[#e85a4f] px-1.5 py-1 text-center text-[6px] leading-tight font-bold text-white">超早割<br /><b className="text-[9px]">30%</b><br />OFF</p>
+              <p className="absolute top-3 left-3 bg-black/60 px-2 py-1 text-[13px] font-bold tracking-[0.08em] text-white">「縫わない美学」</p>
+              <div className="absolute inset-x-0 bottom-0 p-3 text-white">
+                <p className="text-[12px] leading-snug font-bold">変化を楽しむ、大人の財布。</p>
+                <p className="mt-0.5 text-[7px] text-white/85">イタリアンレザーの経年変化を、最大限に楽しむ。</p>
+                <div className="mt-1.5 flex gap-1">{dot.map((c) => <span key={c} className="h-2.5 w-2.5 rounded-full ring-1 ring-white/70" style={{ background: c }} />)}</div>
+              </div>
+            </div>
+            <p className="bg-[#1d1d1f] py-1.5 text-center text-[7.5px] font-bold tracking-wider text-[#e9cf8f]">20年のつくり手 × 累計1億円の実績</p>
+            {/* こだわり */}
+            <div className="px-3 pt-3">
+              <p className="text-center text-[6.5px] tracking-[0.3em] text-[#b8860b]">POINT 01</p>
+              <p className="mt-0.5 text-center text-[11px] font-bold">一枚ずつ選ぶ、イタリアンレザー</p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={asset("/images/studio-tag.webp")} alt="" className="mt-1.5 aspect-[16/10] w-full rounded object-cover" />
+              <p className="mt-1 text-[7px] leading-relaxed text-[#555]">植物のタンニンでゆっくり鞣した革。使うほどに艶が深まります。</p>
+            </div>
+            <div className="px-3 pt-3">
+              <p className="text-center text-[6.5px] tracking-[0.3em] text-[#b8860b]">POINT 02</p>
+              <p className="mt-0.5 text-center text-[11px] font-bold">縫い目のない、ひと続きの形</p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={asset("/images/cf-wallet-nobu.webp")} alt="" className="mt-1.5 aspect-[4/3] w-full rounded bg-white object-contain" />
+            </div>
+            {/* 声 */}
+            <div className="mx-3 mt-3 rounded bg-[#faf6ee] p-2">
+              <p className="text-[8px] text-[#e8a317]">★★★★★</p>
+              <p className="mt-0.5 text-[7px] leading-relaxed text-[#444]">「半年でいい色に育ちました。薄いのに小銭もお札もちゃんと入る」</p>
+            </div>
+            {/* リターン */}
+            <div className="mx-3 mt-3 rounded border-2 border-[#e85a4f] p-2">
+              <p className="text-[7px] font-bold text-[#e85a4f]">【超早割】数量限定 30%OFF</p>
+              <p className="mt-0.5 flex items-baseline gap-1.5"><s className="text-[7.5px] text-[#999]">¥18,000</s><b className="text-[14px]">¥12,600</b><span className="text-[6.5px] text-[#999]">税込・送料込</span></p>
+              <p className="mt-0.5 text-[6.5px] text-[#999]">残り 12 / 100</p>
+            </div>
+            <p className="mx-3 mt-2.5 mb-4 rounded bg-[#e85a4f] py-2 text-center text-[9px] font-bold text-white">このプロジェクトを応援する</p>
+          </div>
         </div>
       </Phone>
     );
