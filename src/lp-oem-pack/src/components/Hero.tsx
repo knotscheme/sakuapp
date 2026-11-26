@@ -21,7 +21,7 @@ export default function Hero() {
   // 4.5秒ごとに次の写真へ（動きを減らす設定のときは切り替えない）
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = setInterval(() => setCur((c) => (c + 1) % SLIDES.length), 4500);
+    const t = setInterval(() => setCur((c) => (c + 1) % SLIDES.length), 3200);
     return () => clearInterval(t);
   }, []);
   const bg = useRef<HTMLDivElement>(null);
@@ -31,9 +31,9 @@ export default function Hero() {
     if (reduce) { setN(GOAL); return; }
     // オープニングが終わるころに数え始める（最後はゆっくり止まる）
     let raf = 0;
-    const start = performance.now() + 900;
+    const start = performance.now() + 500;
     const tick = (t: number) => {
-      const p = Math.min(1, Math.max(0, (t - start) / 2400));
+      const p = Math.min(1, Math.max(0, (t - start) / 1600));
       setN(Math.round(GOAL * (1 - Math.pow(1 - p, 4))));
       if (p < 1) raf = requestAnimationFrame(tick);
     };
@@ -51,57 +51,46 @@ export default function Hero() {
     { top: "小ロット", big: "50", unit: "個〜", sub: "カラー別OK" },
   ];
 
-  // 写真（上・PCは右）と文字（下・PCは左）を分ける。文字はすべて左ぞろえ・同じ幅
+  // 写真を大きく（スマホは上55%、PCは全面）。見出しは写真に重ねて大きく。写真は3.2秒ごとに切り替わり、ゆっくり寄る
   return (
-    <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#141210] text-white md:flex-row-reverse">
-      <div className="relative h-[30svh] shrink-0 overflow-hidden md:h-auto md:w-1/2">
+    <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#141210] text-white md:block">
+      <div className="relative h-[62svh] shrink-0 overflow-hidden md:absolute md:inset-0 md:h-auto">
         <div ref={bg} className="absolute inset-0 scale-[1.06] will-change-transform">
           {SLIDES.map((x, i) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img key={x.src} src={asset(x.src)} alt={i === cur ? x.alt : ""} aria-hidden={i !== cur} loading={i === 0 ? "eager" : "lazy"}
-              className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-[1600ms] ease-out ${i === cur ? "scale-100 opacity-100" : "scale-[1.06] opacity-0"}`} style={{ objectPosition: x.pos }} />
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${i === cur ? "hero-kb opacity-100" : "opacity-0"}`} style={{ objectPosition: x.pos }} />
           ))}
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/25 to-black/30 md:bg-gradient-to-r md:from-[#141210] md:via-[#141210]/70 md:to-transparent" />
         {/* いまの写真の位置（押すとその写真へ） */}
-        <div className="absolute right-5 bottom-4 z-[1] flex gap-1.5 md:right-6 md:bottom-6">
+        <div className="absolute top-20 right-4 z-[2] flex flex-col gap-1 md:top-auto md:right-8 md:bottom-8 md:flex-row">
           {SLIDES.map((x, i) => (
             <button key={x.src} type="button" onClick={() => setCur(i)} aria-label={`${i + 1}枚目の写真`} aria-current={i === cur} className="p-1">
-              <span className={`block h-[3px] rounded-full transition-all duration-500 ${i === cur ? "w-5 bg-white" : "w-2.5 bg-white/40"}`} />
+              <span className={`block rounded-full transition-all duration-300 ${i === cur ? "h-5 w-[3px] bg-white md:h-[3px] md:w-6" : "h-2.5 w-[3px] bg-white/40 md:h-[3px] md:w-2.5"}`} />
             </button>
           ))}
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#141210] to-transparent md:inset-y-0 md:left-0 md:h-auto md:w-1/3 md:bg-gradient-to-r" />
       </div>
 
-      <div className="relative flex flex-1 flex-col justify-between px-6 pt-4 pb-8 md:w-1/2 md:justify-center md:gap-12 md:px-[max(2rem,calc((100vw-72rem)/2+2rem))] md:pt-24 md:pr-12 md:pb-16">
-        <div>
-          <p className="hero-in mb-3 font-display text-[10.5px] tracking-[0.3em] text-white/55" style={{ animationDelay: ".1s" }}>LEATHER OEM / ODM × CROWDFUNDING</p>
-          <h1 className="text-[40px] leading-[1.15] font-medium tracking-[0.02em] sm:text-[56px] lg:text-[68px]">
-            <span className="line-mask"><span style={{ animationDelay: ".2s" }}>売れるまで、</span></span>
-            <span className="line-mask"><span style={{ animationDelay: ".35s" }}><span className="text-gold">つくる。</span></span></span>
-          </h1>
-          <p className="hero-in mt-4 text-[13.5px] leading-relaxed text-white/80 sm:text-[15px]" style={{ animationDelay: ".5s" }}>
-            <span className="inline-block">革製品づくり20年のつくり手が、</span><span className="inline-block">設計・生産から売れるLP、クラファン、</span><span className="inline-block">自社ECまで伴走します。</span>
-          </p>
-          {/* やることを4つの段で見せる */}
-          <ol className="hero-in mt-4 grid grid-cols-4 gap-1.5 text-center sm:max-w-[480px]" style={{ animationDelay: ".6s" }}>
-            {["設計・型紙", "小ロット生産", "LP×クラファン", "自社EC"].map((t, i) => (
-              <li key={t} className="border border-white/15 bg-white/[.04] px-1 py-2">
-                <span className="block font-num text-[10px] text-gold">0{i + 1}</span>
-                <span className="mt-0.5 block text-[clamp(9px,2.7vw,12px)] leading-tight whitespace-nowrap text-white/85">{t}</span>
-              </li>
-            ))}
-          </ol>
-          <div className="hero-in mt-5 flex items-center gap-3" style={{ animationDelay: ".7s" }}>
-            <a href="#plans" className="group inline-flex items-center gap-2 bg-white px-5 py-2.5 text-[13px] tracking-[0.06em] text-ink transition hover:bg-gold hover:text-white">
-              プランを見る <ArrowRight size={14} className="transition group-hover:translate-x-1" />
-            </a>
-            <a href="#contact" className="inline-flex items-center border border-white/40 px-5 py-2.5 text-[13px] tracking-[0.06em] text-white transition hover:border-gold hover:text-gold">無料で相談</a>
-          </div>
+      <div className="relative z-[1] -mt-48 flex flex-1 flex-col px-6 pb-8 md:mx-auto md:mt-0 md:min-h-[100svh] md:max-w-6xl md:justify-center md:px-8 md:pt-24 md:pb-16">
+        <p className="hero-in font-display text-[10.5px] tracking-[0.3em] text-white/75" style={{ animationDelay: ".05s" }}>LEATHER OEM / ODM × CROWDFUNDING</p>
+        <h1 className="mt-2 text-[clamp(38px,13.4vw,56px)] leading-[1.08] font-bold tracking-[0.01em] [text-shadow:0_2px_24px_rgba(0,0,0,.5)] sm:text-[72px] lg:text-[96px]">
+          <span className="line-mask"><span style={{ animationDelay: ".1s" }}>売れるまで、</span></span>
+          <span className="line-mask"><span style={{ animationDelay: ".2s" }}><span className="text-gold">つくる。</span></span></span>
+        </h1>
+        <p className="hero-in mt-4 max-w-md text-[14px] leading-relaxed text-white/85 sm:text-[15.5px]" style={{ animationDelay: ".3s" }}>
+          <span className="inline-block">革製品づくり20年のつくり手が、</span><span className="inline-block">設計・小ロット生産から売れるLP、</span><span className="inline-block">クラファン、自社ECまで伴走。</span>
+        </p>
+        <div className="hero-in mt-5 flex items-center gap-3" style={{ animationDelay: ".4s" }}>
+          <a href="#plans" className="group inline-flex items-center gap-2 bg-gold px-5 py-2.5 text-[13px] tracking-[0.06em] text-white transition hover:bg-white hover:text-ink">
+            プランを見る <ArrowRight size={14} className="transition group-hover:translate-x-1" />
+          </a>
+          <a href="#contact" className="inline-flex items-center border border-white/50 px-5 py-2.5 text-[13px] tracking-[0.06em] text-white transition hover:border-gold hover:text-gold">無料で相談</a>
         </div>
 
-        {/* 実績の帯（月桂樹のバッジ）。クラファンの数字は 0 → 1億 まで数える */}
-        <ul className="hero-in mt-6 grid grid-cols-3 border-t border-white/15 pt-4 md:mt-0 md:max-w-[480px]" style={{ animationDelay: ".85s" }}>
+        {/* 実績（月桂樹のバッジ）。クラファンの数字は 0 → 1億 まで数える */}
+        <ul className="hero-in mt-auto grid grid-cols-3 pt-6 md:mt-12 md:max-w-[480px]" style={{ animationDelay: ".5s" }}>
           {badges.map((x) => (
             <li key={x.top} className="relative mx-auto grid aspect-square w-full max-w-[140px] place-items-center text-center text-[#e9cf8f]">
               <Laurel className="absolute inset-0 h-full w-full drop-shadow-[0_1px_6px_rgba(0,0,0,.35)]" />
