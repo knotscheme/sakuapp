@@ -1,6 +1,6 @@
 :HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/3pv2lqr2z1g40.css","style"]
 :HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/19-4o0u81u5s9.css","style"]
-:HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/3_ecdencg9m93.css","style"]
+:HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/0zu-8uicjgaid.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"J85b8dcNy7mk1h0mOFHIM","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"XMirQ1rG72MqRZrHBwaMD","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
