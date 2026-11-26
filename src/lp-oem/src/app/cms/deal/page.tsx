@@ -273,7 +273,7 @@ function LeatherSelect({ d, canEdit, who }: { d: Deal; canEdit: boolean; who: st
   const label = <>{leatherName(d)}{d.leather?.add ? <span className="text-mute">（+{yenOf(d.leather.add)}/個）</span> : null}{warn}</>;
   if (!canEdit || d.lock || list.length < 2) return label;
   return (<>
-    <select value={cur} aria-label="革素材" onChange={(e) => { const l = list.find((x) => x.name === e.target.value); if (l) updateDeal(d.id, (x) => { const y = { ...x, leather: { name: l.name, code: l.code, add: l.add, img: l.img } }; return addLog({ ...y, drafts: y.drafts?.map((dr) => (dr.status === "draft" ? { ...dr, subject: makeDraft(dr.kind, y).subject, body: makeDraft(dr.kind, y).body } : dr)) }, who, `革素材を「${l.name}」に変更しました（送る前の下書きも更新）`); }); }}
+    <select value={cur} aria-label="革素材" onChange={(e) => { const l = list.find((x) => x.name === e.target.value); if (l) updateDeal(d.id, (x) => { const y = { ...x, leather: { name: l.name, code: l.code, add: l.add, img: l.img, group: l.group, tan: l.tan, en: l.en, th: l.th } }; return addLog({ ...y, drafts: y.drafts?.map((dr) => (dr.status === "draft" ? { ...dr, subject: makeDraft(dr.kind, y).subject, body: makeDraft(dr.kind, y).body } : dr)) }, who, `革素材を「${l.name}」に変更しました（送る前の下書きも更新）`); }); }}
       className="-my-1 w-full rounded-md border border-line bg-white px-2 py-1 text-[13px] outline-none focus:border-ink">
       {list.map((l) => <option key={l.id} value={l.name}>{l.name}{l.add ? `（+${yenOf(l.add)}/個）` : ""}</option>)}
     </select>
