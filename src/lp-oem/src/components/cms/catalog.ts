@@ -31,7 +31,7 @@ export type Product = {
 // ※1デシ＝10cm×10cm
 // colors：この革で作れるカラー（登録したカラーの名前）。無ければ全部の色で作れる
 // group：系統（イタリアンレザー・国産レザーなど）、tan：鞣し方、en・th：工場向けの英語・タイ語の名前（空なら日本語のまま出す）
-export type LeatherDef = { id: string; name: string; code: string; dsPrice: number; add: number; img?: string; colors?: string[]; group?: string; tan?: Tan; en?: string; th?: string }; // img：革の見本の写真
+export type LeatherDef = { id: string; name: string; code: string; dsPrice: number; add: number; img?: string; colors?: string[]; group?: string; tan?: Tan; en?: string; th?: string; minLot?: number }; // minLot：この革の最小ロット（無ければ全体の最小ロット） // img：革の見本の写真
 export type Tan = "タンニン鞣し" | "クロム鞣し" | "混合鞣し";
 export const TANS: Tan[] = ["タンニン鞣し", "クロム鞣し", "混合鞣し"];
 // 例：{ name: "カラー", values: ["ブラック", "キャメル"] }
@@ -58,7 +58,7 @@ const SEED_LEATHERS: LeatherDef[] = [
   { id: "l-tj", group: "国産レザー", tan: "タンニン鞣し", name: "栃木レザー（ジーンズ）", en: "Tochigi leather (jeans)", th: "หนังโทจิงิ (ยีนส์)", code: "TJ", dsPrice: 80, add: 700, img: "/images/leather-jn.webp", colors: ["ネイビー"] },
   { id: "l-vc", group: "オリジナルレザー", tan: "タンニン鞣し", name: "ヴァイカウント", en: "Viscount leather", th: "หนังไวเคานต์", code: "VC", dsPrice: 60, add: 300, img: "/images/leather-vc.webp", colors: ALL4 },
   { id: "l-hb", group: "オリジナルレザー", tan: "タンニン鞣し", name: "ハイブリッド（混合鞣し）", en: "Hybrid leather (combination tanned)", th: "หนังไฮบริด (ฟอกผสม)", code: "HB", dsPrice: 50, add: 0, img: "/images/leather-it.webp", colors: [...ALL4, "グレー"] },
-  { id: "l-sh", group: "シュリンクレザー", tan: "クロム鞣し", name: "シュリンクレザー", en: "Shrink leather", th: "หนังชริงค์", code: "SH", dsPrice: 45, add: 0, img: "/images/leather-sh.webp", colors: ["ブラック", "ダークブラウン", "ネイビー", "グレー"] },
+  { id: "l-sh", group: "シュリンクレザー", tan: "クロム鞣し", name: "シュリンクレザー", en: "Shrink leather", th: "หนังชริงค์", code: "SH", dsPrice: 45, add: 0, minLot: 300, img: "/images/leather-sh.webp", colors: ["ブラック", "ダークブラウン", "ネイビー", "グレー"] },
 ];
 // 商品ごとの使用デシ数・加工賃・選べる革（先頭が標準）（初期の値）
 const SEED_COST: Record<string, { ds: number; labor: number; leathers: string[] }> = {
@@ -126,6 +126,8 @@ function migrate(c: Catalog): Catalog {
   if (!c.lp) c = { ...c, lp: c.products.filter((p) => p.visible && ALL_MODELS.some((m) => m.id === p.id)).map((p) => p.id) };
   // 革ごとのカラーを入れる前の初期の革には、初期のカラーを足す
   if (c.leathers?.some((l) => !("colors" in l) && SEED_LEATHERS.find((x) => x.id === l.id)?.colors)) c = { ...c, leathers: c.leathers.map((l) => ("colors" in l ? l : { ...l, colors: SEED_LEATHERS.find((x) => x.id === l.id)?.colors })) };
+  // 革ごとの最小ロットを入れる前のデータ：シュリンクレザーは300個から
+  if (c.leathers?.some((l) => l.id === "l-sh" && !("minLot" in l))) c = { ...c, leathers: c.leathers.map((l) => (l.id === "l-sh" && !("minLot" in l) ? { ...l, minLot: 300 } : l)) };
   // 写真を入れる前の初期の革には、見本の写真を足す
   if (c.leathers) return c.leathers.some((l) => !l.img && SEED_LEATHERS.some((x) => x.id === l.id)) ? { ...c, leathers: c.leathers.map((l) => l.img ? l : { ...l, img: SEED_LEATHERS.find((x) => x.id === l.id)?.img }) } : c;
   return { ...c, leathers: SEED_LEATHERS, products: c.products.map((p) => { const x = SEED_COST[p.id]; return x && !p.leathers ? { ...p, leathers: x.leathers, cost: p.cost ?? { ds: x.ds, labor: x.labor } } : p; }) };
@@ -309,6 +311,17 @@ export function deleteLeather(id: string) {
 export function leathersOf(p: Pick<Product, "leathers"> | undefined, all: LeatherDef[]): LeatherDef[] {
   const ids = p?.leathers?.length ? p.leathers : all[0] ? [all[0].id] : [];
   return ids.map((id) => all.find((x) => x.id === id)).filter((x): x is LeatherDef => !!x);
+}
+// 革の最小ロット：全体の最小ロットより小さくはしない
+export const minLotOf = (l: Pick<LeatherDef, "minLot"> | undefined, base: number) => Math.max(base, l?.minLot ?? 0);
+// 商品が対応する革を付け外し（革素材の側から設定するとき）
+export function toggleProductLeather(productId: string, leatherId: string) {
+  const c = loadCatalog();
+  save({ ...c, products: c.products.map((p) => {
+    if (p.id !== productId) return p;
+    const cur = p.leathers ?? [];
+    return { ...p, leathers: cur.includes(leatherId) ? cur.filter((x) => x !== leatherId) : [...cur, leatherId] };
+  }) });
 }
 // その革で作れる色だけに絞る（革に色の指定が無ければ、そのまま）
 export const colorsForLeather = (names: string[], l?: Pick<LeatherDef, "colors">) => (l?.colors ? names.filter((n) => l.colors!.includes(n)) : names);

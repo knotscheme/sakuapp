@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Images, Play } from "lucide-react";
 import { ALL_MODELS, COLORS, yen } from "@/lib/models";
 import { usePricing } from "@/lib/pricing";
-import { colorsForLeather, imgSrc, leathersOf, swatchOf, useCatalog, type ColorDef, type LeatherDef } from "./cms/catalog";
+import { colorsForLeather, imgSrc, leathersOf, minLotOf, swatchOf, useCatalog, type ColorDef, type LeatherDef } from "./cms/catalog";
 import NoOrphan from "./NoOrphan";
 import Gallery from "./Gallery";
 import type { Product } from "./cms/catalog";
@@ -69,7 +69,7 @@ function LeatherPick({ list, value, onChange }: { list: LeatherDef[]; value?: st
             className={`flex items-center gap-1.5 border py-1 pr-2.5 pl-1 text-[11.5px] transition ${cur.id === l.id ? "border-ink bg-ink text-white" : "border-line text-ink/80 hover:border-ink"}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             {l.img && <img src={imgSrc(l.img)} alt="" className="h-6 w-8 object-cover" />}
-            {l.name.replace(/（標準）$/, "")}{l.add > 0 && <span className={cur.id === l.id ? "ml-1 text-white/70" : "ml-1 text-mute"}>+{yen(l.add)}</span>}
+            {l.name.replace(/（標準）$/, "")}{l.add > 0 && <span className={cur.id === l.id ? "ml-1 text-white/70" : "ml-1 text-mute"}>+{yen(l.add)}</span>}{(l.minLot ?? 0) > 0 && <span className={cur.id === l.id ? "ml-1 text-white/70" : "ml-1 text-mute"}>・{l.minLot}個〜</span>}
           </button>
         ))}
       </div>
@@ -138,7 +138,7 @@ export default function ProductList() {
               );
             })()}
             <dl className="mt-5 space-y-1.5 border-t border-line pt-5 text-[12.5px]">
-              {[["寸法", m.size], ["ロゴ位置", m.logo], ...optionRows(m), ["最小ロット", `${MIN_LOT}個から`]].filter(([, v]) => v).map(([k, v]) => (
+              {[["寸法", m.size], ["ロゴ位置", m.logo], ...optionRows(m), ["最小ロット", `${minLotOf(leathersOf(m, leathers).find((l) => l.id === pickedL[m.id]) ?? leathersOf(m, leathers)[0], MIN_LOT)}個から`]].filter(([, v]) => v).map(([k, v]) => (
                 <div key={k} className="flex gap-3"><dt className="w-16 shrink-0 text-mute">{k}</dt><dd className="text-ink">{v.split("・").map((t, i, arr) => <span key={t} className="inline-block">{t}{i < arr.length - 1 ? "・" : ""}</span>)}</dd></div>
               ))}
             </dl>
