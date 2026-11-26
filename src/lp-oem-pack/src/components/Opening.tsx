@@ -7,9 +7,9 @@ export default function Opening() {
   const [phase, setPhase] = useState<"show" | "leave" | "gone">("show");
   useEffect(() => {
     const fast = document.documentElement.classList.contains("framed") || matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const t0 = setTimeout(() => document.documentElement.classList.add("opened"), fast ? 0 : 1500);
-    const t1 = setTimeout(() => setPhase("leave"), fast ? 0 : 1500);
-    const t2 = setTimeout(() => setPhase("gone"), fast ? 0 : 2300);
+    const t0 = setTimeout(() => document.documentElement.classList.add("opened"), fast ? 0 : 600);
+    const t1 = setTimeout(() => setPhase("leave"), fast ? 0 : 600);
+    const t2 = setTimeout(() => setPhase("gone"), fast ? 0 : 1100);
     return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); };
   }, []);
   if (phase === "gone") return null;

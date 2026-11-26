@@ -243,3 +243,8 @@ html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top
 .marquee-rev { animation: marquee 56s linear infinite reverse; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 6px)); } }
 @media (prefers-reduced-motion: reduce) { .marquee, .marquee-rev { animation: none; } }
+
+/* ファーストビューの写真：表示中はゆっくり寄る */
+.hero-kb { animation: heroKb 4s ease-out both; }
+@keyframes heroKb { from { transform: scale(1.12); } to { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .hero-kb { animation: none; } }
