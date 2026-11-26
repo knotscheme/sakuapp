@@ -5,4 +5,4 @@
 :HL["/sakuapp/works/lp-oem-pack/_next/static/media/6f3ab718e3727c1a-s.p.3huc2loe0ie8a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"overview","h":96,"c":"$Q2"}]]
-0:{"b":"hCN5xLA_q2RdhO7HKc0NH","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"XQy3FACzJbXv7RC80Edq4","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
