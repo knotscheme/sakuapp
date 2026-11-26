@@ -33,7 +33,7 @@ export default function Hero() {
     <section id="top" className="relative flex min-h-[100svh] items-end overflow-hidden bg-[#141210] text-white">
       <div ref={bg} className="absolute inset-0 scale-[1.06] will-change-transform">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset("/images/studio-wall.webp")} alt="色とりどりの革が並ぶ工房の壁" className="h-full w-full object-cover object-[60%_50%]" />
+        <img src={asset("/images/work-totes.webp")} alt="仕上げ前の革のトートバッグと長財布が並ぶ作業台" className="h-full w-full object-cover object-[55%_45%]" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/75 to-[#141210]/20" />
 

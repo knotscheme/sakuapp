@@ -17,7 +17,7 @@ export default function Models() {
   return (
     <section id="models" className="bg-white py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
-        <SectionTitle en="Base Models" ja="定番の型を、|あなたの|オリジナルに。" sub="型から起こさず、|革・色・ステッチ・刻印・内装で|アレンジ。サンプルが1回で|決まりやすい作り方です。|※過去のクラファン製品の型を|お使いいただくものではありません。" />
+        <SectionTitle en="Base Models" ja="定番の型に、|ロゴを入れる。" sub="クラファン以外（自社販売・ギフト・|ノベルティ）向けの「OEMのみ」の型です。|クラファンでは、既存の型の製品は|掲載できないことが多いため、|オリジナル設計でおつくりします。|大きさや収納の参考にもどうぞ。" />
         {/* 並びや数は読み込み後に変わるので、ふわっと出すのは一覧ごとにする */}
         <div className="reveal grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           {MODELS.map((m, i) => (
