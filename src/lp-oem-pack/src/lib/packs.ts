@@ -47,8 +47,8 @@ export const RESULTS = [
   { img: "/images/model-fragment.webp", title: "スリムフラグメントケース", total: 3120000, rate: 624, backers: 1480, tag: "シュリンクレザー" },
 ];
 export const HERO_STATS = [
-  { v: "2,000万円+", k: "クラファン累計支援額" },
-  { v: "平均 650%", k: "目標達成率" },
+  { v: "累計1億円", k: "クラファン支援額" },
+  { v: "創業20年", k: "革製品づくり" },
   { v: "50個〜", k: "小ロットから" },
 ];
 
