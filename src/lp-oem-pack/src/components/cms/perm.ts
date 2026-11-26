@@ -50,7 +50,7 @@ export function seedPerm(): State {
   };
 }
 
-const KEY = "craftpack-oem-perm-v5";
+const KEY = "craft-oem-perm-v5";
 let cache: State | null = null;
 const subs = new Set<() => void>();
 function load(): State {

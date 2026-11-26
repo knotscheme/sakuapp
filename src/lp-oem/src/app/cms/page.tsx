@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { useEffect } from "react";
 import { AlertTriangle, MessageSquare, Sparkles, Mail, FileText, Factory as FactoryIcon, Activity } from "lucide-react";
-import { DRAFT_LABEL, STAGES, amounts, daysLeft, modelOf, stageIndex, yenOf } from "@/lib/cms";
+import { kindOf, DRAFT_LABEL, STAGES, amounts, daysLeft, modelOf, stageIndex, yenOf } from "@/lib/cms";
 import { checkReminders, pendingDrafts, useDeals } from "@/components/cms/store";
 import { Card, CardHead, DueBadge, Shell, StageBadge, TechNote, NoAccess } from "@/components/cms/ui";
 import { useAuth } from "@/components/cms/perm";
@@ -30,7 +30,7 @@ export default function Dashboard() {
   if (!can("deals.view")) return <Shell title="ダッシュボード"><NoAccess /></Shell>;
   const kpis = [
     { k: "進行中の案件", v: `${active.length}件`, href: "/cms/deals/?stage=active" },
-    { k: "新しい問い合わせ", v: `${deals.filter((d) => d.stage === "inquiry").length}件`, href: "/cms/deals/?stage=inquiry" },
+    { k: "新しい問い合わせ", v: `${deals.filter((d) => d.stage === "inquiry").length}件`, sub: `OEM ${deals.filter((d) => d.stage === "inquiry" && kindOf(d) === "oem").length}・ODM ${deals.filter((d) => d.stage === "inquiry" && kindOf(d) === "odm").length}`, href: "/cms/deals/?stage=inquiry" },
     { k: "受注金額（税込）", v: can("money.view") ? `${(sales / 10000).toLocaleString("ja-JP", { maximumFractionDigits: 1 })}万円` : "—", href: can("analytics.view") ? "/cms/analytics/" : "/cms/deals/?view=list" },
     { k: "製造・輸送中の数量", v: `${pieces.toLocaleString()}個`, href: "/cms/deals/?stage=order,proof,production,transit,inspection,shipping" },
   ];
@@ -42,6 +42,7 @@ export default function Dashboard() {
           <Link key={x.k} href={x.href} className="cms-card group block px-5 py-5 transition hover:shadow-md">
             <p className="flex items-center justify-between text-[11.5px] text-mute">{x.k}<span className="transition group-hover:translate-x-0.5 group-hover:text-ink">→</span></p>
             <p className="mt-2 text-[22px] font-semibold whitespace-nowrap tabular-nums sm:text-[24px]">{x.v}</p>
+            {"sub" in x && x.sub && <p className="mt-0.5 text-[11px] text-mute">{x.sub}</p>}
           </Link>
         ))}
       </div>

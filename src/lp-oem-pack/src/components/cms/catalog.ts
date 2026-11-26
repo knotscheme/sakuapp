@@ -46,7 +46,7 @@ export type SizeDef = { id: string; name: string };
 // products の並び＝製品一覧（カタログ）の表示順。lp＝LPのトップ（ベースモデル）に出す商品のidと、その表示順
 type Catalog = { cats: Cat[]; products: Product[]; colors: ColorDef[]; sizes: SizeDef[]; leathers: LeatherDef[]; lp: string[] };
 
-const KEY = "craftpack-oem-catalog-v3";
+const KEY = "craft-oem-catalog-v3";
 const ALL4 = ["ブラック", "ダークブラウン", "キャメル", "ネイビー"];
 // 初期の革（デシ単価・上乗せ・作れる色は仮の値。管理画面で直せる）
 const SEED_LEATHERS: LeatherDef[] = [

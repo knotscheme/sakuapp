@@ -4,7 +4,7 @@
 import { useSyncExternalStore } from "react";
 import { priceLock, DOCS, DRAFT_LABEL, RATE, STAGES, STAGE_DRAFT, amounts, makeDraft, seedDeals, stageIndex, today, unitPriceOf, yenOf, type Deal, type Draft, type DraftKind, type Log, type Msg, type StageId, PO_ACK, poOf, poText } from "@/lib/cms";
 
-const KEY = "craftpack-oem-cms-v7";
+const KEY = "craft-oem-cms-v8";
 let cache: Deal[] | null = null;
 const subs = new Set<() => void>();
 
@@ -88,16 +88,16 @@ export function revert(id: string, who = "佐藤") {
   });
 }
 
-export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"]; noLogo?: boolean; leather?: Deal["leather"]; plan?: string }) {
+export function addInquiry(p: { brand: string; email: string; model: Deal["model"]; lot: number; message?: string; logo?: string; logoAspect?: number; items?: Deal["items"]; noLogo?: boolean; leather?: Deal["leather"]; kind?: Deal["kind"]; plan?: string }) {
   const list = load();
   const n = Math.max(1023, ...list.map((d) => Number(d.id.slice(2)))) + 1;
   const deal: Deal = {
     id: `C-${n}`, brand: p.brand, person: p.brand, email: p.email, model: p.model, lot: p.lot,
     finish: p.noLogo ? "ロゴなし" : "金箔", color: p.items?.[0]?.color ?? "ダークブラウン", sellPrice: 18000, stage: "inquiry", owner: "佐藤",
     createdAt: today(), due: today(), prodStep: 0, defects: 0, checks: [false, false, false, false, false, false],
-    thbCost: Math.round(unitPriceOf(p.model, p.lot, p.leather?.add) / RATE / 1.6), leather: p.leather, plan: p.plan,
+    thbCost: Math.round(unitPriceOf(p.model, p.lot, p.leather?.add) / RATE / 1.6), leather: p.leather, kind: p.kind ?? "oem", plan: p.plan,
     message: p.message, logo: p.logo, logoAspect: p.logoAspect, items: p.items?.length ? p.items : undefined,
-    logs: [{ at: today(), who: "システム", text: p.noLogo ? "LPのフォームから問い合わせが届きました（ロゴなし）" : p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
+    logs: [{ at: today(), who: "システム", text: p.kind === "odm" ? `クラファン支援パッケージのLPから問い合わせが届きました（ODM${p.plan ? `・${p.plan}` : ""}）` : p.noLogo ? "LPのフォームから問い合わせが届きました（ロゴなし）" : p.logo ? "LPのフォームから問い合わせが届きました（ロゴデータあり）" : "LPのフォームから問い合わせが届きました", kind: "system" }],
   };
   // 届いたらすぐ、返信と見積の下書きを自動で作る（人が確認して送るだけ）
   save([withDraft(deal, "reply"), ...list]);

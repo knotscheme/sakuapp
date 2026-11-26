@@ -39,7 +39,7 @@ export default function Hero() {
   // 写真（上・PCは右）と文字（下・PCは左）を分ける。文字はすべて左ぞろえ・同じ幅
   return (
     <section id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#141210] text-white md:flex-row-reverse">
-      <div className="relative h-[44svh] shrink-0 overflow-hidden md:h-auto md:w-1/2">
+      <div className="relative h-[30svh] shrink-0 overflow-hidden md:h-auto md:w-1/2">
         <div ref={bg} className="absolute inset-0 scale-[1.06] will-change-transform">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={asset("/images/work-totes.webp")} alt="仕上げ前の革のトートバッグと長財布が並ぶ作業台" className="h-full w-full object-cover object-[55%_55%]" />
@@ -49,18 +49,33 @@ export default function Hero() {
 
       <div className="relative flex flex-1 flex-col justify-between px-6 pt-4 pb-8 md:w-1/2 md:justify-center md:gap-12 md:px-[max(2rem,calc((100vw-72rem)/2+2rem))] md:pt-24 md:pr-12 md:pb-16">
         <div>
-          <h1 className="text-[44px] leading-[1.15] font-medium tracking-[0.02em] sm:text-[60px] lg:text-[72px]">
+          <p className="hero-in mb-3 font-display text-[10.5px] tracking-[0.3em] text-white/55" style={{ animationDelay: ".1s" }}>LEATHER OEM / ODM × CROWDFUNDING</p>
+          <h1 className="text-[40px] leading-[1.15] font-medium tracking-[0.02em] sm:text-[56px] lg:text-[68px]">
             <span className="line-mask"><span style={{ animationDelay: ".2s" }}>売れるまで、</span></span>
             <span className="line-mask"><span style={{ animationDelay: ".35s" }}><span className="text-gold">つくる。</span></span></span>
           </h1>
-          <p className="hero-in mt-4 text-[clamp(10.5px,3.4vw,15px)] tracking-[0.02em] whitespace-nowrap text-white/75" style={{ animationDelay: ".55s" }}>小ロットOEM × 売れるLP × クラファン × 自社EC</p>
-          <a href="#plans" className="hero-in group mt-6 flex w-full items-center justify-center gap-3 bg-white py-4 text-[14px] tracking-[0.1em] text-ink transition hover:bg-gold hover:text-white md:w-auto md:max-w-[320px]" style={{ animationDelay: ".7s" }}>
-            プランを見る <ArrowRight size={16} className="transition group-hover:translate-x-1" />
-          </a>
+          <p className="hero-in mt-4 text-[13.5px] leading-relaxed text-white/80 sm:text-[15px]" style={{ animationDelay: ".5s" }}>
+            <span className="inline-block">革製品づくり20年のつくり手が、</span><span className="inline-block">設計・生産から売れるLP、クラファン、</span><span className="inline-block">自社ECまで伴走します。</span>
+          </p>
+          {/* やることを4つの段で見せる */}
+          <ol className="hero-in mt-4 grid grid-cols-4 gap-1.5 text-center sm:max-w-[480px]" style={{ animationDelay: ".6s" }}>
+            {["設計・型紙", "小ロット生産", "LP×クラファン", "自社EC"].map((t, i) => (
+              <li key={t} className="border border-white/15 bg-white/[.04] px-1 py-2">
+                <span className="block font-num text-[10px] text-gold">0{i + 1}</span>
+                <span className="mt-0.5 block text-[clamp(9px,2.7vw,12px)] leading-tight whitespace-nowrap text-white/85">{t}</span>
+              </li>
+            ))}
+          </ol>
+          <div className="hero-in mt-5 flex items-center gap-3" style={{ animationDelay: ".7s" }}>
+            <a href="#plans" className="group inline-flex items-center gap-2 bg-white px-5 py-2.5 text-[13px] tracking-[0.06em] text-ink transition hover:bg-gold hover:text-white">
+              プランを見る <ArrowRight size={14} className="transition group-hover:translate-x-1" />
+            </a>
+            <a href="#contact" className="inline-flex items-center border border-white/40 px-5 py-2.5 text-[13px] tracking-[0.06em] text-white transition hover:border-gold hover:text-gold">無料で相談</a>
+          </div>
         </div>
 
         {/* 実績の帯（月桂樹のバッジ）。クラファンの数字は 0 → 1億 まで数える */}
-        <ul className="hero-in mt-7 grid grid-cols-3 border-t border-white/15 pt-5 md:mt-0 md:max-w-[480px]" style={{ animationDelay: ".85s" }}>
+        <ul className="hero-in mt-6 grid grid-cols-3 border-t border-white/15 pt-4 md:mt-0 md:max-w-[480px]" style={{ animationDelay: ".85s" }}>
           {badges.map((x) => (
             <li key={x.top} className="relative mx-auto grid aspect-square w-full max-w-[140px] place-items-center text-center text-[#e9cf8f]">
               <Laurel className="absolute inset-0 h-full w-full drop-shadow-[0_1px_6px_rgba(0,0,0,.35)]" />

@@ -8,7 +8,7 @@ import { useDeals, unreadOf } from "@/components/cms/store";
 import { useAuth } from "@/components/cms/perm";
 import { MsgThread } from "@/components/cms/Messages";
 import { ProofView } from "@/components/cms/Proof";
-import { NoAccess, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
+import { KindBadge, NoAccess, Shell, StageBadge, TechNote, useQuery } from "@/components/cms/ui";
 import { modelOf } from "@/lib/cms";
 
 // 工場との連絡：LINEのように、工場とのやり取りだけを案件ごとに並べる
@@ -82,7 +82,7 @@ export default function Messages() {
         <button type="button" onClick={() => open(null)} aria-label="一覧に戻る" className="rounded-full p-2 text-mute hover:bg-[#f1f1f0] md:hidden"><ChevronLeft size={20} /></button>
         <div className="w-12 shrink-0 overflow-hidden rounded-lg md:w-14"><ProofView d={cur} label={false} /></div>
         <div className="min-w-0 flex-1">
-          <p className="flex items-center gap-2 text-[14px] font-semibold"><span className="truncate">{cur.brand}</span><StageBadge stage={cur.stage} /></p>
+          <p className="flex items-center gap-2 text-[14px] font-semibold"><KindBadge d={cur} /><span className="truncate">{cur.brand}</span><StageBadge stage={cur.stage} /></p>
           <p className="truncate text-[11.5px] text-mute">{cur.id}・{modelOf(cur.model).short}・{cur.lot}個・{cur.color}・{cur.finish}</p>
         </div>
         <Link href={`/cms/deal/?id=${cur.id}`} aria-label="案件を開く" className="flex shrink-0 items-center gap-1 rounded-full border border-line px-2.5 py-2 text-[12px] hover:border-ink"><span className="hidden sm:inline">案件を開く</span><span className="sm:hidden">案件</span><ExternalLink size={12} /></Link>

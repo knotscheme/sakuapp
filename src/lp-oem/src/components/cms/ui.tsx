@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { X, Percent, ScanSearch, LogOut, Inbox, MessageCircle, LayoutGrid, KanbanSquare, Factory, ClipboardCheck, UserRound, ArrowLeft, RotateCcw, Menu, Cpu, Package, BarChart3, ShieldCheck, Lock, BookOpen } from "lucide-react";
 import { resetPerm, switchUser, useAuth, usePermState, type Perm } from "./perm";
-import { STAGES, daysLeft, stageIndex, type StageId } from "@/lib/cms";
+import { STAGES, daysLeft, stageIndex, type StageId , kindInfo, type Deal } from "@/lib/cms";
 import { resetDemo, unreadOf, useDeals } from "./store";
 import { resetCatalog } from "./catalog";
 import { ConfirmHost, askConfirm } from "./Confirm";
@@ -275,6 +275,13 @@ export function StageBadge({ stage }: { stage: StageId }) {
   const i = stageIndex(stage);
   const tone = stage === "done" ? "bg-ink/5 text-mute" : i >= 4 ? "bg-[#eef4ff] text-[#2a4f9e]" : i >= 2 ? "bg-[#fbf3e2] text-[#8a650c]" : "bg-[#f1f1ef] text-ink";
   return <span className={`inline-block rounded-full px-2.5 py-0.5 text-[11px] whitespace-nowrap ${tone}`}><Ph>{STAGES[i].ja}</Ph></span>;
+}
+
+// 依頼の種類（OEM・ODM）の印
+export function KindBadge({ d, long = false }: { d: Pick<Deal, "kind" | "plan">; long?: boolean }) {
+  const k = kindInfo(d);
+  const cls = k.id === "odm" ? "bg-[#2a4f9e] text-white" : "border border-line bg-white text-ink/70";
+  return <span className={`inline-block rounded px-1.5 py-px text-[10.5px] font-medium whitespace-nowrap ${cls}`} title={k.note}>{long ? k.ja : k.short}{long && d.plan ? `・${d.plan}` : ""}</span>;
 }
 
 export function DueBadge({ due, stage }: { due: string; stage: StageId }) {

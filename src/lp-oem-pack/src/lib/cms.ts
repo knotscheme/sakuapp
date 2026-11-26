@@ -59,7 +59,9 @@ export type Deal = {
   model: ModelId;
   lot: number;
   finish: "金箔" | "銀箔" | "素押し" | "ロゴなし";
-  plan?: string; // ご希望のプラン（ライト・スタンダード・プレミアム・OEMのみ など）
+  // 依頼の種類：oem＝定番の型にロゴを入れるだけ（ロゴ入れOEMのLPから）、odm＝オリジナル設計で型紙・抜き型から（クラファン支援パッケージのLPから）
+  kind?: DealKind;
+  plan?: string; // ODMのプラン（ライト・スタンダード・プレミアム）
   urgent?: boolean; // 工場に急ぎで依頼（工場の画面の「優先」の並びで先頭に出る）
   leather?: { name: string; code?: string; add: number; img?: string; group?: string; tan?: string; en?: string; th?: string }; // 革素材（add：お客様の単価への上乗せ・1個）。無ければ標準の革 // ロゴなし：無地のまま（版代はかからない）
   color: string;
@@ -89,6 +91,13 @@ export type Deal = {
   logs: Log[];
 };
 
+export type DealKind = "oem" | "odm";
+export const KINDS: { id: DealKind; ja: string; short: string; en: string; th: string; note: string }[] = [
+  { id: "oem", ja: "OEM（ロゴのみ）", short: "OEM", en: "OEM (logo only)", th: "OEM (ใส่โลโก้)", note: "定番の型にロゴを入れる" },
+  { id: "odm", ja: "ODM（オリジナル設計）", short: "ODM", en: "ODM (original design)", th: "ODM (ออกแบบใหม่)", note: "設計・型紙・抜き型から。クラファン向け" },
+];
+export const kindOf = (d: Pick<Deal, "kind">): DealKind => d.kind ?? "oem";
+export const kindInfo = (d: Pick<Deal, "kind">) => KINDS.find((k) => k.id === kindOf(d))!;
 export const OWNERS = ["佐藤", "田中", "小川"];
 export const FACTORY = "Bangkok Leather Factory（仮）";
 export const RATE = 4.3; // 1バーツ＝4.3円（仮）
@@ -189,7 +198,10 @@ export function seedDeals(): Deal[] {
     if (si >= 1) x.lock = priceLock(x);
     if (x.paid) x.paid.amount = amounts(x).deposit;
     x.leather = DEFAULT_LEATHER; // 見本の案件は標準の革
-    if (x.id === "C-1030") x.urgent = true; // 見本：工場に急ぎで依頼している案件
+    if (x.id === "C-1030") x.urgent = true;
+    // 見本：クラファン支援パッケージ（ODM）の案件
+    const odm: Record<string, string> = { "C-1025": "スタンダード", "C-1027": "プレミアム", "C-1029": "スタンダード", "C-1032": "ライト" };
+    if (odm[x.id]) { x.kind = "odm"; x.plan = odm[x.id]; } // 見本：工場に急ぎで依頼している案件
     if (si >= stageIndex("production")) {
       const at = (h: number) => { const t = new Date(); t.setHours(t.getHours() - h, 0, 0, 0); return t.toISOString(); };
       const po = { ...poOf(x), shipBy: d(10), ackAt: at(24 * 9), ackBy: "Somchai" };
@@ -292,6 +304,7 @@ export function makeDraft(kind: DraftKind, d: Deal): Draft {
 いただいた内容で、お見積りをお作りしました。
 
 ■ 製品：${m.name}
+■ ご依頼：${kindInfo(d).ja}${d.plan ? `（${d.plan}プラン）` : ""}
 ■ 革素材：${leatherName(d)}
 ■ カラーと数量：${colorText(d)}（合計${d.lot}個）
 ■ ロゴ加工：${d.finish}
