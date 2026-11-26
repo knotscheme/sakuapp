@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { asset } from "@/lib/asset";
+import Laurel from "./Laurel";
 
 // ファーストビュー：革の壁の写真の上に、合言葉「売れるまで、つくる。」と、0 → 1億円まで一気に数える数字
 const GOAL = 100_000_000;
@@ -44,16 +45,26 @@ export default function Hero() {
           <span className="line-mask"><span style={{ animationDelay: ".35s" }}><span className="text-gold">つくる。</span></span></span>
         </h1>
 
-        {/* 1億円のカウントアップ */}
-        <div className="hero-in mt-8 border-t border-white/20 pt-5" style={{ animationDelay: ".55s" }}>
-          <p className="text-[12px] tracking-[0.2em] text-white/60">クラウドファンディング累計支援額</p>
-          <p className="mt-1 font-num text-[40px] leading-none font-medium tabular-nums sm:text-[64px] lg:text-[80px]" aria-label="1億円">
-            <span className="text-[0.5em] text-white/70">¥</span>{n.toLocaleString("ja-JP")}<span className="ml-1 text-[0.35em] text-white/70">+</span>
-          </p>
-        </div>
+        {/* 実績のバッジ（月桂樹の輪）。クラファンの数字は 0 → 1億 まで数える */}
+        <ul className="hero-in mt-8 flex justify-between gap-1 sm:justify-start sm:gap-6" style={{ animationDelay: ".55s" }}>
+          {[
+            { top: "生産実績", big: "20", unit: "年", sub: "革製品づくり" },
+            { top: "クラファン累計", big: n >= GOAL ? "1" : (n / 100_000_000).toFixed(2).replace(/0+$/, "").replace(/\.$/, ""), unit: "億円", sub: "支援達成" },
+            { top: "小ロット", big: "50", unit: "個〜", sub: "カラー別OK" },
+          ].map((x) => (
+            <li key={x.top} className="relative grid aspect-square w-[32%] max-w-[168px] place-items-center text-center text-[#e9cf8f]">
+              <Laurel className="absolute inset-0 h-full w-full drop-shadow-[0_1px_6px_rgba(0,0,0,.35)]" />
+              <div className="relative -mt-[8%] flex w-[62%] flex-col items-center gap-0.5 text-white [text-shadow:0_1px_10px_rgba(0,0,0,.4)]">
+                <small className="text-[8px] leading-tight font-bold whitespace-nowrap text-white/90 min-[400px]:text-[9.5px] sm:text-[11px] sm:tracking-[0.08em]">{x.top}</small>
+                <b className="font-display text-[24px] min-[400px]:text-[26px] leading-none font-medium tabular-nums sm:text-[34px]">{x.big}<i className="ml-0.5 font-sans text-[9px] font-bold not-italic sm:text-[11px]">{x.unit}</i></b>
+                <small className="mt-1 border-t border-[#e9cf8f]/70 pt-0.5 text-[7px] leading-tight whitespace-nowrap text-white/85 min-[400px]:text-[8px] sm:text-[9.5px]">{x.sub}</small>
+              </div>
+            </li>
+          ))}
+        </ul>
 
         <p className="hero-in mt-6 max-w-xl text-[14px] leading-relaxed text-white/85 sm:text-[15px]" style={{ animationDelay: ".7s" }}>
-          <span className="inline-block">革製品づくり20年。</span><span className="inline-block">50個からの小ロットOEMと、</span><span className="inline-block">売れるLP・クラファン・自社ECまで、</span><span className="inline-block">ひとつのチームで。</span>
+          <span className="inline-block">小ロットOEMと、</span><span className="inline-block">売れるLP・クラファン・自社ECまで、</span><span className="inline-block">ひとつのチームで。</span>
         </p>
         <div className="hero-in mt-7 flex flex-wrap items-center gap-x-8 gap-y-4" style={{ animationDelay: ".85s" }}>
           <a href="#plans" className="group inline-flex items-center gap-3 bg-gold px-7 py-3.5 text-[13.5px] tracking-[0.1em] whitespace-nowrap text-white transition hover:bg-white hover:text-ink">

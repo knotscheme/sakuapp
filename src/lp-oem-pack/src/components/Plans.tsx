@@ -14,15 +14,15 @@ export default function Plans() {
   return (
     <section id="plans" className="bg-white py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
-        <SectionTitle en="Plans" ja="料金は、|パッケージで|明確に。" sub="何度も見積もりを|往復しなくて大丈夫です。|すべて税込。オリジナル設計・型紙・抜き型と|本生産50個を含みます。" />
+        <SectionTitle en="Plans" ja="料金は、|パッケージで|明確に。" sub="オリジナル設計・型紙・抜き型と|本生産50個を含みます。|金額は製品・ロット・革で変わるので、|下は目安です。" />
         <div className="grid gap-5 lg:grid-cols-3">
           {PLANS.map((p, i) => (
             <article key={p.id} className={`reveal relative flex flex-col border p-7 md:p-8 ${p.best ? "border-ink bg-ink text-white" : "border-line bg-white"}`} style={{ transitionDelay: `${i * 0.1}s` }}>
               {p.best && <span className="absolute -top-3 left-7 bg-gold px-3 py-1 text-[11px] tracking-[0.1em] text-white">いちばん人気</span>}
               <p className={`font-display text-[12px] tracking-[0.3em] uppercase ${p.best ? "text-white/60" : "text-mute"}`}>{p.en}</p>
               <h3 className="mt-1.5 text-[20px] font-medium">{p.name}</h3>
-              <p className="mt-4 font-num text-[32px] leading-none font-medium tabular-nums">{(p.price! / 10000).toLocaleString()}<span className="ml-1 text-[14px] font-normal">万円</span></p>
-              <p className={`mt-1 text-[11px] ${p.best ? "text-white/60" : "text-mute"}`}>税込 {yen(p.price!)}</p>
+              <p className="mt-4 font-num text-[32px] leading-none font-medium tabular-nums">{(p.price! / 10000).toLocaleString()}<span className="ml-1 text-[14px] font-normal">万円〜</span></p>
+              <p className={`mt-1 text-[11px] ${p.best ? "text-white/60" : "text-mute"}`}>税込 {yen(p.price!)}〜（カードケースなど小物・50個の場合）</p>
               <p className={`mt-5 text-[13px] leading-relaxed ${p.best ? "text-white/80" : "text-ink/80"}`}>{p.lead}</p>
               <ul className={`mt-5 flex-1 space-y-2.5 border-t pt-5 text-[13.5px] ${p.best ? "border-white/15" : "border-line"}`}>
                 {p.items.map((x) => <li key={x} className="flex gap-2.5"><Check size={16} className="mt-0.5 shrink-0 text-gold" />{x}</li>)}
@@ -32,6 +32,18 @@ export default function Plans() {
               </button>
             </article>
           ))}
+        </div>
+
+        {/* 金額が変わる条件 */}
+        <div className="reveal mt-5 border border-line bg-paper p-6 md:p-7">
+          <p className="text-[14.5px] font-medium">金額が変わるのは、この4つです</p>
+          <ul className="mt-3 grid gap-x-8 gap-y-2.5 text-[13px] text-ink/85 sm:grid-cols-2">
+            <li><b className="font-medium">製品の大きさ・パーツの数</b><span className="block text-[12px] text-mute">小物 → 財布 → バッグの順に、設計・型紙・抜き型と生産の費用が上がります</span></li>
+            <li><b className="font-medium">ロット数</b><span className="block text-[12px] text-mute">50個より多く作るときは、数量割引のある単価で追加。シュリンクレザーは300個から</span></li>
+            <li><b className="font-medium">革素材</b><span className="block text-[12px] text-mute">イタリアン・国産レザーは、革ごとの上乗せがあります</span></li>
+            <li><b className="font-medium">カラーの数</b><span className="block text-[12px] text-mute">カラー別もOK。色ごとの数で合計ロットを数えます</span></li>
+          </ul>
+          <p className="mt-4 text-[12.5px] text-ink">作りたい製品と数を送っていただければ、プランごとの金額を<span className="inline-block">2営業日以内にお出しします。</span></p>
         </div>
 
         {/* OEMのみ */}
