@@ -45,7 +45,7 @@ export const RULES = [
 // 実績（実際のプロジェクト。画像はプロジェクトページから）
 export type Result = { img: string; title: string; total: number; rate?: number; backers?: number; period: string; label?: string };
 export const RESULTS: Result[] = [
-  { img: "/images/cf-wallet-small.webp", title: "必要な機能をギュッと閉じ込めた『小さい財布』の至高。第2弾 最終改良版", total: 9210200, label: "購入総額", period: "2020.08.05 〜 2020.10.20" },
+  { img: "/images/cf-wallet-small.webp", title: "必要な機能をギュッと閉じ込めた『小さい財布』の至高。第2弾 最終改良版", total: 9210200, rate: 3684, backers: 1876, label: "応援購入総額", period: "2020.08.05 〜 2020.10.20" },
   { img: "/images/cf-tote-mini.webp", title: "このサイズ感が良い。小さいトートバッグ", total: 5499401, rate: 2749, backers: 230, period: "2025.01.01 〜 2025.03.16" },
   { img: "/images/cf-wallet-nobu.webp", title: "「縫わない美学」変化を楽しむ大人の財布", total: 2686459, rate: 1343, backers: 270, period: "2026.06.13 〜 2026.08.25" },
 ];

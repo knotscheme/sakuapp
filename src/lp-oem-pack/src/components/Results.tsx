@@ -11,7 +11,7 @@ export default function Results() {
         <ul className="grid gap-10 md:grid-cols-3 md:gap-8">
           {RESULTS.map((r, i) => (
             <li key={r.title} className="reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
-              <div className="overflow-hidden bg-paper">
+              <div className="overflow-hidden border border-line bg-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={asset(r.img)} alt={r.title} loading="lazy" className="aspect-[4/3] w-full object-cover" />
               </div>
