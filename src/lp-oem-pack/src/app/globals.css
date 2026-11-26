@@ -251,3 +251,7 @@ html:not(.opened) .hero-zoom, html:not(.opened) .hero-in, html:not(.opened) #top
 
 /* 見出しは約物（、。「」など）の余白を詰める（プロポーショナル）。本文は読みやすさのため詰めない */
 h1, h2, h3, .palt { font-feature-settings: "palt" 1; }
+
+/* 物語：場面ごとに止まる（近くまで来たら、その場面の位置に吸いつく） */
+html { scroll-snap-type: y proximity; }
+.story-stop { scroll-snap-align: start; scroll-snap-stop: always; }

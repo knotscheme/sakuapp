@@ -132,6 +132,9 @@ function SceneVisual({ v, fill, total }: { v: Visual; fill: number; total: numbe
   );
 }
 
+// 1場面あたりのスクロール量（画面の高さの何倍か）。大きいほどゆっくり切り替わる
+const STEP = 1.3;
+
 export default function Story() {
   const wrap = useRef<HTMLElement>(null);
   const [p, setP] = useState(0); // 0〜1：このセクションをどこまで進んだか
@@ -143,7 +146,8 @@ export default function Story() {
         const el = wrap.current;
         if (!el) return;
         const r = el.getBoundingClientRect();
-        setP(Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight))));
+        // 1場面＝画面の高さ×STEP ぶんのスクロール。p は「いま何場面目か」（小数つき）
+        setP(Math.max(0, -r.top / (innerHeight * STEP)));
       });
     };
     on();
@@ -151,14 +155,16 @@ export default function Story() {
     addEventListener("resize", on);
     return () => { removeEventListener("scroll", on); removeEventListener("resize", on); cancelAnimationFrame(raf); };
   }, []);
-  const k = Math.min(SCENES.length - 1, Math.floor(p * SCENES.length));
-  const inScene = p * SCENES.length - k; // その場面の中の進み具合（0〜1）
+  const k = Math.min(SCENES.length - 1, Math.floor(p));
+  const inScene = Math.min(1, p - k); // その場面の中の進み具合（0〜1）
   const meterK = SCENES.findIndex((s) => s.v.kind === "meter");
   const fill = k > meterK ? 1 : k === meterK ? Math.min(1, inScene * 1.4) : 0;
   const total = Math.round(12_800_000 * fill);
 
   return (
-    <section id="story" ref={wrap} className="relative bg-[#141210] text-white" style={{ height: `${SCENES.length * 85 + 15}svh` }}>
+    <section id="story" ref={wrap} className="relative bg-[#141210] text-white" style={{ height: `${(SCENES.length - 1) * STEP * 100 + 140}svh` }}>
+      {/* 場面ごとの止まる位置：指で弾いても、1回で1場面ずつ進む */}
+      {SCENES.map((s, i) => <span key={s.no} aria-hidden className="story-stop pointer-events-none absolute left-0 h-px w-px" style={{ top: `calc(${i * STEP * 100 + STEP * 15}svh + 80px)` }} />)}
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         {SCENES.map((s, i) => (
           <div key={s.no} className={`absolute inset-0 transition-opacity duration-700 ${i === k ? "opacity-100" : "pointer-events-none opacity-0"}`} aria-hidden={i !== k}>
