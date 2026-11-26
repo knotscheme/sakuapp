@@ -6,7 +6,6 @@ import { asset } from "@/lib/asset";
 import Laurel from "./Laurel";
 
 // ファーストビュー：革の壁の写真の上に、合言葉「売れるまで、つくる。」と、0 → 1億円まで一気に数える数字
-const GOAL = 100_000_000;
 // 写真のスライダー（自動で切り替わる）。pos：切り抜くときの中心
 const SLIDES = [
   { src: "/images/work-totes.webp", alt: "仕上げ前の革のトートバッグと長財布が並ぶ作業台", pos: "55% 55%" },
@@ -16,7 +15,6 @@ const SLIDES = [
   { src: "/images/work-parts.webp", alt: "裁断した黒い革のパーツ", pos: "50% 55%" },
 ];
 export default function Hero() {
-  const [n, setN] = useState(0);
   const [cur, setCur] = useState(0);
   // 4.5秒ごとに次の写真へ（動きを減らす設定のときは切り替えない）
   useEffect(() => {
@@ -27,27 +25,16 @@ export default function Hero() {
   const bg = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) { setN(GOAL); return; }
-    // オープニングが終わるころに数え始める（最後はゆっくり止まる）
-    let raf = 0;
-    const start = performance.now() + 500;
-    const tick = (t: number) => {
-      const p = Math.min(1, Math.max(0, (t - start) / 1600));
-      setN(Math.round(GOAL * (1 - Math.pow(1 - p, 4))));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
     // スクロールで写真をゆっくり寄せる
     const on = () => { if (bg.current) bg.current.style.transform = `scale(${1.06 + Math.min(1, scrollY / innerHeight) * 0.12})`; };
     on();
     addEventListener("scroll", on, { passive: true });
-    return () => { cancelAnimationFrame(raf); removeEventListener("scroll", on); };
+    return () => removeEventListener("scroll", on);
   }, []);
 
   const badges = [
     { top: "生産実績", big: "20", unit: "年", sub: "革製品づくり" },
-    { top: "クラファン累計", big: n >= GOAL ? "1" : (n / 100_000_000).toFixed(2).replace(/0+$/, "").replace(/\.$/, ""), unit: "億円", sub: "支援達成" },
+    { top: "クラファン累計", big: "1", unit: "億円", sub: "支援達成" },
     { top: "小ロット", big: "50", unit: "個〜", sub: "カラー別OK" },
   ];
 
@@ -89,7 +76,7 @@ export default function Hero() {
           <a href="#contact" className="inline-flex items-center border border-white/50 px-5 py-2.5 text-[13px] tracking-[0.06em] text-white transition hover:border-gold hover:text-gold">無料で相談</a>
         </div>
 
-        {/* 実績（月桂樹のバッジ）。クラファンの数字は 0 → 1億 まで数える */}
+        {/* 実績（月桂樹のバッジ） */}
         <ul className="hero-in mt-auto grid grid-cols-3 pt-6 md:mt-12 md:max-w-[480px]" style={{ animationDelay: ".5s" }}>
           {badges.map((x) => (
             <li key={x.top} className="relative mx-auto grid aspect-square w-full max-w-[140px] place-items-center text-center text-[#e9cf8f]">
