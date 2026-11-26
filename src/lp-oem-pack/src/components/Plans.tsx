@@ -14,7 +14,7 @@ export default function Plans() {
   return (
     <section id="plans" className="bg-white py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
-        <SectionTitle en="Plans" ja="料金は、|パッケージで|明確に。" sub="何度も見積もりを|往復しなくて大丈夫です。|すべて税込・本生産50個を含みます。" />
+        <SectionTitle en="Plans" ja="料金は、|パッケージで|明確に。" sub="何度も見積もりを|往復しなくて大丈夫です。|すべて税込。オリジナル設計・型紙・抜き型と|本生産50個を含みます。" />
         <div className="grid gap-5 lg:grid-cols-3">
           {PLANS.map((p, i) => (
             <article key={p.id} className={`reveal relative flex flex-col border p-7 md:p-8 ${p.best ? "border-ink bg-ink text-white" : "border-line bg-white"}`} style={{ transitionDelay: `${i * 0.1}s` }}>

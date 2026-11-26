@@ -94,7 +94,7 @@ export default function ContactForm() {
     if (!name.trim()) e.name = "お名前（または会社名）を入力してください";
     if (!email.trim()) e.email = "メールアドレスを入力してください";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = "メールアドレスの形式が正しくありません";
-    if (!model) e.model = "希望ベースモデルを選んでください";
+    if (!model) e.model = "近い形を選ぶか「まだ決めていない」を選んでください";
     if (total > 0 ? total < MIN_LOT : !lot) e.lot = total > 0 ? `カラーごとの数量は、合計${MIN_LOT}個からです` : "希望ロット数を選ぶか、カラーごとの数量を入れてください";
     if (message.length > 1000) e.message = "相談内容は1,000文字以内で入力してください";
     if (logoOn && file && (file.size > MAX_FILE || !OK_EXT.test(file.name))) e.file = "10MB以内の ai / pdf / svg / eps / png / jpg を添付してください";
@@ -172,7 +172,7 @@ export default function ContactForm() {
             </fieldset>
             {/* 希望ベースモデル：写真つきで選べるように（ベースモデルの見出しと同じ名前） */}
             <fieldset className="min-w-0 text-sm font-bold md:col-span-2" aria-invalid={!!errors.model} aria-describedby="err-model">
-              <legend>希望ベースモデル<span className="ml-1 text-xs text-gold">必須</span></legend>
+              <legend>作りたいものに近い形<span className="ml-1 text-xs text-gold">必須</span><span className="mt-1 block text-[11px] font-normal text-mute">クラファンはオリジナル設計なので、大きさ・種類の目安としてお選びください</span></legend>
               {/* 写真つきの小さな一覧（モデルが増えても選びやすいように、多いときは枠の中でスクロール） */}
               <div className="mt-3 grid border-t border-line sm:grid-cols-2 sm:gap-x-6">
                 {[...MODELS.map((m) => ({ id: m.id as ModelId | "undecided", img: m.img as string | null, name: m.short, sub: `${yen(m.unitPrice)}〜` })), { id: "undecided" as const, img: null, name: "まだ決めていない", sub: "ご相談しながら決められます" }].map((o) => (

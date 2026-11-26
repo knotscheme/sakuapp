@@ -22,7 +22,7 @@ export default function CfSimulator() {
   const make = extra * unitPriceOf(model as Parameters<typeof unitPriceOf>[0], extra || 1);
   const ship = backers * SHIP;
   const left = total - fee - make - ship - p.price!;
-  const rows: [string, number, boolean?][] = [["支援総額", total], [`手数料（約${FEE * 100}%）`, -fee], [`プラン料金（${p.name}・50個込み）`, -p.price!], [`追加の生産（${extra}個）`, -make], [`梱包・送料（${backers}件）`, -ship]];
+  const rows: [string, number, boolean?][] = [["支援総額", total], [`手数料（約${FEE * 100}%）`, -fee], [`プラン料金（${p.name}・設計と50個込み）`, -p.price!], [`追加の生産（${extra}個）`, -make], [`梱包・送料（${backers}件）`, -ship]];
   const num = "w-full border border-line bg-white px-3 py-2.5 text-right font-num text-[16px] tabular-nums outline-none focus:border-ink";
   return (
     <section id="cfsim" className="bg-paper py-24 md:py-36">

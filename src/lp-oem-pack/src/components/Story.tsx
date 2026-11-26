@@ -7,9 +7,9 @@ import { asset } from "@/lib/asset";
 type Scene = { no: string; en: string; t: string; b: string; img?: string; video?: string; meter?: boolean };
 const SCENES: Scene[] = [
   { no: "01", en: "Select", t: "革を、手で選ぶ。", b: "イタリアン・国産・オリジナル。実物の革に触れて、ブランドに合う一枚を選びます。", img: "/images/studio-pick.webp" },
-  { no: "02", en: "Decide", t: "色見本を前に、一緒に決める。", b: "革・色・ステッチ・刻印。仕様はチャットで固めるので、打ち合わせ待ちで止まりません。", img: "/images/studio-black.webp" },
+  { no: "02", en: "Design", t: "あなただけの形を、一から。", b: "クラファンは新しい製品が前提。デザインを図面にし、型紙と抜き型から起こします。仕様はチャットで固めるので止まりません。", img: "/images/studio-black.webp" },
   { no: "03", en: "Make", t: "ひと針ずつ、縫い上げる。", b: "タイの提携工場で、50個から。パーツの段階から検品して仕上げます。", video: "/images/sewing.mp4", img: "/images/sewing-poster.webp" },
-  { no: "04", en: "Show", t: "こだわりを、売れる言葉に。", b: "撮影・構成・執筆までまとめて。製造の裏側を知っているから、根拠のある言葉で伝えられます。", img: "/images/work-totes.webp" },
+  { no: "04", en: "Show", t: "こだわりを、売れる言葉に。", b: "撮影・構成・執筆までまとめて。革の産地や鞣しまで知っているから、根拠のある言葉で伝えられます。", img: "/images/studio-tag.webp" },
   { no: "05", en: "Sell", t: "クラファンで、一気に届ける。", b: "リターン設計から公開後の告知まで伴走。支援が集まった分だけ生産するので、在庫を抱えません。", meter: true },
   { no: "06", en: "Keep selling", t: "終わったあとも、売れ続ける。", b: "クラファンの写真と文章で自社ECを。追加生産も型紙があるので、すぐに。", img: "/images/studio-brown.webp" },
 ];
