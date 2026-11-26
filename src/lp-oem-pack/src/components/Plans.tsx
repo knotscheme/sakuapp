@@ -13,7 +13,7 @@ export default function Plans() {
     scrollToId("contact");
   };
   return (
-    <section id="plans" className="bg-white py-24 md:py-36">
+    <section id="plans" className="bg-white py-24 md:py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Plans" ja="料金は、|パッケージで|明確に。" sub="オリジナル設計・型紙・抜き型と|本生産50個を含みます。|金額は製品・ロット・革で変わるので、|下は目安です。" />
         <div className="grid gap-5 lg:grid-cols-3">

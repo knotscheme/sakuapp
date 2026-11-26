@@ -4,7 +4,7 @@ import NoOrphan from "./NoOrphan";
 // つくり手の言葉（写真は工房・オフィス。代表の名前と文はあとで差し替え）
 export default function Maker() {
   return (
-    <section id="maker" className="bg-paper py-24 md:py-36">
+    <section id="maker" className="bg-paper py-24 md:py-24">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
         <div className="reveal-l grid grid-cols-2 gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}

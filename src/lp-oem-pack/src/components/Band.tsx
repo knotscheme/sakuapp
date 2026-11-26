@@ -3,7 +3,7 @@ import { asset } from "@/lib/asset";
 // 黒い帯に、画面いっぱいの大きな数字（ページにリズムをつける）
 export default function Band({ big, unit, label, img }: { big: string; unit?: string; label: string; img?: string }) {
   return (
-    <section className="relative overflow-hidden bg-[#141210] py-20 text-white md:py-28">
+    <section className="relative overflow-hidden bg-[#141210] py-20 text-white md:py-20">
       {img && (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -12,7 +12,7 @@ export default function Band({ big, unit, label, img }: { big: string; unit?: st
         </>
       )}
       <div className="reveal relative mx-auto max-w-6xl px-6 md:px-8">
-        <p className="font-num text-[96px] leading-[0.9] font-medium tracking-tight sm:text-[150px] lg:text-[200px]">{big}<span className="ml-2 text-[0.3em] text-gold">{unit}</span></p>
+        <p className="font-num text-[96px] leading-[0.9] font-medium tracking-tight sm:text-[120px] lg:text-[140px]">{big}<span className="ml-2 text-[0.3em] text-gold">{unit}</span></p>
         <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-white/80 sm:text-[17px]">{label}</p>
       </div>
     </section>

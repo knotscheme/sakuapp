@@ -16,7 +16,7 @@ export default function Options() {
   const [f, setF] = useState<Finish>("gold");
   const cur = FINISHES.find((x) => x.id === f)!;
   return (
-    <section className="bg-paper py-24 md:py-36">
+    <section className="bg-paper py-24 md:py-24">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Logo Finish" ja="ロゴ加工" sub="加工ひとつで、|印象は大きく|変わります。" />
 
