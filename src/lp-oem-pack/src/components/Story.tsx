@@ -129,7 +129,7 @@ function Mock({ v, fill, total }: { v: Visual; fill: number; total: number }) {
 }
 
 // 画面のイメージは、暗くぼかした写真の上に置く（ほかの場面と同じく画面いっぱいの見た目に）
-const MOCK_BG: Record<string, string> = { lp: "/images/studio-tag.webp", meter: "/images/work-totes.webp", ec: "/images/office-lounge.webp" };
+const MOCK_BG: Record<string, string> = { lp: "/images/studio-tag.webp", meter: "/images/work-totes.webp", ec: "/images/ai-ecshop.webp" };
 function SceneVisual({ v, fill, total }: { v: Visual; fill: number; total: number }) {
   if (v.kind === "photo" || v.kind === "video") return <div className="relative h-full w-full"><Mock v={v} fill={fill} total={total} /><div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#141210] via-[#141210]/40 to-transparent" /></div>;
   return (

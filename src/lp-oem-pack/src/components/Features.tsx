@@ -5,7 +5,7 @@ import SectionTitle from "./SectionTitle";
 const REASONS = [
   { no: "01", img: "/images/studio-black.webp", title: "累計1億円を売った本人が、伴走する", body: "構成・リターン・告知まで、売った経験で設計。" },
   { no: "02", img: "/images/studio-tag.webp", title: "20年の革づくりを、売れる言葉に", body: "革の産地・鞣し・縫製の根拠を、写真とコピーに。" },
-  { no: "03", img: "/images/work-pouches.webp", title: "クラファンの後まで、つながる", body: "素材はそのまま自社ECへ。追加生産もすぐに。" },
+  { no: "03", img: "/images/ai-ecshop.webp", title: "クラファンの後まで、つながる", body: "素材はそのまま自社ECへ。追加生産もすぐに。" },
 ];
 
 export default function Features() {
