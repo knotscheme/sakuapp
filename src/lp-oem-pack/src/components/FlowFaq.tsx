@@ -26,25 +26,30 @@ export default function FlowFaq() {
     <section id="faq" className="bg-white py-24 md:py-36">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <SectionTitle en="Flow" ja="ご相談から|一般販売までの|流れ" sub="期間はプランや数量によって|前後します。" />
-        {/* 横にスワイプする写真カード（PCは4列×2段） */}
-        <ol className="-mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-6 px-6 pb-3 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:gap-4 md:overflow-visible md:px-0">
+        {/* 縦のタイムライン：左に線と時期（目安）、右に写真カード */}
+        <ol className="relative mx-auto max-w-3xl">
+          <span aria-hidden className="absolute top-2 bottom-2 left-[52px] w-px bg-gradient-to-b from-gold via-line to-line md:left-[84px]" />
           {FLOW.map((s, i) => (
-            <li key={s.t} className="w-[72%] shrink-0 snap-start sm:w-[44%] md:w-auto">
-              <div className="relative aspect-[4/5] overflow-hidden bg-ink">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                {s.img && <img src={asset(s.img)} alt="" loading="lazy" className="h-full w-full object-cover" />}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30" />
-                <span className="absolute top-3 left-3 font-num text-[30px] leading-none font-light text-white">{String(i + 1).padStart(2, "0")}</span>
-                <span className="absolute top-4 right-3 rounded-full bg-white/90 px-2 py-0.5 text-[10.5px] text-ink">{s.d}</span>
-                <div className="absolute inset-x-0 bottom-0 p-4 text-white">
-                  <p className="text-[16px] leading-snug font-medium">{s.t}</p>
-                  <p className="mt-1.5 text-[12px] leading-relaxed text-white/80">{s.b}</p>
+            <li key={s.t} className="reveal relative grid grid-cols-[52px_1fr] gap-x-5 pb-8 last:pb-0 md:grid-cols-[84px_1fr] md:gap-x-10 md:pb-12">
+              <div className="relative pr-3 text-right md:pr-6">
+                <p className="text-[9.5px] tracking-[0.2em] text-mute">{s.at?.[0]}</p>
+                <p className="font-num text-[26px] leading-none font-light md:text-[34px]">{s.at?.[1]}</p>
+                <span aria-hidden className={`absolute top-1 -right-[5px] h-[11px] w-[11px] rounded-full border-2 ${i === 0 ? "border-gold bg-gold" : "border-gold bg-white"}`} />
+              </div>
+              <div>
+                <div className="relative aspect-[16/9] overflow-hidden bg-ink">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {s.img && <img src={asset(s.img)} alt="" loading="lazy" className="h-full w-full object-cover" />}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                  <span className="absolute top-2.5 right-2.5 rounded-full bg-white/90 px-2 py-0.5 text-[10.5px] text-ink">{s.d}</span>
+                  <p className="absolute inset-x-0 bottom-0 p-3.5 text-[16px] leading-snug font-medium text-white md:p-5 md:text-[19px]"><span className="mr-2 font-num text-[13px] text-gold">{String(i + 1).padStart(2, "0")}</span>{s.t}</p>
                 </div>
+                <p className="mt-2.5 text-[13px] leading-relaxed text-mute"><NoOrphan text={s.b} /></p>
               </div>
             </li>
           ))}
         </ol>
-        <p className="mt-2 text-center text-[11.5px] text-mute md:hidden">横にスワイプして見られます →</p>
+        <p className="mt-6 text-center text-[11.5px] text-mute">※時期は、ご相談からの目安です（クラファンの期間やロット数で前後します）。</p>
 
         <div className="mt-28">
           <SectionTitle en="Rules" ja="はじめに決めておく、|安心のルール" sub="やり取りや修正が膨らまないように、|最初に約束しておきます。" />
