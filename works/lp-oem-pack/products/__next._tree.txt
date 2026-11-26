@@ -1,8 +1,8 @@
 :HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/3pv2lqr2z1g40.css","style"]
 :HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/19-4o0u81u5s9.css","style"]
-:HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/16v3ocmckf8of.css","style"]
+:HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/3b1a_tsj3onrf.css","style"]
 :HL["/sakuapp/works/lp-oem-pack/_next/static/media/6d74e39191e78e88-s.p.0fhiaplbf_4wa.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/sakuapp/works/lp-oem-pack/_next/static/media/6f3ab718e3727c1a-s.p.3huc2loe0ie8a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"products","h":96,"c":"$Q2"}]]
-0:{"b":"hg62qBksZ09cmZFWDqwSM","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"2ljzuY1-i_AvzwX87lJCB","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

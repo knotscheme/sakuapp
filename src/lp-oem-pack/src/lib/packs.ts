@@ -9,7 +9,7 @@ export const PLANS: Plan[] = [
     items: ["オリジナル設計（デザイン・仕様書）", "型紙・抜き型の製作", "サンプル製作 1回", "本生産 50個（標準の革）・ロゴの刻印（版代込み）", "クラファンLPの構成案・コピー執筆（デザインはテンプレート）"],
   },
   {
-    img: "/images/studio-black.webp", id: "standard", name: "スタンダード", en: "Standard", price: 650000, qty: 50, best: true,
+    img: "/images/ai-shooting.webp", id: "standard", name: "スタンダード", en: "Standard", price: 650000, qty: 50, best: true,
     lead: "撮影からLPまで丸ごと任せて、クラファンを成功させたい方に。",
     items: ["ライトの内容すべて", "商品撮影（物撮り・イメージカット）", "クラファンLPのデザイン制作", "リターン（支援コース）の設計", "プロジェクト申請のサポート"],
   },
@@ -61,7 +61,7 @@ export const FLOW = [
   { at: ["DAY", "3"], img: "/images/ai-contract.webp", t: "ご契約・お支払い（50%）", d: "即日", b: "入金を確認したら、デザイン・革・ロゴの仕様を固めます。" },
   { at: ["WEEK", "1"], img: "/images/ai-pattern.webp", t: "設計・型紙・抜き型", d: "約2週間", b: "チャットで革の量・金具・寸法を決め、図面にして型紙と抜き型をつくります。" },
   { at: ["WEEK", "3"], img: "/images/sewing-poster.webp", t: "サンプル製作", d: "約3週間", b: "タイの提携工場でサンプルを製作。届いたら実物で確認します。" },
-  { at: ["WEEK", "6"], img: "/images/studio-tag.webp", t: "撮影・LP制作", d: "約2週間", b: "サンプルを撮影し、売れる構成でLPを制作。修正は2回まで無料。" },
+  { at: ["WEEK", "6"], img: "/images/ai-shooting.webp", t: "撮影・LP制作", d: "約2週間", b: "サンプルを撮影し、売れる構成でLPを制作。修正は2回まで無料。" },
   { at: ["WEEK", "8"], img: "/images/cf-page-crop.webp", t: "クラファン公開", d: "30〜60日", b: "公開後も、活動報告や告知の文面をサポート（プレミアム）。" },
   { at: ["MONTH", "4"], img: "/images/ai-shipping.webp", t: "本生産・検品・発送", d: "約30〜45日", b: "国内で1点ずつ検品し、支援者さまへお届けします。" },
   { at: ["MONTH", "5"], img: "/images/ai-ecshop.webp", t: "一般販売（Shopify）", d: "約2週間", b: "クラファンの素材を使って自社ECを公開。追加生産も型紙ですぐ。" },
