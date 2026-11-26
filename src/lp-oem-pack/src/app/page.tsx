@@ -23,7 +23,7 @@ import FloatingCta from "@/components/FloatingCta";
 import ThemeColor from "@/components/ThemeColor";
 import { LpProvider } from "@/components/LpContext";
 
-// 構成：合言葉「売れるまで、つくる。」を軸に、物語・違い・数字で記憶に残す
+// 構成：合言葉「「アイデア」を、「売れた」に。」を軸に、物語・違い・数字で記憶に残す
 export default function Page() {
   return (
     <LpProvider>
@@ -32,7 +32,7 @@ export default function Page() {
       <ScrollProgress />
       <Header />
       <main>
-        {/* 合言葉「売れるまで、つくる。」と1億円 → 売れるまでの物語 → 違い → 20年 → 理由・実績 → 料金 → 収支 → 50個から → つくり手 → つくれるもの → 流れ・FAQ → 相談 */}
+        {/* 合言葉「「アイデア」を、「売れた」に。」と1億円 → 売れるまでの物語 → 違い → 20年 → 理由・実績 → 料金 → 収支 → 50個から → つくり手 → つくれるもの → 流れ・FAQ → 相談 */}
         <Hero />
         <Story />
         <Compare />
