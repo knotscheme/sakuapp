@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const NAV = [
-  { href: "#onestop", label: "サービスの全体像", en: "One Stop" },
+  { href: "#story", label: "売れるまでの流れ", en: "Story" },
+  { href: "#compare", label: "作るだけの工場との違い", en: "Difference" },
   { href: "#results", label: "実績", en: "Results" },
   { href: "#plans", label: "料金プラン", en: "Plans" },
   { href: "#cfsim", label: "クラファン収支シミュレーター", en: "Simulator" },
