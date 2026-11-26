@@ -5,7 +5,7 @@ import { Ph } from "@/components/cms/Ph";
 import Link from "next/link";
 import { Check, ChevronRight, ExternalLink, FileText, Mail, Factory as FactoryIcon, Activity } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS, kindInfo, colorLines, leatherName, makeDraft, type Deal } from "@/lib/cms";
+import { DOCS, DRAFT_LABEL, FACTORY, PROD_STEPS, RATE, STAGES, STAGE_DRAFT, amounts, modelOf, quoteLines, stageIndex, yenOf, OWNERS, kindInfo, needsSpec, dsTotal, dieTotal, colorLines, leatherName, makeDraft, type Deal } from "@/lib/cms";
 import { leathersOf, minLotOf, useCatalog } from "@/components/cms/catalog";
 import { getPricing } from "@/lib/pricing";
 import { asset } from "@/lib/asset";
@@ -44,7 +44,9 @@ export default function DealPage() {
   // 次にやること：確認待ちの下書きがあれば、それを確認して送る。お客様や入金を待つ段階は「待っています」
   const pend = (d.drafts ?? []).find((x) => x.status === "draft" && x.kind === STAGE_DRAFT[d.stage]);
   const waiting = d.stage === "quote" ? "お客様の見積の承諾を待っています（承諾されると自動で注文に）" : d.stage === "order" && !d.paid ? "前金の入金を待っています（自動で確認します）" : d.stage === "proof" && !d.proofOk ? "お客様のロゴ配置の承認を待っています" : null;
-  const nextText = pend ? (pend.kind === "factory" ? "工場への発注を最終確認する" : `「${DRAFT_LABEL[pend.kind]}」の下書きを確認して送る`) : waiting ?? STAGES[si].next;
+  // ODM：打ち合わせをして仕様書（設計図つき）を確定するまで、見積へ進めない
+  const spec = needsSpec(d) && d.stage === "inquiry";
+  const nextText = spec ? "打ち合わせをして、仕様書（設計図つき）をまとめる" : pend ? (pend.kind === "factory" ? "工場への発注を最終確認する" : `「${DRAFT_LABEL[pend.kind]}」の下書きを確認して送る`) : waiting ?? STAGES[si].next;
   const doAdvance = async () => {
     const nextDocs = DOCS.filter((k) => k.at === STAGES[si + 1]?.id).map((k) => k.ja);
     if (await askConfirm({ title: `「${STAGES[si].next}」を実行しますか？`, body: `段階が「${STAGES[si + 1].ja}」に進みます。${nextDocs.length ? `${nextDocs.join("・")}が作られ、` : ""}必要なメールが自動で送られます。`, ok: "実行する" })) advance(d.id, d.owner);
@@ -61,6 +63,14 @@ export default function DealPage() {
     >
       {/* 依頼の種類（OEM・ODM） */}
       <p className="-mt-2 mb-4 flex flex-wrap items-center gap-2 text-[12.5px]"><KindBadge d={d} long /><span className="text-mute">{kindInfo(d).note}</span></p>
+      {/* ODMの仕様書 */}
+      {d.kind === "odm" && (
+        <Link href={`/cms/spec/?id=${d.id}`} className="cms-card mb-4 flex items-center gap-3 px-5 py-3.5 transition hover:shadow-md">
+          <span className={`rounded-full px-2.5 py-0.5 text-[11px] ${d.spec?.status === "done" ? "bg-[#e6f4ea] text-[#1e6b34]" : "bg-[#fbf3e2] text-[#8a650c]"}`}>{d.spec?.status === "done" ? "確定" : d.spec ? "まとめ中" : "未作成"}</span>
+          <span className="flex-1 text-[13.5px] font-medium">仕様書（設計図つき）<span className="ml-2 text-[12px] font-normal text-mute">{d.spec ? `革 ${dsTotal(d.spec).toFixed(1)}デシ/個・抜き型 ${d.spec.dies.length}型 ${yenOf(dieTotal(d.spec))}・設計図 ${d.spec.drawings.length}枚` : "打ち合わせで寸法・革の量・抜き型を決める"}</span></span>
+          <ChevronRight size={16} className="text-mute" />
+        </Link>
+      )}
       {/* 段階 */}
       <Card className="px-5 py-4 md:hidden">
         <div className="flex items-baseline justify-between text-[13px]"><span className="font-semibold">{STAGES[si].ja}</span><span className="text-[11.5px] text-mute">{si + 1} / {STAGES.length}</span></div>
@@ -85,7 +95,8 @@ export default function DealPage() {
           <div>
             <p className="text-[11.5px] text-mute">次にやること</p>
             <p className={`mt-0.5 text-[16px] font-semibold ${waiting && !pend ? "text-[#8a650c]" : ""}`}>{nextText}</p>
-            {pend && <p className="mt-1 text-[12px] text-[#2a4f9e]">システムが下書きを自動で作りました。確認して送るだけです。</p>}
+            {spec && <p className="mt-1 text-[12px] text-[#8a650c]">革の量（デシ）・抜き型・金具を決めて設計図をつけ、確定すると見積（抜き型代つき）を送れます。</p>}
+            {!spec && pend && <p className="mt-1 text-[12px] text-[#2a4f9e]">システムが下書きを自動で作りました。確認して送るだけです。</p>}
             {waiting && !pend && can("deals.advance") && (
               <p className="mt-1 text-[12px] text-mute">
                 {d.stage === "order" && <button type="button" onClick={async () => { if (await askConfirm({ title: "入金を記録しますか？", body: "銀行振込などを手で確認したときに使います（デモでは、お客様の画面からも支払えます）。", ok: "記録する" })) confirmPayment(d.id, "銀行振込（手動で記録）"); }} className="tap mr-4 underline underline-offset-4 hover:text-ink">入金を手動で記録</button>}
@@ -97,15 +108,16 @@ export default function DealPage() {
           <div className="flex items-center gap-4">
             {si > 0 && can("deals.advance") && <button type="button" onClick={doRevert} className="tap text-[12px] text-mute underline underline-offset-4 hover:text-ink">1つ前に戻す</button>}
             <DueBadge due={d.due} stage={d.stage} />
-            {can("deals.advance") && pend && <Link href={`/cms/inbox/?id=${pend.id}`} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">確認する <ChevronRight size={15} /></Link>}
-            {can("deals.advance") && !pend && !waiting && <button type="button" onClick={doAdvance} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
+            {spec && <Link href={`/cms/spec/?id=${d.id}`} className="cms-btn inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-[13px] text-white">仕様書をまとめる <ChevronRight size={15} /></Link>}
+            {can("deals.advance") && !spec && pend && <Link href={`/cms/inbox/?id=${pend.id}`} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">確認する <ChevronRight size={15} /></Link>}
+            {can("deals.advance") && !spec && !pend && !waiting && <button type="button" onClick={doAdvance} className="hidden items-center gap-2 cms-btn bg-ink px-5 py-2.5 md:inline-flex text-[13px] tracking-[0.06em] text-white transition hover:bg-gold">
               実行する <ChevronRight size={15} />
             </button>}
           </div>
         </div>
       )}
 
-      {d.stage !== "done" && can("deals.advance") && !waiting && (
+      {d.stage !== "done" && can("deals.advance") && !waiting && !spec && (
         <div className={`fixed inset-x-5 z-30 transition-[bottom] duration-300 md:hidden ${navHidden ? "bottom-[calc(0.75rem+env(safe-area-inset-bottom))]" : "bottom-[calc(4.75rem+env(safe-area-inset-bottom))]"}`}>
           {pend ? (
             <Link href={`/cms/inbox/?id=${pend.id}`} className="flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-[14px] text-white shadow-[0_8px_24px_rgba(0,0,0,.22)] active:scale-[.99]">{nextText} <ChevronRight size={16} /></Link>
@@ -147,6 +159,7 @@ export default function DealPage() {
                 ))}
                 {q.discount && <tr><td className="px-4 py-2.5 sm:px-5 text-[#8a650c]">数量割引<span className="block text-[11.5px] whitespace-nowrap sm:inline sm:text-[13px]">（合計{d.lot}個・{Math.round(q.discount.rate * 100)}%引き）</span></td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap text-[#8a650c] tabular-nums">−{yenOf(q.discount.amount)}</td></tr>}
                 {a.plate > 0 && <tr><td className="px-4 py-2.5 sm:px-5 text-mute">ロゴの版代（初回のみ）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.plate)}</td></tr>}
+                {a.dies > 0 && <tr><td className="px-4 py-2.5 sm:px-5 text-mute">抜き型代（初回のみ・{d.spec?.dies.length}型）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.dies)}</td></tr>}
                 <tr><td className="px-4 py-2.5 sm:px-5 text-mute">消費税（10%）</td><td className="px-4 py-2.5 sm:px-5 text-right whitespace-nowrap tabular-nums">{yenOf(a.tax)}</td></tr>
                 <tr className="bg-[#fafafa]"><td className="px-4 py-3 sm:px-5 font-medium">合計（税込）</td><td className="px-4 py-3 sm:px-5 text-right text-[16px] font-medium whitespace-nowrap tabular-nums">{yenOf(a.total)}</td></tr>
               </tbody>

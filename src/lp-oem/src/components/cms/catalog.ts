@@ -155,11 +155,12 @@ export function useCatalog(): Catalog {
 // 読み込み前（サーバーで作るとき）は、初期の公開モデルを出しておく
 // LPのトップに出す商品（公開中で「LPに出す」もの・LPの表示順）。読み込み前は初期の商品
 let seedLp: Product[] | null = null;
-const SEED_LP = () => { if (!seedLp) { const s = seedCatalog(); seedLp = s.lp.map((id) => s.products.find((p) => p.id === id)!).filter((p) => p.visible); } return seedLp; };
+const SEED_LP = () => { if (!seedLp) { const s = seedCatalog(); seedLp = s.products.filter((p) => p.visible && s.lp.includes(p.id)); } return seedLp; };
 export function useLpProducts(): Product[] {
   const { products, lp } = useCatalog();
   if (!products.length) return SEED_LP();
-  return lp.map((id) => products.find((p) => p.id === id)).filter((p): p is Product => !!p && p.visible);
+  // 並び順は、商品管理の並び（製品一覧と同じ順）
+  return products.filter((p) => p.visible && lp.includes(p.id));
 }
 // そのうち、利益シミュレーターと見積フォームで扱える（初期の）モデル
 export function useLpModels(): BaseModel[] {

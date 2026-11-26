@@ -6,6 +6,7 @@ import SectionTitle from "./SectionTitle";
 import NoOrphan from "./NoOrphan";
 
 import { FLOW, RULES } from "@/lib/packs";
+import { asset } from "@/lib/asset";
 
 const FAQ = [
   { q: "クラファンが|目標に届かなかったら|どうなりますか？", a: "All-or-Nothing 方式なら支援金は返金され、本生産は行いません。プラン料金のうちサンプル・撮影・LP制作の費用はかかりますが、本生産分（50個）は次の挑戦や一般販売に回せるようご相談します。" },
@@ -31,6 +32,8 @@ export default function FlowFaq() {
               <span className="absolute top-0.5 -left-[11px] flex h-[22px] w-[22px] items-center justify-center rounded-full border border-ink bg-white font-num text-[11px]">{i + 1}</span>
               <p className="flex flex-wrap items-baseline gap-x-3"><span className="text-[16px] font-medium">{s.t}</span><span className="text-[12px] text-gold">{s.d}</span></p>
               <p className="mt-1.5 text-[13.5px] leading-relaxed text-mute"><NoOrphan text={s.b} /></p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {s.img && <img src={asset(s.img)} alt="" loading="lazy" className="mt-3 aspect-[16/9] w-full max-w-[360px] object-cover" />}
             </li>
           ))}
         </ol>

@@ -43,6 +43,7 @@ export default function DocPage() {
     ...q.lines.map((x) => ({ name: `${m.name}（${x.color}・${leatherName(d)}・${hasLogo(d) ? `ロゴ${d.finish}` : "ロゴなし"}）`, qty: x.qty, unit: x.unit, sum: x.sum })),
     ...(q.discount ? [{ name: `数量割引（合計${d.lot}個・${Math.round(q.discount.rate * 100)}%引き）`, sum: -q.discount.amount, off: true }] : []),
     ...(hasLogo(d) ? [{ name: "ロゴの版代（初回のみ）", qty: 1, unit: a.plate, sum: a.plate }] : []),
+    ...(a.dies ? [{ name: `抜き型代（初回のみ・${d.spec?.dies.length ?? 0}型）`, qty: 1, unit: a.dies, sum: a.dies }] : []),
   ];
 
   return (
@@ -120,6 +121,21 @@ export default function DocPage() {
               </div>
               <p className="mt-1 text-[11px] text-mute">ロゴの大きさ 幅{logoSize(d).w.toFixed(1)}×高さ{logoSize(d).h.toFixed(1)}cm / Logo size {logoSize(d).w.toFixed(1)} × {logoSize(d).h.toFixed(1)} cm / ขนาดโลโก้ {logoSize(d).w.toFixed(1)} × {logoSize(d).h.toFixed(1)} ซม.</p>
             </section>
+            {d.kind === "odm" && d.spec && (
+              <section className="mt-6 break-inside-avoid">
+                <p className="font-medium">仕様と設計図（ODM・確定版） / Specification & drawings / สเปกและแบบ</p>
+                <p className="mt-1 text-[11.5px]">寸法 / Size：W{d.spec.size.w} × H{d.spec.size.h} × D{d.spec.size.d} cm　金具 / Hardware：{d.spec.hardware || "—"}　ステッチ / Stitch：{d.spec.stitch || "—"}</p>
+                <table className="mt-2 w-full border border-line text-[11.5px]">
+                  <thead className="bg-paper text-left text-mute"><tr><th className="px-2 py-1 font-normal">パーツ / Part</th><th className="px-2 py-1 font-normal">革 / Leather</th><th className="px-2 py-1 text-right font-normal">デシ / ds</th><th className="px-2 py-1 text-right font-normal">枚 / pcs</th></tr></thead>
+                  <tbody className="divide-y divide-line">{d.spec.parts.map((x, i) => <tr key={i}><td className="px-2 py-1">{x.name}</td><td className="px-2 py-1">{x.leather}</td><td className="px-2 py-1 text-right">{x.ds}</td><td className="px-2 py-1 text-right">{x.qty}</td></tr>)}</tbody>
+                </table>
+                <p className="mt-1 text-[11px] text-mute">抜き型 / Cutting dies：{d.spec.dies.map((x) => x.name).join("・")}</p>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {d.spec.drawings.map((src, i) => <img key={i} src={src} alt={`設計図 ${i + 1}`} className="w-full border border-line bg-white object-contain" />)}
+                </div>
+              </section>
+            )}
             <section className="mt-6">
               <p className="font-medium">工程 / Process / ขั้นตอน</p>
               <ol className="mt-2 grid grid-cols-2 border border-line sm:grid-cols-4">

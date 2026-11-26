@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ArrowDown, ArrowUp, ChevronLeft, ExternalLink, ImagePlus, Pencil, Plus, Trash2, Video, X } from "lucide-react";
-import { moveLp, moveProduct, renameSize, setLp, updateColor } from "@/components/cms/catalog";
+import { moveProduct, renameSize, setLp, updateColor } from "@/components/cms/catalog";
 import { TANS, colorsForLeather, toggleLeatherColor, toggleProductLeather, type LeatherDef, type Tan } from "@/components/cms/catalog";
 import { addLeather, costOf, deleteLeather, leathersOf, updateLeather } from "@/components/cms/catalog";
 import { lotChoices, rateFor, usePricing } from "@/lib/pricing";
@@ -544,7 +544,8 @@ function UpDown({ first, last, onMove, label }: { first: boolean; last: boolean;
 // LPのトップ（ベースモデル）に出す商品と、その並び順
 function LpList({ onEdit }: { onEdit: (p: Product) => void }) {
   const { products, lp } = useCatalog();
-  const on = lp.map((id) => products.find((p) => p.id === id)).filter((p): p is Product => !!p);
+  // 並び順は商品管理（製品一覧）の並びと同じ。ここではLPに出すかどうかだけを決める
+  const on = products.filter((p) => lp.includes(p.id));
   const off = products.filter((p) => !lp.includes(p.id));
   const Thumb = ({ p }: { p: Product }) => (p.img ? (
     // eslint-disable-next-line @next/next/no-img-element
@@ -552,11 +553,10 @@ function LpList({ onEdit }: { onEdit: (p: Product) => void }) {
   ) : <span className="aspect-[4/3] w-14 shrink-0 rounded-md bg-[#f1f1f0]" />);
   return (
     <div>
-      <p className="px-5 pt-3 text-[11.5px] text-mute">LPのトップの「ベースモデル」に、この順で出ます。利益シミュレーターと見積フォームの並びも同じです。</p>
+      <p className="px-5 pt-3 text-[11.5px] text-mute">LPのトップの「ベースモデル」に、この順で出ます（並び順は「製品一覧の並び」の↑↓で変えます）。利益シミュレーターと見積フォームの並びも同じです。</p>
       <ol className="mt-2 divide-y divide-line border-y border-line">
         {on.map((p, k) => (
-          <li key={p.id} className="flex items-center gap-3 py-3 pr-4 pl-2">
-            <UpDown first={k === 0} last={k === on.length - 1} onMove={(dir) => moveLp(p.id, dir)} label={p.short} />
+          <li key={p.id} className="flex items-center gap-3 py-3 pr-4 pl-4">
             <span className="w-5 shrink-0 text-center text-[12px] text-mute tabular-nums">{k + 1}</span>
             <Thumb p={p} />
             <button type="button" onClick={() => onEdit(p)} className="min-w-0 flex-1 text-left">

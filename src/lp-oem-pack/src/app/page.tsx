@@ -7,6 +7,7 @@ import Story from "@/components/Story";
 import Compare from "@/components/Compare";
 import Band from "@/components/Band";
 import Maker from "@/components/Maker";
+import PhotoStrip from "@/components/PhotoStrip";
 import Results from "@/components/Results";
 import Plans from "@/components/Plans";
 import CfSimulator from "@/components/CfSimulator";
@@ -35,6 +36,7 @@ export default function Page() {
         <Hero />
         <Story />
         <Compare />
+        <PhotoStrip />
         <Band big="20" unit="年" label="革製品をつくり続けてきた時間。革の選び方も、縫い方も、売れる見せ方も、この中で身につけてきました。" img="/images/studio-brown.webp" />
         <Features />
         <Results />
