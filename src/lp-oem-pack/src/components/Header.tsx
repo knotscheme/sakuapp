@@ -47,10 +47,10 @@ export default function Header() {
   return (
     <>
       <header className={`fixed inset-x-0 top-0 z-[60] transition-[transform,background-color,color] duration-500 ease-out ${scrolled && !open ? "border-b border-line/70 bg-white/80 text-ink backdrop-blur-xl backdrop-saturate-150" : "text-white mix-blend-difference"} ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}>
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20 md:px-8">
-          <a href={onHome ? "#top" : home} onClick={() => setOpen(false)} className="font-display text-[15px] tracking-[0.45em]" aria-label="CRAFT OEM トップへ">CRAFT</a>
+        <div className="mx-auto flex h-11 max-w-6xl items-center justify-between px-5 md:h-16 md:px-8">
+          <a href={onHome ? "#top" : home} onClick={() => setOpen(false)} className="font-display text-[13px] tracking-[0.4em] md:text-[15px] md:tracking-[0.45em]" aria-label="CRAFT OEM トップへ">CRAFT</a>
           <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="menu" aria-label={open ? "メニューを閉じる" : "メニューを開く"} className="group flex items-center p-2 -mr-2">
-            <span className="relative block h-2 w-6">
+            <span className="relative block h-1.5 w-5 md:h-2 md:w-6">
               <span className={`absolute left-0 h-px w-full bg-current transition-all duration-500 ${open ? "top-1/2 rotate-[20deg]" : "top-0"}`} />
               <span className={`absolute left-0 h-px bg-current transition-all duration-500 ${open ? "top-1/2 w-full -rotate-[20deg]" : "top-full w-2/3 group-hover:w-full"}`} />
             </span>

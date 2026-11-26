@@ -164,7 +164,7 @@ export default function Story() {
   return (
     <section id="story" ref={wrap} className="relative bg-[#141210] text-white" style={{ height: `${SCENES.length * STEP * 100 + 100}svh` }}>
       {/* 場面ごとの止まる位置：指で弾いても、1回で1場面ずつ進む */}
-      {SCENES.map((s, i) => <span key={s.no} aria-hidden className="story-stop pointer-events-none absolute left-0 h-px w-px" style={{ top: `calc(${i * STEP * 100 + STEP * 5}svh + 80px)` }} />)}
+      {SCENES.map((s, i) => <span key={s.no} aria-hidden className="story-stop pointer-events-none absolute left-0 h-px w-px" style={{ top: `calc(${i * STEP * 100 + STEP * 5}svh + 56px)` }} />)}
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         {SCENES.map((s, i) => (
           <div key={s.no} className={`absolute inset-0 transition-opacity duration-700 ${i === k ? "opacity-100" : "pointer-events-none opacity-0"}`} aria-hidden={i !== k}>
