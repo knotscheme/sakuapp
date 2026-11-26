@@ -46,7 +46,7 @@ export default function DealPage() {
   const waiting = d.stage === "quote" ? "お客様の見積の承諾を待っています（承諾されると自動で注文に）" : d.stage === "order" && !d.paid ? "前金の入金を待っています（自動で確認します）" : d.stage === "proof" && !d.proofOk ? "お客様のロゴ配置の承認を待っています" : null;
   // ODM：打ち合わせをして仕様書（設計図つき）を確定するまで、見積へ進めない
   const spec = needsSpec(d) && d.stage === "inquiry";
-  const nextText = spec ? "打ち合わせをして、仕様書（設計図つき）をまとめる" : pend ? (pend.kind === "factory" ? "工場への発注を最終確認する" : `「${DRAFT_LABEL[pend.kind]}」の下書きを確認して送る`) : waiting ?? STAGES[si].next;
+  const nextText = spec ? "チャットで仕様を決めて、仕様書（設計図つき）をまとめる" : pend ? (pend.kind === "factory" ? "工場への発注を最終確認する" : `「${DRAFT_LABEL[pend.kind]}」の下書きを確認して送る`) : waiting ?? STAGES[si].next;
   const doAdvance = async () => {
     const nextDocs = DOCS.filter((k) => k.at === STAGES[si + 1]?.id).map((k) => k.ja);
     if (await askConfirm({ title: `「${STAGES[si].next}」を実行しますか？`, body: `段階が「${STAGES[si + 1].ja}」に進みます。${nextDocs.length ? `${nextDocs.join("・")}が作られ、` : ""}必要なメールが自動で送られます。`, ok: "実行する" })) advance(d.id, d.owner);
@@ -67,7 +67,7 @@ export default function DealPage() {
       {d.kind === "odm" && (
         <Link href={`/cms/spec/?id=${d.id}`} className="cms-card mb-4 flex items-center gap-3 px-5 py-3.5 transition hover:shadow-md">
           <span className={`rounded-full px-2.5 py-0.5 text-[11px] ${d.spec?.status === "done" ? "bg-[#e6f4ea] text-[#1e6b34]" : "bg-[#fbf3e2] text-[#8a650c]"}`}>{d.spec?.status === "done" ? "確定" : d.spec ? "まとめ中" : "未作成"}</span>
-          <span className="flex-1 text-[13.5px] font-medium">仕様書（設計図つき）<span className="ml-2 text-[12px] font-normal text-mute">{d.spec ? `革 ${dsTotal(d.spec).toFixed(1)}デシ/個・抜き型 ${d.spec.dies.length}型 ${yenOf(dieTotal(d.spec))}・設計図 ${d.spec.drawings.length}枚` : "打ち合わせで寸法・革の量・抜き型を決める"}</span></span>
+          <span className="flex-1 text-[13.5px] font-medium">仕様書（設計図つき）<span className="ml-2 text-[12px] font-normal text-mute">{d.spec ? `革 ${dsTotal(d.spec).toFixed(1)}デシ/個・抜き型 ${d.spec.dies.length}型 ${yenOf(dieTotal(d.spec))}・設計図 ${d.spec.drawings.length}枚` : "チャットで寸法・革の量・抜き型を決める"}</span></span>
           <ChevronRight size={16} className="text-mute" />
         </Link>
       )}
