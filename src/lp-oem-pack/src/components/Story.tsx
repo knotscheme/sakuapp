@@ -14,7 +14,7 @@ const SCENES: Scene[] = [
   { no: "02", en: "Design", t: "型紙と抜き型から、あなただけの形に。", b: "クラファンは新しい製品が前提。デザインを図面にし、型紙と抜き型をつくって、パーツを裁断します。", v: { kind: "photo", src: "/images/work-parts.webp", alt: "裁断した黒い革のパーツ", pos: "55% 55%" } },
   { no: "03", en: "Make", t: "ひと針ずつ、縫い上げる。", b: "タイの提携工場で、50個から。パーツの段階から検品して仕上げます。", v: { kind: "video", src: "/images/sewing.mp4", poster: "/images/sewing-poster.webp", pos: "62% 45%" } },
   { no: "04", en: "Show", t: "撮影して、売れるLPに。", b: "撮影・構成・執筆までまとめて。革の産地や鞣しまで知っているから、根拠のある言葉で伝えられます。", v: { kind: "lp" } },
-  { no: "05", en: "Sell", t: "クラファンで、一気に届ける。", b: "リターン設計から公開後の告知まで伴走。写真は、いま公開中の私たちのプロジェクトです。", v: { kind: "meter" } },
+  { no: "05", en: "Sell", t: "クラファンで、一気に届ける。", b: "リターン設計から公開後の告知まで伴走。写真は、実際に2,169%を達成した私たちのプロジェクトです。", v: { kind: "meter" } },
   { no: "06", en: "Keep selling", t: "自社ECで、売れ続ける。", b: "クラファンの写真と文章で、Shopifyのお店を。追加生産も型紙と抜き型があるので、すぐに。", v: { kind: "ec" } },
 ];
 
@@ -92,7 +92,7 @@ function Mock({ v, fill, total }: { v: Visual; fill: number; total: number }) {
     return (
       <Phone>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset("/images/cf-page.webp")} alt="CAMPFIREで公開中のプロジェクトページ" className="h-full w-full object-cover object-top" />
+        <img src={asset("/images/cf-page.webp")} alt="CAMPFIREで2,169%を達成したプロジェクトページ" className="h-full w-full bg-white object-contain object-top" />
       </Phone>
     );
   }

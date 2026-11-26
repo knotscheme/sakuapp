@@ -3,4 +3,4 @@
 :HL["/sakuapp/works/lp-oem-pack/_next/static/chunks/16v3ocmckf8of.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"9yFuV44nKcRdCYq1w89ZE","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"hg62qBksZ09cmZFWDqwSM","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
