@@ -47,7 +47,32 @@ const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">
 // 革の表情（細かいシボ）は SVG のノイズで描く
 const grain = `url("data:image/svg+xml;utf8,${encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='200' height='200' filter='url(#n)'/></svg>")}")`;
 
+// 実物の写真（ロゴなしのベース製品）があれば、それを使ってロゴを合成する
+// scripts/craft-sales/photos/config.json に { "wallet-camel": { "file": "wallet-camel.jpg", "logo": { "x": 0.5, "y": 0.62, "w": 0.3 } } } の形で登録
+// x, y：ロゴの中心（写真の幅・高さに対する割合）、w：ロゴの幅（写真の幅に対する割合）
+const photoDir = resolve(dirname(new URL(import.meta.url).pathname), "photos");
+let photos = {};
+try { photos = JSON.parse(readFileSync(resolve(photoDir, "config.json"), "utf8")); } catch {}
+const itemKey = args.item ?? "wallet";
+const photoW = colors.length === 1 ? 600 : colors.length === 2 ? 460 : 340;
+const usesPhoto = colors.some((c) => photos[`${itemKey}-${c}`]);
+const dataUrl = (file) => {
+  const mime = { ".png": "image/png", ".webp": "image/webp" }[extname(file).toLowerCase()] ?? "image/jpeg";
+  return `data:${mime};base64,${readFileSync(resolve(photoDir, file)).toString("base64")}`;
+};
+const photoPiece = (c, p) => {
+  const fs = Math.round(photoW * p.logo.w * 0.17);
+  const light = p.light ?? c === "ivory";
+  const mark = logo
+    ? `<img src="${logo}" style="width:100%;filter:brightness(0) opacity(${light ? 0.42 : 0.55});mix-blend-mode:multiply">`
+    : `<span class="pdeboss" style="font-size:${fs}px;color:rgba(0,0,0,${light ? 0.32 : 0.5})">${esc(brand)}</span>`;
+  return `<div class="photo" style="width:${photoW}px"><img src="${dataUrl(p.file)}" alt="">
+    <div class="pmark" style="left:${p.logo.x * 100}%;top:${p.logo.y * 100}%;width:${p.logo.w * 100}%">${mark}</div>
+  </div><p class="cap">${c.toUpperCase()}</p>`;
+};
+
 const piece = (c) => {
+  if (photos[`${itemKey}-${c}`]) return photoPiece(c, photos[`${itemKey}-${c}`]);
   const [base, dark] = COLORS[c];
   const light = c === "ivory";
   const mark = logo
@@ -75,13 +100,17 @@ h1 small{display:block;font-size:15px;font-weight:500;color:#8a7f72;margin-top:8
 .mark{position:absolute;left:0;right:0;bottom:22%;display:flex;justify-content:center}
 .deboss{font-family:Georgia,"Times New Roman",serif;font-size:26px;letter-spacing:.12em;text-shadow:0 1px 0 rgba(255,255,255,.22),0 -1px 1px rgba(0,0,0,.55);filter:brightness(.8)}
 .logo{max-width:55%;max-height:46px}
+.photo{position:relative;border-radius:10px;overflow:hidden;box-shadow:0 10px 24px rgba(60,40,20,.16)}
+.photo>img{display:block;width:100%}
+.pmark{position:absolute;transform:translate(-50%,-50%);display:flex;justify-content:center}
+.pdeboss{font-family:Georgia,"Times New Roman",serif;letter-spacing:.12em;white-space:nowrap;mix-blend-mode:multiply;text-shadow:0 1px 0 rgba(255,255,255,.25)}
 .cap{margin-top:18px;font-size:13px;letter-spacing:.2em;color:#8a7f72}
 footer{display:flex;justify-content:space-between;font-size:14px;color:#8a7f72}
 footer b{color:#2a2622}
 </style><body>
 <h1>${esc(brand)} オリジナル${item.name} サンプル案<small>CRAFT OEM ／ 刻印ロゴ・カラー別 50個〜</small></h1>
 <div class="row">${colors.map((c) => `<div class="col">${piece(c)}</div>`).join("")}</div>
-<footer><span>※ 提案用のイメージです。実物の写真ではありません。形・革・色はご相談で決めます。</span><b>CRAFT OEM</b></footer>
+<footer><span>${usesPhoto ? "※ ベース製品の写真にロゴを合成したイメージです。実際の刻印とは見え方が異なります。" : "※ 提案用のイメージです。実物の写真ではありません。"}形・革・色はご相談で決めます。</span><b>CRAFT OEM</b></footer>
 </body>`;
 
 mkdirSync(dirname(out), { recursive: true });

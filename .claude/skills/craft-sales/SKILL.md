@@ -15,6 +15,7 @@ description: CRAFT OEM の営業を回す。営業リスト（Claude Sheets）�
   - シート「参考（競合・外注先）」は競合なので、ここから営業先を選ばない。
 - サンプル案の画像：`node scripts/craft-sales/mock.mjs --brand "<名前>" --item wallet|cardcase|keycase --colors black,camel,ivory --out <パス>`
   - ロゴ画像があれば `--logo <ファイル>`。相手のロゴは公開ページから取得した画像を使い、提案以外に使わない。
+  - `scripts/craft-sales/photos/` に実物のベース製品の写真が登録されていれば、写真にロゴを合成する（登録方法は同フォルダの README）。写真があるアイテム・色を優先して使う。
 - DM の型：`scripts/craft-sales/templates.md`
 
 ## 引数
